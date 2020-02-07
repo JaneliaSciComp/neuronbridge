@@ -42,12 +42,11 @@ export default function GalleryDialog(props) {
 
   const tags = props.elements.map(x => (
       <div>
-        <Row id="line"><h3>{x.attrs.Line}</h3></Row>
         <Row className="ml5" id="path">
           <Col span={18} >
             <img src={x.image_path} alt="image" />
           </Col>
-          <Col span={6} >
+          <Col span={5} className="ml2" >
             <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
           </Col>
         </Row>
