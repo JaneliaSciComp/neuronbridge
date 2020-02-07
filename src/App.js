@@ -9,6 +9,7 @@ import config from './config';
 import "./App.css";
 import "antd/dist/antd.css";
 import 'tachyons/css/tachyons.css';
+import {Button} from "antd";
 //window.LOG_LEVEL='DEBUG';
 
 function App(props) {
@@ -114,7 +115,9 @@ function App(props) {
           <Navbar.Brand>
             <Link to="/login">NeuronBridge</Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle>
+                New Search
+          </Navbar.Toggle>
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>

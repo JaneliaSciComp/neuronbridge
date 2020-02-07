@@ -35,28 +35,11 @@ export default function EntryList2(props) {
           <List
             itemLayout="vertical"
             size="small"
-            pagination={{
-              onChange: page => {
-                console.log(page);
-              },
-              pageSize: 3,
-            }}
             dataSource={ props.result }
             renderItem={item => (
-              <List.Item
-                extra={
-                  <img
-                    width={500}
-                    alt="mip"
-                    src={ item.image_path }
-                  />
-                }
-                >
+              <List.Item>
                 <Skeleton avatar title={false} loading={ item.loading } active >
                   <Row>
-                    <Col span={2}>
-                       <GalleryDialog open={open} elements={ props.result } />
-                    </Col>
                     <Col span={12}>
                       <List
                           itemLayout="vertical"

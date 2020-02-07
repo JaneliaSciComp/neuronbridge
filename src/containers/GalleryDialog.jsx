@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Gallery from "./Gallery";
 import CarouselElement from "./CarouselElement";
+import EntryList3 from "./EntryList3";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -41,9 +42,14 @@ export default function GalleryDialog(props) {
 
   const tags = props.elements.map(x => (
       <div>
-        <Row id="line"><h3>Search Result for {x.attrs.Line}</h3></Row>
-        <Row id="path">
-          <img src={x.image_path} alt="image" />
+        <Row id="line"><h3>{x.attrs.Line}</h3></Row>
+        <Row className="ml5" id="path">
+          <Col span={18} >
+            <img src={x.image_path} alt="image" />
+          </Col>
+          <Col span={6} >
+            <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
+          </Col>
         </Row>
         {/*<Row id="button">*/}
         {/*  <Col span={12}>*/}
