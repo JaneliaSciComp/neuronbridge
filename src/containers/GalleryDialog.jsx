@@ -46,7 +46,7 @@ export default function GalleryDialog(props) {
           <Col span={18} >
             <img src={x.image_path} alt="image" />
           </Col>
-          <Col span={5} className="ml2" >
+          <Col span={5} className="ml5" >
             <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
           </Col>
         </Row>

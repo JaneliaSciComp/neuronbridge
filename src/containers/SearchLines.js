@@ -22,7 +22,6 @@ export default function SearchLines(props) {
   };
 
   const handleSearch = value => {
-    console.log('handle search: ' + value);
     setSelectedValue(value);
   };
 
