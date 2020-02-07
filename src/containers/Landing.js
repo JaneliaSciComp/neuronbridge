@@ -11,7 +11,7 @@ function Landing() {
 
     return (
         <Row>
-          <Link to="/search/lines">
+          <Link to="/search/lines/A">
             <Button className="mr3" type="default" onClick={() => setSearchType('new')}>New Search</Button>
           </Link>
           <Link to="/about">

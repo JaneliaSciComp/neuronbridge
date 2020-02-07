@@ -15,13 +15,15 @@ import SearchTabs from "./containers/SearchTabs";
 export default function Routes({ appProps }) {
   return (
     <Switch>
-      <AppliedRoute path="/" exact component={Landing} appProps={appProps} />
+      <AppliedRoute path="/" exact component={Login} appProps={appProps} />
       <UnauthenticatedRoute path="/login" exact component={Login} appProps={appProps} />
       <UnauthenticatedRoute path="/signup" exact component={Signup} appProps={appProps} />
       <AuthenticatedRoute path="/notes/new" exact component={NewNote} appProps={appProps} />
       <AuthenticatedRoute path="/notes/:id" exact component={EditNote} appProps={appProps} />
       <AuthenticatedRoute path="/search/lines/:elemId" component={SearchTabs} appProps={appProps} />
+      <AuthenticatedRoute path="/search/lines" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/search/skeletons/:elemId" component={SearchTabs} appProps={appProps} />
+      <AuthenticatedRoute path="/search/skeletons" component={SearchTabs} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />
     </Switch>

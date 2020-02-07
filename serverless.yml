@@ -1,4 +1,4 @@
-service: sle-notes-client
+service: sle-colordepth-client
 
 plugins:
   - serverless-finch
@@ -7,7 +7,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
   client:
-    bucketName: sle-notes-${self:custom.stage}
+    bucketName: sle-colordepth-${self:custom.stage}
     distributionFolder: build
 
 provider:
