@@ -7,7 +7,7 @@ const GalleryCarousel = (props) => {
   const handleOnDragStart = (e) => e.preventDefault();
 
   return (
-    <AliceCarousel mouseTrackingEnabled startIndex={2}>
+    <AliceCarousel mouseTrackingEnabled startIndex={2} duration={0}>
       {props.children}
     </AliceCarousel>
   )
