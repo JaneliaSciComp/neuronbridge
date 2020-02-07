@@ -1,0 +1,20 @@
+service: sle-notes-client
+
+plugins:
+  - serverless-finch
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  region : ${opt:region, self:provider.region}
+  client:
+    bucketName: sle-notes-${self:custom.stage}
+    distributionFolder: build
+
+provider:
+  name: aws
+  region: us-east-1
+  stage: dev
+
+
+
+
