@@ -52,6 +52,7 @@ export default function SearchLines(props) {
          placeholder="input search text"
          enterButton="Find Lines"
          size="large"
+         value='BJD_SS02256'
          onSearch={value => handleSearch(value)}
        />
         { props.elemId ? (

@@ -36,6 +36,7 @@ function SearchSkeletons(props) {
         <h2>New Search</h2>
         <Search
           placeholder="input search text"
+          value="1002507170"
           enterButton="Find Skeletons"
           size="large"
           onSearch={value => handleSearch(value)}
