@@ -13,15 +13,15 @@ const IconText = ({ type, text }) => (
 
 export default function EntryList2(props) {
 
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [searchType, setSearchType] = React.useState('line');
   const [selectedValue, setSelectedValue] = React.useState(props.result);
 
-  const handleClickOpen = (event) => {
+  const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = value => {
+  const handleClose = () => {
     setOpen(false);
   };
 
@@ -50,6 +50,11 @@ export default function EntryList2(props) {
                 >
                 <Skeleton avatar title={false} loading={ item.loading } active >
                   <Row>
+                    <Col>
+                        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                          Open
+                        </Button>
+                    </Col>
                     <Col span={2}>
                        <GalleryDialog open={open} elements={ props.result } />
                     </Col>

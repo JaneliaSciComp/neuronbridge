@@ -29,12 +29,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function GalleryDialog(props) {
+  const [open, setOpen] = React.useState(props.open);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -50,28 +46,13 @@ export default function GalleryDialog(props) {
             <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
           </Col>
         </Row>
-        {/*<Row id="button">*/}
-        {/*  <Col span={12}>*/}
-        {/*    <Button variant="outlined" color="primary" onClick={handleClickOpen}>View Details*/}
-        {/*    </Button>*/}
-        {/*  </Col>*/}
-        {/*  <Col>*/}
-        {/*    <Button variant="outlined" color="primary" onClick={handleClickOpen}>Mask*/}
-        {/*    </Button>*/}
-        {/*  </Col>*/}
-        {/*</Row>*/}
       </div>
   ));
-
-  // <CarouselElement content={x} />
 
   return (
     <div>
       <br />
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open
-      </Button>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog fullScreen open={props.open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
