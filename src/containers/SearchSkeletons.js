@@ -42,7 +42,7 @@ function SearchSkeletons(props) {
           onSearch={value => handleSearch(value)}
           onClick={value => handleSearch(value)}
         />
-        { props.elemId ? (
+        { selectedValue ? (
           <EntryList2 elemId={selectedValue} listType="line" result={ currResult } />
         ) : (
           <div className="ma5 ">

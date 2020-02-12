@@ -54,7 +54,7 @@ export default function SearchLines(props) {
          value='BJD_SS02256'
          onSearch={value => handleSearch(value)}
        />
-        { props.elemId ? (
+        { selectedValue ? (
           <EntryList2 elemId={selectedValue} listType="line" result={ currResult } />
         ) : (
           <div className="ma5 ">
