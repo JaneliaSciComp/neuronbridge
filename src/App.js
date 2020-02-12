@@ -9,6 +9,7 @@ import config from './config';
 import "./App.css";
 import "antd/dist/antd.css";
 import 'tachyons/css/tachyons.css';
+import MyProvider from "./containers/MyProvider.js"
 import {Button} from "antd";
 //window.LOG_LEVEL='DEBUG';
 
@@ -108,38 +109,40 @@ function App(props) {
   }
 
   return (
-    !isAuthenticating &&
-    <div className="App container">
-      <Navbar fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/login">NeuronBridge</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle>
-                New Search
-          </Navbar.Toggle>
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {isAuthenticated
-              ? <>
-                  <p className="navbar-text">Logged in as {username}</p>
-                  <NavItem onClick={handleLogout}>Logout</NavItem>
-                </>
-              : <>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
-                  </LinkContainer>
-                </>
-            }
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Routes appProps={{ isLoading, isAuthenticated, userHasAuthenticated, notes }} />
-    </div>
+      !isAuthenticating &&
+      <MyProvider>
+        <div className="App container">
+          <Navbar fluid collapseOnSelect>
+            <Navbar.Header>
+              <Navbar.Brand>
+                <Link to="/login">NeuronBridge</Link>
+              </Navbar.Brand>
+              <Navbar.Toggle>
+                    New Search
+              </Navbar.Toggle>
+            </Navbar.Header>
+            <Navbar.Collapse>
+              <Nav pullRight>
+                {isAuthenticated
+                  ? <>
+                      <p className="navbar-text">Logged in as {username}</p>
+                      <NavItem onClick={handleLogout}>Logout</NavItem>
+                    </>
+                  : <>
+                      <LinkContainer to="/signup">
+                        <NavItem>Signup</NavItem>
+                      </LinkContainer>
+                      <LinkContainer to="/login">
+                        <NavItem>Login</NavItem>
+                      </LinkContainer>
+                    </>
+                }
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          <Routes appProps={{ isLoading, isAuthenticated, userHasAuthenticated, notes }} />
+        </div>
+      </MyProvider>
   );
 }
 
