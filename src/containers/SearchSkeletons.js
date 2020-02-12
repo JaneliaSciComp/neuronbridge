@@ -34,11 +34,11 @@ function SearchSkeletons(props) {
   return (
       <div className="mt3">
         <h2>New Search</h2>
-        <Search
+        <Search id='search-field'
           placeholder="input search text"
-          value="1002507170"
           enterButton="Find Skeletons"
           size="large"
+          defaultValue="1002507170"
           onSearch={value => handleSearch(value)}
           onClick={value => handleSearch(value)}
         />

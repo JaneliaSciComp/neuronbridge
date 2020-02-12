@@ -1,6 +1,5 @@
-# Notes Example
+# Color Depth Web using the Serverless Framework
 
-Collaborative note-taking app.
 
 Based on the tutorial at https://serverless-stack.com
 
@@ -23,4 +22,3 @@ Deployment to production with Serverless:
 ```
 sls client deploy
 ```
-

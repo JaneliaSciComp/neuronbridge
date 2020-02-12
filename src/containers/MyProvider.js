@@ -13,14 +13,12 @@ class MyProvider extends Component {
                 value={{
                     open: this.state.open,
                     handleClickOpen: event => {
-                        console.log('use context open');
                         const open = true;
                         this.setState({
                             open
                         })
                     },
                     handleClose: event => {
-                        console.log('use context close');
                         const open = false;
                         this.setState({
                             open
