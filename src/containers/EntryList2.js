@@ -30,7 +30,59 @@ export default function EntryList2(props) {
       <MyContext.Consumer>
         {context => (
           <div>
-            {context.test}
+          { props.result && props.result.length > 0 ? (
+            <List
+              itemLayout="vertical"
+              size="small"
+              pagination={{
+                onChange: page => {
+                  console.log(page);
+                },
+                pageSize: 3,
+              }}
+              dataSource={ props.result }
+              renderItem={item => (
+                <List.Item
+                  extra={
+                    <img
+                      width={500}
+                      alt="mip"
+                      src={ item.image_path }
+                    />
+                  }
+                  >
+                  <Skeleton avatar title={false} loading={ item.loading } active >
+                    <Row>
+                      <Col span={2}>
+                         <GalleryDialog open={context.open} elements={ props.result } />
+                      </Col>
+                      <Col span={2}>
+                          <Button variant="outlined" color="primary" onClick={context.handleClickOpen}>Open</Button>
+                      </Col>
+                      <Col span={12}>
+                        <List
+                            itemLayout="vertical"
+                            size="small"
+                            dataSource={ Object.keys(item.attrs) }
+                            renderItem={ subItem => (
+                              <List.Item>
+                                <Skeleton loading={item.loading} active>
+                                  <div>
+                                    <strong>{subItem}: </strong>{item.attrs[subItem]}
+                                  </div>
+                                </Skeleton>
+                              </List.Item>
+                            )}
+                        />
+                        </Col>
+                    </Row>
+                  </Skeleton>
+                </List.Item>
+            )}
+            />) : (
+            <div><br/>
+               No data available</div>
+            )}
           </div>
         )}
       </MyContext.Consumer>

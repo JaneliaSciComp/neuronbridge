@@ -13,6 +13,7 @@ import Slide from '@material-ui/core/Slide';
 import Gallery from "./Gallery";
 import CarouselElement from "./CarouselElement";
 import EntryList3 from "./EntryList3";
+import MyContext from "./MyContext";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -40,9 +41,13 @@ export default function GalleryDialog(props) {
     setOpen(false);
   };
 
+  const useEffect = () => {
+    console.log('Gallery Dialog: ' + props.open);
+  };
+
   const tags = props.elements.map(x => (
-      <div>
-        <Row className="ml5" id="path">
+      <div id={"div_" + x.id}>
+        <Row id={"row_" + x.id} className="ml5" >
           <Col span={18} >
             <img src={x.image_path} alt="image" />
           </Col>
@@ -66,28 +71,28 @@ export default function GalleryDialog(props) {
   // <CarouselElement content={x} />
 
   return (
-    <div>
-      <br />
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open
-      </Button>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              Save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <GalleryCarousel>
-          {tags}
-        </GalleryCarousel>
-      </Dialog>
-    </div>
+    <MyContext.Consumer>
+      {context => (
+        <div>
+          <Dialog fullScreen open={context.open} onClose={context.handleClose} TransitionComponent={Transition}>
+            <AppBar className={classes.appBar}>
+              <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={context.handleClose} aria-label="close">
+                  <CloseIcon />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                </Typography>
+                <Button autoFocus color="inherit" onClick={context.handleClose}>
+                  Save
+                </Button>
+              </Toolbar>
+            </AppBar>
+            <GalleryCarousel>
+              {tags}
+            </GalleryCarousel>
+          </Dialog>
+        </div>
+      )}
+    </ MyContext.Consumer>
   );
 }

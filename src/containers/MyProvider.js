@@ -12,14 +12,20 @@ class MyProvider extends Component {
             <MyContext.Provider
                 value={{
                     open: this.state.open,
-                    test: this.state.test,
-                    // incrementPrice: selectedID => {
-                    //     const cars = Object.assign({}, this.state.cars);
-                    //     cars[selectedID].price = cars[selectedID].price + 1;
-                    //     this.setState({
-                    //         cars
-                    //     });
-                    // },
+                    handleClickOpen: event => {
+                        console.log('use context open');
+                        const open = true;
+                        this.setState({
+                            open
+                        })
+                    },
+                    handleClose: event => {
+                        console.log('use context close');
+                        const open = false;
+                        this.setState({
+                            open
+                        });
+                    }
                 }}
             >
                 {this.props.children}
