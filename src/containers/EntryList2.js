@@ -44,20 +44,19 @@ export default function EntryList2(props) {
               renderItem={item => (
                 <List.Item
                   extra={
-                    <img
-                      width={500}
-                      alt="mip"
-                      src={ item.image_path }
-                    />
+                    <Button onClick={context.handleClickOpen}>
+                      <img
+                        width={500}
+                        alt="mip"
+                        src={ item.image_path }
+                      />
+                    </Button>
                   }
                   >
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
                       <Col span={2}>
                          <GalleryDialog open={context.open} elements={ props.result } />
-                      </Col>
-                      <Col span={2}>
-                          <Button variant="outlined" color="primary" onClick={context.handleClickOpen}>Open</Button>
                       </Col>
                       <Col span={12}>
                         <List
