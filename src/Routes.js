@@ -15,7 +15,7 @@ import SearchTabs from "./containers/SearchTabs";
 export default function Routes({ appProps }) {
   return (
     <Switch>
-      <AppliedRoute path="/" exact component={Landing} appProps={appProps} />
+      <AppliedRoute path="/" exact component={SearchTabs} appProps={appProps} />
       <UnauthenticatedRoute path="/login" exact component={Login} appProps={appProps} />
       <UnauthenticatedRoute path="/signup" exact component={Signup} appProps={appProps} />
       <AuthenticatedRoute path="/search/lines/:elemId" component={SearchTabs} appProps={appProps} />

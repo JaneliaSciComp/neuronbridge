@@ -11,12 +11,7 @@ function Landing() {
 
     return (
         <Row>
-          <Link to="/search/lines/A">
-            <Button className="mr3" type="default" onClick={() => setSearchType('new')}>New Search</Button>
-          </Link>
-          <Link to="/about">
-            <Button className="mr3" type="default">About</Button>
-          </Link>
+          Welcome to NeuronBridge
         </Row>
    )
 }

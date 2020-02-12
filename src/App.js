@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { Nav, Navbar, NavItem, NavLink } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import { Auth, API } from "aws-amplify";
@@ -117,11 +117,16 @@ function App(props) {
               <Navbar.Brand>
                 <Link to="/login">NeuronBridge</Link>
               </Navbar.Brand>
-              <Navbar.Toggle>
-                    New Search
-              </Navbar.Toggle>
             </Navbar.Header>
             <Navbar.Collapse>
+              <Nav className="mr-auto">
+                <NavItem eventKey="1" href="/search/lines/A">
+                  Search
+                </NavItem>
+                <NavItem eventKey="1" href="/About">
+                  About
+                </NavItem>
+              </Nav>
               <Nav pullRight>
                 {isAuthenticated
                   ? <>
