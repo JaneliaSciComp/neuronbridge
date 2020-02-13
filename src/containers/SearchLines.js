@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Row, Input} from "antd";
 import EntryList2 from "./EntryList2";
 import GalleryDialog from "./GalleryDialog";
+import MyContext from "./MyContext";
 
 const { Search } = Input;
 
@@ -45,23 +46,27 @@ export default function SearchLines(props) {
   },[selectedValue]);
 
   return (
-      <div className="mt3">
-       <h2>New Search</h2>
-       <Search
-         placeholder="input search text"
-         enterButton="Find Lines"
-         size="large"
-         defaultValue="BJD_SS02256"
-         onSearch={value => handleSearch(value)}
-       />
-        { selectedValue ? (
-          <EntryList2 elemId={selectedValue} listType="line" result={ currResult } />
-        ) : (
-          <div className="ma5 ">
-            <p>Not sure which skeleton you want?</p>
-            <p>You can search for lines on the Split-GAL4 website</p>
-          </div>
+      <MyContext.Consumer>
+        {context => (
+            <div className="mt3">
+             <h2>New Search</h2>
+             <Search
+               placeholder="input search text"
+               enterButton="Find Lines"
+               size="large"
+               defaultValue="BJD_SS02256"
+               onSearch={value => handleSearch(value)}
+             />
+              { selectedValue ? (
+                <EntryList2 elemId={selectedValue} searchType="line" result={ currResult } />
+              ) : (
+                <div className="ma5 ">
+                  <p>Not sure which skeleton you want?</p>
+                  <p>You can search for lines on the Split-GAL4 website</p>
+                </div>
+              )}
+           </div>
         )}
-     </div>
+      </MyContext.Consumer>
   );
 }

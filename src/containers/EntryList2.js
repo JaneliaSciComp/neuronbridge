@@ -15,7 +15,7 @@ const IconText = ({ type, text }) => (
 export default function EntryList2(props) {
 
   const [open, setOpen] = React.useState(false);
-  const [searchType, setSearchType] = React.useState('line');
+  const [searchType, setSearchType] = React.useState(props.searchType);
   const [selectedValue, setSelectedValue] = React.useState(props.result);
 
   const handleClickOpen = () => {
@@ -25,6 +25,18 @@ export default function EntryList2(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  let keys = [];
+  if (searchType == 'skeleton') {
+    keys = ['Body Id', 'Library']
+  }
+  else {
+    keys = ['Line', 'Slide Code'];
+  }
+
+  useEffect(() => {
+    console.log(props.searchType);
+  });
 
   return (
       <MyContext.Consumer>
@@ -56,7 +68,7 @@ export default function EntryList2(props) {
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
                       <Col span={2}>
-                         <GalleryDialog open={context.open} elements={ props.result } />
+                         <GalleryDialog open={context.open} elements={ context.result } />
                       </Col>
                       <Col span={12}>
                         <List

@@ -120,7 +120,7 @@ function App(props) {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav className="mr-auto">
-                <NavItem eventKey="1" href="/search/lines/A">
+                <NavItem eventKey="1" href="/search/lines">
                   Search
                 </NavItem>
                 <NavItem eventKey="1" href="/About">

@@ -4,7 +4,8 @@ import MyContext from './MyContext';
 class MyProvider extends Component {
     state = {
         open: false,
-        test: 'This is a test'
+        test: 'This is a test',
+        result: []
     };
 
     render() {
@@ -12,6 +13,7 @@ class MyProvider extends Component {
             <MyContext.Provider
                 value={{
                     open: this.state.open,
+                    result: this.state.result,
                     handleClickOpen: event => {
                         const open = true;
                         this.setState({

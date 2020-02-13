@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Input} from "antd";
 import EntryList2 from "./EntryList2";
+import MyContext from "./MyContext";
 
 const url_path =  'https://color-depth-mips.s3.amazonaws.com/metadata/by_body/';
 
@@ -32,25 +33,29 @@ function SearchSkeletons(props) {
   };
 
   return (
-      <div className="mt3">
-        <h2>New Search</h2>
-        <Search id='search-field'
-          placeholder="input search text"
-          enterButton="Find Skeletons"
-          size="large"
-          defaultValue="1002507170"
-          onSearch={value => handleSearch(value)}
-          onClick={value => handleSearch(value)}
-        />
-        { selectedValue ? (
-          <EntryList2 elemId={selectedValue} listType="line" result={ currResult } />
-        ) : (
-          <div className="ma5 ">
-            <p>Not sure which skeleton you want?</p>
-            <p>You can search for lines on the Split-GAL4 website</p>
+      <MyContext.Consumer>
+        {context => (
+          <div className="mt3">
+            <h2>New Search</h2>
+            <Search id='search-field'
+              placeholder="input search text"
+              enterButton="Find Skeletons"
+              size="large"
+              defaultValue="1002507170"
+              onSearch={value => handleSearch(value)}
+              onClick={value => handleSearch(value)}
+            />
+            { selectedValue ? (
+              <EntryList2 elemId={selectedValue} searchType="skeleton" result={ currResult } />
+            ) : (
+              <div className="ma5 ">
+                <p>Not sure which skeleton you want?</p>
+                <p>You can search for lines on the Split-GAL4 website</p>
+              </div>
+            )}
           </div>
         )}
-      </div>
+      </MyContext.Consumer>
   );
 }
 
