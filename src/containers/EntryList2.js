@@ -70,7 +70,7 @@ export default function EntryList2(props) {
                         <List
                             itemLayout="vertical"
                             size="small"
-                            dataSource={ Object.keys(item.attrs) }
+                            dataSource={ ['Line','Slide Code'] }
                             renderItem={ subItem => (
                               <List.Item>
                                 <Skeleton loading={item.loading} active>
