@@ -11,6 +11,7 @@ import Landing from "./containers/Landing";
 import NewNote from "./containers/NewNote";
 import EditNote from "./containers/EditNote";
 import SearchTabs from "./containers/SearchTabs";
+import About from "./containers/About";
 
 export default function Routes({ appProps }) {
   return (
@@ -22,6 +23,7 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/search/lines" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/search/skeletons/:elemId" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/search/skeletons" component={SearchTabs} appProps={appProps} />
+      <AuthenticatedRoute path="/about" component={About} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />
     </Switch>

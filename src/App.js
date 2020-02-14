@@ -123,7 +123,7 @@ function App(props) {
                 <NavItem eventKey="1" href="/search/lines">
                   Search
                 </NavItem>
-                <NavItem eventKey="1" href="/About">
+                <NavItem eventKey="1" href="/about">
                   About
                 </NavItem>
               </Nav>
