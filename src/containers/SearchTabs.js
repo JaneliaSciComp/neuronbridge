@@ -29,7 +29,7 @@ return (
     <MyContext.Consumer>
         {context => (
           <div className="card-container">
-            <Tabs type="card" defaultActiveKey={defaultKey}>
+            <Tabs type="card" defaultActiveKey={defaultKey} onChange={context.changeTab}>
               <TabPane tab="Published LM Lines" key="1" >
                  <SearchLines elemId={ elemId } />
               </TabPane>
@@ -39,7 +39,7 @@ return (
               {/*<TabPane tab="Upload Search Mask" key="3" >*/}
               {/*</TabPane>*/}
             </Tabs>
-            <EntryList2 result={ context.result } />
+            { context.result && <EntryList2 result={ context.result } /> }
           </div>
         )}
     </MyContext.Consumer>

@@ -5,7 +5,7 @@ class MyProvider extends Component {
     state = {
         open: false,
         test: 'This is a test',
-        result: []
+        result: null
     };
 
     render() {
@@ -24,6 +24,11 @@ class MyProvider extends Component {
                         const open = false;
                         this.setState({
                             open
+                        });
+                    },
+                    changeTab: key => {
+                        this.setState({
+                          result: null
                         });
                     },
                     getInformation: (name, path) => {
