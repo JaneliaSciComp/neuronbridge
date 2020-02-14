@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Col, Row} from "antd";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import EntryList3 from "./EntryList3";
 import GalleryCarousel from "./GalleryCarousel"
 import MyContext from "./MyContext"
 
@@ -36,21 +34,23 @@ export default function GalleryDialog(props) {
   };
 
   const useEffect = () => {
-    console.log('Gallery Dialog: ' + props.open);
+    console.log('Props Elements: ' + props.elements);
   };
 
-  const tags = props.elements.map(x => (
-      <div id={"div_" + x.id}>
-        <Row id={"row_" + x.id} className="ml5" >
-          <Col span={18} >
-            <img src={x.image_path} alt="image" />
-          </Col>
-          <Col span={5} className="ml5" >
-            <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
-          </Col>
-        </Row>
-      </div>
-  ));
+  // const tags = props.elements.map(x => (
+  //     <div id={"div_" + x.id}>
+  //       <Row id={"row_" + x.id} className="ml5" >
+  //         <Col span={18} >
+  //           <img src='https://janelia-flylight-color-depth.s3.amazonaws.com/JRC2018_Unisex_20x_HR/FlyLight+Split-GAL4+Drivers/SS37295-20170502_32_D4-m-20x-brain-JRC2018_Unisex_20x_HR-color_depth_1.png' alt="image" />
+  //         </Col>
+  //         <Col span={5} className="ml5" >
+  //           <EntryList3 listType="line" result={ [x] } elemId={ x.attrs.Line } />
+  //         </Col>
+  //       </Row>
+  //     </div>
+  // ));
+
+  const tags = [<div>Eins</div>,<div>Zwo</div>]
 
   return (
     <MyContext.Consumer>

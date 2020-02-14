@@ -19,17 +19,18 @@ function SearchSkeletons(props) {
   },[selectedValue]);
 
   function getBodyInformation(name){
-    const path = url_path + name + '.json';
-
-    fetch(path)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
-        setCurrResult(json['results']);
-      }).catch(function(error) {
-        console.log(error);
-      });
+    if (name) {
+      const path = url_path + name + '.json';
+      fetch(path)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(json) {
+          setCurrResult(json['results']);
+        }).catch(function(error) {
+          console.log(error);
+        });
+      }
   };
 
   return (

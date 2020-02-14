@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Row, Input} from "antd";
 import EntryList2 from "./EntryList2";
-import GalleryDialog from "./GalleryDialog";
 import MyContext from "./MyContext";
 
 const { Search } = Input;

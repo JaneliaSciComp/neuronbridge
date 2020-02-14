@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Row, Col, Input, Carousel} from "antd";
 import GalleryDialog from "./GalleryDialog";
 
 export default function Gallery(props) {
@@ -7,6 +6,7 @@ export default function Gallery(props) {
   const [selectedValue, setSelectedValue] = React.useState('initial');
 
   const handleClickOpen = () => {
+    console.log(selectedValue);
     setOpen(true);
   };
 

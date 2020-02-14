@@ -1,8 +1,5 @@
 import React, {useEffect} from "react";
 import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
-import Entry from "./Entry";
-import GalleryDialog from "./GalleryDialog";
-import Button from '@material-ui/core/Button';
 
 const IconText = ({ type, text }) => (
   <span>
@@ -25,8 +22,12 @@ export default function EntryList2(props) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    console.log(props.result);
+  });
+
   return (
-      <div>
+      <div id='line'>
         { props.result && props.result.length > 0 ? (
           <List
             itemLayout="vertical"

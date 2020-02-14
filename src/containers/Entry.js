@@ -17,7 +17,7 @@ export default function Entry(props) {
     Object.keys(props.attrs).forEach(function(key) {
       attributes.push(
           <Row>
-            <strong>{key}:</strong> {props.attrs[key]}
+            <strong>{key}:</strong> { props.attrs[key] }
           </Row>
       );
     });
@@ -27,6 +27,7 @@ export default function Entry(props) {
   if (props.search == "line"){
     result = <div>
           <Row>
+            <Col>Test</Col>
             <Col span={8}><img src={props.image_url} /></Col>
             <Col span={8}>
               {attributes}
@@ -41,6 +42,7 @@ export default function Entry(props) {
   else {
     result = <div>
           <Row>
+            <Col>Test</Col>
             <Col span={8}><img src={props.image_url} /></Col>
             <Col span={8}>
               {attributes}

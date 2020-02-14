@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
-import Entry from "./Entry";
 import GalleryDialog from "./GalleryDialog";
 import MyContext from "./MyContext";
 import Button from '@material-ui/core/Button';
@@ -35,10 +34,6 @@ export default function EntryList2(props) {
     keys = ['Line', 'Slide Code'];
   }
 
-  useEffect(() => {
-    console.log(props.searchType);
-  });
-
   return (
       <MyContext.Consumer>
         {context => (
@@ -61,7 +56,7 @@ export default function EntryList2(props) {
                       <img
                         width={500}
                         alt="mip"
-                        src={ item.image_path }
+                        src={ 'https://janelia-flylight-color-depth.s3.amazonaws.com/JRC2018_Unisex_20x_HR/FlyLight+Split-GAL4+Drivers/SS37295-20170502_32_D4-m-20x-brain-JRC2018_Unisex_20x_HR-color_depth_1.png' }
                       />
                     </Button>
                   }
