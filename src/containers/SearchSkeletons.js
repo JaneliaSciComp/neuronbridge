@@ -43,17 +43,9 @@ function SearchSkeletons(props) {
               enterButton="Find Skeletons"
               size="large"
               defaultValue="1002507170"
-              onSearch={value => handleSearch(value)}
-              onClick={value => handleSearch(value)}
+              onSearch={value => context.getInformation(value)}
             />
-            { selectedValue ? (
-              <EntryList2 elemId={selectedValue} searchType="skeleton" result={ currResult } />
-            ) : (
-              <div className="ma5 ">
-                <p>Not sure which skeleton you want?</p>
-                <p>You can search for lines on the Split-GAL4 website</p>
-              </div>
-            )}
+            <EntryList2 elemId={selectedValue} searchType="skeleton" result={ currResult } />
           </div>
         )}
       </MyContext.Consumer>

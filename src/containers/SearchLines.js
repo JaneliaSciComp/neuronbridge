@@ -40,10 +40,6 @@ export default function SearchLines(props) {
       }
   };
 
-  useEffect(() => {
-    getLineInformation(selectedValue);
-  },[selectedValue]);
-
   return (
       <MyContext.Consumer>
         {context => (
@@ -54,16 +50,9 @@ export default function SearchLines(props) {
                enterButton="Find Lines"
                size="large"
                defaultValue="BJD_SS02256"
-               onSearch={value => handleSearch(value)}
+               onSearch={value => context.getInformation(value, url_path)}
              />
-              { selectedValue ? (
-                <EntryList2 elemId={selectedValue} searchType="line" result={ currResult } />
-              ) : (
-                <div className="ma5 ">
-                  <p>Not sure which skeleton you want?</p>
-                  <p>You can search for lines on the Split-GAL4 website</p>
-                </div>
-              )}
+             <EntryList2 elemId={selectedValue} searchType="line" result={ context.result } />
            </div>
         )}
       </MyContext.Consumer>

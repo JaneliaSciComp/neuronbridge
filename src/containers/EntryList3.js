@@ -22,10 +22,6 @@ export default function EntryList2(props) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    console.log(props.result);
-  });
-
   return (
       <div id='line'>
         { props.result && props.result.length > 0 ? (

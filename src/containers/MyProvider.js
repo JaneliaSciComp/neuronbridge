@@ -25,6 +25,24 @@ class MyProvider extends Component {
                         this.setState({
                             open
                         });
+                    },
+                    getInformation: (name, path) => {
+                        let that = this; // bind this to that
+                        if (name) {
+                          const the_path = path + name + '.json';
+                          fetch(the_path)
+                            .then(function(response) {
+                              return response.json();
+                            })
+                            .then(function(json) {
+                              const result = json['results'];
+                              that.setState({
+                                result: result
+                              });
+                            }).catch(function(error) {
+                              console.log(error);
+                            });
+                        }
                     }
                 }}
             >

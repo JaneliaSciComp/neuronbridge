@@ -38,7 +38,7 @@ export default function EntryList2(props) {
       <MyContext.Consumer>
         {context => (
           <div>
-          { props.result && props.result.length > 0 ? (
+          { context.result && context.result.length > 0 ? (
             <List
               itemLayout="vertical"
               size="small"
@@ -48,7 +48,7 @@ export default function EntryList2(props) {
                 },
                 pageSize: 3,
               }}
-              dataSource={ props.result }
+              dataSource={ context.result }
               renderItem={item => (
                 <List.Item
                   extra={
@@ -64,7 +64,7 @@ export default function EntryList2(props) {
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
                       <Col span={2}>
-                         <GalleryDialog open={context.open} elements={ props.result } />
+                         <GalleryDialog open={context.open} elements={ context.result } />
                       </Col>
                       <Col span={12}>
                         <List
