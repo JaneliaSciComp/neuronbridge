@@ -24,8 +24,8 @@ function SearchTabs(props) {
   }
 
   return (
-      <div>
-        <Tabs defaultActiveKey={defaultKey}>
+      <div className="card-container">
+        <Tabs type="card" defaultActiveKey={defaultKey}>
           <TabPane tab="Published LM Lines" key="1" >
              <SearchLines elemId={ elemId } />
           </TabPane>
