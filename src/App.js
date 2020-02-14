@@ -119,14 +119,22 @@ function App(props) {
               </Navbar.Brand>
             </Navbar.Header>
             <Navbar.Collapse>
-              <Nav className="mr-auto">
-                <NavItem eventKey="1" href="/search/lines">
-                  Search
-                </NavItem>
-                <NavItem eventKey="1" href="/about">
-                  About
-                </NavItem>
-              </Nav>
+              {isAuthenticated ?
+                <Nav
+                  className = "mr-auto" >
+                      <NavItem
+                  eventKey = "1"
+                  href = "/search/lines" >
+                      Search
+                      < /NavItem>
+                      < NavItem
+                  eventKey = "1"
+                  href = "/about" >
+                      About
+                      < /NavItem>
+                      < /Nav>
+                : <Nav > < /Nav>
+               }
               <Nav pullRight>
                 {isAuthenticated
                   ? <>
