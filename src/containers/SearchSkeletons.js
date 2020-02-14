@@ -14,25 +14,6 @@ function SearchSkeletons(props) {
     setSelectedValue(value);
   };
 
-  useEffect(() => {
-    getBodyInformation(selectedValue);
-  },[selectedValue]);
-
-  function getBodyInformation(name){
-    if (name) {
-      const path = url_path + name + '.json';
-      fetch(path)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(json) {
-          setCurrResult(json['results']);
-        }).catch(function(error) {
-          console.log(error);
-        });
-      }
-  };
-
   return (
       <MyContext.Consumer>
         {context => (
@@ -43,9 +24,8 @@ function SearchSkeletons(props) {
               enterButton="Find Skeletons"
               size="large"
               defaultValue="1002507170"
-              onSearch={value => context.getInformation(value)}
+              onSearch={value => context.getInformation(value, url_path)}
             />
-            <EntryList2 elemId={selectedValue} searchType="skeleton" result={ currResult } />
           </div>
         )}
       </MyContext.Consumer>

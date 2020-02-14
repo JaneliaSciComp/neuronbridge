@@ -52,7 +52,6 @@ export default function SearchLines(props) {
                defaultValue="BJD_SS02256"
                onSearch={value => context.getInformation(value, url_path)}
              />
-             <EntryList2 elemId={selectedValue} searchType="line" result={ context.result } />
            </div>
         )}
       </MyContext.Consumer>
