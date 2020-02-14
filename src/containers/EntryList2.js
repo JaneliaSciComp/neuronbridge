@@ -64,7 +64,7 @@ export default function EntryList2(props) {
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
                       <Col span={2}>
-                         <GalleryDialog open={context.open} elements={ context.result } />
+                         <GalleryDialog open={context.open} elements={ props.result } />
                       </Col>
                       <Col span={12}>
                         <List
