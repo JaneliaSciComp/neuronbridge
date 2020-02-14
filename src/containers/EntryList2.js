@@ -4,6 +4,7 @@ import Entry from "./Entry";
 import GalleryDialog from "./GalleryDialog";
 import MyContext from "./MyContext";
 import Button from '@material-ui/core/Button';
+import "./EntryList2.css";
 
 const IconText = ({ type, text }) => (
   <span>
