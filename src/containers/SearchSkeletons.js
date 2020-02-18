@@ -23,7 +23,7 @@ function SearchSkeletons(props) {
               placeholder="input search text"
               enterButton="Find Skeletons"
               size="large"
-              defaultValue="1002507170"
+              defaultValue="332685751"
               onSearch={value => context.getInformation(value, url_path)}
             />
           </div>

@@ -56,7 +56,7 @@ export default function EntryList2(props) {
                       <img
                         width={500}
                         alt="mip"
-                        src={ 'https://janelia-flylight-color-depth.s3.amazonaws.com/JRC2018_Unisex_20x_HR/FlyLight+Split-GAL4+Drivers/SS37295-20170502_32_D4-m-20x-brain-JRC2018_Unisex_20x_HR-color_depth_1.png' }
+                        src={ item.thumbnail_path }
                       />
                     </Button>
                   }
