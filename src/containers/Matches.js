@@ -3,7 +3,6 @@ import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
 import GalleryDialog from "./GalleryDialog";
 import MyContext from "./MyContext";
 import Button from '@material-ui/core/Button';
-import "./EntryList2.css";
 
 const IconText = ({ type, text }) => (
   <span>
@@ -12,7 +11,7 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-export default function EntryList2(props) {
+export default function Matches(props) {
 
   const [open, setOpen] = React.useState(false);
   const [searchType, setSearchType] = React.useState(props.searchType);
@@ -29,11 +28,6 @@ export default function EntryList2(props) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    // Update the document title using the browser API
-
-  });
-
   if (searchType == 'skeleton') {
     keys = ['Body Id', 'Library']
   }
@@ -42,10 +36,10 @@ export default function EntryList2(props) {
   }
 
   return (
-      <MyContext.Consumer>
+    <MyContext.Consumer>
         {context => (
           <div>
-          { context.result && context.result.length > 0 ? (
+          { context.matches ? (
             <List
               itemLayout="vertical"
               size="small"
@@ -55,7 +49,7 @@ export default function EntryList2(props) {
                 },
                 pageSize: 3,
               }}
-              dataSource={ selectedValue }
+              dataSource={ context.matches }
               renderItem={item => (
                 <List.Item
                   extra={

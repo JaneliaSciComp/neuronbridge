@@ -52,10 +52,12 @@ class MyProvider extends Component {
                             });
                         }
                     },
-                    getMatches: (id) => {
+                    getMatches: (event) => {
                         let that = this; // bind this to that
-                        if (id) {
-                          const path = config.MATCH_PATH + id + '.json';
+                        const bodyId = event.currentTarget.value;
+
+                        if (bodyId) {
+                          const path = config.MATCH_PATH + bodyId + '.json';
                           fetch(path)
                             .then(function(response) {
                               return response.json();

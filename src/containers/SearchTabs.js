@@ -43,10 +43,9 @@ return (
                  <Matches elemId={ elemId } />
               </TabPane>
             </Tabs>
-            Result<br />
             { context.result && <EntryList2 result={ context.result } /> }
-            Matches<br />
-            { context.matches && <Matches result={ context.matches } /> }
+              Matches
+              <Matches result={ context.matches } /> 
           </div>
         )}
     </MyContext.Consumer>

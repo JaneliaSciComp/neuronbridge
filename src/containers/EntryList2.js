@@ -66,7 +66,7 @@ export default function EntryList2(props) {
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
                       <Col span={2}>
-                        <Button className="mr3" type="default" onClick={context.getMatches}>{buttonText}</Button>
+                        <Button value={item.id} className="mr3" type="default" onClick={value => context.getMatches(value)}>{buttonText}</Button>
                       </Col>
                       <Col span={2}>
                          <GalleryDialog open={context.open} elements={ context.result } />
