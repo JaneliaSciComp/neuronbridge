@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Input} from "antd";
+import config from "../config";
 import EntryList2 from "./EntryList2";
 import MyContext from "./MyContext";
-
-const url_path =  'https://color-depth-mips.s3.amazonaws.com/metadata/by_body/';
 
 function SearchSkeletons(props) {
   const { Search } = Input;
@@ -24,7 +23,7 @@ function SearchSkeletons(props) {
               enterButton="Find Skeletons"
               size="large"
               defaultValue="332685751"
-              onSearch={value => context.getInformation(value, url_path)}
+              onSearch={value => context.getInformation(value, config.SKELETON_PATH)}
             />
           </div>
         )}

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import config from "../config";
 import {Button, Row, Input} from "antd";
 import EntryList2 from "./EntryList2";
 import MyContext from "./MyContext";
 
 const { Search } = Input;
-
-const url_path = 'https://color-depth-mips.s3.amazonaws.com/metadata/by_line/';
 
 export default function SearchLines(props) {
 
@@ -27,7 +26,7 @@ export default function SearchLines(props) {
 
   function getLineInformation(name){
     if (name) {
-      const path = url_path + name + '.json';
+      const path = config.LINE_PATH + name + '.json';
       fetch(path)
         .then(function(response) {
           return response.json();
@@ -50,7 +49,7 @@ export default function SearchLines(props) {
                enterButton="Find Lines"
                size="large"
                defaultValue="BJD_SS02256"
-               onSearch={value => context.getInformation(value, url_path)}
+               onSearch={value => context.getInformation(value, config.LINE_PATH)}
              />
            </div>
         )}

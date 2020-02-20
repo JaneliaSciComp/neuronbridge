@@ -23,6 +23,7 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/search/lines" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/search/skeletons/:elemId" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/search/skeletons" component={SearchTabs} appProps={appProps} />
+      <AuthenticatedRoute path="/search/matches" component={SearchTabs} appProps={appProps} />
       <AuthenticatedRoute path="/about" component={About} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />

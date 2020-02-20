@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
 import GalleryDialog from "./GalleryDialog";
 import MyContext from "./MyContext";
-import { Button } from "antd";
+import Button from '@material-ui/core/Button';
 import "./EntryList2.css";
 
 const IconText = ({ type, text }) => (
@@ -18,6 +18,9 @@ export default function EntryList2(props) {
   const [searchType, setSearchType] = React.useState(props.searchType);
   const [selectedValue, setSelectedValue] = React.useState(props.result);
 
+  let keys = [];
+  const testId = '2711777429277376523';
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -26,11 +29,13 @@ export default function EntryList2(props) {
     setOpen(false);
   };
 
-  let keys = [];
-  let buttonText = 'View EM Matches';
+  useEffect(() => {
+    // Update the document title using the browser API
+
+  });
+
   if (searchType == 'skeleton') {
     keys = ['Body Id', 'Library']
-    buttonText = 'View LM Matches';
   }
   else {
     keys = ['Line', 'Slide Code'];
@@ -50,7 +55,7 @@ export default function EntryList2(props) {
                 },
                 pageSize: 3,
               }}
-              dataSource={ context.result }
+              dataSource={ selectedValue }
               renderItem={item => (
                 <List.Item
                   extra={
@@ -65,9 +70,6 @@ export default function EntryList2(props) {
                   >
                   <Skeleton avatar title={false} loading={ item.loading } active >
                     <Row>
-                      <Col span={2}>
-                        <Button className="mr3" type="default" onClick={context.getMatches}>{buttonText}</Button>
-                      </Col>
                       <Col span={2}>
                          <GalleryDialog open={context.open} elements={ context.result } />
                       </Col>

@@ -1,5 +1,8 @@
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
+  LINE_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/by_line/',
+  SKELETON_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/by_body/',
+  MATCH_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/cdsresults/',
   s3: {
     REGION: "us-east-1",
     BUCKET: "sle-notes-api-dev-attachmentsbucket-c5nvt63nllor"

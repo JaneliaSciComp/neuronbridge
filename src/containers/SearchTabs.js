@@ -6,6 +6,7 @@ import SearchLines from "./SearchLines";
 import { Switch, useLocation, useParams, useHistory } from 'react-router-dom';
 import EntryList2 from "./EntryList2";
 import MyContext from "./MyContext";
+import Matches from "./Matches";
 
 function SearchTabs(props) {
   let location = useLocation();
@@ -23,6 +24,8 @@ function SearchTabs(props) {
 
   if (location.pathname.includes('skeleton')) {
     defaultKey="2";
+  } else if (location.pathname.includes('match')) {
+    defaultKey="3";
   }
 
 return (
@@ -36,10 +39,14 @@ return (
               <TabPane tab="Published EM Skeletons" key="2">
                  <SearchSkeletons elemId={ elemId } />
               </TabPane>
-              {/*<TabPane tab="Upload Search Mask" key="3" >*/}
-              {/*</TabPane>*/}
+              <TabPane tab="Matches" key="3">
+                 <Matches elemId={ elemId } />
+              </TabPane>
             </Tabs>
+            Result<br />
             { context.result && <EntryList2 result={ context.result } /> }
+            Matches<br />
+            { context.matches && <Matches result={ context.matches } /> }
           </div>
         )}
     </MyContext.Consumer>

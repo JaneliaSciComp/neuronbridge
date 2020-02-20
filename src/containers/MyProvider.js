@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import MyContext from './MyContext';
+import config from "../config";
 
 class MyProvider extends Component {
     state = {
         open: false,
         test: 'This is a test',
-        result: null
+        result: null,
+        matches: null,
+        matchId: null
     };
 
     render() {
@@ -48,7 +51,25 @@ class MyProvider extends Component {
                               console.log(error);
                             });
                         }
-                    }
+                    },
+                    getMatches: (id) => {
+                        let that = this; // bind this to that
+                        if (id) {
+                          const path = config.MATCH_PATH + id + '.json';
+                          fetch(path)
+                            .then(function(response) {
+                              return response.json();
+                            })
+                            .then(function(json) {
+                              const matches = json['results'];
+                              that.setState({
+                                matches: matches
+                              });
+                            }).catch(function(error) {
+                              console.log(error);
+                            });
+                        }
+                    },
                 }}
             >
                 {this.props.children}
