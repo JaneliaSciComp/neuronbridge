@@ -40,12 +40,10 @@ return (
                  <SearchSkeletons elemId={ elemId } />
               </TabPane>
               <TabPane tab="Matches" key="3">
-                 <Matches elemId={ elemId } />
+                 <Matches />
               </TabPane>
             </Tabs>
             { context.result && <EntryList2 result={ context.result } /> }
-              Matches
-              <Matches result={ context.matches } /> 
           </div>
         )}
     </MyContext.Consumer>

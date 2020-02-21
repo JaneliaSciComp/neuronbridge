@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
-import GalleryDialog from "./GalleryDialog";
-import MyContext from "./MyContext";
 import Button from '@material-ui/core/Button';
+import config from "../config";
 
 const IconText = ({ type, text }) => (
   <span>
@@ -15,7 +14,7 @@ export default function Matches(props) {
 
   const [open, setOpen] = React.useState(false);
   const [searchType, setSearchType] = React.useState(props.searchType);
-  const [selectedValue, setSelectedValue] = React.useState(props.result);
+  const [matches, setMatches] = React.useState(props.result);
 
   let keys = [];
   const testId = '2711777429277376523';
@@ -35,11 +34,28 @@ export default function Matches(props) {
     keys = ['Line', 'Slide Code'];
   }
 
+  const getMatches = (event) => {
+      if (testId) {
+        const path = config.MATCH_PATH + testId + '.json';
+        fetch(path)
+          .then(function(response) {
+            return response.json();
+          })
+          .then(function(json) {
+            const matches = json['results'];
+            setMatches(matches)
+          }).catch(function(error) {
+            console.log(error);
+          });
+      }
+  };
+
+  useEffect(() => {
+    getMatches();
+  });
+
   return (
-    <MyContext.Consumer>
-        {context => (
           <div>
-          { context.matches ? (
             <List
               itemLayout="vertical"
               size="small"
@@ -47,52 +63,44 @@ export default function Matches(props) {
                 onChange: page => {
                   console.log(page);
                 },
-                pageSize: 3,
+                pageSize: 20,
               }}
-              dataSource={ context.matches }
-              renderItem={item => (
-                <List.Item
-                  extra={
-                    <Button onClick={context.handleClickOpen}>
-                      <img
-                        width={500}
-                        alt="mip"
-                        src={ item.thumbnail_path }
-                      />
-                    </Button>
-                  }
-                  >
-                  <Skeleton avatar title={false} loading={ item.loading } active >
+              dataSource={ matches }
+              renderItem={ item => (
+                  <List.Item
+                    extra={
+                        <Button >
+                          <img
+                            width={500}
+                            alt="mip"
+                            src={ item.thumbnail_path }
+                          />
+                        </Button>
+                    }>
+                    <Skeleton loading={item.loading}>
                     <Row>
-                      <Col span={2}>
-                         <GalleryDialog open={context.open} elements={ context.result } />
-                      </Col>
-                      <Col span={12}>
+                      <Col>
                         <List
                             itemLayout="vertical"
                             size="small"
-                            dataSource={ ['Line','Slide Code'] }
+                            dataSource={ Object.keys(item.attrs) }
                             renderItem={ subItem => (
                               <List.Item>
                                 <Skeleton loading={item.loading} active>
-                                  <div>
-                                    <strong>{subItem}: </strong>{item.attrs[subItem]}
-                                  </div>
+                                  <Row>
+                                    <Col>
+                                      <strong>{subItem}: </strong>{item[subItem]}
+                                    </Col>
+                                  </Row>
                                 </Skeleton>
                               </List.Item>
                             )}
                         />
-                        </Col>
+                      </Col>
                     </Row>
-                  </Skeleton>
-                </List.Item>
-            )}
-            />) : (
-            <div><br/>
-               No data available</div>
-            )}
-          </div>
-        )}
-      </MyContext.Consumer>
-  )
+                    </Skeleton>
+                  </List.Item>
+              )}
+            />
+          </div>)
 }
