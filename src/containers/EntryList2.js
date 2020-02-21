@@ -83,7 +83,7 @@ export default function EntryList2(props) {
                             alt="mip"
                             src={ item.thumbnail_path }
                           />
-                        </Button><br/><br/>
+                        </Button>
                         <Button value={item.id} className="mr3" type="default" onClick={value => getCorrMatches(value)}>{buttonText}</Button>
                       </div>
                     }>
