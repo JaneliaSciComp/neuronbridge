@@ -1,0 +1,25 @@
+extends:
+    - "react-app"
+    - "prettier"
+    - "prettier/react"
+env:
+    browser: true
+    node: true
+    jquery: true
+globals:
+    React: true
+    TestUtils: true
+    routerHelper: true
+    Set: true
+parser:
+    babel-eslint
+plugins:
+    - "react"
+settings:
+    import/resolver: webpack
+rules:
+    "react/forbid-prop-types":
+        - 1
+        - forbid:
+            - 'any'
+            - 'array'
