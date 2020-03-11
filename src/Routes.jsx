@@ -2,12 +2,12 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
-import NotFound from "./containers/NotFound";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
-import Landing from "./containers/Landing";
-import SearchTabs from "./containers/SearchTabs";
-import About from "./containers/About";
+import NotFound from "./components/NotFound";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Landing from "./components/Landing";
+import SearchTabs from "./components/SearchTabs";
+import About from "./components/About";
 
 export default function Routes({ appProps }) {
   return (

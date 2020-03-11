@@ -9,7 +9,7 @@ import config from "./config";
 import "./App.css";
 import "antd/dist/antd.css";
 import "tachyons/css/tachyons.css";
-import MyProvider from "./containers/MyProvider.js";
+import MyProvider from "./containers/MyProvider";
 import { Button } from "antd";
 //window.LOG_LEVEL='DEBUG';
 
