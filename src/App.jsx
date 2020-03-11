@@ -58,7 +58,7 @@ function App(props) {
 
       return () => {
         console.log("Cleaning WebSocket");
-        if (socket.current ) {
+        if (socket.current) {
           socket.current.close();
         }
         socket.current = null;
@@ -87,12 +87,12 @@ function App(props) {
             <Navbar.Collapse>
               {isAuthenticated ? (
                 <Nav className="mr-auto">
-                  <NavItem eventKey="1" href="/search/lines">
-                    Search
-                  </NavItem>
-                  <NavItem eventKey="1" href="/about">
-                    About
-                  </NavItem>
+                  <LinkContainer to="/search/lines">
+                    <NavItem>Search</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/about">
+                    <NavItem>About</NavItem>
+                  </LinkContainer>
                 </Nav>
               ) : (
                 <Nav> </Nav>
@@ -119,7 +119,7 @@ function App(props) {
           <Routes
             appProps={{
               isAuthenticated,
-              userHasAuthenticated,
+              userHasAuthenticated
             }}
           />
         </div>
