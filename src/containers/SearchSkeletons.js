@@ -1,33 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import {Input} from "antd";
-import config from "../config";
-import EntryList2 from "./EntryList2";
-import MyContext from "./MyContext";
+import React, { useState } from "react";
+import { Input } from "antd";
+import { Redirect } from "react-router-dom";
 
 function SearchSkeletons(props) {
   const { Search } = Input;
-  const [currResult, setCurrResult] = React.useState(null);
-  const [selectedValue, setSelectedValue] = React.useState(props.elemId);
+  const defaultValue = props.searchTerm || "332685751";
+  const [searchTerm, setSearchTerm] = React.useState(null);
 
-  const handleSearch = value => {
-    setSelectedValue(value);
-  };
+  if (searchTerm && searchTerm !== "") {
+    return (
+      <Redirect
+        to={{
+          pathname: `/search/skeletons/${searchTerm}`
+        }}
+      />
+    );
+  }
 
   return (
-      <MyContext.Consumer>
-        {context => (
-          <div className="mt3">
-            <h2>New Search</h2>
-            <Search id='search-field'
-              placeholder="input search text"
-              enterButton="Find Skeletons"
-              size="large"
-              defaultValue="332685751"
-              onSearch={value => context.getInformation(value, config.SKELETON_PATH)}
-            />
-          </div>
-        )}
-      </MyContext.Consumer>
+    <div className="mt3">
+      <h2>Search for Electron Microscopy Skeletons</h2>
+      <Search
+        id="search-field"
+        placeholder="input search text"
+        enterButton="Find Skeletons"
+        size="large"
+        defaultValue={defaultValue}
+        onSearch={value => setSearchTerm(value)}
+      />
+    </div>
   );
 }
 
