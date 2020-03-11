@@ -19,7 +19,7 @@ export default function SearchLines(props) {
     <div className="mt3">
       <Search
         placeholder="input search text"
-        enterButton="Find Lines"
+        enterButton="Search"
         size="large"
         defaultValue={searchTerm}
         onSearch={value => handleSearch(value)}
