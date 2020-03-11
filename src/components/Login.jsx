@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Auth } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "./LoaderButton";
@@ -62,4 +63,8 @@ export default function Login(props) {
       </form>
     </div>
   );
+}
+
+Login.propTypes = {
+  userHasAuthenticated: PropTypes.func.isRequired
 }

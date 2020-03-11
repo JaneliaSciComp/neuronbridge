@@ -1,34 +1,18 @@
-import React, {useEffect} from "react";
-import { List, Avatar, Icon, Skeleton, Col, Row} from "antd";
+import React from "react";
+import PropTypes from "prop-types";
+import { List, Skeleton, Col, Row} from "antd";
 
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    { text }
-  </span>
-);
+export default function EntryList3(props) {
 
-export default function EntryList2(props) {
-
-  const [open, setOpen] = React.useState(true);
-  const [searchType, setSearchType] = React.useState('line');
-  const [selectedValue, setSelectedValue] = React.useState(props.result);
-
-  const handleClickOpen = (event) => {
-    setOpen(true);
-  };
-
-  const handleClose = value => {
-    setOpen(false);
-  };
+  const { result } = props;
 
   return (
       <div id='line'>
-        { props.result && props.result.length > 0 ? (
+        { result && result.length() > 0 ? (
           <List
             itemLayout="vertical"
             size="small"
-            dataSource={ props.result }
+            dataSource={ result }
             renderItem={item => (
               <List.Item>
                 <Skeleton avatar title={false} loading={ item.loading } active >
@@ -60,3 +44,7 @@ export default function EntryList2(props) {
       </div>
   )
 }
+
+EntryList3.propTypes = {
+  result: PropTypes.arrayOf(PropTypes.object).isRequired
+};

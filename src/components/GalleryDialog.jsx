@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import GalleryCarousel from "./GalleryCarousel"
-import MyContext from "./MyContext"
 import {Row, Col} from "antd";
+import GalleryCarousel from "./GalleryCarousel"
+import MyContext from "../containers/MyContext"
 import EntryList3 from "./EntryList3";
 
 const useStyles = makeStyles(theme => ({
@@ -24,24 +24,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function GalleryDialog(props) {
-  const [open, setOpen] = React.useState(props.open);
   const classes = useStyles();
+  const { elements } = props;
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const useEffect = () => {
-    console.log('Props Elements: ' + props.elements);
-  };
-
-  const tags = props.elements.map(x => (
-      <div id={"div_" + x.id}>
-        <Row id={"row_" + x.id} className="ml5" >
+  const tags = elements.map(x => (
+      <div id={`div_${x.id}`}>
+        <Row id={`row_${x.id}`} className="ml5" >
           <Col span={18} >
             <img src={x.image_path} alt="EM data"  />
           </Col>
@@ -62,8 +55,6 @@ export default function GalleryDialog(props) {
                 <IconButton edge="start" color="inherit" onClick={context.handleClose} aria-label="close">
                   <CloseIcon />
                 </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                </Typography>
                 <Button autoFocus color="inherit" onClick={context.handleClose}>
                   Save
                 </Button>
@@ -78,3 +69,7 @@ export default function GalleryDialog(props) {
     </ MyContext.Consumer>
   );
 }
+
+GalleryDialog.propTypes = {
+  elements: PropTypes.object.isRequired
+};

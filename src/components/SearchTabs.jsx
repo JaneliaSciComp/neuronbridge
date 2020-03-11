@@ -1,17 +1,17 @@
 import React from "react";
 import { Tabs } from "antd";
+import { useLocation, useParams } from "react-router-dom";
 import SearchSkeletons from "./SearchSkeletons";
 import SearchLines from "./SearchLines";
-import { useLocation, useParams } from "react-router-dom";
 import EntryList2 from "./EntryList2";
-import MyContext from "./MyContext";
+import MyContext from "../containers/MyContext";
 import Matches from "./Matches";
 
 const { TabPane } = Tabs;
 
-function SearchTabs(props) {
-  let location = useLocation();
-  let params = useParams();
+function SearchTabs() {
+  const location = useLocation();
+  const params = useParams();
   const { searchTerm } = params;
 
   let defaultKey = "1";

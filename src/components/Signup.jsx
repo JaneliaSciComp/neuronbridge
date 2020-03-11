@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import {
   HelpBlock,
   FormGroup,
   FormControl,
   ControlLabel
 } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import { Auth } from "aws-amplify";
+import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
-import { Auth } from "aws-amplify";
 
 export default function Signup(props) {
   const [fields, handleFieldChange] = useFormFields({
@@ -38,12 +39,12 @@ export default function Signup(props) {
     setIsLoading(true);
 
     try {
-      const newUser = await Auth.signUp({
+      const createdUser = await Auth.signUp({
         username: fields.email,
         password: fields.password
       });
       setIsLoading(false);
-      setNewUser(newUser);
+      setNewUser(createdUser);
     } catch (e) {
       alert(e.message);
       setIsLoading(false);
@@ -140,3 +141,8 @@ export default function Signup(props) {
     </div>
   );
 }
+
+Signup.propTypes = {
+  history: PropTypes.object.isRequired,
+  userHasAuthenticated: PropTypes.func.isRequired
+};

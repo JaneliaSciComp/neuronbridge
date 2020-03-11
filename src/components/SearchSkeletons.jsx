@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Input } from "antd";
 import { Redirect } from "react-router-dom";
 
-function SearchSkeletons(props) {
-  const { Search } = Input;
-  const defaultValue = props.searchTerm || "332685751";
-  const [searchTerm, setSearchTerm] = React.useState(null);
+const { Search } = Input;
 
-  if (searchTerm && searchTerm !== "") {
+function SearchSkeletons(props) {
+  const { searchTerm} = props;
+  const [inputTerm, setInputTerm] = useState(null);
+
+  if (inputTerm && inputTerm !== "") {
     return (
       <Redirect
         to={{
@@ -25,11 +27,19 @@ function SearchSkeletons(props) {
         placeholder="input search text"
         enterButton="Find Skeletons"
         size="large"
-        defaultValue={defaultValue}
-        onSearch={value => setSearchTerm(value)}
+        defaultValue={searchTerm}
+        onSearch={value => setInputTerm(value)}
       />
     </div>
   );
 }
+
+SearchSkeletons.propTypes = {
+  searchTerm: PropTypes.string
+};
+
+SearchSkeletons.defaultProps = {
+  searchTerm: "332685751"
+};
 
 export default SearchSkeletons;

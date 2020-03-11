@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// eslint-disable-next-line
 export function useFormFields(initialState) {
   const [fields, setValues] = useState(initialState);
 

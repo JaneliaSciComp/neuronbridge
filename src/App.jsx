@@ -1,40 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem, NavLink } from "react-bootstrap";
+import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import Routes from "./Routes";
-import { Auth, API } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import Sockette from "sockette";
+import Routes from "./Routes";
 import config from "./config";
 import "./App.css";
 import "antd/dist/antd.css";
 import "tachyons/css/tachyons.css";
 import MyProvider from "./containers/MyProvider";
-import { Button } from "antd";
-//window.LOG_LEVEL='DEBUG';
 
 function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [notes, setNotes] = useState([]);
   const [username, setUsername] = useState([]);
   const socket = useRef(null);
+
+  const processMessage = message => {
+    console.log(message);
+  };
 
   // Execute this once after the page is loaded
   // to get the username and establish a web socket
   useEffect(() => {
     async function connectWebSocket(session) {
       return new Sockette(
-        config.apiGateway.WSS_URL + "?token=" + session.accessToken.jwtToken,
+        `${config.apiGateway.WSS_URL}?token=${session.accessToken.jwtToken}`,
         {
           timeout: 5000,
           maxAttempts: 3,
-          onopen: e => console.log("Connected to WebSocket"),
+          onopen: () => console.log("Connected to WebSocket"),
           onmessage: e => processMessage(e),
-          onreconnect: e => console.log("Reconnecting to WebSocket..."),
-          onmaximum: e => console.log("Stop Attempting WebSocket connection."),
-          onclose: e => console.log("Closed WebSocket"),
+          onreconnect: () => console.log("Reconnecting to WebSocket..."),
+          onmaximum: () => console.log("Stop Attempting WebSocket connection."),
+          onclose: () => console.log("Closed WebSocket"),
           onerror: e => console.log("Error from WebSocket:", e)
         }
       );
@@ -43,7 +43,7 @@ function App(props) {
     async function onLoad() {
       try {
         const session = await Auth.currentSession();
-        setUsername(session.getIdToken().payload["email"]);
+        setUsername(session.getIdToken().payload.email);
         userHasAuthenticated(true);
         console.log("User successfully authenticated");
         socket.current = await connectWebSocket(session);
@@ -58,47 +58,15 @@ function App(props) {
 
       return () => {
         console.log("Cleaning WebSocket");
-        socket.current && socket.current.close();
+        if (socket.current ) {
+          socket.current.close();
+        }
         socket.current = null;
       };
     }
 
     onLoad();
   }, []);
-
-  useEffect(() => {
-    if (!isAuthenticated) return;
-
-    // Cancel pattern from https://github.com/facebook/react/issues/14326
-    let didCancel = false;
-
-    async function fetchNotes() {
-      const response = await API.get("notes", "/notes");
-      if (!didCancel) {
-        // Ignore if we started fetching something else
-        setNotes(response);
-        setIsLoading(false);
-      }
-    }
-
-    fetchNotes();
-    return () => {
-      didCancel = true;
-    }; // Remember if we start fetching something else
-  }, [isAuthenticated]);
-
-  const processMessage = async ({ data }) => {
-    // TODO: for better efficiency and scaling, the events should
-    // include the entire note, and this method would just update
-    // the notes state with it, without any extra queries.
-    //const { eventType, noteId } = JSON.parse(data);
-    // For demo purposes, just reload the notes each time:
-    try {
-      setNotes(await API.get("notes", "/notes"));
-    } catch (e) {
-      alert(e);
-    }
-  };
 
   async function handleLogout() {
     await Auth.signOut();
@@ -150,10 +118,8 @@ function App(props) {
           </Navbar>
           <Routes
             appProps={{
-              isLoading,
               isAuthenticated,
               userHasAuthenticated,
-              notes
             }}
           />
         </div>

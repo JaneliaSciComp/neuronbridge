@@ -1,40 +1,41 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { Input, Radio } from "antd";
+import "./SearchLines.css";
+import "./LoaderButton.css";
 
 const { Search } = Input;
 
 export default function SearchLines(props) {
-  const defaultValue = props.searchTerm || "SS02256";
-  const [searchTerm, setSearchTerm] = useState();
-  const handleSearch = value => {
-    setSearchTerm(value);
-  };
+  const { searchTerm } = props;
+  const history = useHistory();
 
-  if (searchTerm && searchTerm !== "") {
-    return (
-      <Redirect
-        to={{
-          pathname: `/search/lines/${searchTerm}`
-        }}
-      />
-    );
-  }
+  const handleSearch = value => {
+    history.push(`/search/lines/${value}`);
+  };
 
   return (
     <div className="mt3">
-      <h2>Search for Light Microscopy Cell Lines</h2>
       <Search
         placeholder="input search text"
         enterButton="Find Lines"
         size="large"
-        defaultValue={defaultValue}
+        defaultValue={searchTerm}
         onSearch={value => handleSearch(value)}
       />
-      <Radio.Group>
+      <Radio.Group className="searchType">
         <Radio value="light">Light Microscopy</Radio>
         <Radio value="em">Electron Microscopy</Radio>
       </Radio.Group>
     </div>
   );
 }
+
+SearchLines.propTypes = {
+  searchTerm: PropTypes.string
+};
+
+SearchLines.defaultProps = {
+  searchTerm: "SS02256"
+};

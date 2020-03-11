@@ -42,7 +42,7 @@ const alertOptions = {
   // you can also just use 'scale'
   transition: transitions.FADE
 };
-
+/* eslint-disable react/jsx-props-no-spreading */
 ReactDOM.render(
   <Router>
     <AlertProvider template={AlertTemplate} {...alertOptions}>
@@ -51,6 +51,7 @@ ReactDOM.render(
   </Router>,
   document.getElementById('root')
 );
+/* eslint-enable react/jsx-props-no-spreading */
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

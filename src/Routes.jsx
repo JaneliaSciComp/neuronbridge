@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import PropTypes from "prop-types";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import NotFound from "./components/NotFound";
@@ -26,3 +27,7 @@ export default function Routes({ appProps }) {
     </Switch>
   );
 }
+
+Routes.propTypes = {
+  appProps: PropTypes.object.isRequired
+};

@@ -1,31 +1,24 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
 
 const CarouselElement = (props) => {
-  const handleOnDragStart = (e) => e.preventDefault();
-
-  const elements = props.content.elements;
-
-  const element = [];
-  // function myFunction(item) {
-  //   const keys = Object.keys(item);
-  //   console.log(keys);
-  //   return <div><strong>item: </strong>props.content[item]</div>
-  // }
-  //
-  // const element = elements.map(x => {
-  //   return myFunction(x);
-  // });
+  const  { content } = props;
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    console.log("content " + props.content);
+    console.log(`content ${content}`);
   });
 
   return (
      <div>
-       json.dumps({props.content})
+       json.dumps({content})
      </div>
   )
 };
+
+CarouselElement.propTypes = {
+  content: PropTypes.object.isRequired
+};
+
 
 export default CarouselElement;

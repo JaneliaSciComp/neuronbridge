@@ -1,10 +1,11 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
+/* eslint-disable */
 function querystring(name, url = window.location.href) {
-    name = name.replace(/[[]]/g, "\\$&");
+    const modified = name.replace(/[[]]/g, "\\$&");
 
-    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i");
+    const regex = new RegExp("[?&]" + modified + "(=([^&#]*)|&|#|$)", "i");
     const results = regex.exec(url);
 
     if (!results) {
@@ -31,3 +32,5 @@ export default function UnauthenticatedRoute({ component: C, appProps, ...rest }
       />
     );
   }
+
+/* eslint-enable */
