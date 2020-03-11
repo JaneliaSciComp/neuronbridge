@@ -1,19 +1,15 @@
 // Landing.jsx
-import React, { useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
-import { Button, DatePicker, version, Row, Layout } from "antd";
+import React from "react";
+import SearchLines from "./SearchLines";
 import "antd/dist/antd.css";
 
-const { Header, Content, Footer } = Layout;
-
 function Landing() {
-    const [searchType, setSearchType] = useState(0);
-
-    return (
-        <Row>
-          Welcome to NeuronBridge
-        </Row>
-   )
+  return (
+    <React.Fragment>
+      <h1>Welcome to NeuronBridge</h1>
+      <SearchLines />
+    </React.Fragment>
+  );
 }
 
 export default Landing;
