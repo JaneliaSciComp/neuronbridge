@@ -1,10 +1,9 @@
 import React from "react";
-import "./NotFound.css";
 
-export default function NotFound() {
+export default function About() {
   return (
     <div>
-      <h3>About the tool</h3>
+      <h1>NeuronBridge</h1>
     </div>
   );
 }
