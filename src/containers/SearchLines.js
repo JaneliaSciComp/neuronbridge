@@ -1,58 +1,34 @@
-import React, {useEffect, useState} from 'react';
-import config from "../config";
-import {Button, Row, Input} from "antd";
-import EntryList2 from "./EntryList2";
-import MyContext from "./MyContext";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { Input } from "antd";
 
 const { Search } = Input;
 
 export default function SearchLines(props) {
 
-  const [selectedValue, setSelectedValue] = React.useState(props.elemId);
-  const [currResult, setCurrResult] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = value => {
-    setOpen(false);
-  };
-
+  const [searchTerm, setSearchTerm] = useState();
   const handleSearch = value => {
-    setSelectedValue(value);
+    setSearchTerm(value);
   };
 
-  function getLineInformation(name){
-    if (name) {
-      const path = config.LINE_PATH + name + '.json';
-      fetch(path)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(json) {
-          setCurrResult(json['results']);
-        }).catch(function(error) {
-          console.log(error);
-        });
-      }
-  };
+  if (searchTerm && searchTerm !== '') {
+   return  <Redirect
+      to={{
+        pathname: `/search/lines/${searchTerm}`
+      }}
+    />
+  }
 
   return (
-      <MyContext.Consumer>
-        {context => (
-            <div className="mt3">
-             <h2>New Search</h2>
-             <Search
-               placeholder="input search text"
-               enterButton="Find Lines"
-               size="large"
-               defaultValue="BJD_SS02256"
-               onSearch={value => context.getInformation(value, config.LINE_PATH)}
-             />
-           </div>
-        )}
-      </MyContext.Consumer>
+    <div className="mt3">
+      <h2>Search for Light Microscopy Cell Lines</h2>
+      <Search
+        placeholder="input search text"
+        enterButton="Find Lines"
+        size="large"
+        defaultValue="SS02256"
+        onSearch={value => handleSearch(value)}
+      />
+    </div>
   );
 }
