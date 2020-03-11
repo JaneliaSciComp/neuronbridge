@@ -5,12 +5,12 @@ import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import { Auth, API } from "aws-amplify";
 import Sockette from "sockette";
-import config from './config';
+import config from "./config";
 import "./App.css";
 import "antd/dist/antd.css";
-import 'tachyons/css/tachyons.css';
-import MyProvider from "./containers/MyProvider.js"
-import {Button} from "antd";
+import "tachyons/css/tachyons.css";
+import MyProvider from "./containers/MyProvider.js";
+import { Button } from "antd";
 //window.LOG_LEVEL='DEBUG';
 
 function App(props) {
@@ -24,10 +24,9 @@ function App(props) {
   // Execute this once after the page is loaded
   // to get the username and establish a web socket
   useEffect(() => {
-
     async function connectWebSocket(session) {
       return new Sockette(
-        config.apiGateway.WSS_URL+"?token="+session.accessToken.jwtToken,
+        config.apiGateway.WSS_URL + "?token=" + session.accessToken.jwtToken,
         {
           timeout: 5000,
           maxAttempts: 3,
@@ -44,13 +43,12 @@ function App(props) {
     async function onLoad() {
       try {
         const session = await Auth.currentSession();
-        setUsername(session.getIdToken().payload['email']);
+        setUsername(session.getIdToken().payload["email"]);
         userHasAuthenticated(true);
         console.log("User successfully authenticated");
         socket.current = await connectWebSocket(session);
-      }
-      catch(e) {
-        if (e !== 'No current user') {
+      } catch (e) {
+        if (e !== "No current user") {
           console.log("Loading error:", e);
           alert("Error logging in");
         }
@@ -69,7 +67,6 @@ function App(props) {
   }, []);
 
   useEffect(() => {
-
     if (!isAuthenticated) return;
 
     // Cancel pattern from https://github.com/facebook/react/issues/14326
@@ -77,18 +74,20 @@ function App(props) {
 
     async function fetchNotes() {
       const response = await API.get("notes", "/notes");
-      if (!didCancel) { // Ignore if we started fetching something else
+      if (!didCancel) {
+        // Ignore if we started fetching something else
         setNotes(response);
         setIsLoading(false);
       }
     }
 
     fetchNotes();
-    return () => { didCancel = true; }; // Remember if we start fetching something else
+    return () => {
+      didCancel = true;
+    }; // Remember if we start fetching something else
   }, [isAuthenticated]);
 
-
-  const processMessage = async ({data}) => {
+  const processMessage = async ({ data }) => {
     // TODO: for better efficiency and scaling, the events should
     // include the entire note, and this method would just update
     // the notes state with it, without any extra queries.
@@ -96,8 +95,7 @@ function App(props) {
     // For demo purposes, just reload the notes each time:
     try {
       setNotes(await API.get("notes", "/notes"));
-    }
-    catch (e) {
+    } catch (e) {
       alert(e);
     }
   };
@@ -109,7 +107,7 @@ function App(props) {
   }
 
   return (
-      !isAuthenticating &&
+    !isAuthenticating && (
       <MyProvider>
         <div className="App container">
           <Navbar fluid collapseOnSelect>
@@ -119,43 +117,48 @@ function App(props) {
               </Navbar.Brand>
             </Navbar.Header>
             <Navbar.Collapse>
-              {isAuthenticated ?
-                <Nav
-                  className = "mr-auto" >
-                      <NavItem
-                  eventKey = "1"
-                  href = "/search/lines" >
-                      Search
-                      < /NavItem>
-                      < NavItem
-                  eventKey = "1"
-                  href = "/about" >
-                      About
-                      < /NavItem>
-                      < /Nav>
-                : <Nav > < /Nav>
-               }
+              {isAuthenticated ? (
+                <Nav className="mr-auto">
+                  <NavItem eventKey="1" href="/search/lines">
+                    Search
+                  </NavItem>
+                  <NavItem eventKey="1" href="/about">
+                    About
+                  </NavItem>
+                </Nav>
+              ) : (
+                <Nav> </Nav>
+              )}
               <Nav pullRight>
-                {isAuthenticated
-                  ? <>
-                      <p className="navbar-text">Logged in as {username}</p>
-                      <NavItem onClick={handleLogout}>Logout</NavItem>
-                    </>
-                  : <>
-                      <LinkContainer to="/signup">
-                        <NavItem>Signup</NavItem>
-                      </LinkContainer>
-                      <LinkContainer to="/login">
-                        <NavItem>Login</NavItem>
-                      </LinkContainer>
-                    </>
-                }
+                {isAuthenticated ? (
+                  <>
+                    <p className="navbar-text">Logged in as {username}</p>
+                    <NavItem onClick={handleLogout}>Logout</NavItem>
+                  </>
+                ) : (
+                  <>
+                    <LinkContainer to="/signup">
+                      <NavItem>Signup</NavItem>
+                    </LinkContainer>
+                    <LinkContainer to="/login">
+                      <NavItem>Login</NavItem>
+                    </LinkContainer>
+                  </>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Navbar>
-          <Routes appProps={{ isLoading, isAuthenticated, userHasAuthenticated, notes }} />
+          <Routes
+            appProps={{
+              isLoading,
+              isAuthenticated,
+              userHasAuthenticated,
+              notes
+            }}
+          />
         </div>
       </MyProvider>
+    )
   );
 }
 
