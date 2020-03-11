@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Input } from "antd";
+import { Input, Radio } from "antd";
 
 const { Search } = Input;
 
@@ -31,6 +31,10 @@ export default function SearchLines(props) {
         defaultValue={defaultValue}
         onSearch={value => handleSearch(value)}
       />
+      <Radio.Group>
+        <Radio value="light">Light Microscopy</Radio>
+        <Radio value="em">Electron Microscopy</Radio>
+      </Radio.Group>
     </div>
   );
 }
