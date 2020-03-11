@@ -5,18 +5,20 @@ import { Input } from "antd";
 const { Search } = Input;
 
 export default function SearchLines(props) {
-
+  const defaultValue = props.searchTerm || "SS02256";
   const [searchTerm, setSearchTerm] = useState();
   const handleSearch = value => {
     setSearchTerm(value);
   };
 
-  if (searchTerm && searchTerm !== '') {
-   return  <Redirect
-      to={{
-        pathname: `/search/lines/${searchTerm}`
-      }}
-    />
+  if (searchTerm && searchTerm !== "") {
+    return (
+      <Redirect
+        to={{
+          pathname: `/search/lines/${searchTerm}`
+        }}
+      />
+    );
   }
 
   return (
@@ -26,7 +28,7 @@ export default function SearchLines(props) {
         placeholder="input search text"
         enterButton="Find Lines"
         size="large"
-        defaultValue="SS02256"
+        defaultValue={defaultValue}
         onSearch={value => handleSearch(value)}
       />
     </div>
