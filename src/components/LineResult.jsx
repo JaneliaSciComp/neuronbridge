@@ -9,6 +9,10 @@ export default function LineResult(props) {
   const { metaInfo } = props;
 
   const matchesUrl = `${location.pathname}/matches`;
+
+
+  // only use values in the metaInfo.attrs key to display on the site. The
+  // other keys are for internal use only.
   return (
     <Row>
       <Col span={8}>
@@ -16,7 +20,7 @@ export default function LineResult(props) {
       </Col>
       <Col span={8}>
         <p>
-          <b>Line Name:</b> {metaInfo.line}
+          <b>Line Name:</b> {metaInfo.attrs["Published Name"]}
         </p>
         <p>
           <b>Slide Code:</b> {metaInfo.attrs["Slide Code"]}
@@ -25,7 +29,7 @@ export default function LineResult(props) {
           <b>Channel:</b> {metaInfo.attrs.Channel}
         </p>
         <p>
-          <b>Type:</b> {metaInfo.libraryName}
+          <b>Type:</b> {metaInfo.attrs.Library}
         </p>
       </Col>
       <Col span={8}>
