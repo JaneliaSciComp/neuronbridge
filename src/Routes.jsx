@@ -32,11 +32,6 @@ export default function Routes({ appProps }) {
         appProps={appProps}
       />
       <AuthenticatedRoute
-        path="/search/matches"
-        component={SearchTabs}
-        appProps={appProps}
-      />
-      <AuthenticatedRoute
         path="/search"
         component={SearchTabs}
         appProps={appProps}
