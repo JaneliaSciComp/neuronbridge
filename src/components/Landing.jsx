@@ -6,8 +6,8 @@ import "antd/dist/antd.css";
 function Landing() {
   return (
     <>
-      <h1>Welcome to NeuronBridge</h1>
       <SearchInput />
+      <h1>Welcome to NeuronBridge</h1>
     </>
   );
 }
