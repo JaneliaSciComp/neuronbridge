@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { Route, useRouteMatch } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Spin } from "antd";
 import config from "../config";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
+import Matches from "./Matches";
 
 export default function SearchResults(props) {
   const { searchTerm, searchType } = props;
   const [searchResult, setResults] = useState(null);
+
+  const routeMatch = useRouteMatch();
 
   useEffect(() => {
     setResults(null);
@@ -39,15 +43,18 @@ export default function SearchResults(props) {
 
       const resultsList = results.map(result => {
         if (searchType === "lines") {
-          return <LineResult metaInfo={result} />;
+          return <LineResult metaInfo={result} key={result.id}/>;
         }
-        return <SkeletonResult metaInfo={result} />;
+        return <SkeletonResult metaInfo={result} key={result.id} />;
       });
 
       return (
         <div className="results">
           <p>{searchTerm}</p>
           {resultsList}
+          <Route path={`${routeMatch.path}/matches`}>
+            <Matches matchId={parseInt(results[0].id, 10)} />
+          </Route>
         </div>
       );
     }
