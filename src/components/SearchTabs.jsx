@@ -1,49 +1,16 @@
 import React from "react";
-import { Tabs } from "antd";
-import { useLocation, useParams } from "react-router-dom";
-import SearchSkeletons from "./SearchSkeletons";
-import SearchLines from "./SearchLines";
-import EntryList2 from "./EntryList2";
-import MyContext from "../containers/MyContext";
-import Matches from "./Matches";
-
-const { TabPane } = Tabs;
+import { useParams } from "react-router-dom";
+import SearchInput from "./SearchInput";
+import SearchResults from "./SearchResults";
 
 function SearchTabs() {
-  const location = useLocation();
-  const params = useParams();
-  const { searchTerm } = params;
-
-  let defaultKey = "1";
-  if (location.pathname.includes("skeleton")) {
-    defaultKey = "2";
-  } else if (location.pathname.includes("match")) {
-    defaultKey = "3";
-  }
+  const { searchTerm, searchType } = useParams();
 
   return (
-    <MyContext.Consumer>
-      {context => (
-        <div className="card-container">
-          <Tabs
-            type="card"
-            defaultActiveKey={defaultKey}
-            onChange={context.changeTab}
-          >
-            <TabPane tab="Published LM Lines" key="1">
-              <SearchLines searchTerm={searchTerm} />
-            </TabPane>
-            <TabPane tab="Published EM Skeletons" key="2">
-              <SearchSkeletons searchTerm={searchTerm} />
-            </TabPane>
-            <TabPane tab="Matches" key="3">
-              <Matches />
-            </TabPane>
-          </Tabs>
-          {context.result && <EntryList2 result={context.result} />}
-        </div>
-      )}
-    </MyContext.Consumer>
+    <div className="card-container">
+      <SearchInput searchTerm={searchTerm} />
+      <SearchResults searchTerm={searchTerm} searchType={searchType} />
+    </div>
   );
 }
 

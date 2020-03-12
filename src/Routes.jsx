@@ -14,15 +14,35 @@ export default function Routes({ appProps }) {
   return (
     <Switch>
       <Route path="/" exact component={Landing} appProps={appProps} />
-      <UnauthenticatedRoute path="/login" exact component={Login} appProps={appProps} />
-      <UnauthenticatedRoute path="/signup" exact component={Signup} appProps={appProps} />
-      <AuthenticatedRoute path="/search/lines/:searchTerm" component={SearchTabs} appProps={appProps} />
-      <AuthenticatedRoute path="/search/lines" component={SearchTabs} appProps={appProps} />
-      <AuthenticatedRoute path="/search/skeletons/:searchTerm" component={SearchTabs} appProps={appProps} />
-      <AuthenticatedRoute path="/search/skeletons" component={SearchTabs} appProps={appProps} />
-      <AuthenticatedRoute path="/search/matches" component={SearchTabs} appProps={appProps} />
+      <UnauthenticatedRoute
+        path="/login"
+        exact
+        component={Login}
+        appProps={appProps}
+      />
+      <UnauthenticatedRoute
+        path="/signup"
+        exact
+        component={Signup}
+        appProps={appProps}
+      />
+      <AuthenticatedRoute
+        path="/search/:searchType/:searchTerm"
+        component={SearchTabs}
+        appProps={appProps}
+      />
+      <AuthenticatedRoute
+        path="/search/matches"
+        component={SearchTabs}
+        appProps={appProps}
+      />
+      <AuthenticatedRoute
+        path="/search"
+        component={SearchTabs}
+        appProps={appProps}
+      />
       <AuthenticatedRoute path="/about" component={About} appProps={appProps} />
-      { /* Finally, catch all unmatched routes */ }
+      {/* Finally, catch all unmatched routes */}
       <Route component={NotFound} />
     </Switch>
   );

@@ -87,7 +87,7 @@ function App(props) {
             <Navbar.Collapse>
               {isAuthenticated ? (
                 <Nav className="mr-auto">
-                  <LinkContainer to="/search/lines">
+                  <LinkContainer to="/search">
                     <NavItem>Search</NavItem>
                   </LinkContainer>
                   <LinkContainer to="/results">
