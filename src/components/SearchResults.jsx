@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Spin } from 'antd';
+import { Spin } from "antd";
 import config from "../config";
 import LineResult from "./LineResult";
+import SkeletonResult from "./SkeletonResult";
 
 export default function SearchResults(props) {
   const { searchTerm, searchType } = props;
@@ -35,10 +36,18 @@ export default function SearchResults(props) {
           </div>
         );
       }
+
+      const resultsList = results.map(result => {
+        if (searchType === "lines") {
+          return <LineResult metaInfo={result} />;
+        }
+        return <SkeletonResult metaInfo={result} />;
+      });
+
       return (
         <div className="results">
           <p>{searchTerm}</p>
-          <LineResult metaInfo={results[0]} />
+          {resultsList}
         </div>
       );
     }
