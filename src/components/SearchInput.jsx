@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { Input, Radio } from "antd";
 import "./SearchInput.css";
 import "./LoaderButton.css";
+import { AppContext } from "../containers/AppContext";
 
 const { Search } = Input;
 
 export default function SearchInput(props) {
   const { searchTerm } = props;
-  const [searchType, setSearchType] = useState("lines");
   const history = useHistory();
+  const [state, setState] = useContext(AppContext);
 
   const handleSearch = value => {
-    history.push(`/search/${searchType}/${value}`);
+    history.push(`/search/${state.searchType}/${value}`);
   };
 
   const onChange = e => {
-    setSearchType(e.target.value);
+    setState({...state, searchType: e.target.value});
   };
 
   return (
@@ -32,7 +33,7 @@ export default function SearchInput(props) {
       <Radio.Group
         className="searchType"
         onChange={onChange}
-        value={searchType}
+        value={state.searchType}
       >
         <Radio value="lines">Light Microscopy</Radio>
         <Radio value="skeletons">Electron Microscopy</Radio>
@@ -42,7 +43,7 @@ export default function SearchInput(props) {
 }
 
 SearchInput.propTypes = {
-  searchTerm: PropTypes.string
+  searchTerm: PropTypes.string,
 };
 
 SearchInput.defaultProps = {

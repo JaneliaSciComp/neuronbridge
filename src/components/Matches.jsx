@@ -20,28 +20,25 @@ export default function Matches(props) {
       .then(response => response.json())
       .then(json => setMatchMeta(json))
       .catch(error => console.log(error));
-  };
+  }
 
   useEffect(() => {
     getMatches();
   }, [matchId, searchResult]);
 
+  let matchesList = <p>Loading...</p>;
+
   if (matchMeta) {
-
-    const matchesList = matchMeta.results.map(result => <MatchSummary match={result} />);
-
-    return (
-      <div>
-        <LineSummary lineMeta={matchInput} />
-        <Divider />
-        <h3>Matches</h3>
-        {matchesList}
-      </div>
-    );
+    matchesList = matchMeta.results.map(result => (
+      <MatchSummary match={result} key={result.id} />
+    ));
   }
   return (
     <div>
-      <p>Loading...</p>
+      <LineSummary lineMeta={matchInput} />
+      <Divider />
+      <h3>Matches</h3>
+      {matchesList}
     </div>
   );
 }

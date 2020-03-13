@@ -8,6 +8,7 @@ import Matches from "./Matches";
 function Search() {
   const { searchTerm, searchType } = useParams();
   const [searchResult, setResults] = useState(null);
+  const [chosenType, setChosenType] = useState("lines");
   const routeMatch = useRouteMatch();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function Search() {
   if (searchResult) {
     return (
       <div className="card-container">
-        <SearchInput searchTerm={searchTerm} />
+        <SearchInput searchTerm={searchTerm} searchType={chosenType} setType={setChosenType} />
         <Switch>
           <Route path={`${routeMatch.path}`} exact>
             <SearchResults searchResult={searchResult} searchType={searchType} />
