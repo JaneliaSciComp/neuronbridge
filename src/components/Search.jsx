@@ -32,7 +32,7 @@ function Search() {
         <SearchInput searchTerm={searchTerm} />
         <Switch>
           <Route path={`${routeMatch.path}`} exact>
-            <SearchResults searchResult={searchResult} />
+            <SearchResults searchResult={searchResult} searchType={searchType} />
           </Route>
           <Route path={`${routeMatch.path}/matches/:matchId`} exact>
             <Matches searchResult={searchResult} />

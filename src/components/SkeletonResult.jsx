@@ -8,7 +8,7 @@ export default function SkeletonResult(props) {
   const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `${location.pathname}/matches`;
+  const matchesUrl = `${location.pathname}/matches/${metaInfo.id}`;
 
 
   // only use values in the metaInfo.attrs key to display on the site. The
