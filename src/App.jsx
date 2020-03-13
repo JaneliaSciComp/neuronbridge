@@ -9,7 +9,6 @@ import config from "./config";
 import "./App.css";
 import "antd/dist/antd.css";
 import "tachyons/css/tachyons.css";
-import MyProvider from "./containers/MyProvider";
 
 function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -76,57 +75,55 @@ function App(props) {
 
   return (
     !isAuthenticating && (
-      <MyProvider>
-        <div className="App container">
-          <Navbar fluid collapseOnSelect>
-            <Navbar.Header>
-              <Navbar.Brand>
-                <Link to="/login">NeuronBridge</Link>
-              </Navbar.Brand>
-            </Navbar.Header>
-            <Navbar.Collapse>
-              {isAuthenticated ? (
-                <Nav className="mr-auto">
-                  <LinkContainer to="/search">
-                    <NavItem>Search</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/results">
-                    <NavItem>My Search Results</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/about">
-                    <NavItem>About</NavItem>
-                  </LinkContainer>
-                </Nav>
-              ) : (
-                <Nav> </Nav>
-              )}
-              <Nav pullRight>
-                {isAuthenticated ? (
-                  <>
-                    <p className="navbar-text">Logged in as {username}</p>
-                    <NavItem onClick={handleLogout}>Logout</NavItem>
-                  </>
-                ) : (
-                  <>
-                    <LinkContainer to="/signup">
-                      <NavItem>Signup</NavItem>
-                    </LinkContainer>
-                    <LinkContainer to="/login">
-                      <NavItem>Login</NavItem>
-                    </LinkContainer>
-                  </>
-                )}
+      <div className="App container">
+        <Navbar fluid collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/login">NeuronBridge</Link>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Navbar.Collapse>
+            {isAuthenticated ? (
+              <Nav className="mr-auto">
+                <LinkContainer to="/search">
+                  <NavItem>Search</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/results">
+                  <NavItem>My Search Results</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/about">
+                  <NavItem>About</NavItem>
+                </LinkContainer>
               </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-          <Routes
-            appProps={{
-              isAuthenticated,
-              userHasAuthenticated
-            }}
-          />
-        </div>
-      </MyProvider>
+            ) : (
+              <Nav> </Nav>
+            )}
+            <Nav pullRight>
+              {isAuthenticated ? (
+                <>
+                  <p className="navbar-text">Logged in as {username}</p>
+                  <NavItem onClick={handleLogout}>Logout</NavItem>
+                </>
+              ) : (
+                <>
+                  <LinkContainer to="/signup">
+                    <NavItem>Signup</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <NavItem>Login</NavItem>
+                  </LinkContainer>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        <Routes
+          appProps={{
+            isAuthenticated,
+            userHasAuthenticated
+          }}
+        />
+      </div>
     )
   );
 }
