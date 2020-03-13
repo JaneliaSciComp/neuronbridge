@@ -4,3 +4,10 @@
   border: 1px solid #ccc;
   background: #ddd;
 }
+
+.modalButton {
+  width: 100%;
+  border: none;
+  color:transparent;
+  box-shadow: none;
+}

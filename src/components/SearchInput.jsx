@@ -21,7 +21,7 @@ export default function SearchInput(props) {
   };
 
   return (
-    <div className="mt3">
+    <div className="searchInput">
       <Search
         placeholder="Search with a line name or skeleton id."
         enterButton="Search"
@@ -46,5 +46,5 @@ SearchInput.propTypes = {
 };
 
 SearchInput.defaultProps = {
-  searchTerm: "SS02703"
+  searchTerm: "LH1046,788306724,332685751"
 };

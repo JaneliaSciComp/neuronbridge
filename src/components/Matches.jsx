@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
+import { Divider } from "antd";
+import LineSummary from "./LineSummary";
+import MatchSummary from "./MatchSummary";
 import config from "../config";
 
 export default function Matches(props) {
-  const { matchId } = props;
+  const { searchResult } = props;
+  const { results } = searchResult;
+  const { matchId } = useParams();
   const [matchMeta, setMatchMeta] = useState(null);
 
-  const getMatches = () => {
+  const matchInput = results.filter(result => result.id === matchId)[0];
+
+  function getMatches() {
     const path = `${config.MATCH_PATH}${matchId}.json`;
     fetch(path)
       .then(response => response.json())
@@ -16,13 +24,18 @@ export default function Matches(props) {
 
   useEffect(() => {
     getMatches();
-  }, [matchId]);
+  }, [matchId, searchResult]);
 
   if (matchMeta) {
+
+    const matchesList = matchMeta.results.map(result => <MatchSummary match={result} />);
+
     return (
       <div>
+        <LineSummary lineMeta={matchInput} />
+        <Divider />
         <h3>Matches</h3>
-        <p>{matchMeta.results[0].attrs.Library}</p>
+        {matchesList}
       </div>
     );
   }
@@ -34,5 +47,5 @@ export default function Matches(props) {
 }
 
 Matches.propTypes = {
-  matchId: PropTypes.number.isRequired
+  searchResult: PropTypes.object.isRequired
 };

@@ -2,13 +2,13 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
-import "./LineResult.css";
+import ImageWithModal from "./ImageWithModal";
 
 export default function LineResult(props) {
   const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `${location.pathname}/matches`;
+  const matchesUrl = `${location.pathname}/matches/${metaInfo.id}`;
 
 
   // only use values in the metaInfo.attrs key to display on the site. The
@@ -16,7 +16,7 @@ export default function LineResult(props) {
   return (
     <Row>
       <Col span={8}>
-        <img className="thumbnail" src={metaInfo.image_path} alt="fly brain" />
+        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} alt="MIP" />
       </Col>
       <Col span={8}>
         <p>

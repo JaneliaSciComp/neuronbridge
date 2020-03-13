@@ -7,7 +7,7 @@ import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Landing from "./components/Landing";
-import SearchTabs from "./components/SearchTabs";
+import Search from "./components/Search";
 import About from "./components/About";
 
 export default function Routes({ appProps }) {
@@ -28,7 +28,7 @@ export default function Routes({ appProps }) {
       />
       <AuthenticatedRoute
         path="/search/:searchType?/:searchTerm?"
-        component={SearchTabs}
+        component={Search}
         appProps={appProps}
       />
       <AuthenticatedRoute path="/about" component={About} appProps={appProps} />

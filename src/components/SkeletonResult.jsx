@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
-import "./LineResult.css";
+import ImageWithModal from "./ImageWithModal";
 
 export default function SkeletonResult(props) {
   const location = useLocation();
@@ -16,7 +16,7 @@ export default function SkeletonResult(props) {
   return (
     <Row>
       <Col span={8}>
-        <img className="thumbnail" src={metaInfo.thumbnail_path} alt="fly brain" />
+        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} alt="MIP" />
       </Col>
       <Col span={8}>
         <p>
@@ -27,7 +27,7 @@ export default function SkeletonResult(props) {
         </p>
       </Col>
       <Col span={8}>
-        <Button type="primary">
+        <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View LM Matches</Link>
         </Button>
       </Col>
