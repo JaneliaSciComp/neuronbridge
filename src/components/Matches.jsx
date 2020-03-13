@@ -13,31 +13,32 @@ export default function Matches(props) {
   const [matchMeta, setMatchMeta] = useState(null);
 
   const matchInput = results.filter(result => result.id === matchId)[0];
-
-  function getMatches() {
-    const path = `${config.MATCH_PATH}${matchId}.json`;
-    fetch(path)
-      .then(response => response.json())
-      .then(json => setMatchMeta(json))
-      .catch(error => console.log(error));
-  }
-
   useEffect(() => {
+    function getMatches() {
+      const path = `${config.MATCH_PATH}${matchId}.json`;
+      fetch(path)
+        .then(response => response.json())
+        .then(json => setMatchMeta(json))
+        .catch(error => console.log(error));
+    }
+
     getMatches();
   }, [matchId, searchResult]);
 
   let matchesList = <p>Loading...</p>;
 
   if (matchMeta) {
-    matchesList = matchMeta.results.map(result => (
-      <MatchSummary match={result} key={result.id} />
-    ));
+    matchesList = matchMeta.results.map(result => {
+      return <MatchSummary match={result} key={result.matchedId} />;
+    });
   }
   return (
     <div>
       <LineSummary lineMeta={matchInput} />
       <Divider />
-      <h3>Matches</h3>
+      <h3>
+        Matches 1 - {matchesList.length} of {matchesList.length}
+      </h3>
       {matchesList}
     </div>
   );
