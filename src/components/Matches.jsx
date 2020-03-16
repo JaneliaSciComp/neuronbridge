@@ -59,6 +59,12 @@ export default function Matches(props) {
         visible={Boolean(modalOpen)}
         onCancel={() => setModalOpen(null)}
         footer={[
+          <Button key="prev" type="primary" disabled={modalOpen <= 1} onClick={() => setModalOpen(modalOpen - 1)}>
+            Previous
+          </Button>,
+          <Button key="next" type="primary" disabled={modalOpen >= matchesList.length} onClick={() => setModalOpen(modalOpen + 1)}>
+            Next
+          </Button>,
           <Button
             key="mask"
             type="primary"
