@@ -88,9 +88,6 @@ function App(props) {
                 <LinkContainer to="/search">
                   <NavItem>Search</NavItem>
                 </LinkContainer>
-                <LinkContainer to="/results">
-                  <NavItem>My Search Results</NavItem>
-                </LinkContainer>
                 <LinkContainer to="/about">
                   <NavItem>About</NavItem>
                 </LinkContainer>
