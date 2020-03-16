@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import { Divider } from "antd";
+import { Modal, Divider, Row, Col } from "antd";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import config from "../config";
@@ -11,6 +11,7 @@ export default function Matches(props) {
   const { results } = searchResult;
   const { matchId } = useParams();
   const [matchMeta, setMatchMeta] = useState(null);
+  const [modalOpen, setModalOpen] = useState(null);
 
   const matchInput = results.filter(result => result.id === matchId)[0];
   useEffect(() => {
@@ -26,12 +27,22 @@ export default function Matches(props) {
   }, [matchId, searchResult]);
 
   let matchesList = <p>Loading...</p>;
+  let selectedMatch = {};
 
   if (matchMeta) {
     matchesList = matchMeta.results.map(result => {
-      return <MatchSummary match={result} key={result.matchedId} />;
+      return (
+        <MatchSummary
+          match={result}
+          key={result.matchedId}
+          showModal={setModalOpen}
+        />
+      );
     });
+    selectedMatch = matchMeta.results.find(result => result.matchedId === modalOpen);
   }
+
+
   return (
     <div>
       <LineSummary lineMeta={matchInput} />
@@ -40,6 +51,22 @@ export default function Matches(props) {
         Matches 1 - {matchesList.length} of {matchesList.length}
       </h3>
       {matchesList}
+      <Modal
+        visible={Boolean(modalOpen)}
+        onCancel={() => setModalOpen(null)}
+        width="90%"
+      >
+        <Row>
+          <Col span={12}>
+            <p>Mask</p>
+            <img src={matchInput.image_path} alt="Mask for search" />
+          </Col>
+          <Col span={12}>
+            <p>Match</p>
+            <img src={selectedMatch && selectedMatch.image_path} alt="Search Match" />
+          </Col>
+        </Row>
+      </Modal>
     </div>
   );
 }

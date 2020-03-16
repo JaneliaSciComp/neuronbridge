@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
 import { Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 
 export default function MatchSummary(props) {
-  const { match } = props;
-  const history = useHistory();
+  const { match, showModal } = props;
 
   return (
     <Row>
@@ -32,12 +30,13 @@ export default function MatchSummary(props) {
         </p>
       </Col>
       <Col span={8}>
-        <Button onClick={() => history.goBack()}>Select</Button>
+        <Button onClick={() => showModal(match.matchedId)}>Select</Button>
       </Col>
     </Row>
   );
 }
 
 MatchSummary.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  showModal: PropTypes.func.isRequired
 };
