@@ -23,14 +23,14 @@ export default function MatchSummary(props) {
           <b>Slide Code:</b> {match.attrs["Slide Code"]}
         </p>
         <p>
-          <b>Channel:</b> {match.attrs.Channel}
+          <b>Score:</b> {match.attrs.Score}
         </p>
         <p>
           <b>Type:</b> {match.attrs.Library}
         </p>
       </Col>
       <Col span={8}>
-        <Button onClick={() => showModal(match.matchedId)}>Select</Button>
+        <Button onClick={showModal}>Select</Button>
       </Col>
     </Row>
   );
