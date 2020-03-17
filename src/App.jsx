@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Link, useHistory } from "react-router-dom";
+import { Layout, Menu } from "antd";
 import { Auth } from "aws-amplify";
 import Sockette from "sockette";
 import Routes from "./Routes";
 import config from "./config";
 import "./App.css";
 import "antd/dist/antd.css";
-import "tachyons/css/tachyons.css";
 
-function App(props) {
+const { Header, Content, Footer } = Layout;
+
+export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [username, setUsername] = useState([]);
+  const history = useHistory();
   const socket = useRef(null);
 
   const processMessage = message => {
@@ -70,59 +71,53 @@ function App(props) {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
-    props.history.push("/login");
+    history.push("/login");
+  }
+
+  if (isAuthenticating) {
+    return <p>Loading</p>;
   }
 
   return (
-    !isAuthenticating && (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/login">NeuronBridge</Link>
-            </Navbar.Brand>
-          </Navbar.Header>
-          <Navbar.Collapse>
-            {isAuthenticated ? (
-              <Nav className="mr-auto">
-                <LinkContainer to="/search">
-                  <NavItem>Search</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/about">
-                  <NavItem>About</NavItem>
-                </LinkContainer>
-              </Nav>
-            ) : (
-              <Nav> </Nav>
-            )}
-            <Nav pullRight>
-              {isAuthenticated ? (
-                <>
-                  <p className="navbar-text">Logged in as {username}</p>
-                  <NavItem onClick={handleLogout}>Logout</NavItem>
-                </>
-              ) : (
-                <>
-                  <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
-                  </LinkContainer>
-                </>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+    <Layout>
+      <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+        <div className="logo">
+          <Link to="/login">NeuronBridge</Link>
+        </div>
+        <Menu  className="nav-menu" theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+          {isAuthenticated && [
+            <Menu.Item key="1">
+              <Link to="/search">Search</Link>
+            </Menu.Item>,
+            <Menu.Item key="2">
+              <Link to="/about">About</Link>
+            </Menu.Item>
+          ]}
+          {isAuthenticated ? [
+              <p className="login">Logged in as {username}</p>,
+              <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
+          ] : [
+              <Menu.Item>
+                <Link to="/signup">Signup</Link>
+              </Menu.Item>,
+              <Menu.Item>
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+          ]}
+        </Menu>
+      </Header>
+      <Content
+        className="site-layout"
+        style={{ padding: "0 50px", marginTop: 86 }}
+      >
         <Routes
           appProps={{
             isAuthenticated,
             userHasAuthenticated
           }}
         />
-      </div>
-    )
+      </Content>
+      <Footer style={{ textAlign: "center" }}>HHMI ©2020</Footer>
+    </Layout>
   );
 }
-
-export default withRouter(App);

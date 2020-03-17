@@ -9,5 +9,14 @@
   width: 100%;
   border: none;
   color:transparent;
+  background-color: transparent;
   box-shadow: none;
+}
+
+.modalButton:hover {
+  background-color: transparent;
+}
+
+.ant-modal-root img {
+  width: 100%;
 }

@@ -1,8 +1,14 @@
-.App {
-  margin-top: 15px;
+.logo {
+  float: left;
 }
 
-.App .navbar-brand {
-  font-weight: bold;
+.login {
+  float: right;
+}
+
+
+.nav-menu p {
+  padding: 0;
+  margin: 0;
 }
 
