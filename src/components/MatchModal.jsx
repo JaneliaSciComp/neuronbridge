@@ -10,7 +10,7 @@ export default function MatchModal(props) {
 
   useEffect(() => {
     setSelected(open);
-  },[props]);
+  },[open]);
 
   const selectedMatch = matchesList[selected - 1];
 
