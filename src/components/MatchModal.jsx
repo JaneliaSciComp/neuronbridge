@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 
@@ -8,7 +8,11 @@ export default function MatchModal(props) {
   const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
 
-  const selectedMatch = matchesList[selected];
+  useEffect(() => {
+    setSelected(open);
+  },[props]);
+
+  const selectedMatch = matchesList[selected - 1];
 
   return (
     <Modal
@@ -19,7 +23,7 @@ export default function MatchModal(props) {
           key="prev"
           type="primary"
           disabled={selected <= 1}
-          onClick={() => setSelected(selected + 1)}
+          onClick={() => setSelected(selected - 1)}
         >
           Previous
         </Button>,
@@ -38,7 +42,7 @@ export default function MatchModal(props) {
         >
           {maskOpen ? "Hide Mask" : "Show Mask"}
         </Button>,
-        <Button key="back" type="primary" onClick={() => setOpen(false)}>
+        <Button key="back" type="primary" onClick={() => setOpen(0)}>
           Done
         </Button>
       ]}
@@ -64,7 +68,7 @@ export default function MatchModal(props) {
 }
 
 MatchModal.propTypes = {
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.number.isRequired,
   setOpen: PropTypes.func.isRequired,
   matchesList: PropTypes.object,
   mask: PropTypes.object

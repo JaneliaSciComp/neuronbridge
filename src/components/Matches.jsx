@@ -13,7 +13,7 @@ export default function Matches(props) {
 
   const { matchId } = useParams();
   const [matchMeta, setMatchMeta] = useState(null);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(0);
 
   useEffect(() => {
     function getMatches() {
@@ -37,12 +37,12 @@ export default function Matches(props) {
       return b.attrs.Score - a.attrs.Score;
     });
 
-    matchSummaries = matchesList.map(result => {
+    matchSummaries = matchesList.map((result, index) => {
       return (
         <MatchSummary
           match={result}
           key={result.matchedId}
-          showModal={() => setModalOpen(true)}
+          showModal={() => setModalOpen(index + 1)}
         />
       );
     });
