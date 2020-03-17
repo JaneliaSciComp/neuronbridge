@@ -1,14 +1,28 @@
+body {
+  background-color: #f0f2f5;
+}
+
 .logo {
   float: left;
+  margin-right: 1em;
 }
 
 .login {
   float: right;
 }
 
-
 .nav-menu p {
   padding: 0;
   margin: 0;
+}
+
+.janeliaLogo {
+  float:right;
+  margin-left: 2em;
+}
+
+.janeliaLogo img {
+  height: 40px;
+  margin-top: -7px;
 }
 

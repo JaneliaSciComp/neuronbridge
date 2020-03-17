@@ -17,7 +17,7 @@ export default function MatchModal(props) {
   return (
     <Modal
       visible={Boolean(open)}
-      onCancel={() => setOpen(null)}
+      onCancel={() => setOpen(0)}
       footer={[
         <Button
           key="prev"
@@ -70,11 +70,11 @@ export default function MatchModal(props) {
 MatchModal.propTypes = {
   open: PropTypes.number.isRequired,
   setOpen: PropTypes.func.isRequired,
-  matchesList: PropTypes.object,
+  matchesList: PropTypes.arrayOf(PropTypes.object),
   mask: PropTypes.object
 };
 
 MatchModal.defaultProps = {
-  matchesList: {},
+  matchesList: [],
   mask: {}
 };

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { Auth } from "aws-amplify";
 import Sockette from "sockette";
 import Routes from "./Routes";
 import config from "./config";
 import "./App.css";
+import janeliaLogo from "./janelia_logo.png";
 import "antd/dist/antd.css";
 
 const { Header, Content, Footer } = Layout;
@@ -16,6 +17,7 @@ export default function App() {
   const [username, setUsername] = useState([]);
   const history = useHistory();
   const socket = useRef(null);
+  const location = useLocation();
 
   const processMessage = message => {
     console.log(message);
@@ -78,29 +80,37 @@ export default function App() {
     return <p>Loading</p>;
   }
 
+  const menuLocation = `/${location.pathname.split('/')[1]}`;
+
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <div className="logo">
-          <Link to="/login">NeuronBridge</Link>
+          <Link to="/">NeuronBridge</Link>
         </div>
-        <Menu  className="nav-menu" theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+        <div className="janeliaLogo">
+          <a href="http://janelia.org"><img src={janeliaLogo} alt="Janelia Research Campus" /></a>
+        </div>
+        <Menu defaultSelectedKeys={["/"]} selectedKeys={[menuLocation]} className="nav-menu" theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+          <Menu.Item key="/">
+            <Link to="/">Home</Link>
+          </Menu.Item>
           {isAuthenticated && [
-            <Menu.Item key="1">
+            <Menu.Item key="/search">
               <Link to="/search">Search</Link>
             </Menu.Item>,
-            <Menu.Item key="2">
+            <Menu.Item key="/about">
               <Link to="/about">About</Link>
             </Menu.Item>
           ]}
           {isAuthenticated ? [
-              <p className="login">Logged in as {username}</p>,
-              <Menu.Item onClick={handleLogout}>Logout</Menu.Item>
+              <p key="username" className="login">Logged in as {username}</p>,
+            <Menu.Item key="/logout"  onClick={handleLogout}>Logout</Menu.Item>
           ] : [
-              <Menu.Item>
+            <Menu.Item key="/signup">
                 <Link to="/signup">Signup</Link>
               </Menu.Item>,
-              <Menu.Item>
+              <Menu.Item key="/login">
                 <Link to="/login">Login</Link>
               </Menu.Item>
           ]}
