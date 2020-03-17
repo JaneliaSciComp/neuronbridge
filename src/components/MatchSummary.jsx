@@ -17,10 +17,10 @@ export default function MatchSummary(props) {
       </Col>
       <Col span={8}>
         <p>
-          <b>Line Name:</b> {match.attrs["Published Name"]}
+          <b>Line Name:</b> {match.attrs.PublishedName}
         </p>
         <p>
-          <b>Slide Code:</b> {match.attrs["Slide Code"]}
+          <b>Matched Slices:</b> {match.attrs["Matched slices"]}
         </p>
         <p>
           <b>Score:</b> {match.attrs.Score}
