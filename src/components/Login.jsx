@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Auth } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form, Input, Icon } from "antd";
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
@@ -33,38 +33,51 @@ export default function Login(props) {
 
   return (
     <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
+      <Form onSubmit={handleSubmit}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            { required: true, message: "Please input your email address" }
+          ]}
+        >
+          <Input
+            name="email"
             autoFocus
-            type="email"
             value={fields.email}
             onChange={handleFieldChange}
+            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="Email address"
           />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[{ required: true, message: "Please input your password" }]}
+        >
+          <Input
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            name="password"
             type="password"
             value={fields.password}
             onChange={handleFieldChange}
+            placeholder="Password"
           />
-        </FormGroup>
+        </Form.Item>
         <LoaderButton
           block
-          type="submit"
-          bsSize="large"
+          type="primary"
+          htmlType="submit"
           isLoading={isLoading}
           disabled={!validateForm()}
         >
           Login
         </LoaderButton>
-      </form>
+      </Form>
     </div>
   );
 }
 
 Login.propTypes = {
   userHasAuthenticated: PropTypes.func.isRequired
-}
+};
