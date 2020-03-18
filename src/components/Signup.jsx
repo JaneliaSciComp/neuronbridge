@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { Form, Input } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Auth } from "aws-amplify";
 import LoaderButton from "./LoaderButton";
 import "./Signup.css";
@@ -82,27 +83,40 @@ export default function Signup(props) {
             { required: true, message: "Please input your email address" }
           ]}
         >
-          <Input autoFocus type="email" placeholder="Email address" />
+          <Input
+            prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            autoFocus
+            type="email"
+            placeholder="Email address"
+          />
         </Form.Item>
         <Form.Item
           name="password"
           label="Password"
           rules={[{ required: true, message: "Please input your password" }]}
         >
-          <Input type="password" placeholder="Password" />
+          <Input
+            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            type="password"
+            placeholder="Password"
+          />
         </Form.Item>
         <Form.Item
           name="confirmPassword"
           label="Confirm Password"
           rules={[{ required: true, message: "Please confirm your password" }]}
         >
-          <Input type="password" placeholder="Confirm password" />
+          <Input
+            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            type="password"
+            placeholder="Confirm password"
+          />
         </Form.Item>
         <LoaderButton
           block
           type="primary"
           htmlType="submit"
-          isLoading={isLoading}
+          loading={isLoading}
         >
           Signup
         </LoaderButton>
