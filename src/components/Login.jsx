@@ -1,29 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Auth } from "aws-amplify";
-import { Form, Input, Icon } from "antd";
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Input, Form } from "antd";
 import LoaderButton from "./LoaderButton";
-import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
 
 export default function Login(props) {
   const [isLoading, setIsLoading] = useState(false);
-  const [fields, handleFieldChange] = useFormFields({
-    email: "",
-    password: ""
-  });
 
-  function validateForm() {
-    return fields.email.length > 0 && fields.password.length > 0;
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit(values) {
 
     setIsLoading(true);
 
     try {
-      await Auth.signIn(fields.email, fields.password);
+      await Auth.signIn(values.email, values.password);
       props.userHasAuthenticated(true);
     } catch (e) {
       alert(e.message);
@@ -33,7 +24,7 @@ export default function Login(props) {
 
   return (
     <div className="Login">
-      <Form onSubmit={handleSubmit}>
+      <Form layout="vertical" onFinish={handleSubmit}>
         <Form.Item
           label="Email"
           name="email"
@@ -42,11 +33,8 @@ export default function Login(props) {
           ]}
         >
           <Input
-            name="email"
             autoFocus
-            value={fields.email}
-            onChange={handleFieldChange}
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
             placeholder="Email address"
           />
         </Form.Item>
@@ -56,11 +44,8 @@ export default function Login(props) {
           rules={[{ required: true, message: "Please input your password" }]}
         >
           <Input
-            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            name="password"
+            prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
             type="password"
-            value={fields.password}
-            onChange={handleFieldChange}
             placeholder="Password"
           />
         </Form.Item>
@@ -69,7 +54,6 @@ export default function Login(props) {
           type="primary"
           htmlType="submit"
           isLoading={isLoading}
-          disabled={!validateForm()}
         >
           Login
         </LoaderButton>

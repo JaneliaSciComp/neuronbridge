@@ -1,67 +1,43 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  HelpBlock,
-  FormGroup,
-  FormControl,
-  ControlLabel
-} from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { Form, Input } from "antd";
 import { Auth } from "aws-amplify";
 import LoaderButton from "./LoaderButton";
-import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
 
 export default function Signup(props) {
-  const [fields, handleFieldChange] = useFormFields({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    confirmationCode: ""
-  });
   const [newUser, setNewUser] = useState(null);
+  const [savedUser, setSavedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
-  function validateForm() {
-    return (
-      fields.email.length > 0 &&
-      fields.password.length > 0 &&
-      fields.password === fields.confirmPassword
-    );
-  }
-
-  function validateConfirmationForm() {
-    return fields.confirmationCode.length > 0;
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
+  async function handleSubmit(values) {
     setIsLoading(true);
 
     try {
       const createdUser = await Auth.signUp({
-        username: fields.email,
-        password: fields.password
+        username: values.email,
+        password: values.password
       });
       setIsLoading(false);
       setNewUser(createdUser);
+      setSavedUser(values);
     } catch (e) {
       alert(e.message);
       setIsLoading(false);
     }
   }
 
-  async function handleConfirmationSubmit(event) {
-    event.preventDefault();
-
+  async function handleConfirmationSubmit(values) {
     setIsLoading(true);
 
     try {
-      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
-      await Auth.signIn(fields.email, fields.password);
+      await Auth.confirmSignUp(savedUser.email, values.confirmationCode);
+      await Auth.signIn(savedUser.email, savedUser.password);
 
       props.userHasAuthenticated(true);
-      props.history.push("/");
+      history.push("/");
     } catch (e) {
       alert(e.message);
       setIsLoading(false);
@@ -70,68 +46,67 @@ export default function Signup(props) {
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <FormGroup controlId="confirmationCode" bsSize="large">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
-            autoFocus
+      <Form layout="vertical" onFinish={handleConfirmationSubmit}>
+        <Form.Item
+          label="Confirmation Code"
+          name="confirmationCode"
+          rules={[
+            { required: true, message: "Please input your confirmation Code" }
+          ]}
+        >
+          <Input
             type="tel"
-            onChange={handleFieldChange}
-            value={fields.confirmationCode}
+            autoFocus
+            extra="Please check your email for the code."
           />
-          <HelpBlock>Please check your email for the code.</HelpBlock>
-        </FormGroup>
+        </Form.Item>
         <LoaderButton
           block
-          type="submit"
-          bsSize="large"
+          htmlType="submit"
+          type="primary"
           isLoading={isLoading}
-          disabled={!validateConfirmationForm()}
         >
           Verify
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
-            type="password"
-            value={fields.password}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup controlId="confirmPassword" bsSize="large">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
-            type="password"
-            value={fields.confirmPassword}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
+      <Form layout="vertical" onFinish={handleSubmit}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            { required: true, message: "Please input your email address" }
+          ]}
+        >
+          <Input autoFocus type="email" placeholder="Email address" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Password"
+          rules={[{ required: true, message: "Please input your password" }]}
+        >
+          <Input type="password" placeholder="Password" />
+        </Form.Item>
+        <Form.Item
+          name="confirmPassword"
+          label="Confirm Password"
+          rules={[{ required: true, message: "Please confirm your password" }]}
+        >
+          <Input type="password" placeholder="Confirm password" />
+        </Form.Item>
         <LoaderButton
           block
-          type="submit"
-          bsSize="large"
+          type="primary"
+          htmlType="submit"
           isLoading={isLoading}
-          disabled={!validateForm()}
         >
           Signup
         </LoaderButton>
-      </form>
+      </Form>
     );
   }
 
@@ -143,6 +118,5 @@ export default function Signup(props) {
 }
 
 Signup.propTypes = {
-  history: PropTypes.object.isRequired,
   userHasAuthenticated: PropTypes.func.isRequired
 };
