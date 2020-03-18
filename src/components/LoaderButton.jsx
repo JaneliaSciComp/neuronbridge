@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 
 export default function LoaderButton(props) {
-  const { isLoading, disabled, children } = props;
+  const { loading, disabled, children } = props;
   return (
     <Button
-      loading={isLoading}
-      disabled={disabled || isLoading}
+      loading={loading}
+      disabled={disabled || loading}
       {...props} // eslint-disable-line react/jsx-props-no-spreading
     >
       {children}
@@ -16,12 +16,12 @@ export default function LoaderButton(props) {
 }
 
 LoaderButton.propTypes = {
-  isLoading: PropTypes.bool,
+  loading: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.string.isRequired
 };
 
 LoaderButton.defaultProps = {
-  isLoading: false,
+  loading: false,
   disabled: false
 };

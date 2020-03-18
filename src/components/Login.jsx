@@ -53,7 +53,7 @@ export default function Login(props) {
           block
           type="primary"
           htmlType="submit"
-          isLoading={isLoading}
+          loading={isLoading}
         >
           Login
         </LoaderButton>
