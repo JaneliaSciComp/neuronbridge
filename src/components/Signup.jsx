@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Auth } from "aws-amplify";
 import LoaderButton from "./LoaderButton";
@@ -27,7 +27,7 @@ export default function Signup(props) {
       setNewUser(createdUser);
       setSavedUser(values);
     } catch (e) {
-      alert(e.message);
+      message.error(e.message);
       setIsLoading(false);
     }
   }
@@ -47,7 +47,7 @@ export default function Signup(props) {
 
       history.push("/");
     } catch (e) {
-      alert(e.message);
+      message.error(e.message);
       setIsLoading(false);
     }
   }

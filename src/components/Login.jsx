@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Auth } from "aws-amplify";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Input, Form } from "antd";
+import { Input, Form, message } from "antd";
 import LoaderButton from "./LoaderButton";
 import "./Login.css";
 
@@ -17,7 +17,7 @@ export default function Login(props) {
       await Auth.signIn(values.email, values.password);
       props.userHasAuthenticated(true);
     } catch (e) {
-      alert(e.message);
+      message.error(e.message);
       setIsLoading(false);
     }
   }

@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, message } from "antd";
 import { Auth } from "aws-amplify";
 import Sockette from "sockette";
 import Routes from "./Routes";
@@ -20,8 +21,8 @@ export default function App() {
   const socket = useRef(null);
   const location = useLocation();
 
-  const processMessage = message => {
-    console.log(message);
+  const processMessage = msg => {
+    console.log(msg);
   };
 
   // Execute this once after the page is loaded
@@ -55,8 +56,7 @@ export default function App() {
         socket.current = await connectWebSocket(session);
       } catch (e) {
         if (e !== "No current user") {
-          console.log("Loading error:", e);
-          alert("Error logging in");
+          message.error("Loading error:", e);
         }
       }
 
@@ -150,3 +150,4 @@ export default function App() {
     </Layout>
   );
 }
+/* eslint-enable no-console */

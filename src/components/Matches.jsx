@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import { Divider } from "antd";
+import { Divider, message } from "antd";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import MatchModal from "./MatchModal";
@@ -17,11 +17,11 @@ export default function Matches(props) {
 
   useEffect(() => {
     function getMatches() {
-      const path = `${config.MATCH_PATH}${matchId}.json`;
+      const path = `${config.MATCH_PATH}${matchId}.json1`;
       fetch(path)
         .then(response => response.json())
         .then(json => setMatchMeta(json))
-        .catch(error => console.log(error));
+        .catch(() => message.error('Unable to load matches from the server'));
     }
 
     getMatches();
