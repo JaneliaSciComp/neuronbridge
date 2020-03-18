@@ -80,7 +80,7 @@ export default function App() {
     return <p>Loading</p>;
   }
 
-  const menuLocation = `/${location.pathname.split('/')[1]}`;
+  const menuLocation = `/${location.pathname.split("/")[1]}`;
 
   return (
     <Layout>
@@ -89,9 +89,18 @@ export default function App() {
           <Link to="/">NeuronBridge</Link>
         </div>
         <div className="janeliaLogo">
-          <a href="http://janelia.org"><img src={janeliaLogo} alt="Janelia Research Campus" /></a>
+          <a href="http://janelia.org">
+            <img src={janeliaLogo} alt="Janelia Research Campus" />
+          </a>
         </div>
-        <Menu defaultSelectedKeys={["/"]} selectedKeys={[menuLocation]} className="nav-menu" theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+        <Menu
+          defaultSelectedKeys={["/"]}
+          selectedKeys={[menuLocation]}
+          className="nav-menu"
+          theme="dark"
+          mode="horizontal"
+          style={{ lineHeight: "64px" }}
+        >
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
@@ -103,17 +112,23 @@ export default function App() {
               <Link to="/about">About</Link>
             </Menu.Item>
           ]}
-          {isAuthenticated ? [
-              <p key="username" className="login">Logged in as {username}</p>,
-            <Menu.Item key="/logout"  onClick={handleLogout}>Logout</Menu.Item>
-          ] : [
-            <Menu.Item key="/signup">
-                <Link to="/signup">Signup</Link>
-              </Menu.Item>,
-              <Menu.Item key="/login">
-                <Link to="/login">Login</Link>
-              </Menu.Item>
-          ]}
+          {isAuthenticated
+            ? [
+                <p key="username" className="login">
+                  Logged in as {username}
+                </p>,
+                <Menu.Item key="/logout" onClick={handleLogout}>
+                  Logout
+                </Menu.Item>
+              ]
+            : [
+                <Menu.Item key="/signup">
+                  <Link to="/signup">Signup</Link>
+                </Menu.Item>,
+                <Menu.Item key="/login">
+                  <Link to="/login">Login</Link>
+                </Menu.Item>
+              ]}
         </Menu>
       </Header>
       <Content
