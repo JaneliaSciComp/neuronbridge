@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { Form, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Auth } from "aws-amplify";
 import LoaderButton from "./LoaderButton";
+import { AppContext } from "../containers/AppContext";
 import "./Signup.css";
 
 export default function Signup(props) {
   const [newUser, setNewUser] = useState(null);
   const [savedUser, setSavedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [appState, setAppState] = useContext(AppContext);
   const history = useHistory();
 
   async function handleSubmit(values) {
@@ -38,6 +40,11 @@ export default function Signup(props) {
       await Auth.signIn(savedUser.email, savedUser.password);
 
       props.userHasAuthenticated(true);
+      setAppState({
+        ...appState,
+        username: savedUser.email
+      });
+
       history.push("/");
     } catch (e) {
       alert(e.message);
@@ -65,7 +72,7 @@ export default function Signup(props) {
           block
           htmlType="submit"
           type="primary"
-          isLoading={isLoading}
+          loading={isLoading}
         >
           Verify
         </LoaderButton>

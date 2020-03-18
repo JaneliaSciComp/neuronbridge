@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Amplify from 'aws-amplify';
-import { transitions, positions, Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import Amplify from "aws-amplify";
+import { transitions, positions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
-import config from './config';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import config from "./config";
+import App from "./App";
+import { AppProvider } from "./containers/AppContext";
+import * as serviceWorker from "./serviceWorker";
 
 Amplify.configure({
   Auth: {
@@ -29,7 +30,7 @@ Amplify.configure({
         name: "notes",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
-      },
+      }
     ]
   }
 });
@@ -38,7 +39,7 @@ const alertOptions = {
   // you can also just use 'bottom center'
   position: positions.BOTTOM_CENTER,
   timeout: 3000,
-  offset: '20px',
+  offset: "20px",
   // you can also just use 'scale'
   transition: transitions.FADE
 };
@@ -46,10 +47,12 @@ const alertOptions = {
 ReactDOM.render(
   <Router>
     <AlertProvider template={AlertTemplate} {...alertOptions}>
-      <App />
+      <AppProvider>
+        <App />
+      </AppProvider>
     </AlertProvider>
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 /* eslint-enable react/jsx-props-no-spreading */
 

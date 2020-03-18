@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import { Auth } from "aws-amplify";
@@ -7,6 +7,7 @@ import Routes from "./Routes";
 import config from "./config";
 import "./App.css";
 import janeliaLogo from "./janelia_logo.png";
+import { AppContext } from "./containers/AppContext";
 import "antd/dist/antd.css";
 
 const { Header, Content, Footer } = Layout;
@@ -14,7 +15,7 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [username, setUsername] = useState([]);
+  const [appState, setAppState] = useContext(AppContext);
   const history = useHistory();
   const socket = useRef(null);
   const location = useLocation();
@@ -45,7 +46,10 @@ export default function App() {
     async function onLoad() {
       try {
         const session = await Auth.currentSession();
-        setUsername(session.getIdToken().payload.email);
+        setAppState({
+          ...appState,
+          username: session.getIdToken().payload.email
+        });
         userHasAuthenticated(true);
         console.log("User successfully authenticated");
         socket.current = await connectWebSocket(session);
@@ -68,7 +72,7 @@ export default function App() {
     }
 
     onLoad();
-  }, []);
+  }, [appState.username]);
 
   async function handleLogout() {
     await Auth.signOut();
@@ -115,7 +119,7 @@ export default function App() {
           {isAuthenticated
             ? [
                 <p key="username" className="login">
-                  Logged in as {username}
+                  Logged in as {appState.username}
                 </p>,
                 <Menu.Item key="/logout" onClick={handleLogout}>
                   Logout
