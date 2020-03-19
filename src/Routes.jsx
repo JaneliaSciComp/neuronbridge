@@ -9,6 +9,7 @@ import Signup from "./components/Signup";
 import Landing from "./components/Landing";
 import Search from "./components/Search";
 import About from "./components/About";
+import ResetPassword from "./components/ResetPassword";
 
 export default function Routes({ appProps }) {
   return (
@@ -26,6 +27,13 @@ export default function Routes({ appProps }) {
         component={Signup}
         appProps={appProps}
       />
+      <UnauthenticatedRoute
+        path="/login/reset"
+        exact
+        component={ResetPassword}
+        appProps={appProps}
+      />
+
       <AuthenticatedRoute
         path="/search/:searchType?/:searchTerm?"
         component={Search}
