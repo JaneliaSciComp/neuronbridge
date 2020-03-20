@@ -17,7 +17,7 @@ export default function Matches(props) {
 
   useEffect(() => {
     function getMatches() {
-      const path = `${config.MATCH_PATH}${matchId}.json1`;
+      const path = `${config.MATCH_PATH}${matchId}.json`;
       fetch(path)
         .then(response => response.json())
         .then(json => setMatchMeta(json))
