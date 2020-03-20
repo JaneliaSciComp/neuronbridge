@@ -4,8 +4,16 @@ import PropTypes from "prop-types";
 import "./ImageWithModal.css";
 
 export default function ImageWithModal(props) {
-  const { thumbSrc, src, alt } = props;
+  const { thumbSrc, src, alt, showModal } = props;
   const [modalOpen, setModalOpen] = useState(false);
+
+  if (showModal) {
+    return (
+      <Button className="modalButton" onClick={showModal}>
+        <img className="thumbnail" src={thumbSrc} alt={alt} />
+      </Button>
+    );
+  }
 
   return (
     <>
@@ -22,9 +30,11 @@ export default function ImageWithModal(props) {
 ImageWithModal.propTypes = {
   src: PropTypes.string.isRequired,
   thumbSrc: PropTypes.string.isRequired,
-  alt: PropTypes.string
+  alt: PropTypes.string,
+  showModal: PropTypes.func
 };
 
 ImageWithModal.defaultProps = {
-  alt: "Missing ALT tag"
+  alt: "Missing ALT tag",
+  showModal: null
 };
