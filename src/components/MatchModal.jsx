@@ -10,7 +10,7 @@ export default function MatchModal(props) {
 
   useEffect(() => {
     setSelected(open);
-  },[open]);
+  }, [open]);
 
   const selectedMatch = matchesList[selected - 1];
 
@@ -48,21 +48,54 @@ export default function MatchModal(props) {
       ]}
       width="90%"
     >
-      <Row>
-        {maskOpen && (
-          <Col span={12}>
-            <p>Mask</p>
-            <img src={mask.image_path} alt="Mask for search" />
-          </Col>
-        )}
-        <Col span={maskOpen ? 12 : 24}>
-          <p>Match</p>
-          <img
-            src={selectedMatch && selectedMatch.image_path}
-            alt="Search Match"
-          />
-        </Col>
-      </Row>
+      {selectedMatch && (
+        <>
+          <Row>
+            <Col span={12}>
+              <h3>Mask</h3>
+              <p>
+                <b>Line Name:</b> {mask.attrs["Published Name"]}
+              </p>
+              <p>
+                <b>Slide Code:</b> {mask.attrs["Slide Code"]}
+              </p>
+              <p>
+                <b>Channel:</b> {mask.attrs.Channel}
+              </p>
+              <p>
+                <b>Type:</b> {mask.attrs.Library}
+              </p>
+
+
+            </Col>
+            <Col span={12}>
+              <h3>Match {selected} of {matchesList.length}</h3>
+              <p>
+                <b>Line Name:</b> {selectedMatch.attrs.PublishedName}
+              </p>
+              <p>
+                <b>Matched Slices:</b> {selectedMatch.attrs["Matched slices"]}
+              </p>
+              <p>
+                <b>Score:</b> {selectedMatch.attrs.Score}
+              </p>
+              <p>
+                <b>Type:</b> {selectedMatch.attrs.Library}
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            {maskOpen && (
+              <Col span={12}>
+                <img src={mask.image_path} alt="Mask for search" />
+              </Col>
+            )}
+            <Col span={maskOpen ? 12 : 24}>
+              <img src={selectedMatch.image_path} alt="Search Match" />
+            </Col>
+          </Row>
+        </>
+      )}
     </Modal>
   );
 }
