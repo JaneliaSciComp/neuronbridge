@@ -1,18 +1,14 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 
 export default function SkeletonResult(props) {
-  const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `${location.pathname}/matches/${metaInfo.id}`;
+  const history = useHistory();
 
-
-  // only use values in the metaInfo.attrs key to display on the site. The
-  // other keys are for internal use only.
   return (
     <Row>
       <Col span={8}>
@@ -27,9 +23,7 @@ export default function SkeletonResult(props) {
         </p>
       </Col>
       <Col span={4}>
-        <Button type="primary" disabled={/matches$/.test(location.pathname)}>
-          <Link to={matchesUrl}>View LM Matches</Link>
-        </Button>
+        <Button onClick={() => history.goBack()}>Back to all results</Button>
       </Col>
     </Row>
   );

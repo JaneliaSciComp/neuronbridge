@@ -11,6 +11,7 @@
   color:transparent;
   background-color: transparent;
   box-shadow: none;
+  height: inherit;
 }
 
 .modalButton:hover {

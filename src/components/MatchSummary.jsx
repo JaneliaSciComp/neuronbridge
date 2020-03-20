@@ -7,7 +7,7 @@ export default function MatchSummary(props) {
   const { match, showModal } = props;
 
   return (
-    <Row>
+    <Row className="matchSummary">
       <Col span={8}>
         <ImageWithModal
           thumbSrc={match.thumbnail_path}

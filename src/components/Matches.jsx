@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import { Divider, Spin, message } from "antd";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
+import SkeletonSummary from "./SkeletonSummary";
 import MatchModal from "./MatchModal";
 import config from "../config";
 
 export default function Matches(props) {
-  const { searchResult } = props;
+  const { searchResult, searchType } = props;
   const { results } = searchResult;
 
   const { matchId } = useParams();
@@ -39,10 +40,15 @@ export default function Matches(props) {
   let matchesList = [];
   let matchSummaries = [];
 
+  const summary =
+    searchType === "lines" ? (
+      <LineSummary lineMeta={matchInput}/>
+    ) : (
+      <SkeletonSummary metaInfo={matchInput}/>
+    );
   if (matchMeta) {
     matchesList = matchMeta.results.sort((a, b) => {
-      return b.matchedId - a.matchedId;
-      // return b.attrs.Score - a.attrs.Score;
+      return b.attrs.Score - a.attrs.Score;
     });
 
     matchSummaries = matchesList.map((result, index) => {
@@ -57,7 +63,7 @@ export default function Matches(props) {
   }
   return (
     <div>
-      <LineSummary lineMeta={matchInput} />
+      {summary}
       <Divider />
       {isLoading && (
         <div className="searchLoader">
@@ -71,6 +77,7 @@ export default function Matches(props) {
           </h3>
           {matchSummaries}
           <MatchModal
+            maskType={searchType}
             open={modalOpen}
             setOpen={setModalOpen}
             matchesList={matchesList}
@@ -83,5 +90,6 @@ export default function Matches(props) {
 }
 
 Matches.propTypes = {
-  searchResult: PropTypes.object.isRequired
+  searchResult: PropTypes.object.isRequired,
+  searchType: PropTypes.string.isRequired
 };

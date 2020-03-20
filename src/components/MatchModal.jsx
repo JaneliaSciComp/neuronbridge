@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 
 export default function MatchModal(props) {
-  const { open, setOpen, matchesList, mask } = props;
+  const { open, setOpen, matchesList, mask, maskType } = props;
 
   const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
@@ -13,6 +13,41 @@ export default function MatchModal(props) {
   }, [open]);
 
   const selectedMatch = matchesList[selected - 1];
+
+  let metaBlock = <p>Loading...</p>;
+
+  if (mask) {
+    if (maskType === "lines") {
+      metaBlock = (
+        <>
+          <p>
+            <b>Line Name:</b> {mask.attrs["Published Name"]}
+          </p>
+          <p>
+            <b>Slide Code:</b> {mask.attrs["Slide Code"]}
+          </p>
+          <p>
+            <b>Channel:</b> {mask.attrs.Channel}
+          </p>
+          <p>
+            <b>Type:</b> {mask.attrs.Library}
+          </p>
+        </>
+      );
+    } else {
+      // skeleton type from EM
+      metaBlock = (
+        <>
+          <p>
+            <b>Body Id:</b> {mask.attrs["Body Id"]}
+          </p>
+          <p>
+            <b>Type:</b> {mask.attrs.Library}
+          </p>
+        </>
+      );
+    }
+  }
 
   return (
     <Modal
@@ -53,23 +88,12 @@ export default function MatchModal(props) {
           <Row>
             <Col span={12}>
               <h3>Mask</h3>
-              <p>
-                <b>Line Name:</b> {mask.attrs["Published Name"]}
-              </p>
-              <p>
-                <b>Slide Code:</b> {mask.attrs["Slide Code"]}
-              </p>
-              <p>
-                <b>Channel:</b> {mask.attrs.Channel}
-              </p>
-              <p>
-                <b>Type:</b> {mask.attrs.Library}
-              </p>
-
-
+              {metaBlock}
             </Col>
             <Col span={12}>
-              <h3>Match {selected} of {matchesList.length}</h3>
+              <h3>
+                Match {selected} of {matchesList.length}
+              </h3>
               <p>
                 <b>Line Name:</b> {selectedMatch.attrs.PublishedName}
               </p>
@@ -104,7 +128,8 @@ MatchModal.propTypes = {
   open: PropTypes.number.isRequired,
   setOpen: PropTypes.func.isRequired,
   matchesList: PropTypes.arrayOf(PropTypes.object),
-  mask: PropTypes.object
+  mask: PropTypes.object,
+  maskType: PropTypes.string.isRequired
 };
 
 MatchModal.defaultProps = {
