@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Form, message } from "antd";
@@ -57,6 +58,7 @@ export default function Login(props) {
         >
           Login
         </LoaderButton>
+        <Link className="forgotLink" to="/login/reset">Forgot password?</Link>
       </Form>
     </div>
   );
