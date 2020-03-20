@@ -139,12 +139,14 @@ export default function App() {
         className="site-layout"
         style={{ padding: "0 50px", marginTop: 86 }}
       >
-        <Routes
-          appProps={{
-            isAuthenticated,
-            userHasAuthenticated
-          }}
-        />
+        <div className="site-layout-background">
+          <Routes
+            appProps={{
+              isAuthenticated,
+              userHasAuthenticated
+            }}
+          />
+        </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>HHMI ©2020</Footer>
     </Layout>

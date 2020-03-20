@@ -26,3 +26,8 @@ body {
   margin-top: -7px;
 }
 
+.site-layout-background {
+  background: #fff;
+  min-height: 600px;
+  padding: 1em;
+}

@@ -55,7 +55,7 @@ export default function Matches(props) {
       return (
         <MatchSummary
           match={result}
-          key={`${result.matchedId}${result.attrs["Matched slices"]}`}
+          key={`${result.matchedId}_${result.attrs.Score}`}
           showModal={() => setModalOpen(index + 1)}
         />
       );
