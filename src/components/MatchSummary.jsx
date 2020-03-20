@@ -13,6 +13,7 @@ export default function MatchSummary(props) {
           thumbSrc={match.thumbnail_path}
           src={match.image_path}
           alt="MIP"
+          showModal={showModal}
         />
       </Col>
       <Col span={8}>
