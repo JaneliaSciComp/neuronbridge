@@ -44,7 +44,7 @@ export default function Matches(props) {
   }
 
   function handleModalOpen(index) {
-    const matchPosition = ((page * matchesPerPage) - matchesPerPage) + index + 1;
+    const matchPosition = page * matchesPerPage - matchesPerPage + index + 1;
     setModalOpen(matchPosition);
   }
 
@@ -64,7 +64,10 @@ export default function Matches(props) {
     fullList = matchMeta.results.sort((a, b) => {
       return b.attrs.Score - a.attrs.Score;
     });
-    pageinatedList = fullList.slice(page * matchesPerPage - matchesPerPage, page * matchesPerPage);
+    pageinatedList = fullList.slice(
+      page * matchesPerPage - matchesPerPage,
+      page * matchesPerPage
+    );
 
     matchSummaries = pageinatedList.map((result, index) => {
       return (
@@ -89,8 +92,16 @@ export default function Matches(props) {
       {!isLoading && matchMeta && (
         <>
           <h3>
-            Matches {(page * matchesPerPage - matchesPerPage) + 1} - {page * matchesPerPage} of {matchMeta.results.length}
-            <Pagination current={page} pageSize={matchesPerPage} onChange={handlePageChange} total={matchMeta.results.length} />
+            Matches
+            <Pagination
+              current={page}
+              pageSize={matchesPerPage}
+              onChange={handlePageChange}
+              total={matchMeta.results.length}
+              showTotal={(total, range) =>
+                `${range[0]}-${range[1]} of ${total} matches`
+              }
+            />
           </h3>
           {matchSummaries}
           <MatchModal
