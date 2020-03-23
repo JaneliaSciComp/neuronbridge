@@ -71,11 +71,14 @@ export default function Matches(props) {
 
     matchSummaries = pageinatedList.map((result, index) => {
       return (
+        <>
         <MatchSummary
           match={result}
           key={`${result.matchedId}_${result.attrs.Score}`}
           showModal={() => handleModalOpen(index)}
         />
+        <Divider dashed />
+        </>
       );
     });
   }

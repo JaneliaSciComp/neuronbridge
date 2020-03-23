@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Spin } from "antd";
+import { Spin, Divider } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 
@@ -20,11 +20,17 @@ export default function SearchResults(props) {
     const resultsList = results.map(result => {
       if (searchType === "lines") {
         return (
-          <LineResult metaInfo={result} key={result.id} />
+          <>
+            <LineResult metaInfo={result} key={result.id} />
+            <Divider dashed />
+          </>
         );
       }
       return (
-        <SkeletonResult metaInfo={result} key={result.id} />
+        <>
+          <SkeletonResult metaInfo={result} key={result.id} />
+          <Divider dashed />
+        </>
       );
     });
 
