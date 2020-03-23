@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import { Divider, Spin, message } from "antd";
+import { Pagination, Divider, Spin, message } from "antd";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
@@ -11,6 +11,9 @@ import config from "../config";
 export default function Matches(props) {
   const { searchResult, searchType } = props;
   const { results } = searchResult;
+
+  const matchesPerPage = 30;
+  const [page, setPage] = useState(1);
 
   const { matchId } = useParams();
   const [matchMeta, setMatchMeta] = useState(null);
@@ -35,32 +38,45 @@ export default function Matches(props) {
 
     getMatches();
   }, [matchId, searchResult]);
+
+  function handlePageChange(newPage) {
+    setPage(newPage);
+  }
+
+  function handleModalOpen(index) {
+    const matchPosition = ((page * matchesPerPage) - matchesPerPage) + index + 1;
+    setModalOpen(matchPosition);
+  }
+
   const matchInput = results.filter(result => result.id === matchId)[0];
 
-  let matchesList = [];
+  let pageinatedList = [];
+  let fullList = [];
   let matchSummaries = [];
 
   const summary =
     searchType === "lines" ? (
-      <LineSummary lineMeta={matchInput}/>
+      <LineSummary lineMeta={matchInput} />
     ) : (
-      <SkeletonSummary metaInfo={matchInput}/>
+      <SkeletonSummary metaInfo={matchInput} />
     );
   if (matchMeta) {
-    matchesList = matchMeta.results.sort((a, b) => {
+    fullList = matchMeta.results.sort((a, b) => {
       return b.attrs.Score - a.attrs.Score;
     });
+    pageinatedList = fullList.slice(page * matchesPerPage - matchesPerPage, page * matchesPerPage);
 
-    matchSummaries = matchesList.map((result, index) => {
+    matchSummaries = pageinatedList.map((result, index) => {
       return (
         <MatchSummary
           match={result}
           key={`${result.matchedId}_${result.attrs.Score}`}
-          showModal={() => setModalOpen(index + 1)}
+          showModal={() => handleModalOpen(index)}
         />
       );
     });
   }
+
   return (
     <div>
       {summary}
@@ -70,17 +86,18 @@ export default function Matches(props) {
           <Spin size="large" />
         </div>
       )}
-      {!isLoading && (
+      {!isLoading && matchMeta && (
         <>
           <h3>
-            Matches 1 - {matchesList.length} of {matchesList.length}
+            Matches {(page * matchesPerPage - matchesPerPage) + 1} - {page * matchesPerPage} of {matchMeta.results.length}
+            <Pagination current={page} pageSize={matchesPerPage} onChange={handlePageChange} total={matchMeta.results.length} />
           </h3>
           {matchSummaries}
           <MatchModal
             maskType={searchType}
             open={modalOpen}
             setOpen={setModalOpen}
-            matchesList={matchesList}
+            matchesList={fullList}
             mask={matchInput}
           />
         </>

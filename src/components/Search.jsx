@@ -55,7 +55,7 @@ function Search() {
         <Route path={`${routeMatch.path}`} exact>
           <SearchResults searchResult={searchResult} searchType={searchType} />
         </Route>
-        <Route path={`${routeMatch.path}/matches/:matchId`} exact>
+        <Route path={`${routeMatch.path}/matches/:matchId/:page?`} >
           <Matches searchResult={searchResult} searchType={searchType} />
         </Route>
       </Switch>
