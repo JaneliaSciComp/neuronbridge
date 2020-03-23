@@ -16,7 +16,7 @@ export default function LineResult(props) {
   return (
     <Row>
       <Col span={8}>
-        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} alt="MIP" />
+        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Published Name"]} />
       </Col>
       <Col span={8}>
         <p>

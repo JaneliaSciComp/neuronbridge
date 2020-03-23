@@ -11,7 +11,7 @@ export default function LineSummary(props) {
   return (
     <Row>
       <Col span={8}>
-        <ImageWithModal thumbSrc={lineMeta.thumbnail_path} src={lineMeta.image_path} alt="MIP" />
+        <ImageWithModal thumbSrc={lineMeta.thumbnail_path} src={lineMeta.image_path} title={lineMeta.attrs["Published Name"]} />
       </Col>
       <Col span={6}>
         <p>

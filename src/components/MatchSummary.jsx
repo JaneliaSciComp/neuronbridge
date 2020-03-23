@@ -12,7 +12,7 @@ export default function MatchSummary(props) {
         <ImageWithModal
           thumbSrc={match.thumbnail_path}
           src={match.image_path}
-          alt="MIP"
+          alt={match.attrs.PublishedName}
           showModal={showModal}
         />
       </Col>

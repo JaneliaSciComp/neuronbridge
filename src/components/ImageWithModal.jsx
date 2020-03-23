@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import "./ImageWithModal.css";
 
 export default function ImageWithModal(props) {
-  const { thumbSrc, src, alt, showModal } = props;
+  const { thumbSrc, src, title, showModal } = props;
   const [modalOpen, setModalOpen] = useState(false);
 
   if (showModal) {
     return (
       <Button className="modalButton" onClick={showModal}>
-        <img className="thumbnail" src={thumbSrc} alt={alt} />
+        <img className="thumbnail" src={thumbSrc} alt={title} />
       </Button>
     );
   }
@@ -18,10 +18,20 @@ export default function ImageWithModal(props) {
   return (
     <>
       <Button className="modalButton" onClick={() => setModalOpen(true)}>
-        <img className="thumbnail" src={thumbSrc} alt={alt} />
+        <img className="thumbnail" src={thumbSrc} alt={title} />
       </Button>
-      <Modal visible={modalOpen} onCancel={() => setModalOpen(false)} width="80%">
-        <img src={src} alt={alt} />
+      <Modal
+        visible={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        width="80%"
+        footer={[
+          <Button key="back" type="primary" onClick={() => setModalOpen(false)}>
+            Done
+          </Button>
+        ]}
+      >
+        <p>{title}</p>
+        <img src={src} alt={title} />
       </Modal>
     </>
   );
@@ -30,11 +40,11 @@ export default function ImageWithModal(props) {
 ImageWithModal.propTypes = {
   src: PropTypes.string.isRequired,
   thumbSrc: PropTypes.string.isRequired,
-  alt: PropTypes.string,
+  title: PropTypes.string,
   showModal: PropTypes.func
 };
 
 ImageWithModal.defaultProps = {
-  alt: "Missing ALT tag",
+  title: "Missing",
   showModal: null
 };
