@@ -1,0 +1,17 @@
+.imageComparison {
+  position:relative;
+}
+
+.imageComparison img {
+  float:left;
+  z-index: 1;
+}
+
+.imageComparison canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f0f;
+  z-index: 2;
+  cursor: none;
+}

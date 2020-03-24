@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
+import ImageComparison from "./ImageComparison";
 
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, maskType } = props;
@@ -108,16 +109,7 @@ export default function MatchModal(props) {
               </p>
             </Col>
           </Row>
-          <Row>
-            {maskOpen && (
-              <Col span={12}>
-                <img src={mask.image_path} alt="Mask for search" />
-              </Col>
-            )}
-            <Col span={maskOpen ? 12 : 24}>
-              <img src={selectedMatch.image_path} alt="Search Match" />
-            </Col>
-          </Row>
+          <ImageComparison maskOpen={maskOpen} maskPath={mask.image_path} matchPath={selectedMatch.image_path} />
         </>
       )}
     </Modal>
