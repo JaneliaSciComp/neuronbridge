@@ -8,10 +8,24 @@ export default function LineSummary(props) {
   const { lineMeta } = props;
   const history = useHistory();
 
+  if (!lineMeta) {
+    return (
+      <Row>
+        <Col span={24}>
+          <p>Loading...</p>
+        </Col>
+      </Row>
+    );
+  }
+
   return (
     <Row>
       <Col span={8}>
-        <ImageWithModal thumbSrc={lineMeta.thumbnail_path} src={lineMeta.image_path} title={lineMeta.attrs["Published Name"]} />
+        <ImageWithModal
+          thumbSrc={lineMeta.thumbnail_path}
+          src={lineMeta.image_path}
+          title={lineMeta.attrs["Published Name"]}
+        />
       </Col>
       <Col span={6}>
         <p>
@@ -27,9 +41,9 @@ export default function LineSummary(props) {
           <b>Type:</b> {lineMeta.attrs.Library}
         </p>
       </Col>
-       <Col span={6}>
+      <Col span={6}>
         <p>
-          <b>Gender:</b> {lineMeta.attrs.Gender === 'f' ? 'Female' : 'Male' }
+          <b>Gender:</b> {lineMeta.attrs.Gender === "f" ? "Female" : "Male"}
         </p>
         <p>
           <b>Genotype:</b> {lineMeta.attrs.Genotype}
@@ -45,9 +59,7 @@ export default function LineSummary(props) {
         <Button onClick={() => history.goBack()}>Back to all results</Button>
       </Col>
     </Row>
-
-  )
-
+  );
 }
 
 LineSummary.propTypes = {

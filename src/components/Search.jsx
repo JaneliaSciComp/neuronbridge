@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch, useParams, Route, Switch } from "react-router-dom";
+import { Storage } from "aws-amplify";
 import { Spin } from "antd";
-import config from "../config";
 import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import Matches from "./Matches";
@@ -11,7 +11,7 @@ function Search() {
   const { searchTerm, searchType } = useParams();
   const [searchResult, setResults] = useState(null);
   const [chosenType, setChosenType] = useState("lines");
-  const [isLoading, setIsLoading ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const routeMatch = useRouteMatch();
 
   useEffect(() => {
@@ -23,19 +23,33 @@ function Search() {
 
     setIsLoading(true);
 
-    const s3path =
-      searchType === "lines" ? config.LINE_PATH : config.SKELETON_PATH;
+    const storageOptions = {
+      customPrefix: {
+        public: ""
+      },
+      level: "public",
+      download: true
+    };
 
-    fetch(`${s3path}${searchTerm}.json`)
-      .then(response => response.json())
-      .then(data => {
-        setResults(data);
-        setIsLoading(false);
+    const s3group = searchType === "lines" ? "by_line" : "by_body";
+
+    Storage.list(`metadata/${s3group}/${searchTerm}`, storageOptions)
+      .then(results => {
+        const combined = { results: [] };
+        results.forEach(result => {
+          Storage.get(result.key, storageOptions).then(metaData => {
+            const newResults = JSON.parse(metaData.Body.toString()).results;
+            combined.results.push(...newResults);
+            setResults({ ...combined});
+            setIsLoading(false);
+          });
+        });
       })
       .catch(error => {
         setResults({ error });
         setIsLoading(false);
       });
+
   }, [searchTerm, searchType]);
 
   return (
@@ -47,18 +61,21 @@ function Search() {
       />
       {isLoading && (
         <div className="searchLoader">
-          <Spin size="large"/>
+          <Spin size="large" />
         </div>
       )}
-      {(!isLoading && searchResult) && (
-      <Switch>
-        <Route path={`${routeMatch.path}`} exact>
-          <SearchResults searchResult={searchResult} searchType={searchType} />
-        </Route>
-        <Route path={`${routeMatch.path}/matches/:matchId/:page?`} >
-          <Matches searchResult={searchResult} searchType={searchType} />
-        </Route>
-      </Switch>
+      {!isLoading && searchResult && (
+        <Switch>
+          <Route path={`${routeMatch.path}`} exact>
+            <SearchResults
+              searchResult={searchResult}
+              searchType={searchType}
+            />
+          </Route>
+          <Route path={`${routeMatch.path}/matches/:matchId/:page?`}>
+            <Matches searchResult={searchResult} searchType={searchType} />
+          </Route>
+        </Switch>
       )}
     </div>
   );

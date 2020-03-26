@@ -5,7 +5,7 @@ export default {
   MATCH_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/cdsresults/',
   s3: {
     REGION: "us-east-1",
-    BUCKET: "sle-notes-api-dev-attachmentsbucket-c5nvt63nllor"
+    BUCKET: "color-depth-mips"
   },
   apiGateway: {
     REGION: "us-east-1",

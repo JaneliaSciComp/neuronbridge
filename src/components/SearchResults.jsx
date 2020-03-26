@@ -34,7 +34,14 @@ export default function SearchResults(props) {
       );
     });
 
-    return <div className="results">{resultsList}</div>;
+    return (
+      <div className="results">
+        <p>
+          Results 1 - {resultsList.length} of {resultsList.length}
+        </p>
+        {resultsList}
+      </div>
+    );
   }
   return (
     <div className="results">

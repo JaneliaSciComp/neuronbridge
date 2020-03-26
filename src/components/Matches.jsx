@@ -50,6 +50,12 @@ export default function Matches(props) {
 
   const matchInput = results.filter(result => result.id === matchId)[0];
 
+  if (!matchInput) {
+    return (
+      <p>Loading...</p>
+    );
+  }
+
   let pageinatedList = [];
   let fullList = [];
   let matchSummaries = [];
@@ -60,6 +66,7 @@ export default function Matches(props) {
     ) : (
       <SkeletonSummary metaInfo={matchInput} />
     );
+
   if (matchMeta) {
     fullList = matchMeta.results.sort((a, b) => {
       return b.attrs.Score - a.attrs.Score;
@@ -72,12 +79,12 @@ export default function Matches(props) {
     matchSummaries = pageinatedList.map((result, index) => {
       return (
         <>
-        <MatchSummary
-          match={result}
-          key={`${result.matchedId}_${result.attrs.Score}`}
-          showModal={() => handleModalOpen(index)}
-        />
-        <Divider dashed />
+          <MatchSummary
+            match={result}
+            key={`${result.matchedId}_${result.attrs.Score}`}
+            showModal={() => handleModalOpen(index)}
+          />
+          <Divider dashed />
         </>
       );
     });
