@@ -14,7 +14,9 @@ import ResetPassword from "./components/ResetPassword";
 export default function Routes({ appProps }) {
   return (
     <Switch>
-      <Route path="/" exact component={Landing} appProps={appProps} />
+      <Route path="/" exact>
+        <Landing isAuthenticated={appProps.isAuthenticated} />
+      </Route>
       <UnauthenticatedRoute
         path="/login"
         exact

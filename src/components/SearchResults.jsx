@@ -10,6 +10,15 @@ export default function SearchResults(props) {
   if (searchResult) {
     const { results, error } = searchResult;
     if (error) {
+      if (error.message === "No results found.") {
+        const altSearchType = (searchType === 'lines') ? 'electron' : 'light';
+
+        return (
+          <div className="results">
+            <p>No results found for that search. Did you mean to search the {altSearchType} microscopy data? </p>
+          </div>
+        );
+      }
       return (
         <div className="results">
           <p>Search returned an error</p>
