@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { Input, Radio } from "antd";
@@ -12,6 +12,13 @@ export default function SearchInput(props) {
   const { searchTerm } = props;
   const history = useHistory();
   const [state, setState] = useContext(AppContext);
+
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    setSearch(searchTerm);
+  },[searchTerm, setSearch]);
+
 
   const handleSearch = value => {
     history.push(`/search/${state.searchType}/${value}`);
@@ -32,7 +39,8 @@ export default function SearchInput(props) {
         placeholder="Search with a line name or skeleton id."
         enterButton="Search"
         size="large"
-        defaultValue={searchTerm}
+        value={search}
+        onChange={e => setSearch(e.target.value)}
         onSearch={value => handleSearch(value)}
       />
       <Radio.Group

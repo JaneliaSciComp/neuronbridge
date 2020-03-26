@@ -59,6 +59,7 @@ function Search() {
     <div>
       <SearchInput
         searchType={chosenType}
+        searchTerm={searchTerm}
         setType={setChosenType}
       />
       {isLoading && (
@@ -70,6 +71,7 @@ function Search() {
         <Switch>
           <Route path={`${routeMatch.path}`} exact>
             <SearchResults
+              searchTerm={searchTerm}
               searchResult={searchResult}
               searchType={searchType}
             />
