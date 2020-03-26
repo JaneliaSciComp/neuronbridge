@@ -35,6 +35,9 @@ function Search() {
 
     Storage.list(`metadata/${s3group}/${searchTerm}`, storageOptions)
       .then(results => {
+        if (results.length === 0) {
+          throw Error('No results found.');
+        }
         const combined = { results: [] };
         results.forEach(result => {
           Storage.get(result.key, storageOptions).then(metaData => {

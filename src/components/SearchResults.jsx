@@ -20,17 +20,17 @@ export default function SearchResults(props) {
     const resultsList = results.map(result => {
       if (searchType === "lines") {
         return (
-          <>
+          <React.Fragment key={result.id}>
             <LineResult metaInfo={result} key={result.id} />
             <Divider dashed />
-          </>
+          </React.Fragment>
         );
       }
       return (
-        <>
+        <React.Fragment key={result.id}>
           <SkeletonResult metaInfo={result} key={result.id} />
           <Divider dashed />
-        </>
+        </React.Fragment>
       );
     });
 

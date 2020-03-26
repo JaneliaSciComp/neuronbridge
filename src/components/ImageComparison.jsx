@@ -72,7 +72,7 @@ export default function ImageComparison(props) {
         currentMask.removeEventListener("mousemove", movecrosshair);
       }
     };
-  }, [maskRef.current, matchRef.current]);
+  }, [maskOpen, maskPath, matchPath]);
 
   return (
     <Row className="imageComparison">

@@ -78,14 +78,13 @@ export default function Matches(props) {
 
     matchSummaries = pageinatedList.map((result, index) => {
       return (
-        <>
+        <React.Fragment key={`${result.matchedId}_${result.attrs.Score}`}>
           <MatchSummary
             match={result}
-            key={`${result.matchedId}_${result.attrs.Score}`}
             showModal={() => handleModalOpen(index)}
           />
           <Divider dashed />
-        </>
+        </React.Fragment>
       );
     });
   }

@@ -72,7 +72,7 @@ export default function App() {
     }
 
     onLoad();
-  }, [appState.username]);
+  }, [setAppState]);
 
   async function handleLogout() {
     await Auth.signOut();
