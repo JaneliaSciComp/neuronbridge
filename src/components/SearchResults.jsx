@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Spin, Divider } from "antd";
+import { Spin, Divider, Typography } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
+
+const { Title, Text } = Typography;
 
 export default function SearchResults(props) {
   const { searchResult, searchType } = props;
@@ -15,7 +17,7 @@ export default function SearchResults(props) {
 
         return (
           <div className="results">
-            <p>No results found for that search. Did you mean to search the {altSearchType} microscopy data? </p>
+            <Title level={3}>No results found for that search. Did you mean to search the <Text type="warning">{altSearchType} microscopy</Text> data?</Title>
           </div>
         );
       }

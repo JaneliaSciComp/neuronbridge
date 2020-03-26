@@ -5,6 +5,7 @@ import { Spin } from "antd";
 import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import Matches from "./Matches";
+import NoSearch from "./NoSearch";
 import "./Search.css";
 
 function Search() {
@@ -36,14 +37,14 @@ function Search() {
     Storage.list(`metadata/${s3group}/${searchTerm}`, storageOptions)
       .then(results => {
         if (results.length === 0) {
-          throw Error('No results found.');
+          throw Error("No results found.");
         }
         const combined = { results: [] };
         results.forEach(result => {
           Storage.get(result.key, storageOptions).then(metaData => {
             const newResults = JSON.parse(metaData.Body.toString()).results;
             combined.results.push(...newResults);
-            setResults({ ...combined});
+            setResults({ ...combined });
             setIsLoading(false);
           });
         });
@@ -52,7 +53,6 @@ function Search() {
         setResults({ error });
         setIsLoading(false);
       });
-
   }, [searchTerm, searchType]);
 
   return (
@@ -62,6 +62,7 @@ function Search() {
         searchTerm={searchTerm}
         setType={setChosenType}
       />
+      {!searchTerm && !searchResult && <NoSearch searchType={searchType} />}
       {isLoading && (
         <div className="searchLoader">
           <Spin size="large" />
