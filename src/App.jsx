@@ -47,10 +47,11 @@ export default function App() {
     async function onLoad() {
       try {
         const session = await Auth.currentSession();
-        setAppState({
-          ...appState,
-          username: session.getIdToken().payload.email
-        });
+        setAppState(
+          Object.assign(appState, {
+            username: session.getIdToken().payload.email
+          })
+        );
         userHasAuthenticated(true);
         console.log("User successfully authenticated");
         socket.current = await connectWebSocket(session);
