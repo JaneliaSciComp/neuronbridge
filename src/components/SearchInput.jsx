@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Input, Radio } from "antd";
 import "./SearchInput.css";
 import "./LoaderButton.css";
@@ -18,11 +18,16 @@ export default function SearchInput(props) {
   };
 
   const onChange = e => {
-    setState({...state, searchType: e.target.value});
+    setState({ ...state, searchType: e.target.value });
   };
 
   return (
     <div className="searchInput">
+      <p>
+        examples: <Link to="/search/lines/LH1046">LH1046</Link>,{" "}
+        <Link to="/search/skeletons/332685751">332685751</Link>,{" "}
+        <Link to="/search/skeletons/788306724">788306724</Link>
+      </p>
       <Search
         placeholder="Search with a line name or skeleton id."
         enterButton="Search"
@@ -43,9 +48,9 @@ export default function SearchInput(props) {
 }
 
 SearchInput.propTypes = {
-  searchTerm: PropTypes.string,
+  searchTerm: PropTypes.string
 };
 
 SearchInput.defaultProps = {
-  searchTerm: "LH1046,788306724,332685751"
+  searchTerm: ""
 };

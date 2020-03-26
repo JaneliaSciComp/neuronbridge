@@ -58,7 +58,6 @@ function Search() {
   return (
     <div>
       <SearchInput
-        searchTerm={searchTerm}
         searchType={chosenType}
         setType={setChosenType}
       />
