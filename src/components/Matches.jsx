@@ -76,11 +76,13 @@ export default function Matches(props) {
       page * matchesPerPage
     );
 
+
     matchSummaries = pageinatedList.map((result, index) => {
       return (
         <React.Fragment key={`${result.matchedId}_${result.attrs.Score}`}>
           <MatchSummary
             match={result}
+            isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
           />
           <Divider dashed />
@@ -114,7 +116,7 @@ export default function Matches(props) {
           </h3>
           {matchSummaries}
           <MatchModal
-            maskType={searchType}
+            isLM={!(searchType === "lines")}
             open={modalOpen}
             setOpen={setModalOpen}
             matchesList={fullList}

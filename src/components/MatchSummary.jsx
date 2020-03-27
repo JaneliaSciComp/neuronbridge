@@ -4,7 +4,7 @@ import { Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 
 export default function MatchSummary(props) {
-  const { match, showModal } = props;
+  const { match, showModal, isLM } = props;
 
   return (
     <Row className="matchSummary">
@@ -18,7 +18,7 @@ export default function MatchSummary(props) {
       </Col>
       <Col span={8}>
         <p>
-          <b>Line Name:</b> {match.attrs.PublishedName}
+          <b>{isLM ? 'Line Name' : 'Body Id' }:</b> {match.attrs.PublishedName}
         </p>
         <p>
           <b>Matched Slices:</b> {match.attrs["Matched slices"]}
@@ -39,5 +39,10 @@ export default function MatchSummary(props) {
 
 MatchSummary.propTypes = {
   match: PropTypes.object.isRequired,
-  showModal: PropTypes.func.isRequired
+  showModal: PropTypes.func.isRequired,
+  isLM:PropTypes.bool
+};
+
+MatchSummary.defaultProps = {
+  isLM: true
 };

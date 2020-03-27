@@ -4,7 +4,7 @@ import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
 
 export default function MatchModal(props) {
-  const { open, setOpen, matchesList, mask, maskType } = props;
+  const { open, setOpen, matchesList, mask, isLM } = props;
 
   const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
@@ -18,7 +18,7 @@ export default function MatchModal(props) {
   let metaBlock = <p>Loading...</p>;
 
   if (mask) {
-    if (maskType === "lines") {
+    if (!isLM) {
       metaBlock = (
         <>
           <p>
@@ -96,7 +96,7 @@ export default function MatchModal(props) {
                 Match {selected} of {matchesList.length}
               </h3>
               <p>
-                <b>Line Name:</b> {selectedMatch.attrs.PublishedName}
+                <b>{isLM ? 'Line Name' : 'Body Id'}:</b> {selectedMatch.attrs.PublishedName}
               </p>
               <p>
                 <b>Matched Slices:</b> {selectedMatch.attrs["Matched slices"]}
@@ -121,7 +121,7 @@ MatchModal.propTypes = {
   setOpen: PropTypes.func.isRequired,
   matchesList: PropTypes.arrayOf(PropTypes.object),
   mask: PropTypes.object,
-  maskType: PropTypes.string.isRequired
+  isLM: PropTypes.bool.isRequired
 };
 
 MatchModal.defaultProps = {

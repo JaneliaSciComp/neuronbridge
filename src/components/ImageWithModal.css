@@ -5,7 +5,7 @@
   background: #ddd;
 }
 
-.modalButton {
+button.modalButton {
   width: 100%;
   border: none;
   color:transparent;
@@ -14,7 +14,7 @@
   height: inherit;
 }
 
-.modalButton:hover {
+button.modalButton:hover {
   background-color: transparent;
 }
 
