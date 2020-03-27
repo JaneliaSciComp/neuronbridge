@@ -68,7 +68,7 @@ function Search() {
           <Spin size="large" />
         </div>
       )}
-      {!isLoading && searchResult && (
+      {!isLoading && searchResult && searchType && (
         <Switch>
           <Route path={`${routeMatch.path}`} exact>
             <SearchResults
