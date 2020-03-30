@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
+import LibraryType from "./LibraryType";
 
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, isLM } = props;
@@ -30,9 +31,7 @@ export default function MatchModal(props) {
           <p>
             <b>Channel:</b> {mask.attrs.Channel}
           </p>
-          <p>
-            <b>Type:</b> {mask.attrs.Library}
-          </p>
+          <LibraryType type={mask.attrs.Library} />
         </>
       );
     } else {
@@ -42,9 +41,7 @@ export default function MatchModal(props) {
           <p>
             <b>Body Id:</b> {mask.attrs["Body Id"]}
           </p>
-          <p>
-            <b>Type:</b> {mask.attrs.Library}
-          </p>
+          <LibraryType type={mask.attrs.Library} />
         </>
       );
     }
@@ -104,9 +101,7 @@ export default function MatchModal(props) {
               <p>
                 <b>Score:</b> {selectedMatch.attrs.Score}
               </p>
-              <p>
-                <b>Type:</b> {selectedMatch.attrs.Library}
-              </p>
+              <LibraryType type={selectedMatch.attrs.Library} />
             </Col>
           </Row>
           <ImageComparison maskOpen={maskOpen} maskPath={mask.image_path} matchPath={selectedMatch.image_path} />

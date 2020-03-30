@@ -3,6 +3,7 @@ import { Button, Row, Col } from "antd";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
+import LibraryType from "./LibraryType";
 
 export default function SkeletonResult(props) {
   const { metaInfo } = props;
@@ -18,9 +19,7 @@ export default function SkeletonResult(props) {
         <p>
           <b>Body Id:</b> {metaInfo.attrs["Body Id"]}
         </p>
-        <p>
-          <b>Type:</b> {metaInfo.attrs.Library}
-        </p>
+        <LibraryType type={metaInfo.attrs.Library} />
       </Col>
       <Col span={4}>
         <Button onClick={() => history.goBack()}>Back to all results</Button>

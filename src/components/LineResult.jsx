@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
+import LibraryType from "./LibraryType";
 
 export default function LineResult(props) {
   const location = useLocation();
@@ -28,9 +29,7 @@ export default function LineResult(props) {
         <p>
           <b>Channel:</b> {metaInfo.attrs.Channel}
         </p>
-        <p>
-          <b>Type:</b> {metaInfo.attrs.Library}
-        </p>
+        <LibraryType type={metaInfo.attrs.Library}/>
       </Col>
       <Col span={8}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>

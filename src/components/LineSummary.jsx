@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import ImageWithModal from "./ImageWithModal";
+import LibraryType from "./LibraryType";
 
 export default function LineSummary(props) {
   const { lineMeta } = props;
@@ -37,9 +38,7 @@ export default function LineSummary(props) {
         <p>
           <b>Channel:</b> {lineMeta.attrs.Channel}
         </p>
-        <p>
-          <b>Type:</b> {lineMeta.attrs.Library}
-        </p>
+        <LibraryType type={lineMeta.attrs.Library}/>
       </Col>
       <Col span={6}>
         <p>

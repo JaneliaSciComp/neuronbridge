@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
+import LibraryType from "./LibraryType";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM } = props;
@@ -26,9 +27,7 @@ export default function MatchSummary(props) {
         <p>
           <b>Score:</b> {match.attrs.Score}
         </p>
-        <p>
-          <b>Type:</b> {match.attrs.Library}
-        </p>
+        <LibraryType type={match.attrs.Library} />
       </Col>
       <Col span={8}>
         <Button onClick={showModal}>Select</Button>
