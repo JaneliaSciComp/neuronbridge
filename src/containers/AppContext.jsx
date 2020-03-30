@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 const AppContext = React.createContext([{}, () => {}]);
 
 const AppProvider = (props) => {
-  const [state, setState] = useState({ searchType: 'lines'  });
+  const [state, setState] = useState({
+    searchType: 'lines',
+    gridView: false
+  });
   const { children } = props;
   return (
     <AppContext.Provider value={[state, setState]}>

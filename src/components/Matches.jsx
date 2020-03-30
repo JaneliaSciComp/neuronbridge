@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Switch, Row, Col, Pagination, Divider, Spin, message } from "antd";
+import { AppContext } from "../containers/AppContext";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
@@ -19,7 +20,7 @@ export default function Matches(props) {
   const [matchMeta, setMatchMeta] = useState(null);
   const [modalOpen, setModalOpen] = useState(0);
   const [isLoading, setLoading] = useState(false);
-  const [gridView, setGridView] = useState(false);
+  const [appState, setAppState] = useContext(AppContext);
 
   useEffect(() => {
     function getMatches() {
@@ -82,14 +83,14 @@ export default function Matches(props) {
             match={result}
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
-            gridView={gridView}
+            gridView={appState.gridView}
           />
         </React.Fragment>
       );
     });
   }
 
-  if (gridView) {
+  if (appState.gridView) {
     matchSummaries = <Row gutter={16}>{matchSummaries}</Row>;
   }
 
@@ -104,25 +105,32 @@ export default function Matches(props) {
       )}
       {!isLoading && matchMeta && (
         <>
-          <Row >
-           <Col span={3}>
-             <h3>Matches</h3>
-           </Col>
-           <Col span={18}>
-            <Pagination
-              current={page}
-              pageSize={matchesPerPage}
-              onChange={handlePageChange}
-              total={matchMeta.results.length}
-              showTotal={(total, range) =>
-                `${range[0]}-${range[1]} of ${total} matches`
-              }
-            />
-           </Col>
-           <Col span={3} style={{"textAlign":"right"}}>
-             <Switch checked={gridView} checkedChildren="Grid" unCheckedChildren="List" onChange={() => setGridView(!gridView)} />
-           </Col>
-         </Row>
+          <Row>
+            <Col span={3}>
+              <h3>Matches</h3>
+            </Col>
+            <Col span={18}>
+              <Pagination
+                current={page}
+                pageSize={matchesPerPage}
+                onChange={handlePageChange}
+                total={matchMeta.results.length}
+                showTotal={(total, range) =>
+                  `${range[0]}-${range[1]} of ${total} matches`
+                }
+              />
+            </Col>
+            <Col span={3} style={{ textAlign: "right" }}>
+              <Switch
+                checked={appState.gridView}
+                checkedChildren="Grid"
+                unCheckedChildren="List"
+                onChange={() =>
+                  setAppState({ ...appState, gridView: !appState.gridView })
+                }
+              />
+            </Col>
+          </Row>
           {matchSummaries}
           <MatchModal
             isLM={!(searchType === "lines")}
