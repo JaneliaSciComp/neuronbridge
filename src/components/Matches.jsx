@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
-import { Pagination, Divider, Spin, message } from "antd";
+import { Switch, Row, Col, Pagination, Divider, Spin, message } from "antd";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
@@ -19,6 +19,7 @@ export default function Matches(props) {
   const [matchMeta, setMatchMeta] = useState(null);
   const [modalOpen, setModalOpen] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [gridView, setGridView] = useState(false);
 
   useEffect(() => {
     function getMatches() {
@@ -51,9 +52,7 @@ export default function Matches(props) {
   const matchInput = results.filter(result => result.id === matchId)[0];
 
   if (!matchInput) {
-    return (
-      <p>Loading...</p>
-    );
+    return <p>Loading...</p>;
   }
 
   let pageinatedList = [];
@@ -76,7 +75,6 @@ export default function Matches(props) {
       page * matchesPerPage
     );
 
-
     matchSummaries = pageinatedList.map((result, index) => {
       return (
         <React.Fragment key={`${result.matchedId}_${result.attrs.Score}`}>
@@ -84,11 +82,15 @@ export default function Matches(props) {
             match={result}
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
+            gridView={gridView}
           />
-          <Divider dashed />
         </React.Fragment>
       );
     });
+  }
+
+  if (gridView) {
+    matchSummaries = <Row gutter={16}>{matchSummaries}</Row>;
   }
 
   return (
@@ -102,8 +104,11 @@ export default function Matches(props) {
       )}
       {!isLoading && matchMeta && (
         <>
-          <h3>
-            Matches
+          <Row >
+           <Col span={3}>
+             <h3>Matches</h3>
+           </Col>
+           <Col span={18}>
             <Pagination
               current={page}
               pageSize={matchesPerPage}
@@ -113,7 +118,11 @@ export default function Matches(props) {
                 `${range[0]}-${range[1]} of ${total} matches`
               }
             />
-          </h3>
+           </Col>
+           <Col span={3} style={{"textAlign":"right"}}>
+             <Switch checked={gridView} checkedChildren="Grid" unCheckedChildren="List" onChange={() => setGridView(!gridView)} />
+           </Col>
+         </Row>
           {matchSummaries}
           <MatchModal
             isLM={!(searchType === "lines")}
