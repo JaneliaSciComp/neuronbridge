@@ -7,7 +7,7 @@ export default function LibraryType(props) {
   const convertedType = type.replace(/flyem/i, 'FlyEM').replace(/_/g, ' ');
   return (
     <p>
-      <b>Type:</b><span className="allCaps">{convertedType}</span>
+      <b>Library: </b><span className="allCaps">{convertedType}</span>
     </p>
   );
 }
