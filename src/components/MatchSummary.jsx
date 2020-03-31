@@ -20,10 +20,7 @@ export default function MatchSummary(props) {
           <b>{isLM ? "Line Name" : "Body Id"}:</b> {match.attrs.PublishedName}
         </p>
         <p>
-          <b>Matched Slices:</b> {match.attrs["Matched slices"]}
-        </p>
-        <p>
-          <b>Score:</b> {match.attrs.Score}
+          <b>Matched Pixels:</b> {match.attrs["Matched slices"]}
         </p>
         <LibraryType type={match.attrs.Library} />
       </Col>
@@ -46,10 +43,7 @@ export default function MatchSummary(props) {
             <b>{isLM ? "Line Name" : "Body Id"}:</b> {match.attrs.PublishedName}
           </p>
           <p>
-            <b>Matched Slices:</b> {match.attrs["Matched slices"]}
-          </p>
-          <p>
-            <b>Score:</b> {match.attrs.Score}
+            <b>Matched Pixels:</b> {match.attrs["Matched slices"]}
           </p>
           <LibraryType type={match.attrs.Library} />
         </Col>

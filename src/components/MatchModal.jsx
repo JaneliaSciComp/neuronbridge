@@ -96,10 +96,7 @@ export default function MatchModal(props) {
                 <b>{isLM ? 'Line Name' : 'Body Id'}:</b> {selectedMatch.attrs.PublishedName}
               </p>
               <p>
-                <b>Matched Slices:</b> {selectedMatch.attrs["Matched slices"]}
-              </p>
-              <p>
-                <b>Score:</b> {selectedMatch.attrs.Score}
+                <b>Matched Pixels:</b> {selectedMatch.attrs["Matched slices"]}
               </p>
               <LibraryType type={selectedMatch.attrs.Library} />
             </Col>
