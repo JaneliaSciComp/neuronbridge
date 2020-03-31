@@ -8,6 +8,8 @@ import Routes from "./Routes";
 import config from "./config";
 import "./App.css";
 import janeliaLogo from "./janelia_logo.png";
+import flyemLogo from "./flyemLogo.png";
+import flylightLogo from "./flylightlogo.png";
 import { AppContext } from "./containers/AppContext";
 import "antd/dist/antd.css";
 
@@ -94,7 +96,13 @@ export default function App() {
           <Link to="/">NeuronBridge</Link>
         </div>
         <div className="janeliaLogo">
-          <a href="http://janelia.org">
+          <a href="https://www.janelia.org/project-team/flylight">
+            <img src={flylightLogo} alt="FlyLight Project" />
+          </a>
+          <a href="https://www.janelia.org/project-team/flyem">
+            <img src={flyemLogo} alt="FlyEM Project" />
+          </a>
+          <a href="https://janelia.org">
             <img src={janeliaLogo} alt="Janelia Research Campus" />
           </a>
         </div>
