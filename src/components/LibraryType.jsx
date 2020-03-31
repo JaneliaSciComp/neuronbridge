@@ -4,7 +4,7 @@ import "./LibraryType.css";
 
 export default function LibraryType(props) {
   const {type} = props;
-  const convertedType = type.replace(/_/g, ' ');
+  const convertedType = type.replace(/flyem/i, 'FlyEM').replace(/_/g, ' ');
   return (
     <p>
       <b>Type:</b><span className="allCaps">{convertedType}</span>
