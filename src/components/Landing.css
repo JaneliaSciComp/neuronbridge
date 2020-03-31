@@ -1,0 +1,18 @@
+.landing {
+  background: #333;
+  background-image: url("/landing_background.png");
+  min-height: 500px;
+}
+
+.landing h1.ant-typography, .landing div.ant-typography {
+  color: #fff;
+  margin-left: 20px;
+}
+
+.landing h1.ant-typography {
+  padding-top: 20px;
+}
+
+.landing div.ant-typography {
+  max-width: 35%;
+}
