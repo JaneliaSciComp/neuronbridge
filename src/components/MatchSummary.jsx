@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 import LibraryType from "./LibraryType";
+import ExternalLink from "./ExternalLink";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
@@ -17,12 +18,12 @@ export default function MatchSummary(props) {
           showModal={showModal}
         />
         <p>
-          <b>{isLM ? "Line Name" : "Body Id"}:</b> {match.attrs.PublishedName}
+          <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
+          <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />
         </p>
         <p>
           <b>Matched Pixels:</b> {match.attrs["Matched slices"]}
         </p>
-        <LibraryType type={match.attrs.Library} />
       </Col>
     );
   }
@@ -40,7 +41,11 @@ export default function MatchSummary(props) {
         </Col>
         <Col span={8}>
           <p>
-            <b>{isLM ? "Line Name" : "Body Id"}:</b> {match.attrs.PublishedName}
+            <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
+            <ExternalLink
+              publishedName={match.attrs.PublishedName}
+              isLM={isLM}
+            />
           </p>
           <p>
             <b>Matched Pixels:</b> {match.attrs["Matched slices"]}

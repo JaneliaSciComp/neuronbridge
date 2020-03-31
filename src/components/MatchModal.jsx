@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
 import LibraryType from "./LibraryType";
+import ExternalLink from "./ExternalLink";
 
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, isLM } = props;
@@ -47,6 +48,10 @@ export default function MatchModal(props) {
     }
   }
 
+  if (!selectedMatch) {
+    return null;
+  }
+
   return (
     <Modal
       visible={Boolean(open)}
@@ -81,29 +86,33 @@ export default function MatchModal(props) {
       ]}
       width="90%"
     >
-      {selectedMatch && (
-        <>
-          <Row>
-            <Col span={12}>
-              <h3>Mask</h3>
-              {metaBlock}
-            </Col>
-            <Col span={12}>
-              <h3>
-                Match {selected} of {matchesList.length}
-              </h3>
-              <p>
-                <b>{isLM ? 'Line Name' : 'Body Id'}:</b> {selectedMatch.attrs.PublishedName}
-              </p>
-              <p>
-                <b>Matched Pixels:</b> {selectedMatch.attrs["Matched slices"]}
-              </p>
-              <LibraryType type={selectedMatch.attrs.Library} />
-            </Col>
-          </Row>
-          <ImageComparison maskOpen={maskOpen} maskPath={mask.image_path} matchPath={selectedMatch.image_path} />
-        </>
-      )}
+      <Row>
+        <Col span={12}>
+          <h3>Mask</h3>
+          {metaBlock}
+        </Col>
+        <Col span={12}>
+          <h3>
+            Match {selected} of {matchesList.length}
+          </h3>
+          <p>
+            <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
+            <ExternalLink
+              publishedName={selectedMatch.attrs.PublishedName}
+              isLM={isLM}
+            />
+          </p>
+          <p>
+            <b>Matched Pixels:</b> {selectedMatch.attrs["Matched slices"]}
+          </p>
+          <LibraryType type={selectedMatch.attrs.Library} />
+        </Col>
+      </Row>
+      <ImageComparison
+        maskOpen={maskOpen}
+        maskPath={mask.image_path}
+        matchPath={selectedMatch.image_path}
+      />
     </Modal>
   );
 }
