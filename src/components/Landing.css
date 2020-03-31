@@ -1,7 +1,8 @@
 .landing {
-  background: #333;
+  background: #000;
   background-image: url("/landing_background.png");
   min-height: 500px;
+  background-size: cover;
 }
 
 .landing h1.ant-typography, .landing div.ant-typography {
