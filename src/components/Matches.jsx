@@ -96,6 +96,7 @@ export default function Matches(props) {
 
   return (
     <div>
+      <h3>Input</h3>
       {summary}
       <Divider />
       {isLoading && (
@@ -105,11 +106,11 @@ export default function Matches(props) {
       )}
       {!isLoading && matchMeta && (
         <>
-          <Row>
-            <Col span={3}>
-              <h3>Matches</h3>
+          <Row style={{paddingBottom: "1em"}}>
+            <Col span={4}>
+              <h3>{(searchType === "lines") ? 'LM to EM' : 'EM to LM'} Matches</h3>
             </Col>
-            <Col span={18}>
+            <Col span={16} style={{ textAlign: "center" }}>
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
@@ -120,7 +121,7 @@ export default function Matches(props) {
                 }
               />
             </Col>
-            <Col span={3} style={{ textAlign: "right" }}>
+            <Col span={4} style={{ textAlign: "right" }}>
               <Switch
                 checked={appState.gridView}
                 checkedChildren="Grid"

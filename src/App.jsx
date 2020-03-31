@@ -117,23 +117,20 @@ export default function App() {
               <Link to="/about">About</Link>
             </Menu.Item>
           ]}
-          {isAuthenticated
-            ? [
-                <p key="username" className="login">
-                  Logged in as {appState.username}
-                </p>,
-                <Menu.Item key="/logout" onClick={handleLogout}>
-                  Logout
-                </Menu.Item>
-              ]
-            : [
-                <Menu.Item key="/signup">
-                  <Link to="/signup">Signup</Link>
-                </Menu.Item>,
-                <Menu.Item key="/login">
-                  <Link to="/login">Login</Link>
-                </Menu.Item>
-              ]}
+          {isAuthenticated ? (
+            <Menu.Item key="/logout" onClick={handleLogout}>
+              Logout
+            </Menu.Item>
+          ) : (
+            [
+              <Menu.Item key="/signup">
+                <Link to="/signup">Signup</Link>
+              </Menu.Item>,
+              <Menu.Item key="/login">
+                <Link to="/login">Login</Link>
+              </Menu.Item>
+            ]
+          )}
         </Menu>
       </Header>
       <Content
@@ -141,6 +138,11 @@ export default function App() {
         style={{ padding: "0 50px", marginTop: 86 }}
       >
         <div className="site-layout-background">
+          {isAuthenticated && (
+            <p key="username" className="login">
+              Logged in as {appState.username}
+            </p>
+          )}
           <Routes
             appProps={{
               isAuthenticated,
