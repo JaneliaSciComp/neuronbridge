@@ -69,7 +69,7 @@ export default function Matches(props) {
 
   if (matchMeta) {
     fullList = matchMeta.results.sort((a, b) => {
-      return b.attrs.Score - a.attrs.Score;
+      return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
     });
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
