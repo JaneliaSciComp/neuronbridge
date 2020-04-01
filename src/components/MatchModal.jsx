@@ -88,7 +88,7 @@ export default function MatchModal(props) {
     >
       <Row>
         <Col span={12}>
-          <h3>Mask</h3>
+          <h3>Input Image</h3>
           {metaBlock}
         </Col>
         <Col span={12}>

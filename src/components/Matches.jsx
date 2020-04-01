@@ -96,7 +96,7 @@ export default function Matches(props) {
 
   return (
     <div>
-      <h3>Input</h3>
+      <h3>Input Image</h3>
       {summary}
       <Divider />
       {isLoading && (
