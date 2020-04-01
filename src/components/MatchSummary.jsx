@@ -48,7 +48,7 @@ export default function MatchSummary(props) {
             />
           </p>
           <p>
-            <b>Matched Pixels:</b> {match.attrs["Matched pixels"]}
+            <b>Score:</b> {match.attrs["Matched pixels"]}
           </p>
           <LibraryType type={match.attrs.Library} />
         </Col>
