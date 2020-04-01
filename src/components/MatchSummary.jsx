@@ -17,12 +17,9 @@ export default function MatchSummary(props) {
           alt={match.attrs.PublishedName}
           showModal={showModal}
         />
-        <p>
-          <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
-          <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />
-        </p>
-        <p>
-          <b>Matched Pixels:</b> {match.attrs["Matched pixels"]}
+        <p style={{paddingLeft: '2em'}}>
+          <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />{" "}
+          (Score: {match.attrs["Matched pixels"]})
         </p>
       </Col>
     );
