@@ -103,7 +103,7 @@ export default function MatchModal(props) {
             />
           </p>
           <p>
-            <b>Matched Pixels:</b> {selectedMatch.attrs["Matched slices"]}
+            <b>Matched Pixels:</b> {selectedMatch.attrs["Matched pixels"]}
           </p>
           <LibraryType type={selectedMatch.attrs.Library} />
         </Col>

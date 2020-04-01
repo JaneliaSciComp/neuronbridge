@@ -22,7 +22,7 @@ export default function MatchSummary(props) {
           <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />
         </p>
         <p>
-          <b>Matched Pixels:</b> {match.attrs["Matched slices"]}
+          <b>Matched Pixels:</b> {match.attrs["Matched pixels"]}
         </p>
       </Col>
     );
@@ -48,7 +48,7 @@ export default function MatchSummary(props) {
             />
           </p>
           <p>
-            <b>Matched Pixels:</b> {match.attrs["Matched slices"]}
+            <b>Matched Pixels:</b> {match.attrs["Matched pixels"]}
           </p>
           <LibraryType type={match.attrs.Library} />
         </Col>
