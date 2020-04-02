@@ -31,9 +31,10 @@ export default function SearchInput(props) {
   return (
     <div className="searchInput">
       <p>
-        examples: <Link to="/search/lines/LH1046">LH1046</Link>,{" "}
-        <Link to="/search/skeletons/332685751">332685751</Link>,{" "}
-        <Link to="/search/skeletons/788306724">788306724</Link>
+        examples: <Link to="/search/lines/MB543B">MB543B</Link>,{" "}
+        <Link to="/search/lines/LH173">LH173</Link>,{" "}
+        <Link to="/search/skeletons/1077847238">1077847238</Link>,{" "}
+        <Link to="/search/skeletons/1537331894">1537331894</Link>
       </p>
       <Search
         placeholder="Search with a line name or skeleton id."
