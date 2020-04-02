@@ -6,7 +6,7 @@ const AppContext = React.createContext([{}, () => {}]);
 const AppProvider = (props) => {
   const [state, setState] = useState({
     searchType: 'lines',
-    gridView: false
+    gridView: true
   });
   const { children } = props;
   return (
