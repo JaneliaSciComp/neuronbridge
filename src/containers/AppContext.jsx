@@ -5,6 +5,7 @@ const AppContext = React.createContext([{}, () => {}]);
 
 const AppProvider = (props) => {
   const [state, setState] = useState({
+    username: null,
     searchType: 'lines',
     gridView: true
   });

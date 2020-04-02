@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
 import { Auth } from "aws-amplify";
-import Sockette from "sockette";
 import Routes from "./Routes";
-import config from "./config";
+import LoggedInAs from "./components/LoggedInAs";
 import "./App.css";
 import janeliaLogo from "./janelia_logo.png";
 import flyemLogo from "./flyemLogo.png";
@@ -20,66 +18,36 @@ export default function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
   const history = useHistory();
-  const socket = useRef(null);
   const location = useLocation();
-
-  const processMessage = msg => {
-    console.log(msg);
-  };
 
   // Execute this once after the page is loaded
   // to get the username and establish a web socket
   useEffect(() => {
-    async function connectWebSocket(session) {
-      return new Sockette(
-        `${config.apiGateway.WSS_URL}?token=${session.accessToken.jwtToken}`,
-        {
-          timeout: 5000,
-          maxAttempts: 3,
-          onopen: () => console.log("Connected to WebSocket"),
-          onmessage: e => processMessage(e),
-          onreconnect: () => console.log("Reconnecting to WebSocket..."),
-          onmaximum: () => console.log("Stop Attempting WebSocket connection."),
-          onclose: () => console.log("Closed WebSocket"),
-          onerror: e => console.log("Error from WebSocket:", e)
-        }
-      );
-    }
-
     async function onLoad() {
       try {
-        const session = await Auth.currentSession();
-        setAppState(
-          Object.assign(appState, {
-            username: session.getIdToken().payload.email
-          })
-        );
+        window.Auth = Auth;
+        const user = await Auth.currentAuthenticatedUser();
+        const email = user.email || user.attributes.email;
+        if (email === appState.username) {
+          return;
+        }
+        setAppState({...appState, username: email})
         userHasAuthenticated(true);
-        console.log("User successfully authenticated");
-        socket.current = await connectWebSocket(session);
       } catch (e) {
-        if (e !== "No current user") {
-          message.error("Loading error:", e);
+        if (e !== "not authenticated") {
+          message.error("Loading error:", e.message);
         }
       }
 
       setIsAuthenticating(false);
-
-      return () => {
-        console.log("Cleaning WebSocket");
-        if (socket.current) {
-          socket.current.close();
-        }
-        socket.current = null;
-      };
     }
-
     onLoad();
-  }, [setAppState]);
+  }, [isAuthenticated, appState, appState.username, setAppState]);
 
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
+    setAppState({...appState, username: null});
     history.push("/login");
   }
 
@@ -146,11 +114,7 @@ export default function App() {
         style={{ padding: "0 50px", marginTop: 86 }}
       >
         <div className="site-layout-background">
-          {isAuthenticated && (
-            <p key="username" className="login">
-              Logged in as {appState.username}
-            </p>
-          )}
+          <LoggedInAs username={appState.username} />
           <Routes
             appProps={{
               isAuthenticated,
@@ -163,4 +127,3 @@ export default function App() {
     </Layout>
   );
 }
-/* eslint-enable no-console */
