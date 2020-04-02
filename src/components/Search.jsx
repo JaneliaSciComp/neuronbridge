@@ -42,7 +42,7 @@ function Search() {
         const combined = { results: [] };
         results.forEach(result => {
           Storage.get(result.key, storageOptions).then(metaData => {
-            const newResults = JSON.parse(metaData.Body.toString()).results;
+            const newResults = metaData.Body.results;
             combined.results.push(...newResults);
             setResults({ ...combined });
             setIsLoading(false);
