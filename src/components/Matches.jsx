@@ -182,7 +182,7 @@ export default function Matches(props) {
             </Col>
             <Col span={4} style={{ textAlign: "right" }}>
               {searchType !== "lines" && (
-                <p>
+                <div>
                   <InputNumber
                     min={1}
                     max={100}
@@ -190,7 +190,7 @@ export default function Matches(props) {
                     onChange={handleResultsPerLine}
                   />{" "}
                   results per line
-                </p>
+                </div>
               )}
             </Col>
             <Col span={2} style={{ textAlign: "right" }}>
