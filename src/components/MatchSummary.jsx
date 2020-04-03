@@ -17,7 +17,7 @@ export default function MatchSummary(props) {
           alt={match.attrs.PublishedName}
           showModal={showModal}
         />
-        <p style={{paddingLeft: '2em'}}>
+        <p style={{ paddingLeft: "2em" }}>
           <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />{" "}
           (Score: {match.attrs["Matched pixels"]})
         </p>
@@ -45,8 +45,13 @@ export default function MatchSummary(props) {
             />
           </p>
           <p>
-            <b>Score:</b> {match.attrs["Matched pixels"]}
+            <b>Score:</b> {match.attrs["Matched pixels"]} ({(match.attrs.Score * 100).toPrecision(2)}%)
           </p>
+          {isLM && (
+            <p>
+              <b>Channel:</b> {match.attrs.Channel}
+            </p>
+          )}
           <LibraryType type={match.attrs.Library} />
         </Col>
         <Col span={8}>
