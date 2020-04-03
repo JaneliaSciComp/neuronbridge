@@ -16,7 +16,7 @@ export default function MatchModal(props) {
   }, [open]);
 
   function downHandler({ key }) {
-    if (key === "ArrowLeft") {
+    if (/^Arrow(Left|Down)$/.test(key)) {
       setSelected(current => {
         if (current > 1) {
           return current - 1;
@@ -24,7 +24,7 @@ export default function MatchModal(props) {
         return current;
       });
     }
-    if (key === "ArrowRight") {
+    if (/^Arrow(Right|Up)$/.test(key)) {
       setSelected(current => {
         if (current < matchesList.length) {
           return current + 1;
