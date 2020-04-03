@@ -15,6 +15,33 @@ export default function MatchModal(props) {
     setSelected(open);
   }, [open]);
 
+  function downHandler({ key }) {
+    if (key === "ArrowLeft") {
+      setSelected(current => {
+        if (current > 1) {
+          return current - 1;
+        }
+        return current;
+      });
+    }
+    if (key === "ArrowRight") {
+      setSelected(current => {
+        if (current < matchesList.length) {
+          return current + 1;
+        }
+        return current;
+      });
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", downHandler);
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+    };
+  });
+
   const selectedMatch = matchesList[selected - 1];
 
   let metaBlock = <p>Loading...</p>;
@@ -61,7 +88,14 @@ export default function MatchModal(props) {
           key="prev"
           type="primary"
           disabled={selected <= 1}
-          onClick={() => setSelected(selected - 1)}
+          onClick={() =>
+            setSelected(current => {
+              if (current > 1) {
+                return current - 1;
+              }
+              return current;
+            })
+          }
         >
           Previous
         </Button>,
@@ -69,7 +103,14 @@ export default function MatchModal(props) {
           key="next"
           type="primary"
           disabled={selected >= matchesList.length}
-          onClick={() => setSelected(selected + 1)}
+          onClick={() =>
+            setSelected(current => {
+              if (current < matchesList.length) {
+                return current + 1;
+              }
+              return current;
+            })
+          }
         >
           Next
         </Button>,
