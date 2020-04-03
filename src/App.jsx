@@ -25,7 +25,6 @@ export default function App() {
   useEffect(() => {
     async function onLoad() {
       try {
-        window.Auth = Auth;
         const user = await Auth.currentAuthenticatedUser();
         const email = user.email || user.attributes.email;
         if (email === appState.username) {

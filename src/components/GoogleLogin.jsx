@@ -46,8 +46,6 @@ export default function GoogleLogin(props) {
       email: profile.getEmail(),
       name: profile.getName()
     };
-    window.user = profile;
-
     await Auth.federatedSignIn(
       "google",
       { token: idToken, expires_at: expiresAt },
