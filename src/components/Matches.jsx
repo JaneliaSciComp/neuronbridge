@@ -184,6 +184,7 @@ export default function Matches(props) {
               {searchType !== "lines" && (
                 <div>
                   <InputNumber
+                    style={{width: "5em"}}
                     min={1}
                     max={100}
                     value={resultsPerLine}
