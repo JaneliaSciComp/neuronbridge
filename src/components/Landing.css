@@ -14,6 +14,21 @@
   padding-top: 20px;
 }
 
-.landing div.ant-typography {
+.landing .copy {
   max-width: 35%;
+  padding-bottom: 1em;
+}
+
+.landing .copy a {
+  color: #17DDFE;
+}
+
+div.collections {
+  margin-left: 20px;
+  text-align:center;
+  color: #fff;
+}
+
+div.collections div {
+  padding: 1em;
 }

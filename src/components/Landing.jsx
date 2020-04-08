@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Typography } from "antd";
+import { Typography, Col, Row } from "antd";
 import SearchInput from "./SearchInput";
 import "./Landing.css";
 
@@ -15,31 +15,57 @@ function Landing(props) {
       {isAuthenticated && <SearchInput />}
       <div className="landing">
         <Title>Welcome to NeuronBridge</Title>
-        {!isAuthenticated && (
-          <Paragraph strong>
-            Please <Link to="/login">login</Link> or{" "}
-            <Link to="signup">sign up</Link> to start searching.
-          </Paragraph>
-        )}
-        <Paragraph>Content Place holder about the site.</Paragraph>
-        <Paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
-          nisi quis eleifend quam adipiscing vitae proin. At auctor urna nunc id
-          cursus metus. Sollicitudin ac orci phasellus egestas tellus rutrum
-          tincidunt lobortis. Id diam vel quam elementum pulvinar etiam non
-          quam. Turpis egestas integer eget aliquet. Felis eget velit aliquet
-          euismod lacinia. Eget mi proin sed libero enim sed faucibus turpis.
-          Morbi tempus iaculis urna id volutpat.
-        </Paragraph>
+        <div className="copy">
+          {!isAuthenticated && (
+            <Paragraph strong>
+              Please <Link to="/login">login</Link> or{" "}
+              <Link to="signup">sign up</Link> to start searching.
+            </Paragraph>
+          )}
+          <Paragraph>Find your neuron fast!</Paragraph>
 
-        <Paragraph>
-          Amet volutpat consequat mauris nunc congue. Nisl nisi scelerisque eu
-          ultrices vitae auctor eu augue. Augue neque gravida in fermentum et
-          sollicitudin ac orci phasellus. Sed lectus vestibulum mattis
-          ullamcorper velit sed ullamcorper. Purus gravida quis blandit turpis.
-          volutpat consequat mauris nunc congue nisi vitae.
-        </Paragraph>
+          <Paragraph>
+            Search light and electron microscopy data sets of the Drosophila
+            nervous system provided by the{" "}
+            <a href="https://www.janelia.org/project-team/flylight">FlyLight</a>{" "}
+            and <a href="https://www.janelia.org/project-team/flyem">FlyEM</a>{" "}
+            projects at{" "}
+            <a href="https://www.janelia.org">Janelia Research Campus</a>. You
+            can find similar neurons based on shape regardless of data set.
+          </Paragraph>
+
+          <Paragraph>
+            Start your search above if you already know your EM body ID or GAL4
+            line name, or browse our image collections at:
+          </Paragraph>
+
+          <Row className="collections">
+            <Col span={12}>
+              <a href="https://neuprint.janelia.org/">FlyEM Hemibrain</a>
+            </Col>
+            <Col span={12}>
+              <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a>
+            </Col>
+            <Col span={12}>
+              <p>FlyLight Generation 1 MCFO (coming soon)</p>
+            </Col>
+            <Col span={12}>
+              <a href="http://flweb.janelia.org/">
+                FlyLight Generation 1 GAL4 screen
+              </a>
+            </Col>
+          </Row>
+
+          <Paragraph>
+            We offer fast color depth mask searching, with no segmentation
+            needed (see About page). For NBLAST searching, try Virtual Fly
+            Brain.
+          </Paragraph>
+
+          <Paragraph>
+            <Link to="/about">Learn more…</Link>
+          </Paragraph>
+        </div>
       </div>
     </>
   );
