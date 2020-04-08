@@ -1,6 +1,18 @@
-/* TEAM */
+/* WEBSITE */
   Developer: Jody Clements
 
 /* ALUMNI */
   Developer: Antje Kazimiers
 
+/* SCIENTIFIC ADVISORS */
+  Advisor: Geoffrey Meissner
+  Advisor: Wyatt Korff
+  Advisor: Gudrun Ihrke
+
+/* DATA SCIENTISTS:*/
+  Scientist/Developer: Hideo Otsuna
+
+/* SEARCH AND BACKEND */
+  Developer: Cristian Goina
+  Developer: Rob Svirskas
+  Developer/Manager: Konrad Rokicki
