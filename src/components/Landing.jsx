@@ -34,10 +34,18 @@ function Landing(props) {
             can find similar neurons based on shape regardless of data set.
           </Paragraph>
 
-          <Paragraph>
-            Start your search above if you already know your EM body ID or GAL4
-            line name, or browse our image collections at:
-          </Paragraph>
+          {!isAuthenticated && (
+            <Paragraph>
+              Please login above if you already know your EM body ID or GAL4
+              line name, or browse our image collections at:
+            </Paragraph>
+          )}
+          {isAuthenticated && (
+            <Paragraph>
+              Start your search above if you already know your EM body ID or
+              GAL4 line name, or browse our image collections at:
+            </Paragraph>
+          )}
 
           <Row className="collections">
             <Col span={12}>
