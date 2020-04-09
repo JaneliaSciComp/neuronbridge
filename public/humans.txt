@@ -1,8 +1,6 @@
 /* WEBSITE */
-  Developer: Jody Clements
-
-/* ALUMNI */
   Developer: Antje Kazimiers
+  Developer: Jody Clements
 
 /* SCIENTIFIC ADVISORS */
   Advisor: Geoffrey Meissner
