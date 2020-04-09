@@ -58,9 +58,7 @@ function Landing(props) {
               <p>FlyLight Generation 1 MCFO (coming soon)</p>
             </Col>
             <Col span={12}>
-              <a href="http://flweb.janelia.org/">
-                FlyLight Generation 1 GAL4 screen
-              </a>
+              <p>FlyLight Generation 1 GAL4 screen (coming soon)</p>
             </Col>
           </Row>
 
