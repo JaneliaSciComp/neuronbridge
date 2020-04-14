@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Spin, Divider, Typography } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
+import NoSearch from "./NoSearch";
 
 const { Title } = Typography;
 
@@ -36,6 +37,7 @@ export default function UnifiedSearchResults(props) {
       return (
         <div className="results">
           <Title level={3}>No results found.</Title>
+          <NoSearch />
         </div>
       );
     }
