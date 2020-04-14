@@ -4,7 +4,7 @@ import { Spin, Divider, Typography } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 export default function SearchResults(props) {
   const { searchResult, searchType } = props;
@@ -12,18 +12,9 @@ export default function SearchResults(props) {
   if (searchResult) {
     const { results, error } = searchResult;
     if (error) {
-      if (error.message === "No results found.") {
-        const altSearchType = (searchType === 'lines') ? 'electron' : 'light';
-
-        return (
-          <div className="results">
-            <Title level={3}>No results found for that search. Did you mean to search the <Text type="warning">{altSearchType} microscopy</Text> data?</Title>
-          </div>
-        );
-      }
       return (
         <div className="results">
-          <p>Search returned an error</p>
+          <Title level={3}>No results found.</Title>
         </div>
       );
     }

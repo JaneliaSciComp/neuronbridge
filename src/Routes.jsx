@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Landing from "./components/Landing";
 import Search from "./components/Search";
+import UnifiedSearch from "./components/UnifiedSearch";
 import About from "./components/About";
 import ResetPassword from "./components/ResetPassword";
 
@@ -35,7 +36,12 @@ export default function Routes({ appProps }) {
         component={ResetPassword}
         appProps={appProps}
       />
-
+      <AuthenticatedRoute
+        path="/search"
+        exact
+        component={UnifiedSearch}
+        appProps={appProps}
+      />
       <AuthenticatedRoute
         path="/search/:searchType?/:searchTerm?"
         component={Search}

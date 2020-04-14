@@ -9,7 +9,7 @@ export default function LineResult(props) {
   const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `${location.pathname}/matches/${metaInfo.id}`;
+  const matchesUrl = `/search/lines/${metaInfo.attrs["Published Name"]}/matches/${metaInfo.id}`;
 
 
   // only use values in the metaInfo.attrs key to display on the site. The
