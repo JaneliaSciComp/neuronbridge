@@ -25,9 +25,9 @@ export default function SearchInput(props) {
     <div className="searchInput">
       <p>
         examples: <Link to="/search?q=MB543B">MB543B</Link>,{" "}
-        <Link to="/search/?q=LH173">LH173</Link>,{" "}
-        <Link to="/search/?q=1077847238">1077847238</Link>,{" "}
-        <Link to="/search/?q=1537331894">1537331894</Link>
+        <Link to="/search?q=LH173">LH173</Link>,{" "}
+        <Link to="/search?q=1077847238">1077847238</Link>,{" "}
+        <Link to="/search?q=1537331894">1537331894</Link>
       </p>
       <Search
         placeholder="Search with a line name or skeleton id."
