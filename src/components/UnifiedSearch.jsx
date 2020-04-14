@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import { Storage } from "aws-amplify";
 
 import SearchInput from "./SearchInput";
-import SearchResults from "./SearchResults";
+import UnifiedSearchResults from "./UnifiedSearchResults";
+import NoSearch from "./NoSearch";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -53,7 +54,7 @@ export default function UnifiedSearch() {
         });
       })
       .catch(error => {
-        setByBodyResults({ error });
+        setByBodyResults({ error, results: [] });
         setBodyLoading(false);
       });
 
@@ -73,7 +74,7 @@ export default function UnifiedSearch() {
         });
       })
       .catch(error => {
-        setByLineResults({ error });
+        setByLineResults({ error, results: [] });
         setLineLoading(false);
       });
   }, [searchTerm]);
@@ -81,22 +82,13 @@ export default function UnifiedSearch() {
   return (
     <div>
       <SearchInput searchTerm={searchTerm} />
-      <p>Lines search results:</p>
-      {lineLoading && <p>Line search loading...</p>}
-      {!lineLoading && byLineResult && (
-        <SearchResults
+      {!searchTerm && !byLineResult && !byBodyResult && <NoSearch />}
+      {(lineLoading || bodyLoading) && <p>loading...</p>}
+      {byLineResult && byBodyResult && (
+        <UnifiedSearchResults
           searchTerm={searchTerm}
-          searchResult={byLineResult}
-          searchType="lines"
-        />
-      )}
-      <p>Skeletons search results:</p>
-      {bodyLoading && <p>body id search loading...</p>}
-      {!bodyLoading && byBodyResult && (
-        <SearchResults
-          searchTerm={searchTerm}
-          searchResult={byBodyResult}
-          searchType="skeletons"
+          linesResult={byLineResult}
+          skeletonsResult={byBodyResult}
         />
       )}
     </div>

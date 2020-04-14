@@ -19,13 +19,13 @@ export default function SkeletonResult(props) {
       <Col span={8}>
         <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Body Id"]} />
       </Col>
-      <Col span={12}>
+      <Col span={8}>
         <p>
           <b>Body Id:</b> {metaInfo.attrs["Body Id"]}
         </p>
         <LibraryType type={metaInfo.attrs.Library}/>
       </Col>
-      <Col span={4}>
+      <Col span={8}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View LM Matches</Link>
         </Button>
