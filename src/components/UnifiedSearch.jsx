@@ -54,6 +54,9 @@ export default function UnifiedSearch() {
         });
       })
       .catch(error => {
+        if (error === "No credentials") {
+          // Log me out and prompt me to login again.
+        }
         setByBodyResults({ error, results: [] });
         setBodyLoading(false);
       });
@@ -74,6 +77,9 @@ export default function UnifiedSearch() {
         });
       })
       .catch(error => {
+        if (error === "No credentials") {
+          // Log me out and prompt me to login again.
+        }
         setByLineResults({ error, results: [] });
         setLineLoading(false);
       });
