@@ -1,8 +1,6 @@
 .landing {
-  background: #000;
-  background-image: url("/landing_background.png");
   min-height: 500px;
-  background-size: cover;
+  background: #000;
 }
 
 .landing h1.ant-typography, .landing div.ant-typography {
@@ -32,16 +30,14 @@ div.collections div {
   padding: 1em;
 }
 
-@media screen and (max-width: 650px) {
-}
-
-@media screen and (max-width: 850px) {
-  .landing .copy {
-    max-width: 100%;
+@media screen and (min-width: 768px) {
+  .landing {
+    background: #000 url("/landing_background.png") no-repeat top right;
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 767px) {
+  .landing {
+    background: #000 url("/fadded_background.png") no-repeat top right;
+  }
 }
-
-
