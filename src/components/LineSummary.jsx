@@ -21,7 +21,7 @@ export default function LineSummary(props) {
 
   return (
     <Row>
-      <Col lg={8}>
+      <Col xs={24} lg={8}>
         <ImageWithModal
           thumbSrc={lineMeta.thumbnail_path}
           src={lineMeta.image_path}

@@ -47,7 +47,7 @@ export default function Routes({ appProps }) {
         component={Search}
         appProps={appProps}
       />
-      <UnauthenticatedRoute path="/about" component={About} appProps={appProps} />
+      <Route path="/about" component={About} />
       {/* Finally, catch all unmatched routes */}
       <Route component={NotFound} />
     </Switch>

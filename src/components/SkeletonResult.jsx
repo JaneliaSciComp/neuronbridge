@@ -16,16 +16,16 @@ export default function SkeletonResult(props) {
   // other keys are for internal use only.
   return (
     <Row>
-      <Col span={8}>
+      <Col md={10}>
         <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Body Id"]} />
       </Col>
-      <Col span={8}>
+      <Col md={8}>
         <p>
           <b>Body Id:</b> {metaInfo.attrs["Body Id"]}
         </p>
         <LibraryType type={metaInfo.attrs.Library}/>
       </Col>
-      <Col span={8}>
+      <Col md={6}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View LM Matches</Link>
         </Button>

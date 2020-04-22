@@ -16,10 +16,10 @@ export default function LineResult(props) {
   // other keys are for internal use only.
   return (
     <Row>
-      <Col span={8}>
+      <Col md={10}>
         <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Published Name"]} />
       </Col>
-      <Col span={8}>
+      <Col md={8}>
         <p>
           <b>Line Name:</b> {metaInfo.attrs["Published Name"]}
         </p>
@@ -31,7 +31,7 @@ export default function LineResult(props) {
         </p>
         <LibraryType type={metaInfo.attrs.Library}/>
       </Col>
-      <Col span={8}>
+      <Col md={6}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View EM Matches</Link>
         </Button>
