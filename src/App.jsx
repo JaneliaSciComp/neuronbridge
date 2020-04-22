@@ -59,26 +59,6 @@ export default function App() {
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-        <div className="logo">
-          <Link to="/">NeuronBridge</Link>
-        </div>
-        <div className="janeliaLogo">
-          <a
-            className="projectLogo"
-            href="https://www.janelia.org/project-team/flylight"
-          >
-            <img src={flylightLogo} alt="FlyLight Project" />
-          </a>
-          <a
-            className="projectLogo"
-            href="https://www.janelia.org/project-team/flyem"
-          >
-            <img src={flyemLogo} alt="FlyEM Project" />
-          </a>
-          <a href="https://janelia.org">
-            <img src={janeliaLogo} alt="Janelia Research Campus" />
-          </a>
-        </div>
         <Menu
           defaultSelectedKeys={["/"]}
           selectedKeys={[menuLocation]}
@@ -87,6 +67,9 @@ export default function App() {
           mode="horizontal"
           style={{ lineHeight: "64px" }}
         >
+          <Menu.Item className="logo">
+            <Link to="/">NeuronBridge</Link>
+          </Menu.Item>
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
@@ -113,11 +96,25 @@ export default function App() {
             <Link to="/about">About</Link>
           </Menu.Item>
         </Menu>
+        <div className="janeliaLogo">
+          <a
+            className="projectLogo"
+            href="https://www.janelia.org/project-team/flylight"
+          >
+            <img src={flylightLogo} alt="FlyLight Project" />
+          </a>
+          <a
+            className="projectLogo"
+            href="https://www.janelia.org/project-team/flyem"
+          >
+            <img src={flyemLogo} alt="FlyEM Project" />
+          </a>
+          <a href="https://janelia.org">
+            <img src={janeliaLogo} alt="Janelia Research Campus" />
+          </a>
+        </div>
       </Header>
-      <Content
-        className="site-layout"
-        style={{marginTop: 86 }}
-      >
+      <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
           <LoggedInAs username={appState.username} />
           <Routes
