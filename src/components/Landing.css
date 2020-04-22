@@ -7,7 +7,7 @@
 
 .landing h1.ant-typography, .landing div.ant-typography {
   color: #fff;
-  margin-left: 20px;
+  margin: 20px;
 }
 
 .landing h1.ant-typography {
@@ -15,7 +15,6 @@
 }
 
 .landing .copy {
-  max-width: 35%;
   padding-bottom: 1em;
 }
 
@@ -32,3 +31,17 @@ div.collections {
 div.collections div {
   padding: 1em;
 }
+
+@media screen and (max-width: 650px) {
+}
+
+@media screen and (max-width: 850px) {
+  .landing .copy {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+}
+
+

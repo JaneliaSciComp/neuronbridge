@@ -16,6 +16,24 @@ body {
   margin: 0;
 }
 
+@media screen and (max-width: 650px) {
+  .janeliaLogo {
+    display:none;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .projectLogo {
+    display:none;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .site-layout {
+    padding: 0 50px;
+  }
+}
+
 .janeliaLogo {
   float:right;
   margin-left: 2em;

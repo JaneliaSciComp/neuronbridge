@@ -30,7 +30,7 @@ export default function App() {
         if (email === appState.username) {
           return;
         }
-        setAppState({...appState, username: email})
+        setAppState({ ...appState, username: email });
         userHasAuthenticated(true);
       } catch (e) {
         if (e !== "not authenticated") {
@@ -46,7 +46,7 @@ export default function App() {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
-    setAppState({...appState, username: null});
+    setAppState({ ...appState, username: null });
     history.push("/login");
   }
 
@@ -63,10 +63,16 @@ export default function App() {
           <Link to="/">NeuronBridge</Link>
         </div>
         <div className="janeliaLogo">
-          <a href="https://www.janelia.org/project-team/flylight">
+          <a
+            className="projectLogo"
+            href="https://www.janelia.org/project-team/flylight"
+          >
             <img src={flylightLogo} alt="FlyLight Project" />
           </a>
-          <a href="https://www.janelia.org/project-team/flyem">
+          <a
+            className="projectLogo"
+            href="https://www.janelia.org/project-team/flyem"
+          >
             <img src={flyemLogo} alt="FlyEM Project" />
           </a>
           <a href="https://janelia.org">
@@ -84,14 +90,11 @@ export default function App() {
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
-          {isAuthenticated && [
+          {isAuthenticated && (
             <Menu.Item key="/search">
               <Link to="/search">Search</Link>
-            </Menu.Item>,
-            <Menu.Item key="/about">
-              <Link to="/about">About</Link>
             </Menu.Item>
-          ]}
+          )}
           {isAuthenticated ? (
             <Menu.Item key="/logout" onClick={handleLogout}>
               Logout
@@ -106,11 +109,14 @@ export default function App() {
               </Menu.Item>
             ]
           )}
+          <Menu.Item key="/about">
+            <Link to="/about">About</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content
         className="site-layout"
-        style={{ padding: "0 50px", marginTop: 86 }}
+        style={{marginTop: 86 }}
       >
         <div className="site-layout-background">
           <LoggedInAs username={appState.username} />

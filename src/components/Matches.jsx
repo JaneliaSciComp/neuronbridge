@@ -164,12 +164,12 @@ export default function Matches(props) {
       {!isLoading && matchMeta && (
         <>
           <Row style={{ paddingBottom: "1em" }}>
-            <Col span={3}>
+            <Col sm={24} lg={3}>
               <h3>
                 {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches
               </h3>
             </Col>
-            <Col span={14} style={{ textAlign: "center" }}>
+            <Col lg={14} style={{ textAlign: "center" }}>
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
@@ -180,7 +180,7 @@ export default function Matches(props) {
                 }
               />
             </Col>
-            <Col span={4} style={{ textAlign: "right" }}>
+            <Col lg={4} style={{ textAlign: "right" }}>
               {searchType !== "lines" && (
                 <div>
                   <InputNumber
@@ -194,7 +194,7 @@ export default function Matches(props) {
                 </div>
               )}
             </Col>
-            <Col span={2} style={{ textAlign: "right" }}>
+            <Col lg={2} style={{ textAlign: "right" }}>
               <Switch
                 checked={appState.gridView}
                 checkedChildren="Grid"

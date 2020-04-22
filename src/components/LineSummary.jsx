@@ -21,14 +21,14 @@ export default function LineSummary(props) {
 
   return (
     <Row>
-      <Col span={8}>
+      <Col lg={8}>
         <ImageWithModal
           thumbSrc={lineMeta.thumbnail_path}
           src={lineMeta.image_path}
           title={lineMeta.attrs["Published Name"]}
         />
       </Col>
-      <Col span={6}>
+      <Col lg={6}>
         <p>
           <b>Line Name:</b> {lineMeta.attrs["Published Name"]}
         </p>
@@ -40,7 +40,7 @@ export default function LineSummary(props) {
         </p>
         <LibraryType type={lineMeta.attrs.Library}/>
       </Col>
-      <Col span={6}>
+      <Col lg={6}>
         <p>
           <b>Gender:</b> {lineMeta.attrs.Gender === "f" ? "Female" : "Male"}
         </p>
@@ -54,7 +54,7 @@ export default function LineSummary(props) {
           <b>Objective:</b> {lineMeta.attrs.Objective}
         </p>
       </Col>
-      <Col span={4}>
+      <Col lg={4}>
         <Button onClick={() => history.goBack()}>Back to all results</Button>
       </Col>
     </Row>
