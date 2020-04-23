@@ -125,7 +125,7 @@ export default function App() {
           />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>HHMI ©2020</Footer>
+      <Footer style={{ textAlign: "center" }}>HHMI ©2020  v{process.env.REACT_APP_VERSION}</Footer>
     </Layout>
   );
 }
