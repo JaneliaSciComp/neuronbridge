@@ -10,7 +10,7 @@ export default function MatchSummary(props) {
 
   if (gridView) {
     return (
-      <Col xs={24} md={12} lg={6}>
+      <Col xs={24} md={12} lg={8} xl={6}>
         <ImageWithModal
           thumbSrc={match.thumbnail_path}
           src={match.image_path}

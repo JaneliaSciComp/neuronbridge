@@ -77,12 +77,12 @@ export default function ImageComparison(props) {
   return (
     <Row className="imageComparison">
       {maskOpen && (
-        <Col span={12}>
+        <Col md={12}>
           <canvas ref={maskRef} width="500" height="250" />
           <img src={maskPath} ref={maskImageRef} alt="Mask for search" />
         </Col>
       )}
-      <Col span={maskOpen ? 12 : 24}>
+      <Col md={maskOpen ? 12 : 24}>
         <canvas ref={matchRef} width="500" height="250" />
         <img src={matchPath} alt="Search Match" />
       </Col>

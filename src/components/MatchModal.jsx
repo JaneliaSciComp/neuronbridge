@@ -128,11 +128,11 @@ export default function MatchModal(props) {
       width="90%"
     >
       <Row>
-        <Col span={12}>
+        <Col sm={12}>
           <h3>Input Image</h3>
           {metaBlock}
         </Col>
-        <Col span={12}>
+        <Col sm={12}>
           <h3>
             Match {selected} of {matchesList.length}
           </h3>
