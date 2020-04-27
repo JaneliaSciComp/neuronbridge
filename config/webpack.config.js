@@ -488,6 +488,29 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+
+            {
+              test: /\.less$/,
+              use: [{
+                loader: 'style-loader',
+              }, {
+                loader: 'css-loader', // translates CSS into CommonJS
+              }, {
+                loader: 'less-loader', // compiles Less to CSS
+                options: {
+                  lessOptions: { // If you are using less-loader@5 please spread the lessOptions to options directly
+                    modifyVars: {
+                      'primary-color': '#008b94',
+                      'link-color': '#008b94',
+                      'layout-header-background': '#000b0c'
+                    },
+                    javascriptEnabled: true,
+                  },
+                },
+              }]
+            },
+
+
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.

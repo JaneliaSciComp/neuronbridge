@@ -10,7 +10,7 @@ import flyemLogo from "./flyemLogo.png";
 import flylightLogo from "./flylightlogo.png";
 import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
-import "antd/dist/antd.css";
+import "antd/dist/antd.less";
 
 const { Header, Content, Footer } = Layout;
 
