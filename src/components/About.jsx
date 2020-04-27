@@ -52,7 +52,11 @@ export default function About() {
         <li>Rob Svirskas</li>
         <li>Konrad Rokicki</li>
       </ul>
-
+      <Title level={3}>Logo Design:</Title>
+      <ul>
+        <li>Brianna Yarbrough</li>
+        <li>Yisheng He</li>
+      </ul>
       <Title level={3}>Alumni:</Title>
       <ul>
         <li>Antje Kazimiers</li>

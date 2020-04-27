@@ -8,6 +8,7 @@ import "./App.css";
 import janeliaLogo from "./janelia_logo.png";
 import flyemLogo from "./flyemLogo.png";
 import flylightLogo from "./flylightlogo.png";
+import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
 import "antd/dist/antd.css";
 
@@ -68,7 +69,9 @@ export default function App() {
           style={{ lineHeight: "64px" }}
         >
           <Menu.Item className="logo">
-            <Link to="/">NeuronBridge</Link>
+            <Link to="/">
+              <img src={neuronbridgeLogo} alt="NeuronBridge" />
+            </Link>
           </Menu.Item>
           <Menu.Item key="/">
             <Link to="/">Home</Link>
