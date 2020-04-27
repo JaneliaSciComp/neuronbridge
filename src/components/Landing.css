@@ -16,6 +16,10 @@
   padding-bottom: 1em;
 }
 
+.landing .copy a {
+  color: #00dbe9;
+}
+
 div.collections {
   margin-left: 20px;
   text-align:center;
