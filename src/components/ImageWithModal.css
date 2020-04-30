@@ -1,0 +1,22 @@
+.thumbnail {
+  width: 90%;
+  border: 1px solid #ccc;
+  background: #ddd;
+}
+
+button.modalButton {
+  width: 100%;
+  border: none;
+  color:transparent;
+  background-color: transparent;
+  box-shadow: none;
+  height: inherit;
+}
+
+button.modalButton:hover {
+  background-color: transparent;
+}
+
+.ant-modal-root img {
+  width: 99%;
+}

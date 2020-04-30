@@ -1,0 +1,25 @@
+extends:
+    - "react-app"
+    - "airbnb"
+    - "prettier"
+    - "prettier/react"
+env:
+    browser: true
+    node: true
+    jquery: true
+globals:
+    React: true
+    TestUtils: true
+    routerHelper: true
+    Set: true
+parser:
+    babel-eslint
+plugins:
+    - "react"
+    - "prettier"
+rules:
+    "react/forbid-prop-types":
+        - 1
+        - forbid:
+            - 'any'
+            - 'array'

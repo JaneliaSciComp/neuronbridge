@@ -1,0 +1,10 @@
+.loggedInAs {
+  float: right;
+}
+
+@media screen and (max-width: 850px) {
+  .loggedInAs {
+    width: 100%;
+    display: block;
+  }
+}

@@ -1,0 +1,21 @@
+/* WEBSITE */
+  Developer: Antje Kazimiers
+  Developer: Jody Clements
+
+/* SCIENTIFIC ADVISORS */
+  Advisor: Geoffrey Meissner
+  Advisor: Wyatt Korff
+  Advisor: Gudrun Ihrke
+
+/* DATA SCIENTISTS:*/
+  Scientist/Developer: Hideo Otsuna
+
+/* SEARCH AND BACKEND */
+  Developer: Cristian Goina
+  Developer: Rob Svirskas
+  Developer/Manager: Konrad Rokicki
+
+/* LOGO DESIGN */
+  Designer: Brianna Yarbrough
+  Designer: Yisheng He
+
