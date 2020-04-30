@@ -106,11 +106,8 @@ export default function Signup(props) {
 
   function renderForm() {
     return (
-      <Row>
-        <Col sm={12}>
-          <UsageTerms />
-        </Col>
-        <Col sm={12}>
+      <Row gutter={24}>
+        <Col xs={24} sm={10}>
           <Form layout="vertical" onFinish={handleSubmit}>
             <Title level={3}>Create your account</Title>
             <Form.Item
@@ -168,6 +165,9 @@ export default function Signup(props) {
               </LoaderButton>
             </Space>
           </Form>
+        </Col>
+        <Col offset={2} sm={12}>
+          <UsageTerms />
         </Col>
       </Row>
     );

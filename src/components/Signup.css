@@ -3,10 +3,10 @@
     padding: 60px 0;
   }
 
-  .Signup form {
-    margin: 0 auto;
-    max-width: 400px;
-  }
+}
+
+.Signup form {
+  margin: 0 auto 4em 0;
 }
 
 .Signup form span.help-block {
