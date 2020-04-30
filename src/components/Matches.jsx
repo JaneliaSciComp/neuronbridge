@@ -30,7 +30,6 @@ export default function Matches(props) {
   const [modalOpen, setModalOpen] = useState(0);
   const [isLoading, setLoading] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
-  const [resultsPerLine, setResultsPerLine] = useState(2);
 
   useEffect(() => {
     function getMatches() {
@@ -56,7 +55,7 @@ export default function Matches(props) {
   }
 
   function handleResultsPerLine(count) {
-    setResultsPerLine(count);
+    setAppState({ ...appState, 'resultsPerLine': count })
   }
 
   function handleModalOpen(index) {
@@ -119,7 +118,7 @@ export default function Matches(props) {
       const limitedByLineCount = sortedByLine.map(line =>
         line.channels
           .sort((a, b) => b.attrs["Matched pixels"] - a.attrs["Matched pixels"])
-          .slice(0, resultsPerLine)
+          .slice(0, appState.resultsPerLine)
       );
       fullList = [].concat(...limitedByLineCount);
     } else {
@@ -187,7 +186,7 @@ export default function Matches(props) {
                     style={{width: "5em"}}
                     min={1}
                     max={100}
-                    value={resultsPerLine}
+                    value={appState.resultsPerLine}
                     onChange={handleResultsPerLine}
                   />{" "}
                   results per line

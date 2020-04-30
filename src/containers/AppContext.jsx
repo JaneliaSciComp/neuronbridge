@@ -7,7 +7,8 @@ const AppProvider = (props) => {
   const [state, setState] = useState({
     username: null,
     searchType: 'lines',
-    gridView: true
+    gridView: true,
+    resultsPerLine: 1
   });
   const { children } = props;
   return (
