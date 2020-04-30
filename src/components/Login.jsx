@@ -28,6 +28,7 @@ export default function Login(props) {
   return (
     <div className="Login">
       <Form layout="vertical" onFinish={handleSubmit}>
+        <p>By logging into this application you agree to the <Link to="/usage">Usage Terms</Link></p>
         <GoogleLogin userHasAuthenticated={userHasAuthenticated} />
         <Divider>or</Divider>
         <p>Login with your email address.</p>

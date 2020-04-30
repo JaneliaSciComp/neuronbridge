@@ -10,6 +10,7 @@ import Landing from "./components/Landing";
 import Search from "./components/Search";
 import UnifiedSearch from "./components/UnifiedSearch";
 import About from "./components/About";
+import UsageTerms from "./components/UsageTerms";
 import ResetPassword from "./components/ResetPassword";
 
 export default function Routes({ appProps }) {
@@ -48,6 +49,7 @@ export default function Routes({ appProps }) {
         appProps={appProps}
       />
       <Route path="/about" component={About} />
+      <Route path="/usage" component={UsageTerms} />
       {/* Finally, catch all unmatched routes */}
       <Route component={NotFound} />
     </Switch>
