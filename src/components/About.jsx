@@ -1,5 +1,6 @@
 import React from "react";
-import { Typography, Divider } from "antd";
+import { Typography, Divider, Row, Col } from "antd";
+import References from "./References";
 
 const { Title, Paragraph } = Typography;
 
@@ -32,36 +33,43 @@ export default function About() {
         Both LM image volumes and EM reconstructions can be represented in this
         space, leading to efficient LM-&gt;EM and EM-&gt;LM searching.
       </Paragraph>
-      <Title>Team</Title>
-      <Title level={3}>Scientific Advisors:</Title>
-      <ul>
-        <li>Geoffrey Meissner</li>
-        <li>Wyatt Korff</li>
-        <li>Gudrun Ihrke</li>
-      </ul>
+      <Row>
+        <Col sm={12}>
+          <Title>Team</Title>
+          <Title level={3}>Scientific Advisors:</Title>
+          <ul>
+            <li>Geoffrey Meissner</li>
+            <li>Wyatt Korff</li>
+            <li>Gudrun Ihrke</li>
+          </ul>
 
-      <Title level={3}>Data Scientists:</Title>
-      <ul>
-        <li>Hideo Otsuna</li>
-      </ul>
+          <Title level={3}>Data Scientists:</Title>
+          <ul>
+            <li>Hideo Otsuna</li>
+          </ul>
 
-      <Title level={3}>Software Developers:</Title>
-      <ul>
-        <li>Jody Clements</li>
-        <li>Cristian Goina</li>
-        <li>Rob Svirskas</li>
-        <li>Konrad Rokicki</li>
-      </ul>
-      <Title level={3}>Logo Design:</Title>
-      <ul>
-        <li>Brianna Yarbrough</li>
-        <li>Yisheng He</li>
-      </ul>
-      <Title level={3}>Alumni:</Title>
-      <ul>
-        <li>Antje Kazimiers</li>
-      </ul>
-
+          <Title level={3}>Software Developers:</Title>
+          <ul>
+            <li>Jody Clements</li>
+            <li>Cristian Goina</li>
+            <li>Rob Svirskas</li>
+            <li>Konrad Rokicki</li>
+          </ul>
+          <Title level={3}>Logo Design:</Title>
+          <ul>
+            <li>Brianna Yarbrough</li>
+            <li>Yisheng He</li>
+          </ul>
+          <Title level={3}>Alumni:</Title>
+          <ul>
+            <li>Antje Kazimiers</li>
+          </ul>
+        </Col>
+        <Col sm={12}>
+          <Title>References</Title>
+          <References />
+        </Col>
+      </Row>
       <Divider />
       <Paragraph>
         <sup>1</sup>Otsuna, H., Ito, M., & Kawase, T. Color depth MIP mask
