@@ -8,6 +8,7 @@ const AppProvider = (props) => {
     username: null,
     searchType: 'lines',
     gridView: true,
+    showHelp: false,
     resultsPerLine: 1
   });
   const { children } = props;

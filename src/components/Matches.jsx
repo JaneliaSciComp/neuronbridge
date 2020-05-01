@@ -9,13 +9,16 @@ import {
   Divider,
   Spin,
   InputNumber,
+  Button,
   message
 } from "antd";
+import { QuestionOutlined } from "@ant-design/icons";
 import { AppContext } from "../containers/AppContext";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
 import MatchModal from "./MatchModal";
+import HelpDrawer from "./HelpDrawer";
 import config from "../config";
 
 export default function Matches(props) {
@@ -54,8 +57,12 @@ export default function Matches(props) {
     setPage(newPage);
   }
 
+  function handleHelp() {
+    setAppState({ ...appState, showHelp: !appState.showHelp });
+  }
+
   function handleResultsPerLine(count) {
-    setAppState({ ...appState, 'resultsPerLine': count })
+    setAppState({ ...appState, resultsPerLine: count });
   }
 
   function handleModalOpen(index) {
@@ -163,12 +170,18 @@ export default function Matches(props) {
       {!isLoading && matchMeta && (
         <>
           <Row style={{ paddingBottom: "1em" }}>
-            <Col sm={24} lg={3}>
+            <Col sm={24} lg={4}>
               <h3>
-                {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches
+                {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
+                <Button
+                  size="small"
+                  shape="circle"
+                  icon={<QuestionOutlined />}
+                  onClick={handleHelp}
+                />
               </h3>
             </Col>
-            <Col lg={14} style={{ textAlign: "center" }}>
+            <Col lg={13} style={{ textAlign: "center" }}>
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
@@ -183,7 +196,7 @@ export default function Matches(props) {
               {searchType !== "lines" && (
                 <div>
                   <InputNumber
-                    style={{width: "5em"}}
+                    style={{ width: "5em" }}
                     min={1}
                     max={100}
                     value={appState.resultsPerLine}
@@ -193,7 +206,7 @@ export default function Matches(props) {
                 </div>
               )}
             </Col>
-            <Col lg={2} style={{ textAlign: "right" }}>
+            <Col lg={2}>
               <Switch
                 checked={appState.gridView}
                 checkedChildren="Grid"
@@ -214,6 +227,31 @@ export default function Matches(props) {
           />
         </>
       )}
+      <HelpDrawer>
+        {searchType === "lines" ? (
+          <h3>LM to EM Matches:</h3>
+        ) : (
+          <div>
+            <h3>EM to LM Matches:</h3>
+            <p>
+              All matching images in a line are sorted together by the highest
+              scoring image in that line. By default, we display a single image
+              per line. This can be adjusted in the &ldquo;results per
+              line&rdquo; textbox at the top of the results grid.
+            </p>
+            <div>
+              <InputNumber
+                style={{ width: "5em" }}
+                min={1}
+                max={100}
+                value={appState.resultsPerLine}
+                onChange={handleResultsPerLine}
+              />{" "}
+              results per line
+            </div>
+          </div>
+        )}
+      </HelpDrawer>
     </div>
   );
 }
