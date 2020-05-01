@@ -45,7 +45,7 @@ export default function MatchSummary(props) {
             />
           </p>
           <p>
-            <b>Score:</b> {match.attrs["Matched pixels"]} ({(match.attrs.Score * 100).toPrecision(2)}%)
+            <b>Score:</b> {match.attrs["Matched pixels"]}
           </p>
           {isLM && (
             <p>
