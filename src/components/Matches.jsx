@@ -144,8 +144,9 @@ export default function Matches(props) {
     );
 
     matchSummaries = pageinatedList.map((result, index) => {
+      const key = `${result.matchedId}_${result.attrs.Score}_${result.attrs["Matched pixels"]}_${index}`;
       return (
-        <React.Fragment key={`${result.matchedId}_${result.attrs.Score}`}>
+        <React.Fragment key={key}>
           <MatchSummary
             match={result}
             isLM={!(searchType === "lines")}
