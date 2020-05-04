@@ -1,6 +1,6 @@
 {
   "name": "color-depth-search-site",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.0.3",
