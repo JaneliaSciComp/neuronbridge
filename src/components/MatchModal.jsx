@@ -142,7 +142,8 @@ export default function MatchModal(props) {
             <ExternalLink
               publishedName={
                 selectedMatch.attrs["Published Name"] ||
-                selectedMatch.attrs.PublishedName
+                selectedMatch.attrs.PublishedName ||
+                selectedMatch.attrs["Body Id"]
               }
               isLM={isLM}
             />

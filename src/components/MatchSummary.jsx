@@ -7,7 +7,7 @@ import ExternalLink from "./ExternalLink";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
-  const publishedName = match.attrs["Published Name"] || match.attrs.PublishedName;
+  const publishedName = match.attrs["Published Name"] || match.attrs.PublishedName || match.attrs["Body Id"];
 
   if (gridView) {
     return (
