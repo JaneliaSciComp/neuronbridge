@@ -5,6 +5,7 @@ import { Auth } from "aws-amplify";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
 import "./App.css";
+import config from "./config";
 import janeliaLogo from "./janelia_logo.png";
 import flyemLogo from "./flyemLogo.png";
 import flylightLogo from "./flylightlogo.png";
@@ -128,7 +129,7 @@ export default function App() {
           />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>HHMI ©2020  v{process.env.REACT_APP_VERSION}</Footer>
+      <Footer style={{ textAlign: "center" }}>HHMI ©2020  v{process.env.REACT_APP_VERSION} - {config.s3.BUCKET}</Footer>
     </Layout>
   );
 }
