@@ -25,13 +25,13 @@ export default function Matches(props) {
   const { searchResult, searchType } = props;
   const { results } = searchResult;
 
-  const matchesPerPage = 30;
   const [page, setPage] = useState(1);
 
   const { matchId } = useParams();
   const [matchMeta, setMatchMeta] = useState(null);
   const [modalOpen, setModalOpen] = useState(0);
   const [isLoading, setLoading] = useState(false);
+  const [matchesPerPage, setMatchesPerPage] = useState(30);
   const [appState, setAppState] = useContext(AppContext);
 
   useEffect(() => {
@@ -55,6 +55,10 @@ export default function Matches(props) {
 
   function handlePageChange(newPage) {
     setPage(newPage);
+  }
+
+  function handleChangePageSize(current, size) {
+    setMatchesPerPage(size);
   }
 
   function handleHelp() {
@@ -185,6 +189,8 @@ export default function Matches(props) {
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
+                onShowSizeChange={handleChangePageSize}
+                pageSizeOptions = {[10, 30, 50, 100]}
                 onChange={handlePageChange}
                 total={fullList.length}
                 showTotal={(total, range) =>
