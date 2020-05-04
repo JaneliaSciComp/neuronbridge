@@ -67,8 +67,8 @@ function Landing(props) {
 
             <Paragraph>
               We offer fast color depth mask searching, with no segmentation
-              needed (see About page). For NBLAST searching, try Virtual Fly
-              Brain.
+              needed (see About page). For NBLAST searching, try{" "}
+              <a href="https://www.virtualflybrain.org">Virtual Fly Brain</a>.
             </Paragraph>
 
             <Paragraph>
