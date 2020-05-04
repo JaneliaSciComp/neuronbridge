@@ -1,11 +1,11 @@
+const BUCKET_NAME = "color-depth-mips";
+
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
-  LINE_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/by_line/',
-  SKELETON_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/by_body/',
-  MATCH_PATH: 'https://color-depth-mips.s3.amazonaws.com/metadata/cdsresults/',
+  MATCH_PATH: `https://${BUCKET_NAME}.s3.amazonaws.com/metadata/cdsresults/`,
   s3: {
     REGION: "us-east-1",
-    BUCKET: "color-depth-mips"
+    BUCKET: BUCKET_NAME
   },
   apiGateway: {
     REGION: "us-east-1",
