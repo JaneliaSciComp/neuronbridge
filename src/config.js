@@ -1,4 +1,4 @@
-const BUCKET_NAME = "color-depth-mips";
+const BUCKET_NAME = "janelia-neuronbridge-data-prod";
 
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
