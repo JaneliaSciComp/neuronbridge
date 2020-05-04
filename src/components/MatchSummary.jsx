@@ -14,11 +14,11 @@ export default function MatchSummary(props) {
         <ImageWithModal
           thumbSrc={match.thumbnail_path}
           src={match.image_path}
-          alt={match.attrs.PublishedName}
+          alt={match.attrs["Published Name"]}
           showModal={showModal}
         />
         <p style={{ paddingLeft: "2em" }}>
-          <ExternalLink publishedName={match.attrs.PublishedName} isLM={isLM} />{" "}
+          <ExternalLink publishedName={match.attrs["Published Name"]} isLM={isLM} />{" "}
           (Score: {match.attrs["Matched pixels"]})
         </p>
       </Col>
@@ -32,7 +32,7 @@ export default function MatchSummary(props) {
           <ImageWithModal
             thumbSrc={match.thumbnail_path}
             src={match.image_path}
-            alt={match.attrs.PublishedName}
+            alt={match.attrs["Published Name"]}
             showModal={showModal}
           />
         </Col>
@@ -40,7 +40,7 @@ export default function MatchSummary(props) {
           <p>
             <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
             <ExternalLink
-              publishedName={match.attrs.PublishedName}
+              publishedName={match.attrs["Published Name"]}
               isLM={isLM}
             />
           </p>

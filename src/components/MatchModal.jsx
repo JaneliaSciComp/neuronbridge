@@ -139,7 +139,7 @@ export default function MatchModal(props) {
           <p>
             <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
             <ExternalLink
-              publishedName={selectedMatch.attrs.PublishedName}
+              publishedName={selectedMatch.attrs["Published Name"]}
               isLM={isLM}
             />
           </p>
