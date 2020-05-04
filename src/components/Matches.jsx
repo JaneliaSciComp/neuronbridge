@@ -103,7 +103,7 @@ export default function Matches(props) {
     if (searchType !== "lines") {
       const byLines = {};
       matchMeta.results.forEach(result => {
-        const publishedName = result.attrs["Published Name"];
+        const publishedName = result.attrs["Published Name"] || result.attrs.PublishedName;
         const currentScore = result.attrs["Matched pixels"];
 
         if (publishedName in byLines) {

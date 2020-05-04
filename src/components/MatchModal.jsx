@@ -51,7 +51,8 @@ export default function MatchModal(props) {
       metaBlock = (
         <>
           <p>
-            <b>Line Name:</b> {mask.attrs["Published Name"]}
+            <b>Line Name:</b>{" "}
+            {mask.attrs["Published Name"] || mask.attrs.PublishedName}
           </p>
           <p>
             <b>Slide Code:</b> {mask.attrs["Slide Code"]}
@@ -139,7 +140,10 @@ export default function MatchModal(props) {
           <p>
             <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
             <ExternalLink
-              publishedName={selectedMatch.attrs["Published Name"]}
+              publishedName={
+                selectedMatch.attrs["Published Name"] ||
+                selectedMatch.attrs.PublishedName
+              }
               isLM={isLM}
             />
           </p>
