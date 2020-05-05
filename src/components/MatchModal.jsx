@@ -150,7 +150,7 @@ export default function MatchModal(props) {
             />
           </p>
           <p>
-            <b>Score:</b> {selectedMatch.attrs["Matched pixels"]}
+            <b>Score:</b> {Math.round(selectedMatch.normalizedScore)}
           </p>
           <LibraryType type={selectedMatch.attrs.Library} />
         </Col>

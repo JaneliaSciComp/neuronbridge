@@ -27,7 +27,7 @@ export default function MatchSummary(props) {
             isLM={isLM}
             library={match.attrs.Library}
           />{" "}
-          (Score: {match.attrs["Matched pixels"]})
+          (Score: {Math.round(match.normalizedScore)})
         </p>
       </Col>
     );
@@ -54,7 +54,7 @@ export default function MatchSummary(props) {
             />
           </p>
           <p>
-            <b>Score:</b> {match.attrs["Matched pixels"]}
+            <b>Score:</b> {Math.round(match.normalizedScore)}
           </p>
           {isLM && (
             <p>
