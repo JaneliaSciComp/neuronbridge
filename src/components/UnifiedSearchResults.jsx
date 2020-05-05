@@ -15,22 +15,41 @@ export default function UnifiedSearchResults(props) {
     const { results: skeletonEntries } = skeletonsResult;
 
     const resultsList = [
-      ...lineEntries.map(result => {
-        return (
-          <React.Fragment key={result.id}>
-            <LineResult metaInfo={result} key={result.id} />
-            <Divider dashed />
-          </React.Fragment>
-        );
-      }),
-      ...skeletonEntries.map(result => {
-        return (
-          <React.Fragment key={result.id}>
-            <SkeletonResult metaInfo={result} key={result.id} />
-            <Divider dashed />
-          </React.Fragment>
-        );
-      })
+      ...lineEntries
+        .sort((a, b) =>
+          a.attrs["Published Name"].localeCompare(
+            b.attrs["Published Name"],
+            undefined,
+            { numeric: true, sensitivity: "base" }
+          )
+        )
+        .map(result => {
+          console.log(result.attrs["Published Name"]);
+          const key = `${result.id}_${result.attrs["Slide Code"]}_${result.attrs.Channel}`;
+          return (
+            <React.Fragment key={key}>
+              <LineResult metaInfo={result} key={result.id} />
+              <Divider dashed />
+            </React.Fragment>
+          );
+        }),
+      ...skeletonEntries
+        .sort((a, b) =>
+          a.attrs["Body Id"].localeCompare(b.attrs["Body Id"], undefined, {
+            numeric: true,
+            sensitivity: "base"
+          })
+        )
+
+        .map(result => {
+          const key = `${result.id}_${result.attrs["Body Id"]}`;
+          return (
+            <React.Fragment key={key}>
+              <SkeletonResult metaInfo={result} key={result.id} />
+              <Divider dashed />
+            </React.Fragment>
+          );
+        })
     ];
 
     if (resultsList.length < 1) {
