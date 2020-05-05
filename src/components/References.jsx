@@ -11,7 +11,7 @@ export default function References() {
 
       <dt>EM Hemibrain</dt>
       <dd>
-        <a href="https://doi.org/">Scheffer et al., (2020)</a>
+        <a href="https://doi.org/10.1101/2020.01.21.911859">Xu et al., (2020)</a>
       </dd>
 
       <dt>Gen1 GAL4 collections</dt>
@@ -62,7 +62,7 @@ export default function References() {
 
       <dt>NeuronBridge</dt>
       <dd>
-        <a href="https://doi.org/">Clements et al., (2020)</a>
+        <a href="https://doi.org/10.25378/janelia.12159378.v1">Clements et al., (2020)</a>
       </dd>
       <dd>
         <a href="https://doi.org/10.1101/318006">Otsuna et al., (2018)</a>
