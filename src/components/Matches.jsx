@@ -14,11 +14,15 @@ import {
 } from "antd";
 import { QuestionOutlined } from "@ant-design/icons";
 import { AppContext } from "../containers/AppContext";
+import { FilterContext } from "../containers/FilterContext";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
 import MatchModal from "./MatchModal";
 import HelpDrawer from "./HelpDrawer";
+import FilterMenu from "./FilterMenu";
+import FilterButton from "./FilterButton";
+
 import config from "../config";
 
 export default function Matches(props) {
@@ -33,6 +37,7 @@ export default function Matches(props) {
   const [isLoading, setLoading] = useState(false);
   const [matchesPerPage, setMatchesPerPage] = useState(30);
   const [appState, setAppState] = useContext(AppContext);
+  const [filterState, setFilterState] = useContext(FilterContext);
 
   useEffect(() => {
     function getMatches() {
@@ -66,7 +71,7 @@ export default function Matches(props) {
   }
 
   function handleResultsPerLine(count) {
-    setAppState({ ...appState, resultsPerLine: count });
+    setFilterState({ ...filterState, resultsPerLine: count });
   }
 
   function handleModalOpen(index) {
@@ -75,6 +80,7 @@ export default function Matches(props) {
   }
 
   const matchInput = results.filter(result => result.id === matchId)[0];
+  const resultsPerLine = filterState.resultsPerLine || 1;
 
   if (!matchInput) {
     return <p>Loading...</p>;
@@ -83,6 +89,14 @@ export default function Matches(props) {
   let pageinatedList = [];
   let fullList = [];
   let matchSummaries = [];
+  const countsByLibrary = {};
+
+  function incrementLibCount(library) {
+    if (!(library in countsByLibrary)) {
+      countsByLibrary[library] = 0;
+    }
+    countsByLibrary[library] += 1;
+  }
 
   const summary =
     searchType === "lines" ? (
@@ -106,37 +120,49 @@ export default function Matches(props) {
     //
     if (searchType !== "lines") {
       const byLines = {};
-      matchMeta.results.forEach(result => {
-        const publishedName = result.attrs["Published Name"] || result.attrs.PublishedName;
-        const currentScore = result.attrs["Matched pixels"];
+      matchMeta.results
+        .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
+        .forEach(result => {
+          const publishedName =
+            result.attrs["Published Name"] || result.attrs.PublishedName;
+          const currentScore = result.attrs["Matched pixels"];
+          const library = result.attrs.Library;
 
-        if (publishedName in byLines) {
-          byLines[publishedName].score = Math.max(
-            parseInt(byLines[publishedName].score, 10),
-            currentScore
-          );
-          byLines[publishedName].channels.push(result);
-        } else {
-          byLines[publishedName] = {
-            score: parseInt(currentScore, 10),
-            channels: [result]
-          };
-        }
-      });
+          if (publishedName in byLines) {
+            byLines[publishedName].score = Math.max(
+              parseInt(byLines[publishedName].score, 10),
+              currentScore
+            );
+            byLines[publishedName].channels.push(result);
+          } else {
+            byLines[publishedName] = {
+              score: parseInt(currentScore, 10),
+              channels: [result],
+              library
+            };
+          }
+        });
       const sortedByLine = Object.values(byLines).sort(
         (a, b) => b.score - a.score
       );
       const limitedByLineCount = sortedByLine.map(line =>
         line.channels
           .sort((a, b) => b.attrs["Matched pixels"] - a.attrs["Matched pixels"])
-          .slice(0, appState.resultsPerLine)
+          .slice(0, resultsPerLine)
       );
+
       fullList = [].concat(...limitedByLineCount);
     } else {
-      fullList = matchMeta.results.sort((a, b) => {
+      fullList = matchMeta.results
+        .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
+        .sort((a, b) => {
         return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
       });
     }
+
+    matchMeta.results.forEach(line => {
+      incrementLibCount(line.attrs.Library);
+    });
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
@@ -191,7 +217,7 @@ export default function Matches(props) {
                 current={page}
                 pageSize={matchesPerPage}
                 onShowSizeChange={handleChangePageSize}
-                pageSizeOptions = {[10, 30, 50, 100]}
+                pageSizeOptions={[10, 30, 50, 100]}
                 onChange={handlePageChange}
                 total={fullList.length}
                 showTotal={(total, range) =>
@@ -199,21 +225,10 @@ export default function Matches(props) {
                 }
               />
             </Col>
-            <Col lg={4} style={{ textAlign: "right" }}>
-              {searchType !== "lines" && (
-                <div>
-                  <InputNumber
-                    style={{ width: "5em" }}
-                    min={1}
-                    max={100}
-                    value={appState.resultsPerLine}
-                    onChange={handleResultsPerLine}
-                  />{" "}
-                  results per line
-                </div>
-              )}
+            <Col lg={5} style={{ textAlign: "left" }}>
+              <FilterButton />
             </Col>
-            <Col lg={2}>
+            <Col lg={2} style={{ textAlign: "right" }}>
               <Switch
                 checked={appState.gridView}
                 checkedChildren="Grid"
@@ -224,6 +239,10 @@ export default function Matches(props) {
               />
             </Col>
           </Row>
+          <FilterMenu
+            searchType={searchType}
+            countsByLibrary={countsByLibrary}
+          />
           {matchSummaries}
           <MatchModal
             isLM={!(searchType === "lines")}
@@ -251,7 +270,7 @@ export default function Matches(props) {
                 style={{ width: "5em" }}
                 min={1}
                 max={100}
-                value={appState.resultsPerLine}
+                value={resultsPerLine}
                 onChange={handleResultsPerLine}
               />{" "}
               results per line

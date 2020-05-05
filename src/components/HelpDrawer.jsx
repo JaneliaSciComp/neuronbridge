@@ -24,5 +24,5 @@ export default function HelpDrawer({ children }) {
 }
 
 HelpDrawer.propTypes = {
-  children: PropTypes.elementType.isRequired
+  children: PropTypes.object.isRequired
 };

@@ -9,6 +9,7 @@ import AlertTemplate from "react-alert-template-basic";
 import config from "./config";
 import App from "./App";
 import { AppProvider } from "./containers/AppContext";
+import { FilterProvider } from "./containers/FilterContext";
 import * as serviceWorker from "./serviceWorker";
 
 Amplify.configure({
@@ -48,7 +49,9 @@ ReactDOM.render(
   <Router>
     <AlertProvider template={AlertTemplate} {...alertOptions}>
       <AppProvider>
-        <App />
+        <FilterProvider>
+          <App />
+        </FilterProvider>
       </AppProvider>
     </AlertProvider>
   </Router>,

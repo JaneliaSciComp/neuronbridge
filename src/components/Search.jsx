@@ -6,6 +6,7 @@ import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import Matches from "./Matches";
 import NoSearch from "./NoSearch";
+
 import "./Search.css";
 
 function Search() {
