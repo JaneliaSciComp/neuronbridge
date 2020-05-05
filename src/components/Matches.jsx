@@ -121,7 +121,7 @@ export default function Matches(props) {
     if (searchType !== "lines") {
       const byLines = {};
       matchMeta.results
-        .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
+        // .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
         .forEach(result => {
           const publishedName =
             result.attrs["Published Name"] || result.attrs.PublishedName;
@@ -151,18 +151,27 @@ export default function Matches(props) {
           .slice(0, resultsPerLine)
       );
 
-      fullList = [].concat(...limitedByLineCount);
+      limitedByLineCount.forEach(lines => {
+        lines.forEach(line => incrementLibCount(line.attrs.Library));
+      });
+
+      // remove the filtered libraries
+      const filteredByLibrary = limitedByLineCount.filter(
+        result => !(result[0].attrs.Library in filterState.filteredLibraries))
+
+      fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = matchMeta.results
         .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
         .sort((a, b) => {
         return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
       });
+
+      matchMeta.results.forEach(line => {
+        incrementLibCount(line.attrs.Library);
+      });
     }
 
-    matchMeta.results.forEach(line => {
-      incrementLibCount(line.attrs.Library);
-    });
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
