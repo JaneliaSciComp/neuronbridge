@@ -146,6 +146,7 @@ export default function MatchModal(props) {
                 selectedMatch.attrs["Body Id"]
               }
               isLM={isLM}
+              library={selectedMatch.attrs.Library}
             />
           </p>
           <p>

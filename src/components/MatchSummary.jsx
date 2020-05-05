@@ -7,7 +7,10 @@ import ExternalLink from "./ExternalLink";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
-  const publishedName = match.attrs["Published Name"] || match.attrs.PublishedName || match.attrs["Body Id"];
+  const publishedName =
+    match.attrs["Published Name"] ||
+    match.attrs.PublishedName ||
+    match.attrs["Body Id"];
 
   if (gridView) {
     return (
@@ -19,7 +22,11 @@ export default function MatchSummary(props) {
           showModal={showModal}
         />
         <p style={{ paddingLeft: "2em" }}>
-          <ExternalLink publishedName={publishedName} isLM={isLM} />{" "}
+          <ExternalLink
+            publishedName={publishedName}
+            isLM={isLM}
+            library={match.attrs.Library}
+          />{" "}
           (Score: {match.attrs["Matched pixels"]})
         </p>
       </Col>
@@ -43,6 +50,7 @@ export default function MatchSummary(props) {
             <ExternalLink
               publishedName={publishedName}
               isLM={isLM}
+              library={match.attrs.Library}
             />
           </p>
           <p>
