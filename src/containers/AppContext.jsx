@@ -9,7 +9,7 @@ const AppProvider = (props) => {
     searchType: 'lines',
     gridView: true,
     showHelp: false,
-    showFilterMenu: true
+    showFilterMenu: false
   });
   const { children } = props;
   return (
