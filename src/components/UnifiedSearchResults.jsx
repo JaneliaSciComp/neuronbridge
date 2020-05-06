@@ -24,7 +24,6 @@ export default function UnifiedSearchResults(props) {
           )
         )
         .map(result => {
-          console.log(result.attrs["Published Name"]);
           const key = `${result.id}_${result.attrs["Slide Code"]}_${result.attrs.Channel}`;
           return (
             <React.Fragment key={key}>

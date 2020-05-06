@@ -11,6 +11,8 @@ import flyemLogo from "./flyemLogo.png";
 import flylightLogo from "./flylightlogo.png";
 import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
+import HelpDrawer from "./components/HelpDrawer";
+import HelpContents from "./components/HelpContents";
 import "antd/dist/antd.less";
 
 const { Header, Content, Footer } = Layout;
@@ -130,6 +132,9 @@ export default function App() {
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>HHMI ©2020  v{process.env.REACT_APP_VERSION} - {config.s3.BUCKET}</Footer>
+        <HelpDrawer>
+          <HelpContents />
+        </HelpDrawer>
     </Layout>
   );
 }

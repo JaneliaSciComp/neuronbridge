@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
-import { Input } from "antd";
+import { Input, Col, Row } from "antd";
+
+import HelpButton from "./HelpButton";
 import "./SearchInput.css";
 import "./LoaderButton.css";
 
@@ -14,8 +16,7 @@ export default function SearchInput(props) {
 
   useEffect(() => {
     setSearch(searchTerm);
-  },[searchTerm, setSearch]);
-
+  }, [searchTerm, setSearch]);
 
   const handleSearch = value => {
     history.push(`/search?q=${value}`);
@@ -29,14 +30,21 @@ export default function SearchInput(props) {
         <Link to="/search?q=1077847238">1077847238</Link>,{" "}
         <Link to="/search?q=1537331894">1537331894</Link>
       </p>
-      <Search
-        placeholder="Search with a line name or skeleton id."
-        enterButton="Search"
-        size="large"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        onSearch={value => handleSearch(value)}
-      />
+      <Row>
+        <Col xs={23}>
+          <Search
+            placeholder="Search with a line name or skeleton id."
+            enterButton="Search"
+            size="large"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            onSearch={value => handleSearch(value)}
+          />
+        </Col>
+        <Col xs={1} style={{paddingLeft: '1em'}}>
+          <HelpButton target="SearchInput"/>
+        </Col>
+      </Row>
     </div>
   );
 }

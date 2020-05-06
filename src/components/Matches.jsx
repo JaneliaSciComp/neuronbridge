@@ -8,18 +8,16 @@ import {
   Pagination,
   Divider,
   Spin,
-  InputNumber,
-  Button,
+  Empty,
   message
 } from "antd";
-import { QuestionOutlined } from "@ant-design/icons";
 import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
 import LineSummary from "./LineSummary";
 import MatchSummary from "./MatchSummary";
 import SkeletonSummary from "./SkeletonSummary";
 import MatchModal from "./MatchModal";
-import HelpDrawer from "./HelpDrawer";
+import HelpButton from "./HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
 
@@ -37,7 +35,7 @@ export default function Matches(props) {
   const [isLoading, setLoading] = useState(false);
   const [matchesPerPage, setMatchesPerPage] = useState(30);
   const [appState, setAppState] = useContext(AppContext);
-  const [filterState, setFilterState] = useContext(FilterContext);
+  const [filterState] = useContext(FilterContext);
 
   useEffect(() => {
     function getMatches() {
@@ -64,14 +62,6 @@ export default function Matches(props) {
 
   function handleChangePageSize(current, size) {
     setMatchesPerPage(size);
-  }
-
-  function handleHelp() {
-    setAppState({ ...appState, showHelp: !appState.showHelp });
-  }
-
-  function handleResultsPerLine(count) {
-    setFilterState({ ...filterState, resultsPerLine: count });
   }
 
   function handleModalOpen(index) {
@@ -157,21 +147,23 @@ export default function Matches(props) {
 
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount.filter(
-        result => !(result[0].attrs.Library in filterState.filteredLibraries))
+        result => !(result[0].attrs.Library in filterState.filteredLibraries)
+      );
 
       fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = matchMeta.results
-        .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
+        .filter(
+          result => !(result.attrs.Library in filterState.filteredLibraries)
+        )
         .sort((a, b) => {
-        return b.normalizedScore - a.normalizedScore;
-      });
+          return b.normalizedScore - a.normalizedScore;
+        });
 
       matchMeta.results.forEach(line => {
         incrementLibCount(line.attrs.Library);
       });
     }
-
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
@@ -197,6 +189,19 @@ export default function Matches(props) {
     matchSummaries = <Row gutter={16}>{matchSummaries}</Row>;
   }
 
+  if (pageinatedList.length === 0) {
+    matchSummaries = (
+      <Empty
+        image={Empty.PRESENTED_IMAGE_SIMPLE}
+        description={
+          <span>
+            There are no results to show. Please try using less restrictive filters.
+          </span>
+        }
+      />
+    );
+  }
+
   return (
     <div>
       <h3>Input Image</h3>
@@ -213,12 +218,7 @@ export default function Matches(props) {
             <Col sm={24} lg={4}>
               <h3>
                 {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
-                <Button
-                  size="small"
-                  shape="circle"
-                  icon={<QuestionOutlined />}
-                  onClick={handleHelp}
-                />
+                <HelpButton target="MatchesEMtoLM" />
               </h3>
             </Col>
             <Col lg={13} style={{ textAlign: "center" }}>
@@ -262,31 +262,6 @@ export default function Matches(props) {
           />
         </>
       )}
-      <HelpDrawer>
-        {searchType === "lines" ? (
-          <h3>LM to EM Matches:</h3>
-        ) : (
-          <div>
-            <h3>EM to LM Matches:</h3>
-            <p>
-              All matching images in a line are sorted together by the highest
-              scoring image in that line. By default, we display a single image
-              per line. This can be adjusted in the &ldquo;results per
-              line&rdquo; textbox at the top of the results grid.
-            </p>
-            <div>
-              <InputNumber
-                style={{ width: "5em" }}
-                min={1}
-                max={100}
-                value={resultsPerLine}
-                onChange={handleResultsPerLine}
-              />{" "}
-              results per line
-            </div>
-          </div>
-        )}
-      </HelpDrawer>
     </div>
   );
 }
