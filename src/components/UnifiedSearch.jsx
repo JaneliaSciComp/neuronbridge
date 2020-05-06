@@ -18,12 +18,27 @@ export default function UnifiedSearch() {
   const [byBodyResult, setByBodyResults] = useState(null);
   const [lineLoading, setLineLoading] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
+  const [nameslist, setNamesList] = useState(null);
+
+  useEffect(() => {
+    const storageOptions = {
+      customPrefix: {
+        public: ""
+      },
+      level: "public",
+      download: true
+    };
+
+    Storage.get("publishedNames.txt", storageOptions).then(result => {
+      setNamesList(result.Body.split("\n"));
+    });
+  }, []);
 
   useEffect(() => {
     setByLineResults(null);
     setByBodyResults(null);
 
-    if (!searchTerm) {
+    if (!searchTerm || !nameslist) {
       return;
     }
 
@@ -38,52 +53,64 @@ export default function UnifiedSearch() {
       download: true
     };
 
-    Storage.list(`metadata/by_body/${searchTerm}`, storageOptions)
-      .then(results => {
-        if (results.length === 0) {
-          throw Error("No results found.");
-        }
-        const combined = { results: [] };
-        results.forEach(result => {
-          Storage.get(result.key, storageOptions).then(metaData => {
-            const newResults = metaData.Body.results;
-            combined.results.push(...newResults);
-            setByBodyResults({ ...combined });
-            setBodyLoading(false);
-          });
-        });
-      })
-      .catch(error => {
-        if (error === "No credentials") {
-          // Log me out and prompt me to login again.
-        }
-        setByBodyResults({ error, results: [] });
-        setBodyLoading(false);
-      });
+    // get the list of names that match the query
+    let matchedNames = [];
 
-    Storage.list(`metadata/by_line/${searchTerm}`, storageOptions)
-      .then(results => {
-        if (results.length === 0) {
-          throw Error("No results found.");
-        }
-        const combined = { results: [] };
-        results.forEach(result => {
-          Storage.get(result.key, storageOptions).then(metaData => {
+    if (nameslist) {
+      const match = new RegExp(`^${searchTerm.replace(/\*/g, ".*")}$`, "i");
+      matchedNames = nameslist.filter(item => {
+        return item.match(match);
+      });
+    }
+
+    const lineNames = matchedNames.filter(name => name.match(/[a-z]/i));
+    const lineCombined = { results: [] };
+    lineNames.forEach(name => {
+        Storage.get(`metadata/by_line/${name}.json`, storageOptions)
+          .then(metaData => {
             const newResults = metaData.Body.results;
-            combined.results.push(...newResults);
-            setByLineResults({ ...combined });
+            lineCombined.results.push(...newResults);
+            setByLineResults({ ...lineCombined });
+            setLineLoading(false);
+          })
+          .catch(error => {
+            if (error === "No credentials") {
+              // Log me out and prompt me to login again.
+            }
+            setByLineResults({ error, results: [] });
             setLineLoading(false);
           });
-        });
-      })
-      .catch(error => {
-        if (error === "No credentials") {
-          // Log me out and prompt me to login again.
-        }
-        setByLineResults({ error, results: [] });
-        setLineLoading(false);
-      });
-  }, [searchTerm]);
+    });
+
+    if (lineNames.length === 0) {
+      setByLineResults({ results: [] });
+      setLineLoading(false);
+    }
+
+    const bodyIds = matchedNames.filter(name => !name.match(/[a-z]/i));
+    const bodyCombined = { results: [] };
+    bodyIds.forEach(name => {
+      Storage.get(`metadata/by_body/${name}.json`, storageOptions)
+          .then(metaData => {
+            const newResults = metaData.Body.results;
+            bodyCombined.results.push(...newResults);
+            setByBodyResults({ ...bodyCombined });
+            setBodyLoading(false);
+          })
+          .catch(error => {
+            if (error === "No credentials") {
+              // Log me out and prompt me to login again.
+            }
+            setByBodyResults({ error, results: [] });
+            setBodyLoading(false);
+          });
+    });
+
+    if (bodyIds.length === 0) {
+      setByBodyResults({ results: [] });
+      setBodyLoading(false);
+    }
+  }, [searchTerm, nameslist]);
 
   return (
     <div>
