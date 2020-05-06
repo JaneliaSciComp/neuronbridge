@@ -41,8 +41,8 @@ export default function SearchInput(props) {
             onSearch={value => handleSearch(value)}
           />
         </Col>
-        <Col xs={1} style={{paddingLeft: '1em'}}>
-          <HelpButton target="SearchInput"/>
+        <Col xs={1} style={{ paddingLeft: "1em" }}>
+          <HelpButton target="SearchInput" />
         </Col>
       </Row>
     </div>

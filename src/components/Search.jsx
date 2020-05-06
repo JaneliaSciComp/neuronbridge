@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouteMatch, useParams, Route, Switch } from "react-router-dom";
 import { Storage } from "aws-amplify";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import Matches from "./Matches";
@@ -22,6 +22,17 @@ function Search() {
     if (!searchTerm) {
       return;
     }
+    if (searchTerm.length < 3) {
+      message.error('Searches must have a minimum of 3 characters.')
+      setResults({ error: 'Searches must have a minimum of 3 characters.' });
+      return;
+    }
+    if (searchTerm.match(/\*(\*|\.)\*/)) {
+      message.error('Ha ha, nice try')
+      setResults({ error: 'Ha ha, nice try' });
+      return;
+    }
+
 
     setIsLoading(true);
 

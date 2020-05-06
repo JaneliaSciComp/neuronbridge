@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Storage } from "aws-amplify";
+import { message } from "antd";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
@@ -42,6 +43,22 @@ export default function UnifiedSearch() {
       return;
     }
 
+    if (searchTerm.length < 3) {
+      message.error('Searches must have a minimum of 3 characters.')
+      setByLineResults({ error: 'Searches must have a minimum of 3 characters.', results: [] });
+      setByBodyResults({ error: 'Searches must have a minimum of 3 characters.', results: [] });
+      return;
+    }
+    if (searchTerm.match(/\*(\*|\.)\*/)) {
+      message.error('Ha ha, nice try')
+      setByLineResults({ error: 'Ha ha, nice try', results: [] });
+      setByBodyResults({ error: 'Ha ha, nice try', results: [] });
+      return;
+    }
+
+
+
+
     setLineLoading(true);
     setBodyLoading(true);
 
@@ -62,6 +79,9 @@ export default function UnifiedSearch() {
         return item.match(match);
       });
     }
+
+    // TODO: should probably set a limit on the number of items that can be searched,
+    // so we don't break the site. Need to think this over.
 
     const lineNames = matchedNames.filter(name => name.match(/[a-z]/i));
     const lineCombined = { results: [] };
