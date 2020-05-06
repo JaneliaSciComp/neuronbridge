@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Spin, Divider, Typography } from "antd";
+import { Spin, Divider, Typography, Pagination } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 import NoSearch from "./NoSearch";
@@ -8,6 +8,19 @@ import NoSearch from "./NoSearch";
 const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
+
+  const [page, setPage] = useState(1);
+  const [matchesPerPage, setMatchesPerPage] = useState(30);
+
+  function handlePageChange(newPage) {
+    setPage(newPage);
+  }
+
+  function handleChangePageSize(current, size) {
+    setMatchesPerPage(size);
+    setPage(1);
+  }
+
   const { linesResult, skeletonsResult } = props;
 
   if (linesResult && skeletonsResult) {
@@ -60,12 +73,37 @@ export default function UnifiedSearchResults(props) {
       );
     }
 
+    const paginatedList = resultsList.slice(
+      page * matchesPerPage - matchesPerPage,
+      page * matchesPerPage
+    );
+
     return (
       <div className="results">
-        <p>
-          Results 1 - {resultsList.length} of {resultsList.length}
-        </p>
-        {resultsList}
+        <Pagination
+          current={page}
+          pageSize={matchesPerPage}
+          onShowSizeChange={handleChangePageSize}
+          pageSizeOptions={[10, 30, 50, 100]}
+          onChange={handlePageChange}
+          total={resultsList.length}
+          showTotal={(total, range) =>
+            `Results ${range[0]}-${range[1]} of ${total}`
+          }
+        />
+        {paginatedList}
+         <Pagination
+          current={page}
+          pageSize={matchesPerPage}
+          onShowSizeChange={handleChangePageSize}
+          pageSizeOptions={[10, 30, 50, 100]}
+          onChange={handlePageChange}
+          total={resultsList.length}
+          showTotal={(total, range) =>
+            `Results ${range[0]}-${range[1]} of ${total}`
+          }
+        />
+
       </div>
     );
   }
