@@ -7,6 +7,10 @@ body {
   margin-right: 1em;
 }
 
+.ant-switch .ant-switch-inner {
+  margin: 0 6px 0 24px;
+}
+
 
 .nav-menu p {
   padding: 0;
