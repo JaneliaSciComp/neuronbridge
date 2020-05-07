@@ -218,7 +218,7 @@ export default function Matches(props) {
             <Col sm={24} lg={4}>
               <h3>
                 {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
-                <HelpButton target="MatchesEMtoLM" />
+                <HelpButton target={searchType === "lines" ? "MatchesLMtoEM" : "MatchesEMtoLM"} />
               </h3>
             </Col>
             <Col lg={13} style={{ textAlign: "center" }}>

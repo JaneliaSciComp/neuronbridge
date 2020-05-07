@@ -1,0 +1,13 @@
+
+@keyframes colorfade {
+  from {
+    background: #d8fdff;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+.highlighted {
+  animation: colorfade 2s;
+}
