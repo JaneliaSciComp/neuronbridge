@@ -9,8 +9,7 @@ import "./LoaderButton.css";
 
 const { Search } = Input;
 
-export default function SearchInput(props) {
-  const { searchTerm } = props;
+export default function SearchInput({ searchTerm, examples, help }) {
   const history = useHistory();
   const [search, setSearch] = useState("");
 
@@ -24,12 +23,14 @@ export default function SearchInput(props) {
 
   return (
     <div className="searchInput">
-      <p>
-        examples: <Link to="/search?q=MB543B">MB543B</Link>,{" "}
-        <Link to="/search?q=LH173">LH173</Link>,{" "}
-        <Link to="/search?q=1077847238">1077847238</Link>,{" "}
-        <Link to="/search?q=1537331894">1537331894</Link>
-      </p>
+      {examples && (
+        <p>
+          examples: <Link to="/search?q=MB543B">MB543B</Link>,{" "}
+          <Link to="/search?q=LH173">LH173</Link>,{" "}
+          <Link to="/search?q=1077847238">1077847238</Link>,{" "}
+          <Link to="/search?q=1537331894">1537331894</Link>
+        </p>
+      )}
       <Row>
         <Col xs={23}>
           <Search
@@ -41,18 +42,24 @@ export default function SearchInput(props) {
             onSearch={value => handleSearch(value)}
           />
         </Col>
-        <Col xs={1} style={{ paddingLeft: "1em" }}>
-          <HelpButton target="SearchInput" />
-        </Col>
+        {help && (
+          <Col xs={1} style={{ paddingLeft: "1em" }}>
+            <HelpButton target="SearchInput" />
+          </Col>
+        )}
       </Row>
     </div>
   );
 }
 
 SearchInput.propTypes = {
-  searchTerm: PropTypes.string
+  searchTerm: PropTypes.string,
+  examples: PropTypes.bool,
+  help: PropTypes.bool
 };
 
 SearchInput.defaultProps = {
-  searchTerm: ""
+  searchTerm: "",
+  examples: true,
+  help: true
 };
