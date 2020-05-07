@@ -101,6 +101,9 @@ export default function App() {
           <Menu.Item key="/about">
             <Link to="/about">About</Link>
           </Menu.Item>
+          <Menu.Item key="/help">
+            <Link to="/help">Help</Link>
+          </Menu.Item>
         </Menu>
         <div className="janeliaLogo">
           <a
@@ -131,10 +134,12 @@ export default function App() {
           />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>HHMI ©2020  v{process.env.REACT_APP_VERSION} - {config.s3.BUCKET}</Footer>
-        <HelpDrawer>
-          <HelpContents />
-        </HelpDrawer>
+      <Footer style={{ textAlign: "center" }}>
+        HHMI ©2020 v{process.env.REACT_APP_VERSION} - {config.s3.BUCKET}
+      </Footer>
+      <HelpDrawer>
+        <HelpContents />
+      </HelpDrawer>
     </Layout>
   );
 }
