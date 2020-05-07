@@ -14,6 +14,7 @@ export default function HelpDrawer({ children }) {
     <Drawer
       title="Help"
       placement="bottom"
+      height={400}
       onClose={handleClose}
       visible={appState.showHelp}
       mask={false}
