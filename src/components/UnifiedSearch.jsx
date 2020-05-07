@@ -44,20 +44,23 @@ export default function UnifiedSearch() {
     }
 
     if (searchTerm.length < 3) {
-      message.error('Searches must have a minimum of 3 characters.')
-      setByLineResults({ error: 'Searches must have a minimum of 3 characters.', results: [] });
-      setByBodyResults({ error: 'Searches must have a minimum of 3 characters.', results: [] });
+      message.error("Searches must have a minimum of 3 characters.");
+      setByLineResults({
+        error: "Searches must have a minimum of 3 characters.",
+        results: []
+      });
+      setByBodyResults({
+        error: "Searches must have a minimum of 3 characters.",
+        results: []
+      });
       return;
     }
     if (searchTerm.match(/\*(\*|\.)\*/)) {
-      message.error('Ha ha, nice try')
-      setByLineResults({ error: 'Ha ha, nice try', results: [] });
-      setByBodyResults({ error: 'Ha ha, nice try', results: [] });
+      message.error("Ha ha, nice try");
+      setByLineResults({ error: "Ha ha, nice try", results: [] });
+      setByBodyResults({ error: "Ha ha, nice try", results: [] });
       return;
     }
-
-
-
 
     setLineLoading(true);
     setBodyLoading(true);
@@ -80,26 +83,31 @@ export default function UnifiedSearch() {
       });
     }
 
-    // TODO: should probably set a limit on the number of items that can be searched,
+    // set a limit on the number of items that can be searched,
     // so we don't break the site. Need to think this over.
+    matchedNames = matchedNames
+      .sort((a, b) =>
+        a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+      )
+      .slice(0, 100);
 
     const lineNames = matchedNames.filter(name => name.match(/[a-z]/i));
     const lineCombined = { results: [] };
     lineNames.forEach(name => {
-        Storage.get(`metadata/by_line/${name}.json`, storageOptions)
-          .then(metaData => {
-            const newResults = metaData.Body.results;
-            lineCombined.results.push(...newResults);
-            setByLineResults({ ...lineCombined });
-            setLineLoading(false);
-          })
-          .catch(error => {
-            if (error === "No credentials") {
-              // Log me out and prompt me to login again.
-            }
-            setByLineResults({ error, results: [] });
-            setLineLoading(false);
-          });
+      Storage.get(`metadata/by_line/${name}.json`, storageOptions)
+        .then(metaData => {
+          const newResults = metaData.Body.results;
+          lineCombined.results.push(...newResults);
+          setByLineResults({ ...lineCombined });
+          setLineLoading(false);
+        })
+        .catch(error => {
+          if (error === "No credentials") {
+            // Log me out and prompt me to login again.
+          }
+          setByLineResults({ error, results: [] });
+          setLineLoading(false);
+        });
     });
 
     if (lineNames.length === 0) {
@@ -111,19 +119,19 @@ export default function UnifiedSearch() {
     const bodyCombined = { results: [] };
     bodyIds.forEach(name => {
       Storage.get(`metadata/by_body/${name}.json`, storageOptions)
-          .then(metaData => {
-            const newResults = metaData.Body.results;
-            bodyCombined.results.push(...newResults);
-            setByBodyResults({ ...bodyCombined });
-            setBodyLoading(false);
-          })
-          .catch(error => {
-            if (error === "No credentials") {
-              // Log me out and prompt me to login again.
-            }
-            setByBodyResults({ error, results: [] });
-            setBodyLoading(false);
-          });
+        .then(metaData => {
+          const newResults = metaData.Body.results;
+          bodyCombined.results.push(...newResults);
+          setByBodyResults({ ...bodyCombined });
+          setBodyLoading(false);
+        })
+        .catch(error => {
+          if (error === "No credentials") {
+            // Log me out and prompt me to login again.
+          }
+          setByBodyResults({ error, results: [] });
+          setBodyLoading(false);
+        });
     });
 
     if (bodyIds.length === 0) {
