@@ -86,20 +86,13 @@ export default function HelpContents({ scroll }) {
       <h2 ref={refLookup.MatchesLMtoEM}>LM to EM Matches:</h2>
       <p>
         The Light Microscopy to Electron Microscopy matches show a grid of
-        images related to an Electron microscopy body from the FlyEM Project.
-        They are sorted from highest to lowest scoring, with the score
-        determined as follows.{" "}
-      </p>
+        images related to an Electron microscopy body from the FlyEM Project, sorted from highest to lowest scoring.      </p>
       <h2 ref={refLookup.MatchesEMtoLM}>EM to LM Matches:</h2>
       <p>
         The Electron Microscopy to Light Microscopy matches show a grid of
         images related to a cell line from one of our{" "}
-        <Link to="/about">papers</Link>. They are sorted from highest to lowest
-        scoring, with the score determined in the same way as the LM to EM
-        matches described above.
-      </p>
-      <p>
-        All matching images for a line are sorted together by the highest
+        <Link to="/about">papers</Link>. They are also sorted from highest to lowest
+        scoring. All matching images for a line are sorted together by the highest
         scoring image in that line. By default, we display a single image per
         line, but this can be adjusted in the &ldquo;results per line&rdquo;
         textbox found by clicking on the results filters button.
