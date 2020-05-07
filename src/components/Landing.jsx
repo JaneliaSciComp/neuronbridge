@@ -58,7 +58,9 @@ function Landing(props) {
                 <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a>
               </Col>
               <Col span={12}>
-                <p>FlyLight Generation 1 MCFO (coming soon)</p>
+                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">
+                  FlyLight Generation 1 MCFO
+                </a>
               </Col>
               <Col span={12}>
                 <p>FlyLight Generation 1 GAL4 screen (coming soon)</p>
