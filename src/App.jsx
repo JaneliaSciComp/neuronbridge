@@ -20,6 +20,7 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [showDebug, setDebug] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
   const history = useHistory();
   const location = useLocation();
@@ -56,6 +57,11 @@ export default function App() {
 
   if (isAuthenticating) {
     return <p>Loading</p>;
+  }
+
+  const  handleShowDebug = event => {
+    event.preventDefault();
+    setDebug(!showDebug);
   }
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
@@ -135,11 +141,14 @@ export default function App() {
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        HHMI ©2020 v{process.env.REACT_APP_VERSION} - {config.s3.BUCKET}
+        <p>
+          HHMI ©2020 v{process.env.REACT_APP_VERSION} {showDebug && config.s3.BUCKET}
+        </p>
       </Footer>
       <HelpDrawer>
         <HelpContents />
       </HelpDrawer>
+        <a onClick={handleShowDebug} href="/" className="debug">debug</a>
     </Layout>
   );
 }
