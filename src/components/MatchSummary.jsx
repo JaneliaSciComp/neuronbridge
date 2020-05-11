@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
-import LibraryType from "./LibraryType";
 import ExternalLink from "./ExternalLink";
+import LineMeta from "./LineMeta";
+import SkeletonMeta from "./SkeletonMeta";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
@@ -45,23 +46,17 @@ export default function MatchSummary(props) {
           />
         </Col>
         <Col span={8}>
-          <p>
-            <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
-            <ExternalLink
-              publishedName={publishedName}
-              isLM={isLM}
-              library={match.attrs.Library}
+          {isLM ? (
+            <LineMeta
+              attributes={match.attrs}
+              score={Math.round(match.normalizedScore)}
             />
-          </p>
-          <p>
-            <b>Score:</b> {Math.round(match.normalizedScore)}
-          </p>
-          {isLM && (
-            <p>
-              <b>Channel:</b> {match.attrs.Channel}
-            </p>
+          ) : (
+            <SkeletonMeta
+              attributes={match.attrs}
+              score={Math.round(match.normalizedScore)}
+            />
           )}
-          <LibraryType type={match.attrs.Library} />
         </Col>
         <Col span={8}>
           <Button onClick={showModal}>Select</Button>

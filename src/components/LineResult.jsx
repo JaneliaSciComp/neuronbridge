@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
-import LibraryType from "./LibraryType";
+import LineMeta from "./LineMeta";
 
 export default function LineResult(props) {
   const location = useLocation();
@@ -19,19 +19,10 @@ export default function LineResult(props) {
       <Col md={10}>
         <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Published Name"]} />
       </Col>
-      <Col md={8}>
-        <p>
-          <b>Line Name:</b> {metaInfo.attrs["Published Name"]}
-        </p>
-        <p>
-          <b>Slide Code:</b> {metaInfo.attrs["Slide Code"]}
-        </p>
-        <p>
-          <b>Channel:</b> {metaInfo.attrs.Channel}
-        </p>
-        <LibraryType type={metaInfo.attrs.Library}/>
+      <Col md={10}>
+        <LineMeta attributes={metaInfo.attrs} />
       </Col>
-      <Col md={6}>
+      <Col md={4}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View EM Matches</Link>
         </Button>

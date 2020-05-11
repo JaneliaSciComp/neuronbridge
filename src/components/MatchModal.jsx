@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
-import LibraryType from "./LibraryType";
-import ExternalLink from "./ExternalLink";
+import LineMeta from "./LineMeta";
+import SkeletonMeta from "./SkeletonMeta";
 
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, isLM } = props;
@@ -48,31 +48,10 @@ export default function MatchModal(props) {
 
   if (mask) {
     if (!isLM) {
-      metaBlock = (
-        <>
-          <p>
-            <b>Line Name:</b>{" "}
-            {mask.attrs["Published Name"] || mask.attrs.PublishedName}
-          </p>
-          <p>
-            <b>Slide Code:</b> {mask.attrs["Slide Code"]}
-          </p>
-          <p>
-            <b>Channel:</b> {mask.attrs.Channel}
-          </p>
-          <LibraryType type={mask.attrs.Library} />
-        </>
-      );
+      metaBlock = <LineMeta attributes={mask.attrs} />;
     } else {
       // skeleton type from EM
-      metaBlock = (
-        <>
-          <p>
-            <b>Body Id:</b> {mask.attrs["Body Id"]}
-          </p>
-          <LibraryType type={mask.attrs.Library} />
-        </>
-      );
+      metaBlock = <SkeletonMeta attributes={mask.attrs} />;
     }
   }
 
@@ -137,22 +116,17 @@ export default function MatchModal(props) {
           <h3>
             Match {selected} of {matchesList.length}
           </h3>
-          <p>
-            <b>{isLM ? "Line Name" : "Body Id"}:</b>{" "}
-            <ExternalLink
-              publishedName={
-                selectedMatch.attrs["Published Name"] ||
-                selectedMatch.attrs.PublishedName ||
-                selectedMatch.attrs["Body Id"]
-              }
-              isLM={isLM}
-              library={selectedMatch.attrs.Library}
+          {isLM ? (
+            <LineMeta
+              attributes={selectedMatch.attrs}
+              score={Math.round(selectedMatch.normalizedScore)}
             />
-          </p>
-          <p>
-            <b>Score:</b> {Math.round(selectedMatch.normalizedScore)}
-          </p>
-          <LibraryType type={selectedMatch.attrs.Library} />
+          ) : (
+            <SkeletonMeta
+              attributes={selectedMatch.attrs}
+              score={Math.round(selectedMatch.normalizedScore)}
+            />
+          )}
         </Col>
       </Row>
       <ImageComparison

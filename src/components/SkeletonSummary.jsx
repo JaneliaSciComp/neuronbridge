@@ -3,7 +3,7 @@ import { Button, Row, Col } from "antd";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
-import LibraryType from "./LibraryType";
+import SkeletonMeta from "./SkeletonMeta";
 
 export default function SkeletonResult(props) {
   const { metaInfo } = props;
@@ -16,10 +16,7 @@ export default function SkeletonResult(props) {
         <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Body Id"]} />
       </Col>
       <Col lg={12}>
-        <p>
-          <b>Body Id:</b> {metaInfo.attrs["Body Id"]}
-        </p>
-        <LibraryType type={metaInfo.attrs.Library} />
+        <SkeletonMeta attributes={metaInfo.attrs} />
       </Col>
       <Col lg={4}>
         <Button onClick={() => history.goBack()}>Back to all results</Button>
