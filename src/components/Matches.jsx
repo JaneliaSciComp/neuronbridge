@@ -195,7 +195,8 @@ export default function Matches(props) {
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         description={
           <span>
-            There are no results to show. Please try using less restrictive filters.
+            There are no results to show. Please try using less restrictive
+            filters.
           </span>
         }
       />
@@ -215,26 +216,32 @@ export default function Matches(props) {
       {!isLoading && matchMeta && (
         <>
           <Row style={{ paddingBottom: "1em" }}>
-            <Col sm={24} lg={4}>
+            <Col md={24} lg={5}>
               <h3>
                 {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
-                <HelpButton target={searchType === "lines" ? "MatchesLMtoEM" : "MatchesEMtoLM"} />
+                <HelpButton
+                  target={
+                    searchType === "lines" ? "MatchesLMtoEM" : "MatchesEMtoLM"
+                  }
+                />
               </h3>
             </Col>
-            <Col lg={13} style={{ textAlign: "center" }}>
+            <Col md={20} lg={14} style={{ textAlign: "center" }}>
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
                 onShowSizeChange={handleChangePageSize}
                 pageSizeOptions={[10, 30, 50, 100]}
                 onChange={handlePageChange}
+                responsive
+                showLessItems
                 total={fullList.length}
                 showTotal={(total, range) =>
                   `${range[0]}-${range[1]} of ${total} matches`
                 }
               />
             </Col>
-            <Col lg={5} style={{ textAlign: "left" }}>
+            <Col md={4} lg={3} style={{ textAlign: "center" }}>
               <FilterButton />
             </Col>
             <Col lg={2} style={{ textAlign: "right" }}>
@@ -253,6 +260,20 @@ export default function Matches(props) {
             countsByLibrary={countsByLibrary}
           />
           {matchSummaries}
+          <Pagination
+            current={page}
+            pageSize={matchesPerPage}
+            onShowSizeChange={handleChangePageSize}
+            pageSizeOptions={[10, 30, 50, 100]}
+            onChange={handlePageChange}
+            responsive
+            showLessItems
+            total={fullList.length}
+            showTotal={(total, range) =>
+              `${range[0]}-${range[1]} of ${total} matches`
+            }
+          />
+
           <MatchModal
             isLM={!(searchType === "lines")}
             open={modalOpen}
