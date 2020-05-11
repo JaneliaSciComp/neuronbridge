@@ -40,7 +40,7 @@ export default function HelpContents({ scroll }) {
         }
       }
     }
-  }, [appState.helpTarget, refLookup]);
+  }, [appState.helpTarget, refLookup, scroll]);
 
   function handleResultsPerLine(count) {
     setFilterState({ ...filterState, resultsPerLine: count });
