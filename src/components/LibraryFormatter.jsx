@@ -5,10 +5,11 @@ import "./LibraryFormatter.css";
 export default function LibraryFormatter(props) {
   const { type } = props;
   const convertedType = type
+    .replace(/_/g, " ")
     .replace(/split-?gal4/i, "Split-GAL4")
     .replace(/flylight/i, "FlyLight")
     .replace(/flyem/i, "FlyEM")
-    .replace(/_/g, " ");
+    .replace(/\bmcfo\b/i, "MCFO");
   return <span className="allCaps">{convertedType}</span>;
 }
 

@@ -8,6 +8,10 @@ describe('LibraryFormatter: unit tests', () => {
     expect(getByText(/FlyEM/));
   });
 
+  it('formats MCFO strings correctly', () => {
+    const { getByText } = render(<LibraryFormatter type="flylight_gen1_mcfo_case_1"/>);
+    expect(getByText(/FlyLight gen1 MCFO case 1/));
+  });
   it('formats flylight strings correctly', () => {
     const { getByText, rerender } = render(<LibraryFormatter type="flylight_library"/>);
     expect(getByText(/FlyLight/));
