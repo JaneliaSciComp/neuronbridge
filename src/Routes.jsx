@@ -1,60 +1,63 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
-import NotFound from "./components/NotFound";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
 import Landing from "./components/Landing";
-import Search from "./components/Search";
-import UnifiedSearch from "./components/UnifiedSearch";
-import About from "./components/About";
-import UsageTerms from "./components/UsageTerms";
-import HelpPage from "./components/HelpPage";
-import ResetPassword from "./components/ResetPassword";
+
+const About = React.lazy(() => import('./components/About'));
+const Login = React.lazy(() => import('./components/Login'));
+const HelpPage = React.lazy(() => import('./components/HelpPage'));
+const Signup = React.lazy(() => import('./components/Signup'));
+const Search = React.lazy(() => import('./components/Search'));
+const NotFound = React.lazy(() => import('./components/NotFound'));
+const UnifiedSearch = React.lazy(() => import('./components/UnifiedSearch'));
+const UsageTerms = React.lazy(() => import('./components/UsageTerms'));
+const ResetPassword = React.lazy(() => import('./components/ResetPassword'));
 
 export default function Routes({ appProps }) {
   return (
-    <Switch>
-      <Route path="/" exact>
-        <Landing isAuthenticated={appProps.isAuthenticated} />
-      </Route>
-      <UnauthenticatedRoute
-        path="/login"
-        exact
-        component={Login}
-        appProps={appProps}
-      />
-      <UnauthenticatedRoute
-        path="/signup"
-        exact
-        component={Signup}
-        appProps={appProps}
-      />
-      <UnauthenticatedRoute
-        path="/login/reset"
-        exact
-        component={ResetPassword}
-        appProps={appProps}
-      />
-      <AuthenticatedRoute
-        path="/search"
-        exact
-        component={UnifiedSearch}
-        appProps={appProps}
-      />
-      <AuthenticatedRoute
-        path="/search/:searchType?/:searchTerm?"
-        component={Search}
-        appProps={appProps}
-      />
-      <Route path="/about" component={About} />
-      <Route path="/usage" component={UsageTerms} />
-      <Route path="/help" component={HelpPage} />
-      {/* Finally, catch all unmatched routes */}
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<div>loading...</div>}>
+      <Switch>
+        <Route path="/" exact>
+          <Landing isAuthenticated={appProps.isAuthenticated} />
+        </Route>
+        <UnauthenticatedRoute
+          path="/login"
+          exact
+          component={Login}
+          appProps={appProps}
+        />
+        <UnauthenticatedRoute
+          path="/signup"
+          exact
+          component={Signup}
+          appProps={appProps}
+        />
+        <UnauthenticatedRoute
+          path="/login/reset"
+          exact
+          component={ResetPassword}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/search"
+          exact
+          component={UnifiedSearch}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/search/:searchType?/:searchTerm?"
+          component={Search}
+          appProps={appProps}
+        />
+        <Route path="/about" component={About} />
+        <Route path="/usage" component={UsageTerms} />
+        <Route path="/help" component={HelpPage} />
+        {/* Finally, catch all unmatched routes */}
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
