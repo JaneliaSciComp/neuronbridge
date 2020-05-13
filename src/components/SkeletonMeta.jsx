@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
-import LibraryType from "./LibraryType";
+import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function SkeletonMeta({ attributes, score }) {
@@ -25,7 +25,10 @@ export default function SkeletonMeta({ attributes, score }) {
             <b>Score:</b> {score}
           </p>
         )}
-        <LibraryType type={attributes.Library} />
+        <p>
+          <b>Library: </b>
+          <LibraryFormatter type={attributes.Library} />
+        </p>
       </Col>
     </Row>
   );

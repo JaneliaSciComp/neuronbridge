@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
-import LibraryType from "./LibraryType";
+import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes, score }) {
@@ -31,7 +31,10 @@ export default function LineMeta({ attributes, score }) {
         <p>
           <b>Channel:</b> {attributes.Channel}
         </p>
-        <LibraryType type={attributes.Library} />
+        <p>
+          <b>Library: </b>
+          <LibraryFormatter type={attributes.Library} />
+        </p>
       </Col>
       <Col md={24} lg={12}>
         <p>
