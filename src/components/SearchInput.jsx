@@ -36,6 +36,7 @@ export default function SearchInput({ searchTerm, examples, help }) {
           <Search
             placeholder="Search with a line name or skeleton id."
             enterButton="Search"
+            label="SearchInput"
             size="large"
             value={search}
             onChange={e => setSearch(e.target.value)}
