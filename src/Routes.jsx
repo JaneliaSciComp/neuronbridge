@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import Landing from "./components/Landing";
+// cant lazy load this as it breaks the AWS APIs
+import UnifiedSearch from "./components/UnifiedSearch";
 
 const About = React.lazy(() => import('./components/About'));
 const Login = React.lazy(() => import('./components/Login'));
@@ -11,7 +13,6 @@ const HelpPage = React.lazy(() => import('./components/HelpPage'));
 const Signup = React.lazy(() => import('./components/Signup'));
 const Search = React.lazy(() => import('./components/Search'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
-const UnifiedSearch = React.lazy(() => import('./components/UnifiedSearch'));
 const UsageTerms = React.lazy(() => import('./components/UsageTerms'));
 const ResetPassword = React.lazy(() => import('./components/ResetPassword'));
 
