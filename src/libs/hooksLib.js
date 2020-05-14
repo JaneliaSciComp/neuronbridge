@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line
 export function useFormFields(initialState) {
@@ -13,4 +14,8 @@ export function useFormFields(initialState) {
       });
     }
   ];
+}
+
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
 }

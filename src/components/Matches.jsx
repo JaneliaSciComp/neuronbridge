@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import {
   Switch,
   Row,
@@ -20,6 +20,7 @@ import MatchModal from "./MatchModal";
 import HelpButton from "./HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
+import { useQuery } from "../libs/hooksLib";
 
 import config from "../config";
 
@@ -27,13 +28,31 @@ export default function Matches(props) {
   const { searchResult, searchType } = props;
   const { results } = searchResult;
 
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
 
   const { matchId } = useParams();
+
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
+
+  // get the current page number for the results, but prevent page
+  // numbers below 0. Can't set the max value here, but if the user
+  // is screwing around with the url, they know what is going to
+  // happen.
+  const page = Math.max(parseInt(query.get("page") || 1, 10), 1);
+  // get the number of matches per page, but set the minimum and
+  // maximum values, to prevent someone from changing the url to
+  // -1 or 1000
+  const matchesPerPage = Math.min(
+    Math.max(parseInt(query.get("pc") || 30, 10), 10),
+    100
+  );
+
   const [matchMeta, setMatchMeta] = useState(null);
   const [modalOpen, setModalOpen] = useState(0);
   const [isLoading, setLoading] = useState(false);
-  const [matchesPerPage, setMatchesPerPage] = useState(30);
+  // const [matchesPerPage, setMatchesPerPage] = useState(30);
   const [appState, setAppState] = useContext(AppContext);
   const [filterState] = useContext(FilterContext);
 
@@ -57,11 +76,16 @@ export default function Matches(props) {
   }, [matchId, searchResult]);
 
   function handlePageChange(newPage) {
-    setPage(newPage);
+    query.set("page", newPage);
+    location.search = query.toString();
+    history.push(location);
   }
 
   function handleChangePageSize(current, size) {
-    setMatchesPerPage(size);
+    query.set("pc", size);
+    query.set("page", 1);
+    location.search = query.toString();
+    history.push(location);
   }
 
   function handleModalOpen(index) {
