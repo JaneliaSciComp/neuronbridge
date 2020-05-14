@@ -123,6 +123,7 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/**/*.d.ts"
     ],
+    "coverageReporters": ["json", "html"],
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
