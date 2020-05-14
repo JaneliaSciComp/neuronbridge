@@ -11,6 +11,9 @@ body {
   margin: 0 6px 0 24px;
 }
 
+.ant-switch-checked .ant-switch-inner {
+  margin: 0 24px 0 6px;
+}
 
 .nav-menu p {
   padding: 0;
