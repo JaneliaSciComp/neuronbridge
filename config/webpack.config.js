@@ -491,9 +491,9 @@ module.exports = function(webpackEnv) {
 
             {
               test: /\.less$/,
-              use: [{
-                loader: 'style-loader',
-              }, {
+              use: [
+                MiniCssExtractPlugin.loader,
+              {
                 loader: 'css-loader', // translates CSS into CommonJS
               }, {
                 loader: 'less-loader', // compiles Less to CSS
