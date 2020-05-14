@@ -1,24 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { useLocation, useHistory } from "react-router-dom";
 import { Spin, Divider, Typography, Pagination } from "antd";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 import NoSearch from "./NoSearch";
+import { useQuery } from "../libs/hooksLib";
 
 const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
 
-  const [page, setPage] = useState(1);
-  const [matchesPerPage, setMatchesPerPage] = useState(30);
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
 
-  function handlePageChange(newPage) {
-    setPage(newPage);
+  // get the current page number for the results, but prevent page
+  // numbers below 0. Can't set the max value here, but if the user
+  // is screwing around with the url, they know what is going to
+  // happen.
+  const page = Math.max(parseInt(query.get("page") || 1, 10), 1);
+  // get the number of matches per page, but set the minimum and
+  // maximum values, to prevent someone from changing the url to
+  // -1 or 1000
+  const matchesPerPage = Math.min(
+    Math.max(parseInt(query.get("pc") || 30, 10), 10),
+    100
+  );
+
+ function handlePageChange(newPage) {
+    query.set("page", newPage);
+    location.search = query.toString();
+    history.push(location);
   }
 
   function handleChangePageSize(current, size) {
-    setMatchesPerPage(size);
-    setPage(1);
+    query.set("pc", size);
+    query.set("page", 1);
+    location.search = query.toString();
+    history.push(location);
   }
 
   const { linesResult, skeletonsResult } = props;
