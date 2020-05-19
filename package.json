@@ -88,7 +88,9 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "HTTPS=true node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "test:integration": "cypress run",
+    "test:devel": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -107,9 +109,11 @@
   },
   "devDependencies": {
     "@testing-library/react": "^9.5.0",
+    "cypress": "^4.5.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-react": "^1.1.7",
+    "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-prettier": "^3.1.2",
     "jest-axe": "^3.4.0",
     "less-loader": "^6.0.0",
