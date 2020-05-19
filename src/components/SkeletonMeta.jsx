@@ -16,7 +16,7 @@ export default function SkeletonMeta({ attributes, score }) {
           <b>Body Id:</b>
           <ExternalLink
             publishedName={publishedName}
-            isLM
+            isLM={false}
             library={attributes.Library}
           />
         </p>
