@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { AppContext } from "../containers/AppContext";
 
 /* eslint-disable */
 function querystring(name, url = window.location.href) {
@@ -20,11 +21,12 @@ function querystring(name, url = window.location.href) {
 
 export default function UnauthenticatedRoute({ component: C, appProps, ...rest }) {
     const redirect = querystring("redirect");
+    const [appState] = useContext(AppContext);
     return (
       <Route
         {...rest}
         render={props =>
-          !appProps.isAuthenticated
+          !appState.username
             ? <C {...props} {...appProps} />
             : <Redirect
                 to={redirect === "" || redirect === null ? "/" : redirect}

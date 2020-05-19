@@ -1,34 +1,47 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Input, Form, Divider, message } from "antd";
+import { AppContext } from "../containers/AppContext";
 import LoaderButton from "./LoaderButton";
 import GoogleLogin from "./GoogleLogin";
 
 import "./Login.css";
 
-export default function Login(props) {
-  const { userHasAuthenticated } = props;
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [appState, setAppState] = useContext(AppContext);
 
   async function handleSubmit(values) {
     setIsLoading(true);
 
     try {
       await Auth.signIn(values.email, values.password);
-      userHasAuthenticated(true);
+      setAppState({
+        ...appState,
+        username: values.email
+      });
     } catch (e) {
       message.error("Login error:", e.message);
       setIsLoading(false);
     }
   }
 
+  const userHasAuthenticated = username => {
+    setAppState({
+      ...appState,
+      username
+    });
+  };
+
   return (
     <div className="Login">
       <Form layout="vertical" onFinish={handleSubmit}>
-        <p>By logging into this application you agree to the <Link to="/usage">Usage Terms</Link></p>
+        <p>
+          By logging into this application you agree to the{" "}
+          <Link to="/usage">Usage Terms</Link>
+        </p>
         <GoogleLogin userHasAuthenticated={userHasAuthenticated} />
         <Divider>or</Divider>
         <p>Login with your email address.</p>
@@ -67,12 +80,10 @@ export default function Login(props) {
         <Link className="forgotLink" to="/login/reset">
           Forgot password?
         </Link>
-        <p className="forgotLink" >Don&apos;t have an account? <Link to="/signup">Sign up</Link></p>
+        <p className="forgotLink">
+          Don&apos;t have an account? <Link to="/signup">Sign up</Link>
+        </p>
       </Form>
     </div>
   );
 }
-
-Login.propTypes = {
-  userHasAuthenticated: PropTypes.func.isRequired
-};

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import {
   Typography,
@@ -21,7 +20,7 @@ import "./Signup.css";
 
 const { Title } = Typography;
 
-export default function Signup(props) {
+export default function Signup() {
   const [newUser, setNewUser] = useState(null);
   const [savedUser, setSavedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +62,6 @@ export default function Signup(props) {
       await Auth.confirmSignUp(savedUser.email, values.confirmationCode);
       await Auth.signIn(savedUser.email, savedUser.password);
 
-      props.userHasAuthenticated(true);
       setAppState({
         ...appState,
         username: savedUser.email
@@ -179,7 +177,3 @@ export default function Signup(props) {
     </div>
   );
 }
-
-Signup.propTypes = {
-  userHasAuthenticated: PropTypes.func.isRequired
-};

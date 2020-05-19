@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
 import { Auth } from "aws-amplify";
 import Routes from "./Routes";
@@ -19,11 +19,12 @@ const { Header, Content, Footer } = Layout;
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [showDebug, setDebug] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
+
+  const isAuthenticated = Boolean(appState.username);
 
   // Execute this once after the page is loaded
   // to get the username and establish a web socket
@@ -36,7 +37,6 @@ export default function App() {
           return;
         }
         setAppState({ ...appState, username: email });
-        userHasAuthenticated(true);
       } catch (e) {
         if (e !== "not authenticated") {
           message.error("Loading error:", e.message);
@@ -48,21 +48,14 @@ export default function App() {
     onLoad();
   }, [isAuthenticated, appState, appState.username, setAppState]);
 
-  async function handleLogout() {
-    await Auth.signOut();
-    userHasAuthenticated(false);
-    setAppState({ ...appState, username: null });
-    history.push("/login");
-  }
-
   if (isAuthenticating) {
     return <p>Loading</p>;
   }
 
-  const  handleShowDebug = event => {
+  const handleShowDebug = event => {
     event.preventDefault();
     setDebug(!showDebug);
-  }
+  };
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
@@ -85,31 +78,25 @@ export default function App() {
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
-          {isAuthenticated && (
-            <Menu.Item key="/search">
-              <Link to="/search">Search</Link>
-            </Menu.Item>
-          )}
-          {isAuthenticated ? (
-            <Menu.Item key="/logout" onClick={handleLogout}>
-              Logout
-            </Menu.Item>
-          ) : (
-            [
-              <Menu.Item key="/signup">
-                <Link to="/signup">Signup</Link>
-              </Menu.Item>,
-              <Menu.Item key="/login">
-                <Link to="/login">Login</Link>
-              </Menu.Item>
-            ]
-          )}
           <Menu.Item key="/about">
             <Link to="/about">About</Link>
           </Menu.Item>
           <Menu.Item key="/help">
             <Link to="/help">Help</Link>
           </Menu.Item>
+          {isAuthenticated && (
+            <Menu.Item key="/search">
+              <Link to="/search">Search</Link>
+            </Menu.Item>
+          )}
+          {!isAuthenticated && [
+            <Menu.Item key="/signup">
+              <Link to="/signup">Signup</Link>
+            </Menu.Item>,
+            <Menu.Item key="/login">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
+          ]}
         </Menu>
         <div className="janeliaLogo">
           <a
@@ -134,21 +121,23 @@ export default function App() {
           <LoggedInAs username={appState.username} />
           <Routes
             appProps={{
-              isAuthenticated,
-              userHasAuthenticated
+              isAuthenticated
             }}
           />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         <p>
-          HHMI ©2020 v{process.env.REACT_APP_VERSION} {showDebug && config.s3.BUCKET}
+          HHMI ©2020 v{process.env.REACT_APP_VERSION}{" "}
+          {showDebug && config.s3.BUCKET}
         </p>
       </Footer>
       <HelpDrawer>
         <HelpContents />
       </HelpDrawer>
-        <a onClick={handleShowDebug} href="/" className="debug">debug</a>
+      <a onClick={handleShowDebug} href="/" className="debug">
+        debug
+      </a>
     </Layout>
   );
 }

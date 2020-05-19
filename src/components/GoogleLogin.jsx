@@ -21,7 +21,7 @@ export default function GoogleLogin(props) {
       { token: idToken, expires_at: expiresAt },
       user
     );
-    userHasAuthenticated(true);
+    userHasAuthenticated(profile.getEmail());
   }
 
   function signIn() {

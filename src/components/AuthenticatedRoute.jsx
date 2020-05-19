@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { AppContext } from "../containers/AppContext";
 
 /* eslint-disable */
 export default function AuthenticatedRoute({
@@ -7,11 +8,12 @@ export default function AuthenticatedRoute({
   appProps,
   ...rest
 }) {
+  const [appState] = useContext(AppContext);
   return (
     <Route
       {...rest}
       render={props =>
-        appProps.isAuthenticated ? (
+        appState.username ? (
           <C {...props} {...appProps} />
         ) : (
           <Redirect
