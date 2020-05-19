@@ -1,16 +1,10 @@
 const BUCKET_NAME = "janelia-neuronbridge-data-prod";
 
 export default {
-  MAX_ATTACHMENT_SIZE: 5000000,
   MATCH_PATH: `https://${BUCKET_NAME}.s3.amazonaws.com/metadata/cdsresults/`,
   s3: {
     REGION: "us-east-1",
     BUCKET: BUCKET_NAME
-  },
-  apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://bevfdlia18.execute-api.us-east-1.amazonaws.com/dev",
-    WSS_URL: "wss://wfc2j7xjm6.execute-api.us-east-1.amazonaws.com/dev"
   },
   cognito: {
     REGION: "us-east-1",
