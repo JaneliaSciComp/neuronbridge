@@ -129,15 +129,15 @@ export default function App() {
       <Footer style={{ textAlign: "center" }}>
         <p>
           HHMI ©2020 v{process.env.REACT_APP_VERSION}{" "}
-          {showDebug && config.s3.BUCKET}
+          {showDebug && config.s3.BUCKET}{" "}
+          <a onClick={handleShowDebug} href="/" className="debug">
+            debug
+          </a>
         </p>
       </Footer>
       <HelpDrawer>
         <HelpContents />
       </HelpDrawer>
-      <a onClick={handleShowDebug} href="/" className="debug">
-        debug
-      </a>
     </Layout>
   );
 }
