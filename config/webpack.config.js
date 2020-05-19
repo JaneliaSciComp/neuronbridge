@@ -79,7 +79,7 @@ module.exports = function(webpackEnv) {
   const env = getClientEnvironment(publicUrl);
 
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions, preProcessor, preProcessorOptions) => {
     const loaders = [
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
@@ -117,6 +117,10 @@ module.exports = function(webpackEnv) {
       },
     ].filter(Boolean);
     if (preProcessor) {
+      const options = preProcessorOptions || {
+        sourceMap: true,
+      };
+
       loaders.push(
         {
           loader: require.resolve('resolve-url-loader'),
@@ -126,9 +130,7 @@ module.exports = function(webpackEnv) {
         },
         {
           loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true,
-          },
+          options
         }
       );
     }
@@ -491,13 +493,13 @@ module.exports = function(webpackEnv) {
 
             {
               test: /\.less$/,
-              use: [
-                MiniCssExtractPlugin.loader,
-              {
-                loader: 'css-loader', // translates CSS into CommonJS
-              }, {
-                loader: 'less-loader', // compiles Less to CSS
-                options: {
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'less-loader',
+                {
                   lessOptions: { // If you are using less-loader@5 please spread the lessOptions to options directly
                     modifyVars: {
                       'primary-color': '#008b94',
@@ -506,8 +508,8 @@ module.exports = function(webpackEnv) {
                     },
                     javascriptEnabled: true,
                   },
-                },
-              }]
+                }
+              ),
             },
 
 
