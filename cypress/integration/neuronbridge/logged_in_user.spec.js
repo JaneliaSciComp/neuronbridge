@@ -1,9 +1,9 @@
-describe("anonymous neuronbridge user", () => {
-  it("can load the home page but not see the search input", () => {
+describe("logged in neuronbridge user", () => {
+  it("can load the home page and see the search input", () => {
     cy.visit("/")
       .get("h1.ant-typography")
       .should("have.text", "Welcome to NeuronBridge");
-    cy.get(".ant-input").should("not.exist");
+    cy.get(".ant-input").should("have.text", "Search");
   });
   it("can see the about page", () => {
     cy.visit("/about")
@@ -15,21 +15,23 @@ describe("anonymous neuronbridge user", () => {
       .get(".site-layout-background > :nth-child(1) > :nth-child(1)")
       .should("have.text", "Help");
   });
-  it("can see the signup page", () => {
+  it("can't see the signup page", () => {
+    // should get the homepage instead
     cy.visit("/signup")
-      .get(".ant-form > .ant-typography")
-      .should("have.text", "Create your account");
+      .get("h1.ant-typography")
+      .should("have.text", "Welcome to NeuronBridge");
   });
-  it("can see the login page", () => {
+  it("can't see the login page", () => {
+    // should get the homepage instead
     cy.visit("/login")
-      .get('[type="submit"]')
-      .should("have.text", "Login");
+      .get("h1.ant-typography")
+      .should("have.text", "Welcome to NeuronBridge");
   });
-  it("can't see the search pages", () => {
+  it("can see the search pages", () => {
     // should be redirected to the login page.
     cy.visit("/search")
-      .get('[type="submit"]')
-      .should("have.text", "Login");
+      .get(".ant-input")
+      .should("have.text", "Search");
     cy.visit("/search/skeletons/1077847238/matches/2757945537360560139")
       .get('[type="submit"]')
       .should("have.text", "Login");
