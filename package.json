@@ -108,6 +108,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^6.0.0",
     "@testing-library/react": "^9.5.0",
     "cypress": "^4.5.0",
     "eslint-config-airbnb": "^18.0.1",

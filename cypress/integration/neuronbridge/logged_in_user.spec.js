@@ -1,42 +1,78 @@
 describe("logged in neuronbridge user", () => {
   it("can load the home page and see the search input", () => {
-    cy.visit("/")
-      .get("h1.ant-typography")
-      .should("have.text", "Welcome to NeuronBridge");
-    cy.get(".ant-input").should("have.text", "Search");
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+    cy.findByText("Welcome to NeuronBridge", {
+      timeout: 4000
+    });
+    cy.findByLabelText("Search", { timeout: 4000 });
   });
+
   it("can see the about page", () => {
-    cy.visit("/about")
-      .get(".site-layout-background > :nth-child(1) > :nth-child(1)")
-      .should("have.text", "About NeuronBridge");
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+
+    cy.visit("/about");
+    cy.findByText("About NeuronBridge", { timeout: 4000 });
   });
   it("can see the help page", () => {
-    cy.visit("/help")
-      .get(".site-layout-background > :nth-child(1) > :nth-child(1)")
-      .should("have.text", "Help");
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+
+    cy.visit("/help");
+    cy.findByText("Help");
   });
   it("can't see the signup page", () => {
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+    // need to wait for the login code to set the logged in user.
+    cy.wait(2000);
     // should get the homepage instead
-    cy.visit("/signup")
-      .get("h1.ant-typography")
-      .should("have.text", "Welcome to NeuronBridge");
+    cy.visit("/signup");
+    cy.findByText("Welcome to NeuronBridge", { timeout: 4000 });
   });
+
   it("can't see the login page", () => {
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+    // need to wait for the login code to set the logged in user.
+    cy.wait(2000);
+    cy.visit("/login");
     // should get the homepage instead
-    cy.visit("/login")
-      .get("h1.ant-typography")
-      .should("have.text", "Welcome to NeuronBridge");
+    cy.findByText("Welcome to NeuronBridge", { timeout: 4000 });
   });
+
   it("can see the search pages", () => {
-    // should be redirected to the login page.
-    cy.visit("/search")
-      .get(".ant-input")
-      .should("have.text", "Search");
-    cy.visit("/search/skeletons/1077847238/matches/2757945537360560139")
-      .get('[type="submit"]')
-      .should("have.text", "Login");
-    cy.visit("/search/lines/LH173/matches/2711777430657302539")
-      .get('[type="submit"]')
-      .should("have.text", "Login");
+    cy.visit("/login");
+    cy.findByLabelText("Email")
+      .type("test2@jodyclements.com");
+    cy.findByLabelText("Password").type("Testing_!123");
+    cy.findByLabelText("Login").click();
+    // need to wait for the login code to set the logged in user.
+    cy.wait(2000);
+    // should see search results.
+    cy.visit("/search");
+    cy.findByText(/search help/i, { timeout: 4000 });
+    cy.visit("/search?q=1077847238")
+    cy.findByLabelText(/view lm matches/i, { timeout: 4000 });
+    cy.visit("/search/skeletons/1077847238/matches/2757945537360560139");
+    cy.findByLabelText("Search", { timeout: 4000 });
+    cy.visit("/search/lines/LH173/matches/2711777430657302539");
+    cy.findByText(/input image/i, { timeout: 4000 });
   });
 });

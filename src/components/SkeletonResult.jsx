@@ -11,19 +11,26 @@ export default function SkeletonResult(props) {
 
   const matchesUrl = `/search/skeletons/${metaInfo.attrs["Body Id"]}/matches/${metaInfo.id}`;
 
-
   // only use values in the metaInfo.attrs key to display on the site. The
   // other keys are for internal use only.
   return (
     <Row>
       <Col md={10}>
-        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Body Id"]} />
+        <ImageWithModal
+          thumbSrc={metaInfo.thumbnail_path}
+          src={metaInfo.image_path}
+          title={metaInfo.attrs["Body Id"]}
+        />
       </Col>
       <Col md={8}>
         <SkeletonMeta attributes={metaInfo.attrs} />
       </Col>
       <Col md={6}>
-        <Button type="primary" disabled={/matches$/.test(location.pathname)}>
+        <Button
+          aria-label="View LM Matches"
+          type="primary"
+          disabled={/matches$/.test(location.pathname)}
+        >
           <Link to={matchesUrl}>View LM Matches</Link>
         </Button>
       </Col>

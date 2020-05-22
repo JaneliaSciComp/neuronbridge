@@ -73,6 +73,7 @@ export default function Login() {
           block
           type="primary"
           htmlType="submit"
+          aria-label="Login"
           loading={isLoading}
         >
           Login
