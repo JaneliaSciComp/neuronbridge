@@ -11,3 +11,11 @@
 .highlighted {
   animation: colorfade 2s;
 }
+
+.pipelines {
+  margin-top: 2em;
+}
+
+.pipelines img {
+  max-width: 100%;
+}

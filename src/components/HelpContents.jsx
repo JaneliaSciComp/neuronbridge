@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { InputNumber } from "antd";
+import { InputNumber, Col, Row, Divider } from "antd";
 import SearchInput from "./SearchInput";
 import { FilterContext } from "../containers/FilterContext";
 import { AppContext } from "../containers/AppContext";
@@ -89,12 +89,17 @@ export default function HelpContents({ scroll }) {
         input image.
       </p>
 
+      <Divider />
+
       <h2 ref={refLookup.MatchesLMtoEM}>LM to EM Matches:</h2>
       <p>
         The Light Microscopy to Electron Microscopy matches show a grid of
         images related to an Electron microscopy body from the FlyEM Project,
         sorted from highest to lowest scoring.{" "}
       </p>
+
+      <Divider />
+
       <h2 ref={refLookup.MatchesEMtoLM}>EM to LM Matches:</h2>
       <p>
         The Electron Microscopy to Light Microscopy matches show a grid of
@@ -115,17 +120,36 @@ export default function HelpContents({ scroll }) {
         />{" "}
         results per line
       </div>
-      <h2>Search Pipeline</h2>
 
-      <img src={SearchPipeline1} alt="Search pipeline 1" />
-      <img src={SearchPipeline2} alt="Search pipeline 2" />
+      <Divider />
 
-      <h2>Data Generation Pipeline</h2>
-      <img src={DataGeneration1} alt="data generation pipeline 1" />
-      <img src={DataGeneration2} alt="data generation pipeline 2" />
-      <a href="/NeuronBridge_search_and_data_gen_pipelines.pdf">
-        Data Generation and Search Pipelines (pdf)
-      </a>
+      <div className="pipelines">
+        <h2>Search Pipeline:</h2>
+
+        <Row gutteri={24}>
+          <Col lg={12}>
+            <img src={SearchPipeline1} alt="Search pipeline 1" />
+            <img src={SearchPipeline2} alt="Search pipeline 2" />
+          </Col>
+        </Row>
+
+        <Divider />
+
+        <h2>Data Generation Pipelines:</h2>
+        <Row gutteri={24}>
+          <Col lg={12}>
+            <h3> Light Microscopy Color Depth MIP production</h3>
+            <img src={DataGeneration1} alt="data generation pipeline 1" />
+          </Col>
+          <Col lg={12}>
+            <h3> Electron Microscopy Color Depth MIP production</h3>
+            <img src={DataGeneration2} alt="data generation pipeline 2" />
+          </Col>
+        </Row>
+        <a href="/NeuronBridge_search_and_data_gen_pipelines.pdf">
+          Data Generation and Search Pipelines (pdf)
+        </a>
+      </div>
     </div>
   );
 }
