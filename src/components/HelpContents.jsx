@@ -64,7 +64,11 @@ export default function HelpContents({ scroll }) {
         cell line.
       </p>
 
-      <SearchInput examples={false} searchTerm="LH173" help={false} />
+      <Row>
+        <Col lg={12}>
+          <SearchInput examples={false} searchTerm="LH173" help={false} />
+        </Col>
+      </Row>
 
       <p>
         If you were interested in looking at all the cell lines from our 2014
@@ -72,7 +76,11 @@ export default function HelpContents({ scroll }) {
         &ldquo;MB*&rdquo;.
       </p>
 
-      <SearchInput examples={false} searchTerm="MB*" help={false} />
+      <Row>
+        <Col lg={12}>
+          <SearchInput examples={false} searchTerm="MB*" help={false} />
+        </Col>
+      </Row>
 
       <p>
         Please note wild card searches are limited to the first 100 matches. To
@@ -80,7 +88,12 @@ export default function HelpContents({ scroll }) {
         &ldquo;MB11*&rdquo;
       </p>
 
-      <SearchInput examples={false} searchTerm="MB11*" help={false} />
+      <Row>
+        <Col lg={12}>
+          <SearchInput examples={false} searchTerm="MB11*" help={false} />
+        </Col>
+      </Row>
+
       <p>
         The results of this initial search will present all the images that we
         have run through the color depth MIP mask search, alongside a button to
@@ -126,7 +139,7 @@ export default function HelpContents({ scroll }) {
       <div className="pipelines">
         <h2>Search Pipeline:</h2>
 
-        <Row gutteri={24}>
+        <Row>
           <Col lg={12}>
             <img src={SearchPipeline1} alt="Search pipeline 1" />
             <img src={SearchPipeline2} alt="Search pipeline 2" />
@@ -136,19 +149,22 @@ export default function HelpContents({ scroll }) {
         <Divider />
 
         <h2>Data Generation Pipelines:</h2>
-        <Row gutteri={24}>
+        <Row gutter={24}>
           <Col lg={12}>
-            <h3> Light Microscopy Color Depth MIP production</h3>
+            <h3> Light Microscopy Data Generation</h3>
             <img src={DataGeneration1} alt="data generation pipeline 1" />
           </Col>
           <Col lg={12}>
-            <h3> Electron Microscopy Color Depth MIP production</h3>
+            <h3> Electron Microscopy Data Generation</h3>
             <img src={DataGeneration2} alt="data generation pipeline 2" />
           </Col>
         </Row>
-        <a href="/NeuronBridge_search_and_data_gen_pipelines.pdf">
-          Data Generation and Search Pipelines (pdf)
-        </a>
+        <p>
+          For a larger version of these flow diagrams, please download the{" "}
+          <a href="/NeuronBridge_search_and_data_gen_pipelines.pdf">
+            Data Generation and Search Pipelines (pdf)
+          </a>
+        </p>
       </div>
     </div>
   );
