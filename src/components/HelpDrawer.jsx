@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
 import { AppContext } from "../containers/AppContext";
@@ -12,7 +13,7 @@ export default function HelpDrawer({ children }) {
 
   return (
     <Drawer
-      title="Help"
+      title={<Link to="/help" onClick={handleClose}>Help</Link>}
       placement="bottom"
       height={400}
       onClose={handleClose}
