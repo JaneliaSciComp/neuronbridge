@@ -142,7 +142,28 @@ export default function HelpContents({ scroll }) {
         <Row>
           <Col lg={12}>
             <img src={SearchPipeline1} alt="Search pipeline 1" />
+          </Col>
+          <Col lg={12}>
+            <p>
+              Pre-generated matches were computed as a cartesian product of the
+              LM and EM color depth MIPs. Before matching, several derived
+              images were computed for each MIP: XY Gap Gradient Mask and Z Gap
+              Dilation Masks for all LM MIPs, and a Value - 1 Grey Mask for all
+              EM MIPs. These masks were used to weight match scores based on
+              signal outside of the search mask.
+            </p>
+          </Col>
+          <Col lg={12}>
             <img src={SearchPipeline2} alt="Search pipeline 2" />
+          </Col>
+          <Col lg={12}>
+            <p>
+              Positive match scoring was performed as usual. In addition,
+              “negative” scores were computed based on signal outside the mask.
+              The score for each match was normalized to the set of results in
+              which it was found. The final score for each EM/LM comparison is a
+              positive score weighted by the negative score.
+            </p>
           </Col>
         </Row>
 
@@ -155,8 +176,45 @@ export default function HelpContents({ scroll }) {
             <img src={DataGeneration1} alt="data generation pipeline 1" />
           </Col>
           <Col lg={12}>
+            <p>
+              NeuronBridge uses the color depth MIP technique (
+              <a href="https://doi.org/10.1101/318006">Otsuna et al., 2018</a>)
+              to compare images between LM and EM. To improve matches for denser
+              MCFO data, the color depth MIP approach was extended in several
+              ways (Otsuna, et al., in preparation). The data generation
+              pipeline for LM is shown here. After images are aligned to a
+              common template, we used direction selective local thresholding
+              (DSLT;{" "}
+              <a href="https://doi.org/10.1111/tpj.12738">
+                Kawase, et al., 2015
+              </a>
+              ) to generate a 3D segmentation and create a separate color depth
+              MIP for each fully connected component. These segmented MIPs were
+              manually created to eliminate junk (e.g. glia, debris on the
+              surface of brain, etc.) Smaller debris is also eliminated by voxel
+              size thresholds (e.g. fragments less than 1100μm3)
+            </p>
+          </Col>
+          <Col lg={12}>
             <h3> Electron Microscopy Data Generation</h3>
             <img src={DataGeneration2} alt="data generation pipeline 2" />
+          </Col>
+          <Col lg={12}>
+            <p>
+              The EM volume was imaged and reconstructed by the FlyEM Project (
+              <a href="https://www.biorxiv.org/content/10.1101/2020.01.21.911859v1">
+                Xu, et al., 2020
+              </a>{" "}
+              ). After the imagery was registered to the JRC2018 template, we
+              downloaded the reconstructed skeletons as SWC files and
+              transformed them into the same alignment space as the LM data.
+              These aligned skeletons are converted to color depth MIPs, and
+              then thresholded by size to eliminate tiny fragments (&lt;12kb SWC
+              or &lt;5kb PNG) and manually curated to eliminate junk. Any MIP
+              containing data crossing the midline of the brain was mirrored
+              across the X axis and added as an extra mask to improve detection
+              of bilateral expression patterns.
+            </p>
           </Col>
         </Row>
         <p>
