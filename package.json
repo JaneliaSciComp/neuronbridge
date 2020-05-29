@@ -88,12 +88,13 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "HTTPS=true node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "jest",
+    "test:watch": "node scripts/test.js",
     "test:integration": "cypress run",
     "test:devel": "cypress open",
-    "deploy:dev": "REACT_APP_DATA_TARGET=dev npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
-    "deploy:val": "REACT_APP_DATA_TARGET=val npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
-    "deploy:prod": "npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod"
+    "deploy:dev": "REACT_APP_DATA_TARGET=dev npm run test && npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
+    "deploy:val": "REACT_APP_DATA_TARGET=val npm run test && npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
+    "deploy:prod": "npm run test && npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod"
   },
   "eslintConfig": {
     "extends": "react-app"
