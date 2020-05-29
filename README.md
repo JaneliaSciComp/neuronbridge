@@ -35,12 +35,10 @@ Create optimized build for deployment:
 npm run build
 ```
 
-Deployment to production with Serverless:
+Deployment to AWS:
 ```bash
-sls client deploy
+npm run deploy:prod
 ```
+Other stages of deployment can also be used. ```deploy:dev``` or ```deploy:val```
 
-Sync the build folder
-```bash
-aws s3 sync build/ s3://neuronbridge
-```
+Bucket targets are hard coded into the package.json file. To change the deployment targets, please create a new bucket on AWS and modify the package.json file.
