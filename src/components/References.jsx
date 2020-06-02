@@ -6,7 +6,7 @@ export default function References() {
     <dl>
       <dt>Gen1 MCFO collection</dt>
       <dd>
-        <span>Meissner et al., 2020</span>
+        <a href="https://doi.org/10.1101/2020.05.29.080473">Meissner et al., 2020</a>
       </dd>
 
       <dt>EM Hemibrain</dt>
