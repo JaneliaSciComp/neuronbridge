@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
-import { QuestionOutlined } from "@ant-design/icons";
 import { AppContext } from "../containers/AppContext";
 
 export default function HelpButton({target, text}) {
@@ -21,7 +20,7 @@ export default function HelpButton({target, text}) {
     <Button
       size="small"
       shape="circle"
-      icon={<QuestionOutlined />}
+      icon='?'
       onClick={handleHelp}
    />
   );

@@ -4,7 +4,8 @@ import {
   Badge,
   Tooltip } from "antd";
 import deepEqual from "deep-equal";
-import { FilterOutlined } from "@ant-design/icons";
+import { faFilter } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
 
@@ -39,7 +40,7 @@ export default function FilterButton() {
   return (
     <Tooltip title="filter results">
       <Badge count={count}>
-        <Button icon={<FilterOutlined />} onClick={handleFilterMenuVisability}>
+        <Button icon={<FontAwesomeIcon icon={faFilter} />} onClick={handleFilterMenuVisability}>
           Filters
         </Button>
       </Badge>

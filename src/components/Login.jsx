@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { faUser, faLockAlt } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Input, Form, Divider, message } from "antd";
 import { AppContext } from "../containers/AppContext";
 import LoaderButton from "./LoaderButton";
@@ -54,7 +55,7 @@ export default function Login() {
         >
           <Input
             autoFocus
-            prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<FontAwesomeIcon icon={faUser} style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email address"
           />
         </Form.Item>
@@ -64,7 +65,7 @@ export default function Login() {
           rules={[{ required: true, message: "Please input your password" }]}
         >
           <Input
-            prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<FontAwesomeIcon icon={faLockAlt} style={{ color: "rgba(0,0,0,.25)" }} />}
             type="password"
             placeholder="Password"
           />

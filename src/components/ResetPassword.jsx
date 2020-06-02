@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { Form, Input, Button, message } from "antd";
 import { Redirect } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
+import { faUser } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LoaderButton from "./LoaderButton";
 import "./ResetPassword.css";
 
@@ -48,7 +49,7 @@ export default function ResetPassword() {
         >
           <Input
             autoFocus
-            prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={<FontAwesomeIcon icon={faUser} style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email address"
           />
         </Form.Item>

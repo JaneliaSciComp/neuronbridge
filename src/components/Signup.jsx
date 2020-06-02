@@ -10,7 +10,8 @@ import {
   Space,
   message
 } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { faUser, faLockAlt } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Auth } from "aws-amplify";
 import LoaderButton from "./LoaderButton";
 import { AppContext } from "../containers/AppContext";
@@ -116,7 +117,7 @@ export default function Signup() {
               ]}
             >
               <Input
-                prefix={<UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+                prefix={<FontAwesomeIcon icon={faUser} style={{ color: "rgba(0,0,0,.25)" }} />}
                 autoFocus
                 type="email"
                 placeholder="Email address"
@@ -130,7 +131,7 @@ export default function Signup() {
               ]}
             >
               <Input
-                prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+                prefix={<FontAwesomeIcon icon={faLockAlt} style={{ color: "rgba(0,0,0,.25)" }} />}
                 type="password"
                 placeholder="Password"
               />
@@ -143,7 +144,7 @@ export default function Signup() {
               ]}
             >
               <Input
-                prefix={<LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
+                prefix={<FontAwesomeIcon icon={faLockAlt} style={{ color: "rgba(0,0,0,.25)" }} />}
                 type="password"
                 placeholder="Confirm password"
               />
