@@ -3,9 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
-import Landing from "./components/Landing";
 // cant lazy load this as it breaks the AWS APIs
-import UnifiedSearch from "./components/UnifiedSearch";
+import SearchErrorBoundary from "./components/SearchErrorBoundary";
+import Landing from "./components/Landing";
 
 const About = React.lazy(() => import('./components/About'));
 const Login = React.lazy(() => import('./components/Login'));
@@ -44,7 +44,7 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute
           path="/search"
           exact
-          component={UnifiedSearch}
+          component={SearchErrorBoundary}
           appProps={appProps}
         />
         <AuthenticatedRoute
