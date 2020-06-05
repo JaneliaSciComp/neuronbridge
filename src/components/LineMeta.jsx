@@ -47,7 +47,7 @@ export default function LineMeta({ attributes, score }) {
           <b>Alignment Space:</b> {attributes["Alignment Space"]}
         </p>
         <p>
-          <b>Objective:</b> {attributes.Objective}
+          <b>Magnification:</b> {attributes.Objective}
         </p>
       </Col>
     </Row>
