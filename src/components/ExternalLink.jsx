@@ -11,12 +11,9 @@ const emUrl = "https://neuprint.janelia.org/view?bodyid=<NAME>";
 export default function ExternalLink({ publishedName, isLM, library }) {
   if (isLM) {
     let extUrl = lmUrl
-    switch(library) {
-      case 'flylight_gen1_mcfo_case_1':
-        extUrl = mcfoUrl;
-        break;
-      default:
-        extUrl = lmUrl;
+
+    if (library.match(/gen1.*mcfo/i)) {
+      extUrl = mcfoUrl;
     }
 
     return (
