@@ -53,9 +53,9 @@ function Search() {
         }
         const combined = { results: [] };
         results.forEach(result => {
-          Storage.get(result.key, storageOptions).then(metaData => {
-            const newResults = metaData.Body.results;
-            combined.results.push(...newResults);
+          Storage.get(result.key, storageOptions).then(metaData => metaData.Body.text()).then(text => {
+            const newResults = JSON.parse(text);
+            combined.results.push(...newResults.results);
             setResults({ ...combined });
             setIsLoading(false);
           });

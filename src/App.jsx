@@ -32,14 +32,23 @@ export default function App() {
     async function onLoad() {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        const email = user.email || user.attributes.email;
-        if (email === appState.username) {
-          return;
+        let { email } = user;
+
+        // get email address from AWS login cognito user
+        if (!email && user.attributes) {
+          email = user.attributes.email;
         }
-        setAppState({ ...appState, username: email });
+        // get email address from Google login cognito user
+        if (!email) {
+          email = user.getSignInUserSession().idToken.payload.email;
+        }
+        // don't update the state if we have the same user as before
+        if (email !== appState.username) {
+          setAppState({ ...appState, username: email });
+        }
       } catch (e) {
         if (e !== "not authenticated") {
-          message.error("Loading error:", e.message);
+          message.error("Loading error:", e);
         }
       }
 

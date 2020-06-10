@@ -30,9 +30,11 @@ export default function UnifiedSearch() {
       download: true
     };
 
-    Storage.get("publishedNames.txt", storageOptions).then(result => {
-      setNamesList(result.Body.split("\n"));
-    });
+    Storage.get("publishedNames.txt", storageOptions)
+      .then(result => result.Body.text())
+      .then(text => {
+        setNamesList(text.split("\n"));
+      });
   }, []);
 
   useEffect(() => {
@@ -95,9 +97,10 @@ export default function UnifiedSearch() {
     const lineCombined = { results: [] };
     lineNames.forEach(name => {
       Storage.get(`metadata/by_line/${name}.json`, storageOptions)
-        .then(metaData => {
-          const newResults = metaData.Body.results;
-          lineCombined.results.push(...newResults);
+        .then(metaData => metaData.Body.text())
+        .then(text => {
+          const newResults = JSON.parse(text);
+          lineCombined.results.push(...newResults.results);
           setByLineResults({ ...lineCombined });
           setLineLoading(false);
         })
@@ -119,9 +122,10 @@ export default function UnifiedSearch() {
     const bodyCombined = { results: [] };
     bodyIds.forEach(name => {
       Storage.get(`metadata/by_body/${name}.json`, storageOptions)
-        .then(metaData => {
-          const newResults = metaData.Body.results;
-          bodyCombined.results.push(...newResults);
+        .then(metaData => metaData.Body.text())
+        .then(text => {
+          const newResults = JSON.parse(text);
+          bodyCombined.results.push(...newResults.results);
           setByBodyResults({ ...bodyCombined });
           setBodyLoading(false);
         })
