@@ -94,7 +94,7 @@
     "test:devel": "cypress open",
     "deploy:dev": "npm run test && REACT_APP_DATA_TARGET=dev npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
     "deploy:val": "npm run test && REACT_APP_DATA_TARGET=val npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
-    "deploy:prod": "npm run test && npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod"
+    "deploy:prod": "npm run test && REACT_APP_DATA_TARGET=prod npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod"
   },
   "eslintConfig": {
     "extends": "react-app"

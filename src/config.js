@@ -2,8 +2,8 @@ let BUCKET_NAME = "janelia-neuronbridge-data-prod";
 
 if (process.env.REACT_APP_DATA_TARGET === "dev") {
   BUCKET_NAME = "janelia-neuronbridge-data-dev";
-} else if (process.env.REACT_APP_DATA_TARGET === "stage") {
-  BUCKET_NAME = "janelia-neuronbridge-data-stage";
+} else if (process.env.REACT_APP_DATA_TARGET === "val") {
+  BUCKET_NAME = "janelia-neuronbridge-data-val";
 }
 
 export default {
