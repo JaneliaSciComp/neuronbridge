@@ -30,11 +30,15 @@ export default function UnifiedSearch() {
       download: true
     };
 
-    Storage.get("publishedNames.txt", storageOptions)
-      .then(result => result.Body.text())
-      .then(text => {
+    Storage.get("publishedNames.txt", storageOptions).then(result => {
+      // We can't use result.Body.text() here as it is not supported in safari
+      const fr = new FileReader();
+      fr.onload = evt => {
+        const text = evt.target.result;
         setNamesList(text.split("\n"));
-      });
+      };
+      fr.readAsText(result.Body);
+    });
   }, []);
 
   useEffect(() => {
@@ -97,12 +101,17 @@ export default function UnifiedSearch() {
     const lineCombined = { results: [] };
     lineNames.forEach(name => {
       Storage.get(`metadata/by_line/${name}.json`, storageOptions)
-        .then(metaData => metaData.Body.text())
-        .then(text => {
-          const newResults = JSON.parse(text);
-          lineCombined.results.push(...newResults.results);
-          setByLineResults({ ...lineCombined });
-          setLineLoading(false);
+        .then(metaData => {
+          // We can't use metaData.Body.text() here as it is not supported in safari
+          const fr = new FileReader();
+          fr.onload = evt => {
+            const text = evt.target.result;
+            const newResults = JSON.parse(text);
+            lineCombined.results.push(...newResults.results);
+            setByLineResults({ ...lineCombined });
+            setLineLoading(false);
+          };
+          fr.readAsText(metaData.Body);
         })
         .catch(error => {
           if (error === "No credentials") {
@@ -122,12 +131,17 @@ export default function UnifiedSearch() {
     const bodyCombined = { results: [] };
     bodyIds.forEach(name => {
       Storage.get(`metadata/by_body/${name}.json`, storageOptions)
-        .then(metaData => metaData.Body.text())
-        .then(text => {
-          const newResults = JSON.parse(text);
-          bodyCombined.results.push(...newResults.results);
-          setByBodyResults({ ...bodyCombined });
-          setBodyLoading(false);
+        .then(metaData => {
+          // We can't use metaData.Body.text() here as it is not supported in safari
+          const fr = new FileReader();
+          fr.onload = evt => {
+            const text = evt.target.result;
+            const newResults = JSON.parse(text);
+            bodyCombined.results.push(...newResults.results);
+            setByBodyResults({ ...bodyCombined });
+            setBodyLoading(false);
+          };
+          fr.readAsText(metaData.Body);
         })
         .catch(error => {
           if (error === "No credentials") {

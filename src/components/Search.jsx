@@ -23,16 +23,15 @@ function Search() {
       return;
     }
     if (searchTerm.length < 3) {
-      message.error('Searches must have a minimum of 3 characters.')
-      setResults({ error: 'Searches must have a minimum of 3 characters.' });
+      message.error("Searches must have a minimum of 3 characters.");
+      setResults({ error: "Searches must have a minimum of 3 characters." });
       return;
     }
     if (searchTerm.match(/\*(\*|\.)\*/)) {
-      message.error('Ha ha, nice try')
-      setResults({ error: 'Ha ha, nice try' });
+      message.error("Ha ha, nice try");
+      setResults({ error: "Ha ha, nice try" });
       return;
     }
-
 
     setIsLoading(true);
 
@@ -53,11 +52,17 @@ function Search() {
         }
         const combined = { results: [] };
         results.forEach(result => {
-          Storage.get(result.key, storageOptions).then(metaData => metaData.Body.text()).then(text => {
-            const newResults = JSON.parse(text);
-            combined.results.push(...newResults.results);
-            setResults({ ...combined });
-            setIsLoading(false);
+          Storage.get(result.key, storageOptions).then(metaData => {
+            // We can't use metaData.Body.text() here as it is not supported in safari
+            const fr = new FileReader();
+            fr.onload = evt => {
+              const text = evt.target.result;
+              const newResults = JSON.parse(text);
+              combined.results.push(...newResults.results);
+              setResults({ ...combined });
+              setIsLoading(false);
+            };
+            fr.readAsText(metaData.Body);
           });
         });
       })
