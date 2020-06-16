@@ -7,10 +7,7 @@ import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function SkeletonMeta({ attributes, score }) {
-  const publishedName =
-    attributes["Published Name"] ||
-    attributes.PublishedName ||
-    attributes["Body Id"];
+  const { publishedName, libraryName } = attributes;
 
   const searchUrl = `/search?q=${publishedName}`;
   return (
@@ -27,7 +24,10 @@ export default function SkeletonMeta({ attributes, score }) {
         )}
         <p>
           <b>Library: </b>
-          <LibraryFormatter type={attributes.Library} />
+          <LibraryFormatter type={libraryName} />
+        </p>
+        <p>
+          <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
         <p>
           <b>External Links:</b>

@@ -8,13 +8,8 @@ import { FilterContext } from "../containers/FilterContext";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
-
   const [filterState] = useContext(FilterContext);
-
-  const publishedName =
-    match.attrs["Published Name"] ||
-    match.attrs.PublishedName ||
-    match.attrs["Body Id"];
+  const { publishedName } = match;
 
   if (gridView) {
     const score =
@@ -24,8 +19,8 @@ export default function MatchSummary(props) {
     return (
       <Col xs={24} md={12} lg={8} xl={6}>
         <ImageWithModal
-          thumbSrc={match.thumbnail_path}
-          src={match.image_path}
+          thumbSrc={match.thumbnailURL}
+          src={match.imageURL}
           alt={publishedName}
           showModal={showModal}
         />
@@ -44,8 +39,8 @@ export default function MatchSummary(props) {
       <Row className="matchSummary">
         <Col span={8}>
           <ImageWithModal
-            thumbSrc={match.thumbnail_path}
-            src={match.image_path}
+            thumbSrc={match.thumbnailURL}
+            src={match.imageURL}
             alt={publishedName}
             showModal={showModal}
           />
@@ -53,12 +48,12 @@ export default function MatchSummary(props) {
         <Col span={10}>
           {isLM ? (
             <LineMeta
-              attributes={match.attrs}
+              attributes={match}
               score={Math.round(match.normalizedScore)}
             />
           ) : (
             <SkeletonMeta
-              attributes={match.attrs}
+              attributes={match}
               score={Math.round(match.normalizedScore)}
             />
           )}

@@ -9,21 +9,19 @@ export default function SkeletonResult(props) {
   const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `/search/skeletons/${metaInfo.attrs["Body Id"]}/matches/${metaInfo.id}`;
+  const matchesUrl = `/search/skeletons/${metaInfo.publishedName}/matches/${metaInfo.id}`;
 
-  // only use values in the metaInfo.attrs key to display on the site. The
-  // other keys are for internal use only.
   return (
     <Row>
       <Col md={10}>
         <ImageWithModal
-          thumbSrc={metaInfo.thumbnail_path}
-          src={metaInfo.image_path}
-          title={metaInfo.attrs["Body Id"]}
+          thumbSrc={metaInfo.thumbnailURL}
+          src={metaInfo.imageURL}
+          title={metaInfo.publishedName}
         />
       </Col>
       <Col md={8}>
-        <SkeletonMeta attributes={metaInfo.attrs} />
+        <SkeletonMeta attributes={metaInfo} />
       </Col>
       <Col md={6}>
         <Button

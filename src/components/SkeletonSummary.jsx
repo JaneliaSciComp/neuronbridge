@@ -13,10 +13,10 @@ export default function SkeletonResult(props) {
   return (
     <Row>
       <Col xs={24} lg={8}>
-        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Body Id"]} />
+        <ImageWithModal thumbSrc={metaInfo.thumbnailURL} src={metaInfo.imageURL} title={metaInfo.publishedName} />
       </Col>
       <Col lg={12}>
-        <SkeletonMeta attributes={metaInfo.attrs} />
+        <SkeletonMeta attributes={metaInfo} />
       </Col>
       <Col lg={4}>
         <Button onClick={() => history.goBack()}>Back to all results</Button>
