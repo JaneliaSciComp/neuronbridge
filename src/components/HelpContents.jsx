@@ -66,7 +66,7 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="LH173" help={false} />
+          <SearchInput examples={false} searchTerm="LH173" help={false} uploads={false} />
         </Col>
       </Row>
 
@@ -78,7 +78,7 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="MB*" help={false} />
+          <SearchInput examples={false} searchTerm="MB*" help={false} uploads={false} />
         </Col>
       </Row>
 
@@ -90,7 +90,7 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="MB11*" help={false} />
+          <SearchInput examples={false} searchTerm="MB11*" help={false} uploads={false} />
         </Col>
       </Row>
 

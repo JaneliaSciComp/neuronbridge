@@ -4,12 +4,13 @@ import { Link, useHistory } from "react-router-dom";
 import { Input, Col, Row } from "antd";
 
 import HelpButton from "./HelpButton";
+import SearchUpload from "./SearchUpload";
 import "./SearchInput.css";
 import "./LoaderButton.css";
 
 const { Search } = Input;
 
-export default function SearchInput({ searchTerm, examples, help }) {
+export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const history = useHistory();
   const [search, setSearch] = useState("");
 
@@ -49,6 +50,7 @@ export default function SearchInput({ searchTerm, examples, help }) {
           </Col>
         )}
       </Row>
+        {uploads && <SearchUpload />}
     </div>
   );
 }
@@ -56,11 +58,13 @@ export default function SearchInput({ searchTerm, examples, help }) {
 SearchInput.propTypes = {
   searchTerm: PropTypes.string,
   examples: PropTypes.bool,
+  uploads: PropTypes.bool,
   help: PropTypes.bool
 };
 
 SearchInput.defaultProps = {
   searchTerm: "",
   examples: true,
+  uploads: true,
   help: true
 };
