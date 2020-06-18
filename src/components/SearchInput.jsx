@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import { Input, Col, Row } from "antd";
 
 import HelpButton from "./HelpButton";
-import SearchUpload from "./SearchUpload";
 import "./SearchInput.css";
 import "./LoaderButton.css";
 
@@ -50,7 +49,12 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
           </Col>
         )}
       </Row>
-        {uploads && <SearchUpload />}
+      {uploads && (
+        <p>
+          Or <Link to="/mysearches">upload an image</Link> of your own to
+          perform a custom search of our data sets.
+        </p>
+      )}
     </div>
   );
 }

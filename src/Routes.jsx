@@ -12,6 +12,7 @@ const Login = React.lazy(() => import('./components/Login'));
 const HelpPage = React.lazy(() => import('./components/HelpPage'));
 const Signup = React.lazy(() => import('./components/Signup'));
 const Search = React.lazy(() => import('./components/Search'));
+const CustomSearchList = React.lazy(() => import('./components/CustomSearchList'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 const UsageTerms = React.lazy(() => import('./components/UsageTerms'));
 const ResetPassword = React.lazy(() => import('./components/ResetPassword'));
@@ -50,6 +51,11 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute
           path="/search/:searchType?/:searchTerm?"
           component={Search}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/mysearches"
+          component={CustomSearchList}
           appProps={appProps}
         />
         <Route path="/about" component={About} />
