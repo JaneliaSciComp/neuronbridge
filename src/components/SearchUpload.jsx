@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button, Upload, message } from "antd";
+import { Upload, message } from "antd";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Auth, Storage } from "aws-amplify";
+import SearchUploadMeta from "./SearchUploadMeta";
 import "./SearchUpload.css";
 
 const { Dragger } = Upload;
@@ -50,23 +51,25 @@ export default function SearchUpload() {
 
   return (
     <div className="uploader">
-      <Dragger
-        name="file"
-        multiple
-        action=""
-        withCredentials
-        listType="picture"
-        onRemove={onRemove}
-        customRequest={customRequest}
-      >
-        <p className="ant-upload-drag-icon">
-          <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
-        </p>
-        <p className="ant-upload-text">
-          Click or drag a file to this area to upload.
-        </p>
-      </Dragger>
-      {uploadedNames.length > 0 && <Button size="small">Search</Button>}
+      {uploadedNames.length === 0 && (
+        <Dragger
+          name="file"
+          action=""
+          withCredentials
+          listType="picture"
+          onRemove={onRemove}
+          customRequest={customRequest}
+          showUploadList
+        >
+          <p className="ant-upload-drag-icon">
+            <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
+          </p>
+          <p className="ant-upload-text">
+            Click here or drag a file to this area to upload.
+          </p>
+        </Dragger>
+      )}
+      <SearchUploadMeta uploadedName={uploadedNames[0]} />
     </div>
   );
 }
