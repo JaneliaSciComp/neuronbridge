@@ -37,7 +37,10 @@ export default function LineMeta({ attributes, score }) {
           <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
         <p>
-          <b>Genotype:</b> {attributes.genotype}
+          <b>Anatomical Area:</b> {attributes.anatomicalArea}
+        </p>
+        <p>
+          <b>Mounting Protocol:</b> {attributes.mountingProtocol}
         </p>
         <p>
           <b>Alignment Space:</b> {attributes.alignmentSpace}
