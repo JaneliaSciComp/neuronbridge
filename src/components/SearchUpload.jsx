@@ -4,6 +4,7 @@ import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Auth, Storage } from "aws-amplify";
 import SearchUploadMeta from "./SearchUploadMeta";
+import config from "../config";
 import "./SearchUpload.css";
 
 const { Dragger } = Upload;
@@ -15,14 +16,14 @@ export default function SearchUpload() {
     window.foo = upload;
 
     Auth.currentCredentials().then(() => {
-      Storage.put(upload.file.uid, upload.file, {
+      Storage.put(`${upload.file.uid}/${upload.file.uid}`, upload.file, {
         progressCallback: progress => {
           const percent = (progress.loaded * 100) / progress.total;
           upload.onProgress({ percent });
         },
         contentType: upload.file.type,
         level: "private",
-        bucket: "janelia-neuronbridge-searches-dev"
+        bucket: config.SEARCH_BUCKET
       })
         .then(result => {
           setUploadedNames(names => {
@@ -36,9 +37,9 @@ export default function SearchUpload() {
 
   function onRemove(file) {
     Auth.currentCredentials().then(() => {
-      Storage.remove(file.uid, {
+      Storage.remove(`${file.uid}/${file.uid}`, {
         level: "private",
-        bucket: "janelia-neuronbridge-searches-dev"
+        bucket: config.SEARCH_BUCKET
       })
         .then(() => {
           setUploadedNames(names => {
@@ -51,24 +52,22 @@ export default function SearchUpload() {
 
   return (
     <div className="uploader">
-      {uploadedNames.length === 0 && (
-        <Dragger
-          name="file"
-          action=""
-          withCredentials
-          listType="picture"
-          onRemove={onRemove}
-          customRequest={customRequest}
-          showUploadList
-        >
-          <p className="ant-upload-drag-icon">
-            <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
-          </p>
-          <p className="ant-upload-text">
-            Click here or drag a file to this area to upload.
-          </p>
-        </Dragger>
-      )}
+      <Dragger
+        name="file"
+        action=""
+        withCredentials
+        listType="picture"
+        onRemove={onRemove}
+        customRequest={customRequest}
+        showUploadList
+      >
+        <p className="ant-upload-drag-icon">
+          <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
+        </p>
+        <p className="ant-upload-text">
+          Click here or drag a file to this area to upload.
+        </p>
+      </Dragger>
       <SearchUploadMeta uploadedName={uploadedNames[0]} />
     </div>
   );
