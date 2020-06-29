@@ -7,20 +7,21 @@ import config from "../config";
 
 const { Option } = Select;
 
-export default function SearchUploadMeta({ uploadedName }) {
-  /* if (!uploadedName) {
-    return null;
-  } */
-
+export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
   const [isAligned, setIsAligned] = useState(true);
+
+  if (!uploadedFile) {
+    return null;
+  }
 
   const onFinish = values => {
     Auth.currentCredentials().then(() => {
-      Storage.put(`${uploadedName}.search`, values, {
+      Storage.put(`${uploadedFile.uid}/${uploadedFile.uid}.search`, values, {
         level: "private",
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
+          onSearchSubmit();
           console.log(result);
         })
         .catch(e => console.log(e));
@@ -37,7 +38,7 @@ export default function SearchUploadMeta({ uploadedName }) {
 
   return (
     <div>
-      <p> Search parameters for {uploadedName}</p>
+      <p> Search parameters for {uploadedFile.name}</p>
       <p>
         <Switch
           checkedChildren={<CheckOutlined />}
@@ -162,9 +163,11 @@ export default function SearchUploadMeta({ uploadedName }) {
 }
 
 SearchUploadMeta.propTypes = {
-  uploadedName: PropTypes.string
+  uploadedFile: PropTypes.object,
+  onSearchSubmit: PropTypes.func
 };
 
 SearchUploadMeta.defaultProps = {
-  uploadedName: null
+  uploadedFile: null,
+  onSearchSubmit: null
 };

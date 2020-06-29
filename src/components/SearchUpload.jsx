@@ -10,7 +10,7 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 export default function SearchUpload() {
-  const [uploadedNames, setUploadedNames] = useState([]);
+  const [uploadedFile, setUploadedNames] = useState(null);
 
   function customRequest(upload) {
     window.foo = upload;
@@ -26,9 +26,7 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
-          setUploadedNames(names => {
-            return names.concat(result.key);
-          });
+          setUploadedNames(upload.file);
           upload.onSuccess(result);
         })
         .catch(e => upload.onError(e));
@@ -42,9 +40,7 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(() => {
-          setUploadedNames(names => {
-            return names.filter(name => name !== file.uid);
-          });
+          setUploadedNames(null);
         })
         .catch(e => message.error(e));
     });
@@ -52,23 +48,28 @@ export default function SearchUpload() {
 
   return (
     <div className="uploader">
-      <Dragger
-        name="file"
-        action=""
-        withCredentials
-        listType="picture"
-        onRemove={onRemove}
-        customRequest={customRequest}
-        showUploadList
-      >
-        <p className="ant-upload-drag-icon">
-          <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
-        </p>
-        <p className="ant-upload-text">
-          Click here or drag a file to this area to upload.
-        </p>
-      </Dragger>
-      <SearchUploadMeta uploadedName={uploadedNames[0]} />
+      {!uploadedFile && (
+        <Dragger
+          name="file"
+          action=""
+          withCredentials
+          listType="picture"
+          onRemove={onRemove}
+          customRequest={customRequest}
+          showUploadList
+        >
+          <p className="ant-upload-drag-icon">
+            <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
+          </p>
+          <p className="ant-upload-text">
+            Click here or drag a file to this area to upload.
+          </p>
+        </Dragger>
+      )}
+      <SearchUploadMeta
+        uploadedFile={uploadedFile}
+        onSearchSubmit={() => setUploadedNames(null)}
+      />
     </div>
   );
 }
