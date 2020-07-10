@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Auth } from "aws-amplify";
+import { Button } from "antd";
 import SearchSteps from "./SearchSteps";
 import config from "../config";
 
@@ -15,6 +16,7 @@ const AWS = require("aws-sdk");
 
 export default function SearchesInProgress() {
   const [searchesList, setSearchesList] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   function checkSearchStatus() {
     Auth.currentCredentials().then(creds => {
@@ -30,7 +32,7 @@ export default function SearchesInProgress() {
         {
           Bucket: config.SEARCH_BUCKET,
           Prefix: userDirectory,
-          Delimiter: ".search"
+          Delimiter: "/"
         },
         (err, data) => {
           window.result = data;
@@ -51,11 +53,14 @@ export default function SearchesInProgress() {
     // initial check on page load.
     checkSearchStatus();
     // followed by automatic updates every 10 seconds.
-    const interval = setInterval(() => {
-      checkSearchStatus();
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
+    if (refresh) {
+      const interval = setInterval(() => {
+        checkSearchStatus();
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+    return () => {};
+  }, [refresh]);
 
   const searchesInProgress = searchesList.map(searchName => (
     <li key={searchName}>
@@ -66,7 +71,16 @@ export default function SearchesInProgress() {
 
   return (
     <div>
-      <p>List of searches that are currently running</p>
+      <p>
+        List of searches that are currently running{" "}
+        <Button
+          onClick={() => {
+            setRefresh(current => !current);
+          }}
+        >
+          {refresh ? "Disable Auto Refresh" : "Enable Auto Refresh"}
+        </Button>
+      </p>
       <ul>{searchesInProgress}</ul>
     </div>
   );

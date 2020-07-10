@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Upload, message } from "antd";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { v1 as uuidv1 } from "uuid";
 import { Auth, Storage } from "aws-amplify";
 import SearchUploadMeta from "./SearchUploadMeta";
 import config from "../config";
@@ -10,13 +11,16 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 export default function SearchUpload() {
-  const [uploadedFile, setUploadedNames] = useState(null);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   function customRequest(upload) {
     window.foo = upload;
 
+		// TODO: add a mime-type lookup dict, so we can set the file extension
+		// on the uploaded file, based on the mime-type.
+
     Auth.currentCredentials().then(() => {
-      Storage.put(`${upload.file.uid}/${upload.file.uid}`, upload.file, {
+      Storage.put(`${upload.filename}/upload`, upload.file, {
         progressCallback: progress => {
           const percent = (progress.loaded * 100) / progress.total;
           upload.onProgress({ percent });
@@ -26,31 +30,35 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
-          setUploadedNames(upload.file);
+          setUploadedFile(upload);
           upload.onSuccess(result);
         })
         .catch(e => upload.onError(e));
     });
   }
 
-  function onRemove(file) {
+  function onRemove() {
     Auth.currentCredentials().then(() => {
-      Storage.remove(`${file.uid}/${file.uid}`, {
+      Storage.remove(`${uploadedFile.filename}/upload`, {
         level: "private",
         bucket: config.SEARCH_BUCKET
       })
         .then(() => {
-          setUploadedNames(null);
+          setUploadedFile(null);
         })
         .catch(e => message.error(e));
     });
   }
 
+	// generate unique id and place it in the name prop of the
+	// Dragger component. This way we can use that to name the upload
+	// directory something other than the fc-<uid> name currently used.
+
   return (
     <div className="uploader">
       {!uploadedFile && (
         <Dragger
-          name="file"
+          name={uuidv1()}
           action=""
           withCredentials
           listType="picture"
@@ -68,7 +76,8 @@ export default function SearchUpload() {
       )}
       <SearchUploadMeta
         uploadedFile={uploadedFile}
-        onSearchSubmit={() => setUploadedNames(null)}
+        onSearchSubmit={() => setUploadedFile(null)}
+				onCancel={() => onRemove()}
       />
     </div>
   );

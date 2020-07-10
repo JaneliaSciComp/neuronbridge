@@ -7,7 +7,17 @@ import config from "../config";
 
 const { Option } = Select;
 
-export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
+const mimetypesToExtension = {
+  "image/png": "png",
+  "image/jpeg": "jpeg",
+  "image/tiff": "tif",
+  "image/lsm": "lsm",
+  "image/czi": "czi",
+  "image/oif": "oif",
+  "application/zip": "zip"
+};
+
+export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCancel }) {
   const [isAligned, setIsAligned] = useState(true);
 
   if (!uploadedFile) {
@@ -16,7 +26,7 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
 
   const onFinish = values => {
     Auth.currentCredentials().then(() => {
-      Storage.put(`${uploadedFile.uid}/${uploadedFile.uid}.search`, values, {
+      Storage.put(`${uploadedFile.filename}/searchMeta.json`, values, {
         level: "private",
         bucket: config.SEARCH_BUCKET
       })
@@ -36,9 +46,19 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
     setIsAligned(checked);
   };
 
+  const mimeTypeOptions = Object.keys(mimetypesToExtension)
+    .sort()
+    .map(type => {
+      return (
+        <Option key={type} value={type}>
+          {mimetypesToExtension[type]}
+        </Option>
+      );
+    });
+
   return (
     <div>
-      <p> Search parameters for {uploadedFile.name}</p>
+      <p> Search parameters for {uploadedFile.file.name}</p>
       <p>
         <Switch
           checkedChildren={<CheckOutlined />}
@@ -53,7 +73,13 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         name="basic"
-        initialValues={{ anatomicalregion: "brain", algorithm: "max" }}
+        initialValues={{
+          searchtype: "em2lm",
+          anatomicalregion: "brain",
+          algorithm: "max",
+          mimetype: uploadedFile.file.type ||
+            "Couldn't be determined, please select"
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -82,16 +108,18 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
         <Form.Item
           label="Image mime-type"
           name="mimetype"
-          rules={[{ required: true, message: "Please choose a mime-type!" }]}
+          rules={[
+            { required: true, message: "Please choose a mime-type!" },
+            {
+              validator: (_, value) =>
+                mimetypesToExtension[value]
+                  ? Promise.resolve()
+									// eslint-disable-next-line
+                  : Promise.reject("Please select a valid mime-type")
+            }
+          ]}
         >
-          <Select>
-            <Option value="png">png</Option>
-            <Option value="jpeg">jpeg</Option>
-            <Option value="tiff">tiff</Option>
-            <Option value="lsm">lsm</Option>
-            <Option value="czi">czi</Option>
-            <Option value="oif">oif</Option>
-          </Select>
+          <Select>{mimeTypeOptions}</Select>
         </Form.Item>
 
         {!isAligned && (
@@ -157,6 +185,7 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
             Submit
           </Button>
         </Form.Item>
+				<Button onClick={onCancel}>Cancel</Button>
       </Form>
     </div>
   );
@@ -164,10 +193,12 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit }) {
 
 SearchUploadMeta.propTypes = {
   uploadedFile: PropTypes.object,
-  onSearchSubmit: PropTypes.func
+  onSearchSubmit: PropTypes.func,
+  onCancel: PropTypes.func
 };
 
 SearchUploadMeta.defaultProps = {
   uploadedFile: null,
-  onSearchSubmit: null
+  onSearchSubmit: null,
+  onCancel: null
 };
