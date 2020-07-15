@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography, Col, Row } from "antd";
 import SearchInput from "./SearchInput";
+import GraphQLTest from "./GraphQLTest";
 import "./Landing.css";
 
 const { Title, Paragraph } = Typography;
@@ -79,6 +80,7 @@ function Landing(props) {
           </Col>
         </Row>
       </div>
+      <GraphQLTest/>
     </>
   );
 }

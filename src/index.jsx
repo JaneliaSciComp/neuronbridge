@@ -8,6 +8,7 @@ import AlertTemplate from "react-alert-template-basic";
 
 import config from "./config";
 import App from "./App";
+import AppSyncConf from "./aws-exports";
 import { AppProvider } from "./containers/AppContext";
 import { FilterProvider } from "./containers/FilterContext";
 import * as serviceWorker from "./serviceWorker";
@@ -31,7 +32,11 @@ Amplify.configure({
     region: config.s3.REGION,
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID
-  }
+  },
+  "aws_appsync_graphqlEndpoint": AppSyncConf.aws_appsync_graphqlEndpoint,
+  "aws_appsync_region": AppSyncConf.aws_appsync_region,
+  "aws_appsync_authenticationType": AppSyncConf.aws_appsync_authenticationType,
+  "aws_appsync_apiKey": AppSyncConf.aws_appsync_apiKey
 });
 
 const alertOptions = {
