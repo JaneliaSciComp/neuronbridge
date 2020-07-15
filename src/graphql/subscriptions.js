@@ -13,14 +13,14 @@ export const onCreateSearch = /* GraphQL */ `
   }
 `;
 export const onDeleteSearch = /* GraphQL */ `
-  subscription OnDeleteSearch($id: ID, $status: String) {
-    onDeleteSearch(id: $id, status: $status) {
+  subscription OnDeleteSearch {
+    onDeleteSearch {
       id
-      status
     }
   }
 `;
-export const onUpdateSearch = /* GraphQL */ `
+
+export const onUpdateSearchOriginal = /* GraphQL */ `
   subscription OnUpdateSearch($id: ID, $status: String) {
     onUpdateSearch(id: $id, status: $status) {
       id
@@ -29,8 +29,18 @@ export const onUpdateSearch = /* GraphQL */ `
   }
 `;
 
-export const onSearchChange = /* GRaphQL */ `
-  subscription onSearchChange {
+export const onUpdateSearch = /* GraphQL */ `
+  subscription OnUpdateSearch {
+    onUpdateSearch {
+      id
+      status
+    }
+  }
+`;
+
+
+export const onSearchChange = /* GraphQL */ `
+  subscription OnSearchChange {
     onCreateSearch {
       id
       status

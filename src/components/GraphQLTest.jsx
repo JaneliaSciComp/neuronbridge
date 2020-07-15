@@ -23,7 +23,7 @@ export default function GraphQLTest() {
       case "add":
         return [...searchList, value];
       case "remove":
-        return searchList.filter((_, index) => index !== value);
+        return searchList.filter(item => item.id !== value);
       default:
         return searchList;
     }
@@ -33,10 +33,26 @@ export default function GraphQLTest() {
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onCreateSearch)
     ).subscribe({
-      next: data => {
-        console.log(data);
-        if (data.value.data.onCreateSearch) {
-          dispatch({ type: "add", value: data.value.data.onCreateSearch });
+      next: response => {
+        if (response.value.data.onCreateSearch) {
+          dispatch({ type: "add", value: response.value.data.onCreateSearch });
+        }
+      },
+      error: error => {
+        console.warn(error);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+ useEffect(() => {
+    const subscription = API.graphql(
+      graphqlOperation(subscriptions.onDeleteSearch)
+    ).subscribe({
+      next: response => {
+        if (response.value.data.onDeleteSearch) {
+          dispatch({ type: "remove", value: response.value.data.onDeleteSearch.id });
         }
       },
       error: error => {
