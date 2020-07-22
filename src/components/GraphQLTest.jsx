@@ -7,11 +7,19 @@ import * as subscriptions from "../graphql/subscriptions";
 
 function addSearch() {
   const searchDetails = {
-    status: "this is a new status"
+    status: "this is a new status",
+    algorithm: "max",
+    searchType: "em2lm"
   };
 
   API.graphql(
     graphqlOperation(mutations.createSearch, { input: searchDetails })
+  ).then(results => console.log(results));
+}
+
+function deleteSearch(id) {
+  API.graphql(
+    graphqlOperation(mutations.deleteSearch, { input: { id } })
   ).then(results => console.log(results));
 }
 
@@ -46,13 +54,16 @@ export default function GraphQLTest() {
     return () => subscription.unsubscribe();
   }, []);
 
- useEffect(() => {
+  useEffect(() => {
     const subscription = API.graphql(
       graphqlOperation(subscriptions.onDeleteSearch)
     ).subscribe({
       next: response => {
         if (response.value.data.onDeleteSearch) {
-          dispatch({ type: "remove", value: response.value.data.onDeleteSearch.id });
+          dispatch({
+            type: "remove",
+            value: response.value.data.onDeleteSearch.id
+          });
         }
       },
       error: error => {
@@ -71,7 +82,8 @@ export default function GraphQLTest() {
 
   const formattedSearches = searches.map(search => (
     <li key={search.id}>
-      {search.id} - {search.status}
+      {search.id} - {search.status} - {search.createdOn}{" "}
+      <Button onClick={() => deleteSearch(search.id)}>Delete</Button>
     </li>
   ));
 

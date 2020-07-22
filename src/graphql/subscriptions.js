@@ -9,6 +9,8 @@ export const onCreateSearch = /* GraphQL */ `
     onCreateSearch {
       id
       status
+      updatedOn
+      createdOn
     }
   }
 `;
@@ -34,6 +36,8 @@ export const onUpdateSearch = /* GraphQL */ `
     onUpdateSearch {
       id
       status
+      updatedOn
+      createdOn
     }
   }
 `;
@@ -44,6 +48,8 @@ export const onSearchChange = /* GraphQL */ `
     onCreateSearch {
       id
       status
+      updatedOn
+      createdOn
     },
     onDeleteSearch {
       id
@@ -52,6 +58,8 @@ export const onSearchChange = /* GraphQL */ `
     onUpdateSearch {
       id
       status
+      updatedOn
+      createdOn
     }
   }
 `;

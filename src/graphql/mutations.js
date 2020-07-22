@@ -6,6 +6,8 @@ export const createSearch = /* GraphQL */ `
     createSearch(input: $input) {
       id
       status
+      createdOn
+      updatedOn
     }
   }
 `;
@@ -22,6 +24,8 @@ export const updateSearch = /* GraphQL */ `
     updateSearch(input: $input) {
       id
       status
+      createdOn
+      updatedOn
     }
   }
 `;

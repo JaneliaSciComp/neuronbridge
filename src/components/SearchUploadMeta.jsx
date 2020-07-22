@@ -85,7 +85,7 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCance
       >
         <Form.Item
           label="Search Type"
-          name="searchtype"
+          name="searchType"
           rules={[{ required: true, message: "Please choose a search type!" }]}
         >
           <Select>

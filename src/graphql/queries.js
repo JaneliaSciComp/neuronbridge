@@ -6,6 +6,8 @@ export const getSearch = /* GraphQL */ `
     getSearch(id: $id) {
       id
       status
+      updatedOn
+      createdOn
     }
   }
 `;
@@ -19,6 +21,8 @@ export const listSearches = /* GraphQL */ `
       items {
         id
         status
+        updatedOn
+        createdOn
       }
       nextToken
     }
