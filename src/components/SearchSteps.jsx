@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -21,17 +22,16 @@ function getSteps() {
   return ["Files Uploaded", "Alignment", "Search", "Complete"];
 }
 
-export default function SearchSteps() {
+export default function SearchSteps({search}) {
   const classes = useStyles();
   // const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-  const activeStep = Math.floor(Math.random() * steps.length);
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper activeStep={search.step} alternativeLabel>
         {steps.map(label => {
-          const error = Boolean(Math.random() > 0.5);
+          const { error } = search;
           return (
             <Step key={label}>
               <StepLabel error={error}>{label}</StepLabel>
@@ -42,3 +42,7 @@ export default function SearchSteps() {
     </div>
   );
 }
+
+SearchSteps.propTypes = {
+  search: PropTypes.object.isRequired
+};

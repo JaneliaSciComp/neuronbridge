@@ -5,34 +5,57 @@
 }
 
 type Mutation {
-  createSearch(input: CreateSearchInput!): Search
-  deleteSearch(input: DeleteSearchInput!): Search
-  updateSearch(input: UpdateSearchInput!): Search
+  createSearch(input: CreateSearchInput!): Search @aws_cognito_user_pools @aws_iam
+  deleteSearch(input: DeleteSearchInput!): Search @aws_cognito_user_pools @aws_iam
+  updateSearch(input: UpdateSearchInput!): Search @aws_cognito_user_pools @aws_iam
 }
 
 type Query {
-  getSearch(id: ID!): Search
-  listSearches(filter: TableSearchFilterInput, limit: Int, nextToken: String): SearchConnection
+  getSearch(id: ID!): Search @aws_cognito_user_pools @aws_iam
+  listSearches(filter: TableSearchFilterInput, limit: Int, nextToken: String): SearchConnection @aws_cognito_user_pools @aws_iam
 }
 
-type Search {
+type Search @aws_cognito_user_pools @aws_iam {
+  algorithm: Algorithm
+  createdOn: AWSDateTime
   id: ID!
-  status: String!
+  identityId: String!
+  mimeType: String
+  owner: String
+  searchType: SearchType
+  step: Int
+  updatedOn: AWSDateTime
+  upload: String
 }
 
-type SearchConnection {
+type SearchConnection @aws_cognito_user_pools @aws_iam {
   items: [Search]
   nextToken: String
 }
 
 type Subscription {
-  onCreateSearch(id: ID, status: String): Search @aws_subscribe(mutations : ["createSearch"])
-  onDeleteSearch(id: ID, status: String): Search @aws_subscribe(mutations : ["deleteSearch"])
-  onUpdateSearch(id: ID, status: String): Search @aws_subscribe(mutations : ["updateSearch"])
+  onCreateSearch(createdOn: String, id: ID, step: Int): Search @aws_subscribe(mutations : ["createSearch"])
+  onDeleteSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["deleteSearch"])
+  onUpdateSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["updateSearch"])
+}
+
+enum Algorithm {
+  avg
+  max
+}
+
+enum SearchType {
+  em2lm
+  lm2em
 }
 
 input CreateSearchInput {
-  status: String!
+  algorithm: Algorithm!
+  identityId: String!
+  mimeType: String
+  searchType: SearchType!
+  step: Int!
+  upload: String!
 }
 
 input DeleteSearchInput {
@@ -83,7 +106,7 @@ input TableIntFilterInput {
 
 input TableSearchFilterInput {
   id: TableIDFilterInput
-  status: TableStringFilterInput
+  step: TableStringFilterInput
 }
 
 input TableStringFilterInput {
@@ -101,5 +124,5 @@ input TableStringFilterInput {
 
 input UpdateSearchInput {
   id: ID!
-  status: String
+  step: Int
 }

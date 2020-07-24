@@ -5,7 +5,7 @@ export const createSearch = /* GraphQL */ `
   mutation CreateSearch($input: CreateSearchInput!) {
     createSearch(input: $input) {
       id
-      status
+      step
       createdOn
       updatedOn
     }
@@ -15,7 +15,7 @@ export const deleteSearch = /* GraphQL */ `
   mutation DeleteSearch($input: DeleteSearchInput!) {
     deleteSearch(input: $input) {
       id
-      status
+      step
     }
   }
 `;
@@ -23,7 +23,7 @@ export const updateSearch = /* GraphQL */ `
   mutation UpdateSearch($input: UpdateSearchInput!) {
     updateSearch(input: $input) {
       id
-      status
+      step
       createdOn
       updatedOn
     }

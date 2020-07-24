@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Form, InputNumber, Select, Button, Switch } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
-import { Auth, Storage } from "aws-amplify";
-import config from "../config";
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import * as mutations from "../graphql/mutations";
 
 const { Option } = Select;
 
@@ -17,7 +17,11 @@ const mimetypesToExtension = {
   "application/zip": "zip"
 };
 
-export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCancel }) {
+export default function SearchUploadMeta({
+  uploadedFile,
+  onSearchSubmit,
+  onCancel
+}) {
   const [isAligned, setIsAligned] = useState(true);
 
   if (!uploadedFile) {
@@ -25,11 +29,18 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCance
   }
 
   const onFinish = values => {
-    Auth.currentCredentials().then(() => {
-      Storage.put(`${uploadedFile.filename}/searchMeta.json`, values, {
-        level: "private",
-        bucket: config.SEARCH_BUCKET
-      })
+    Auth.currentCredentials().then(currentCreds => {
+      const searchDetails = {
+        step: 0,
+        algorithm: values.algorithm,
+        searchType: values.searchType,
+        identityId: currentCreds.identityId,
+        upload: uploadedFile.filename
+      };
+
+      API.graphql(
+        graphqlOperation(mutations.createSearch, { input: searchDetails })
+      )
         .then(result => {
           onSearchSubmit();
           console.log(result);
@@ -77,8 +88,8 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCance
           searchtype: "em2lm",
           anatomicalregion: "brain",
           algorithm: "max",
-          mimetype: uploadedFile.file.type ||
-            "Couldn't be determined, please select"
+          mimetype:
+            uploadedFile.file.type || "Couldn't be determined, please select"
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -114,8 +125,8 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCance
               validator: (_, value) =>
                 mimetypesToExtension[value]
                   ? Promise.resolve()
-									// eslint-disable-next-line
-                  : Promise.reject("Please select a valid mime-type")
+                  : // eslint-disable-next-line
+                    Promise.reject("Please select a valid mime-type")
             }
           ]}
         >
@@ -185,7 +196,7 @@ export default function SearchUploadMeta({ uploadedFile, onSearchSubmit, onCance
             Submit
           </Button>
         </Form.Item>
-				<Button onClick={onCancel}>Cancel</Button>
+        <Button onClick={onCancel}>Cancel</Button>
       </Form>
     </div>
   );

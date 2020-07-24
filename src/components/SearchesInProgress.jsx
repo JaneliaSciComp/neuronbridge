@@ -1,86 +1,114 @@
-import React, { useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
+import React, { useEffect, useReducer } from "react";
+import { API, graphqlOperation } from "aws-amplify";
 import { Button } from "antd";
 import SearchSteps from "./SearchSteps";
-import config from "../config";
-
-const AWS = require("aws-sdk");
-
-// TODO: This needs to use either a fetch on a set interval or a websocket to
-// check the contents of the upload bucket and fetch all searches that have
-// not been completed. Once fetched the search status should be determined
-// from the meta data and displayed on the page.
+import * as queries from "../graphql/queries";
+import * as mutations from "../graphql/mutations";
+import * as subscriptions from "../graphql/subscriptions";
 
 // NOTE: This code could receive the data as props, if the parent does the fetching
 // for this and the completed component.
+function deleteSearch(id) {
+  API.graphql(
+    graphqlOperation(mutations.deleteSearch, { input: { id } })
+  ).then(results => console.log(results));
+}
 
 export default function SearchesInProgress() {
-  const [searchesList, setSearchesList] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+  const [searches, dispatch] = useReducer((searchList, { type, value }) => {
+    switch (type) {
+      case "init":
+        return value;
+      case "add":
+        return [...searchList, value];
+      case "update":
+        return [...searchList.filter(item => item.id !== value.id), value];
+      case "remove":
+        return searchList.filter(item => item.id !== value);
+      default:
+        return searchList;
+    }
+  }, []);
 
-  function checkSearchStatus() {
-    Auth.currentCredentials().then(creds => {
-      const s3 = new AWS.S3({
-        credentials: Auth.essentialCredentials(creds)
-      });
-
-      const userDirectory = `private/${creds.identityId}/`;
-
-      window.s3 = s3;
-      window.Auth = Auth;
-      s3.listObjectsV2(
-        {
-          Bucket: config.SEARCH_BUCKET,
-          Prefix: userDirectory,
-          Delimiter: "/"
-        },
-        (err, data) => {
-          window.result = data;
-
-          if (data) {
-            setSearchesList(
-              data.CommonPrefixes.map(prefixObj =>
-                prefixObj.Prefix.replace(userDirectory, "").replace("/", "")
-              )
-            );
-          }
-        }
-      );
-    });
-  }
+  // initial check on page load.
+  useEffect(() => {
+    API.graphql(graphqlOperation(queries.listSearches)).then(results =>
+      dispatch({ type: "init", value: results.data.listSearches.items })
+    );
+  }, []);
 
   useEffect(() => {
-    // initial check on page load.
-    checkSearchStatus();
-    // followed by automatic updates every 10 seconds.
-    if (refresh) {
-      const interval = setInterval(() => {
-        checkSearchStatus();
-      }, 10000);
-      return () => clearInterval(interval);
-    }
-    return () => {};
-  }, [refresh]);
+    const subscription = API.graphql(
+      graphqlOperation(subscriptions.onCreateSearch)
+    ).subscribe({
+      next: response => {
+        if (response.value.data.onCreateSearch) {
+          dispatch({ type: "add", value: response.value.data.onCreateSearch });
+        }
+      },
+      error: error => {
+        console.warn(error);
+      }
+    });
 
-  const searchesInProgress = searchesList.map(searchName => (
-    <li key={searchName}>
-      {searchName}
-      <SearchSteps />
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const subscription = API.graphql(
+      graphqlOperation(subscriptions.onDeleteSearch)
+    ).subscribe({
+      next: response => {
+        if (response.value.data.onDeleteSearch) {
+          dispatch({
+            type: "remove",
+            value: response.value.data.onDeleteSearch.id
+          });
+        }
+      },
+      error: error => {
+        console.warn(error);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+ useEffect(() => {
+    const subscription = API.graphql(
+      graphqlOperation(subscriptions.onUpdateSearch)
+    ).subscribe({
+      next: response => {
+        if (response.value.data.onUpdateSearch) {
+          dispatch({
+            type: "update",
+            value: response.value.data.onUpdateSearch
+          });
+        }
+      },
+      error: error => {
+        console.warn(error);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+
+  // create a subscription for future updates.
+  useEffect(() => {}, []);
+
+  const searchesInProgress = searches.map(search => (
+    <li key={search.id}>
+      {search.id} - {search.updatedOn}{" "}
+      <Button onClick={() => deleteSearch(search.id)}>Delete</Button>
+      <SearchSteps search={search}/>
     </li>
   ));
 
   return (
     <div>
-      <p>
-        List of searches that are currently running{" "}
-        <Button
-          onClick={() => {
-            setRefresh(current => !current);
-          }}
-        >
-          {refresh ? "Disable Auto Refresh" : "Enable Auto Refresh"}
-        </Button>
-      </p>
+      <p>List of searches that are currently running </p>
       <ul>{searchesInProgress}</ul>
     </div>
   );

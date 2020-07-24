@@ -8,7 +8,7 @@ export const onCreateSearch = /* GraphQL */ `
   subscription OnCreateSearch {
     onCreateSearch {
       id
-      status
+      step
       updatedOn
       createdOn
     }
@@ -23,10 +23,10 @@ export const onDeleteSearch = /* GraphQL */ `
 `;
 
 export const onUpdateSearchOriginal = /* GraphQL */ `
-  subscription OnUpdateSearch($id: ID, $status: String) {
-    onUpdateSearch(id: $id, status: $status) {
+  subscription OnUpdateSearch($id: ID, $step: Int) {
+    onUpdateSearch(id: $id, step: $step) {
       id
-      status
+      step
     }
   }
 `;
@@ -35,29 +35,7 @@ export const onUpdateSearch = /* GraphQL */ `
   subscription OnUpdateSearch {
     onUpdateSearch {
       id
-      status
-      updatedOn
-      createdOn
-    }
-  }
-`;
-
-
-export const onSearchChange = /* GraphQL */ `
-  subscription OnSearchChange {
-    onCreateSearch {
-      id
-      status
-      updatedOn
-      createdOn
-    },
-    onDeleteSearch {
-      id
-      status
-    },
-    onUpdateSearch {
-      id
-      status
+      step
       updatedOn
       createdOn
     }
