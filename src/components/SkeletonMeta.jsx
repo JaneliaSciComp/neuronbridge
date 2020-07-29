@@ -14,11 +14,7 @@ export default function SkeletonMeta({ attributes, score }) {
       <Col md={24} lg={24}>
         <p>
           <b>Body Id:</b>
-          <ExternalLink
-            publishedName={publishedName}
-            isLM={false}
-            library={attributes.Library}
-          />
+          {publishedName}
         </p>
         {score && (
           <p>
@@ -28,6 +24,13 @@ export default function SkeletonMeta({ attributes, score }) {
         <p>
           <b>Library: </b>
           <LibraryFormatter type={attributes.Library} />
+        </p>
+          <p>
+        <ExternalLink
+            publishedName={publishedName}
+            isLM={false}
+            library={attributes.Library}
+          />
         </p>
       </Col>
     </Row>
