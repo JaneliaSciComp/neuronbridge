@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Switch, Divider, Col, Row } from "antd";
+import { InputNumber, Switch, Divider, Col, Row, Radio } from "antd";
 
 import LibraryFormatter from "./LibraryFormatter";
 import { FilterContext } from "../containers/FilterContext";
 import { AppContext } from "../containers/AppContext";
+
+const radioStyle = {
+  display: "block",
+  height: "30px",
+  lineHeight: "30px"
+};
 
 export default function FilterMenu({ searchType, countsByLibrary }) {
   const [filterState, setFilterState] = useContext(FilterContext);
@@ -27,6 +33,10 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
     }
   }
 
+	function onSortChange(event) {
+    setFilterState({ ...filterState, sortResultsBy: event.target.value });
+	}
+
   if (!appState.showFilterMenu) {
     return null;
   }
@@ -47,25 +57,40 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
 
   return (
     <div>
-      <Divider orientation="left">Results Filters</Divider>
       <Row>
-        <Col xs={24} md={6}>
-          {searchType !== "lines" && (
-            <div>
-              <p>Results per line</p>
-              <InputNumber
-                style={{ width: "5em" }}
-                min={1}
-                max={100}
-                value={filterState.resultsPerLine}
-                onChange={handleResultsPerLine}
-              />
-            </div>
-          )}
+        <Col xs={24} md={12}>
+          <Divider orientation="left">Results Filters</Divider>
+          <Row>
+            <Col xs={24} md={6}>
+              {searchType !== "lines" && (
+                <div>
+                  <p>Results per line</p>
+                  <InputNumber
+                    style={{ width: "5em" }}
+                    min={1}
+                    max={100}
+                    value={filterState.resultsPerLine}
+                    onChange={handleResultsPerLine}
+                  />
+                </div>
+              )}
+            </Col>
+            <Col xs={24} md={12}>
+              <p>Show results from libraries:</p>
+              {libraryFilterSwitches}
+            </Col>
+          </Row>
         </Col>
         <Col xs={24} md={12}>
-          <p>Show results from libraries:</p>
-          {libraryFilterSwitches}
+          <Divider orientation="left">Sort Results By</Divider>
+          <Radio.Group onChange={onSortChange} value={filterState.sortResultsBy}>
+            <Radio style={radioStyle} value={1}>
+              Normalized Score
+            </Radio>
+            <Radio style={radioStyle} value={2}>
+              Matched Pixels
+            </Radio>
+          </Radio.Group>
         </Col>
       </Row>
       <Divider />

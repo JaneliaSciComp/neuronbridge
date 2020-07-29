@@ -10,8 +10,10 @@ const FilterProvider = (props) => {
     // the client.
     defaults: {
       resultsPerLine: 1,
+      sortResultsBy: 1,
       filteredLibraries: {},
     },
+    sortResultsBy: 1,
     resultsPerLine: 1,
     filteredLibraries: {},
   });

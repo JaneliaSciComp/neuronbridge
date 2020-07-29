@@ -139,7 +139,10 @@ export default function Matches(props) {
         .forEach(result => {
           const publishedName =
             result.attrs["Published Name"] || result.attrs.PublishedName;
-          const currentScore = result.normalizedScore;
+          const currentScore =
+            filterState.sortResultsBy === 2
+              ? result.attrs["Matched pixels"]
+              : result.normalizedScore;
           const library = result.attrs.Library;
 
           if (publishedName in byLines) {
@@ -161,7 +164,12 @@ export default function Matches(props) {
       );
       const limitedByLineCount = sortedByLine.map(line =>
         line.channels
-          .sort((a, b) => b.normalizedScore - a.normalizedScore)
+          .sort((a, b) => {
+            if (filterState.sortResultsBy === 2) {
+              return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+            }
+            return b.normalizedScore - a.normalizedScore;
+          })
           .slice(0, resultsPerLine)
       );
 
@@ -181,6 +189,9 @@ export default function Matches(props) {
           result => !(result.attrs.Library in filterState.filteredLibraries)
         )
         .sort((a, b) => {
+          if (filterState.sortResultsBy === 2) {
+            return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+          }
           return b.normalizedScore - a.normalizedScore;
         });
 
