@@ -22,7 +22,7 @@ function getSteps() {
   return ["Files Uploaded", "Alignment", "Search", "Complete"];
 }
 
-export default function SearchSteps({search}) {
+export default function SearchSteps({ search }) {
   const classes = useStyles();
   // const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();

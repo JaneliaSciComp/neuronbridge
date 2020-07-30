@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import { Typography } from "antd";
 import { API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
+import SearchInput from "./SearchInput";
 import SearchesInProgress from "./SearchesInProgress";
 import SearchesComplete from "./SearchesComplete";
 import * as queries from "../graphql/queries";
@@ -91,8 +92,9 @@ export default function CustomSearchList() {
 
   return (
     <div>
-      <Title level={2}>My Searches</Title>
+      <SearchInput uploads={false} />
       <SearchUpload />
+      <Title level={2}>My Searches</Title>
       <Title level={3}>Searches in progress</Title>
         <SearchesInProgress searches={searches.filter(search => search.step < 3)} />
       <Title level={3}>Searches completed</Title>

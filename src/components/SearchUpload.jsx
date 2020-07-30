@@ -66,7 +66,7 @@ export default function SearchUpload() {
             <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
           </p>
           <p className="ant-upload-text">
-            Click here or drag a file to this area to upload.
+            Start a search by clicking here or draging a file to this area to upload.
           </p>
         </Dragger>
       )}
