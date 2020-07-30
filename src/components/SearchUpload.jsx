@@ -14,13 +14,9 @@ export default function SearchUpload() {
   const [uploadedFile, setUploadedFile] = useState(null);
 
   function customRequest(upload) {
-    window.foo = upload;
-
-		// TODO: add a mime-type lookup dict, so we can set the file extension
-		// on the uploaded file, based on the mime-type.
 
     Auth.currentCredentials().then(() => {
-      Storage.put(`${upload.filename}/upload`, upload.file, {
+      Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
         progressCallback: progress => {
           const percent = (progress.loaded * 100) / progress.total;
           upload.onProgress({ percent });
@@ -39,7 +35,7 @@ export default function SearchUpload() {
 
   function onRemove() {
     Auth.currentCredentials().then(() => {
-      Storage.remove(`${uploadedFile.filename}/upload`, {
+      Storage.remove(`${uploadedFile.filename}/${uploadedFile.file.name}`, {
         level: "private",
         bucket: config.SEARCH_BUCKET
       })

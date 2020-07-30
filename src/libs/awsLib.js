@@ -1,11 +1,16 @@
-import { Storage } from "aws-amplify";
+import { API, Storage, graphqlOperation } from "aws-amplify";
+import * as mutations from "../graphql/mutations";
+import config from "../config";
 
-export async function s3Upload(file) {
-  const filename = `${Date.now()}-${file.name}`;
+// eslint-disable-next-line import/prefer-default-export
+export function deleteSearch(search) {
+  const { id } = search;
+  API.graphql(
+    graphqlOperation(mutations.deleteSearch, { input: { id } })
+  ).then(results => console.log(results));
 
-  const stored = await Storage.vault.put(filename, file, {
-    contentType: file.type
-  });
-
-  return stored.key;
+  Storage.remove(`${search.searchDir}/${search.upload}`, {
+    level: "private",
+    bucket: config.SEARCH_BUCKET
+  })
 }

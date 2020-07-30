@@ -5,6 +5,8 @@ export const createSearch = /* GraphQL */ `
   mutation CreateSearch($input: CreateSearchInput!) {
     createSearch(input: $input) {
       id
+      upload
+      searchDir
       step
       createdOn
       updatedOn
@@ -24,6 +26,8 @@ export const updateSearch = /* GraphQL */ `
     updateSearch(input: $input) {
       id
       step
+      upload
+      searchDir
       createdOn
       updatedOn
     }

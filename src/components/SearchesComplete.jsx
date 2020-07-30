@@ -1,14 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
-import { API, graphqlOperation } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
-
-function deleteSearch(id) {
-  API.graphql(
-    graphqlOperation(mutations.deleteSearch, { input: { id } })
-  ).then(results => console.log(results));
-}
+import { deleteSearch } from "../libs/awsLib";
 
 export default function SearchesComplete({searches}) {
    const searchesComplete = searches.map(search => (

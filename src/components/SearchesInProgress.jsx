@@ -1,21 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { API, graphqlOperation } from "aws-amplify";
 import { Button } from "antd";
 import SearchSteps from "./SearchSteps";
-import * as mutations from "../graphql/mutations";
-
-function deleteSearch(id) {
-  API.graphql(
-    graphqlOperation(mutations.deleteSearch, { input: { id } })
-  ).then(results => console.log(results));
-}
+import { deleteSearch } from "../libs/awsLib";
 
 export default function SearchesInProgress({searches}) {
   const searchesInProgress = searches.map(search => (
     <li key={search.id}>
-      {search.id} - {search.updatedOn}{" "}
-      <Button onClick={() => deleteSearch(search.id)}>Delete</Button>
+      {search.upload} - {search.updatedOn}{" "}
+      <Button onClick={() => deleteSearch(search)}>Delete</Button>
       <SearchSteps search={search}/>
     </li>
   ));

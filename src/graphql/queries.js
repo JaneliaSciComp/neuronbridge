@@ -5,6 +5,8 @@ export const getSearch = /* GraphQL */ `
   query GetSearch($id: ID!) {
     getSearch(id: $id) {
       id
+      upload
+      searchDir
       step
       updatedOn
       createdOn
@@ -20,6 +22,8 @@ export const listSearches = /* GraphQL */ `
     listSearches(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        upload
+        searchDir
         step
         updatedOn
         createdOn

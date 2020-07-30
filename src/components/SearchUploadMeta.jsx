@@ -35,7 +35,8 @@ export default function SearchUploadMeta({
         algorithm: values.algorithm,
         searchType: values.searchType,
         identityId: currentCreds.identityId,
-        upload: uploadedFile.filename
+        searchDir: uploadedFile.filename,
+        upload: uploadedFile.file.name
       };
 
       API.graphql(
