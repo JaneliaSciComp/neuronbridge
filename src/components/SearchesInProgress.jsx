@@ -29,5 +29,5 @@ export default function SearchesInProgress({searches}) {
 }
 
 SearchesInProgress.propTypes = {
-  searches: PropTypes.object.isRequired
+  searches: PropTypes.arrayOf(PropTypes.object).isRequired
 };

@@ -27,5 +27,5 @@ export default function SearchesComplete({searches}) {
 }
 
 SearchesComplete.propTypes = {
-  searches: PropTypes.object.isRequired
+  searches: PropTypes.arrayOf(PropTypes.object).isRequired
 };
