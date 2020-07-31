@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
+import { Link } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
@@ -9,16 +10,13 @@ export default function LineMeta({ attributes, score }) {
   const publishedName =
     attributes["Published Name"] || attributes.PublishedName;
 
+  const searchUrl = `/search?q=${publishedName}`;
   return (
     <Row>
       <Col md={24} lg={12}>
         <p>
           <b>Line Name:</b>
-          <ExternalLink
-            publishedName={publishedName}
-            isLM
-            library={attributes.Library}
-          />
+          <Link to={searchUrl}>{publishedName}</Link>
         </p>
         {score && (
           <p>
@@ -48,6 +46,15 @@ export default function LineMeta({ attributes, score }) {
         </p>
         <p>
           <b>Magnification:</b> {attributes.Objective}
+        </p>
+        <p>
+          <b>External Links:</b>{" "}
+          <br />
+          <ExternalLink
+            publishedName={publishedName}
+            isLM
+            library={attributes.Library}
+          />
         </p>
       </Col>
     </Row>
