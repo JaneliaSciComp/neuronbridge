@@ -33,7 +33,7 @@ export default function MatchSummary(props) {
           <Button type="link" onClick={showModal}>
             {publishedName}
           </Button>
-          ({score})
+          {score}
         </p>
       </Col>
     );
