@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
-import ExternalLink from "./ExternalLink";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 
@@ -23,11 +22,10 @@ export default function MatchSummary(props) {
           showModal={showModal}
         />
         <p style={{ paddingLeft: "2em" }}>
-          <ExternalLink
-            publishedName={publishedName}
-            isLM={isLM}
-            library={match.attrs.Library}
-          />{" "}
+
+          <Button type="link" onClick={showModal}>
+            {publishedName}
+          </Button>
           (Score: {Math.round(match.normalizedScore)})
         </p>
       </Col>
@@ -45,7 +43,7 @@ export default function MatchSummary(props) {
             showModal={showModal}
           />
         </Col>
-        <Col span={8}>
+        <Col span={10}>
           {isLM ? (
             <LineMeta
               attributes={match.attrs}
@@ -58,7 +56,7 @@ export default function MatchSummary(props) {
             />
           )}
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Button onClick={showModal}>Select</Button>
         </Col>
       </Row>
