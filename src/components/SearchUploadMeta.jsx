@@ -31,7 +31,7 @@ export default function SearchUploadMeta({
   const onFinish = values => {
     Auth.currentCredentials().then(currentCreds => {
       const searchDetails = {
-        step: 0,
+        step: isAligned ? 2 : 0,
         algorithm: values.algorithm,
         searchType: values.searchType,
         identityId: currentCreds.identityId,

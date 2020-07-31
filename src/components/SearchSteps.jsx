@@ -6,7 +6,7 @@ import "./SearchSteps.css";
 const { Step } = Steps;
 
 function getSteps() {
-  return ["Files Uploaded", "Alignment", "Search", "Complete"];
+  return ["Files Uploaded", "Image Alignment", "Searching", "Complete"];
 }
 
 export default function SearchSteps({ search }) {
