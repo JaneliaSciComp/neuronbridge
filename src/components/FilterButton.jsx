@@ -41,7 +41,7 @@ export default function FilterButton() {
     <Tooltip title="filter results">
       <Badge count={count}>
         <Button icon={<FontAwesomeIcon icon={faFilter} />} onClick={handleFilterMenuVisability}>
-          Filters
+          Filters / Sorting
         </Button>
       </Badge>
     </Tooltip>

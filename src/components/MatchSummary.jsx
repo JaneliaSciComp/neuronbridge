@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 import ExternalLink from "./ExternalLink";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
+import { FilterContext } from "../containers/FilterContext";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
+
+  const [filterState] = useContext(FilterContext);
+
   const publishedName =
     match.attrs["Published Name"] ||
     match.attrs.PublishedName ||
     match.attrs["Body Id"];
 
   if (gridView) {
+    const score =
+      filterState.sortResultsBy === 2
+        ? `(Matched Pixels: ${match.attrs["Matched pixels"]})`
+        : `(Score: ${Math.round(match.normalizedScore)})`;
     return (
       <Col xs={24} md={12} lg={8} xl={6}>
         <ImageWithModal
@@ -28,7 +36,7 @@ export default function MatchSummary(props) {
             isLM={isLM}
             library={match.attrs.Library}
           />{" "}
-          (Score: {Math.round(match.normalizedScore)})
+          {score}
         </p>
       </Col>
     );
