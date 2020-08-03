@@ -41,7 +41,7 @@ export default function SearchUploadMeta({
       };
 
       if (!isAligned) {
-        searchDetails.anatomicalregion = values.anatomicalregion;
+        searchDetails.anatomicalRegion = values.anatomicalregion;
         searchDetails.channel = values.channel;
         searchDetails.voxelX = values.voxelx;
         searchDetails.voxelY = values.voxely;
