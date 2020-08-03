@@ -36,8 +36,17 @@ export default function SearchUploadMeta({
         searchType: values.searchType,
         identityId: currentCreds.identityId,
         searchDir: uploadedFile.filename,
-        upload: uploadedFile.file.name
+        upload: uploadedFile.file.name,
+        mimeType: values.mimetype
       };
+
+      if (!isAligned) {
+        searchDetails.anatomicalregion = values.anatomicalregion;
+        searchDetails.channel = values.channel;
+        searchDetails.voxelX = values.voxelx;
+        searchDetails.voxelY = values.voxely;
+        searchDetails.voxelZ = values.voxelz;
+      }
 
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
