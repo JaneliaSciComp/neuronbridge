@@ -150,7 +150,7 @@ export default function SearchUploadMeta({
               >
                 <InputNumber />
               </Form.Item>
-              <span>x</span>
+              <span> x </span>
               <Form.Item
                 name="voxely"
                 rules={[{ required: true }]}
@@ -158,7 +158,7 @@ export default function SearchUploadMeta({
               >
                 <InputNumber />
               </Form.Item>
-              <span>x</span>
+              <span> x </span>
               <Form.Item
                 name="voxelz"
                 rules={[{ required: true }]}
@@ -184,7 +184,7 @@ export default function SearchUploadMeta({
             </Form.Item>
 
             <Form.Item label="Anatomical Region" name="anatomicalregion">
-              <Select>
+              <Select disabled>
                 <Option value="brain">Brain</Option>
                 <Option value="vnc">VNC</Option>
               </Select>
