@@ -163,7 +163,7 @@ export default function Matches(props) {
         line.channels
           .sort((a, b) => {
             if (filterState.sortResultsBy === 2) {
-              return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+              return b.matchingPixels - a.matchingPixels;
             }
             return b.normalizedScore - a.normalizedScore;
           })
@@ -187,7 +187,7 @@ export default function Matches(props) {
         )
         .sort((a, b) => {
           if (filterState.sortResultsBy === 2) {
-            return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+            return b.matchingPixels - a.matchingPixels;
           }
           return b.normalizedScore - a.normalizedScore;
         });

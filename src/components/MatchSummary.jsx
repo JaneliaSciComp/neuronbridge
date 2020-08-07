@@ -14,7 +14,7 @@ export default function MatchSummary(props) {
   if (gridView) {
     const score =
       filterState.sortResultsBy === 2
-        ? `(Matched Pixels: ${match.attrs["Matched pixels"]})`
+        ? `(Matched Pixels: ${match.matchingPixels})`
         : `(Score: ${Math.round(match.normalizedScore)})`;
     return (
       <Col xs={24} md={12} lg={8} xl={6}>

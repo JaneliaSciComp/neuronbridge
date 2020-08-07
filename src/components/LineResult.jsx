@@ -11,8 +11,6 @@ export default function LineResult(props) {
 
   const matchesUrl = `/search/lines/${metaInfo.publishedName}/matches/${metaInfo.id}`;
 
-  // only use values in the metaInfo.attrs key to display on the site. The
-  // other keys are for internal use only.
   return (
     <Row>
       <Col md={10}>
