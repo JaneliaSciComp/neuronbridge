@@ -48,10 +48,10 @@ export default function MatchModal(props) {
 
   if (mask) {
     if (!isLM) {
-      metaBlock = <LineMeta attributes={mask.attrs} />;
+      metaBlock = <LineMeta attributes={mask} />;
     } else {
       // skeleton type from EM
-      metaBlock = <SkeletonMeta attributes={mask.attrs} />;
+      metaBlock = <SkeletonMeta attributes={mask} />;
     }
   }
 
@@ -118,12 +118,12 @@ export default function MatchModal(props) {
           </h3>
           {isLM ? (
             <LineMeta
-              attributes={selectedMatch.attrs}
+              attributes={selectedMatch}
               score={Math.round(selectedMatch.normalizedScore)}
             />
           ) : (
             <SkeletonMeta
-              attributes={selectedMatch.attrs}
+              attributes={selectedMatch}
               score={Math.round(selectedMatch.normalizedScore)}
             />
           )}
@@ -131,8 +131,8 @@ export default function MatchModal(props) {
       </Row>
       <ImageComparison
         maskOpen={maskOpen}
-        maskPath={mask.image_path}
-        matchPath={selectedMatch.image_path}
+        maskPath={mask.imageURL}
+        matchPath={selectedMatch.imageURL}
       />
     </Modal>
   );

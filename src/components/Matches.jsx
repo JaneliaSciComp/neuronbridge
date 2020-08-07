@@ -135,15 +135,12 @@ export default function Matches(props) {
     if (searchType !== "lines") {
       const byLines = {};
       matchMeta.results
-        // .filter(result => !(result.attrs.Library in filterState.filteredLibraries))
         .forEach(result => {
-          const publishedName =
-            result.attrs["Published Name"] || result.attrs.PublishedName;
+          const { publishedName, libraryName } = result;
           const currentScore =
             filterState.sortResultsBy === 2
-              ? result.attrs["Matched pixels"]
+              ? result.matchingPixels
               : result.normalizedScore;
-          const library = result.attrs.Library;
 
           if (publishedName in byLines) {
             byLines[publishedName].score = Math.max(
@@ -155,7 +152,7 @@ export default function Matches(props) {
             byLines[publishedName] = {
               score: parseInt(currentScore, 10),
               channels: [result],
-              library
+              libraryName
             };
           }
         });
@@ -166,7 +163,7 @@ export default function Matches(props) {
         line.channels
           .sort((a, b) => {
             if (filterState.sortResultsBy === 2) {
-              return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+              return b.matchingPixels - a.matchingPixels;
             }
             return b.normalizedScore - a.normalizedScore;
           })
@@ -174,29 +171,29 @@ export default function Matches(props) {
       );
 
       limitedByLineCount.forEach(lines => {
-        lines.forEach(line => incrementLibCount(line.attrs.Library));
+        lines.forEach(line => incrementLibCount(line.libraryName));
       });
 
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount.filter(
-        result => !(result[0].attrs.Library in filterState.filteredLibraries)
+        result => !(result[0].libraryName in filterState.filteredLibraries)
       );
 
       fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = matchMeta.results
         .filter(
-          result => !(result.attrs.Library in filterState.filteredLibraries)
+          result => !(result.libraryName in filterState.filteredLibraries)
         )
         .sort((a, b) => {
           if (filterState.sortResultsBy === 2) {
-            return b.attrs["Matched pixels"] - a.attrs["Matched pixels"];
+            return b.matchingPixels - a.matchingPixels;
           }
           return b.normalizedScore - a.normalizedScore;
         });
 
       matchMeta.results.forEach(line => {
-        incrementLibCount(line.attrs.Library);
+        incrementLibCount(line.libraryName);
       });
     }
 
@@ -206,7 +203,7 @@ export default function Matches(props) {
     );
 
     matchSummaries = pageinatedList.map((result, index) => {
-      const key = `${result.matchedId}_${result.attrs.Score}_${result.attrs["Matched pixels"]}_${index}`;
+      const key = `${result.matchedId}_${result.score}_${result.matchedPixels}_${index}`;
       return (
         <React.Fragment key={key}>
           <MatchSummary

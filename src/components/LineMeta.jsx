@@ -7,9 +7,7 @@ import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes, score }) {
-  const publishedName =
-    attributes["Published Name"] || attributes.PublishedName;
-
+  const { publishedName, libraryName } = attributes;
   const searchUrl = `/search?q=${publishedName}`;
   return (
     <Row>
@@ -24,28 +22,31 @@ export default function LineMeta({ attributes, score }) {
           </p>
         )}
         <p>
-          <b>Slide Code:</b> {attributes["Slide Code"]}
+          <b>Slide Code:</b> {attributes.slideCode}
         </p>
         <p>
-          <b>Channel:</b> {attributes.Channel}
+          <b>Channel:</b> {attributes.channel}
         </p>
         <p>
           <b>Library: </b>
-          <LibraryFormatter type={attributes.Library} />
+          <LibraryFormatter type={libraryName} />
         </p>
       </Col>
       <Col md={24} lg={12}>
         <p>
-          <b>Gender:</b> {attributes.Gender === "f" ? "Female" : "Male"}
+          <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
         <p>
-          <b>Genotype:</b> {attributes.Genotype}
+          <b>Anatomical Area:</b> {attributes.anatomicalArea}
         </p>
         <p>
-          <b>Alignment Space:</b> {attributes["Alignment Space"]}
+          <b>Mounting Protocol:</b> {attributes.mountingProtocol}
         </p>
         <p>
-          <b>Magnification:</b> {attributes.Objective}
+          <b>Alignment Space:</b> {attributes.alignmentSpace}
+        </p>
+        <p>
+          <b>Magnification:</b> {attributes.objective}
         </p>
         <p>
           <b>External Links:</b>{" "}

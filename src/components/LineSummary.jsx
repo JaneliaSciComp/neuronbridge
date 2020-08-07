@@ -23,13 +23,13 @@ export default function LineSummary(props) {
     <Row>
       <Col xs={24} lg={8}>
         <ImageWithModal
-          thumbSrc={lineMeta.thumbnail_path}
-          src={lineMeta.image_path}
-          title={lineMeta.attrs["Published Name"]}
+          thumbSrc={lineMeta.thumbnailURL}
+          src={lineMeta.imageURL}
+          title={lineMeta.publishedName}
         />
       </Col>
       <Col lg={12}>
-        <LineMeta attributes={lineMeta.attrs} />
+        <LineMeta attributes={lineMeta} />
       </Col>
       <Col lg={4}>
         <Button onClick={() => history.goBack()}>Back to all results</Button>
