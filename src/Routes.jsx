@@ -7,15 +7,18 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import SearchErrorBoundary from "./components/SearchErrorBoundary";
 import Landing from "./components/Landing";
 
-const About = React.lazy(() => import('./components/About'));
-const Login = React.lazy(() => import('./components/Login'));
-const HelpPage = React.lazy(() => import('./components/HelpPage'));
-const Signup = React.lazy(() => import('./components/Signup'));
-const Search = React.lazy(() => import('./components/Search'));
-const CustomSearchList = React.lazy(() => import('./components/CustomSearchList'));
-const NotFound = React.lazy(() => import('./components/NotFound'));
-const UsageTerms = React.lazy(() => import('./components/UsageTerms'));
-const ResetPassword = React.lazy(() => import('./components/ResetPassword'));
+const About = React.lazy(() => import("./components/About"));
+const Login = React.lazy(() => import("./components/Login"));
+const HelpPage = React.lazy(() => import("./components/HelpPage"));
+const Signup = React.lazy(() => import("./components/Signup"));
+const Search = React.lazy(() => import("./components/Search"));
+const Results = React.lazy(() => import("./components/Results"));
+const CustomSearchList = React.lazy(() =>
+  import("./components/CustomSearchList")
+);
+const NotFound = React.lazy(() => import("./components/NotFound"));
+const UsageTerms = React.lazy(() => import("./components/UsageTerms"));
+const ResetPassword = React.lazy(() => import("./components/ResetPassword"));
 
 export default function Routes({ appProps }) {
   return (
@@ -56,6 +59,11 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute
           path="/mysearches"
           component={CustomSearchList}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/results/:id"
+          component={Results}
           appProps={appProps}
         />
         <Route path="/about" component={About} />
