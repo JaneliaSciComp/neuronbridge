@@ -10,7 +10,6 @@ import { useQuery } from "../libs/hooksLib";
 const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
-
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -28,7 +27,7 @@ export default function UnifiedSearchResults(props) {
     100
   );
 
- function handlePageChange(newPage) {
+  function handlePageChange(newPage) {
     query.set("page", newPage);
     location.search = query.toString();
     history.push(location);
@@ -112,7 +111,7 @@ export default function UnifiedSearchResults(props) {
           }
         />
         {paginatedList}
-         <Pagination
+        <Pagination
           current={page}
           pageSize={matchesPerPage}
           onShowSizeChange={handleChangePageSize}
@@ -123,7 +122,6 @@ export default function UnifiedSearchResults(props) {
             `Results ${range[0]}-${range[1]} of ${total}`
           }
         />
-
       </div>
     );
   }

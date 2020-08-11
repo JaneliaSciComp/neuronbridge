@@ -8,6 +8,7 @@ export const getSearch = /* GraphQL */ `
       upload
       searchDir
       step
+      searchType
       updatedOn
       createdOn
     }
