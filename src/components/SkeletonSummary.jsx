@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
 
-export default function SkeletonResult(props) {
+export default function SkeletonSummary(props) {
   const { metaInfo } = props;
 
   const history = useHistory();
@@ -25,6 +25,6 @@ export default function SkeletonResult(props) {
   );
 }
 
-SkeletonResult.propTypes = {
+SkeletonSummary.propTypes = {
   metaInfo: PropTypes.object.isRequired
 };

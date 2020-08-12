@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Storage, API, graphqlOperation } from "aws-amplify";
-import UnifiedSearchResults from "./UnifiedSearchResults";
+import { Divider } from "antd";
+import Matches from "./Matches";
 import * as queries from "../graphql/queries";
 import config from "../config";
 
@@ -46,18 +47,16 @@ export default function Results({ match }) {
     return <p>...loading</p>;
   }
 
-  let em2lmResults = [];
-  if (searchMeta.searchType === "em2lm") {
-    em2lmResults = searchResults.results;
-  }
-  const lm2emResults = [];
+  const searchType = (searchMeta.searchType === "em2lm") ? "skeleton" : "lines";
 
   return (
     <div>
       <p>Results for {searchMeta.upload}</p>
-      <UnifiedSearchResults
-        linesResult={{results: em2lmResults}}
-        skeletonsResult={{ results: lm2emResults}}
+      <Divider/>
+      <Matches
+        input={searchMeta}
+        matches={searchResults}
+        searchType={searchType}
       />
     </div>
   );
