@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { Typography } from "antd";
+import { Typography, message } from "antd";
 import { API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchInput from "./SearchInput";
@@ -43,7 +43,7 @@ export default function CustomSearchList() {
         }
       },
       error: error => {
-        console.warn(error);
+        message.error(error);
       }
     });
 
@@ -63,7 +63,7 @@ export default function CustomSearchList() {
         }
       },
       error: error => {
-        console.warn(error);
+        message.error(error);
       }
     });
 
@@ -83,7 +83,7 @@ export default function CustomSearchList() {
         }
       },
       error: error => {
-        console.warn(error);
+        message.error(error);
       }
     });
 
