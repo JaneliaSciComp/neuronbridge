@@ -96,9 +96,9 @@ export default function CustomSearchList() {
       <SearchUpload />
       <Title level={2}>My Searches</Title>
       <Title level={3}>Searches in progress</Title>
-        <SearchesInProgress searches={searches.filter(search => search.step < 3)} />
+        <SearchesInProgress searches={searches.filter(search => search.step < 4)} />
       <Title level={3}>Searches completed</Title>
-        <SearchesComplete searches={searches.filter(search => search.step === 3)} />
+        <SearchesComplete searches={searches.filter(search => search.step === 4)} />
     </div>
   );
 }
