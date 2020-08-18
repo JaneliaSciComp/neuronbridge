@@ -7,10 +7,20 @@ export function deleteSearch(search) {
   const { id } = search;
   API.graphql(
     graphqlOperation(mutations.deleteSearch, { input: { id } })
-  ).then(results => console.log(results));
+  );
 
   Storage.remove(`${search.searchDir}/${search.upload}`, {
     level: "private",
     bucket: config.SEARCH_BUCKET
-  })
+  });
+}
+
+export function signedLink(url) {
+  const downloadOptions = {
+    expires: 500,
+    level: "private",
+    bucket: config.SEARCH_BUCKET
+  };
+
+  return Storage.get(url, downloadOptions).then(result => result);
 }
