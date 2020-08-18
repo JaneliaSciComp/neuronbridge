@@ -23,5 +23,10 @@ export default {
     SCOPE: ["email", "openid", "profile"],
     REDIRECT_SIGN_IN: window.location.origin,
     REDIRECT_SIGN_OUT: window.location.origin
+  },
+  releasenotes: {
+    NEURONBRIDGE: {title: "NeuronBridge",
+                   url: "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
+                  }
   }
 };
