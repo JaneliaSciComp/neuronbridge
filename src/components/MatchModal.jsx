@@ -46,7 +46,7 @@ export default function MatchModal(props) {
 
   let metaBlock = <p>Loading...</p>;
 
-  if (mask) {
+  if (mask && mask.type) {
     if (!isLM) {
       metaBlock = <LineMeta attributes={mask} />;
     } else {
@@ -132,7 +132,9 @@ export default function MatchModal(props) {
       <ImageComparison
         maskOpen={maskOpen}
         maskPath={mask.imageURL}
+        maskThumbnail={mask.thumbnailURL}
         matchPath={selectedMatch.imageURL}
+        matchThumbnail={selectedMatch.thumbnailURL}
       />
     </Modal>
   );

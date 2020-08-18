@@ -8,6 +8,8 @@ export const getSearch = /* GraphQL */ `
       upload
       searchDir
       step
+      anatomicalRegion
+      algorithm
       searchType
       updatedOn
       createdOn
