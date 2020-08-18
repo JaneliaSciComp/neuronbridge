@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Form, InputNumber, Select, Button, Switch } from "antd";
+import { Form, InputNumber, Select, Button, Switch, message } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 
 const { Option } = Select;
-
-const mimetypesToExtension = {
-  "image/png": "png",
-  "image/jpeg": "jpeg",
-  "image/tiff": "tif",
-  "image/lsm": "lsm",
-  "image/czi": "czi",
-  "image/oif": "oif",
-  "application/zip": "zip"
-};
 
 export default function SearchUploadMeta({
   uploadedFile,
@@ -51,31 +41,20 @@ export default function SearchUploadMeta({
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
-        .then(result => {
+        .then(() => {
           onSearchSubmit();
-          console.log(result);
         })
-        .catch(e => console.log(e));
+        .catch(e => message.error(e));
     });
   };
 
   const onFinishFailed = error => {
-    console.log(error);
+    message.error(error);
   };
 
   const onAlignedChange = checked => {
     setIsAligned(checked);
   };
-
-  const mimeTypeOptions = Object.keys(mimetypesToExtension)
-    .sort()
-    .map(type => {
-      return (
-        <Option key={type} value={type}>
-          {mimetypesToExtension[type]}
-        </Option>
-      );
-    });
 
   return (
     <div>
@@ -124,23 +103,6 @@ export default function SearchUploadMeta({
               Average Intensity (Better for noisy samples)
             </Option>
           </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Image mime-type"
-          name="mimetype"
-          rules={[
-            { required: true, message: "Please choose a mime-type!" },
-            {
-              validator: (_, value) =>
-                mimetypesToExtension[value]
-                  ? Promise.resolve()
-                  : // eslint-disable-next-line
-                    Promise.reject("Please select a valid mime-type")
-            }
-          ]}
-        >
-          <Select>{mimeTypeOptions}</Select>
         </Form.Item>
 
         {!isAligned && (
