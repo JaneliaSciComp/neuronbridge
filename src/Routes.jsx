@@ -13,6 +13,7 @@ const HelpPage = React.lazy(() => import("./components/HelpPage"));
 const Signup = React.lazy(() => import("./components/Signup"));
 const Search = React.lazy(() => import("./components/Search"));
 const Results = React.lazy(() => import("./components/Results"));
+const MaskSelection = React.lazy(() => import("./components/MaskSelection"));
 const CustomSearchList = React.lazy(() =>
   import("./components/CustomSearchList")
 );
@@ -64,6 +65,11 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute
           path="/results/:id"
           component={Results}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/mask-selection/:id"
+          component={MaskSelection}
           appProps={appProps}
         />
         <Route path="/about" component={About} />
