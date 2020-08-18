@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
 import LineMeta from "./LineMeta";
+import CustomMeta from "./CustomMeta";
 import SkeletonMeta from "./SkeletonMeta";
 
 export default function MatchModal(props) {
@@ -46,13 +47,16 @@ export default function MatchModal(props) {
 
   let metaBlock = <p>Loading...</p>;
 
-  if (mask && mask.type) {
-    if (!isLM) {
-      metaBlock = <LineMeta attributes={mask} />;
+  if (mask)
+    if (mask.type) {
+      if (!isLM) {
+        metaBlock = <LineMeta attributes={mask} />;
+      } else {
+        // skeleton type from EM
+        metaBlock = <SkeletonMeta attributes={mask} />;
+      }
     } else {
-      // skeleton type from EM
-      metaBlock = <SkeletonMeta attributes={mask} />;
-    }
+      metaBlock = <CustomMeta metadata={mask} />;
   }
 
   if (!selectedMatch) {
