@@ -94,8 +94,8 @@ export default function App() {
             <Link to="/help">Help</Link>
           </Menu.Item>
           {isAuthenticated && (
-            <Menu.Item key="/search">
-              <Link to="/search">Search</Link>
+            <Menu.Item key="/mysearches">
+              <Link to="/mysearches">Search</Link>
             </Menu.Item>
           )}
           {!isAuthenticated && [
