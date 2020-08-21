@@ -10,7 +10,6 @@ import { useQuery } from "../libs/hooksLib";
 const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
-
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -28,7 +27,7 @@ export default function UnifiedSearchResults(props) {
     100
   );
 
- function handlePageChange(newPage) {
+  function handlePageChange(newPage) {
     query.set("page", newPage);
     location.search = query.toString();
     history.push(location);
@@ -50,14 +49,14 @@ export default function UnifiedSearchResults(props) {
     const resultsList = [
       ...lineEntries
         .sort((a, b) =>
-          a.attrs["Published Name"].localeCompare(
-            b.attrs["Published Name"],
+          a.publishedName.localeCompare(
+            b.publishedName,
             undefined,
             { numeric: true, sensitivity: "base" }
           )
         )
         .map(result => {
-          const key = `${result.id}_${result.attrs["Slide Code"]}_${result.attrs.Channel}`;
+          const key = `${result.id}_${result.slideCode}_${result.channel}`;
           return (
             <React.Fragment key={key}>
               <LineResult metaInfo={result} key={result.id} />
@@ -67,14 +66,14 @@ export default function UnifiedSearchResults(props) {
         }),
       ...skeletonEntries
         .sort((a, b) =>
-          a.attrs["Body Id"].localeCompare(b.attrs["Body Id"], undefined, {
+          a.publishedName.localeCompare(b.publishedName, undefined, {
             numeric: true,
             sensitivity: "base"
           })
         )
 
         .map(result => {
-          const key = `${result.id}_${result.attrs["Body Id"]}`;
+          const key = `${result.id}_${result.publishedName}`;
           return (
             <React.Fragment key={key}>
               <SkeletonResult metaInfo={result} key={result.id} />
@@ -112,7 +111,7 @@ export default function UnifiedSearchResults(props) {
           }
         />
         {paginatedList}
-         <Pagination
+        <Pagination
           current={page}
           pageSize={matchesPerPage}
           onShowSizeChange={handleChangePageSize}
@@ -123,7 +122,6 @@ export default function UnifiedSearchResults(props) {
             `Results ${range[0]}-${range[1]} of ${total}`
           }
         />
-
       </div>
     );
   }

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, Button, Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
 import LineMeta from "./LineMeta";
+import CustomMeta from "./CustomMeta";
 import SkeletonMeta from "./SkeletonMeta";
 
 export default function MatchModal(props) {
@@ -46,13 +47,16 @@ export default function MatchModal(props) {
 
   let metaBlock = <p>Loading...</p>;
 
-  if (mask) {
-    if (!isLM) {
-      metaBlock = <LineMeta attributes={mask.attrs} />;
+  if (mask)
+    if (mask.type) {
+      if (!isLM) {
+        metaBlock = <LineMeta attributes={mask} />;
+      } else {
+        // skeleton type from EM
+        metaBlock = <SkeletonMeta attributes={mask} />;
+      }
     } else {
-      // skeleton type from EM
-      metaBlock = <SkeletonMeta attributes={mask.attrs} />;
-    }
+      metaBlock = <CustomMeta metadata={mask} />;
   }
 
   if (!selectedMatch) {
@@ -118,12 +122,12 @@ export default function MatchModal(props) {
           </h3>
           {isLM ? (
             <LineMeta
-              attributes={selectedMatch.attrs}
+              attributes={selectedMatch}
               score={Math.round(selectedMatch.normalizedScore)}
             />
           ) : (
             <SkeletonMeta
-              attributes={selectedMatch.attrs}
+              attributes={selectedMatch}
               score={Math.round(selectedMatch.normalizedScore)}
             />
           )}
@@ -131,8 +135,10 @@ export default function MatchModal(props) {
       </Row>
       <ImageComparison
         maskOpen={maskOpen}
-        maskPath={mask.image_path}
-        matchPath={selectedMatch.image_path}
+        maskPath={mask.imageURL}
+        maskThumbnail={mask.thumbnailURL}
+        matchPath={selectedMatch.imageURL}
+        matchThumbnail={selectedMatch.thumbnailURL}
       />
     </Modal>
   );

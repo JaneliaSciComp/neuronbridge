@@ -1,0 +1,164 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Mutation {
+  createSearch(input: CreateSearchInput!): Search @aws_cognito_user_pools @aws_iam
+  deleteSearch(input: DeleteSearchInput!): Search @aws_cognito_user_pools @aws_iam
+  updateSearch(input: UpdateSearchInput!): Search @aws_cognito_user_pools @aws_iam
+}
+
+type Query {
+  getSearch(id: ID!): Search @aws_cognito_user_pools @aws_iam
+  listSearches(filter: TableSearchFilterInput, limit: Int, nextToken: String): SearchConnection @aws_cognito_user_pools @aws_iam
+}
+
+type Search @aws_cognito_user_pools @aws_iam {
+  algorithm: Algorithm
+  anatomicalRegion: String
+  cdsFinished: AWSDateTime
+  cdsStarted: AWSDateTime
+  channel: Int
+  completedBatches: Int
+  createdOn: AWSDateTime
+  id: ID!
+  identityId: String!
+  mimeType: String
+  nBatches: Int
+  owner: String
+  searchDir: String!
+  searchType: SearchType
+  step: Int
+  updatedOn: AWSDateTime
+  upload: String!
+  voxelX: Int
+  voxelY: Int
+  voxelZ: Int
+}
+
+type SearchConnection @aws_cognito_user_pools @aws_iam {
+  items: [Search]
+  nextToken: String
+}
+
+type Subscription {
+  onCreateSearch(createdOn: String, id: ID, step: Int): Search @aws_subscribe(mutations : ["createSearch"])
+  onDeleteSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["deleteSearch"])
+  onUpdateSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["updateSearch"])
+}
+
+enum Algorithm {
+  avg
+  max
+}
+
+enum SearchType {
+  em2lm
+  lm2em
+}
+
+input CreateSearchInput {
+  algorithm: Algorithm!
+  anatomicalRegion: String
+  channel: Int
+  identityId: String!
+  mimeType: String
+  searchDir: String!
+  searchType: SearchType!
+  step: Int!
+  upload: String!
+  voxelX: Int
+  voxelY: Int
+  voxelZ: Int
+}
+
+input DeleteSearchInput {
+  id: ID!
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableDateFilterInput {
+  between: [AWSDateTime]
+  eq: AWSDateTime
+  ge: AWSDateTime
+  gt: AWSDateTime
+  le: AWSDateTime
+  lt: AWSDateTime
+  ne: AWSDateTime
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableSearchFilterInput {
+  algorithm: TableStringFilterInput
+  cdsFinished: TableDateFilterInput
+  cdsStarted: TableDateFilterInput
+  createdOn: TableDateFilterInput
+  id: TableIDFilterInput
+  searchType: TableStringFilterInput
+  step: TableStringFilterInput
+  updatedOn: TableDateFilterInput
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input UpdateSearchInput {
+  cdsFinished: AWSDateTime
+  cdsStarted: AWSDateTime
+  completedBatches: Int
+  id: ID!
+  nBatches: Int
+  step: Int
+}

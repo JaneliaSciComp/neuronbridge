@@ -9,7 +9,7 @@ import "./LoaderButton.css";
 
 const { Search } = Input;
 
-export default function SearchInput({ searchTerm, examples, help }) {
+export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const history = useHistory();
   const [search, setSearch] = useState("");
 
@@ -49,6 +49,12 @@ export default function SearchInput({ searchTerm, examples, help }) {
           </Col>
         )}
       </Row>
+      {uploads && (
+        <p>
+          Or <Link to="/mysearches">upload an image</Link> of your own to
+          perform a custom search of our data sets.
+        </p>
+      )}
     </div>
   );
 }
@@ -56,11 +62,13 @@ export default function SearchInput({ searchTerm, examples, help }) {
 SearchInput.propTypes = {
   searchTerm: PropTypes.string,
   examples: PropTypes.bool,
+  uploads: PropTypes.bool,
   help: PropTypes.bool
 };
 
 SearchInput.defaultProps = {
   searchTerm: "",
   examples: true,
+  uploads: true,
   help: true
 };

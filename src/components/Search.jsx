@@ -4,7 +4,7 @@ import { Storage } from "aws-amplify";
 import { Spin, message } from "antd";
 import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
-import Matches from "./Matches";
+import MatchesLoader from "./MatchesLoader";
 import NoSearch from "./NoSearch";
 
 import "./Search.css";
@@ -95,7 +95,7 @@ function Search() {
             />
           </Route>
           <Route path={`${routeMatch.path}/matches/:matchId/:page?`}>
-            <Matches searchResult={searchResult} searchType={searchType} />
+            <MatchesLoader searchResult={searchResult} searchType={searchType} />
           </Route>
         </Switch>
       )}

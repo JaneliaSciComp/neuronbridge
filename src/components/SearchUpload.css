@@ -1,0 +1,7 @@
+.uploader {
+  margin-top: 1em;
+}
+
+.uploader .ant-upload-drag-icon {
+  color: #008b94;
+}

@@ -1,0 +1,17 @@
+.mdplaceholder {
+  width: 100%;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.mdplaceholder img {
+  max-width: 100%;
+}
+
+.mdplaceholder h2 {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align:center;
+  color: white;
+}

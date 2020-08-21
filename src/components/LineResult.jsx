@@ -9,18 +9,19 @@ export default function LineResult(props) {
   const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `/search/lines/${metaInfo.attrs["Published Name"]}/matches/${metaInfo.id}`;
+  const matchesUrl = `/search/lines/${metaInfo.publishedName}/matches/${metaInfo.id}`;
 
-
-  // only use values in the metaInfo.attrs key to display on the site. The
-  // other keys are for internal use only.
   return (
     <Row>
       <Col md={10}>
-        <ImageWithModal thumbSrc={metaInfo.thumbnail_path} src={metaInfo.image_path} title={metaInfo.attrs["Published Name"]} />
+        <ImageWithModal
+          thumbSrc={metaInfo.thumbnailURL}
+          src={metaInfo.imageURL}
+          title={metaInfo.publishedName}
+        />
       </Col>
       <Col md={10}>
-        <LineMeta attributes={metaInfo.attrs} />
+        <LineMeta attributes={metaInfo} />
       </Col>
       <Col md={4}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
