@@ -54,7 +54,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <Route path="/about" component={About} />
-        <Route path="/releasenotes" component={ReleaseNotes} />
+        <Route path="/releasenotes/:name" component={ReleaseNotes} />
         <Route path="/usage" component={UsageTerms} />
         <Route path="/help" component={HelpPage} />
         {/* Finally, catch all unmatched routes */}

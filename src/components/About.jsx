@@ -41,8 +41,8 @@ export default function About() {
       <ul>
       {
         Object.keys(config.releasenotes).map(name => (
-          <li><Link to={{pathname: '/releasenotes',
-                         state: name}}>{config.releasenotes[name].title}</Link></li>
+          <li><Link to={{pathname: `/releasenotes/${name}`
+                        }}>{config.releasenotes[name].title}</Link></li>
         ))
       }
       </ul>
