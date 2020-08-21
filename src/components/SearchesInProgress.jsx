@@ -33,7 +33,7 @@ export default function SearchesInProgress({ searches }) {
         {formatRelative(new Date(search.updatedOn), new Date())}{" "}
         <Button onClick={() => deleteSearch(search)}>Delete</Button>
         <SearchSteps search={search} />
-        {search.step === 1 && <MaskSelectionLink search={search} />}
+        {search.step === 2 && <MaskSelectionLink search={search} />}
       </li>
     );
   });

@@ -140,7 +140,7 @@ export default function SearchUploadMeta({
             </Form.Item>
 
             <Form.Item
-              label="Channel to Align"
+              label="Number of Channels"
               name="channel"
               rules={[{ required: true, message: "Please choose a channel!" }]}
             >
