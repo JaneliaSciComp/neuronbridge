@@ -1,6 +1,8 @@
 import React from "react";
 import { Typography, Row, Col } from "antd";
+import { Link } from "react-router-dom";
 import References from "./References";
+import config from "../config";
 
 const { Title, Paragraph } = Typography;
 
@@ -33,6 +35,17 @@ export default function About() {
         color, and allows for a fast pixel-based comparison across specimens.
         Both LM image volumes and EM reconstructions can be represented in this
         space, leading to efficient LM-&gt;EM and EM-&gt;LM searching.
+      </Paragraph>
+      <Paragraph>
+      <Title level={3}>Release notes:</Title>
+      <ul>
+      {
+        Object.keys(config.releasenotes).map(name => (
+          <li><Link to={{pathname: `/releasenotes/${name}`
+                        }}>{config.releasenotes[name].title}</Link></li>
+        ))
+      }
+      </ul>
       </Paragraph>
       <Row>
         <Col sm={12}>

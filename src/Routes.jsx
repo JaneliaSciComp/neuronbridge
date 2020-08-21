@@ -7,6 +7,7 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import SearchErrorBoundary from "./components/SearchErrorBoundary";
 import Landing from "./components/Landing";
 
+const ReleaseNotes = React.lazy(() => import('./components/ReleaseNotes'));
 const About = React.lazy(() => import("./components/About"));
 const Login = React.lazy(() => import("./components/Login"));
 const HelpPage = React.lazy(() => import("./components/HelpPage"));
@@ -73,6 +74,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <Route path="/about" component={About} />
+        <Route path="/releasenotes/:name" component={ReleaseNotes} />
         <Route path="/usage" component={UsageTerms} />
         <Route path="/help" component={HelpPage} />
         {/* Finally, catch all unmatched routes */}
