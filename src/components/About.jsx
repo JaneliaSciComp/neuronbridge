@@ -37,6 +37,9 @@ export default function About() {
         space, leading to efficient LM-&gt;EM and EM-&gt;LM searching.
       </Paragraph>
       <Paragraph>
+        <Link to="/usage">View Usage Terms</Link>
+      </Paragraph>
+      <Paragraph>
       <Title level={3}>Release notes:</Title>
       <ul>
       {
