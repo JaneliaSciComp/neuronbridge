@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { API, graphqlOperation } from "aws-amplify";
-import { message, Button, Radio, Typography, Row, Col, Card } from "antd";
+import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
+import {
+  message,
+  Button,
+  Radio,
+  Typography,
+  Row,
+  Col,
+  Card,
+  Divider
+} from "antd";
 import NotFound from "./NotFound";
 import MaskDrawing from "./MaskDrawing";
 import * as queries from "../graphql/queries";
 import { signedLink } from "../libs/awsLib";
+import config from "../config";
 
 const { Title, Paragraph } = Typography;
 
 export default function MaskSelection({ match }) {
   const searchId = match.params.id;
   const [searchMeta, setSearchMeta] = useState(null);
+  const [maskedImage, setMaskedImage] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
   const [channel, setChannel] = useState(null);
   const history = useHistory();
@@ -29,7 +40,7 @@ export default function MaskSelection({ match }) {
           // When masks are ready this needs to be changed over.
           const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
           // TODO: add another step here to generate the real imageURL,
-          // rather than use the sameone as the thumbnail.
+          // rather than use the same one as the thumbnail.
           signedLink(uploadUrl).then(result => {
             const metaWithSignedUrls = {
               ...currentMeta,
@@ -63,9 +74,17 @@ export default function MaskSelection({ match }) {
     const title = `Channel ${image}`;
     const selectTitle = <Radio value={image}>{title}</Radio>;
     return (
-      <Col key={image} xs={24} md={12} lg={12} xl={8}>
-        <Card size="small" title={selectTitle} style={{ width: "100%", marginBottom: '1em' }}>
-          <img src="/maskplaceholder.jpg" style={{maxWidth: '100%'}} alt="colordepth mip" />
+      <Col key={image} xs={24} md={12} lg={8} xl={6}>
+        <Card
+          size="small"
+          title={selectTitle}
+          style={{ width: "100%", marginBottom: "1em" }}
+        >
+          <img
+            src="/maskplaceholder.jpg"
+            style={{ maxWidth: "100%" }}
+            alt="colordepth mip"
+          />
         </Card>
       </Col>
     );
@@ -75,31 +94,55 @@ export default function MaskSelection({ match }) {
     setChannel(e.target.value);
   };
 
+  const handleMaskChange = (maskImageData) => {
+    setMaskedImage(maskImageData);
+  };
+
   const handleSubmit = () => {
+    if (!maskedImage) {
+      message.info('Please select a channel for masking and mask the image');
+      return;
+    }
     // send mask image to server
-    // kick off the search
-    // redirect back to search progress page.
-    history.push('/mysearches');
+    Auth.currentCredentials().then(() => {
+      Storage.put(`${searchMeta.searchDir}/maskedImage.png`, maskedImage, {
+        contentType: maskedImage.type,
+        level: "private",
+        bucket: config.SEARCH_BUCKET
+      })
+        .then(result => {
+          console.log(result);
+          // kick off the search
+          // redirect back to search progress page.
+          history.push("/mysearches");
+        })
+        .catch(e => console.error(e));
+    });
+
   };
 
   let imgSrc;
   if (channel !== null) {
-    imgSrc = `Channel ${channel}`;
+    imgSrc = `/maskplaceholder.jpg?channel=${channel}`;
   }
 
   return (
     <div>
       <Title component="h2">Mask selection</Title>
       <Paragraph>Choose a channel to use in your search</Paragraph>
-      <Radio.Group onChange={handleChannelSelect} value={channel} style={{ display: 'block'}}>
+      <Radio.Group
+        onChange={handleChannelSelect}
+        value={channel}
+        style={{ display: "block" }}
+      >
         <Row gutter={16}>{channelImages}</Row>
       </Radio.Group>
-      <MaskDrawing imgSrc={imgSrc} />
-      <Button type="primary" onClick={handleSubmit}>Submit</Button>
-      <Paragraph>
-        Once mask is uploaded, redirect back to the searches page to show
-        progress.
-      </Paragraph>
+        <Divider orientation="left">Mask the area to search with your mouse</Divider>
+      <MaskDrawing imgSrc={imgSrc} onMaskChange={handleMaskChange} />
+      <Divider />
+      <Button type="primary" onClick={handleSubmit}>
+        Submit
+      </Button>
     </div>
   );
 }
