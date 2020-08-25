@@ -142,6 +142,7 @@ export default function SearchUploadMeta({
             <Form.Item
               label="Number of Channels"
               name="channel"
+              extra="Our alignment algorithm assumes channel 0 is the reference."
               rules={[{ required: true, message: "Please choose a channel!" }]}
             >
               <Select>
