@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, ExclamationCircleTwoTone } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import SearchSteps from "./SearchSteps";
 import { deleteSearch } from "../libs/awsLib";
@@ -13,12 +13,16 @@ function MaskSelectionLink({ search }) {
   const maskSelectionURL = `/mask-selection/${search.id}`;
   return (
     <div>
-      <Alert type="success" message="Your image alignment has completed." />
-      <p>
-        Please{" "}
+      <Alert
+        type="success"
+        showIcon
+        message="Your image alignment has completed."
+      />
+      <Text component="p" strong>
+        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> Please{" "}
         <Link to={maskSelectionURL}>select an image and mask region</Link> to
         start the color depth search.
-      </p>
+      </Text>
     </div>
   );
 }
@@ -29,7 +33,11 @@ MaskSelectionLink.propTypes = {
 
 function AlignmentWarning() {
   return (
-    <Alert type="warning" message="The alignment step can take more than 30 minutes to complete. This page will automatically update once the alignment is finished." />
+    <Alert
+      type="warning"
+      showIcon
+      message="The alignment step can take more than 30 minutes to complete. This page will automatically update once the alignment is finished."
+    />
   );
 }
 
@@ -39,8 +47,7 @@ export default function SearchesInProgress({ searches }) {
       <div key={search.id}>
         <Row>
           <Col span={23}>
-            <Text strong> &raquo; {search.upload}</Text>
-              {' '}
+            <Text strong> &raquo; {search.upload}</Text>{" "}
             <Text type="secondary">
               {formatRelative(new Date(search.updatedOn), new Date())}
             </Text>
@@ -58,7 +65,7 @@ export default function SearchesInProgress({ searches }) {
           </Col>
         </Row>
         <Row>
-          <Col span={24} style={{marginTop: '1em'}}>
+          <Col span={24} style={{ marginTop: "1em" }}>
             <SearchSteps search={search} />
             {search.step === 1 && <AlignmentWarning />}
             {search.step === 2 && <MaskSelectionLink search={search} />}

@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { Typography, message } from "antd";
+import { Typography, message, Divider } from "antd";
 import { API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchInput from "./SearchInput";
@@ -94,6 +94,7 @@ export default function CustomSearchList() {
     <div>
       <SearchInput uploads={false} />
       <SearchUpload />
+      <Divider dashed />
       <Title level={3}>Searches in progress</Title>
         <SearchesInProgress searches={searches.filter(search => search.step < 4)} />
       <Title level={3}>Searches completed</Title>
