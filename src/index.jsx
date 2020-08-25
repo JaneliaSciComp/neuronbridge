@@ -33,6 +33,9 @@ Amplify.configure({
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID
   },
+  API: {
+    endpoints: config.api.endpoints || []
+  },
   "aws_appsync_graphqlEndpoint": AppSyncConf.aws_appsync_graphqlEndpoint,
   "aws_appsync_region": AppSyncConf.aws_appsync_region,
   "aws_appsync_authenticationType": AppSyncConf.aws_appsync_authenticationType,

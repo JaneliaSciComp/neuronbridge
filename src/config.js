@@ -1,3 +1,5 @@
+import { Auth } from "aws-amplify";
+
 let BUCKET_NAME = "janelia-neuronbridge-data-prod";
 
 if (process.env.REACT_APP_DATA_TARGET === "dev") {
@@ -25,9 +27,26 @@ export default {
     REDIRECT_SIGN_IN: window.location.origin,
     REDIRECT_SIGN_OUT: window.location.origin
   },
+  api: {
+    endpoints: [
+      {
+        name: "SearchAPI",
+        endpoint: "https://nt050zgj28.execute-api.us-east-1.amazonaws.com",
+        custom_header: async () => {
+          return {
+            Authorization: `Bearer ${(await Auth.currentSession())
+              .getAccessToken()
+              .getJwtToken()}`
+          };
+        }
+      }
+    ]
+  },
   releasenotes: {
-    NEURONBRIDGE: {title: "NeuronBridge",
-                   url: "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
-                  }
+    NEURONBRIDGE: {
+      title: "NeuronBridge",
+      url:
+        "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
+    }
   }
 };
