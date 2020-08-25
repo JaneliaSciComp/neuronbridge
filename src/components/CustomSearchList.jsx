@@ -94,7 +94,6 @@ export default function CustomSearchList() {
     <div>
       <SearchInput uploads={false} />
       <SearchUpload />
-      <Title level={2}>My Searches</Title>
       <Title level={3}>Searches in progress</Title>
         <SearchesInProgress searches={searches.filter(search => search.step < 4)} />
       <Title level={3}>Searches completed</Title>

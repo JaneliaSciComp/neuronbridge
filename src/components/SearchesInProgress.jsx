@@ -1,21 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Typography, Button } from "antd";
+import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import SearchSteps from "./SearchSteps";
 import { deleteSearch } from "../libs/awsLib";
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 function MaskSelectionLink({ search }) {
   const maskSelectionURL = `/mask-selection/${search.id}`;
   return (
     <div>
-      <Title level={3} type="danger">Your image alignment has completed.</Title>
+      <Alert type="success" message="Your image alignment has completed." />
       <p>
-        Please <Link to={maskSelectionURL}>select an image and mask region</Link> to start the color
-        depth search.
+        Please{" "}
+        <Link to={maskSelectionURL}>select an image and mask region</Link> to
+        start the color depth search.
       </p>
     </div>
   );
@@ -25,16 +27,45 @@ MaskSelectionLink.propTypes = {
   search: PropTypes.object.isRequired
 };
 
+function AlignmentWarning() {
+  return (
+    <Alert type="warning" message="The alignment step can take more than 30 minutes to complete. This page will automatically update once the alignment is finished." />
+  );
+}
+
 export default function SearchesInProgress({ searches }) {
   const searchesInProgress = searches.map(search => {
     return (
-      <li key={search.id}>
-        {search.upload} -{" "}
-        {formatRelative(new Date(search.updatedOn), new Date())}{" "}
-        <Button onClick={() => deleteSearch(search)}>Delete</Button>
-        <SearchSteps search={search} />
-        {search.step === 2 && <MaskSelectionLink search={search} />}
-      </li>
+      <div key={search.id}>
+        <Row>
+          <Col span={23}>
+            <Text strong> &raquo; {search.upload}</Text>
+              {' '}
+            <Text type="secondary">
+              {formatRelative(new Date(search.updatedOn), new Date())}
+            </Text>
+          </Col>
+          <Col span={1}>
+            <Tooltip title="Delete">
+              <Button
+                danger
+                size="small"
+                shape="circle"
+                onClick={() => deleteSearch(search)}
+                icon={<CloseOutlined />}
+              />
+            </Tooltip>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24} style={{marginTop: '1em'}}>
+            <SearchSteps search={search} />
+            {search.step === 1 && <AlignmentWarning />}
+            {search.step === 2 && <MaskSelectionLink search={search} />}
+          </Col>
+        </Row>
+        <Divider />
+      </div>
     );
   });
 
@@ -49,11 +80,7 @@ export default function SearchesInProgress({ searches }) {
     );
   }
 
-  return (
-    <div>
-      <ul>{searchesInProgress}</ul>
-    </div>
-  );
+  return <div>{searchesInProgress}</div>;
 }
 
 SearchesInProgress.propTypes = {
