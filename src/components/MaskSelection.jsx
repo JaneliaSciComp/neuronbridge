@@ -113,8 +113,15 @@ export default function MaskSelection({ match }) {
         .then(result => {
           console.log(result);
           // kick off the search
-          // redirect back to search progress page.
-          history.push("/mysearches");
+          API.post('SearchAPI', '/searches', {
+            "searchIds": ["searchMeta.id"]
+          })
+            .then(response => {
+              console.log(response)
+              // redirect back to search progress page.
+              history.push("/mysearches");
+            })
+            .catch(error => console.log(error));
         })
         .catch(e => console.error(e));
     });
