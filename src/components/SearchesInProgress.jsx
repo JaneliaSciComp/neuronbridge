@@ -9,6 +9,7 @@ import { deleteSearch } from "../libs/awsLib";
 
 const { Text } = Typography;
 
+// TODO: This warning message shouldn't load if there is already a mask file.
 function MaskSelectionLink({ search }) {
   const maskSelectionURL = `/mask-selection/${search.id}`;
   return (
