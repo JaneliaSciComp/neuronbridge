@@ -15,6 +15,7 @@ import {
 import NotFound from "./NotFound";
 import MaskDrawing from "./MaskDrawing";
 import * as queries from "../graphql/queries";
+import * as mutations from "../graphql/mutations";
 import { signedLink } from "../libs/awsLib";
 import config from "../config";
 
@@ -105,23 +106,30 @@ export default function MaskSelection({ match }) {
     }
     // send mask image to server
     Auth.currentCredentials().then(() => {
-      Storage.put(`${searchMeta.searchDir}/maskedImage.png`, maskedImage, {
+      const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
+      const maskName = `${searchMeta.searchDir}/${uploadName}_${channel}_mask.png`;
+      Storage.put(maskName, maskedImage, {
         contentType: maskedImage.type,
         level: "private",
         bucket: config.SEARCH_BUCKET
       })
-        .then(result => {
-          console.log(result);
-          // kick off the search
-          API.post('SearchAPI', '/searches', {
-            "searchIds": ["searchMeta.id"]
-          })
-            .then(response => {
-              console.log(response)
-              // redirect back to search progress page.
-              history.push("/mysearches");
+        .then(() => {
+          // add the file to DynamoDB
+          const maskDetails = { searchMask: maskName, id: searchMeta.id };
+          API.graphql(
+            graphqlOperation(mutations.updateSearch, { input: maskDetails })
+          ).then(() => {
+            // kick off the search
+            API.post('SearchAPI', '/searches', {
+              "searchIds": ["searchMeta.id"]
             })
-            .catch(error => console.log(error));
+              .then(response => {
+                console.log(response)
+                // redirect back to search progress page.
+                history.push("/mysearches");
+              })
+              .catch(error => console.log(error));
+          })
         })
         .catch(e => console.error(e));
     });
