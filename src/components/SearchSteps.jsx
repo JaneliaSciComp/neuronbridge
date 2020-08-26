@@ -26,7 +26,7 @@ export default function SearchSteps({ search }) {
   }
 
   let alignmentStep = <Step title="Image Alignment" />;
-  if (search.step === 1) {
+  if (search.step <= 1) {
     alignmentStep =  <Step icon={<LoadingOutlined />} title="Image Alignment" />;
   }
 

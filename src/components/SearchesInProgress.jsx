@@ -79,12 +79,11 @@ export default function SearchesInProgress({ searches }) {
 
   if (searchesInProgress.length === 0) {
     return (
-      <div>
-        <p>
-          You don&apos;t have any searches currently running. Start a new search
-          by uploading an image above.
-        </p>
-      </div>
+      <Alert
+        type="warning"
+        showIcon
+        message="You don't have any searches currently running. Start a new search by uploading an image above."
+      />
     );
   }
 
