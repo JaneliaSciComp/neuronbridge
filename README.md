@@ -19,6 +19,14 @@ This code is made available under the [Janeia Open Source License](LICENSE.md). 
 
 ## For Developers
 
+## Development 
+
+The build currently requires Python 2.x. You can create that with Conda as follows:
+```
+conda create --name py2 python=2.7
+conda activate py2
+```
+
 Build:
 ```bash
 npm install
@@ -28,6 +36,16 @@ Start dev server:
 ```bash
 npm start
 ```
+
+1. Currently you need to edit node_modules/react-dev-utils/webpackHotDevClient.js:62 and change "ws" to "wss". This will be fixed soon.
+
+2. In order for uploads to work, the default localhost URL cannot be used. Instead, add this to your /etc/hosts:
+```
+127.0.0.1 neuronbridge-dev.janelia.org
+```
+Then you can access your dev server like this: [https://neuronbridge-dev.janelia.org:3000](https://neuronbridge-dev.janelia.org:3000)
+
+### Deployment
 
 Create optimized build for deployment:
 ```bash
@@ -41,3 +59,4 @@ npm run deploy:prod
 Other stages of deployment can also be used. ```deploy:dev``` or ```deploy:val```
 
 Bucket targets are hard coded into the package.json file. To change the deployment targets, please create a new bucket on AWS and modify the package.json file.
+
