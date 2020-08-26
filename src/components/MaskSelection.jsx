@@ -2,24 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
-import {
-  message,
-  Button,
-  Radio,
-  Typography,
-  Row,
-  Col,
-  Card,
-  Divider
-} from "antd";
+import { message, Button, Typography, Divider } from "antd";
 import NotFound from "./NotFound";
 import MaskDrawing from "./MaskDrawing";
+import MaskChannelSelection from "./MaskChannelSelection";
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import { signedLink } from "../libs/awsLib";
 import config from "../config";
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export default function MaskSelection({ match }) {
   const searchId = match.params.id;
@@ -27,6 +19,7 @@ export default function MaskSelection({ match }) {
   const [maskedImage, setMaskedImage] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
   const [channel, setChannel] = useState(null);
+  const [channelImgSrc, setChannelImgSrc] = useState(null);
   const history = useHistory();
 
   useEffect(() => {
@@ -61,6 +54,12 @@ export default function MaskSelection({ match }) {
     }
   }, [searchId]);
 
+  useEffect(() => {
+    if (searchMeta) {
+      console.log(searchMeta);
+    }
+  }, [searchMeta]);
+
   // if the search step is anything other than the mask selection step,
   // redirect the site back to the search results list.
   if (searchMeta && searchMeta.step !== 2) {
@@ -71,37 +70,18 @@ export default function MaskSelection({ match }) {
     return <NotFound />;
   }
 
-  const channelImages = [0, 1, 2, 3, 4].map(image => {
-    const title = `Channel ${image}`;
-    const selectTitle = <Radio value={image}>{title}</Radio>;
-    return (
-      <Col key={image} xs={24} md={12} lg={8} xl={6}>
-        <Card
-          size="small"
-          title={selectTitle}
-          style={{ width: "100%", marginBottom: "1em" }}
-        >
-          <img
-            src="/maskplaceholder.jpg"
-            style={{ maxWidth: "100%" }}
-            alt="colordepth mip"
-          />
-        </Card>
-      </Col>
-    );
-  });
-
-  const handleChannelSelect = e => {
-    setChannel(e.target.value);
+  const handleChannelSelect = (selectedChannel, imgSrc) => {
+    setChannelImgSrc(imgSrc);
+    setChannel(selectedChannel);
   };
 
-  const handleMaskChange = (maskImageData) => {
+  const handleMaskChange = maskImageData => {
     setMaskedImage(maskImageData);
   };
 
   const handleSubmit = () => {
     if (!maskedImage) {
-      message.info('Please select a channel for masking and mask the image');
+      message.info("Please select a channel for masking and mask the image");
       return;
     }
     // send mask image to server
@@ -120,40 +100,35 @@ export default function MaskSelection({ match }) {
             graphqlOperation(mutations.updateSearch, { input: maskDetails })
           ).then(() => {
             // kick off the search
-            API.post('SearchAPI', '/searches', {
-              "searchIds": ["searchMeta.id"]
+            API.post("SearchAPI", "/searches", {
+              searchIds: ["searchMeta.id"]
             })
               .then(response => {
-                console.log(response)
+                console.log(response);
                 // redirect back to search progress page.
                 history.push("/mysearches");
               })
               .catch(error => console.log(error));
-          })
+          });
         })
         .catch(e => console.error(e));
     });
-
   };
-
-  let imgSrc;
-  if (channel !== null) {
-    imgSrc = `/maskplaceholder.jpg?channel=${channel}`;
-  }
 
   return (
     <div>
       <Title component="h2">Mask selection</Title>
-      <Paragraph>Choose a channel to use in your search</Paragraph>
-      <Radio.Group
-        onChange={handleChannelSelect}
-        value={channel}
-        style={{ display: "block" }}
-      >
-        <Row gutter={16}>{channelImages}</Row>
-      </Radio.Group>
-        <Divider orientation="left">Mask the area to search with your mouse</Divider>
-      <MaskDrawing imgSrc={imgSrc} onMaskChange={handleMaskChange} />
+      {searchMeta && (
+        <MaskChannelSelection
+          searchDir={searchMeta.searchDir}
+          channel={channel}
+          onChange={handleChannelSelect}
+        />
+      )}
+      <Divider orientation="left">
+        Mask the area to search with your mouse
+      </Divider>
+      <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
       <Divider />
       <Button type="primary" onClick={handleSubmit}>
         Submit

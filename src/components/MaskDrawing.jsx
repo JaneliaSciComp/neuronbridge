@@ -37,6 +37,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
       ctx.beginPath();
       ctx.closePath();
     }
+    img.setAttribute('crossOrigin', 'anonymous');
     img.src = imgSrc;
   }, [imgSrc]);
 
