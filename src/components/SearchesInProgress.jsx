@@ -20,9 +20,9 @@ function MaskSelectionLink({ search }) {
         message="Your image alignment has completed."
       />
       <Text component="p" strong>
-        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> Please{" "}
-        <Link to={maskSelectionURL}>select an image and mask region</Link> to
-        start the color depth search.
+        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> Click{" "}
+        <Link to={maskSelectionURL}>here to select the ROI</Link> for
+        color depth search.
       </Text>
     </div>
   );

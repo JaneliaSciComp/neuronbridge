@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
-import SearchInput from "./SearchInput";
 import SearchesInProgress from "./SearchesInProgress";
 import SearchesComplete from "./SearchesComplete";
 import * as queries from "../graphql/queries";
@@ -92,7 +91,6 @@ export default function CustomSearchList() {
 
   return (
     <div>
-      <SearchInput uploads={false} />
       <SearchUpload />
       <Divider dashed />
       <Title level={3}>Searches in progress</Title>
