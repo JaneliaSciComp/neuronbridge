@@ -7,25 +7,26 @@ import { Link } from "react-router-dom";
 import { deleteSearch } from "../libs/awsLib";
 
 export default function SearchesComplete({ searches }) {
-  const searchesComplete = searches.map(search => {
-    const searchLink = `/results/${search.id}`;
-    return (
-      <li key={search.id}>
-        <Link to={searchLink}>{search.upload} </Link> -{" "}
-        {formatRelative(new Date(search.updatedOn), new Date())}{" "}
-        <Tooltip title="Delete">
-              <Button
-                danger
-                size="small"
-                shape="circle"
-                onClick={() => deleteSearch(search)}
-                icon={<CloseOutlined />}
-              />
-            </Tooltip>
-
-      </li>
-    );
-  });
+  const searchesComplete = searches
+    .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+    .map(search => {
+      const searchLink = `/results/${search.id}`;
+      return (
+        <li key={search.id}>
+          <Link to={searchLink}>{search.upload} </Link> -{" "}
+          {formatRelative(new Date(search.createdOn), new Date())}{" "}
+          <Tooltip title="Delete">
+            <Button
+              danger
+              size="small"
+              shape="circle"
+              onClick={() => deleteSearch(search)}
+              icon={<CloseOutlined />}
+            />
+          </Tooltip>
+        </li>
+      );
+    });
 
   if (searchesComplete.length === 0) {
     return (

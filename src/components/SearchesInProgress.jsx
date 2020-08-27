@@ -43,39 +43,41 @@ function AlignmentWarning() {
 }
 
 export default function SearchesInProgress({ searches }) {
-  const searchesInProgress = searches.map(search => {
-    return (
-      <div key={search.id}>
-        <Row>
-          <Col span={23}>
-            <Text strong> &raquo; {search.upload}</Text>{" "}
-            <Text type="secondary">
-              {formatRelative(new Date(search.updatedOn), new Date())}
-            </Text>
-          </Col>
-          <Col span={1}>
-            <Tooltip title="Delete">
-              <Button
-                danger
-                size="small"
-                shape="circle"
-                onClick={() => deleteSearch(search)}
-                icon={<CloseOutlined />}
-              />
-            </Tooltip>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24} style={{ marginTop: "1em" }}>
-            <SearchSteps search={search} />
-            {search.step === 1 && <AlignmentWarning />}
-            {search.step === 2 && <MaskSelectionLink search={search} />}
-          </Col>
-        </Row>
-        <Divider />
-      </div>
-    );
-  });
+  const searchesInProgress = searches
+    .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+    .map(search => {
+      return (
+        <div key={search.id}>
+          <Row>
+            <Col span={23}>
+              <Text strong> &raquo; {search.upload}</Text>{" "}
+              <Text type="secondary">
+                {formatRelative(new Date(search.createdOn), new Date())}
+              </Text>
+            </Col>
+            <Col span={1}>
+              <Tooltip title="Delete">
+                <Button
+                  danger
+                  size="small"
+                  shape="circle"
+                  onClick={() => deleteSearch(search)}
+                  icon={<CloseOutlined />}
+                />
+              </Tooltip>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} style={{ marginTop: "1em" }}>
+              <SearchSteps search={search} />
+              {search.step === 1 && <AlignmentWarning />}
+              {search.step === 2 && <MaskSelectionLink search={search} />}
+            </Col>
+          </Row>
+          <Divider />
+        </div>
+      );
+    });
 
   if (searchesInProgress.length === 0) {
     return (
