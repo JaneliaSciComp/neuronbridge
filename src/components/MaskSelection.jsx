@@ -117,6 +117,12 @@ export default function MaskSelection({ match }) {
     });
   };
 
+  let dividerMessage = "Please choose a channel to create your mask";
+  if (channel) {
+    dividerMessage =
+      "Use your mouse to draw around the area you wish to search. Then click 'Create Mask' to preview.";
+  }
+
   return (
     <div>
       <Title component="h2">Mask selection</Title>
@@ -127,9 +133,7 @@ export default function MaskSelection({ match }) {
           onChange={handleChannelSelect}
         />
       )}
-      <Divider orientation="left">
-        Mask the area to search with your mouse
-      </Divider>
+      <Divider orientation="left">{dividerMessage}</Divider>
       <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
       <Divider />
       <Button type="primary" onClick={handleSubmit}>
