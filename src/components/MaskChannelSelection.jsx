@@ -11,6 +11,8 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
   const [channelObjects, setChannels] = useState([]);
   useEffect(() => {
     async function fetchData() {
+      // clear out the channel state before loading in the new ones.
+      setChannels([]);
       // get list of channel images from s3
       const channelsUrl = `${searchDir}/generatedMIPS`;
       const options = {
