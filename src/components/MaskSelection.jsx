@@ -101,7 +101,9 @@ export default function MaskSelection({ match }) {
           ).then(() => {
             // kick off the search
             API.post("SearchAPI", "/searches", {
-              searchIds: ["searchMeta.id"]
+              body: {
+                searchIds: [searchMeta.id]
+              }
             })
               .then(response => {
                 console.log(response);
