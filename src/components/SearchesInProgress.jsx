@@ -18,11 +18,18 @@ function MaskSelectionLink({ search }) {
         type="success"
         showIcon
         message="Your image alignment has completed."
+        style={{ marginBottom: "0.5em" }}
       />
       <Text component="p" strong>
-        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> Please{" "}
-        <Link to={maskSelectionURL}>select an image and mask region</Link> to
-        start the color depth search.
+        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> To start the color
+        depth search{" "}
+        <Link
+          to={maskSelectionURL}
+          className="ant-btn ant-btn-primary"
+          style={{ color: "#fff" }}
+        >
+          select a channel and mask region
+        </Link>
       </Text>
     </div>
   );
