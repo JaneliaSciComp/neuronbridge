@@ -5,10 +5,11 @@
 // to show events for all searches. If present but not specified
 // the null value would not match any searches,
 export const onCreateSearch = /* GraphQL */ `
-  subscription OnCreateSearch {
-    onCreateSearch {
+  subscription OnCreateSearch($identityId: String) {
+    onCreateSearch(identityId: $identityId) {
       id
       upload
+      identityId
       searchDir
       step
       updatedOn
@@ -17,18 +18,20 @@ export const onCreateSearch = /* GraphQL */ `
   }
 `;
 export const onDeleteSearch = /* GraphQL */ `
-  subscription OnDeleteSearch {
-    onDeleteSearch {
+  subscription OnDeleteSearch($identityId: String) {
+    onDeleteSearch(identityId: $identityId) {
       id
+      identityId
     }
   }
 `;
 
 export const onUpdateSearch = /* GraphQL */ `
-  subscription OnUpdateSearch {
-    onUpdateSearch {
+  subscription OnUpdateSearch($identityId: String) {
+    onUpdateSearch(identityId: $identityId) {
       id
       upload
+      identityId
       searchDir
       step
       updatedOn
