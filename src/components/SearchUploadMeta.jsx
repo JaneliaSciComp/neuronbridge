@@ -44,7 +44,11 @@ export default function SearchUploadMeta({
         .then(() => {
           onSearchSubmit();
         })
-        .catch(e => message.error(e));
+        .catch(e => {
+          e.errors.forEach(error => {
+            message.error(error.message);
+          });
+        });
     });
   };
 
@@ -93,7 +97,6 @@ export default function SearchUploadMeta({
             <Option value="lm2em">LM to EM</Option>
           </Select>
         </Form.Item>
-
         <Form.Item label="Template Matching Algorithm" name="algorithm">
           <Select>
             <Option value="max">
