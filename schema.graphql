@@ -22,13 +22,20 @@ type Search @aws_cognito_user_pools @aws_iam {
   cdsStarted: AWSDateTime
   channel: Int
   completedBatches: Int
+  computedMIPs: [String]
   createdOn: AWSDateTime
+  dataThreshold: Int
   id: ID!
   identityId: String!
+  maskThreshold: Int
   mimeType: String
+  minMatchingPixRatio: Int
+  mirrorMask: Boolean
   nBatches: Int
   owner: String
+  pixColorFluctuation: Float
   searchDir: String!
+  searchMask: String
   searchType: SearchType
   step: Int
   updatedOn: AWSDateTime
@@ -36,6 +43,7 @@ type Search @aws_cognito_user_pools @aws_iam {
   voxelX: Int
   voxelY: Int
   voxelZ: Int
+  xyShift: Int
 }
 
 type SearchConnection @aws_cognito_user_pools @aws_iam {
@@ -63,8 +71,13 @@ input CreateSearchInput {
   algorithm: Algorithm!
   anatomicalRegion: String
   channel: Int
+  dataThreshold: Int
   identityId: String!
+  maskThreshold: Int
   mimeType: String
+  minMatchingPixRatio: Int
+  mirrorMask: Boolean
+  pixColorFluctuation: Float
   searchDir: String!
   searchType: SearchType!
   step: Int!
@@ -72,6 +85,7 @@ input CreateSearchInput {
   voxelX: Int
   voxelY: Int
   voxelZ: Int
+  xyShift: Int
 }
 
 input DeleteSearchInput {
@@ -158,7 +172,9 @@ input UpdateSearchInput {
   cdsFinished: AWSDateTime
   cdsStarted: AWSDateTime
   completedBatches: Int
+  computedMIPs: [String]
   id: ID!
   nBatches: Int
+  searchMask: String
   step: Int
 }
