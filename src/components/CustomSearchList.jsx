@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
@@ -11,6 +11,7 @@ import * as subscriptions from "../graphql/subscriptions";
 const { Title } = Typography;
 
 export default function CustomSearchList() {
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [searches, dispatch] = useReducer((searchList, { type, value }) => {
     switch (type) {
       case "init":
@@ -36,11 +37,16 @@ export default function CustomSearchList() {
   useEffect(() => {
     Auth.currentCredentials().then(currentCreds => {
       const subscription = API.graphql(
-        graphqlOperation(subscriptions.onCreateSearch, {identityId: currentCreds.identityId})
+        graphqlOperation(subscriptions.onCreateSearch, {
+          identityId: currentCreds.identityId
+        })
       ).subscribe({
         next: response => {
           if (response.value.data.onCreateSearch) {
-            dispatch({ type: "add", value: response.value.data.onCreateSearch });
+            dispatch({
+              type: "add",
+              value: response.value.data.onCreateSearch
+            });
           }
         },
         error: e => {
@@ -57,7 +63,9 @@ export default function CustomSearchList() {
   useEffect(() => {
     Auth.currentCredentials().then(currentCreds => {
       const subscription = API.graphql(
-        graphqlOperation(subscriptions.onDeleteSearch, {identityId: currentCreds.identityId})
+        graphqlOperation(subscriptions.onDeleteSearch, {
+          identityId: currentCreds.identityId
+        })
       ).subscribe({
         next: response => {
           if (response.value.data.onDeleteSearch) {
@@ -81,7 +89,9 @@ export default function CustomSearchList() {
   useEffect(() => {
     Auth.currentCredentials().then(currentCreds => {
       const subscription = API.graphql(
-        graphqlOperation(subscriptions.onUpdateSearch, {identityId: currentCreds.identityId})
+        graphqlOperation(subscriptions.onUpdateSearch, {
+          identityId: currentCreds.identityId
+        })
       ).subscribe({
         next: response => {
           if (response.value.data.onUpdateSearch) {
@@ -99,13 +109,21 @@ export default function CustomSearchList() {
       });
 
       return () => subscription.unsubscribe();
-  });
+    });
   }, []);
 
   return (
     <div>
-      <SearchInput uploads={false} />
-      <SearchUpload />
+      {!uploadedFile && (
+        <>
+          <SearchInput uploads={false} />
+          <Divider>OR</Divider>
+        </>
+      )}
+      <SearchUpload
+        uploadedFile={uploadedFile}
+        handleUpload={setUploadedFile}
+      />
       <Divider dashed />
       <Title level={3}>Searches in progress</Title>
       <SearchesInProgress

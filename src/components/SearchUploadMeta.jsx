@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Form, InputNumber, Select, Button, Switch, message } from "antd";
+import {
+  Row,
+  Col,
+  Form,
+  InputNumber,
+  Select,
+  Button,
+  Switch,
+  message
+} from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
@@ -63,16 +72,25 @@ export default function SearchUploadMeta({
   return (
     <div>
       <p> Search parameters for {uploadedFile.file.name}</p>
-      <p>
-        <Switch
-          checkedChildren={<CheckOutlined />}
-          unCheckedChildren={<CloseOutlined />}
-          checked={isAligned}
-          onChange={onAlignedChange}
-        />{" "}
-        Has this image been aligned already?
-      </p>
-
+      <Row>
+        <Col span={8} style={{ textAlign: "right" }}>
+          <label htmlFor="aligned" style={{ marginRight: "8px" }}>
+            Has this image been aligned already?:{" "}
+          </label>
+        </Col>
+        <Col>
+          <p>
+            <Switch
+              id="aligned"
+              name="aligned"
+              checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />}
+              checked={isAligned}
+              onChange={onAlignedChange}
+            />{" "}
+          </p>
+        </Col>
+      </Row>
       <Form
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -171,8 +189,8 @@ export default function SearchUploadMeta({
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
+          <Button style={{marginLeft: '1em'}} onClick={onCancel}>Cancel</Button>
         </Form.Item>
-        <Button onClick={onCancel}>Cancel</Button>
       </Form>
     </div>
   );

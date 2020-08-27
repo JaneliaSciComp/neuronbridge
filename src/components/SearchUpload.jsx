@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Upload, message } from "antd";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +11,7 @@ import "./SearchUpload.css";
 
 const { Dragger } = Upload;
 
-export default function SearchUpload() {
-  const [uploadedFile, setUploadedFile] = useState(null);
-
+export default function SearchUpload({ uploadedFile, handleUpload }) {
   function customRequest(upload) {
 
     Auth.currentCredentials().then(() => {
@@ -26,7 +25,7 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
-          setUploadedFile(upload);
+          handleUpload(upload);
           upload.onSuccess(result);
         })
         .catch(e => upload.onError(e));
@@ -40,7 +39,7 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(() => {
-          setUploadedFile(null);
+          handleUpload(null);
         })
         .catch(e => message.error(e));
     });
@@ -72,9 +71,18 @@ export default function SearchUpload() {
       )}
       <SearchUploadMeta
         uploadedFile={uploadedFile}
-        onSearchSubmit={() => setUploadedFile(null)}
+        onSearchSubmit={() => handleUpload(null)}
 				onCancel={() => onRemove()}
       />
     </div>
   );
 }
+
+SearchUpload.propTypes = {
+  handleUpload: PropTypes.func.isRequired,
+  uploadedFile: PropTypes.object
+};
+
+SearchUpload.defaultProps = {
+  uploadedFile: null
+};
