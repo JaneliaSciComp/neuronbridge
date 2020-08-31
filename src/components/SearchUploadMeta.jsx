@@ -119,19 +119,18 @@ export default function SearchUploadMeta({
             <Option value="lm2em">LM to EM</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Template Matching Algorithm" name="algorithm">
-          <Select>
-            <Option value="max">
-              Maximum Intensity (Good for clean samples)
-            </Option>
-            <Option value="avg">
-              Average Intensity (Better for noisy samples)
-            </Option>
-          </Select>
-        </Form.Item>
-
         {!isAligned && (
           <>
+            <Form.Item label="Template Matching Algorithm" name="algorithm">
+              <Select>
+                <Option value="max">
+                  Maximum Intensity (Good for clean samples)
+                </Option>
+                <Option value="avg">
+                  Average Intensity (Better for noisy samples)
+                </Option>
+              </Select>
+            </Form.Item>
             <Form.Item
               label="Voxel Size (microns)"
               rules={[
