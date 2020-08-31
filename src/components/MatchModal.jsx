@@ -48,7 +48,7 @@ export default function MatchModal(props) {
   let metaBlock = <p>Loading...</p>;
 
   if (mask)
-    if (mask.type) {
+    if (!mask.createdOn) {
       if (!isLM) {
         metaBlock = <LineMeta attributes={mask} />;
       } else {
