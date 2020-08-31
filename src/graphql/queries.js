@@ -8,6 +8,7 @@ export const getSearch = /* GraphQL */ `
       upload
       searchDir
       searchMask
+      errorMessage
       step
       anatomicalRegion
       algorithm
@@ -29,6 +30,7 @@ export const listSearches = /* GraphQL */ `
         upload
         searchDir
         searchMask
+        errorMessage
         step
         updatedOn
         createdOn

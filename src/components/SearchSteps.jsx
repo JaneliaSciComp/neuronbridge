@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Steps } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, WarningOutlined } from "@ant-design/icons";
 import "./SearchSteps.css";
 
 const { Step } = Steps;
 
 export default function SearchSteps({ search }) {
-  const { error } = search;
+  const { errorMessage } = search;
 
   // there are 5 steps in the process stored in the databsae, but we
   // only display 3 in this component, so need this replaces 2 of them
@@ -25,19 +25,26 @@ export default function SearchSteps({ search }) {
       currentStep = search.step;
   }
 
+  let icon = <LoadingOutlined />;
+  let status = "process";
+  if (errorMessage) {
+    icon  = <WarningOutlined />;
+    status = "error";
+  }
+
   let alignmentStep = <Step title="Image Alignment" />;
   if (search.step <= 1) {
-    alignmentStep =  <Step icon={<LoadingOutlined />} title="Image Alignment" />;
+    alignmentStep =  <Step icon={icon} title="Image Alignment" />;
   }
 
   let depthSearchStep = <Step title="Color Depth Search" />;
   if (search.step === 3) {
-    depthSearchStep = <Step icon={<LoadingOutlined />} title="Color Depth Search" />;
+    depthSearchStep = <Step icon={icon} title="Color Depth Search" />;
   }
 
   return (
     <div className="searchSteps">
-      <Steps size="small" current={currentStep} status={error}>
+      <Steps size="small" current={currentStep} status={status}>
         <Step title="Files Uploaded" />
         {alignmentStep}
         {depthSearchStep}
