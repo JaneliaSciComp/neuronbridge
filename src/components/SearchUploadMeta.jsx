@@ -47,6 +47,10 @@ export default function SearchUploadMeta({
         searchDetails.voxelZ = values.voxelz;
       }
 
+      if (isAligned) {
+        searchDetails.searchMask = uploadedFile.file.name;
+      }
+
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
