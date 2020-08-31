@@ -21,7 +21,7 @@ function MaskSelectionLink({ search }) {
         style={{ marginBottom: "0.5em" }}
       />
       <Text component="p" strong>
-        <ExclamationCircleTwoTone twoToneColor="#ff0000" /> To start the color
+        <ExclamationCircleTwoTone twoToneColor="#0000ff" /> To start the color
         depth search{" "}
         <Link
           to={maskSelectionURL}
