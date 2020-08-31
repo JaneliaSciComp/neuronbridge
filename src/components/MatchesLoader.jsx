@@ -50,12 +50,18 @@ export default function MatchesLoader({ searchResult, searchType }) {
       <SkeletonSummary metaInfo={matchInput} />
     );
 
+  const matches = matchMeta ? (
+    <Matches input={matchInput} searchType={searchType} matches={matchMeta} />
+  ) : (
+    <Spin size="large" />
+  );
+
   return (
     <>
       <h3>Input Image</h3>
       {summary}
       <Divider />
-      <Matches input={matchInput} searchType={searchType} matches={matchMeta} />
+      {matches}
     </>
   );
 }
