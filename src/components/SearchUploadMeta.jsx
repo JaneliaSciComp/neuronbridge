@@ -192,7 +192,9 @@ export default function SearchUploadMeta({
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-          <Button style={{marginLeft: '1em'}} onClick={onCancel}>Cancel</Button>
+          <Button style={{ marginLeft: "1em" }} onClick={onCancel}>
+            Cancel
+          </Button>
         </Form.Item>
       </Form>
     </div>
