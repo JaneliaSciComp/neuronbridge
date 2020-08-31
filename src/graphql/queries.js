@@ -7,6 +7,7 @@ export const getSearch = /* GraphQL */ `
       id
       upload
       searchDir
+      searchMask
       step
       anatomicalRegion
       algorithm
@@ -27,6 +28,7 @@ export const listSearches = /* GraphQL */ `
         id
         upload
         searchDir
+        searchMask
         step
         updatedOn
         createdOn

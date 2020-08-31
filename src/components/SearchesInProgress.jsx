@@ -9,7 +9,7 @@ import { deleteSearch } from "../libs/awsLib";
 
 const { Text } = Typography;
 
-// TODO: This warning message shouldn't load if there is already a mask file.
+// This warning message shouldn't load if there is already a mask file.
 function MaskSelectionLink({ search }) {
   const maskSelectionURL = `/mask-selection/${search.id}`;
   return (
@@ -48,11 +48,17 @@ function AlignmentWarning() {
     />
   );
 }
-
 export default function SearchesInProgress({ searches }) {
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
+      const showMaskSelection =
+        search.step === 2 && !search.searchMask ? (
+          <MaskSelectionLink search={search} />
+        ) : (
+          ""
+        );
+
       return (
         <div key={search.id}>
           <Row>
@@ -78,7 +84,7 @@ export default function SearchesInProgress({ searches }) {
             <Col span={24} style={{ marginTop: "1em" }}>
               <SearchSteps search={search} />
               {search.step === 1 && <AlignmentWarning />}
-              {search.step === 2 && <MaskSelectionLink search={search} />}
+              {showMaskSelection}
             </Col>
           </Row>
           <Divider />

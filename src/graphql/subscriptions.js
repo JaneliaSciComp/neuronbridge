@@ -11,6 +11,7 @@ export const onCreateSearch = /* GraphQL */ `
       upload
       identityId
       searchDir
+      searchMask
       step
       updatedOn
       createdOn
@@ -33,6 +34,7 @@ export const onUpdateSearch = /* GraphQL */ `
       upload
       identityId
       searchDir
+      searchMask
       step
       updatedOn
       createdOn
