@@ -65,7 +65,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
           </p>
           <p className="ant-upload-text">
-            Start a search by clicking here or draging a file to this area to upload.
+            Upload a file by dragging it to this area. You can upload an unaligned confocal stack and NeuronBridge will attempt to align it for you. Or use a Color Depth MIP to proceed directly to the search.
           </p>
         </Dragger>
       )}

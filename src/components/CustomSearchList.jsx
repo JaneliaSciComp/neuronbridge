@@ -2,7 +2,6 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
-import SearchInput from "./SearchInput";
 import SearchesInProgress from "./SearchesInProgress";
 import SearchesComplete from "./SearchesComplete";
 import * as queries from "../graphql/queries";
@@ -114,12 +113,6 @@ export default function CustomSearchList() {
 
   return (
     <div>
-      {!uploadedFile && (
-        <>
-          <SearchInput uploads={false} />
-          <Divider>OR</Divider>
-        </>
-      )}
       <SearchUpload
         uploadedFile={uploadedFile}
         handleUpload={setUploadedFile}
