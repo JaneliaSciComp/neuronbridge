@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
 import { CloseOutlined, ExclamationCircleTwoTone } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
+import { deleteSearch } from "../../libs/awsLib";
 import SearchSteps from "./SearchSteps";
-import { deleteSearch } from "../libs/awsLib";
 
 const { Text } = Typography;
 

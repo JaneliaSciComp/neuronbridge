@@ -2,8 +2,8 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
-import SearchesInProgress from "./SearchesInProgress";
-import SearchesComplete from "./SearchesComplete";
+import SearchesInProgress from "./CustomSearch/SearchesInProgress";
+import SearchesComplete from "./CustomSearch/SearchesComplete";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 

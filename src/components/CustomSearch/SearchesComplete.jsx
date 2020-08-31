@@ -4,7 +4,7 @@ import { Tooltip, Button } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import { Link } from "react-router-dom";
-import { deleteSearch } from "../libs/awsLib";
+import { deleteSearch } from "../../libs/awsLib";
 
 export default function SearchesComplete({ searches }) {
   const searchesComplete = searches
