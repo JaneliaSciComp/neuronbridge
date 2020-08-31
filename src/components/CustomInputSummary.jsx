@@ -23,7 +23,7 @@ export default function CustomInputSummary({ searchMeta }) {
           <CustomMeta metadata={searchMeta} />
         </Col>
         <Col md={24} lg={4}>
-          <Button onClick={() => history.push("/mysearches")}>
+          <Button onClick={() => history.push("/upload")}>
             Back to all results
           </Button>
         </Col>

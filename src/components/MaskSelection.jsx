@@ -63,7 +63,7 @@ export default function MaskSelection({ match }) {
   // if the search step is anything other than the mask selection step,
   // redirect the site back to the search results list.
   if (searchMeta && searchMeta.step !== 2) {
-    return <Redirect to="/mysearches" />;
+    return <Redirect to="/upload" />;
   }
 
   if (missingResults) {
@@ -108,7 +108,7 @@ export default function MaskSelection({ match }) {
               .then(response => {
                 console.log(response);
                 // redirect back to search progress page.
-                history.push("/mysearches");
+                history.push("/upload");
               })
               .catch(error => console.log(error));
           });

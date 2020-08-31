@@ -59,7 +59,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <AuthenticatedRoute
-          path="/mysearches"
+          path="/upload"
           component={CustomSearchList}
           appProps={appProps}
         />

@@ -87,17 +87,17 @@ export default function App() {
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
+          {isAuthenticated && (
+            <Menu.Item key="/upload">
+              <Link to="/upload">Upload</Link>
+            </Menu.Item>
+          )}
           <Menu.Item key="/about">
             <Link to="/about">About</Link>
           </Menu.Item>
           <Menu.Item key="/help">
             <Link to="/help">Help</Link>
           </Menu.Item>
-          {isAuthenticated && (
-            <Menu.Item key="/mysearches">
-              <Link to="/mysearches">Search</Link>
-            </Menu.Item>
-          )}
           {!isAuthenticated && [
             <Menu.Item key="/signup">
               <Link to="/signup">Signup</Link>
