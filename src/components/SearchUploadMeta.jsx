@@ -54,7 +54,14 @@ export default function SearchUploadMeta({
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
-        .then(() => {
+        .then((result) => {
+          // trigger the search to start on the backend.
+          API.post("SearchAPI", "/searches", {
+            body: {
+              searchIds: [result.data.createSearch.id]
+            }
+          });
+
           onSearchSubmit();
         })
         .catch(e => {
