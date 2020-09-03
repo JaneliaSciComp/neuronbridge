@@ -30,7 +30,10 @@ export default function Results({ match }) {
           const currentMeta = results.data.getSearch;
           // TODO: we should be using the mask image and not the upload for this
           // When masks are ready this needs to be changed over.
-          const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
+          let uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
+          if (currentMeta.displayableMask) {
+            uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;
+          }
           // TODO: add another step here to generate the real imageURL,
           // rather than use the sameone as the thumbnail.
           signedLink(uploadUrl).then(result => {

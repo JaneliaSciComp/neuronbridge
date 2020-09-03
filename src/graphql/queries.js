@@ -13,6 +13,7 @@ export const getSearch = /* GraphQL */ `
       anatomicalRegion
       algorithm
       searchType
+      displayableMask
       updatedOn
       createdOn
     }
