@@ -68,7 +68,9 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           </p>
           <p>
             You can upload an unaligned confocal stack and NeuronBridge will
-            attempt to align it for you. Or use a Color Depth MIP to proceed
+            attempt to align it for you.
+          </p>
+          <p> Or use an aligned and masked Color Depth MIP to proceed
             directly to the search.
           </p>
         </Dragger>
