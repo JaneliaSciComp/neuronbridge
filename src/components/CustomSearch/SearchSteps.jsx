@@ -32,6 +32,11 @@ export default function SearchSteps({ search }) {
     status = "error";
   }
 
+  let uploadStep = <Step title="Files Uploaded" />;
+  if (errorMessage) {
+    uploadStep = <Step icon={icon} title="Files Uploaded" />;
+  }
+
   let alignmentStep = <Step title="Image Alignment" />;
   if (search.step <= 1) {
     alignmentStep =  <Step icon={icon} title="Image Alignment" />;
@@ -42,13 +47,18 @@ export default function SearchSteps({ search }) {
     depthSearchStep = <Step icon={icon} title="Color Depth Search" />;
   }
 
+  let completeStep = <Step title="Complete" />;
+  if (errorMessage) {
+    completeStep = <Step icon={icon} title="Complete" />;
+  }
+
   return (
     <div className="searchSteps">
       <Steps size="small" current={currentStep} status={status}>
-        <Step title="Files Uploaded" />
+        {uploadStep}
         {alignmentStep}
         {depthSearchStep}
-        <Step title="Complete" />
+        {completeStep}
       </Steps>
     </div>
   );
