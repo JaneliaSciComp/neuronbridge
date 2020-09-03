@@ -28,8 +28,8 @@ export default function Results({ match }) {
       API.graphql(query)
         .then(results => {
           const currentMeta = results.data.getSearch;
-          // TODO: we should be using the mask image and not the upload for this
-          // When masks are ready this needs to be changed over.
+          // We should be using the displayableMask image and not the upload when
+          // available.
           let uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
           if (currentMeta.displayableMask) {
             uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;

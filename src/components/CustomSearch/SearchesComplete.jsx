@@ -1,29 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tooltip, Button } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
-import { formatRelative } from "date-fns";
-import { Link } from "react-router-dom";
-import { deleteSearch } from "../../libs/awsLib";
+import CompleteSearchSummary from "./CompleteSearchSummary";
 
 export default function SearchesComplete({ searches }) {
   const searchesComplete = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
-      const searchLink = `/results/${search.id}`;
       return (
-        <li key={search.id}>
-          <Link to={searchLink}>{search.upload} </Link> -{" "}
-          {formatRelative(new Date(search.createdOn), new Date())}{" "}
-          <Tooltip title="Delete">
-            <Button
-              danger
-              size="small"
-              shape="circle"
-              onClick={() => deleteSearch(search)}
-              icon={<CloseOutlined />}
-            />
-          </Tooltip>
+        <li key={search.id} style={{ marginBottom: "1em" }}>
+          <CompleteSearchSummary search={search} />
         </li>
       );
     });

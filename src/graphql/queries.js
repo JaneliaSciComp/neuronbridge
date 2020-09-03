@@ -33,6 +33,7 @@ export const listSearches = /* GraphQL */ `
         searchMask
         errorMessage
         step
+        displayableMask
         updatedOn
         createdOn
       }
