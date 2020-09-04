@@ -12,6 +12,7 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 export default function SearchUpload({ uploadedFile, handleUpload }) {
+
   function customRequest(upload) {
     Auth.currentCredentials().then(() => {
       Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
@@ -57,7 +58,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           withCredentials
           listType="picture"
           customRequest={customRequest}
-          showUploadList
+          showUploadList={{ showRemoveIcon: false}}
         >
           <p className="ant-upload-drag-icon">
             <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
