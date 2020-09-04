@@ -4,31 +4,44 @@ import { Tooltip, Button } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import { Link } from "react-router-dom";
+import { faFileImage } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteSearch, signedLink } from "../../libs/awsLib";
+import neuronbridgeLogo from "../../neuronbridge_logo.png";
 
 import "./CompleteSearchSummary.css";
 
 export default function CompleteSearchSummary({ search }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
-
   const searchLink = `/results/${search.id}`;
+
   useEffect(() => {
-    let uploadUrl = `${search.searchDir}/${search.upload}`;
     if (search.displayableMask) {
-      uploadUrl = `${search.searchDir}/${search.displayableMask}`;
+      const uploadUrl = `${search.searchDir}/${search.displayableMask}`;
+      signedLink(uploadUrl).then(result => {
+        setThumbnailUrl(result);
+      });
+    } else {
+      setThumbnailUrl(neuronbridgeLogo);
     }
-    signedLink(uploadUrl).then(result => {
-      setThumbnailUrl(result);
-    });
   }, [search]);
 
-  return (
-    <>
-      <img
+  let thumbnail = (
+    <div className="completeThumbnailMissing">
+      <FontAwesomeIcon icon={faFileImage} size="2x" />
+    </div>
+  );
+  if (search.displayableMask) {
+    thumbnail = (<img
         className="completeThumbnail"
         src={thumbnailUrl}
         alt={search.upload}
-      />
+    />);
+  }
+
+  return (
+    <>
+      {thumbnail}
       <Link to={searchLink}>{search.upload} </Link> -{" "}
       {formatRelative(new Date(search.createdOn), new Date())}{" "}
       <Tooltip title="Delete">
