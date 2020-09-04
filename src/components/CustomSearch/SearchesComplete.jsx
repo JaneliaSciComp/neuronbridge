@@ -7,7 +7,7 @@ export default function SearchesComplete({ searches }) {
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
       return (
-        <li key={search.id} style={{ marginBottom: "1em" }}>
+        <li key={search.id} style={{ marginBottom: "1em", listStyle: 'none' }}>
           <CompleteSearchSummary search={search} />
         </li>
       );
