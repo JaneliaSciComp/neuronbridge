@@ -87,8 +87,9 @@ export default function MaskSelection({ match }) {
     // send mask image to server
     Auth.currentCredentials().then(() => {
       const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
-      const maskName = `${searchMeta.searchDir}/${uploadName}_${channel}_mask.png`;
-      Storage.put(maskName, maskedImage, {
+      const maskName = `${uploadName}_${channel}_mask.png`;
+      const maskPath = `${searchMeta.searchDir}/${maskName}`;
+      Storage.put(maskPath, maskedImage, {
         contentType: maskedImage.type,
         level: "private",
         bucket: config.SEARCH_BUCKET
