@@ -12,6 +12,7 @@ export const onCreateSearch = /* GraphQL */ `
       identityId
       searchDir
       searchMask
+      errorMessage
       step
       updatedOn
       createdOn
@@ -35,6 +36,7 @@ export const onUpdateSearch = /* GraphQL */ `
       identityId
       searchDir
       searchMask
+      errorMessage
       step
       updatedOn
       createdOn
