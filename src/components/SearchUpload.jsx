@@ -12,9 +12,8 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 export default function SearchUpload({ uploadedFile, handleUpload }) {
-
   function customRequest(upload) {
-    Auth.currentCredentials().then(() => {
+    Auth.currentCredentials().then(currentCreds => {
       Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
         progressCallback: progress => {
           const percent = (progress.loaded * 100) / progress.total;
@@ -25,6 +24,9 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
+          console.log(
+            `file uploaded to: s3://${config.SEARCH_BUCKET}/${currentCreds.identityId}/private/${upload.filename}/${upload.file.name}`
+          );
           handleUpload(upload);
           upload.onSuccess(result);
         })
@@ -58,7 +60,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           withCredentials
           listType="picture"
           customRequest={customRequest}
-          showUploadList={{ showRemoveIcon: false}}
+          showUploadList={{ showRemoveIcon: false }}
         >
           <p className="ant-upload-drag-icon">
             <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
@@ -70,8 +72,10 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             You can upload an unaligned confocal stack and NeuronBridge will
             attempt to align it for you.
           </p>
-          <p> Or use an aligned and masked Color Depth MIP to proceed
-            directly to the search.
+          <p>
+            {" "}
+            Or use an aligned and masked Color Depth MIP to proceed directly to
+            the search.
           </p>
         </Dragger>
       )}
