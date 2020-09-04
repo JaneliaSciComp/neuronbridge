@@ -1,4 +1,4 @@
-import { API, Storage, graphqlOperation } from "aws-amplify";
+import { API, Storage, graphqlOperation, Auth } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import config from "../config";
 
@@ -23,4 +23,12 @@ export function signedLink(url) {
   };
 
   return Storage.get(url, downloadOptions).then(result => result);
+}
+
+export function logSearchInfo(search) {
+  Auth.currentCredentials().then(creds => {
+    const bucketPath = `s3://${config.SEARCH_BUCKET}/${creds.identityId}/private/${search.searchDir}`;
+    console.log(`Search: ${search.upload} - ${search.id}`);
+    console.log(`\tFiles: ${bucketPath}`);
+  });
 }

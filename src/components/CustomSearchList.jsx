@@ -6,6 +6,7 @@ import SearchesInProgress from "./CustomSearch/SearchesInProgress";
 import SearchesComplete from "./CustomSearch/SearchesComplete";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
+import { logSearchInfo } from "../libs/awsLib";
 
 const { Title } = Typography;
 
@@ -28,9 +29,10 @@ export default function CustomSearchList() {
 
   // initial check on page load.
   useEffect(() => {
-    API.graphql(graphqlOperation(queries.listSearches)).then(results =>
+    API.graphql(graphqlOperation(queries.listSearches)).then(results => {
+      results.data.listSearches.items.forEach(search => logSearchInfo(search));
       dispatch({ type: "init", value: results.data.listSearches.items })
-    );
+    });
   }, []);
 
   useEffect(() => {
@@ -42,6 +44,7 @@ export default function CustomSearchList() {
       ).subscribe({
         next: response => {
           if (response.value.data.onCreateSearch) {
+            logSearchInfo(response.value.data.onCreateSearch);
             dispatch({
               type: "add",
               value: response.value.data.onCreateSearch
