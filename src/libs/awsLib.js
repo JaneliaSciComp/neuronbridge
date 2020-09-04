@@ -27,8 +27,7 @@ export function signedLink(url) {
 
 export function logSearchInfo(search) {
   Auth.currentCredentials().then(creds => {
-    const bucketPath = `s3://${config.SEARCH_BUCKET}/${creds.identityId}/private/${search.searchDir}`;
     console.log(`Search: ${search.upload} - ${search.id}`);
-    console.log(`\tFiles: ${bucketPath}`);
+    console.log(`\tFiles: https://s3.console.aws.amazon.com/s3/buckets/${config.SEARCH_BUCKET}/private/${creds.identityId}/${search.searchDir}/`);
   });
 }
