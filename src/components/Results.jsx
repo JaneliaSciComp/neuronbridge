@@ -20,6 +20,7 @@ export default function Results({ match }) {
   const [searchMeta, setSearchMeta] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
+
   useEffect(() => {
     if (searchId) {
       const query = graphqlOperation(queries.getSearch, {
@@ -28,12 +29,11 @@ export default function Results({ match }) {
       API.graphql(query)
         .then(results => {
           const currentMeta = results.data.getSearch;
-          // We should be using the displayableMask image and not the upload when
-          // available.
-          let uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
-          if (currentMeta.displayableMask) {
-            uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;
+          if (!currentMeta) {
+            setMissingResults(true);
+            return;
           }
+          const uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;
           // TODO: add another step here to generate the real imageURL,
           // rather than use the sameone as the thumbnail.
           signedLink(uploadUrl).then(result => {
@@ -42,7 +42,7 @@ export default function Results({ match }) {
           });
         })
         .catch(error => {
-          if (error.response.status === 404) {
+          if (error.response && error.response.status === 404) {
             setMissingResults(true);
           } else {
             message.error(error.message);
@@ -53,7 +53,7 @@ export default function Results({ match }) {
 
   useEffect(() => {
     if (searchMeta && searchMeta.searchDir) {
-      const resultFile = searchMeta.upload.replace(/[^.]*$/, "result");
+      const resultFile = searchMeta.searchMask.replace(/[^.]*$/, "result");
       const resultsUrl = `${searchMeta.searchDir}/${resultFile}`;
       Storage.get(resultsUrl, storageOptions)
         .then(results => {
@@ -67,7 +67,7 @@ export default function Results({ match }) {
         })
         .catch(error => {
           if (error.response.status === 404) {
-            setMissingResults(true);
+            setSearchResults({results: []});
           } else {
             message.error(error.message);
           }
