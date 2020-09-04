@@ -56,7 +56,6 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           action=""
           withCredentials
           listType="picture"
-          onRemove={onRemove}
           customRequest={customRequest}
           showUploadList
         >
