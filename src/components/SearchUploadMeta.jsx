@@ -22,6 +22,7 @@ export default function SearchUploadMeta({
   onCancel
 }) {
   const [isAligned, setIsAligned] = useState(true);
+  const [fakeMips, setFakeMips] = useState(false);
 
   if (!uploadedFile) {
     return null;
@@ -36,7 +37,8 @@ export default function SearchUploadMeta({
         identityId: currentCreds.identityId,
         searchDir: uploadedFile.filename,
         upload: uploadedFile.file.name,
-        mimeType: values.mimetype
+        mimeType: values.mimetype,
+        simulateMIPGeneration: fakeMips
       };
 
       if (!isAligned) {
@@ -54,7 +56,7 @@ export default function SearchUploadMeta({
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
-        .then((result) => {
+        .then(result => {
           // trigger the search to start on the backend.
           API.post("SearchAPI", "/searches", {
             body: {
@@ -76,6 +78,10 @@ export default function SearchUploadMeta({
     message.error(error);
   };
 
+  const onFakeChange = checked => {
+    setFakeMips(checked);
+  };
+
   const onAlignedChange = checked => {
     setIsAligned(checked);
   };
@@ -90,16 +96,14 @@ export default function SearchUploadMeta({
           </label>
         </Col>
         <Col>
-          <p>
-            <Switch
-              id="aligned"
-              name="aligned"
-              checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />}
-              checked={isAligned}
-              onChange={onAlignedChange}
-            />{" "}
-          </p>
+          <Switch
+            id="aligned"
+            name="aligned"
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+            checked={isAligned}
+            onChange={onAlignedChange}
+          />{" "}
         </Col>
       </Row>
       <Form
@@ -193,6 +197,24 @@ export default function SearchUploadMeta({
               </Select>
             </Form.Item>
           </>
+        )}
+
+        {process.env.NODE_ENV === "development" && (
+          <Row>
+            <Col span={8} style={{ textAlign: "right" }}>
+                Use Fake channels for masking?: {" "}
+            </Col>
+            <Col>
+              <Switch
+                id="fake"
+                name="fake"
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                checked={fakeMips}
+                onChange={onFakeChange}
+              />
+            </Col>
+          </Row>
         )}
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
