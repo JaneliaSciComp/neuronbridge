@@ -26,7 +26,7 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
         signedLink(original.key).then(signed => {
           // figure out channel number from file name
           const number = parseInt(original.key.match(/_(\d*)\.png$/)[1],10);
-          setChannels((existing) => [...existing, {url: signed, number}]);
+          setChannels((existing) => [...existing, {signed, url: original.key, number}]);
         });
       });
       // set the selected image to the first channel available.
@@ -51,7 +51,7 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
           style={{ width: "100%", marginBottom: "1em" }}
         >
           <img
-            src={cobj.url}
+            src={cobj.signed}
             style={{ maxWidth: "100%" }}
             alt="colordepth mip"
           />

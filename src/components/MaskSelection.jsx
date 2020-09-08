@@ -54,12 +54,6 @@ export default function MaskSelection({ match }) {
     }
   }, [searchId]);
 
-  useEffect(() => {
-    if (searchMeta) {
-      console.log(searchMeta);
-    }
-  }, [searchMeta]);
-
   // if the search step is anything other than the mask selection step,
   // redirect the site back to the search results list.
   if (searchMeta && searchMeta.step !== 2) {
