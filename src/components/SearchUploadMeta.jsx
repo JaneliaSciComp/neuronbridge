@@ -93,7 +93,7 @@ export default function SearchUploadMeta({
         </Col>
         <Col>
           <Switch
-            style={{ margin: '0 0 1em 0'  }}
+            style={{ margin: "0 0 1em 0" }}
             id="aligned"
             name="aligned"
             checkedChildren={<CheckOutlined />}
@@ -128,7 +128,7 @@ export default function SearchUploadMeta({
         </Form.Item>
         {!isAligned && (
           <>
-            <Form.Item label="Template Matching Algorithm" name="algorithm">
+            {/* <Form.Item label="Template Matching Algorithm" name="algorithm">
               <Select>
                 <Option value="max">
                   Maximum Intensity (Good for clean samples)
@@ -137,7 +137,7 @@ export default function SearchUploadMeta({
                   Average Intensity (Better for noisy samples)
                 </Option>
               </Select>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               label="Voxel Size (microns)"
               rules={[
@@ -192,28 +192,29 @@ export default function SearchUploadMeta({
                 <Option value="vnc">VNC</Option>
               </Select>
             </Form.Item>
+            {process.env.NODE_ENV === "development" && (
+              <Row>
+                <Col
+                  span={8}
+                  style={{ textAlign: "right", marginRight: "8px" }}
+                >
+                  Use fake channels for masking?:{" "}
+                </Col>
+                <Col>
+                  <Switch
+                    style={{ margin: "0 0 1em 0" }}
+                    id="fake"
+                    name="fake"
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    checked={fakeMips}
+                    onChange={onFakeChange}
+                  />
+                </Col>
+              </Row>
+            )}
           </>
         )}
-
-        {process.env.NODE_ENV === "development" && (
-          <Row>
-            <Col span={8} style={{ textAlign: "right" }}>
-                Use Fake channels for masking?: {" "}
-            </Col>
-            <Col>
-              <Switch
-                style={{ margin: '0 0 1em 0'  }}
-                id="fake"
-                name="fake"
-                checkedChildren={<CheckOutlined />}
-                unCheckedChildren={<CloseOutlined />}
-                checked={fakeMips}
-                onChange={onFakeChange}
-              />
-            </Col>
-          </Row>
-        )}
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Submit
