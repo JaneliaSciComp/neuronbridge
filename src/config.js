@@ -9,7 +9,6 @@ if (process.env.REACT_APP_DATA_TARGET === "dev") {
 }
 
 export default {
-  MATCH_PATH: `https://${BUCKET_NAME}.s3.amazonaws.com/metadata/cdsresults/`,
   SEARCH_BUCKET: "janelia-neuronbridge-searches-dev",
   s3: {
     REGION: "us-east-1",

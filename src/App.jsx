@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
 import "./App.css";
@@ -56,6 +56,31 @@ export default function App() {
     }
     onLoad();
   }, [isAuthenticated, appState, appState.username, setAppState]);
+
+  useEffect(() => {
+    const storageOptions = {
+      customPrefix: {
+        public: ""
+      },
+      level: "public",
+      download: true
+    };
+
+    if (isAuthenticated) {
+      Auth.currentCredentials().then(() => {
+        Storage.get("paths.json", storageOptions).then(result => {
+          const fr = new FileReader();
+          fr.onload = evt => {
+            const paths = JSON.parse(evt.target.result);
+            if (paths !== appState.paths) {
+              setAppState({ ...appState, paths });
+            }
+          };
+          fr.readAsText(result.Body);
+        });
+      });
+    }
+  }, [isAuthenticated]);
 
   if (isAuthenticating) {
     return <p>Loading</p>;
