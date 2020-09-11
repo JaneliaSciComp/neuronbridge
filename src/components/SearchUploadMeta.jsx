@@ -74,10 +74,6 @@ export default function SearchUploadMeta({
     });
   };
 
-  const onFinishFailed = error => {
-    message.error(error);
-  };
-
   const onFakeChange = checked => {
     setFakeMips(checked);
   };
@@ -97,6 +93,7 @@ export default function SearchUploadMeta({
         </Col>
         <Col>
           <Switch
+            style={{ margin: '0 0 1em 0'  }}
             id="aligned"
             name="aligned"
             checkedChildren={<CheckOutlined />}
@@ -118,7 +115,6 @@ export default function SearchUploadMeta({
             uploadedFile.file.type || "Couldn't be determined, please select"
         }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Search Type"
@@ -206,6 +202,7 @@ export default function SearchUploadMeta({
             </Col>
             <Col>
               <Switch
+                style={{ margin: '0 0 1em 0'  }}
                 id="fake"
                 name="fake"
                 checkedChildren={<CheckOutlined />}
