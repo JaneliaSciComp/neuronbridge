@@ -30,7 +30,7 @@ export default function MatchSummary(props) {
           showModal={showModal}
         />
         <p style={{ paddingLeft: "2em" }}>
-          <Button type="link" onClick={showModal}>
+          <Button type="link" onClick={showModal} style={{ padding: '0.1em', margin: 'none' }}>
             {publishedName}
           </Button>
           {score}
