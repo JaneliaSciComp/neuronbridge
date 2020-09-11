@@ -13,6 +13,7 @@ export const onCreateSearch = /* GraphQL */ `
       searchDir
       searchMask
       errorMessage
+      displayableMask
       step
       updatedOn
       createdOn
@@ -37,6 +38,7 @@ export const onUpdateSearch = /* GraphQL */ `
       searchDir
       searchMask
       errorMessage
+      displayableMask
       step
       updatedOn
       createdOn
