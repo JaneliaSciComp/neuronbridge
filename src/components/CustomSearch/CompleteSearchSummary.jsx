@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Tooltip, Button } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, WarningOutlined } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import { Link } from "react-router-dom";
 import { faFileImage } from "@fortawesome/pro-regular-svg-icons";
@@ -32,18 +32,23 @@ export default function CompleteSearchSummary({ search }) {
     </div>
   );
   if (search.displayableMask) {
-    thumbnail = (<img
+    thumbnail = (
+      <img
         className="completeThumbnail"
         src={thumbnailUrl}
         alt={search.upload}
-    />);
+      />
+    );
   }
 
   return (
     <>
       {thumbnail}
-      <Link to={searchLink}>{search.upload} </Link> -{" "}
-      {formatRelative(new Date(search.createdOn), new Date())}{" "}
+      <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
+        {search.upload}{" "}
+      </Link>{" "}
+      {search.errorMessage && <WarningOutlined style={{color: '#f00', fontSize: '1.5em'}} />}
+      - {formatRelative(new Date(search.createdOn), new Date())}{" "}
       <Tooltip title="Delete">
         <Button
           danger
