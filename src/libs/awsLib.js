@@ -27,7 +27,9 @@ export function signedLink(url) {
 
 export function logSearchInfo(search) {
   Auth.currentCredentials().then(creds => {
+    // eslint-disable-next-line no-console
     console.log(`Search: ${search.upload} - ${search.id}`);
+    // eslint-disable-next-line no-console
     console.log(`\tFiles: https://s3.console.aws.amazon.com/s3/buckets/${config.SEARCH_BUCKET}/private/${creds.identityId}/${search.searchDir}/`);
   });
 }
