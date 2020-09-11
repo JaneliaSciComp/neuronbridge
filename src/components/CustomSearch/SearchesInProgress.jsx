@@ -53,7 +53,7 @@ export default function SearchesInProgress({ searches }) {
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
       const showMaskSelection =
-        search.step === 2 && !search.searchMask ? (
+        search.step === 2 && !search.searchMask && !search.errorMessage ? (
           <MaskSelectionLink search={search} />
         ) : (
           ""
