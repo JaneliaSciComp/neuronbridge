@@ -272,7 +272,7 @@ export default function Matches(props) {
             >
               <Space size="middle">
                 <FilterButton />
-                <ResultsExport results={fullList} />
+                <ResultsExport results={fullList} searchType={searchType} />
               </Space>
             </Col>
             <Col
