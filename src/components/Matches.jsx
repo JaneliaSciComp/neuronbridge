@@ -9,7 +9,8 @@ import {
   Divider,
   Spin,
   Empty,
-  message
+  message,
+  Space
 } from "antd";
 import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
@@ -252,7 +253,7 @@ export default function Matches(props) {
       {!isLoading && matchMeta && (
         <>
           <Row style={{ paddingBottom: "1em" }}>
-            <Col md={24} lg={5}>
+            <Col xs={24} md={{ span: 11, order: 1 }} xl={4}>
               <h3>
                 {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
                 <HelpButton
@@ -262,7 +263,34 @@ export default function Matches(props) {
                 />
               </h3>
             </Col>
-            <Col md={20} lg={14} style={{ textAlign: "center" }}>
+            <Col
+              xs={24}
+              sm={{ span: 14, order: 2 }}
+              md={{ span: 11, order: 2 }}
+              xl={16}
+              style={{ textAlign: "center", marginBottom: "1em" }}
+            >
+              <Space size="middle">
+                <FilterButton />
+                <ResultsExport results={fullList} />
+              </Space>
+            </Col>
+            <Col
+              xs={24}
+              sm={{ span: 2, order: 3 }}
+              xl={4}
+              style={{ textAlign: "right", marginBottom: "1em" }}
+            >
+              <Switch
+                checked={appState.gridView}
+                checkedChildren="Grid"
+                unCheckedChildren="List"
+                onChange={() =>
+                  setAppState({ ...appState, gridView: !appState.gridView })
+                }
+              />
+            </Col>
+            <Col xs={{ span: 24, order: 4 }}>
               <Pagination
                 current={page}
                 pageSize={matchesPerPage}
@@ -277,25 +305,11 @@ export default function Matches(props) {
                 }
               />
             </Col>
-            <Col md={4} lg={3} style={{ textAlign: "center" }}>
-              <FilterButton />
-            </Col>
-            <Col lg={2} style={{ textAlign: "right" }}>
-              <Switch
-                checked={appState.gridView}
-                checkedChildren="Grid"
-                unCheckedChildren="List"
-                onChange={() =>
-                  setAppState({ ...appState, gridView: !appState.gridView })
-                }
-              />
-            </Col>
           </Row>
           <FilterMenu
             searchType={searchType}
             countsByLibrary={countsByLibrary}
           />
-          <ResultsExport results={fullList} />
           {matchSummaries}
           <Pagination
             current={page}

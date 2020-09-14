@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CSVLink } from "react-csv";
+import { DownloadOutlined } from '@ant-design/icons';
 
 export default function ResultsExport({ results }) {
   const headers = [
@@ -13,6 +14,7 @@ export default function ResultsExport({ results }) {
   const resultsWithPosition = results.map((result, i) => {
     const updated = result;
     updated.position = i + 1;
+    updated.slideCode = result.attrs["Slide Code"];
     return updated;
   });
 
@@ -23,6 +25,7 @@ export default function ResultsExport({ results }) {
       className="ant-btn"
       headers={headers}
     >
+      <DownloadOutlined />{" "}
       Download
     </CSVLink>
   );
