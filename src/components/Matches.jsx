@@ -9,6 +9,7 @@ import MatchModal from "./MatchModal";
 import HelpButton from "./HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
+import ResultsExport from "./ResultsExport";
 import { useQuery } from "../libs/hooksLib";
 
 export default function Matches({ input, searchType, matches }) {
@@ -227,6 +228,7 @@ export default function Matches({ input, searchType, matches }) {
         </Col>
       </Row>
       <FilterMenu searchType={searchType} countsByLibrary={countsByLibrary} />
+      <ResultsExport results={fullList}/>
       {matchSummaries}
       <Pagination
         current={page}
