@@ -20,6 +20,7 @@ import MatchModal from "./MatchModal";
 import HelpButton from "./HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
+import ResultsExport from "./ResultsExport";
 import { useQuery } from "../libs/hooksLib";
 
 import config from "../config";
@@ -294,6 +295,7 @@ export default function Matches(props) {
             searchType={searchType}
             countsByLibrary={countsByLibrary}
           />
+          <ResultsExport results={fullList} />
           {matchSummaries}
           <Pagination
             current={page}
