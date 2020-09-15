@@ -14,6 +14,7 @@ export const getSearch = /* GraphQL */ `
       algorithm
       searchType
       displayableMask
+      nTotalMatches
       updatedOn
       createdOn
     }
@@ -34,6 +35,8 @@ export const listSearches = /* GraphQL */ `
         errorMessage
         step
         displayableMask
+        nTotalMatches
+        searchType
         updatedOn
         createdOn
       }

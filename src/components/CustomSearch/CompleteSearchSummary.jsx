@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Tooltip, Button } from "antd";
+import { Tooltip, Button, Row, Col } from "antd";
 import { CloseOutlined, WarningOutlined } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
 import { Link } from "react-router-dom";
@@ -41,24 +41,35 @@ export default function CompleteSearchSummary({ search }) {
     );
   }
 
+  const searchType = search.searchType === "em2lm" ? "LM" : "EM";
+
   return (
-    <>
-      {thumbnail}
-      <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
-        {search.upload}{" "}
-      </Link>{" "}
-      {search.errorMessage && <WarningOutlined style={{color: '#f00', fontSize: '1.5em'}} />}
-      - {formatRelative(new Date(search.createdOn), new Date())}{" "}
-      <Tooltip title="Delete">
-        <Button
-          danger
-          size="small"
-          shape="circle"
-          onClick={() => deleteSearch(search)}
-          icon={<CloseOutlined />}
-        />
-      </Tooltip>
-    </>
+    <Row gutter={16} align="middle">
+      <Col lg={4}>{thumbnail}</Col>
+      <Col lg={6}>
+        <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
+          {search.upload}
+        </Link>
+      </Col>
+      <Col lg={4}>
+        {search.errorMessage && (
+          <WarningOutlined style={{ color: "#f00", fontSize: "1.5em" }} />
+        )}
+        Found {search.nTotalMatches} {searchType} matches
+      </Col>
+      <Col lg={4}>{formatRelative(new Date(search.createdOn), new Date())}</Col>
+      <Col>
+        <Tooltip title="Delete">
+          <Button
+            danger
+            size="small"
+            shape="circle"
+            onClick={() => deleteSearch(search)}
+            icon={<CloseOutlined />}
+          />
+        </Tooltip>
+      </Col>
+    </Row>
   );
 }
 

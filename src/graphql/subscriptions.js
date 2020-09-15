@@ -12,8 +12,10 @@ export const onCreateSearch = /* GraphQL */ `
       identityId
       searchDir
       searchMask
+      searchType
       errorMessage
       displayableMask
+      nTotalMatches
       step
       updatedOn
       createdOn
@@ -36,9 +38,11 @@ export const onUpdateSearch = /* GraphQL */ `
       upload
       identityId
       searchDir
+      searchType
       searchMask
       errorMessage
       displayableMask
+      nTotalMatches
       step
       updatedOn
       createdOn
