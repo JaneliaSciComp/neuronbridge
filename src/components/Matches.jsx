@@ -207,7 +207,7 @@ export default function Matches({ input, searchType, matches }) {
         >
           <Space size="middle">
             <FilterButton />
-            <ResultsExport results={fullList} />
+            <ResultsExport results={fullList} searchType={searchType} />
           </Space>
         </Col>
         <Col
