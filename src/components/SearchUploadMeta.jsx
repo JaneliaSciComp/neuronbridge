@@ -60,7 +60,12 @@ export default function SearchUploadMeta({
           // trigger the search to start on the backend.
           API.post("SearchAPI", "/searches", {
             body: {
-              searchIds: [result.data.createSearch.id]
+              submittedSearches: [
+                {
+                  id: result.data.createSearch.id,
+                  searchMask: uploadedFile.file.name
+                }
+              ]
             }
           });
 
