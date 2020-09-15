@@ -30,7 +30,7 @@ function drawCrosshair(x, y, ctx) {
 }
 
 export default function ImageComparison(props) {
-  const { maskOpen, maskPath, matchPath, matchThumbnail } = props;
+  const { maskOpen, maskPath, matchPath, matchThumbnail, mirrored } = props;
 
   const matchRef = useRef();
   const maskRef = useRef();
@@ -74,12 +74,14 @@ export default function ImageComparison(props) {
     };
   }, [maskOpen, maskPath, matchPath]);
 
+  const maskStyle = mirrored ? {transform: "scaleX(-1)"} : null;
+
   return (
     <Row className="imageComparison">
       {maskOpen && (
         <Col md={12}>
           <canvas ref={maskRef} width="500" height="250" />
-          <img src={maskPath} ref={maskImageRef} alt="Mask for search" />
+          <img src={maskPath} style={maskStyle} ref={maskImageRef} alt="Mask for search" />
         </Col>
       )}
       <Col md={maskOpen ? 12 : 24}>
@@ -92,6 +94,7 @@ export default function ImageComparison(props) {
 
 ImageComparison.propTypes = {
   maskOpen: PropTypes.bool.isRequired,
+  mirrored: PropTypes.bool.isRequired,
   maskPath: PropTypes.string.isRequired,
   matchPath: PropTypes.string.isRequired,
   matchThumbnail: PropTypes.string.isRequired
