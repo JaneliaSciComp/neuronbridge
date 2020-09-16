@@ -42,10 +42,14 @@ export default {
     ]
   },
   releasenotes: {
-    NEURONBRIDGE: {
-      title: "NeuronBridge",
+    data: {
+      title: "NeuronBridge Data",
       url:
         "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
+    },
+    website: {
+      title: "Neuronbridge Website",
+      url: "/RELEASENOTES.md"
     }
   }
 };

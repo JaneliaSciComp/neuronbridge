@@ -1,6 +1,6 @@
 # NeuronBridge
 
-NeuronBridge is a web-based color depth search tool for neuroscience data. 
+NeuronBridge is a web-based color depth search tool for neuroscience data.
 
 [Janelia's production instance of NeuronBridge](https://neuronbridge.janelia.org/)
 
@@ -13,13 +13,17 @@ This repository contains the web client. See also:
 The data is stored in AWS S3, and is available here:
 * [Color Depth MIPS on S3](https://open.quiltdata.com/b/janelia-flylight-color-depth)
 
+## Release Notes
+
+See the [RELEASENOTES.md](public/RELEASENOTES.md) in the public directory.
+
 ## License
 
 This code is made available under the [Janeia Open Source License](LICENSE.md). All studies and publications that use this software must cite [doi:10.25378/janelia.12159378.v1](https://doi.org/10.25378/janelia.12159378.v1).
 
 ## For Developers
 
-## Development 
+## Development
 
 The build currently requires Python 2.x. You can create that with Conda as follows:
 ```
