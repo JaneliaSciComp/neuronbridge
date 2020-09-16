@@ -1,11 +1,9 @@
 ## Version 1.6.0
 
 ### Whats New
-* Image Alignment and Color Depth MIP Search for you own imagery.
+* Image Alignment and Color Depth MIP Search for your own imagery.
   - Leveraging the power of AWS Lambda functions, you can now upload your own image, have it aligned and then use it to search for matches in our public datasets.
-  - Start by clicking on the 'Upload' link in the navigation bar at the top of the site.
-### Bug Fixes
-* Note 1
+  - Start by clicking on the [Upload](https://neuronbridge.janelia.org/upload) link in the navigation bar at the top of the site.
 
 ---
 ## Version 1.5.6 - 2020-09-14
