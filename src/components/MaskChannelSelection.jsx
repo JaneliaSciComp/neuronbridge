@@ -40,6 +40,10 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
     onChange(e.target.value, channelImgSrc);
   };
 
+  function handleCardClick(cobj) {
+    onChange(cobj.number, cobj.url);
+  }
+
   const channelImages = channelObjects.map(cobj => {
     const title = `Channel ${cobj.number}`;
     const selectTitle = <Radio value={cobj.number}>{title}</Radio>;
@@ -48,7 +52,8 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
         <Card
           size="small"
           title={selectTitle}
-          style={{ width: "100%", marginBottom: "1em" }}
+          style={{ width: "100%", marginBottom: "1em", cursor: "pointer" }}
+          onClick={() => handleCardClick(cobj)}
         >
           <img
             src={cobj.signed}
