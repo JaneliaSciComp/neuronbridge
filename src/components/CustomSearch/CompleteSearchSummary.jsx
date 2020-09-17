@@ -53,7 +53,10 @@ export default function CompleteSearchSummary({ search }) {
     </>
   ) : (
     <>
-      Found {search.nTotalMatches} {searchType} matches
+      Found{" "}
+      <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
+        {search.nTotalMatches} {searchType} matches
+      </Link>
     </>
   );
 
@@ -65,8 +68,8 @@ export default function CompleteSearchSummary({ search }) {
           {search.upload}
         </Link>
       </Col>
-      <Col lg={4}>{searchMessage}</Col>
-      <Col lg={4}>{formatRelative(new Date(search.createdOn), new Date())}</Col>
+      <Col lg={6}>{searchMessage}</Col>
+      <Col lg={6}>Started {formatRelative(new Date(search.createdOn), new Date())}</Col>
       <Col>
         <Tooltip title="Delete">
           <Button
