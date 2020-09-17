@@ -93,6 +93,10 @@ export default function App() {
     setDebug(!showDebug);
   };
 
+  const searchEnpoints = config.api.endpoints.map(endpoint => (
+    <p key={endpoint.name}>{endpoint.name} - {endpoint.endpoint}</p>
+  ));
+
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
   return (
@@ -165,8 +169,9 @@ export default function App() {
       <Footer style={{ textAlign: "center", position: "relative" }}>
         {showDebug && (
           <a href="/" onClick={handleShowDebug}>
-            Data Bucket: {config.s3.BUCKET} - Search Bucket:{" "}
-            {config.SEARCH_BUCKET}
+            <p>Data Bucket: {config.s3.BUCKET}</p>
+            <p>Search Bucket: {config.SEARCH_BUCKET}</p>
+            {searchEnpoints}
           </a>
         )}
         <p>

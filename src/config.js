@@ -1,21 +1,30 @@
 import { Auth } from "aws-amplify";
 
-let BUCKET_NAME = "janelia-neuronbridge-data-prod";
+const validLevels = ['prod', 'val', 'dev'];
 
-if (process.env.REACT_APP_DATA_TARGET === "dev") {
-  BUCKET_NAME = "janelia-neuronbridge-data-dev";
-} else if (process.env.REACT_APP_DATA_TARGET === "val") {
-  BUCKET_NAME = "janelia-neuronbridge-data-val";
+const dataLevel = process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
+
+let BUCKET_NAME = "janelia-neuronbridge-data-prod";
+if (validLevels.includes(dataLevel)) {
+  BUCKET_NAME = `janelia-neuronbridge-data-${dataLevel}`;
 }
+
+const searchLevel = process.env.REACT_APP_SEARCH_LEVEL || process.env.REACT_APP_LEVEL;
 
 let SEARCH_BUCKET = "janelia-neuronbridge-searches-prod";
-
-if (process.env.REACT_APP_DATA_TARGET === "dev") {
-  SEARCH_BUCKET = "janelia-neuronbridge-searches-dev";
-} else if (process.env.REACT_APP_DATA_TARGET === "val") {
-  SEARCH_BUCKET = "janelia-neuronbridge-searches-val";
+if (validLevels.includes(searchLevel)) {
+  SEARCH_BUCKET = `janelia-neuronbridge-searches-${searchLevel}`;
 }
 
+const endpointLevel = process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
+
+let SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
+
+if (endpointLevel === "dev") {
+  SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
+} else if (endpointLevel === "val") {
+  SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
+}
 
 export default {
   SEARCH_BUCKET,
@@ -39,7 +48,7 @@ export default {
     endpoints: [
       {
         name: "SearchAPI",
-        endpoint: "https://nt050zgj28.execute-api.us-east-1.amazonaws.com",
+        endpoint: SEARCH_ENDPOINT,
         custom_header: async () => {
           return {
             Authorization: `Bearer ${(await Auth.currentSession())
