@@ -18,7 +18,7 @@ function MaskSelectionLink({ search }) {
         type="success"
         showIcon
         message="Your image alignment has completed."
-        style={{ marginBottom: "0.5em" }}
+        style={{ marginBottom: "1em" }}
       />
       <Text component="p" strong>
         <ExclamationCircleTwoTone twoToneColor="#0000ff" /> To start the color
@@ -48,6 +48,28 @@ function AlignmentWarning() {
     />
   );
 }
+
+function ErrorMessage({ error }) {
+  if (error) {
+    return (
+      <Alert
+        type="error"
+        showIcon
+        message="This was an error performing this search. Please try again."
+      />
+    );
+  }
+  return null;
+}
+
+ErrorMessage.propTypes = {
+  error: PropTypes.string
+};
+
+ErrorMessage.defaultProps = {
+  error: null
+};
+
 export default function SearchesInProgress({ searches }) {
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
@@ -83,8 +105,9 @@ export default function SearchesInProgress({ searches }) {
           <Row>
             <Col span={24} style={{ marginTop: "1em" }}>
               <SearchSteps search={search} />
-              {search.step === 1 && <AlignmentWarning />}
+              {search.step === 1 && !search.errorMessage && <AlignmentWarning />}
               {showMaskSelection}
+              <ErrorMessage error={search.errorMessage} />
             </Col>
           </Row>
           <Divider />
@@ -98,6 +121,7 @@ export default function SearchesInProgress({ searches }) {
         type="warning"
         showIcon
         message="You don't have any searches currently running. Start a new search by uploading an image above."
+        style={{ marginBottom: "1em" }}
       />
     );
   }

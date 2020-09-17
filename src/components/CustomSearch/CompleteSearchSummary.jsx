@@ -43,6 +43,20 @@ export default function CompleteSearchSummary({ search }) {
 
   const searchType = search.searchType === "em2lm" ? "LM" : "EM";
 
+  const searchMessage = search.errorMessage ? (
+    <>
+      <span style={{ color: "red" }}>
+        <WarningOutlined style={{ color: "#f00", fontSize: "1.5em" }} /> Search
+        failed. <br />
+        Please try again.
+      </span>
+    </>
+  ) : (
+    <>
+      Found {search.nTotalMatches} {searchType} matches
+    </>
+  );
+
   return (
     <Row gutter={16} align="middle">
       <Col lg={4}>{thumbnail}</Col>
@@ -51,12 +65,7 @@ export default function CompleteSearchSummary({ search }) {
           {search.upload}
         </Link>
       </Col>
-      <Col lg={4}>
-        {search.errorMessage && (
-          <WarningOutlined style={{ color: "#f00", fontSize: "1.5em" }} />
-        )}
-        Found {search.nTotalMatches} {searchType} matches
-      </Col>
+      <Col lg={4}>{searchMessage}</Col>
       <Col lg={4}>{formatRelative(new Date(search.createdOn), new Date())}</Col>
       <Col>
         <Tooltip title="Delete">
