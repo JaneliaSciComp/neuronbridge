@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
 import { Auth, Storage } from "aws-amplify";
+import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
 import "./App.css";
@@ -160,21 +162,32 @@ export default function App() {
           />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer style={{ textAlign: "center", position: "relative" }}>
+        {showDebug && (
+          <a href="/" onClick={handleShowDebug}>
+            Data Bucket: {config.s3.BUCKET} - Search Bucket:{" "}
+            {config.SEARCH_BUCKET}
+          </a>
+        )}
         <p>
           HHMI ©2020{" "}
           <Link to="/releasenotes/website">
             v{process.env.REACT_APP_VERSION}
           </Link>{" "}
-          {showDebug && (
-            <a href="/" onClick={handleShowDebug}>
-              {config.s3.BUCKET} - {config.SEARCH_BUCKET}
-            </a>
-          )}{" "}
-          <a onClick={handleShowDebug} href="/" className="debug">
-            debug
+        </p>
+        <p>
+          <a href="mailto:neuronbridge@janelia.hhmi.org">
+            <FontAwesomeIcon icon={faEnvelope} /> Contact Us
           </a>
         </p>
+        <a
+          style={{ position: "absolute", left: 0 }}
+          onClick={handleShowDebug}
+          href="/"
+          className="debug"
+        >
+          debug
+        </a>
       </Footer>
       <HelpDrawer>
         <HelpContents />
