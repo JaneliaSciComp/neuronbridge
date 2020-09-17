@@ -8,8 +8,17 @@ if (process.env.REACT_APP_DATA_TARGET === "dev") {
   BUCKET_NAME = "janelia-neuronbridge-data-val";
 }
 
+let SEARCH_BUCKET = "janelia-neuronbridge-searches-prod";
+
+if (process.env.REACT_APP_DATA_TARGET === "dev") {
+  SEARCH_BUCKET = "janelia-neuronbridge-searches-dev";
+} else if (process.env.REACT_APP_DATA_TARGET === "val") {
+  SEARCH_BUCKET = "janelia-neuronbridge-searches-val";
+}
+
+
 export default {
-  SEARCH_BUCKET: "janelia-neuronbridge-searches-dev",
+  SEARCH_BUCKET,
   s3: {
     REGION: "us-east-1",
     BUCKET: BUCKET_NAME

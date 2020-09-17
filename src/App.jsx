@@ -163,8 +163,14 @@ export default function App() {
       <Footer style={{ textAlign: "center" }}>
         <p>
           HHMI ©2020{" "}
-          <Link to="/releasenotes/website">v{process.env.REACT_APP_VERSION}</Link>
-          {showDebug && config.s3.BUCKET}{" "}
+          <Link to="/releasenotes/website">
+            v{process.env.REACT_APP_VERSION}
+          </Link>{" "}
+          {showDebug && (
+            <a href="/" onClick={handleShowDebug}>
+              {config.s3.BUCKET} - {config.SEARCH_BUCKET}
+            </a>
+          )}{" "}
           <a onClick={handleShowDebug} href="/" className="debug">
             debug
           </a>
