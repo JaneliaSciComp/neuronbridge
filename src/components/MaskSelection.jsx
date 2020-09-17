@@ -20,6 +20,7 @@ export default function MaskSelection({ match }) {
   const [missingResults, setMissingResults] = useState(false);
   const [channel, setChannel] = useState(null);
   const [channelImgSrc, setChannelImgSrc] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export default function MaskSelection({ match }) {
       message.info("Please select a channel for masking and mask the image");
       return;
     }
+    setSubmitting(true);
     // send mask image to server
     Auth.currentCredentials().then(() => {
       const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
@@ -108,12 +110,19 @@ export default function MaskSelection({ match }) {
               .then(response => {
                 console.log(response);
                 // redirect back to search progress page.
+                setSubmitting(false);
                 history.push("/upload");
               })
-              .catch(error => console.log(error));
+              .catch(error => {
+                console.log(error)
+                setSubmitting(false);
+              });
           });
         })
-        .catch(e => console.error(e));
+        .catch(e => {
+          setSubmitting(false);
+          console.error(e)
+        });
     });
   };
 
@@ -136,7 +145,7 @@ export default function MaskSelection({ match }) {
       <Divider orientation="left">{dividerMessage}</Divider>
       <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
       <Divider />
-      <Button type="primary" onClick={handleSubmit}>
+      <Button type="primary" onClick={handleSubmit} loading={submitting}>
         Submit
       </Button>
     </div>
