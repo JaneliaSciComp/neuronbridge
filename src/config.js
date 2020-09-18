@@ -28,6 +28,9 @@ export default {
   releasenotes: {
     NEURONBRIDGE: {title: "NeuronBridge",
                    url: "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
+                  },
+    DATA: {title: "Precomputed match data",
+                   url: "https://janelia-neuronbridge-data-dev.s3.amazonaws.com/v2_1_0/DATA_NOTES.md"
                   }
   }
 };
