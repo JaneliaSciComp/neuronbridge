@@ -4,6 +4,15 @@
 * Image Alignment and Color Depth MIP Search for your own imagery.
   - Leveraging the power of AWS Lambda functions, you can now upload your own image, have it aligned and then use it to search for matches in our public datasets.
   - Start by clicking on the [Upload](https://neuronbridge.janelia.org/upload) link in the navigation bar at the top of the site.
+* Added "Matching Pixels" and "Library" columns to the results export. Columns are now:
+
+  ##### EM
+
+  | Number | Body Id | Score | Matched Pixels | Library |
+
+  ##### LM
+
+  | Number | Line Name | Score | Matched Pixels | Library | Slide Code |
 
 ---
 ## Version 1.5.6 - 2020-09-14
