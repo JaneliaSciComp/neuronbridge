@@ -51,7 +51,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
       </Row>
       {uploads && (
         <p>
-          Or <Link to="/mysearches">upload an image</Link> of your own to
+          Or <Link to="/upload">upload an image</Link> of your own to
           perform a custom search of our data sets.
         </p>
       )}

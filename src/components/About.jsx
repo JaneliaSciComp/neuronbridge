@@ -44,7 +44,7 @@ export default function About() {
       <ul>
       {
         Object.keys(config.releasenotes).map(name => (
-          <li><Link to={{pathname: `/releasenotes/${name}`
+          <li key={name}><Link to={{pathname: `/releasenotes/${name}`
                         }}>{config.releasenotes[name].title}</Link></li>
         ))
       }

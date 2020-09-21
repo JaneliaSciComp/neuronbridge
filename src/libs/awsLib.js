@@ -1,4 +1,4 @@
-import { API, Storage, graphqlOperation } from "aws-amplify";
+import { API, Storage, graphqlOperation, Auth } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import config from "../config";
 
@@ -23,4 +23,13 @@ export function signedLink(url) {
   };
 
   return Storage.get(url, downloadOptions).then(result => result);
+}
+
+export function logSearchInfo(search) {
+  Auth.currentCredentials().then(creds => {
+    // eslint-disable-next-line no-console
+    console.log(`Search: ${search.upload} - ${search.id}`);
+    // eslint-disable-next-line no-console
+    console.log(`\tFiles: https://s3.console.aws.amazon.com/s3/buckets/${config.SEARCH_BUCKET}/private/${creds.identityId}/${search.searchDir}/`);
+  });
 }

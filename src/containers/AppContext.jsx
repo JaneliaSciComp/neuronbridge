@@ -10,7 +10,8 @@ const AppProvider = (props) => {
     gridView: true,
     showHelp: false,
     helpTarget: null,
-    showFilterMenu: false
+    showFilterMenu: false,
+    paths: {}
   });
   const { children } = props;
   return (

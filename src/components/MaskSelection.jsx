@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { API, graphqlOperation } from "aws-amplify";
-import { message, Button, Radio, Typography, Row, Col, Card } from "antd";
+import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
+import { message, Button, Typography, Divider } from "antd";
 import NotFound from "./NotFound";
 import MaskDrawing from "./MaskDrawing";
+import MaskChannelSelection from "./MaskChannelSelection";
 import * as queries from "../graphql/queries";
+import * as mutations from "../graphql/mutations";
 import { signedLink } from "../libs/awsLib";
+import config from "../config";
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export default function MaskSelection({ match }) {
   const searchId = match.params.id;
   const [searchMeta, setSearchMeta] = useState(null);
+  const [maskedImage, setMaskedImage] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
   const [channel, setChannel] = useState(null);
+  const [channelImgSrc, setChannelImgSrc] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -29,7 +35,7 @@ export default function MaskSelection({ match }) {
           // When masks are ready this needs to be changed over.
           const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
           // TODO: add another step here to generate the real imageURL,
-          // rather than use the sameone as the thumbnail.
+          // rather than use the same one as the thumbnail.
           signedLink(uploadUrl).then(result => {
             const metaWithSignedUrls = {
               ...currentMeta,
@@ -52,54 +58,96 @@ export default function MaskSelection({ match }) {
   // if the search step is anything other than the mask selection step,
   // redirect the site back to the search results list.
   if (searchMeta && searchMeta.step !== 2) {
-    return <Redirect to="/mysearches" />;
+    return <Redirect to="/upload" />;
   }
 
   if (missingResults) {
     return <NotFound />;
   }
 
-  const channelImages = [0, 1, 2, 3, 4].map(image => {
-    const title = `Channel ${image}`;
-    const selectTitle = <Radio value={image}>{title}</Radio>;
-    return (
-      <Col key={image} xs={24} md={12} lg={12} xl={8}>
-        <Card size="small" title={selectTitle} style={{ width: "100%", marginBottom: '1em' }}>
-          <img src="/maskplaceholder.jpg" style={{maxWidth: '100%'}} alt="colordepth mip" />
-        </Card>
-      </Col>
-    );
-  });
+  const handleChannelSelect = (selectedChannel, imgSrc) => {
+    setChannelImgSrc(imgSrc);
+    setChannel(selectedChannel);
+  };
 
-  const handleChannelSelect = e => {
-    setChannel(e.target.value);
+  const handleMaskChange = maskImageData => {
+    setMaskedImage(maskImageData);
   };
 
   const handleSubmit = () => {
+    if (!maskedImage) {
+      message.info("Please select a channel for masking and mask the image");
+      return;
+    }
+    setSubmitting(true);
     // send mask image to server
-    // kick off the search
-    // redirect back to search progress page.
-    history.push('/mysearches');
+    Auth.currentCredentials().then(() => {
+      const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
+      const maskName = `${uploadName}_${channel}_mask.png`;
+      const maskPath = `${searchMeta.searchDir}/${maskName}`;
+      Storage.put(maskPath, maskedImage, {
+        contentType: maskedImage.type,
+        level: "private",
+        bucket: config.SEARCH_BUCKET
+      })
+        .then(() => {
+          // add the file to DynamoDB
+          const maskDetails = { searchMask: maskName, id: searchMeta.id };
+          API.graphql(
+            graphqlOperation(mutations.updateSearch, { input: maskDetails })
+          ).then(() => {
+            // kick off the search
+            API.post("SearchAPI", "/searches", {
+              body: {
+                submittedSearches: [
+                  {
+                    id: searchMeta.id,
+                    searchMask: maskName
+                  }
+                ]
+              }
+            })
+              .then(response => {
+                console.log(response);
+                // redirect back to search progress page.
+                setSubmitting(false);
+                history.push("/upload");
+              })
+              .catch(error => {
+                console.log(error)
+                setSubmitting(false);
+              });
+          });
+        })
+        .catch(e => {
+          setSubmitting(false);
+          console.error(e)
+        });
+    });
   };
 
-  let imgSrc;
-  if (channel !== null) {
-    imgSrc = `Channel ${channel}`;
+  let dividerMessage = "Please choose a channel to create your mask";
+  if (channel) {
+    dividerMessage =
+      "Use your mouse to draw around the area you wish to search. Then click 'Create Mask' to preview.";
   }
 
   return (
     <div>
       <Title component="h2">Mask selection</Title>
-      <Paragraph>Choose a channel to use in your search</Paragraph>
-      <Radio.Group onChange={handleChannelSelect} value={channel} style={{ display: 'block'}}>
-        <Row gutter={16}>{channelImages}</Row>
-      </Radio.Group>
-      <MaskDrawing imgSrc={imgSrc} />
-      <Button type="primary" onClick={handleSubmit}>Submit</Button>
-      <Paragraph>
-        Once mask is uploaded, redirect back to the searches page to show
-        progress.
-      </Paragraph>
+      {searchMeta && (
+        <MaskChannelSelection
+          searchDir={searchMeta.searchDir}
+          channel={channel}
+          onChange={handleChannelSelect}
+        />
+      )}
+      <Divider orientation="left">{dividerMessage}</Divider>
+      <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
+      <Divider />
+      <Button type="primary" onClick={handleSubmit} loading={submitting}>
+        Submit
+      </Button>
     </div>
   );
 }

@@ -2,6 +2,7 @@
   width: 100%;
   position: relative;
   margin-bottom: 1em;
+  display: inline;
 }
 
 .mdplaceholder img {
@@ -14,4 +15,10 @@
   width: 100%;
   text-align:center;
   color: white;
+}
+
+#maskLassoContainer {
+  position: relative;
+  overflow: scroll;
+  margin-bottom: 1em;
 }

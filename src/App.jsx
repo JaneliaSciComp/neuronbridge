@@ -1,7 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
+import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
 import "./App.css";
@@ -57,6 +59,31 @@ export default function App() {
     onLoad();
   }, [isAuthenticated, appState, appState.username, setAppState]);
 
+  useEffect(() => {
+    const storageOptions = {
+      customPrefix: {
+        public: ""
+      },
+      level: "public",
+      download: true
+    };
+
+    if (isAuthenticated) {
+      Auth.currentCredentials().then(() => {
+        Storage.get("paths.json", storageOptions).then(result => {
+          const fr = new FileReader();
+          fr.onload = evt => {
+            const paths = JSON.parse(evt.target.result);
+            if (paths !== appState.paths) {
+              setAppState({ ...appState, paths });
+            }
+          };
+          fr.readAsText(result.Body);
+        });
+      });
+    }
+  }, [isAuthenticated]);
+
   if (isAuthenticating) {
     return <p>Loading</p>;
   }
@@ -65,6 +92,10 @@ export default function App() {
     event.preventDefault();
     setDebug(!showDebug);
   };
+
+  const searchEnpoints = config.api.endpoints.map(endpoint => (
+    <p key={endpoint.name}>{endpoint.name} - {endpoint.endpoint}</p>
+  ));
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
@@ -87,17 +118,17 @@ export default function App() {
           <Menu.Item key="/">
             <Link to="/">Home</Link>
           </Menu.Item>
+          {isAuthenticated && (
+            <Menu.Item key="/upload">
+              <Link to="/upload">Upload</Link>
+            </Menu.Item>
+          )}
           <Menu.Item key="/about">
             <Link to="/about">About</Link>
           </Menu.Item>
           <Menu.Item key="/help">
             <Link to="/help">Help</Link>
           </Menu.Item>
-          {isAuthenticated && (
-            <Menu.Item key="/search">
-              <Link to="/search">Search</Link>
-            </Menu.Item>
-          )}
           {!isAuthenticated && [
             <Menu.Item key="/signup">
               <Link to="/signup">Signup</Link>
@@ -135,14 +166,33 @@ export default function App() {
           />
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>
+      <Footer style={{ textAlign: "center", position: "relative" }}>
+        {showDebug && (
+          <a href="/" onClick={handleShowDebug}>
+            <p>Data Bucket: {config.s3.BUCKET}</p>
+            <p>Search Bucket: {config.SEARCH_BUCKET}</p>
+            {searchEnpoints}
+          </a>
+        )}
         <p>
-          HHMI ©2020 v{process.env.REACT_APP_VERSION}{" "}
-          {showDebug && config.s3.BUCKET}{" "}
-          <a onClick={handleShowDebug} href="/" className="debug">
-            debug
+          HHMI ©2020{" "}
+          <Link to="/releasenotes/website">
+            v{process.env.REACT_APP_VERSION}
+          </Link>{" "}
+        </p>
+        <p>
+          <a href="mailto:neuronbridge@janelia.hhmi.org">
+            <FontAwesomeIcon icon={faEnvelope} /> Contact Us
           </a>
         </p>
+        <a
+          style={{ position: "absolute", left: 0 }}
+          onClick={handleShowDebug}
+          href="/"
+          className="debug"
+        >
+          debug
+        </a>
       </Footer>
       <HelpDrawer>
         <HelpContents />

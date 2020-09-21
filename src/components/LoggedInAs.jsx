@@ -24,12 +24,16 @@ export default function LoggedInAs(props) {
     history.push("/login");
   }
 
-
-
   return (
-    <p key="username" className="loggedInAs">
-      Logged in as {username} <Button onClick={handleLogout} size="small">Logout</Button>
-    </p>
+    <div>
+      <p key="username" className="loggedInAs">
+        Logged in as {username}{" "}
+        <Button onClick={handleLogout} size="small">
+          Logout
+        </Button>
+      </p>
+      <br style={{ clear: "all" }} />
+    </div>
   );
 }
 

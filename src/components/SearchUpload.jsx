@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Upload, message } from "antd";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,11 +11,8 @@ import "./SearchUpload.css";
 
 const { Dragger } = Upload;
 
-export default function SearchUpload() {
-  const [uploadedFile, setUploadedFile] = useState(null);
-
+export default function SearchUpload({ uploadedFile, handleUpload }) {
   function customRequest(upload) {
-
     Auth.currentCredentials().then(() => {
       Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
         progressCallback: progress => {
@@ -26,7 +24,7 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(result => {
-          setUploadedFile(upload);
+          handleUpload(upload);
           upload.onSuccess(result);
         })
         .catch(e => upload.onError(e));
@@ -40,15 +38,15 @@ export default function SearchUpload() {
         bucket: config.SEARCH_BUCKET
       })
         .then(() => {
-          setUploadedFile(null);
+          handleUpload(null);
         })
         .catch(e => message.error(e));
     });
   }
 
-	// generate unique id and place it in the name prop of the
-	// Dragger component. This way we can use that to name the upload
-	// directory something other than the fc-<uid> name currently used.
+  // generate unique id and place it in the name prop of the
+  // Dragger component. This way we can use that to name the upload
+  // directory something other than the fc-<uid> name currently used.
 
   return (
     <div className="uploader">
@@ -58,23 +56,40 @@ export default function SearchUpload() {
           action=""
           withCredentials
           listType="picture"
-          onRemove={onRemove}
           customRequest={customRequest}
-          showUploadList
+          showUploadList={{ showRemoveIcon: false }}
         >
           <p className="ant-upload-drag-icon">
             <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
           </p>
           <p className="ant-upload-text">
-            Start a search by clicking here or draging a file to this area to upload.
+            Upload a file by clicking here or dragging it to this area.
+          </p>
+          <p>
+            You can upload an unaligned confocal stack and NeuronBridge will
+            attempt to align it for you.
+          </p>
+          <p>
+            {" "}
+            Or use an aligned and masked Color Depth MIP to proceed directly to
+            the search.
           </p>
         </Dragger>
       )}
       <SearchUploadMeta
         uploadedFile={uploadedFile}
-        onSearchSubmit={() => setUploadedFile(null)}
-				onCancel={() => onRemove()}
+        onSearchSubmit={() => handleUpload(null)}
+        onCancel={() => onRemove()}
       />
     </div>
   );
 }
+
+SearchUpload.propTypes = {
+  handleUpload: PropTypes.func.isRequired,
+  uploadedFile: PropTypes.object
+};
+
+SearchUpload.defaultProps = {
+  uploadedFile: null
+};

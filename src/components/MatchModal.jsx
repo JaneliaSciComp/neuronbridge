@@ -11,6 +11,7 @@ export default function MatchModal(props) {
 
   const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
+  const [mirrored, setMirrored] = useState(false);
 
   useEffect(() => {
     setSelected(open);
@@ -35,6 +36,10 @@ export default function MatchModal(props) {
     }
   }
 
+  function toggleMirrorMask() {
+    setMirrored(mState => !mState);
+  }
+
   useEffect(() => {
     window.addEventListener("keydown", downHandler);
     // Remove event listeners on cleanup
@@ -48,7 +53,7 @@ export default function MatchModal(props) {
   let metaBlock = <p>Loading...</p>;
 
   if (mask)
-    if (mask.type) {
+    if (!mask.createdOn) {
       if (!isLM) {
         metaBlock = <LineMeta attributes={mask} />;
       } else {
@@ -105,6 +110,13 @@ export default function MatchModal(props) {
         >
           {maskOpen ? "Hide Mask" : "Show Mask"}
         </Button>,
+        <Button
+          key="mirror"
+          type="primary"
+          onClick={() => toggleMirrorMask()}
+        >
+          Mirror Mask
+        </Button>,
         <Button key="back" type="primary" onClick={() => setOpen(0)}>
           Done
         </Button>
@@ -134,6 +146,7 @@ export default function MatchModal(props) {
         </Col>
       </Row>
       <ImageComparison
+        mirrored={mirrored}
         maskOpen={maskOpen}
         maskPath={mask.imageURL}
         maskThumbnail={mask.thumbnailURL}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useRouteMatch, useParams, Route, Switch } from "react-router-dom";
 import { Storage } from "aws-amplify";
 import { Spin, message } from "antd";
@@ -6,6 +6,7 @@ import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import MatchesLoader from "./MatchesLoader";
 import NoSearch from "./NoSearch";
+import { AppContext } from "../containers/AppContext";
 
 import "./Search.css";
 
@@ -15,62 +16,73 @@ function Search() {
   const [chosenType, setChosenType] = useState("lines");
   const [isLoading, setIsLoading] = useState(false);
   const routeMatch = useRouteMatch();
+  const [appState] = useContext(AppContext);
 
   useEffect(() => {
-    setResults(null);
+    if ("precomputedDataRootPath" in appState.paths) {
+      setResults(null);
 
-    if (!searchTerm) {
-      return;
-    }
-    if (searchTerm.length < 3) {
-      message.error("Searches must have a minimum of 3 characters.");
-      setResults({ error: "Searches must have a minimum of 3 characters." });
-      return;
-    }
-    if (searchTerm.match(/\*(\*|\.)\*/)) {
-      message.error("Ha ha, nice try");
-      setResults({ error: "Ha ha, nice try" });
-      return;
-    }
+      if (!searchTerm) {
+        return;
+      }
+      if (searchTerm.length < 3) {
+        message.error("Searches must have a minimum of 3 characters.");
+        setResults({ error: "Searches must have a minimum of 3 characters." });
+        return;
+      }
+      if (searchTerm.match(/\*(\*|\.)\*/)) {
+        message.error("Ha ha, nice try");
+        setResults({ error: "Ha ha, nice try" });
+        return;
+      }
 
-    setIsLoading(true);
+      setIsLoading(true);
 
-    const storageOptions = {
-      customPrefix: {
-        public: ""
-      },
-      level: "public",
-      download: true
-    };
+      const storageOptions = {
+        customPrefix: {
+          public: ""
+        },
+        level: "public",
+        download: true
+      };
 
-    const s3group = searchType === "lines" ? "by_line" : "by_body";
+      const s3group = searchType === "lines" ? "by_line" : "by_body";
 
-    Storage.list(`metadata/${s3group}/${searchTerm}`, storageOptions)
-      .then(results => {
-        if (results.length === 0) {
-          throw Error("No results found.");
-        }
-        const combined = { results: [] };
-        results.forEach(result => {
-          Storage.get(result.key, storageOptions).then(metaData => {
-            // We can't use metaData.Body.text() here as it is not supported in safari
-            const fr = new FileReader();
-            fr.onload = evt => {
-              const text = evt.target.result;
-              const newResults = JSON.parse(text);
-              combined.results.push(...newResults.results);
-              setResults({ ...combined });
-              setIsLoading(false);
-            };
-            fr.readAsText(metaData.Body);
+      const metadataUrl = `${appState.paths.precomputedDataRootPath}/metadata/${s3group}/${searchTerm}`;
+
+      Storage.list(metadataUrl, storageOptions)
+        .then(results => {
+          if (results.length === 0) {
+            throw Error("No results found.");
+          }
+          const combined = { results: [] };
+          results.forEach(result => {
+            Storage.get(result.key, storageOptions).then(metaData => {
+              // We can't use metaData.Body.text() here as it is not supported in safari
+              const fr = new FileReader();
+              fr.onload = evt => {
+                const text = evt.target.result;
+                const newResults = JSON.parse(text);
+                // convert stored relative urls into the full path urls.
+                const urlFixedResults = newResults.results.map(newResult => {
+                  const fullImageUrl = `${appState.paths.imageryBaseURL}/${newResult.imageURL}`;
+                  const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${newResult.thumbnailURL}`;
+                  return {...newResult, imageURL: fullImageUrl, thumbnailURL: fullThumbUrl};
+                });
+                combined.results.push(...urlFixedResults);
+                setResults({ ...combined });
+                setIsLoading(false);
+              };
+              fr.readAsText(metaData.Body);
+            });
           });
+        })
+        .catch(error => {
+          setResults({ error });
+          setIsLoading(false);
         });
-      })
-      .catch(error => {
-        setResults({ error });
-        setIsLoading(false);
-      });
-  }, [searchTerm, searchType]);
+    }
+  }, [searchTerm, searchType, appState.paths]);
 
   return (
     <div>
@@ -95,7 +107,10 @@ function Search() {
             />
           </Route>
           <Route path={`${routeMatch.path}/matches/:matchId/:page?`}>
-            <MatchesLoader searchResult={searchResult} searchType={searchType} />
+            <MatchesLoader
+              searchResult={searchResult}
+              searchType={searchType}
+            />
           </Route>
         </Switch>
       )}

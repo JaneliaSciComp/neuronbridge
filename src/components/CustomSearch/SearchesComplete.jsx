@@ -1,21 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "antd";
-import { formatRelative } from "date-fns";
-import { Link } from "react-router-dom";
-import { deleteSearch } from "../libs/awsLib";
+import CompleteSearchSummary from "./CompleteSearchSummary";
 
 export default function SearchesComplete({ searches }) {
-  const searchesComplete = searches.map(search => {
-    const searchLink = `/results/${search.id}`;
-    return (
-      <li key={search.id}>
-        <Link to={searchLink}>{search.upload} </Link> -{" "}
-        {formatRelative(new Date(search.updatedOn), new Date())}{" "}
-        <Button onClick={() => deleteSearch(search)}>Delete</Button>
-      </li>
-    );
-  });
+  const searchesComplete = searches
+    .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
+    .map(search => {
+      return (
+        <li key={search.id} style={{ marginBottom: "1em", listStyle: 'none' }}>
+          <CompleteSearchSummary search={search} />
+        </li>
+      );
+    });
 
   if (searchesComplete.length === 0) {
     return (

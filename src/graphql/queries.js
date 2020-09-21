@@ -7,10 +7,14 @@ export const getSearch = /* GraphQL */ `
       id
       upload
       searchDir
+      searchMask
+      errorMessage
       step
       anatomicalRegion
       algorithm
       searchType
+      displayableMask
+      nTotalMatches
       updatedOn
       createdOn
     }
@@ -27,7 +31,12 @@ export const listSearches = /* GraphQL */ `
         id
         upload
         searchDir
+        searchMask
+        errorMessage
         step
+        displayableMask
+        nTotalMatches
+        searchType
         updatedOn
         createdOn
       }
