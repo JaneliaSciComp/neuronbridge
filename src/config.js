@@ -1,22 +1,25 @@
 import { Auth } from "aws-amplify";
 
-const validLevels = ['prod', 'val', 'dev'];
+const validLevels = ["prod", "val", "dev"];
 
-const dataLevel = process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
+const dataLevel =
+  process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
 
 let BUCKET_NAME = "janelia-neuronbridge-data-prod";
 if (validLevels.includes(dataLevel)) {
   BUCKET_NAME = `janelia-neuronbridge-data-${dataLevel}`;
 }
 
-const searchLevel = process.env.REACT_APP_SEARCH_LEVEL || process.env.REACT_APP_LEVEL;
+const searchLevel =
+  process.env.REACT_APP_SEARCH_LEVEL || process.env.REACT_APP_LEVEL;
 
 let SEARCH_BUCKET = "janelia-neuronbridge-searches-prod";
 if (validLevels.includes(searchLevel)) {
   SEARCH_BUCKET = `janelia-neuronbridge-searches-${searchLevel}`;
 }
 
-const endpointLevel = process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
+const endpointLevel =
+  process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
 
 let SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
 
@@ -60,10 +63,15 @@ export default {
     ]
   },
   releasenotes: {
-    data: {
-      title: "NeuronBridge Data",
+    NEURONBRIDGE: {
+      title: "NeuronBridge",
       url:
         "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
+    },
+    DATA: {
+      title: "Precomputed match data",
+      url:
+        "https://janelia-neuronbridge-data-dev.s3.amazonaws.com/v2_1_0/DATA_NOTES.md"
     },
     website: {
       title: "Neuronbridge Website",
