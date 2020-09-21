@@ -122,13 +122,13 @@ export default function SearchUploadMeta({
         onFinish={onFinish}
       >
         <Form.Item
-          label="Search Type"
+          label="Search"
           name="searchType"
           rules={[{ required: true, message: "Please choose a search type!" }]}
         >
           <Select>
-            <Option value="em2lm">EM to LM</Option>
-            <Option value="lm2em">LM to EM</Option>
+            <Option value="em2lm">LM Libraries</Option>
+            <Option value="lm2em">EM Libraries</Option>
           </Select>
         </Form.Item>
         {!isAligned && (

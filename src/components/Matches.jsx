@@ -190,7 +190,7 @@ export default function Matches({ input, searchType, matches }) {
       <Row style={{ paddingBottom: "1em" }}>
         <Col xs={24} md={{ span: 11, order: 1 }} xl={4}>
           <h3>
-            {searchType === "lines" ? "LM to EM" : "EM to LM"} Matches{" "}
+            {searchType === "lines" ? "EM" : "LM"} Matches{" "}
             <HelpButton
               target={
                 searchType === "lines" ? "MatchesLMtoEM" : "MatchesEMtoLM"
