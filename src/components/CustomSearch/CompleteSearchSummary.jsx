@@ -52,12 +52,9 @@ export default function CompleteSearchSummary({ search }) {
       </span>
     </>
   ) : (
-    <>
-      Found{" "}
-      <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
-        {search.nTotalMatches} {searchType} matches
-      </Link>
-    </>
+    <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
+      {search.nTotalMatches} {searchType} matches
+    </Link>
   );
 
   return (
