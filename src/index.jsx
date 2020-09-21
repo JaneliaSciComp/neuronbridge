@@ -8,7 +8,6 @@ import AlertTemplate from "react-alert-template-basic";
 
 import config from "./config";
 import App from "./App";
-import AppSyncConf from "./aws-exports";
 import { AppProvider } from "./containers/AppContext";
 import { FilterProvider } from "./containers/FilterContext";
 import * as serviceWorker from "./serviceWorker";
@@ -36,10 +35,10 @@ Amplify.configure({
   API: {
     endpoints: config.api.endpoints || []
   },
-  "aws_appsync_graphqlEndpoint": AppSyncConf.aws_appsync_graphqlEndpoint,
-  "aws_appsync_region": AppSyncConf.aws_appsync_region,
-  "aws_appsync_authenticationType": AppSyncConf.aws_appsync_authenticationType,
-  "aws_appsync_apiKey": AppSyncConf.aws_appsync_apiKey
+  "aws_appsync_graphqlEndpoint": config.appsync.graphqlEndpoint,
+  "aws_appsync_region": config.appsync.region,
+  "aws_appsync_authenticationType": config.appsync.authenticationType,
+  "aws_appsync_apiKey": config.appsync.apiKey
 });
 
 const alertOptions = {

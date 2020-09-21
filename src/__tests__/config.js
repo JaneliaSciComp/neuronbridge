@@ -47,7 +47,7 @@ describe('config testing', () => {
     expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-prod");
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-prod");
     const searchEndpoint = config.api.endpoints.filter(ep => ep.name === "SearchAPI")[0].endpoint;
-    expect(searchEndpoint).toEqual("https://nt050zgj28.execute-api.us-east-1.amazonaws.com");
+    expect(searchEndpoint).toEqual("https://nan47vkv68.execute-api.us-east-1.amazonaws.com");
   });
 
   test('test REACT_APP_LEVEL = null', () => {
@@ -60,7 +60,7 @@ describe('config testing', () => {
     expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-prod");
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-prod");
     const searchEndpoint = config.api.endpoints.filter(ep => ep.name === "SearchAPI")[0].endpoint;
-    expect(searchEndpoint).toEqual("https://nt050zgj28.execute-api.us-east-1.amazonaws.com");
+    expect(searchEndpoint).toEqual("https://nan47vkv68.execute-api.us-east-1.amazonaws.com");
   });
 
   test('test REACT_APP_LEVEL = dev && REACT_APP_DATA_TARGET = prod', () => {
@@ -99,7 +99,7 @@ describe('config testing', () => {
     expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-dev");
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-dev");
     const searchEndpoint = config.api.endpoints.filter(ep => ep.name === "SearchAPI")[0].endpoint;
-    expect(searchEndpoint).toEqual("https://nt050zgj28.execute-api.us-east-1.amazonaws.com");
+    expect(searchEndpoint).toEqual("https://nan47vkv68.execute-api.us-east-1.amazonaws.com");
   });
 
 
@@ -113,7 +113,7 @@ describe('config testing', () => {
     expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-prod");
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-prod");
     const searchEndpoint = config.api.endpoints.filter(ep => ep.name === "SearchAPI")[0].endpoint;
-    expect(searchEndpoint).toEqual("https://nt050zgj28.execute-api.us-east-1.amazonaws.com");
+    expect(searchEndpoint).toEqual("https://nan47vkv68.execute-api.us-east-1.amazonaws.com");
   });
 
 });

@@ -21,13 +21,22 @@ if (validLevels.includes(searchLevel)) {
 const endpointLevel =
   process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
 
-let SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
+let SEARCH_ENDPOINT = "https://nan47vkv68.execute-api.us-east-1.amazonaws.com";
 
 if (endpointLevel === "dev") {
   SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
 } else if (endpointLevel === "val") {
   SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
 }
+
+let GRAPHQL_ENDPOINT = "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql";
+
+if (endpointLevel === "dev") {
+	GRAPHQL_ENDPOINT = "https://na2n7flfhbc5jihltfahcyplua.appsync-api.us-east-1.amazonaws.com/graphql";
+} else if (endpointLevel === "val") {
+	GRAPHQL_ENDPOINT = "https://na2n7flfhbc5jihltfahcyplua.appsync-api.us-east-1.amazonaws.com/graphql";
+}
+
 
 export default {
   SEARCH_BUCKET,
@@ -61,6 +70,12 @@ export default {
         }
       }
     ]
+  },
+  appsync: {
+    graphqlEndpoint: GRAPHQL_ENDPOINT,
+    region: "us-east-1",
+    authenticationType: "AMAZON_COGNITO_USER_POOLS",
+    apiKey: "oexu5gsgl5g5vcaah6q4nl7gui"
   },
   releasenotes: {
     NEURONBRIDGE: {
