@@ -64,12 +64,26 @@ export default function CompleteSearchSummary({ search }) {
     <Row gutter={16} align="middle">
       <Col lg={4}>{thumbnail}</Col>
       <Col lg={6}>
-        <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
-          {search.upload}
-        </Link>
+        <Tooltip title={search.upload}>
+          <Link
+            to={searchLink}
+            disabled={Boolean(search.errorMessage)}
+            style={{
+              display: "block",
+              textWrap: "none",
+              width: "100%",
+              overflow: "hidden",
+              textOverflow: "ellipsis"
+            }}
+          >
+            {search.upload}
+          </Link>
+        </Tooltip>
       </Col>
       <Col lg={6}>{searchMessage}</Col>
-      <Col lg={6}>Started {formatRelative(new Date(search.createdOn), new Date())}</Col>
+      <Col lg={6}>
+        Started {formatRelative(new Date(search.createdOn), new Date())}
+      </Col>
       <Col>
         <Tooltip title="Delete">
           <Button
