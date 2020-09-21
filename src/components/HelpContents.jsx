@@ -66,7 +66,12 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="LH173" help={false} uploads={false} />
+          <SearchInput
+            examples={false}
+            searchTerm="LH173"
+            help={false}
+            uploads={false}
+          />
         </Col>
       </Row>
 
@@ -78,7 +83,12 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="MB*" help={false} uploads={false} />
+          <SearchInput
+            examples={false}
+            searchTerm="MB*"
+            help={false}
+            uploads={false}
+          />
         </Col>
       </Row>
 
@@ -90,7 +100,12 @@ export default function HelpContents({ scroll }) {
 
       <Row>
         <Col lg={12}>
-          <SearchInput examples={false} searchTerm="MB11*" help={false} uploads={false} />
+          <SearchInput
+            examples={false}
+            searchTerm="MB11*"
+            help={false}
+            uploads={false}
+          />
         </Col>
       </Row>
 
@@ -104,24 +119,24 @@ export default function HelpContents({ scroll }) {
 
       <Divider />
 
-      <h2 ref={refLookup.MatchesLMtoEM}>LM to EM Matches:</h2>
+      <h2 ref={refLookup.MatchesLMtoEM}>EM Matches:</h2>
       <p>
-        The Light Microscopy to Electron Microscopy matches show a grid of
-        images related to an Electron microscopy body from the FlyEM Project,
-        sorted from highest to lowest scoring.{" "}
+        The Electron Microscopy matches show a grid of images related to an
+        Electron microscopy body from the FlyEM Project, sorted from highest to
+        lowest scoring.{" "}
       </p>
 
       <Divider />
 
-      <h2 ref={refLookup.MatchesEMtoLM}>EM to LM Matches:</h2>
+      <h2 ref={refLookup.MatchesEMtoLM}>LM Matches:</h2>
       <p>
-        The Electron Microscopy to Light Microscopy matches show a grid of
-        images related to a cell line from one of our{" "}
-        <Link to="/about">papers</Link>. They are also sorted from highest to
-        lowest scoring. All matching images for a line are sorted together by
-        the highest scoring image in that line. By default, we display a single
-        image per line, but this can be adjusted in the &ldquo;results per
-        line&rdquo; textbox found by clicking on the results filters button.
+        The Light Microscopy matches show a grid of images related to a cell
+        line from one of our <Link to="/about">papers</Link>. They are also
+        sorted from highest to lowest scoring. All matching images for a line
+        are sorted together by the highest scoring image in that line. By
+        default, we display a single image per line, but this can be adjusted in
+        the &ldquo;results per line&rdquo; textbox found by clicking on the
+        results filters button.
       </p>
       <div>
         <InputNumber
