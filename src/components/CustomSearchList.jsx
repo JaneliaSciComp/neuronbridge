@@ -6,7 +6,7 @@ import SearchesInProgress from "./CustomSearch/SearchesInProgress";
 import SearchesComplete from "./CustomSearch/SearchesComplete";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
-import { logSearchInfo } from "../libs/awsLib";
+import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
 
 const { Title } = Typography;
 
@@ -29,10 +29,11 @@ export default function CustomSearchList() {
 
   // initial check on page load.
   useEffect(() => {
-    API.graphql(graphqlOperation(queries.listSearches)).then(results => {
-      results.data.listSearches.items.forEach(search => logSearchInfo(search));
-      dispatch({ type: "init", value: results.data.listSearches.items })
-    });
+		async function fetchSearches() {
+			const items = await fetchItemsNextToken({query: queries.listSearches, variables: {limit: 50}});
+      dispatch({ type: "init", value: items })
+		}
+		fetchSearches();
   }, []);
 
   useEffect(() => {
