@@ -17,7 +17,7 @@ export default function SearchesComplete({ searches }) {
     return (
       <div>
         <p>
-          You don&apos;t have any completed searches. Please wait for you in
+          You don&apos;t have any completed searches. Please wait for your in
           progress searches to complete or start a new search by uploading an
           image above.
         </p>
