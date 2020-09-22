@@ -86,8 +86,12 @@ export default function ImageComparison(props) {
     setMirroredMatch(mState => !mState);
   }
 
-  const maskStyle = mirrored ? { transform: "scaleX(-1)" } : null;
-  const matchStyle = mirroredMatch ? { transform: "scaleX(-1)" } : null;
+  const maskStyle = mirrored
+    ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
+    : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
+  const matchStyle = mirroredMatch
+    ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
+    : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
 
   const maskState = mirrored ? "Restore" : "Flip";
   const matchState = mirroredMatch ? "Restore" : "Flip";
@@ -119,7 +123,12 @@ export default function ImageComparison(props) {
         {maskOpen && (
           <Col md={12}>
             <Button
-              icon={<FontAwesomeIcon icon={faRepeat} style={{marginRight: "0.5em"}} />}
+              icon={
+                <FontAwesomeIcon
+                  icon={faRepeat}
+                  style={{ marginRight: "0.5em" }}
+                />
+              }
               onClick={() => toggleMirrorMask()}
             >
               {maskState} Mask
@@ -128,10 +137,15 @@ export default function ImageComparison(props) {
         )}
         <Col md={maskOpen ? 12 : 24}>
           <Button
-            icon={<FontAwesomeIcon icon={faRepeat} style={{marginRight: "0.5em"}} />}
+            icon={
+              <FontAwesomeIcon
+                icon={faRepeat}
+                style={{ marginRight: "0.5em" }}
+              />
+            }
             onClick={() => toggleMirrorMatch()}
           >
-           {matchState} Match
+            {matchState} Match
           </Button>
         </Col>
       </Row>
