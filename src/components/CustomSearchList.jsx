@@ -31,6 +31,7 @@ export default function CustomSearchList() {
   useEffect(() => {
 		async function fetchSearches() {
 			const items = await fetchItemsNextToken({query: queries.listSearches, variables: {limit: 50}});
+			items.forEach(search => logSearchInfo(search));
       dispatch({ type: "init", value: items })
 		}
 		fetchSearches();
