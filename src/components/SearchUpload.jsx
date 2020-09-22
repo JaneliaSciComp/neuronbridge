@@ -66,13 +66,8 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             Upload a file by clicking here or dragging it to this area.
           </p>
           <p>
-            You can upload an unaligned confocal stack and NeuronBridge will
-            attempt to align it for you.
-          </p>
-          <p>
-            {" "}
-            Or use an aligned and masked Color Depth MIP to proceed directly to
-            the search.
+            You can upload any color depth mask in PNG or TIFF format, which has
+            been aligned to the JRC2018_Unisex_20x_HR alignment space.
           </p>
         </Dragger>
       )}
