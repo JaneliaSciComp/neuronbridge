@@ -127,8 +127,8 @@ export default function SearchUploadMeta({
           rules={[{ required: true, message: "Please choose a search type!" }]}
         >
           <Select>
-            <Option value="em2lm">LM Libraries</Option>
-            <Option value="lm2em">EM Libraries</Option>
+            <Option value="em2lm">Light Microscopy Libraries</Option>
+            <Option value="lm2em">Electron Microscopy Libraries</Option>
           </Select>
         </Form.Item>
         {!isAligned && (
