@@ -150,28 +150,29 @@ export default function SearchUploadMeta({
               ]}
               style={{ marginBottom: 0 }}
             >
+              <span> x </span>
               <Form.Item
                 name="voxelx"
                 rules={[{ required: true }]}
-                style={{ display: "inline-block" }}
+                style={{ display: "inline-block", marginRight: '1em' }}
               >
-                <InputNumber />
+                <InputNumber step={0.1} precision={3} type="number" />
               </Form.Item>
-              <span> x </span>
+              <span> y </span>
               <Form.Item
                 name="voxely"
                 rules={[{ required: true }]}
-                style={{ display: "inline-block" }}
+                style={{ display: "inline-block", marginRight: '1em' }}
               >
-                <InputNumber />
+                <InputNumber step={0.1} precision={3} type="number" />
               </Form.Item>
-              <span> x </span>
+              <span> z </span>
               <Form.Item
                 name="voxelz"
                 rules={[{ required: true }]}
-                style={{ display: "inline-block" }}
+                style={{ display: "inline-block", marginRight: '1em' }}
               >
-                <InputNumber />
+                <InputNumber step={0.1} precision={3} type="number" />
               </Form.Item>
             </Form.Item>
 
