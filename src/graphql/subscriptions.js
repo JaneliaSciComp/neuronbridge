@@ -40,6 +40,8 @@ export const onUpdateSearch = /* GraphQL */ `
       searchDir
       searchType
       searchMask
+			cdsStarted
+			cdsFinished
       errorMessage
       displayableMask
       nTotalMatches

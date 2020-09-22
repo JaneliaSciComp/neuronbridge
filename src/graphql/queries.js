@@ -33,6 +33,8 @@ export const listSearches = /* GraphQL */ `
         searchDir
         searchMask
         errorMessage
+				cdsStarted
+				cdsFinished
         step
         displayableMask
         nTotalMatches

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Tooltip, Button, Row, Col } from "antd";
 import { CloseOutlined, WarningOutlined } from "@ant-design/icons";
-import { formatRelative } from "date-fns";
+import { formatRelative, differenceInSeconds } from "date-fns";
 import { Link } from "react-router-dom";
 import { faFileImage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -57,6 +57,11 @@ export default function CompleteSearchSummary({ search }) {
     </Link>
   );
 
+  const searchDuration = `completed in ${differenceInSeconds(
+    new Date(search.cdsFinished),
+    new Date(search.cdsStarted)
+  )} seconds`;
+
   return (
     <Row gutter={16} align="middle">
       <Col lg={4}>{thumbnail}</Col>
@@ -79,7 +84,9 @@ export default function CompleteSearchSummary({ search }) {
       </Col>
       <Col lg={6}>{searchMessage}</Col>
       <Col lg={6}>
-        Started {formatRelative(new Date(search.createdOn), new Date())}
+        <Tooltip title={searchDuration}>
+          Started {formatRelative(new Date(search.createdOn), new Date())}
+        </Tooltip>
       </Col>
       <Col>
         <Tooltip title="Delete">
