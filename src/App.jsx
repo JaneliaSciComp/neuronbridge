@@ -172,6 +172,7 @@ export default function App() {
             <p>Data Bucket: {config.s3.BUCKET}</p>
             <p>Search Bucket: {config.SEARCH_BUCKET}</p>
             {searchEnpoints}
+            <p>GraphQL: {config.appsync.graphqlEndpoint}</p>
           </a>
         )}
         <p>
