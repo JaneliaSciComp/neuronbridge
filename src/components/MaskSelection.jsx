@@ -74,6 +74,10 @@ export default function MaskSelection({ match }) {
     setMaskedImage(maskImageData);
   };
 
+  const handleCancel = () => {
+    history.replace("/upload");
+  };
+
   const handleSubmit = () => {
     if (!maskedImage) {
       message.info("Please select a channel for masking and mask the image");
@@ -114,14 +118,14 @@ export default function MaskSelection({ match }) {
                 history.push("/upload");
               })
               .catch(error => {
-                console.log(error)
+                console.log(error);
                 setSubmitting(false);
               });
           });
         })
         .catch(e => {
           setSubmitting(false);
-          console.error(e)
+          console.error(e);
         });
     });
   };
@@ -147,6 +151,9 @@ export default function MaskSelection({ match }) {
       <Divider />
       <Button type="primary" onClick={handleSubmit} loading={submitting}>
         Submit
+      </Button>
+      <Button type="default" onClick={handleCancel} style={{ marginLeft: "1em" }}>
+        Cancel
       </Button>
     </div>
   );
