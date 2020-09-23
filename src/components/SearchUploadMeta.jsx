@@ -5,8 +5,10 @@ import {
   Col,
   Form,
   InputNumber,
+	Input,
   Select,
   Button,
+	Typography,
   Switch,
   message
 } from "antd";
@@ -22,6 +24,7 @@ export default function SearchUploadMeta({
   onCancel
 }) {
   const [isAligned, setIsAligned] = useState(true);
+  const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
 
   if (!uploadedFile) {
@@ -43,10 +46,12 @@ export default function SearchUploadMeta({
 
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
-        searchDetails.channel = values.channel;
-        searchDetails.voxelX = values.voxelxy;
-        searchDetails.voxelY = values.voxelxy;
-        searchDetails.voxelZ = values.voxelz;
+				if (override) {
+					searchDetails.channel = values.channel;
+					searchDetails.voxelX = values.voxelxy;
+					searchDetails.voxelY = values.voxelxy;
+					searchDetails.voxelZ = values.voxelz;
+				}
       }
 
       if (isAligned) {
@@ -83,6 +88,10 @@ export default function SearchUploadMeta({
     setFakeMips(checked);
   };
 
+  const onOverrideChange = checked => {
+    setOverride(checked);
+  };
+
   const onAlignedChange = checked => {
     setIsAligned(checked);
   };
@@ -90,24 +99,7 @@ export default function SearchUploadMeta({
   return (
     <div>
       <p> Search parameters for {uploadedFile.file.name}</p>
-      <Row>
-        <Col span={8} style={{ textAlign: "right" }}>
-          <label htmlFor="aligned" style={{ marginRight: "8px" }}>
-            Has this image been aligned already?:{" "}
-          </label>
-        </Col>
-        <Col>
-          <Switch
-            style={{ margin: "0 0 1em 0" }}
-            id="aligned"
-            name="aligned"
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            checked={isAligned}
-            onChange={onAlignedChange}
-          />{" "}
-        </Col>
-      </Row>
+
       <Form
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -131,9 +123,58 @@ export default function SearchUploadMeta({
             <Option value="lm2em">Electron Microscopy Libraries</Option>
           </Select>
         </Form.Item>
+        <Row>
+          <Col span={8} style={{ textAlign: "right" }}>
+            <label htmlFor="aligned" style={{ marginRight: "8px" }}>
+              Has this image been aligned already?:{" "}
+            </label>
+          </Col>
+          <Col>
+            <Switch
+              style={{ margin: "0 0 1em 0" }}
+              id="aligned"
+              name="aligned"
+              checkedChildren={<CheckOutlined />}
+              unCheckedChildren={<CloseOutlined />}
+              checked={isAligned}
+              onChange={onAlignedChange}
+            />{" "}
+          </Col>
+        </Row>
         {!isAligned && (
           <>
-            {/* <Form.Item label="Template Matching Algorithm" name="algorithm">
+                <Row>
+                  <Col span={8} style={{ textAlign: "right" }}>
+                    <Typography.Title level={3}>Alignment Paramters</Typography.Title>
+                  </Col>
+                </Row>
+            <Row style={{marginBottom: "1em"}}>
+              <Col span={8} style={{ textAlign: "right"}}>
+                <label htmlFor="aligned" style={{ marginRight: "8px" }}>
+                  Override Image Properties:{" "}
+                </label>
+              </Col>
+              <Col span={2}>
+                <Switch
+                  style={{ margin: "0 0 1em 0" }}
+                  id="aligned"
+                  name="aligned"
+                  checkedChildren={<CheckOutlined />}
+                  unCheckedChildren={<CloseOutlined />}
+                  checked={override}
+                  onChange={onOverrideChange}
+                />{" "}
+              </Col>
+              <Col span={14} style={{ color: "rgba(0, 0, 0, 0.45)" }}>
+                By default we will try to infer voxel size and reference channel
+                from your file. If this doesn&apos;t work, you will need to
+                specify the values here.
+              </Col>
+            </Row>
+
+            {override && (
+              <>
+                {/* <Form.Item label="Template Matching Algorithm" name="algorithm">
               <Select>
                 <Option value="max">
                   Maximum Intensity (Good for clean samples)
@@ -143,65 +184,86 @@ export default function SearchUploadMeta({
                 </Option>
               </Select>
             </Form.Item> */}
-            <Form.Item
-              label="Voxel Size (microns)"
-              rules={[
-                { required: true, message: "Please choose a voxel size!" }
-              ]}
-              style={{ marginBottom: 0 }}
-            >
-              <span> xy </span>
-              <Form.Item
-                name="voxelxy"
-                rules={[{ required: true }]}
-                style={{ display: "inline-block", marginRight: "1em" }}
-              >
-                <InputNumber step={0.1} precision={3} type="number" />
-              </Form.Item>
-              <span> z </span>
-              <Form.Item
-                name="voxelz"
-                rules={[{ required: true }]}
-                style={{ display: "inline-block", marginRight: "1em" }}
-              >
-                <InputNumber step={0.1} precision={3} type="number" />
-              </Form.Item>
-            </Form.Item>
+                <Form.Item
+                  label="Voxel Size (microns)"
+                  rules={[
+                    { required: true, message: "Please choose a voxel size!" }
+                  ]}
+                  style={{ marginBottom: 0 }}
+                >
+                  <Form.Item
+                    name="voxelxy"
+                    rules={[{ required: true, message: "Voxel XY size is required" }]}
+                    style={{ display: "inline-block", marginRight: "1em" }}
+                  >
+                    <Input
+											addonBefore="XY"
+                      step={0.1}
+                      precision={3}
+                      type="number"
+                      placeholder="0"
+                      min={0}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="voxelz"
+                    rules={[{ required: true, message: "Voxel Z size is required" }]}
+                    style={{ display: "inline-block", marginRight: "1em" }}
+                  >
+                    <Input
+											addonBefore="Z"
+                      step={0.1}
+                      precision={3}
+                      type="number"
+                      placeholder="0"
+                      min={0}
+                    />
+                  </Form.Item>
+                </Form.Item>
 
-            <Form.Item
-              label="Reference Channel Index"
-              name="referenceChannel"
-              extra="This is the channel that will be aligned to the reference brain. It must include staining through-out the entire neuropil. A typical example is Brp antibody staining with nc82."
-            >
-              <InputNumber type="number" />
-            </Form.Item>
+                <Form.Item
+                  label="Reference Channel Index"
+                  name="channel"
+									rules={[{ required: true, message: 'Reference channel index is required'}]}
+                  extra="This is the channel that will be aligned to the reference brain. It must include staining through-out the entire neuropil. A typical example is Brp antibody staining with nc82."
+                >
+                  <InputNumber type="number" min={0} />
+                </Form.Item>
+              </>
+            )}
             <Form.Item label="Anatomical Region" name="anatomicalregion">
               <Select disabled>
                 <Option value="brain">Brain</Option>
                 <Option value="vnc">VNC</Option>
               </Select>
             </Form.Item>
-
             {process.env.NODE_ENV === "development" && (
-              <Row>
-                <Col
-                  span={8}
-                  style={{ textAlign: "right", marginRight: "8px" }}
-                >
-                  Use fake channels for masking?:{" "}
-                </Col>
-                <Col>
-                  <Switch
-                    style={{ margin: "0 0 1em 0" }}
-                    id="fake"
-                    name="fake"
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    checked={fakeMips}
-                    onChange={onFakeChange}
-                  />
-                </Col>
-              </Row>
+              <>
+                <Row>
+                  <Col span={8} style={{ textAlign: "right" }}>
+                    <Typography.Title level={3}>Dev Only!!</Typography.Title>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col
+                    span={8}
+                    style={{ textAlign: "right", marginRight: "8px" }}
+                  >
+                    Use fake channels for masking?:{" "}
+                  </Col>
+                  <Col>
+                    <Switch
+                      style={{ margin: "0 0 1em 0" }}
+                      id="fake"
+                      name="fake"
+                      checkedChildren={<CheckOutlined />}
+                      unCheckedChildren={<CloseOutlined />}
+                      checked={fakeMips}
+                      onChange={onFakeChange}
+                    />
+                  </Col>
+                </Row>
+              </>
             )}
           </>
         )}
