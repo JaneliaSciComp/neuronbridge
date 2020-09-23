@@ -44,8 +44,8 @@ export default function SearchUploadMeta({
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
         searchDetails.channel = values.channel;
-        searchDetails.voxelX = values.voxelx;
-        searchDetails.voxelY = values.voxely;
+        searchDetails.voxelX = values.voxelxy;
+        searchDetails.voxelY = values.voxelxy;
         searchDetails.voxelZ = values.voxelz;
       }
 
@@ -150,17 +150,9 @@ export default function SearchUploadMeta({
               ]}
               style={{ marginBottom: 0 }}
             >
-              <span> x </span>
+              <span> xy </span>
               <Form.Item
-                name="voxelx"
-                rules={[{ required: true }]}
-                style={{ display: "inline-block", marginRight: '1em' }}
-              >
-                <InputNumber step={0.1} precision={3} type="number" />
-              </Form.Item>
-              <span> y </span>
-              <Form.Item
-                name="voxely"
+                name="voxelxy"
                 rules={[{ required: true }]}
                 style={{ display: "inline-block", marginRight: '1em' }}
               >
