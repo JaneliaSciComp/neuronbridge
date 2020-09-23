@@ -176,22 +176,6 @@ export default function SearchUploadMeta({
               </Form.Item>
             </Form.Item>
 
-            <Form.Item
-              label="Number of Channels"
-              name="channel"
-              extra="Our alignment algorithm assumes channel 0 is the reference."
-              rules={[{ required: true, message: "Please choose a channel!" }]}
-            >
-              <Select>
-                <Option value="0">0</Option>
-                <Option value="1">1</Option>
-                <Option value="2">2</Option>
-                <Option value="3">3</Option>
-                <Option value="4">4</Option>
-                <Option value="5">5</Option>
-              </Select>
-            </Form.Item>
-
             <Form.Item label="Anatomical Region" name="anatomicalregion">
               <Select disabled>
                 <Option value="brain">Brain</Option>
