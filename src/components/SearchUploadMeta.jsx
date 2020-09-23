@@ -154,7 +154,7 @@ export default function SearchUploadMeta({
               <Form.Item
                 name="voxelxy"
                 rules={[{ required: true }]}
-                style={{ display: "inline-block", marginRight: '1em' }}
+                style={{ display: "inline-block", marginRight: "1em" }}
               >
                 <InputNumber step={0.1} precision={3} type="number" />
               </Form.Item>
@@ -162,18 +162,26 @@ export default function SearchUploadMeta({
               <Form.Item
                 name="voxelz"
                 rules={[{ required: true }]}
-                style={{ display: "inline-block", marginRight: '1em' }}
+                style={{ display: "inline-block", marginRight: "1em" }}
               >
                 <InputNumber step={0.1} precision={3} type="number" />
               </Form.Item>
             </Form.Item>
 
+            <Form.Item
+              label="Reference Channel Index"
+              name="referenceChannel"
+              extra="This is the channel that will be aligned to the reference brain. It must include staining through-out the entire neuropil. A typical example is Brp antibody staining with nc82."
+            >
+              <InputNumber type="number" />
+            </Form.Item>
             <Form.Item label="Anatomical Region" name="anatomicalregion">
               <Select disabled>
                 <Option value="brain">Brain</Option>
                 <Option value="vnc">VNC</Option>
               </Select>
             </Form.Item>
+
             {process.env.NODE_ENV === "development" && (
               <Row>
                 <Col
