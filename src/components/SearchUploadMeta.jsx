@@ -96,16 +96,16 @@ export default function SearchUploadMeta({
             Has this image been aligned already?:{" "}
           </label>
         </Col>
-        <Col style={{ margin: "0 0 1em 0" }}>
+        <Col>
           <Switch
+            style={{ margin: "0 0 1em 0" }}
             id="aligned"
             name="aligned"
-						disabled
             checkedChildren={<CheckOutlined />}
             unCheckedChildren={<CloseOutlined />}
             checked={isAligned}
             onChange={onAlignedChange}
-          /> Image alignment will be coming soon.
+          />{" "}
         </Col>
       </Row>
       <Form
