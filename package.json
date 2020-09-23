@@ -97,7 +97,9 @@
     "test:devel": "cypress open",
     "deploy:dev": "npm run test && REACT_APP_LEVEL=dev npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
     "deploy:val": "npm run test && REACT_APP_LEVEL=val npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
-    "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod"
+    "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -115,6 +117,10 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-essentials": "^6.0.21",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/react": "^6.0.21",
     "@testing-library/cypress": "^6.0.0",
     "@testing-library/react": "^9.5.0",
     "cypress": "^4.5.0",
@@ -125,7 +131,8 @@
     "eslint-plugin-prettier": "^3.1.2",
     "jest-axe": "^3.4.0",
     "less-loader": "^6.0.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "react-is": "^16.13.1"
   },
   "jest": {
     "roots": [
