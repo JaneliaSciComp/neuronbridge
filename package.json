@@ -98,7 +98,7 @@
     "deploy:dev": "npm run test && REACT_APP_LEVEL=dev npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
     "deploy:val": "npm run test && REACT_APP_LEVEL=val npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
     "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook  -s ./public -p 6006",
     "build-storybook": "build-storybook"
   },
   "eslintConfig": {
