@@ -168,7 +168,7 @@ export default function SearchUploadMeta({
               <Col span={14} style={{ color: "rgba(0, 0, 0, 0.45)" }}>
                 By default we will try to infer voxel size and reference channel
                 from your file. If this doesn&apos;t work, you will need to
-                specify the values here.
+                override the values here.
               </Col>
             </Row>
 
