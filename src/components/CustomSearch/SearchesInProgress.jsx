@@ -28,7 +28,7 @@ function MaskSelectionLink({ search }) {
           className="ant-btn ant-btn-primary"
           style={{ color: "#fff" }}
         >
-          select a channel and mask region
+          set your mask region and parameters
         </Link>
       </Text>
     </div>
