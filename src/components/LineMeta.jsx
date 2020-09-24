@@ -54,7 +54,7 @@ export default function LineMeta({ attributes, score }) {
           <ExternalLink
             publishedName={publishedName}
             isLM
-            library={attributes.Library}
+            library={libraryName}
           />
         </p>
       </Col>

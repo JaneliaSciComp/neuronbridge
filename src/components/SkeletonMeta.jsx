@@ -35,7 +35,7 @@ export default function SkeletonMeta({ attributes, score }) {
           <ExternalLink
             publishedName={publishedName}
             isLM={false}
-            library={attributes.Library}
+            library={libraryName}
           />
         </p>
       </Col>
