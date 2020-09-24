@@ -54,10 +54,6 @@ export default function SearchUploadMeta({
 				}
       }
 
-      if (isAligned) {
-        searchDetails.searchMask = uploadedFile.file.name;
-      }
-
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
