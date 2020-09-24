@@ -29,8 +29,6 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
           setChannels((existing) => [...existing, {signed, url: original.key, number}]);
         });
       });
-      // set the selected image to the first channel available.
-      // onChange(channelNum, channelImgSrc);
     }
     fetchData();
   }, [searchDir]);
