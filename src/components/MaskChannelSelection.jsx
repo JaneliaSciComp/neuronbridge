@@ -25,8 +25,13 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
         // get signed urls for each one
         signedLink(original.key).then(signed => {
           // figure out channel number from file name
-          const number = parseInt(original.key.match(/_(\d*)\.png$/)[1],10);
-          setChannels((existing) => [...existing, {signed, url: original.key, number}]);
+          if (/\.png$/.test(original.key)) {
+            const number = parseInt(original.key.match(/_(\d*)\.png$/)[1], 10);
+            setChannels(existing => [
+              ...existing,
+              { signed, url: original.key, number }
+            ]);
+          }
         });
       });
     }
@@ -34,7 +39,9 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
   }, [searchDir]);
 
   const handleChannelSelect = e => {
-    const channelImgSrc = channelObjects.filter(obj => obj.number === e.target.value)[0].url;
+    const channelImgSrc = channelObjects.filter(
+      obj => obj.number === e.target.value
+    )[0].url;
     onChange(e.target.value, channelImgSrc);
   };
 

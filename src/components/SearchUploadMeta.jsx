@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   Row,
   Col,
   Form,
   InputNumber,
-	Input,
+  Input,
   Select,
   Button,
-	Typography,
+  Typography,
   Switch,
   message
 } from "antd";
@@ -26,12 +27,16 @@ export default function SearchUploadMeta({
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
+	const [isUploading, setIsUploading] = useState(false);
+
+	const history = useHistory();
 
   if (!uploadedFile) {
     return null;
   }
 
   const onFinish = values => {
+		setIsUploading(true);
     Auth.currentCredentials().then(currentCreds => {
       const searchDetails = {
         step: isAligned ? 2 : 0,
@@ -46,33 +51,42 @@ export default function SearchUploadMeta({
 
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
-				if (override) {
-					searchDetails.channel = values.channel;
-					searchDetails.voxelX = values.voxelxy;
-					searchDetails.voxelY = values.voxelxy;
-					searchDetails.voxelZ = values.voxelz;
-				}
+        if (override) {
+          searchDetails.channel = values.channel;
+          searchDetails.voxelX = values.voxelxy;
+          searchDetails.voxelY = values.voxelxy;
+          searchDetails.voxelZ = values.voxelz;
+        }
       }
 
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
         .then(result => {
-          // trigger the search to start on the backend.
-          API.post("SearchAPI", "/searches", {
-            body: {
-              submittedSearches: [
-                {
-                  id: result.data.createSearch.id,
-                  searchMask: uploadedFile.file.name
-                }
-              ]
-            }
-          });
+          // if aligned already create the generatedMIPS file and go to mask selection page.
+          if (isAligned) {
+            // TODO: call lambda to generate mask_1.png from uploaded file?
+						setIsUploading(false);
+						history.push(`/mask-selection/${result.data.createSearch.id}`);
+          } else {
+            // else trigger the alignment to start on the backend.
+            API.post("SearchAPI", "/searches", {
+              body: {
+                submittedSearches: [
+                  {
+                    id: result.data.createSearch.id,
+                    searchMask: uploadedFile.file.name
+                  }
+                ]
+              }
+            });
 
-          onSearchSubmit();
+						setIsUploading(false);
+            onSearchSubmit();
+          }
         })
         .catch(e => {
+					setIsUploading(false);
           e.errors.forEach(error => {
             message.error(error.message);
           });
@@ -139,13 +153,15 @@ export default function SearchUploadMeta({
         </Row>
         {!isAligned && (
           <>
-                <Row>
-                  <Col span={8} style={{ textAlign: "right" }}>
-                    <Typography.Title level={3}>Alignment Paramters</Typography.Title>
-                  </Col>
-                </Row>
-            <Row style={{marginBottom: "1em"}}>
-              <Col span={8} style={{ textAlign: "right"}}>
+            <Row>
+              <Col span={8} style={{ textAlign: "right" }}>
+                <Typography.Title level={3}>
+                  Alignment Paramters
+                </Typography.Title>
+              </Col>
+            </Row>
+            <Row style={{ marginBottom: "1em" }}>
+              <Col span={8} style={{ textAlign: "right" }}>
                 <label htmlFor="aligned" style={{ marginRight: "8px" }}>
                   Override Image Properties:{" "}
                 </label>
@@ -189,11 +205,13 @@ export default function SearchUploadMeta({
                 >
                   <Form.Item
                     name="voxelxy"
-                    rules={[{ required: true, message: "Voxel XY size is required" }]}
+                    rules={[
+                      { required: true, message: "Voxel XY size is required" }
+                    ]}
                     style={{ display: "inline-block", marginRight: "1em" }}
                   >
                     <Input
-											addonBefore="XY"
+                      addonBefore="XY"
                       step={0.1}
                       precision={3}
                       type="number"
@@ -203,11 +221,13 @@ export default function SearchUploadMeta({
                   </Form.Item>
                   <Form.Item
                     name="voxelz"
-                    rules={[{ required: true, message: "Voxel Z size is required" }]}
+                    rules={[
+                      { required: true, message: "Voxel Z size is required" }
+                    ]}
                     style={{ display: "inline-block", marginRight: "1em" }}
                   >
                     <Input
-											addonBefore="Z"
+                      addonBefore="Z"
                       step={0.1}
                       precision={3}
                       type="number"
@@ -220,7 +240,12 @@ export default function SearchUploadMeta({
                 <Form.Item
                   label="Reference Channel Index"
                   name="channel"
-									rules={[{ required: true, message: 'Reference channel index is required'}]}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Reference channel index is required"
+                    }
+                  ]}
                   extra="This is the channel that will be aligned to the reference brain. It must include staining through-out the entire neuropil. A typical example is Brp antibody staining with nc82."
                 >
                   <InputNumber type="number" min={0} />
@@ -264,7 +289,7 @@ export default function SearchUploadMeta({
           </>
         )}
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isUploading}>
             Submit
           </Button>
           <Button style={{ marginLeft: "1em" }} onClick={onCancel}>
