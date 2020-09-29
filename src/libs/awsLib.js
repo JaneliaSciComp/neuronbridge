@@ -3,15 +3,21 @@ import * as mutations from "../graphql/mutations";
 import config from "../config";
 
 // eslint-disable-next-line import/prefer-default-export
-export function deleteSearch(search) {
+export async function deleteSearch(search) {
   const { id } = search;
   API.graphql(
     graphqlOperation(mutations.deleteSearch, { input: { id } })
   );
 
-  Storage.remove(`${search.searchDir}/${search.upload}`, {
+  const options = {
     level: "private",
     bucket: config.SEARCH_BUCKET
+  };
+
+  // remove all the files for this search
+  const filesList = await Storage.list(`${search.searchDir}`, options);
+  filesList.forEach(file => {
+    Storage.remove(file.key, options);
   });
 }
 
