@@ -27,19 +27,19 @@ export default function SearchUploadMeta({
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
-	const [isUploading, setIsUploading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
-	const history = useHistory();
+  const history = useHistory();
 
   if (!uploadedFile) {
     return null;
   }
 
   const onFinish = values => {
-		setIsUploading(true);
+    setIsUploading(true);
     Auth.currentCredentials().then(currentCreds => {
       const searchDetails = {
-        step: isAligned ? 2 : 0,
+        step: 0,
         algorithm: values.algorithm,
         searchType: values.searchType,
         identityId: currentCreds.identityId,
@@ -65,9 +65,15 @@ export default function SearchUploadMeta({
         .then(result => {
           // if aligned already create the generatedMIPS file and go to mask selection page.
           if (isAligned) {
-            // TODO: call lambda to generate mask_1.png from uploaded file?
-						setIsUploading(false);
-						history.push(`/mask-selection/${result.data.createSearch.id}`);
+            API.post("SearchAPI", "copy", {
+              body: {
+                searchId: result.data.createSearch.id,
+                action: "create_default_channel"
+              }
+            }).then(() => {
+              setIsUploading(false);
+              history.push(`/mask-selection/${result.data.createSearch.id}`);
+            });
           } else {
             // else trigger the alignment to start on the backend.
             API.post("SearchAPI", "/searches", {
@@ -81,12 +87,12 @@ export default function SearchUploadMeta({
               }
             });
 
-						setIsUploading(false);
+            setIsUploading(false);
             onSearchSubmit();
           }
         })
         .catch(e => {
-					setIsUploading(false);
+          setIsUploading(false);
           e.errors.forEach(error => {
             message.error(error.message);
           });
