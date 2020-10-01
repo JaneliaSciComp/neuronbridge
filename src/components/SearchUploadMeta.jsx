@@ -18,6 +18,7 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 
 const { Option } = Select;
+const { Title } = Typography;
 
 export default function SearchUploadMeta({
   uploadedFile,
@@ -114,7 +115,7 @@ export default function SearchUploadMeta({
 
   return (
     <div>
-      <p> Search parameters for {uploadedFile.file.name}</p>
+      <Title level={3}>Tell us more about your image: {uploadedFile.file.name}</Title>
 
       <Form
         labelCol={{ span: 8 }}
@@ -161,9 +162,9 @@ export default function SearchUploadMeta({
           <>
             <Row>
               <Col span={8} style={{ textAlign: "right" }}>
-                <Typography.Title level={3}>
+                <Title level={4}>
                   Alignment Paramters
-                </Typography.Title>
+                </Title>
               </Col>
             </Row>
             <Row style={{ marginBottom: "1em" }}>
@@ -268,7 +269,7 @@ export default function SearchUploadMeta({
               <>
                 <Row>
                   <Col span={8} style={{ textAlign: "right" }}>
-                    <Typography.Title level={3}>Dev Only!!</Typography.Title>
+                    <Title level={4}>Dev Only!!</Title>
                   </Col>
                 </Row>
                 <Row>
