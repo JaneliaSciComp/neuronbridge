@@ -4,6 +4,8 @@ import { Tooltip, Button, Row, Col } from "antd";
 import { CloseOutlined, WarningOutlined } from "@ant-design/icons";
 import { formatRelative, differenceInSeconds } from "date-fns";
 import { Link } from "react-router-dom";
+import { API } from "aws-amplify";
+
 import { faFileImage } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteSearch, signedLink } from "../../libs/awsLib";
@@ -13,6 +15,7 @@ import "./CompleteSearchSummary.css";
 
 export default function CompleteSearchSummary({ search }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [isCopying, setIsCopying] = useState(false);
   const searchLink = `/results/${search.id}`;
 
   useEffect(() => {
@@ -42,6 +45,20 @@ export default function CompleteSearchSummary({ search }) {
   }
 
   const searchType = search.searchType === "em2lm" ? "LM" : "EM";
+
+  function copyAlignment() {
+    setIsCopying(true);
+    API.post("SearchAPI", "copy", {
+      body: {
+        searchId: search.id,
+        action: "alignment_copy"
+      }
+    })
+      .then(() => {
+        setIsCopying(false);
+      })
+      .catch(() => setIsCopying(false));
+  }
 
   const searchMessage = search.errorMessage ? (
     <>
@@ -82,13 +99,16 @@ export default function CompleteSearchSummary({ search }) {
           </Link>
         </Tooltip>
       </Col>
-      <Col lg={6}>{searchMessage}</Col>
-      <Col lg={6}>
+      <Col lg={5}>{searchMessage}</Col>
+      <Col lg={5}>
         <Tooltip title={searchDuration}>
           Started {formatRelative(new Date(search.createdOn), new Date())}
         </Tooltip>
       </Col>
       <Col>
+        <Button loading={isCopying} onClick={copyAlignment}>
+          Copy
+        </Button>
         <Tooltip title="Delete">
           <Button
             danger
