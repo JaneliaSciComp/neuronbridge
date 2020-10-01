@@ -31,6 +31,9 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
               ...existing,
               { signed, url: original.key, number }
             ]);
+            if (channelsList.length === 1) {
+              onChange(number, original.key);
+            }
           }
         });
       });
