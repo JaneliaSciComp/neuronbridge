@@ -17,7 +17,7 @@ function MaskSelectionLink({ search }) {
       <Alert
         type="success"
         showIcon
-        message="Your image alignment has completed."
+        message="Your images are aligned and await masking."
         style={{ marginBottom: "1em" }}
       />
       <Text component="p" strong>
