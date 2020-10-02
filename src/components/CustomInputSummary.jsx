@@ -10,7 +10,7 @@ export default function CustomInputSummary({ searchMeta }) {
 
   return (
     <div style={{marginTop: '2em'}}>
-      <h3>Input Image</h3>
+      <h3>Input Mask</h3>
       <Row>
         <Col xs={24} lg={8}>
           <ImageWithModal
