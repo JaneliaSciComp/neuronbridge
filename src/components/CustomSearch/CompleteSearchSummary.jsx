@@ -79,9 +79,18 @@ export default function CompleteSearchSummary({ search }) {
     new Date(search.cdsStarted)
   )} seconds`;
 
+  const alignmentDuration = search.alignFinished
+    ? `aligned in ${differenceInSeconds(
+        new Date(search.alignFinished),
+        new Date(search.alignStarted)
+      )} seconds`
+    : null;
+
   return (
     <Row gutter={16} align="middle">
-      <Col lg={4}>{thumbnail}</Col>
+      <Col lg={4}>
+        <Tooltip title={alignmentDuration}>{thumbnail}</Tooltip>
+      </Col>
       <Col lg={6}>
         <Tooltip title={search.upload}>
           <Link
