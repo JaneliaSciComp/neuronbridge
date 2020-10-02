@@ -5,7 +5,6 @@ import {
   Row,
   Col,
   Form,
-  InputNumber,
   Input,
   Select,
   Button,
@@ -115,7 +114,9 @@ export default function SearchUploadMeta({
 
   return (
     <div>
-      <Title level={3}>Tell us more about your image: {uploadedFile.file.name}</Title>
+      <Title level={3}>
+        Tell us more about your image: {uploadedFile.file.name}
+      </Title>
 
       <Form
         labelCol={{ span: 8 }}
@@ -125,6 +126,8 @@ export default function SearchUploadMeta({
           searchtype: "em2lm",
           anatomicalregion: "brain",
           algorithm: "max",
+          channel: 3,
+          referenceChannel: "auto",
           mimetype:
             uploadedFile.file.type || "Couldn't be determined, please select"
         }}
@@ -152,9 +155,7 @@ export default function SearchUploadMeta({
           <>
             <Row>
               <Col span={8} style={{ textAlign: "right" }}>
-                <Title level={4}>
-                  Alignment Paramters
-                </Title>
+                <Title level={4}>Alignment Paramters</Title>
               </Col>
             </Row>
             <Row style={{ marginBottom: "1em" }}>
@@ -235,17 +236,34 @@ export default function SearchUploadMeta({
                 </Form.Item>
 
                 <Form.Item
-                  label="Reference Channel Index"
+                  label="Channel count"
                   name="channel"
                   rules={[
                     {
                       required: true,
-                      message: "Reference channel index is required"
+                      message: "Channel count is required"
                     }
                   ]}
+                >
+                  <Select>
+                    <Option value={1}>1</Option>
+                    <Option value={2}>2</Option>
+                    <Option value={3}>3</Option>
+                    <Option value={4}>4</Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  label="Reference Channel Index"
+                  name="referenceChannel"
                   extra="This is the channel that will be aligned to the reference brain. It must include staining through-out the entire neuropil. A typical example is Brp antibody staining with nc82."
                 >
-                  <InputNumber type="number" min={0} />
+                  <Select>
+                    <Option value="auto">Auto-detect</Option>
+                    <Option value="1">1</Option>
+                    <Option value="2">2</Option>
+                    <Option value="3">3</Option>
+                    <Option value="4">4</Option>
+                  </Select>
                 </Form.Item>
               </>
             )}
