@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
-import { message, Button, Typography, Divider } from "antd";
+import { message, Form, Button, Typography, Divider } from "antd";
 import NotFound from "./NotFound";
 import MaskDrawing from "./MaskDrawing";
 import MaskChannelSelection from "./MaskChannelSelection";
+import ColorDepthSearchParameters from "./ColorDepthSearchParameters";
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import { signedLink } from "../libs/awsLib";
@@ -78,7 +79,8 @@ export default function MaskSelection({ match }) {
     history.replace("/upload");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (searchFormData) => {
+    console.log(searchFormData);
     if (!maskedImage) {
       message.info("Please select a channel for masking and mask the image");
       return;
@@ -95,10 +97,11 @@ export default function MaskSelection({ match }) {
         bucket: config.SEARCH_BUCKET
       })
         .then(() => {
-          // add the file to DynamoDB
+          // add the mask file & search details to DynamoDB
           const maskDetails = { searchMask: maskName, id: searchMeta.id };
+          const searchParams = {...searchFormData, ...maskDetails};
           API.graphql(
-            graphqlOperation(mutations.updateSearch, { input: maskDetails })
+            graphqlOperation(mutations.updateSearch, { input: searchParams })
           ).then(() => {
             // kick off the search
             API.post("SearchAPI", "searches", {
@@ -139,22 +142,39 @@ export default function MaskSelection({ match }) {
   return (
     <div>
       <Title component="h2">Mask selection</Title>
-      {searchMeta && (
+      {searchMeta ? (
         <MaskChannelSelection
           searchDir={searchMeta.searchDir}
           channel={channel}
           onChange={handleChannelSelect}
         />
-      )}
+      ) : null}
       <Divider orientation="left">{dividerMessage}</Divider>
       <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
       <Divider />
-      <Button type="primary" onClick={handleSubmit} loading={submitting}>
-        Submit
-      </Button>
-      <Button type="default" onClick={handleCancel} style={{ marginLeft: "1em" }}>
-        Cancel
-      </Button>
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        name="basic"
+        initialValues={{
+          dataThreshold: 100,
+          maskThreshold: 100,
+          xyShift: 2,
+          mirrorMask: true
+        }}
+        onFinish={handleSubmit}
+      >
+        <ColorDepthSearchParameters />
+       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit" loading={submitting}>
+            Submit
+          </Button>
+          <Button type="default" onClick={handleCancel} style={{ marginLeft: "1em" }}>
+            Cancel
+          </Button>
+        </Form.Item>
+      </Form>
+
     </div>
   );
 }
