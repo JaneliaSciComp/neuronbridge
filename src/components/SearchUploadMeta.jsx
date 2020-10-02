@@ -130,16 +130,6 @@ export default function SearchUploadMeta({
         }}
         onFinish={onFinish}
       >
-        <Form.Item
-          label="Search"
-          name="searchType"
-          rules={[{ required: true, message: "Please choose a search type!" }]}
-        >
-          <Select>
-            <Option value="em2lm">Light Microscopy Libraries</Option>
-            <Option value="lm2em">Electron Microscopy Libraries</Option>
-          </Select>
-        </Form.Item>
         <Row>
           <Col span={8} style={{ textAlign: "right" }}>
             <label htmlFor="aligned" style={{ marginRight: "8px" }}>
