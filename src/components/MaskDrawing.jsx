@@ -161,7 +161,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
         />
         <img src={signedImgSrc} alt="desaturated color depth mip placeholder" />
       </div>
-      <Button type="primary" onClick={handleCreateMask}>
+      <Button type="primary" onClick={handleCreateMask} style={{marginRight: "1em"}}>
         Create Mask
       </Button>
       <Button onClick={handleClearMask}>Clear Mask</Button>
