@@ -16,7 +16,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
-    "antd": "^4.2.0",
+    "antd": "^4.4.0",
     "aws-amplify": "^3.0.16",
     "aws-sdk": "^2.704.0",
     "babel-eslint": "10.0.3",
