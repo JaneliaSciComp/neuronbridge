@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Collapse } from "antd";
 import CompleteSearchSummary from "./CompleteSearchSummary";
+
+const { Panel } = Collapse;
 
 export default function SearchesComplete({ searches }) {
   const searchesComplete = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
       return (
-        <li key={search.id} style={{ marginBottom: "1em", listStyle: 'none' }}>
+        <Panel header={search.searchMask}  key={search.id} style={{ marginBottom: "1em", listStyle: 'none' }}>
           <CompleteSearchSummary search={search} />
-        </li>
+        </Panel>
       );
     });
 
@@ -27,7 +30,9 @@ export default function SearchesComplete({ searches }) {
 
   return (
     <div>
-      <ul>{searchesComplete}</ul>
+      <Collapse ghost>
+        {searchesComplete}
+      </Collapse>
     </div>
   );
 }
