@@ -1,4 +1,16 @@
-## Version 1.6.0
+## Version 1.6.2 - 2020-10-08
+
+### Bug Fixes
+* Adds missing matched pixels score to the Image comparison pop ups in the results. Replaced the "Score" attribute of the result with "Normalized Score" and "Matched Pixel" values.
+
+---
+## Version 1.6.1 - 2020-09-23
+
+### Bug Fixes
+* Fixes links to the FlyLight Generation 1 MCFO website.
+
+---
+## Version 1.6.0 - 2020-09-22
 
 ### Whats New
 * Image Alignment and Color Depth MIP Search for your own imagery.
