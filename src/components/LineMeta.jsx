@@ -8,7 +8,6 @@ import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes }) {
   const { publishedName, libraryName } = attributes;
-  console.log(attributes);
   const searchUrl = `/search?q=${publishedName}`;
   return (
     <Row>
