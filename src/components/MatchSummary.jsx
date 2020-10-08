@@ -49,12 +49,10 @@ export default function MatchSummary(props) {
           {isLM ? (
             <LineMeta
               attributes={match}
-              score={Math.round(match.normalizedScore)}
             />
           ) : (
             <SkeletonMeta
               attributes={match}
-              score={Math.round(match.normalizedScore)}
             />
           )}
         </Col>

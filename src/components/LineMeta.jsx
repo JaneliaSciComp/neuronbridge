@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function LineMeta({ attributes, score }) {
+export default function LineMeta({ attributes }) {
   const { publishedName, libraryName } = attributes;
+  console.log(attributes);
   const searchUrl = `/search?q=${publishedName}`;
   return (
     <Row>
@@ -16,11 +17,17 @@ export default function LineMeta({ attributes, score }) {
           <b>Line Name:</b>
           <Link to={searchUrl}>{publishedName}</Link>
         </p>
-        {score && (
+        {attributes.normalizedScore ? (
           <p>
-            <b>Score:</b> {score}
+            <b>Score:</b> {Math.round(attributes.normalizedScore)}
           </p>
-        )}
+        ) : ""}
+        {attributes.matchingPixels ? (
+          <p>
+            <b>Matched Pixels:</b> {Math.round(attributes.matchingPixels)}
+          </p>
+        ) : ""}
+
         <p>
           <b>Slide Code:</b> {attributes.slideCode}
         </p>
@@ -63,10 +70,5 @@ export default function LineMeta({ attributes, score }) {
 }
 
 LineMeta.propTypes = {
-  attributes: PropTypes.object.isRequired,
-  score: PropTypes.number
-};
-
-LineMeta.defaultProps = {
-  score: null
+  attributes: PropTypes.object.isRequired
 };

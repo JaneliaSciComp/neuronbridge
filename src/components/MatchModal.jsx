@@ -123,12 +123,10 @@ export default function MatchModal(props) {
           {isLM ? (
             <LineMeta
               attributes={selectedMatch}
-              score={Math.round(selectedMatch.normalizedScore)}
             />
           ) : (
             <SkeletonMeta
               attributes={selectedMatch}
-              score={Math.round(selectedMatch.normalizedScore)}
             />
           )}
         </Col>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function SkeletonMeta({ attributes, score }) {
+export default function SkeletonMeta({ attributes }) {
   const { publishedName, libraryName } = attributes;
 
   const searchUrl = `/search?q=${publishedName}`;
@@ -17,11 +17,17 @@ export default function SkeletonMeta({ attributes, score }) {
           <b>Body Id:</b>
           <Link to={searchUrl}>{publishedName}</Link>
         </p>
-        {score && (
+        {attributes.normalizedScore ? (
           <p>
-            <b>Score:</b> {score}
+            <b>Score:</b> {Math.round(attributes.normalizedScore)}
           </p>
-        )}
+        ) : ""}
+        {attributes.matchingPixels ? (
+          <p>
+            <b>Matched Pixels:</b> {Math.round(attributes.matchingPixels)}
+          </p>
+        ) : ""}
+
         <p>
           <b>Library: </b>
           <LibraryFormatter type={libraryName} />
@@ -45,9 +51,4 @@ export default function SkeletonMeta({ attributes, score }) {
 
 SkeletonMeta.propTypes = {
   attributes: PropTypes.object.isRequired,
-  score: PropTypes.number
-};
-
-SkeletonMeta.defaultProps = {
-  score: null
 };
