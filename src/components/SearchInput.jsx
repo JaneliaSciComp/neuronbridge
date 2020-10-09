@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { Input, Col, Row } from "antd";
 
-import HelpButton from "./HelpButton";
+import HelpButton from "./Help/HelpButton";
 import "./SearchInput.css";
 import "./LoaderButton.css";
 

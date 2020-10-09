@@ -13,8 +13,8 @@ import flyemLogo from "./flyemLogo.png";
 import flylightLogo from "./flylightlogo.png";
 import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
-import HelpDrawer from "./components/HelpDrawer";
-import HelpContents from "./components/HelpContents";
+import HelpDrawer from "./components/Help/HelpDrawer";
+import HelpContents from "./components/Help/HelpContents";
 import "antd/dist/antd.less";
 
 const { Header, Content, Footer } = Layout;

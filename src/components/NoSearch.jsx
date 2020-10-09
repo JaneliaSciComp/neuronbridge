@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "antd";
-import HelpButton from "./HelpButton";
+import HelpButton from "./Help/HelpButton";
 
 const { Title, Paragraph } = Typography;
 

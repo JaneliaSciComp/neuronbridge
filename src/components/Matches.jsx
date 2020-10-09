@@ -6,7 +6,7 @@ import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
 import MatchSummary from "./MatchSummary";
 import MatchModal from "./MatchModal";
-import HelpButton from "./HelpButton";
+import HelpButton from "./Help/HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
 import ResultsExport from "./ResultsExport";

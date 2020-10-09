@@ -2,7 +2,7 @@ import "jest-axe/extend-expect";
 import React from "react";
 import { render } from "@testing-library/react";
 import { axe } from "jest-axe";
-import HelpButton from "../HelpButton";
+import HelpButton from "../Help/HelpButton";
 
 describe("HelpButton: unit tests", () => {
   it("is accessible", async () => {

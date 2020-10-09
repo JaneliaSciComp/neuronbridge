@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Drawer } from "antd";
-import { AppContext } from "../containers/AppContext";
+import { AppContext } from "../../containers/AppContext";
 
 export default function HelpDrawer({ children }) {
   const [appState, setAppState] = useContext(AppContext);

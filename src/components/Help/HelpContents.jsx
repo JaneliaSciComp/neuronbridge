@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { InputNumber, Col, Row, Divider } from "antd";
-import SearchInput from "./SearchInput";
-import { FilterContext } from "../containers/FilterContext";
-import { AppContext } from "../containers/AppContext";
+import SearchInput from "../SearchInput";
+import { FilterContext } from "../../containers/FilterContext";
+import { AppContext } from "../../containers/AppContext";
 
-import SearchPipeline1 from "./NeuronBridge_Search1.png";
-import SearchPipeline2 from "./NeuronBridge_Search2.png";
 import DataGeneration1 from "./NeuronBridge_DataGen1.png";
 import DataGeneration2 from "./NeuronBridge_DataGen2.png";
+import SearchPipeline1 from "./NeuronBridge_Search1.png";
+import SearchPipeline2 from "./NeuronBridge_Search2.png";
 
 import "./HelpContents.css";
 

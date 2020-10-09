@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "antd";
-import HelpContents from "./HelpContents";
+import HelpContents from "./Help/HelpContents";
 
 const { Title } = Typography;
 
