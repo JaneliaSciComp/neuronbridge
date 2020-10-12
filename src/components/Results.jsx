@@ -9,12 +9,6 @@ import * as queries from "../graphql/queries";
 import config from "../config";
 import { signedLink } from "../libs/awsLib";
 
-const storageOptions = {
-  level: "private",
-  download: true,
-  bucket: config.SEARCH_BUCKET
-};
-
 export default function Results({ match }) {
   const searchId = match.params.id;
   const [searchMeta, setSearchMeta] = useState(null);
@@ -35,8 +29,8 @@ export default function Results({ match }) {
           }
           const uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;
           // TODO: add another step here to generate the real imageURL,
-          // rather than use the sameone as the thumbnail.
-          signedLink(uploadUrl).then(result => {
+          // rather than use the same one as the thumbnail.
+          signedLink(uploadUrl, currentMeta.identityId).then(result => {
             const metaWithSignedUrls = { ...currentMeta, thumbnailURL: result, imageURL: result };
             setSearchMeta(metaWithSignedUrls);
           });
@@ -55,6 +49,22 @@ export default function Results({ match }) {
     if (searchMeta && searchMeta.searchDir) {
       const resultFile = searchMeta.searchMask.replace(/[^.]*$/, "result");
       const resultsUrl = `${searchMeta.searchDir}/${resultFile}`;
+
+      /* Admin users need an alternative method to fetch Items from S3, because
+      the code from Amplify, Storage.get(), uses the currently logged in users
+      identityId to build the request to AWS when using the private level.
+      Since we want to be able to see other users files we need to pass their
+      identityId. In order to do this we have to use a nasty hack where we set
+      the query level to public and create a "private" customPrefix that
+      contains the identityId of the owner of the file we wish to get. */
+
+      const storageOptions = {
+        level: "public",
+        download: true,
+        customPrefix: { public: `private/${searchMeta.identityId}/` },
+        bucket: config.SEARCH_BUCKET
+      };
+
       Storage.get(resultsUrl, storageOptions)
         .then(results => {
           const fr = new FileReader();

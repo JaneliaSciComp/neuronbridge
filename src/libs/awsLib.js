@@ -21,12 +21,21 @@ export async function deleteSearch(search) {
   });
 }
 
-export function signedLink(url) {
+export function signedLink(url, identityId) {
   const downloadOptions = {
     expires: 500,
     level: "private",
     bucket: config.SEARCH_BUCKET
   };
+
+  // if the identityId is provided then we have to use the public/private hack
+  // to get to the correct signed url. Without this the Amplify framework will
+  // try to use the identity of the currently signed in user, which will point
+  // to the wrong directory in the S3 bucket.
+  if (identityId) {
+    downloadOptions.level = "public";
+    downloadOptions.customPrefix = { public: `private/${identityId}/` };
+  }
 
   return Storage.get(url, downloadOptions).then(result => result);
 }

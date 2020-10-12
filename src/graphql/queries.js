@@ -5,6 +5,8 @@ export const getSearch = /* GraphQL */ `
   query GetSearch($id: ID!) {
     getSearch(id: $id) {
       id
+      owner
+      identityId
       upload
       searchDir
       searchMask
@@ -29,6 +31,8 @@ export const listSearches = /* GraphQL */ `
     listSearches(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        owner
+        identityId
         upload
         searchDir
         searchMask
