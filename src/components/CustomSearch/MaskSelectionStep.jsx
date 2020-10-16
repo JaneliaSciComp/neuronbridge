@@ -1,0 +1,84 @@
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { API } from "aws-amplify";
+import { Link, useHistory } from "react-router-dom";
+import { Button } from "antd";
+import { signedLink } from "../../libs/awsLib";
+import StepTitle from "./StepTitle";
+
+const linkStyle = {
+  color: "#fff",
+  marginTop: "0.5em",
+  width: "150px"
+};
+
+export default function MaskSelectionStep({ search, state }) {
+  const [maskUrl, setMaskUrl] = useState(null);
+  const [isCopying, setIsCopying] = useState(false);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (search.displayableMask) {
+      const uploadUrl = `${search.searchDir}/${search.searchMask}`;
+      signedLink(uploadUrl).then(result => {
+        setMaskUrl(result);
+      });
+    } else {
+      setMaskUrl(null);
+    }
+  }, [search]);
+
+  function copyAlignment() {
+    setIsCopying(true);
+    API.post("SearchAPI", "copy", {
+      body: {
+        searchId: search.id,
+        action: "alignment_copy"
+      }
+    })
+      .then(response => {
+        setIsCopying(false);
+        history.push(`/mask-selection/${response.newSearchMeta.id}`);
+      })
+      .catch(() => setIsCopying(false));
+  }
+
+  const maskSelectionURL = `/mask-selection/${search.id}`;
+  let content;
+  if (state === "active") {
+    content = (
+      <Link
+        to={maskSelectionURL}
+        className="ant-btn ant-btn-primary"
+        style={linkStyle}
+      >
+        select mask region
+      </Link>
+    );
+  } else if (state === "complete") {
+    content = (
+      <>
+        <img className="completeThumbnail" src={maskUrl} alt={search.upload} />
+        <Button
+          style={{ marginTop: "0.5em", width: "150px" }}
+          loading={isCopying}
+          onClick={copyAlignment}
+        >
+          re-select mask
+        </Button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <StepTitle state={state} step={3} text="Mask Selection" />
+      {content}
+    </>
+  );
+}
+
+MaskSelectionStep.propTypes = {
+  search: PropTypes.object.isRequired,
+  state: PropTypes.string.isRequired
+};

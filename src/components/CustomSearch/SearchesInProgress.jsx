@@ -1,44 +1,12 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
-import { CloseOutlined, ExclamationCircleTwoTone } from "@ant-design/icons";
-import { formatRelative } from "date-fns";
+import { CloseOutlined } from "@ant-design/icons";
 import { AppContext } from "../../containers/AppContext";
 import { deleteSearch } from "../../libs/awsLib";
 import SearchSteps from "./SearchSteps";
 
 const { Text } = Typography;
-
-// This warning message shouldn't load if there is already a mask file.
-function MaskSelectionLink({ search }) {
-  const maskSelectionURL = `/mask-selection/${search.id}`;
-  return (
-    <div>
-      <Alert
-        type="success"
-        showIcon
-        message="Your images are aligned and await masking."
-        style={{ marginBottom: "1em" }}
-      />
-      <Text component="p" strong>
-        <ExclamationCircleTwoTone twoToneColor="#0000ff" /> To start the color
-        depth search{" "}
-        <Link
-          to={maskSelectionURL}
-          className="ant-btn ant-btn-primary"
-          style={{ color: "#fff" }}
-        >
-          set your mask region and parameters
-        </Link>
-      </Text>
-    </div>
-  );
-}
-
-MaskSelectionLink.propTypes = {
-  search: PropTypes.object.isRequired
-};
 
 function AlignmentWarning() {
   return (
@@ -76,13 +44,6 @@ export default function SearchesInProgress({ searches }) {
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
-      const showMaskSelection =
-        search.step === 2 && !search.searchMask && !search.errorMessage ? (
-          <MaskSelectionLink search={search} />
-        ) : (
-          ""
-        );
-
       return (
         <div key={search.id}>
           <Row>
@@ -108,11 +69,10 @@ export default function SearchesInProgress({ searches }) {
             <Col span={24} style={{ marginTop: "1em" }}>
               <SearchSteps search={search} />
               {search.step === 1 && !search.errorMessage && <AlignmentWarning />}
-              {showMaskSelection}
               <ErrorMessage error={search.errorMessage} />
             </Col>
           </Row>
-          <Divider />
+          <Divider style={{margin: '0.2em 0 1em 0'}}/>
         </div>
       );
     });

@@ -113,8 +113,7 @@ export default function MaskSelection({ match }) {
                 ]
               }
             })
-              .then(response => {
-                console.log(response);
+              .then(() => {
                 // redirect back to search progress page.
                 setSubmitting(false);
                 history.push("/upload");

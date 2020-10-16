@@ -3,7 +3,6 @@ import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchesInProgress from "./CustomSearch/SearchesInProgress";
-import SearchesComplete from "./CustomSearch/SearchesComplete";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
@@ -29,12 +28,15 @@ export default function CustomSearchList() {
 
   // initial check on page load.
   useEffect(() => {
-		async function fetchSearches() {
-			const items = await fetchItemsNextToken({query: queries.listSearches, variables: {limit: 50}});
-			items.forEach(search => logSearchInfo(search));
-      dispatch({ type: "init", value: items })
-		}
-		fetchSearches();
+    async function fetchSearches() {
+      const items = await fetchItemsNextToken({
+        query: queries.listSearches,
+        variables: { limit: 50 }
+      });
+      items.forEach(search => logSearchInfo(search));
+      dispatch({ type: "init", value: items });
+    }
+    fetchSearches();
   }, []);
 
   useEffect(() => {
@@ -123,14 +125,8 @@ export default function CustomSearchList() {
         handleUpload={setUploadedFile}
       />
       <Divider dashed />
-      <Title level={3}>Searches in progress</Title>
-      <SearchesInProgress
-        searches={searches.filter(search => search.step < 4)}
-      />
-      <Title level={3}>Searches completed</Title>
-      <SearchesComplete
-        searches={searches.filter(search => search.step === 4)}
-      />
+      <Title level={3}>Your Searches</Title>
+      <SearchesInProgress searches={searches} />
     </div>
   );
 }
