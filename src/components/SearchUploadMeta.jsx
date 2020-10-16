@@ -52,7 +52,6 @@ export default function SearchUploadMeta({
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
         if (override) {
-          searchDetails.channel = values.channel;
           searchDetails.voxelX = values.voxelxy;
           searchDetails.voxelY = values.voxelxy;
           searchDetails.voxelZ = values.voxelz;
@@ -126,7 +125,6 @@ export default function SearchUploadMeta({
           searchtype: "em2lm",
           anatomicalregion: "brain",
           algorithm: "max",
-          channel: 3,
           referenceChannel: "auto",
           mimetype:
             uploadedFile.file.type || "Couldn't be determined, please select"
@@ -235,23 +233,6 @@ export default function SearchUploadMeta({
                   </Form.Item>
                 </Form.Item>
 
-                <Form.Item
-                  label="Channel count"
-                  name="channel"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Channel count is required"
-                    }
-                  ]}
-                >
-                  <Select>
-                    <Option value={1}>1</Option>
-                    <Option value={2}>2</Option>
-                    <Option value={3}>3</Option>
-                    <Option value={4}>4</Option>
-                  </Select>
-                </Form.Item>
                 <Form.Item
                   label="Reference Channel Index"
                   name="referenceChannel"
