@@ -24,7 +24,7 @@ export default function ColorDepthSearchParameters() {
       <Form.Item label="Mask Threshold" name="maskThreshold" rules={[]}>
         <Input step={1} type="number" placeholder="0" min={0} max={255} />
       </Form.Item>
-      <Form.Item label="Z Slice Range" name="zSliceRange" rules={[]}>
+      <Form.Item label="Z Slice Range" name="pixColorFluctuation" rules={[]}>
         <Select>
           <Option value="1">1</Option>
           <Option value="3">3</Option>
