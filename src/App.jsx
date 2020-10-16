@@ -21,7 +21,6 @@ const { Header, Content, Footer } = Layout;
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [showDebug, setDebug] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
   // const history = useHistory();
   const location = useLocation();
@@ -90,7 +89,8 @@ export default function App() {
 
   const handleShowDebug = event => {
     event.preventDefault();
-    setDebug(!showDebug);
+    const debug = !appState.debug ;
+    setAppState({ ...appState, debug });
   };
 
   const searchEnpoints = config.api.endpoints.map(endpoint => (
@@ -167,7 +167,7 @@ export default function App() {
         </div>
       </Content>
       <Footer style={{ textAlign: "center", position: "relative" }}>
-        {showDebug && (
+        {appState.debug && (
           <a href="/" onClick={handleShowDebug}>
             <p>Data Bucket: {config.s3.BUCKET}</p>
             <p>Search Bucket: {config.SEARCH_BUCKET}</p>

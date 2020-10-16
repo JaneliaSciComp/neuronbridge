@@ -11,7 +11,8 @@ const AppProvider = (props) => {
     showHelp: false,
     helpTarget: null,
     showFilterMenu: false,
-    paths: {}
+    paths: {},
+    debug: false
   });
   const { children } = props;
   return (

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
 import { CloseOutlined, ExclamationCircleTwoTone } from "@ant-design/icons";
 import { formatRelative } from "date-fns";
+import { AppContext } from "../../containers/AppContext";
 import { deleteSearch } from "../../libs/awsLib";
 import SearchSteps from "./SearchSteps";
 
@@ -71,6 +72,7 @@ ErrorMessage.defaultProps = {
 };
 
 export default function SearchesInProgress({ searches }) {
+  const [appContext] = useContext(AppContext);
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
@@ -87,7 +89,7 @@ export default function SearchesInProgress({ searches }) {
             <Col span={23}>
               <Text strong> &raquo; {search.upload}</Text>{" "}
               <Text type="secondary">
-                {formatRelative(new Date(search.createdOn), new Date())}
+                {appContext.debug ? search.id : null}
               </Text>
             </Col>
             <Col span={1}>
