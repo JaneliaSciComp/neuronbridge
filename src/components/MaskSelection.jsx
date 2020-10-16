@@ -80,7 +80,6 @@ export default function MaskSelection({ match }) {
   };
 
   const handleSubmit = (searchFormData) => {
-    console.log(searchFormData);
     if (!maskedImage) {
       message.info("Please select a channel for masking and mask the image");
       return;
