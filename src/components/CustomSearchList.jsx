@@ -2,7 +2,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
-import SearchesInProgress from "./CustomSearch/SearchesInProgress";
+import SearchList from "./CustomSearch/SearchList";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
@@ -126,7 +126,7 @@ export default function CustomSearchList() {
       />
       <Divider dashed />
       <Title level={3}>Your Searches</Title>
-      <SearchesInProgress searches={searches} />
+      <SearchList searches={searches} />
     </div>
   );
 }

@@ -39,7 +39,7 @@ ErrorMessage.defaultProps = {
   error: null
 };
 
-export default function SearchesInProgress({ searches }) {
+export default function SearchList({ searches }) {
   const [appContext] = useContext(AppContext);
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
@@ -91,6 +91,6 @@ export default function SearchesInProgress({ searches }) {
   return <div>{searchesInProgress}</div>;
 }
 
-SearchesInProgress.propTypes = {
+SearchList.propTypes = {
   searches: PropTypes.arrayOf(PropTypes.object).isRequired
 };
