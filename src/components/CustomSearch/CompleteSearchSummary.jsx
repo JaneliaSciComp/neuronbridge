@@ -48,7 +48,7 @@ export default function CompleteSearchSummary({ search }) {
 
   function copyAlignment() {
     setIsCopying(true);
-    API.post("SearchAPI", "copy", {
+    API.post("SearchAPI", "/copy", {
       body: {
         searchId: search.id,
         action: "alignment_copy"

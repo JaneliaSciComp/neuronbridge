@@ -103,7 +103,7 @@ export default function MaskSelection({ match }) {
             graphqlOperation(mutations.updateSearch, { input: searchParams })
           ).then(() => {
             // kick off the search
-            API.post("SearchAPI", "searches", {
+            API.post("SearchAPI", "/searches", {
               body: {
                 submittedSearches: [
                   {
