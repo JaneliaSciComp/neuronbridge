@@ -56,7 +56,11 @@ export default function SearchUploadMeta({
           searchDetails.voxelY = values.voxelxy;
           searchDetails.voxelZ = values.voxelz;
         }
+        if (process.env.NODE_ENV === "development") {
+          searchDetails.channel = values.chanel;
+        }
       }
+
 
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
@@ -280,6 +284,23 @@ export default function SearchUploadMeta({
                     />
                   </Col>
                 </Row>
+                <Form.Item
+                  label="Channel count"
+                  name="channel"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Channel count is required"
+                    }
+                  ]}
+                >
+                  <Select>
+                    <Option value={1}>1</Option>
+                    <Option value={2}>2</Option>
+                    <Option value={3}>3</Option>
+                    <Option value={4}>4</Option>
+                  </Select>
+                </Form.Item>
               </>
             )}
           </>
