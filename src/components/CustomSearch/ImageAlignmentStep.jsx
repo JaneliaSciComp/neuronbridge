@@ -3,27 +3,24 @@ import PropTypes from "prop-types";
 import { signedLink } from "../../libs/awsLib";
 import StepTitle from "./StepTitle";
 
-export default function ImageAlignmentStep({ state, search}) {
+export default function ImageAlignmentStep({ state, search }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
 
   useEffect(() => {
-    if (search.displayableMask) {
-      const uploadUrl = `${search.searchDir}/${search.displayableMask}`;
-      signedLink(uploadUrl).then(result => {
-        setThumbnailUrl(result);
-      });
-    } else {
-      setThumbnailUrl(null);
-    }
-  }, [search]);
-
-
-
+    const uploadUrl = `${search.searchDir}/${search.uploadThumbnail}`;
+    signedLink(uploadUrl).then(result => {
+      setThumbnailUrl(result);
+    });
+  }, [search.searchDir, search.uploadThumbnail]);
 
   let content = "";
   if (["complete"].includes(state)) {
     content = (
-      <img className="completeThumbnail" src={thumbnailUrl} alt="Alignment Thumbnail"/>
+      <img
+        className="completeThumbnail"
+        src={thumbnailUrl}
+        alt="Alignment Thumbnail"
+      />
     );
   }
 
@@ -38,4 +35,4 @@ export default function ImageAlignmentStep({ state, search}) {
 ImageAlignmentStep.propTypes = {
   state: PropTypes.string.isRequired,
   search: PropTypes.object.isRequired
-}
+};
