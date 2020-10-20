@@ -18,7 +18,7 @@ export default function MaskSelectionStep({ search, state }) {
   const history = useHistory();
 
   useEffect(() => {
-    if (search.displayableMask) {
+    if (search.searchMask) {
       const uploadUrl = `${search.searchDir}/${search.searchMask}`;
       signedLink(uploadUrl).then(result => {
         setMaskUrl(result);
@@ -26,7 +26,7 @@ export default function MaskSelectionStep({ search, state }) {
     } else {
       setMaskUrl(null);
     }
-  }, [search]);
+  }, [search.searchMask, search.searchDir]);
 
   function copyAlignment() {
     setIsCopying(true);
