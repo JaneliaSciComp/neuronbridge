@@ -16,6 +16,7 @@ export const getSearch = /* GraphQL */ `
       algorithm
       searchType
       displayableMask
+      uploadThumbnail
       nTotalMatches
       updatedOn
       createdOn
@@ -43,6 +44,7 @@ export const listSearches = /* GraphQL */ `
         displayableMask
         nTotalMatches
         searchType
+        uploadThumbnail
         updatedOn
         createdOn
       }

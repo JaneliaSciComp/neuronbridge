@@ -8,6 +8,7 @@ export const createSearch = /* GraphQL */ `
       owner
       identityId
       upload
+      uploadThumbnail
       searchDir
       searchMask
       searchType
@@ -35,6 +36,7 @@ export const updateSearch = /* GraphQL */ `
       owner
       step
       upload
+      uploadThumbnail
       searchDir
       searchType
       searchMask

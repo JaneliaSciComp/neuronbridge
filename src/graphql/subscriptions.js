@@ -9,6 +9,7 @@ export const onCreateSearch = /* GraphQL */ `
     onCreateSearch(identityId: $identityId) {
       id
       upload
+      uploadThumbnail
       identityId
       searchDir
       searchMask
@@ -36,6 +37,7 @@ export const onUpdateSearch = /* GraphQL */ `
     onUpdateSearch(identityId: $identityId) {
       id
       upload
+      uploadThumbnail
       identityId
       searchDir
       searchType
