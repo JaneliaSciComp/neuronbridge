@@ -61,7 +61,6 @@ export default function SearchUploadMeta({
         }
       }
 
-
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
@@ -284,23 +283,27 @@ export default function SearchUploadMeta({
                     />
                   </Col>
                 </Row>
-                <Form.Item
-                  label="Channel count"
-                  name="channel"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Channel count is required"
-                    }
-                  ]}
-                >
-                  <Select>
-                    <Option value={1}>1</Option>
-                    <Option value={2}>2</Option>
-                    <Option value={3}>3</Option>
-                    <Option value={4}>4</Option>
-                  </Select>
-                </Form.Item>
+                {fakeMips ? (
+                  <Form.Item
+                    label="Channel count"
+                    name="channel"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Channel count is required"
+                      }
+                    ]}
+                  >
+                    <Select>
+                      <Option value={1}>1</Option>
+                      <Option value={2}>2</Option>
+                      <Option value={3}>3</Option>
+                      <Option value={4}>4</Option>
+                    </Select>
+                  </Form.Item>
+                ) : (
+                  ""
+                )}
               </>
             )}
           </>
