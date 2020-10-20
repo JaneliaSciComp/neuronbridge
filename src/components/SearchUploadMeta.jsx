@@ -57,7 +57,7 @@ export default function SearchUploadMeta({
           searchDetails.voxelZ = values.voxelz;
         }
         if (process.env.NODE_ENV === "development") {
-          searchDetails.channel = values.chanel;
+          searchDetails.channel = values.channel;
         }
       }
 
