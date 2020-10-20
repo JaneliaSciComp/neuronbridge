@@ -45,7 +45,7 @@ export default function MaskSelectionStep({ search, state }) {
 
   const maskSelectionURL = `/mask-selection/${search.id}`;
   let content;
-  if (state === "active") {
+  if (state === "active" && !search.searchMask) {
     content = (
       <Link
         to={maskSelectionURL}
