@@ -39,10 +39,19 @@ StepOne.args = {
   }
 };
 
-export const StepTwo = Template.bind({});
-StepTwo.args = {
+export const MaskSelectionStep = Template.bind({});
+MaskSelectionStep.args = {
   search: {
     errorMessage: null,
+    step: 2
+  }
+}
+
+export const LoadingMaskSelectionStep = Template.bind({});
+LoadingMaskSelectionStep.args = {
+  search: {
+    errorMessage: null,
+    searchMask: "1110173824_TC_18U_1_mask.png",
     step: 2
   }
 }

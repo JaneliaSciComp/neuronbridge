@@ -73,9 +73,13 @@ export default function MaskSelectionStep({ search, state }) {
   // the mask selection state never shows as active as the spinning icon
   // suggests that something is loading, when really we are only ever waiting
   // for user input.
+  let loaderState = state;
+  if (state === "active" && !search.searchMask) {
+    loaderState = "complete";
+  }
   return (
     <>
-      <StepTitle state={state === "active" ? "complete" : state} step={3} text="Mask Selection" />
+      <StepTitle state={loaderState} step={3} text="Mask Selection" />
       {content}
     </>
   );
