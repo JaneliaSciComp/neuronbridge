@@ -59,6 +59,7 @@ export default function MaskSelectionStep({ search, state }) {
     content = (
       <>
         <img className="completeThumbnail" src={maskUrl} alt={search.upload} />
+        <br/>
         <Button
           style={{ marginTop: "0.5em", width: "150px" }}
           loading={isCopying}
