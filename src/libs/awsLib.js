@@ -5,9 +5,7 @@ import config from "../config";
 // eslint-disable-next-line import/prefer-default-export
 export async function deleteSearch(search) {
   const { id } = search;
-  API.graphql(
-    graphqlOperation(mutations.deleteSearch, { input: { id } })
-  );
+  API.graphql(graphqlOperation(mutations.deleteSearch, { input: { id } }));
 
   const options = {
     level: "private",
@@ -19,6 +17,19 @@ export async function deleteSearch(search) {
   filesList.forEach(file => {
     Storage.remove(file.key, options);
   });
+}
+
+export async function maskAndSearch(image) {
+  // expect image to be object with imageURL and thumbnailURL attributes
+  const creds = await Auth.currentCredentials()
+  const response = await API.post("SearchAPI", "/copy", {
+    body: {
+      image,
+      identityId: creds.identityId,
+      action: "new_search_from_image"
+    }
+  });
+  return response;
 }
 
 export function signedLink(url, identityId) {
@@ -45,11 +56,11 @@ export function logSearchInfo(search) {
     // eslint-disable-next-line no-console
     console.log(`Search: ${search.upload} - ${search.id}`);
     // eslint-disable-next-line no-console
-    console.log(`\tFiles: https://s3.console.aws.amazon.com/s3/buckets/${config.SEARCH_BUCKET}/private/${creds.identityId}/${search.searchDir}/`);
+    console.log(
+      `\tFiles: https://s3.console.aws.amazon.com/s3/buckets/${config.SEARCH_BUCKET}/private/${creds.identityId}/${search.searchDir}/`
+    );
   });
 }
-
-
 
 /**
  * @desc Recursively fetch all items in a list query using nextToken
@@ -59,10 +70,15 @@ export function logSearchInfo(search) {
  * @param {Function} callback Optional callback function to be fired with every batch of items from query iteration.
  * @returns {Array} Array of all items received from queries.
  * Copied from https://medium.com/swlh/how-to-really-use-aws-amplify-fcb4c5ed769c
-*/
-export async function fetchItemsNextToken({ query, variables, items = [], callback = undefined }) {
+ */
+export async function fetchItemsNextToken({
+  query,
+  variables,
+  items = [],
+  callback = undefined
+}) {
   const { data } = await API.graphql(graphqlOperation(query, variables));
-  const key = Object.keys(data).find(k => k.includes('list'));
+  const key = Object.keys(data).find(k => k.includes("list"));
   const res = data[key]; // res = { items: [], nextToken: '' }
 
   items.push(...res.items);

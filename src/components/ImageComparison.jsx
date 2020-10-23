@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
+import { maskAndSearch } from "../libs/awsLib";
+import config from "../config";
 
 import "./ImageComparison.css";
 
@@ -32,13 +35,15 @@ function drawCrosshair(x, y, ctx) {
 }
 
 export default function ImageComparison(props) {
-  const { maskOpen, maskPath, matchPath, matchThumbnail } = props;
+  const { mask, maskOpen, maskPath, matchPath, matchThumbnail } = props;
 
   const [mirrored, setMirrored] = useState(false);
   const [mirroredMatch, setMirroredMatch] = useState(false);
+  const [isCopying, setIsCopying] = useState(false);
   const matchRef = useRef();
   const maskRef = useRef();
   const maskImageRef = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     const currentMatch = matchRef.current;
@@ -85,6 +90,37 @@ export default function ImageComparison(props) {
   function toggleMirrorMatch() {
     setMirroredMatch(mState => !mState);
   }
+
+  const handleMaskSearch = async () => {
+    setIsCopying(true);
+    // copy the files
+    const imagePath = `https://s3.amazonaws.com/${config.SEARCH_BUCKET}/private/${mask.identityId}/${mask.searchDir}/${mask.searchMask}`;
+    const response = await maskAndSearch({
+      imageURL: imagePath,
+      thumbnailURL: imagePath
+    });
+    if (response) {
+      // redirect to the search input form
+      setIsCopying(false);
+      history.push(`/mask-selection/${response.newSearchMeta.id}`);
+    }
+    setIsCopying(false);
+  };
+
+  const handleMatchSearch = async () => {
+    setIsCopying(true);
+    // copy the files
+    const response = await maskAndSearch({
+      imageURL: props.matchPath,
+      thumbnailURL: props.matchThumbnail
+    });
+    if (response) {
+      // redirect to the search input form
+      setIsCopying(false);
+      history.push(`/mask-selection/${response.newSearchMeta.id}`);
+    }
+    setIsCopying(false);
+  };
 
   const maskStyle = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
@@ -133,6 +169,13 @@ export default function ImageComparison(props) {
             >
               {maskState} Mask
             </Button>
+            <Button
+              style={{ marginLeft: "0.5em" }}
+              onClick={handleMaskSearch}
+              loading={isCopying}
+            >
+              Mask & Search
+            </Button>
           </Col>
         )}
         <Col md={maskOpen ? 12 : 24}>
@@ -147,6 +190,13 @@ export default function ImageComparison(props) {
           >
             {matchState} Match
           </Button>
+          <Button
+            style={{ marginLeft: "0.5em" }}
+            onClick={handleMatchSearch}
+            loading={isCopying}
+          >
+            Mask & Search
+          </Button>
         </Col>
       </Row>
     </>
@@ -154,6 +204,7 @@ export default function ImageComparison(props) {
 }
 
 ImageComparison.propTypes = {
+  mask: PropTypes.object.isRequired,
   maskOpen: PropTypes.bool.isRequired,
   maskPath: PropTypes.string.isRequired,
   matchPath: PropTypes.string.isRequired,
