@@ -13,7 +13,7 @@ function AlignmentWarning() {
     <Alert
       type="warning"
       showIcon
-      message="The alignment step can take more than 30 minutes to complete. This page will automatically update once the alignment is finished."
+      message="The alignment step can take more than 30 minutes to complete, and only one alignment will process at a time. This page will automatically update once the alignment is finished."
     />
   );
 }
