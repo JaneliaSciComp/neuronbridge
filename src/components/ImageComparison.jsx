@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +35,7 @@ function drawCrosshair(x, y, ctx) {
 }
 
 export default function ImageComparison(props) {
-  const { mask, maskOpen, maskPath, matchPath, matchThumbnail } = props;
+  const { mask, maskOpen, maskPath, match, matchPath, matchThumbnail } = props;
 
   const [mirrored, setMirrored] = useState(false);
   const [mirroredMatch, setMirroredMatch] = useState(false);
@@ -132,6 +132,8 @@ export default function ImageComparison(props) {
   const maskState = mirrored ? "Restore" : "Flip";
   const matchState = mirroredMatch ? "Restore" : "Flip";
 
+  const searchUrl = `/search?q=${match.publishedName}`;
+
   return (
     <>
       <Row className="imageComparison">
@@ -197,6 +199,13 @@ export default function ImageComparison(props) {
           >
             Mask & Search
           </Button>
+          <Link
+            className="ant-btn"
+            style={{ marginLeft: "0.5em" }}
+            to={searchUrl}
+          >
+            View Precomputed Search
+          </Link>
         </Col>
       </Row>
     </>
@@ -207,6 +216,7 @@ ImageComparison.propTypes = {
   mask: PropTypes.object.isRequired,
   maskOpen: PropTypes.bool.isRequired,
   maskPath: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
   matchPath: PropTypes.string.isRequired,
   matchThumbnail: PropTypes.string.isRequired
 };

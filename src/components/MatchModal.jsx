@@ -134,6 +134,7 @@ export default function MatchModal(props) {
       <ImageComparison
         maskOpen={maskOpen}
         mask={mask}
+        match={selectedMatch}
         maskPath={mask.imageURL}
         maskThumbnail={mask.thumbnailURL}
         matchPath={selectedMatch.imageURL}
