@@ -211,7 +211,7 @@ export default function SearchUploadMeta({
                   >
                     <Input
                       addonBefore="XY"
-                      step={0.1}
+                      step={0.01}
                       precision={3}
                       type="number"
                       placeholder="0"
@@ -227,7 +227,7 @@ export default function SearchUploadMeta({
                   >
                     <Input
                       addonBefore="Z"
-                      step={0.1}
+                      step={0.01}
                       precision={3}
                       type="number"
                       placeholder="0"
