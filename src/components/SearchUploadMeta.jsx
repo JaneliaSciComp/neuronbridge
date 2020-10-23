@@ -156,7 +156,7 @@ export default function SearchUploadMeta({
           <>
             <Row>
               <Col span={8} style={{ textAlign: "right" }}>
-                <Title level={4}>Alignment Paramters</Title>
+                <Title level={4}>Alignment Parameters</Title>
               </Col>
             </Row>
             <Row style={{ marginBottom: "1em" }}>
