@@ -30,10 +30,9 @@ export default function MaskSelectionStep({ search, state }) {
 
   function copyAlignment() {
     setIsCopying(true);
-    API.post("SearchAPI", "/copy", {
+    API.post("SearchAPI", "/copy_alignment", {
       body: {
-        searchId: search.id,
-        action: "alignment_copy"
+        searchId: search.id
       }
     })
       .then(response => {

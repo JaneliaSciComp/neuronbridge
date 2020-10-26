@@ -22,11 +22,10 @@ export async function deleteSearch(search) {
 export async function maskAndSearch(image) {
   // expect image to be object with imageURL and thumbnailURL attributes
   const creds = await Auth.currentCredentials()
-  const response = await API.post("SearchAPI", "/copy", {
+  const response = await API.post("SearchAPI", "/new_from_image", {
     body: {
       image,
-      identityId: creds.identityId,
-      action: "new_search_from_image"
+      identityId: creds.identityId
     }
   });
   return response;

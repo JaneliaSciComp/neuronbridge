@@ -67,10 +67,9 @@ export default function SearchUploadMeta({
         .then(result => {
           // if aligned already create the generatedMIPS file and go to mask selection page.
           if (isAligned) {
-            API.post("SearchAPI", "/copy", {
+            API.post("SearchAPI", "/create_default_channel", {
               body: {
-                searchId: result.data.createSearch.id,
-                action: "create_default_channel"
+                searchId: result.data.createSearch.id
               }
             }).then(() => {
               setIsUploading(false);
