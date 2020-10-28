@@ -21,7 +21,8 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         },
         contentType: upload.file.type,
         level: "private",
-        bucket: config.SEARCH_BUCKET
+        bucket: config.SEARCH_BUCKET,
+        tagging: "LIFECYCLE=DELETE"
       })
         .then(result => {
           handleUpload(upload);
