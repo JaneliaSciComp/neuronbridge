@@ -52,9 +52,9 @@ export default function SearchUploadMeta({
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
         if (override) {
-          searchDetails.voxelX = values.voxelxy;
-          searchDetails.voxelY = values.voxelxy;
-          searchDetails.voxelZ = values.voxelz;
+          searchDetails.voxelX = parseFloat(values.voxelxy);
+          searchDetails.voxelY = parseFloat(values.voxelxy);
+          searchDetails.voxelZ = parseFloat(values.voxelz);
         }
         if (process.env.NODE_ENV === "development") {
           searchDetails.channel = values.channel;
