@@ -52,6 +52,7 @@ export default function SearchUploadMeta({
       if (!isAligned) {
         searchDetails.anatomicalRegion = values.anatomicalregion;
         if (override) {
+          searchDetails.userDefinedImageParams = true;
           searchDetails.voxelX = parseFloat(values.voxelxy);
           searchDetails.voxelY = parseFloat(values.voxelxy);
           searchDetails.voxelZ = parseFloat(values.voxelz);
