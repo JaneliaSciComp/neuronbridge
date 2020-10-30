@@ -155,6 +155,7 @@ export default function MaskSelection({ match }) {
         wrapperCol={{ span: 16 }}
         name="basic"
         initialValues={{
+          searchType: "lm2em",
           dataThreshold: 100,
           maskThreshold: 100,
           xyShift: 2,
