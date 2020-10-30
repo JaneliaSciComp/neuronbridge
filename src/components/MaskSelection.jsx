@@ -158,6 +158,7 @@ export default function MaskSelection({ match }) {
           dataThreshold: 100,
           maskThreshold: 100,
           xyShift: 2,
+          pixColorFluctuation: 1,
           mirrorMask: true
         }}
         onFinish={handleSubmit}
