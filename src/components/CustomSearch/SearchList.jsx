@@ -20,11 +20,12 @@ function AlignmentWarning() {
 
 function ErrorMessage({ error }) {
   if (error) {
+    const message = `There was an error performing this search: ${error}`;
     return (
       <Alert
         type="error"
         showIcon
-        message="This was an error performing this search. Please try again."
+        message={message}
       />
     );
   }
