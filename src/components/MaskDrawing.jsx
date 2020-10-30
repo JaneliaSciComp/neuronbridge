@@ -13,8 +13,6 @@ const storageOptions = {
   bucket: config.SEARCH_BUCKET
 };
 
-
-
 function getMousePos(evt) {
   const canvas = evt.target;
   const rect = canvas.getBoundingClientRect();
@@ -31,6 +29,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
   const canvasRef = useRef(null);
   const [pathStart, setPathStart] = useState([]);
   const [signedImgSrc, setSignedImgSrc] = useState(null);
+  const [maskDrawn, setMaskDrawn] = useState(false);
 
   const handleClearMask = () => {
     if (canvasRef.current) {
@@ -39,6 +38,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
       ctx.beginPath();
       ctx.closePath();
       onMaskChange(null);
+      setMaskDrawn(false);
     }
   };
 
@@ -62,7 +62,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
 
       // horrible hack to get canvas and cross origin images working. We can't
       // load the image by placing an unsinged url in the img.src attribute, because
-      // AWS wont respond. We also can't use a signed url, and the 
+      // AWS wont respond. We also can't use a signed url, and the
       // img.crossorigin='anonymous' attribute, because AWS doesn't send back the
       // correct CORS headers. So we have to download the image as a blob, generate
       // an object url and then save that to the image in order to get past all the
@@ -72,7 +72,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
         img.src = objUrl;
       });
 
-      img.crossOrigin = 'anonymous';
+      img.crossOrigin = "anonymous";
     }
   }, [imgSrc]);
 
@@ -93,7 +93,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
     const ctx = canvasRef.current.getContext("2d");
     ctx.save();
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, 20000, 20000);
+    ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.clip();
     ctx.drawImage(img, 0, 0);
     ctx.restore();
@@ -112,6 +112,7 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
   const handleMouseUp = e => {
     if (e.button === 0) {
       setDrawing(false);
+      setMaskDrawn(true);
       const position = getMousePos(e);
       const ctx = canvasRef.current.getContext("2d");
       ctx.lineTo(...position);
@@ -122,11 +123,13 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
       ctx.lineTo(pathStart[0], pathStart[1]);
       ctx.stroke();
       ctx.closePath();
+      handleCreateMask();
     }
   };
 
   const handleMouseDown = e => {
     if (e.button === 0) {
+      setMaskDrawn(false);
       setDrawing(true);
       const position = getMousePos(e);
       setPathStart(position);
@@ -161,10 +164,9 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
         />
         <img src={signedImgSrc} alt="desaturated color depth mip placeholder" />
       </div>
-      <Button type="primary" onClick={handleCreateMask} style={{marginRight: "1em"}}>
-        Create Mask
+      <Button type="primary" disabled={!maskDrawn} onClick={handleClearMask}>
+        Clear Mask
       </Button>
-      <Button onClick={handleClearMask}>Clear Mask</Button>
     </div>
   );
 }

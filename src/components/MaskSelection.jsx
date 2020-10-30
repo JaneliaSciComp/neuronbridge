@@ -79,62 +79,64 @@ export default function MaskSelection({ match }) {
     history.replace("/upload");
   };
 
-  const handleSubmit = (searchFormData) => {
-    if (!maskedImage) {
-      message.info("Please select a channel for masking and mask the image");
+  const handleSubmit = async searchFormData => {
+    if (!channelImgSrc) {
+      message.info("Please select a channel to use as the search input");
       return;
     }
+
     setSubmitting(true);
-    // send mask image to server
-    Auth.currentCredentials().then(() => {
-      const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
-      const maskName = `${uploadName}_${channel}_mask.png`;
-      const maskPath = `${searchMeta.searchDir}/${maskName}`;
-      Storage.put(maskPath, maskedImage, {
-        contentType: maskedImage.type,
-        level: "private",
-        bucket: config.SEARCH_BUCKET
-      })
-        .then(() => {
-          // add the mask file & search details to DynamoDB
-          const maskDetails = { searchMask: maskName, id: searchMeta.id };
-          const searchParams = {...searchFormData, ...maskDetails};
-          API.graphql(
-            graphqlOperation(mutations.updateSearch, { input: searchParams })
-          ).then(() => {
-            // kick off the search
-            API.post("SearchAPI", "/searches", {
-              body: {
-                submittedSearches: [
-                  {
-                    id: searchMeta.id,
-                    searchMask: maskName
-                  }
-                ]
-              }
-            })
-              .then(() => {
-                // redirect back to search progress page.
-                setSubmitting(false);
-                history.push("/upload");
-              })
-              .catch(error => {
-                console.log(error);
-                setSubmitting(false);
-              });
+    Auth.currentCredentials()
+      .then(async () => {
+        // use the whole channel image if no mask was drawn on the image
+        let maskName = channelImgSrc.replace(`${searchMeta.searchDir}/`, "");
+        let maskPath = `${channelImgSrc}`;
+
+        if (maskedImage) {
+          // They drew a path, so we need to upload it and record the
+          // location of the masked file
+          const uploadName = searchMeta.upload.replace(/\.[^.]*$/, "");
+          maskName = `${uploadName}_${channel}_mask.png`;
+          maskPath = `${searchMeta.searchDir}/${maskName}`;
+          await Storage.put(maskPath, maskedImage, {
+            contentType: maskedImage.type,
+            level: "private",
+            bucket: config.SEARCH_BUCKET
           });
-        })
-        .catch(e => {
-          setSubmitting(false);
-          console.error(e);
+        }
+
+        const maskDetails = { searchMask: maskName, id: searchMeta.id };
+        const searchParams = { ...searchFormData, ...maskDetails };
+        API.graphql(
+          graphqlOperation(mutations.updateSearch, { input: searchParams })
+        ).then(() => {
+          // kick off the search
+          API.post("SearchAPI", "/searches", {
+            body: {
+              submittedSearches: [
+                {
+                  id: searchMeta.id,
+                  searchMask: maskName
+                }
+              ]
+            }
+          }).then(() => {
+            // redirect back to search progress page.
+            setSubmitting(false);
+            history.push("/upload");
+          });
         });
-    });
+      })
+      .catch(error => {
+        console.log(error);
+        setSubmitting(false);
+      });
   };
 
   let dividerMessage = "Please choose a channel to create your mask";
   if (channel) {
     dividerMessage =
-      "Use your mouse to draw around the area you wish to search. Then click 'Create Mask' to preview.";
+      "Use your mouse to draw around the area you wish to search. This will create a mask by removing the contents of the image around the region you selected.";
   }
 
   return (
@@ -165,16 +167,19 @@ export default function MaskSelection({ match }) {
         onFinish={handleSubmit}
       >
         <ColorDepthSearchParameters />
-       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={submitting}>
             Submit
           </Button>
-          <Button type="default" onClick={handleCancel} style={{ marginLeft: "1em" }}>
+          <Button
+            type="default"
+            onClick={handleCancel}
+            style={{ marginLeft: "1em" }}
+          >
             Cancel
           </Button>
         </Form.Item>
       </Form>
-
     </div>
   );
 }
