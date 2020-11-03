@@ -83,7 +83,7 @@ export default function SearchUploadMeta({
             });
           } else {
             // else trigger the alignment to start on the backend.
-            API.post("SearchAPI", "/earches", {
+            API.post("SearchAPI", "/searches", {
               body: {
                 submittedSearches: [
                   {
