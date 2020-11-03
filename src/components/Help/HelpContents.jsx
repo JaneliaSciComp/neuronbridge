@@ -10,6 +10,8 @@ import DataGeneration1 from "./NeuronBridge_DataGen1.png";
 import DataGeneration2 from "./NeuronBridge_DataGen2.png";
 import SearchPipeline1 from "./NeuronBridge_Search1.png";
 import SearchPipeline2 from "./NeuronBridge_Search2.png";
+import LHLength from "./LHLength.png";
+import BrainReference from "./brain_reference.png";
 
 import "./HelpContents.css";
 
@@ -53,7 +55,7 @@ export default function HelpContents({ scroll }) {
   }
 
   return (
-    <div ref={helpContentRef}>
+    <div ref={helpContentRef} className="helpcontents">
       <h2 ref={refLookup.SearchInput}>Searching:</h2>
       <p>
         The search input bar is the primary interface to this website. It is
@@ -151,6 +153,52 @@ export default function HelpContents({ scroll }) {
 
       <Divider />
 
+      <h2>Upload Alignment:</h2>
+
+      <h3>Supported File Formats</h3>
+      <p>
+        The alignment pipeline uses Fiji, therefore, Fiji readable formats can
+        be used. (e.g. tiff hyper stack, lsm, oib, hyper stack .zip, czi with a
+        single sample, nd2.)
+      </p>
+
+      <h3>FAQ: Why did my alignment fail?</h3>
+      <dl>
+        <dt>No-reference channel</dt>
+        <dd>
+          The uploaded file must have a reference channel (nc82 or chemical tag)
+        </dd>
+
+        <dt>The uploaded file only contained part of the brain</dt>
+        <dd>
+          The reference channel needs to contain a full central brain in the XY
+          plane. The optic lobe is not necessary and the brain can be tilted
+          within +/-90 degrees.
+        </dd>
+          <dd><img src={BrainReference} alt="FlyLight 40x MCFO reference channel tilted 45 degrees to the left"/></dd>
+
+        <dd>
+          The brain needs to have a whole Z-brain scan (from the antennal lobe
+          (AN) to the end of the MB cell bodies)
+        </dd>
+
+        <dt>The voxel size was totally wrong</dt>
+        <dd>
+          Please measure your fly brain size by using the Fiji/Imagej &quot;Straight&quot;
+          line selection tool. The length of both ends of the lateral horn (LH)
+          should be between 330 &amp; 340 µm. You can fix the voxel size in
+          Fiji/ImageJ menu /Images/Properties...
+        </dd>
+          <dd><img src={LHLength} alt="Fiji window showing a line drawn between the two sides of the lateral horn."/></dd>
+
+        <dt>The brain was tilted too far in the dorsal-ventral direction</dt>
+        <dd>Here is an example of a good scan</dd>
+        <dd>Image here</dd>
+
+        <dt> The brain may have to much debris or be too distorted.</dt>
+      </dl>
+
+      <Divider />
       <div className="pipelines">
         <h2>Search Pipeline:</h2>
 
