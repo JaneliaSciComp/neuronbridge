@@ -167,6 +167,27 @@ export default function HelpContents({ scroll }) {
               EM MIPs. These masks were used to weight match scores based on
               signal outside of the search mask.
             </p>
+            <h3>Match Precompute Algorithm</h3>
+            <p>For each hemibrain body:</p>
+            <ol>
+              <li>
+                Compare to every LM color depth MIP to find the number of
+                matching pixels
+              </li>
+              <li>
+                Compute match percentage by dividing number of matching pixels
+                by the mask size
+              </li>
+              <li> Eliminate all matches with less than 1% match percentage</li>
+              <li>
+                Sort results by matching pixels and select the top 300 lines
+              </li>
+              <li> Select all of the MIPs in the top 300 lines</li>
+              <li>
+                Calculate normalized scores based on gradient scoring algorithm
+              </li>
+              <li> Sort the matches by the normalized score</li>
+            </ol>
           </Col>
           <Col lg={12}>
             <img src={SearchPipeline2} alt="Search pipeline 2" />
