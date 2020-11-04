@@ -191,11 +191,12 @@ export default function HelpContents({ scroll }) {
         </dd>
           <dd><img src={LHLength} alt="Fiji window showing a line drawn between the two sides of the lateral horn."/></dd>
 
-        <dt>The brain was tilted too far in the dorsal-ventral direction</dt>
+        <dt>The brain was tilted too far in the dorsal-ventral direction.</dt>
         <dd>Here is an example of a good scan</dd>
         <dd>Image here</dd>
 
-        <dt> The brain may have to much debris or be too distorted.</dt>
+        <dt>The brain may have too much debris or be too distorted.</dt>
+          <dd>This is unrecoverable. Please try and require the image.</dd>
       </dl>
 
       <Divider />
