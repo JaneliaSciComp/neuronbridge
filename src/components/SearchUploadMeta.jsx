@@ -204,16 +204,16 @@ export default function SearchUploadMeta({
 
             {override && (
               <>
-                {/* <Form.Item label="Template Matching Algorithm" name="algorithm">
-              <Select>
-                <Option value="max">
-                  Maximum Intensity (Good for clean samples)
-                </Option>
-                <Option value="avg">
-                  Average Intensity (Better for noisy samples)
-                </Option>
-              </Select>
-            </Form.Item> */}
+                <Form.Item label="Template Matching Algorithm" name="algorithm">
+                  <Select>
+                    <Option value="max">
+                      Maximum Intensity (Good for clean samples)
+                    </Option>
+                    <Option value="avg">
+                      Median Intensity (Better for noisy samples)
+                    </Option>
+                  </Select>
+                </Form.Item>
                 <Form.Item
                   label="Voxel Size (microns)"
                   rules={[
