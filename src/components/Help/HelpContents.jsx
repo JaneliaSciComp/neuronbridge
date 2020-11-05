@@ -11,6 +11,7 @@ import DataGeneration2 from "./NeuronBridge_DataGen2.png";
 import SearchPipeline1 from "./NeuronBridge_Search1.png";
 import SearchPipeline2 from "./NeuronBridge_Search2.png";
 import LHLength from "./LHLength.png";
+import BrainScan from "./brain_scan.gif";
 import BrainReference from "./brain_reference.png";
 
 import "./HelpContents.css";
@@ -193,7 +194,7 @@ export default function HelpContents({ scroll }) {
 
         <dt>The brain was tilted too far in the dorsal-ventral direction.</dt>
         <dd>Here is an example of a good scan</dd>
-        <dd>Image here</dd>
+          <dd><img src={BrainScan} alt="Brain scan"/></dd>
 
         <dt>The brain may have too much debris or be too distorted.</dt>
           <dd>This is unrecoverable in our system. Please use an alternative method to align.</dd>
