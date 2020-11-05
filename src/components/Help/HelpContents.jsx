@@ -182,7 +182,7 @@ export default function HelpContents({ scroll }) {
           (AN) to the end of the MB cell bodies)
         </dd>
 
-        <dt>The voxel size was totally wrong</dt>
+        <dt>The input voxel size was not correct</dt>
         <dd>
           Please measure your fly brain size by using the Fiji/Imagej &quot;Straight&quot;
           line selection tool. The length of both ends of the lateral horn (LH)
@@ -196,7 +196,7 @@ export default function HelpContents({ scroll }) {
         <dd>Image here</dd>
 
         <dt>The brain may have too much debris or be too distorted.</dt>
-          <dd>This is unrecoverable. Please try and require the image.</dd>
+          <dd>This is unrecoverable in our system. Please use an alternative method to align.</dd>
       </dl>
 
       <Divider />
