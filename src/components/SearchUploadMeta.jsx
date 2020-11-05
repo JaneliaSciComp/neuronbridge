@@ -73,14 +73,19 @@ export default function SearchUploadMeta({
               body: {
                 searchId: result.data.createSearch.id
               }
-            }).then(() => {
-              setIsUploading(false);
-              history.push(`/mask-selection/${result.data.createSearch.id}`);
-            }).catch(() => {
-              deleteSearch({ id: result.data.createSearch.id});
-              setIsUploading(false);
-              message.error('There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.', 8);
-            });
+            })
+              .then(() => {
+                setIsUploading(false);
+                history.push(`/mask-selection/${result.data.createSearch.id}`);
+              })
+              .catch(() => {
+                deleteSearch({ id: result.data.createSearch.id });
+                setIsUploading(false);
+                message.error(
+                  "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                  8
+                );
+              });
           } else {
             // else trigger the alignment to start on the backend.
             API.post("SearchAPI", "/searches", {
@@ -92,14 +97,19 @@ export default function SearchUploadMeta({
                   }
                 ]
               }
-            }).then(() => {;
-              setIsUploading(false);
-              onSearchSubmit();
-            }).catch(() => {
-              deleteSearch({ id: result.data.createSearch.id});
-              setIsUploading(false);
-              message.error('There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.', 8);
-            });
+            })
+              .then(() => {
+                setIsUploading(false);
+                onSearchSubmit();
+              })
+              .catch(() => {
+                deleteSearch({ id: result.data.createSearch.id });
+                setIsUploading(false);
+                message.error(
+                  "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                  8
+                );
+              });
           }
         })
         .catch(e => {
@@ -244,7 +254,6 @@ export default function SearchUploadMeta({
                     />
                   </Form.Item>
                 </Form.Item>
-
                 <Form.Item
                   label="Reference Channel Index"
                   name="referenceChannel"
