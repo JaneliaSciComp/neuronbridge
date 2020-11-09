@@ -21,7 +21,7 @@ See the [RELEASENOTES.md](public/RELEASENOTES.md) in the public directory.
 
 This code is made available under the [Janeia Open Source License](LICENSE.md). All studies and publications that use this software must cite [doi:10.25378/janelia.12159378.v1](https://doi.org/10.25378/janelia.12159378.v1).
 
-## For Developers
+# For Developers
 
 ## Development
 
@@ -49,7 +49,9 @@ npm start
 ```
 Then you can access your dev server like this: [https://neuronbridge-dev.janelia.org:3000](https://neuronbridge-dev.janelia.org:3000)
 
-### Deployment
+## Deployment
+
+Note: Please make sure you have created a cognito user pool and the appropriate roles to access your data and search buckets on AWS. See [AWS setup](README_AWS.md) for more details. Once that is complete:
 
 Create optimized build for deployment:
 ```bash
@@ -62,5 +64,8 @@ npm run deploy:prod
 ```
 Other stages of deployment can also be used. ```deploy:dev``` or ```deploy:val```
 
-Bucket targets are hard coded into the package.json file. To change the deployment targets, please create a new bucket on AWS and modify the package.json file.
+Bucket targets, API endpoints and graphQL endpoints are hard coded into src/config.js. These values can be obtained from your aws console, after you have deployed the [neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) backend.
 
+## Configuring AWS
+
+see [AWS setup](README_AWS.md)
