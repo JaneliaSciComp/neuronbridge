@@ -6,14 +6,16 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 // cant lazy load this as it breaks the AWS APIs
 import SearchErrorBoundary from "./components/SearchErrorBoundary";
 import Landing from "./components/Landing";
+import config from "./config";
 
-const ReleaseNotes = React.lazy(() => import('./components/ReleaseNotes'));
+const ReleaseNotes = React.lazy(() => import("./components/ReleaseNotes"));
 const About = React.lazy(() => import("./components/About"));
 const Login = React.lazy(() => import("./components/Login"));
 const HelpPage = React.lazy(() => import("./components/HelpPage"));
 const Signup = React.lazy(() => import("./components/Signup"));
 const Search = React.lazy(() => import("./components/Search"));
 const Results = React.lazy(() => import("./components/Results"));
+const Maintenance = React.lazy(() => import("./components/Maintenance"));
 const MaskSelection = React.lazy(() => import("./components/MaskSelection"));
 const CustomSearchList = React.lazy(() =>
   import("./components/CustomSearchList")
@@ -60,19 +62,20 @@ export default function Routes({ appProps }) {
         />
         <AuthenticatedRoute
           path="/upload"
-          component={CustomSearchList}
+          component={config.UNDER_MAINTENANCE ? Maintenance : CustomSearchList}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/results/:id"
-          component={Results}
+          component={config.UNDER_MAINTENANCE ? Maintenance : Results}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/mask-selection/:id"
-          component={MaskSelection}
+          component={config.UNDER_MAINTENANCE ? Maintenance : MaskSelection}
           appProps={appProps}
         />
+
         <Route path="/about" component={About} />
         <Route path="/releasenotes/:name" component={ReleaseNotes} />
         <Route path="/usage" component={UsageTerms} />

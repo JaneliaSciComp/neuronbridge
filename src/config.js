@@ -2,6 +2,8 @@ import { Auth } from "aws-amplify";
 
 const validLevels = ["prod", "val", "dev"];
 
+const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
+
 const dataLevel =
   process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
 
@@ -39,6 +41,7 @@ if (endpointLevel === "dev") {
 
 
 export default {
+  UNDER_MAINTENANCE,
   SEARCH_BUCKET,
   s3: {
     REGION: "us-east-1",
