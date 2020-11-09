@@ -34,7 +34,7 @@ describe('config testing', () => {
     expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-val");
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-val");
     const searchEndpoint = config.api.endpoints.filter(ep => ep.name === "SearchAPI")[0].endpoint;
-    expect(searchEndpoint).toEqual("https://nt050zgj28.execute-api.us-east-1.amazonaws.com");
+    expect(searchEndpoint).toEqual("https://dxfoj63unb.execute-api.us-east-1.amazonaws.com");
   });
 
   test('test REACT_APP_LEVEL = prod', () => {

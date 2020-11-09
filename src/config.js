@@ -28,7 +28,7 @@ let SEARCH_ENDPOINT = "https://nan47vkv68.execute-api.us-east-1.amazonaws.com";
 if (endpointLevel === "dev") {
   SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
 } else if (endpointLevel === "val") {
-  SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
+  SEARCH_ENDPOINT = "https://dxfoj63unb.execute-api.us-east-1.amazonaws.com";
 }
 
 let GRAPHQL_ENDPOINT = "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql";
@@ -36,7 +36,7 @@ let GRAPHQL_ENDPOINT = "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1
 if (endpointLevel === "dev") {
 	GRAPHQL_ENDPOINT = "https://na2n7flfhbc5jihltfahcyplua.appsync-api.us-east-1.amazonaws.com/graphql";
 } else if (endpointLevel === "val") {
-	GRAPHQL_ENDPOINT = "https://na2n7flfhbc5jihltfahcyplua.appsync-api.us-east-1.amazonaws.com/graphql";
+  GRAPHQL_ENDPOINT = "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql";
 }
 
 
