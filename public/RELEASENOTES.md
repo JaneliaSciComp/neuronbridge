@@ -1,3 +1,19 @@
+## Version 1.7.0 - 2010-11-10
+
+### Whats New
+* Image Alignment
+  - After you upload an image you will be asked if the image has been aligned already. If it has not you can access the alignment parameters form and start an alignment by unselecting the checkbox.
+  - Alignments can take a while, but the page will update as soon as it has finished. From there you can select a channel, mask it for your region of interest and search our image libraries.
+* Mask Selection
+  - Once an uploaded image has been aligned you can use the mask selection page to draw around the region of interest and set a number of search parameters.
+* Searching
+  - Once a search has completed you can perform another one from the same upload, by using the "re-select mask" button on the upload page.
+  - Clicking on a result thumbnail for one of the matches will show the image comparison pop up. From here you can now mask and search either the input or the match by clicking on the "Mask & Search" button.
+  - The "View Precomputed Search" button under the matched image will take you to our precomputed search results for that image.
+* Documentation
+  - Additional documentation on alignment of uploaded files.
+  - Additional documentation on the match precompute algorithm.
+
 ## Version 1.6.2 - 2020-10-08
 
 ### Bug Fixes
@@ -13,8 +29,8 @@
 ## Version 1.6.0 - 2020-09-22
 
 ### Whats New
-* Image Alignment and Color Depth MIP Search for your own imagery.
-  - Leveraging the power of AWS Lambda functions, you can now upload your own image, have it aligned and then use it to search for matches in our public datasets.
+* Color Depth MIP Search for your own imagery.
+  - Leveraging the power of AWS Lambda functions, you can now upload your own image and then use it to search for matches in our public datasets.
   - Start by clicking on the [Upload](https://neuronbridge.janelia.org/upload) link in the navigation bar at the top of the site.
 * "Mirror Mask" button added to the input/match comparison page.
 * Added "Matching Pixels" and "Library" columns to the results export. Columns are now:
