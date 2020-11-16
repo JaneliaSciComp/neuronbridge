@@ -49,7 +49,126 @@
         - Role: "neuronbridge-admin"
     - Click "save changes" at the bottom of the page.
 - update access permissions for the Authorized and Admin roles
+    - Admin - the admin role needs to have write access to all data in the searches bucket.
+        - Add the following JSON to a new policy called "NeuronBridgeAdminAllAccess"
+        - make sure to set the Resource to the correct ARN for your search results bucket.
+        ``` JSON
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:PutObject",
+                        "s3:PutObjectTagging",
+                        "s3:GetObject",
+                        "s3:GetObjectTagging",
+                        "s3:DeleteObject"
+                    ],
+                    "Resource": "arn:aws:s3:::janelia-neuronbridge-searches-prod/*"
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": "s3:ListBucket",
+                    "Resource": "arn:aws:s3:::janelia-neuronbridge-searches-prod"
+                }
+            ]
+        }
+        ```
+        - Create a role called Neuronbridge_AdminRole in the "roles" section of "Identity and Access Management (IAM)" control pannel
+        - Attach the "NeuronBridgeAdminAllAccess" policy, you created earlier, to this role in the permissions tab of the role summary.
+    - Authorized user Role
+        - For this role you can add the policies inline on the "Neuronbridge_AuthRole" role.
+        - Polices needed are for the private, protected, and read permissions. to make sure the logged in user is the only one that can read their private files.
+        - policy for private directories:
+        ``` JSON
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Action": [
+                        "s3:PutObject",
+                        "s3:PutObjectTagging",
+                        "s3:GetObject",
+                        "s3:GetObjectTagging",
+                        "s3:DeleteObject"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::janelia-neuronbridge-searches-dev/private/${cognito-identity.amazonaws.com:sub}/*",
+                        "arn:aws:s3:::janelia-neuronbridge-searches-val/private/${cognito-identity.amazonaws.com:sub}/*"
+                    ],
+                    "Effect": "Allow"
+                }
+            ]
+        }      
+        ```
+        - policy for protected directories:
+        ``` JSON
+
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Action": [
+                        "s3:PutObject",
+                        "s3:PutObjectTagging",
+                        "s3:GetObject",
+                        "s3:GetObjectTagging",
+                        "s3:DeleteObject"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::janelia-neuronbridge-searches-dev/protected/${cognito-identity.amazonaws.com:sub}/*",
+                        "arn:aws:s3:::janelia-neuronbridge-searches-val/protected/${cognito-identity.amazonaws.com:sub}/*"
+                    ],
+                    "Effect": "Allow"
+                }
+            ]
+        }
+        ```
+        - poilcy for read access to private and protected directories
+        ``` JSON
+
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Action": [
+                        "s3:GetObject"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::janelia-neuronbridge-searches-dev/protected/*",
+                        "arn:aws:s3:::janelia-neuronbridge-searches-val/protected/*"
+                    ],
+                    "Effect": "Allow"
+                },
+                {
+                    "Condition": {
+                        "StringLike": {
+                            "s3:prefix": [
+                                "public/",
+                                "public/*",
+                                "protected/",
+                                "protected/*",
+                                "private/${cognito-identity.amazonaws.com:sub}/",
+                                "private/${cognito-identity.amazonaws.com:sub}/*"
+                            ]
+                        }
+                    },
+                    "Action": [
+                        "s3:ListBucket"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::janelia-neuronbridge-searches-dev",
+                        "arn:aws:s3:::janelia-neuronbridge-searches-val"
+                    ],
+                    "Effect": "Allow"
+                }
+            ]   
+        }
+
+        ```
 - Attach roles to the correct user groups
+    - in the federated identities console, edit your identity pool and select the Neuronbridge_AuthRole in the "Authenticated role" selection dropdown.
 - Add cognito & oauth information to src/config.js
     - in your clone of the repo open ```src/config.js```
     - in the ```export default``` code block add the following:
