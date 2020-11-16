@@ -15,9 +15,9 @@
     - Tags
        - Click "Next step" to skip
     - Devices
-        - Click "Next step" to skip 
+        - Click "Next step" to skip
     - App Clients
-        - 
+        -
     - Triggers
         - Click "Next step" to skip
     - Review
@@ -39,7 +39,7 @@
     - Add other providers by following the instructions for each one.
     - click "Create Pool"
     - attach roles to the federated identity pool
-- Add the admin role to the identity pool    
+- Add the admin role to the identity pool
     - Click "Edit identity pool" at the top of the identity pool dashboard.
     - Go to the "Cognito Tab" in the "Authentication providers" section of the identity pool
     - Under the "Authenticated role selection" heading select "Choose role with rules" from the dropdown.
@@ -55,17 +55,17 @@
     - in the ```export default``` code block add the following:
 
    ``` JSON
-   cognito: {                                                          
-      REGION: "us-east-1",                                              
-      USER_POOL_ID: "<copied from 'Pool id' on the General settings section of the user pool settings>",                              
-      APP_CLIENT_ID: "<copied from app clients section of the user pool settings>",                      
+   cognito: {
+      REGION: "us-east-1",
+      USER_POOL_ID: "<copied from 'Pool id' on the General settings section of the user pool settings>",
+      APP_CLIENT_ID: "<copied from app clients section of the user pool settings>",
       IDENTITY_POOL_ID: "<copied from Identity Pool ID on the Federated Identity Editing page "
-   },                                                                  
-   oauth: {                                                            
-     DOMAIN: "<copied from Domain name page in user pool settings",          
-     SCOPE: ["email", "openid", "profile"],                            
-     REDIRECT_SIGN_IN: window.location.origin,                         
-     REDIRECT_SIGN_OUT: window.location.origin                         
-   },                                                                  
+   },
+   oauth: {
+     DOMAIN: "<copied from Domain name page in user pool settings",
+     SCOPE: ["email", "openid", "profile"],
+     REDIRECT_SIGN_IN: window.location.origin,
+     REDIRECT_SIGN_OUT: window.location.origin
+   },
    ```
 
