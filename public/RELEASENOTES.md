@@ -1,5 +1,8 @@
 ## Version 1.7.0 - 2010-11-10
 
+### Data Alert
+* Due to the large changes made to the alignment and search framework we have had to delete the results of any custom searches run before Nov 10th 2020. We apologise for any inconvenience this may cause.
+
 ### Whats New
 * Image Alignment
   - After you upload an image you will be asked if the image has been aligned already. If it has not you can access the alignment parameters form and start an alignment by unselecting the checkbox.
