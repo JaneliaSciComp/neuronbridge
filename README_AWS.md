@@ -100,7 +100,7 @@
                     "Effect": "Allow"
                 }
             ]
-        }      
+        }
         ```
         - policy for protected directories:
         ``` JSON
@@ -163,7 +163,7 @@
                     ],
                     "Effect": "Allow"
                 }
-            ]   
+            ]
         }
 
         ```
@@ -173,7 +173,7 @@
     - in your clone of the repo open ```src/config.js```
     - in the ```export default``` code block add the following:
 
-   ``` JSON
+   ``` javascript
    cognito: {
       REGION: "us-east-1",
       USER_POOL_ID: "<copied from 'Pool id' on the General settings section of the user pool settings>",
