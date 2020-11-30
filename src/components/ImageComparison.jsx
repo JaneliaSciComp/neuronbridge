@@ -96,8 +96,8 @@ export default function ImageComparison(props) {
     // copy the files
     const imagePath = `https://s3.amazonaws.com/${config.SEARCH_BUCKET}/private/${mask.identityId}/${mask.searchDir}/${mask.searchMask}`;
     const response = await maskAndSearch({
-      imageURL: imagePath,
-      thumbnailURL: imagePath
+      imageURL: mask.imageURL || imagePath,
+      thumbnailURL: mask.imageURL || imagePath
     });
     if (response) {
       // redirect to the search input form
