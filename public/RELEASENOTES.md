@@ -1,3 +1,8 @@
+## Version 1.7.1 - 2010-11-30
+
+### Bug Fixes
+* Fixes 'Mask & Search' button for precomputed images used as a search input.
+
 ## Version 1.7.0 - 2010-11-10
 
 ### Data Alert
