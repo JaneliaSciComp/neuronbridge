@@ -15,6 +15,7 @@ import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
 import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
+import SiteSurvey from "./components/SiteSurvey";
 import "antd/dist/antd.less";
 
 const { Header, Content, Footer } = Layout;
@@ -158,6 +159,7 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
+          <SiteSurvey />
           <LoggedInAs username={appState.username} />
           <Routes
             appProps={{

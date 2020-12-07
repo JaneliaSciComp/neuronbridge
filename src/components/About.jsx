@@ -20,8 +20,8 @@ export default function About() {
         segmented neuron skeletons, which are difficult to reconstruct in dense
         light microscopy data. A complementary approach, termed “color depth
         mask search”, was published in{" "}
-        <a href="https://doi.org/10.1101/318006">Otsuna, et. al(2018)</a> and
-        is now in widespread use for LM-EM finding correspondences. The
+        <a href="https://doi.org/10.1101/318006">Otsuna, et. al(2018)</a> and is
+        now in widespread use for LM-EM finding correspondences. The
         NeuronBridge application provides browsing of color depth search results
         for LM and EM data published by the FlyLight and FlyEM projects. For LM
         this includes the Gen1 and Split-GAL4 data sets, and for EM, the
@@ -40,15 +40,21 @@ export default function About() {
         <Link to="/usage">View Usage Terms</Link>
       </Paragraph>
       <Paragraph>
-      <Title level={3}>Release notes:</Title>
-      <ul>
-      {
-        Object.keys(config.releasenotes).map(name => (
-          <li key={name}><Link to={{pathname: `/releasenotes/${name}`
-                        }}>{config.releasenotes[name].title}</Link></li>
-        ))
-      }
-      </ul>
+        <Title level={3}>Release notes:</Title>
+        <ul>
+          {Object.keys(config.releasenotes).map(name => (
+            <li key={name}>
+              <Link to={{ pathname: `/releasenotes/${name}` }}>
+                {config.releasenotes[name].title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Paragraph>
+      <Title level={3}>Site Feedback Survey:</Title>
+      <Paragraph>
+        Please take a moment to fill out our{" "}
+        <a href="https://forms.gle/tJa6GAwEjs7fykhG7">site feedback survey</a>.
       </Paragraph>
       <Row>
         <Col sm={12}>
