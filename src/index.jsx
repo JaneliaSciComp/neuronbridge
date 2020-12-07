@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Amplify from "aws-amplify";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import { CookiesProvider } from 'react-cookie';
 
 import config from "./config";
 import App from "./App";
@@ -55,7 +56,9 @@ ReactDOM.render(
     <AlertProvider template={AlertTemplate} {...alertOptions}>
       <AppProvider>
         <FilterProvider>
-          <App />
+          <CookiesProvider>
+            <App />
+          </CookiesProvider>
         </FilterProvider>
       </AppProvider>
     </AlertProvider>
