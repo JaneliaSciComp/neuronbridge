@@ -76,6 +76,7 @@ export default function About() {
             <li>Jody Clements</li>
             <li>Cristian Goina</li>
             <li>Rob Svirskas</li>
+            <li>Takashi Kawase</li>
             <li>Konrad Rokicki</li>
           </ul>
           <Title level={3}>Logo Design:</Title>
