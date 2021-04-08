@@ -180,7 +180,7 @@ export default function App() {
           </a>
         )}
         <p>
-          HHMI ©2020{" "}
+          HHMI ©{new Date().getFullYear()}{" "}
           <Link to="/releasenotes/website">
             v{process.env.REACT_APP_VERSION}
           </Link>{" "}
