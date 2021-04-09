@@ -4,6 +4,7 @@ import { Row, Col, Button } from "antd";
 import { useHistory } from "react-router-dom";
 import ImageWithModal from "./ImageWithModal";
 import CustomMeta from "./CustomMeta";
+import AlignmentMeta from "./AlignmentMeta";
 
 export default function CustomInputSummary({ searchMeta }) {
   const history = useHistory();
@@ -28,6 +29,9 @@ export default function CustomInputSummary({ searchMeta }) {
           </Button>
         </Col>
       </Row>
+      {searchMeta.alignFinished ? (
+        <AlignmentMeta metadata={searchMeta} />
+      ): null}
     </div>
   );
 }

@@ -27,11 +27,11 @@ export default function ImageAlignmentStep({ state, search }) {
           src={thumbnailUrl}
           alt="Alignment Thumbnail"
         />
-        <Button
-          style={{ marginTop: "0.5em", width: "150px" }}
-        >
-          parameters
-        </Button>
+        {search.alignFinished ? (
+          <Button style={{ marginTop: "0.5em", width: "150px" }}>
+            parameters
+          </Button>
+        ) : null}
       </>
     );
   }

@@ -20,6 +20,11 @@ export const getSearch = /* GraphQL */ `
       nTotalMatches
       updatedOn
       createdOn
+      voxelX
+      voxelY
+      voxelZ
+      alignStarted
+      alignFinished
     }
   }
 `;
@@ -47,6 +52,8 @@ export const listSearches = /* GraphQL */ `
         uploadThumbnail
         updatedOn
         createdOn
+        alignFinished
+        alignStarted
       }
       nextToken
     }
