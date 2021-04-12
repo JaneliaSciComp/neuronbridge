@@ -13,7 +13,7 @@ export default function LineMeta({ attributes }) {
     <Row>
       <Col md={24} lg={12}>
         <p>
-          <b>Line Name:</b>
+          <b>Line Name: </b>
           <Link to={searchUrl}>{publishedName}</Link>
         </p>
         {attributes.normalizedScore ? (
