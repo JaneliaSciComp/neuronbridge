@@ -1,38 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { formatRelative } from "date-fns";
 import { Row, Col } from "antd";
 
-export default function AlignmentMeta({metadata}) {
+export default function AlignmentMeta({ metadata }) {
   return (
     <Row>
-      <Col md={24} lg={12}>
+      <Col md={24} lg={1} />
+      <Col md={24} lg={7}>
         <p>
-          <b>Alignment Parameters:</b>
+          <b>Template Matching Algorithm:</b> {metadata.algorithm === "avg" ? "Median Intensity" : "Maximum Intensity" }
         </p>
         <p>
-          <b>Started:</b>{" "}
-          {formatRelative(new Date(metadata.alignStarted), new Date())}{" "}
+          <b>Reference Channel Index:</b> {metadata.referenceChannel || "Auto-detect"}
         </p>
         <p>
-          <b>Finished:</b>{" "}
-          {formatRelative(new Date(metadata.alignFinished), new Date())}{" "}
-        </p>
-      </Col>
-      <Col md={24} lg={12}>
-        <p>
-          <b>voxelX:</b> {metadata.voxelX}
-        </p>
-        <p>
-          <b>voxelY:</b> {metadata.voxelY}
-        </p>
-        <p>
-          <b>voxelZ:</b> {metadata.voxelZ}
+          <b>Voxel Size (microns)</b> {metadata.voxelX} x {metadata.voxelY} x{" "}
+          {metadata.voxelZ}
         </p>
       </Col>
     </Row>
   );
-
 }
 
 AlignmentMeta.propTypes = {

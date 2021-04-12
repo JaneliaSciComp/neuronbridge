@@ -10,6 +10,7 @@ const initialState = {
   showHelp: false,
   helpTarget: null,
   showFilterMenu: false,
+  showAlignmentMeta: false,
   paths: {},
   debug: false
 }

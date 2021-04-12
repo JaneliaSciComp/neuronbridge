@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import ImageWithModal from "./ImageWithModal";
 import CustomMeta from "./CustomMeta";
 import AlignmentMeta from "./AlignmentMeta";
+import { AppContext } from "../containers/AppContext";
 
 export default function CustomInputSummary({ searchMeta }) {
   const history = useHistory();
+  const [appState, setAppState] = useContext(AppContext);
+
+  const handleAlignToggle = () => {
+    setAppState({
+      ...appState,
+      showAlignmentMeta: !appState.showAlignmentMeta
+    });
+  };
 
   return (
-    <div style={{marginTop: '2em'}}>
+    <div style={{ marginTop: "2em" }}>
       <h3>Input Mask</h3>
       <Row>
         <Col xs={24} lg={8}>
@@ -30,8 +40,30 @@ export default function CustomInputSummary({ searchMeta }) {
         </Col>
       </Row>
       {searchMeta.alignFinished ? (
-        <AlignmentMeta metadata={searchMeta} />
-      ): null}
+        <>
+          <h3>
+            Alignment Parameters{" "}
+            <Button
+              shape="round"
+              type="ghost"
+              size="small"
+              onClick={handleAlignToggle}
+            >
+              {appState.showAlignmentMeta ? "hide" : "expand"}
+              {appState.showAlignmentMeta ? <UpOutlined /> : <DownOutlined /> }
+            </Button>
+          </h3>
+          {appState.showAlignmentMeta ? (
+            <Row>
+              <Col md={24} lg={24}>
+                <AlignmentMeta metadata={searchMeta} />
+              </Col>
+            </Row>
+          ) : (
+            ""
+          )}
+        </>
+      ) : null}
     </div>
   );
 }

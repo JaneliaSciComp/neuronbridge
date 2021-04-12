@@ -23,6 +23,7 @@ export const getSearch = /* GraphQL */ `
       voxelX
       voxelY
       voxelZ
+      referenceChannel
       alignStarted
       alignFinished
     }

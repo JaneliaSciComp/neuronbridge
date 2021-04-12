@@ -24,7 +24,7 @@ export default function CustomMeta({metadata}) {
           <b>Anatomical Area:</b> {metadata.anatomicalRegion}
         </p>
         <p>
-          <b>Channel:</b> {metadata.channel}
+          <b>Ref. Channel:</b> {metadata.referenceChannel || "Auto-detect"}
         </p>
         <p>
           <b>Algorithm:</b> {metadata.algorithm}
