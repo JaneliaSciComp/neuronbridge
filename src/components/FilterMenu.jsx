@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Switch, Divider, Col, Row, Radio } from "antd";
+import { InputNumber, Input, Switch, Divider, Col, Row, Radio } from "antd";
 
 import LibraryFormatter from "./LibraryFormatter";
 import { FilterContext } from "../containers/FilterContext";
@@ -36,6 +36,10 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
 	function onSortChange(event) {
     setFilterState({ ...filterState, sortResultsBy: event.target.value });
 	}
+
+  function handleIdFilter(event) {
+    setFilterState({ ...filterState, idOrNameFilter: event.target.value });
+  }
 
   if (!appState.showFilterMenu) {
     return null;
@@ -93,6 +97,9 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
           </Radio.Group>
         </Col>
       </Row>
+        {process.env.NODE_ENV === "development" ? (
+      <Input placeholder="id or name string" onChange={handleIdFilter} value={filterState.idOrNameFilter} />
+        ): null}
       <Divider />
     </div>
   );

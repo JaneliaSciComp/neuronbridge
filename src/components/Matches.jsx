@@ -153,6 +153,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       });
     }
 
+    fullList = fullList.filter(result => (result.publishedName.includes(filterState.idOrNameFilter)));
+
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
       page * matchesPerPage

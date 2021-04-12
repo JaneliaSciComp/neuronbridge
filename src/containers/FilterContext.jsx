@@ -12,10 +12,12 @@ const FilterProvider = (props) => {
       resultsPerLine: 1,
       sortResultsBy: 1,
       filteredLibraries: {},
+      idOrNameFilter: "",
     },
     sortResultsBy: 1,
     resultsPerLine: 1,
     filteredLibraries: {},
+    idOrNameFilter: "",
   });
   const { children } = props;
   return (
