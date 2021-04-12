@@ -58,6 +58,9 @@ export default function SearchUploadMeta({
           searchDetails.voxelY = parseFloat(values.voxelxy);
           searchDetails.voxelZ = parseFloat(values.voxelz);
         }
+        if (values.referenceChannel !== "auto") {
+          searchDetails.referenceChannel = values.referenceChannel;
+        }
         if (process.env.NODE_ENV === "development") {
           searchDetails.channel = values.channel;
         }
