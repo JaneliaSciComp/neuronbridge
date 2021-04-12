@@ -44,13 +44,12 @@ export default function CustomInputSummary({ searchMeta }) {
           <h3>
             Alignment Parameters{" "}
             <Button
-              shape="round"
               type="ghost"
               size="small"
               onClick={handleAlignToggle}
             >
-              {appState.showAlignmentMeta ? "hide" : "expand"}
               {appState.showAlignmentMeta ? <UpOutlined /> : <DownOutlined /> }
+              {appState.showAlignmentMeta ? "hide" : "expand"}
             </Button>
           </h3>
           {appState.showAlignmentMeta ? (
