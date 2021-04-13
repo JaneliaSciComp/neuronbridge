@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Divider, Row, Col, Button } from "antd";
+import { Checkbox, Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
@@ -11,13 +11,21 @@ export default function MatchSummary(props) {
   const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
 
+  const handleChange = () => {
+    console.log(match);
+  }
+
   if (gridView) {
     const score =
       filterState.sortResultsBy === 2
         ? `(Matched Pixels: ${match.matchingPixels})`
         : `(Score: ${Math.round(match.normalizedScore)})`;
+
+    // TODO: add a checkbox here that when selected calls the onSelected callback
+    // and adds the id of the match to the list of selected matches.
     return (
       <Col xs={24} md={12} lg={8} xl={6}>
+        <Checkbox onChange={handleChange} />
         <ImageWithModal
           thumbSrc={match.thumbnailURL}
           src={match.imageURL}

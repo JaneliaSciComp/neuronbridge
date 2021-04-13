@@ -30,6 +30,8 @@ export default function Matches({ input, searchType, matches }) {
     100
   );
 
+  const [matchesForExport, setMatchesForExport] = useState([]);
+
   const [modalOpen, setModalOpen] = useState(0);
   const [appState, , setPermanent] = useContext(AppContext);
   const [filterState] = useContext(FilterContext);
@@ -161,6 +163,7 @@ export default function Matches({ input, searchType, matches }) {
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
             gridView={appState.gridView}
+            onSelect={setMatchesForExport}
           />
         </React.Fragment>
       );
@@ -187,6 +190,7 @@ export default function Matches({ input, searchType, matches }) {
 
   return (
     <div>
+      <p>Matches for Export: {matchesForExport.length}</p>
       <Row style={{ paddingBottom: "1em" }}>
         <Col xs={24} md={{ span: 11, order: 1 }} xl={4}>
           <h3>
