@@ -31,7 +31,7 @@ export default function Matches({ input, searchType, matches }) {
   );
 
   const [modalOpen, setModalOpen] = useState(0);
-  const [appState, setAppState] = useContext(AppContext);
+  const [appState, , setPermanent] = useContext(AppContext);
   const [filterState] = useContext(FilterContext);
 
   function handlePageChange(newPage) {
@@ -221,7 +221,7 @@ export default function Matches({ input, searchType, matches }) {
             checkedChildren="Grid"
             unCheckedChildren="List"
             onChange={() =>
-              setAppState({ ...appState, gridView: !appState.gridView })
+              setPermanent({ gridView: !appState.gridView})
             }
           />
         </Col>

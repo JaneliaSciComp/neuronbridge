@@ -22,7 +22,7 @@ const { Header, Content, Footer } = Layout;
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [appState, setAppState] = useContext(AppContext);
+  const [appState, setAppState, setPermanent] = useContext(AppContext);
   // const history = useHistory();
   const location = useLocation();
 
@@ -90,8 +90,7 @@ export default function App() {
 
   const handleShowDebug = event => {
     event.preventDefault();
-    const debug = !appState.debug;
-    setAppState({ ...appState, debug });
+    setPermanent({ debug: !appState.debug });
   };
 
   const searchEnpoints = config.api.endpoints.map(endpoint => (
