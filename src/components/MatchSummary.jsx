@@ -5,15 +5,23 @@ import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import { FilterContext } from "../containers/FilterContext";
+import { useMatches } from "../containers/MatchesContext";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
+  const { state, dispatch } = useMatches();
   const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
 
-  const handleChange = () => {
-    console.log(match);
-  }
+  const handleChange = e => {
+    if (e.target.checked) {
+      dispatch({ type: "add", payload: match.id });
+    } else {
+      dispatch({ type: "remove", payload: match.id });
+    }
+  };
+
+  const checked = state.selected.includes(match.id);
 
   if (gridView) {
     const score =
@@ -21,19 +29,32 @@ export default function MatchSummary(props) {
         ? `(Matched Pixels: ${match.matchingPixels})`
         : `(Score: ${Math.round(match.normalizedScore)})`;
 
-    // TODO: add a checkbox here that when selected calls the onSelected callback
-    // and adds the id of the match to the list of selected matches.
     return (
       <Col xs={24} md={12} lg={8} xl={6}>
-        <Checkbox onChange={handleChange} />
-        <ImageWithModal
-          thumbSrc={match.thumbnailURL}
-          src={match.imageURL}
-          alt={publishedName}
-          showModal={showModal}
-        />
+        <div style={{ position: "relative" }}>
+          <Checkbox
+            style={{
+              position: "absolute",
+              top: "6px",
+              left: "20px",
+              zIndex: 2
+            }}
+            onChange={handleChange}
+            checked={checked}
+          />
+          <ImageWithModal
+            thumbSrc={match.thumbnailURL}
+            src={match.imageURL}
+            alt={publishedName}
+            showModal={showModal}
+          />
+        </div>
         <p style={{ paddingLeft: "2em" }}>
-          <Button type="link" onClick={showModal} style={{ padding: '0.1em', margin: 'none' }}>
+          <Button
+            type="link"
+            onClick={showModal}
+            style={{ padding: "0.1em", margin: "none" }}
+          >
             {publishedName}
           </Button>
           {score}
@@ -55,13 +76,9 @@ export default function MatchSummary(props) {
         </Col>
         <Col span={10}>
           {isLM ? (
-            <LineMeta
-              attributes={match}
-            />
+            <LineMeta attributes={match} />
           ) : (
-            <SkeletonMeta
-              attributes={match}
-            />
+            <SkeletonMeta attributes={match} />
           )}
         </Col>
         <Col span={6}>
@@ -77,7 +94,7 @@ MatchSummary.propTypes = {
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,
-  gridView: PropTypes.bool.isRequired
+  gridView: PropTypes.bool.isRequired,
 };
 
 MatchSummary.defaultProps = {

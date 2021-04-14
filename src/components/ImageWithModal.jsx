@@ -10,7 +10,7 @@ export default function ImageWithModal(props) {
   if (showModal) {
     return (
       <Button className="modalButton" onClick={showModal}>
-        <img className="thumbnail" src={thumbSrc} alt={title} />
+        <img className="thumbnail" src={thumbSrc} alt={title} style={{width: "100%"}} />
       </Button>
     );
   }

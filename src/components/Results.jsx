@@ -8,6 +8,7 @@ import NotFound from "./NotFound";
 import * as queries from "../graphql/queries";
 import config from "../config";
 import { signedLink } from "../libs/awsLib";
+import { MatchesProvider } from "../containers/MatchesContext";
 
 export default function Results({ match }) {
   const searchId = match.params.id;
@@ -31,7 +32,11 @@ export default function Results({ match }) {
           // TODO: add another step here to generate the real imageURL,
           // rather than use the same one as the thumbnail.
           signedLink(uploadUrl, currentMeta.identityId).then(result => {
-            const metaWithSignedUrls = { ...currentMeta, thumbnailURL: result, imageURL: result };
+            const metaWithSignedUrls = {
+              ...currentMeta,
+              thumbnailURL: result,
+              imageURL: result
+            };
             setSearchMeta(metaWithSignedUrls);
           });
         })
@@ -77,7 +82,7 @@ export default function Results({ match }) {
         })
         .catch(error => {
           if (error.response.status === 404) {
-            setSearchResults({results: []});
+            setSearchResults({ results: [] });
           } else {
             message.error(error.message);
           }
@@ -99,11 +104,13 @@ export default function Results({ match }) {
     <div>
       <CustomInputSummary searchMeta={searchMeta} />
       <Divider />
-      <Matches
-        input={searchMeta}
-        matches={searchResults}
-        searchType={searchType}
-      />
+      <MatchesProvider>
+        <Matches
+          input={searchMeta}
+          matches={searchResults}
+          searchType={searchType}
+        />
+      </MatchesProvider>
     </div>
   );
 }

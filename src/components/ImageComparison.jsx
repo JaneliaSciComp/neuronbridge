@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Row, Col, Button } from "antd";
+import { Checkbox, Row, Col, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import { maskAndSearch } from "../libs/awsLib";
 import config from "../config";
+import { useMatches } from "../containers/MatchesContext";
 
 import "./ImageComparison.css";
 
@@ -36,6 +37,8 @@ function drawCrosshair(x, y, ctx) {
 
 export default function ImageComparison(props) {
   const { mask, maskOpen, maskPath, match, matchPath, matchThumbnail } = props;
+
+  const { state, dispatch } = useMatches();
 
   const [mirrored, setMirrored] = useState(false);
   const [mirroredMatch, setMirroredMatch] = useState(false);
@@ -122,6 +125,14 @@ export default function ImageComparison(props) {
     setIsCopying(false);
   };
 
+  const handleDownloadChoice = e => {
+    if (e.target.checked) {
+      dispatch({ type: "add", payload: match.id });
+    } else {
+      dispatch({ type: "remove", payload: match.id });
+    }
+  };
+
   const maskStyle = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
     : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
@@ -136,6 +147,13 @@ export default function ImageComparison(props) {
 
   return (
     <>
+      <p>
+        Download{" "}
+        <Checkbox
+          onChange={handleDownloadChoice}
+          checked={state.selected.includes(match.id)}
+        />
+      </p>
       <Row className="imageComparison">
         {maskOpen && (
           <Col md={12}>

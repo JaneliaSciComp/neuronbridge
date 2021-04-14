@@ -7,6 +7,7 @@ import SkeletonSummary from "./SkeletonSummary";
 import Matches from "./Matches";
 import config from "../config";
 import { AppContext } from "../containers/AppContext";
+import { MatchesProvider } from "../containers/MatchesContext";
 
 export default function MatchesLoader({ searchResult, searchType }) {
   const [isLoading, setLoading] = useState(false);
@@ -75,7 +76,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
       <h3>Input Image</h3>
       {summary}
       <Divider />
-      {matches}
+      <MatchesProvider>{matches}</MatchesProvider>
     </>
   );
 }
