@@ -13,6 +13,9 @@ function matchesReducer(state, action) {
       const updated = state.selected.filter(item => item !== action.payload);
       return { ...state, selected: updated };
     }
+    case "clear": {
+      return { ...state, selected: [] };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Checkbox, Divider, Row, Col, Button } from "antd";
+import { CheckOutlined } from "@ant-design/icons";
 import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
@@ -10,18 +11,18 @@ import { useMatches } from "../containers/MatchesContext";
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
   const { state, dispatch } = useMatches();
+  const checked = state.selected.includes(match.id);
+
   const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
 
-  const handleChange = e => {
-    if (e.target.checked) {
+  const handleChange = () => {
+    if (!checked) {
       dispatch({ type: "add", payload: match.id });
     } else {
       dispatch({ type: "remove", payload: match.id });
     }
   };
-
-  const checked = state.selected.includes(match.id);
 
   if (gridView) {
     const score =
@@ -82,7 +83,16 @@ export default function MatchSummary(props) {
           )}
         </Col>
         <Col span={6}>
-          <Button onClick={showModal}>Select</Button>
+          <Button onClick={showModal} style={{ marginRight: "1em" }}>
+            Select
+          </Button>
+          <Button
+            onClick={handleChange}
+            type={checked ? "primary" : "default"}
+            ghost={checked}
+          >
+            Download {checked ? <CheckOutlined /> : null}
+          </Button>
         </Col>
       </Row>
       <Divider dashed />
@@ -94,7 +104,7 @@ MatchSummary.propTypes = {
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,
-  gridView: PropTypes.bool.isRequired,
+  gridView: PropTypes.bool.isRequired
 };
 
 MatchSummary.defaultProps = {
