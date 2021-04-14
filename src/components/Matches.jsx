@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
-import { Switch, Row, Col, Pagination, Empty, Space } from "antd";
+import { Button, Switch, Row, Col, Pagination, Empty, Space } from "antd";
 import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
 import MatchSummary from "./MatchSummary";
@@ -11,11 +11,13 @@ import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
 import ResultsExport from "./ResultsExport";
 import { useQuery } from "../libs/hooksLib";
+import { useMatches } from "../containers/MatchesContext";
 
 export default function Matches({ input, searchType, matches }) {
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
+  const { state, dispatch } = useMatches();
 
   // get the current page number for the results, but prevent page
   // numbers below 0. Can't set the max value here, but if the user
@@ -50,6 +52,10 @@ export default function Matches({ input, searchType, matches }) {
   function handleModalOpen(index) {
     const matchPosition = page * matchesPerPage - matchesPerPage + index + 1;
     setModalOpen(matchPosition);
+  }
+
+  function handleClearAll() {
+    dispatch({type: "clear"});
   }
 
   const resultsPerLine = filterState.resultsPerLine || 1;
@@ -205,9 +211,10 @@ export default function Matches({ input, searchType, matches }) {
           xl={16}
           style={{ textAlign: "center", marginBottom: "1em" }}
         >
-          <Space size="middle">
+          <Space size="large">
             <FilterButton />
             <ResultsExport results={fullList} searchType={searchType} />
+              <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
           </Space>
         </Col>
         <Col
