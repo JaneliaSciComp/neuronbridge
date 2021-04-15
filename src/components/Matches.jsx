@@ -9,7 +9,7 @@ import MatchModal from "./MatchModal";
 import HelpButton from "./Help/HelpButton";
 import FilterMenu from "./FilterMenu";
 import FilterButton from "./FilterButton";
-import ResultsExport from "./ResultsExport";
+import ExportMenu from "./ExportMenu";
 import { useQuery } from "../libs/hooksLib";
 import { useMatches } from "../containers/MatchesContext";
 
@@ -213,8 +213,8 @@ export default function Matches({ input, searchType, matches }) {
         >
           <Space size="large">
             <FilterButton />
-            <ResultsExport results={fullList} searchType={searchType} />
-              <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
+						<ExportMenu results={fullList} searchType={searchType} />
+            <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
           </Space>
         </Col>
         <Col
