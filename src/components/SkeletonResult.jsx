@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Space } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
@@ -10,6 +10,7 @@ export default function SkeletonResult(props) {
   const { metaInfo } = props;
 
   const matchesUrl = `/search/skeletons/${metaInfo.publishedName}/matches/${metaInfo.id}`;
+  const pppUrl = `/search/ppp/${metaInfo.publishedName}/matches/${metaInfo.id}`;
 
   return (
     <Row>
@@ -24,13 +25,22 @@ export default function SkeletonResult(props) {
         <SkeletonMeta attributes={metaInfo} />
       </Col>
       <Col md={6}>
-        <Button
-          aria-label="View LM Matches"
-          type="primary"
-          disabled={/matches$/.test(location.pathname)}
-        >
-          <Link to={matchesUrl}>View LM Matches</Link>
-        </Button>
+        <Space direction="vertical">
+          <Button
+            aria-label="View CDM Matches"
+            type="primary"
+            disabled={/matches$/.test(location.pathname)}
+          >
+            <Link to={matchesUrl}>View CDM Matches</Link>
+          </Button>
+          <Button
+            aria-label="View PPP Matches"
+            type="primary"
+            disabled={/matches$/.test(location.pathname)}
+          >
+            <Link to={pppUrl}>View PPP Matches</Link>
+          </Button>
+        </Space>
       </Col>
     </Row>
   );
