@@ -10,6 +10,7 @@ import config from "./config";
 
 const ReleaseNotes = React.lazy(() => import("./components/ReleaseNotes"));
 const About = React.lazy(() => import("./components/About"));
+const Admin = React.lazy(() => import("./components/Admin"));
 const Login = React.lazy(() => import("./components/Login"));
 const HelpPage = React.lazy(() => import("./components/HelpPage"));
 const Signup = React.lazy(() => import("./components/Signup"));
@@ -77,6 +78,11 @@ export default function Routes({ appProps }) {
         />
 
         <Route path="/about" component={About} />
+        <AuthenticatedRoute
+          path="/admin"
+          component={Admin}
+          appProps={appProps}
+        />
         <Route path="/releasenotes/:name" component={ReleaseNotes} />
         <Route path="/usage" component={UsageTerms} />
         <Route path="/help" component={HelpPage} />
