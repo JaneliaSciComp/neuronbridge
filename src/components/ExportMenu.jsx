@@ -6,7 +6,7 @@ import { useMatches } from "../containers/MatchesContext";
 import ResultsExport from "./ResultsExport";
 import ImageExport from "./ImageExport";
 
-export default function ExportMenu({ results, searchType }) {
+export default function ExportMenu({ results, searchType, searchId }) {
   const { state } = useMatches();
 
   const resultsWithPosition = results.map((result, i) => {
@@ -31,6 +31,7 @@ export default function ExportMenu({ results, searchType }) {
         <ImageExport
           ids={selectedResults.map(result => result.id)}
           isFiltered={state.selected.length >= 1}
+          searchId={searchId}
         />
       </Menu.Item>
     </Menu>
@@ -52,5 +53,6 @@ export default function ExportMenu({ results, searchType }) {
 
 ExportMenu.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
-  searchType: PropTypes.string.isRequired
+  searchType: PropTypes.string.isRequired,
+  searchId: PropTypes.string.isRequired
 };

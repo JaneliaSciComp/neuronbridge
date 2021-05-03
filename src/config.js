@@ -39,6 +39,7 @@ if (endpointLevel === "dev") {
   GRAPHQL_ENDPOINT = "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql";
 }
 
+const DOWNLOAD_ENDPOINT = "https://5bfu75vr0e.execute-api.us-east-1.amazonaws.com"
 
 export default {
   UNDER_MAINTENANCE,
@@ -64,6 +65,17 @@ export default {
       {
         name: "SearchAPI",
         endpoint: SEARCH_ENDPOINT,
+        custom_header: async () => {
+          return {
+            Authorization: `Bearer ${(await Auth.currentSession())
+              .getAccessToken()
+              .getJwtToken()}`
+          };
+        }
+      },
+      {
+        name: "DownloadAPI",
+        endpoint: DOWNLOAD_ENDPOINT,
         custom_header: async () => {
           return {
             Authorization: `Bearer ${(await Auth.currentSession())

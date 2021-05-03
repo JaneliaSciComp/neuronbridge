@@ -1,13 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Auth, API, Storage } from "aws-amplify";
 
 // TODO: This needs to send the ids to a lambda function on AWS that will
 // return the .tar file for those images.
-export default function ImageExport({ ids, isFiltered}) {
+export default function ImageExport({ ids, isFiltered, searchId}) {
   const handleDownload = (e) => {
     e.preventDefault();
-    console.info('contact AWS with the following ids');
-    console.log(ids);
+    Auth.currentCredentials()
+      .then(async () => {
+       API.post("DownloadAPI", "/create_download", {
+            body: {
+              ids,
+              searchId
+            }
+          }).then((response) => {
+            // redirect back to search progress page.
+            const downloadOptions = {
+              expires: 500,
+              level: "public",
+              bucket: response.bucket,
+              // download: true,
+              customPrefix: {
+                public: ''
+              }
+            };
+            Storage.get(response.download, downloadOptions).then(result => {
+              window.location = result;
+            });
+          });
+
+      });
   }
 
   return (
@@ -17,5 +40,6 @@ export default function ImageExport({ ids, isFiltered}) {
 
 ImageExport.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isFiltered: PropTypes.bool.isRequired
+  isFiltered: PropTypes.bool.isRequired,
+  searchId: PropTypes.string.isRequired
 };

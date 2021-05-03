@@ -213,7 +213,7 @@ export default function Matches({ input, searchType, matches }) {
         >
           <Space size="large">
             <FilterButton />
-						<ExportMenu results={fullList} searchType={searchType} />
+            <ExportMenu results={fullList} searchType={searchType} searchId={input.id} />
             <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
           </Space>
         </Col>
