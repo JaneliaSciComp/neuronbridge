@@ -4,33 +4,39 @@ import { Auth, API, Storage } from "aws-amplify";
 
 // TODO: This needs to send the ids to a lambda function on AWS that will
 // return the .tar file for those images.
-export default function ImageExport({ ids, isFiltered, searchId}) {
+export default function ImageExport({ ids, isFiltered, searchId, onChange}) {
   const handleDownload = (e) => {
     e.preventDefault();
-    Auth.currentCredentials()
-      .then(async () => {
-       API.post("DownloadAPI", "/create_download", {
-            body: {
-              ids,
-              searchId
-            }
-          }).then((response) => {
-            // redirect back to search progress page.
-            const downloadOptions = {
-              expires: 500,
-              level: "public",
-              bucket: response.bucket,
-              // download: true,
-              customPrefix: {
-                public: ''
+    onChange(true);
+    try {
+      Auth.currentCredentials()
+        .then(async () => {
+        API.post("DownloadAPI", "/create_download", {
+              body: {
+                ids,
+                searchId
               }
-            };
-            Storage.get(response.download, downloadOptions).then(result => {
-              window.location = result;
+            }).then((response) => {
+              // redirect back to search progress page.
+              const downloadOptions = {
+                expires: 500,
+                level: "public",
+                bucket: response.bucket,
+                // download: true,
+                customPrefix: {
+                  public: ''
+                }
+              };
+              Storage.get(response.download, downloadOptions).then(result => {
+                onChange(false);
+                window.location = result;
+              });
             });
-          });
-
       });
+    } catch (error) {
+      onChange(false);
+    }
+
   }
 
   return (
@@ -41,5 +47,6 @@ export default function ImageExport({ ids, isFiltered, searchId}) {
 ImageExport.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
   isFiltered: PropTypes.bool.isRequired,
-  searchId: PropTypes.string.isRequired
+  searchId: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 };

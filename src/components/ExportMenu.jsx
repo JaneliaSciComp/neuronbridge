@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Menu, Dropdown, Button, Badge } from "antd";
-import { DownloadOutlined } from "@ant-design/icons";
+import { DownloadOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useMatches } from "../containers/MatchesContext";
 import ResultsExport from "./ResultsExport";
 import ImageExport from "./ImageExport";
 
 export default function ExportMenu({ results, searchType, searchId }) {
   const { state } = useMatches();
+  const [isLoading, setLoading] = useState(false);
 
   const resultsWithPosition = results.map((result, i) => {
     const updated = result;
@@ -32,19 +33,28 @@ export default function ExportMenu({ results, searchType, searchId }) {
           ids={selectedResults.map(result => result.id)}
           isFiltered={state.selected.length >= 1}
           searchId={searchId}
+          onChange={setLoading}
         />
       </Menu.Item>
     </Menu>
   );
 
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={menu} disabled={isLoading}>
       <Badge
         style={{ backgroundColor: "#008b94" }}
         count={selectedResults.length}
       >
         <Button onClick={e => e.preventDefault()}>
-          <DownloadOutlined /> Download
+          {isLoading ? (
+            <>
+              <LoadingOutlined style={{ fontSize: 12 }} spin /> Downloading
+            </>
+          ) : (
+            <>
+              <DownloadOutlined /> Download
+            </>
+          )}
         </Button>
       </Badge>
     </Dropdown>
