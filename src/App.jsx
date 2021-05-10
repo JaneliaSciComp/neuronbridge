@@ -82,7 +82,7 @@ export default function App() {
         });
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isAuthenticating) {
     return <p>Loading</p>;
