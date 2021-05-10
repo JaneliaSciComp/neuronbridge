@@ -66,7 +66,12 @@ export default function MatchesLoader({ searchResult, searchType }) {
     );
 
   const matches = matchMeta ? (
-    <Matches input={matchInput} searchType={searchType} matches={matchMeta} />
+    <Matches
+      input={matchInput}
+      searchType={searchType}
+      matches={matchMeta}
+      precomputed
+    />
   ) : (
     <Spin size="large" />
   );

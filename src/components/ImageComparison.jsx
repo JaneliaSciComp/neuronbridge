@@ -148,7 +148,7 @@ export default function ImageComparison(props) {
   return (
     <>
       <p>
-        Download{" "}
+        Select for Download{" "}
         <Checkbox
           onChange={handleDownloadChoice}
           checked={state.selected.includes(match.id)}

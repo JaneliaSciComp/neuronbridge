@@ -4,7 +4,7 @@ import { Auth, API, Storage } from "aws-amplify";
 
 // TODO: This needs to send the ids to a lambda function on AWS that will
 // return the .tar file for those images.
-export default function ImageExport({ ids, isFiltered, searchId, onChange }) {
+export default function ImageExport({ ids, isFiltered, searchId, onChange, precomputed }) {
   const handleDownload = e => {
     e.preventDefault();
     onChange(true);
@@ -13,7 +13,8 @@ export default function ImageExport({ ids, isFiltered, searchId, onChange }) {
         API.post("DownloadAPI", "/create_download", {
           body: {
             ids,
-            searchId
+            searchId,
+            precomputed
           }
         })
           .then(response => {
@@ -56,5 +57,6 @@ ImageExport.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
   isFiltered: PropTypes.bool.isRequired,
   searchId: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  precomputed: PropTypes.bool.isRequired
 };

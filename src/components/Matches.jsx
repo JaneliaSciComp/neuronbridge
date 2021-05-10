@@ -13,7 +13,7 @@ import ExportMenu from "./ExportMenu";
 import { useQuery } from "../libs/hooksLib";
 import { useMatches } from "../containers/MatchesContext";
 
-export default function Matches({ input, searchType, matches }) {
+export default function Matches({ input, searchType, matches, precomputed }) {
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -213,7 +213,7 @@ export default function Matches({ input, searchType, matches }) {
         >
           <Space size="large">
             <FilterButton />
-            <ExportMenu results={fullList} searchType={searchType} searchId={input.id} />
+            <ExportMenu results={fullList} searchType={searchType} searchId={input.id} precomputed={precomputed} />
             <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
           </Space>
         </Col>
@@ -279,5 +279,10 @@ export default function Matches({ input, searchType, matches }) {
 Matches.propTypes = {
   input: PropTypes.object.isRequired,
   matches: PropTypes.object.isRequired,
-  searchType: PropTypes.string.isRequired
+  searchType: PropTypes.string.isRequired,
+  precomputed: PropTypes.bool
+};
+
+Matches.defaultProps = {
+  precomputed: false
 };

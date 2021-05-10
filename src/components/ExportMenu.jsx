@@ -6,7 +6,7 @@ import { useMatches } from "../containers/MatchesContext";
 import ResultsExport from "./ResultsExport";
 import ImageExport from "./ImageExport";
 
-export default function ExportMenu({ results, searchType, searchId }) {
+export default function ExportMenu({ results, searchType, searchId, precomputed }) {
   const { state } = useMatches();
   const [isLoading, setLoading] = useState(false);
 
@@ -34,6 +34,7 @@ export default function ExportMenu({ results, searchType, searchId }) {
           isFiltered={state.selected.length >= 1}
           searchId={searchId}
           onChange={setLoading}
+          precomputed={precomputed}
         />
       </Menu.Item>
     </Menu>
@@ -64,5 +65,6 @@ export default function ExportMenu({ results, searchType, searchId }) {
 ExportMenu.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchType: PropTypes.string.isRequired,
-  searchId: PropTypes.string.isRequired
+  searchId: PropTypes.string.isRequired,
+  precomputed: PropTypes.bool.isRequired
 };
