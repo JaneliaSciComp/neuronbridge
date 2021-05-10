@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Modal, Button, Row, Col } from "antd";
-import ImageComparison from "./ImageComparison";
-import LineMeta from "./LineMeta";
-import CustomMeta from "./CustomMeta";
-import SkeletonMeta from "./SkeletonMeta";
+import { Modal, Button, Tabs } from "antd";
+import Summary from "./MatchModal/Summary";
+import ViewIn3D from "./MatchModal/ViewIn3D";
+
+const { TabPane } = Tabs;
 
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, isLM } = props;
@@ -45,20 +45,6 @@ export default function MatchModal(props) {
 
   const selectedMatch = matchesList[selected - 1];
 
-  let metaBlock = <p>Loading...</p>;
-
-  if (mask)
-    if (!mask.createdOn) {
-      if (!isLM) {
-        metaBlock = <LineMeta attributes={mask} />;
-      } else {
-        // skeleton type from EM
-        metaBlock = <SkeletonMeta attributes={mask} />;
-      }
-    } else {
-      metaBlock = <CustomMeta metadata={mask} />;
-  }
-
   if (!selectedMatch) {
     return null;
   }
@@ -98,48 +84,28 @@ export default function MatchModal(props) {
         >
           Next
         </Button>,
-        <Button
-          key="mask"
-          type="primary"
-          onClick={() => setMaskOpen(!maskOpen)}
-        >
-          {maskOpen ? "Hide Mask" : "Show Mask"}
-        </Button>,
         <Button key="back" type="primary" onClick={() => setOpen(0)}>
           Done
         </Button>
       ]}
       width="90%"
     >
-      <Row>
-        <Col sm={12}>
-          <h3>Input Image</h3>
-          {metaBlock}
-        </Col>
-        <Col sm={12}>
-          <h3>
-            Match {selected} of {matchesList.length}
-          </h3>
-          {isLM ? (
-            <LineMeta
-              attributes={selectedMatch}
-            />
-          ) : (
-            <SkeletonMeta
-              attributes={selectedMatch}
-            />
-          )}
-        </Col>
-      </Row>
-      <ImageComparison
-        maskOpen={maskOpen}
-        mask={mask}
-        match={selectedMatch}
-        maskPath={mask.imageURL}
-        maskThumbnail={mask.thumbnailURL}
-        matchPath={selectedMatch.imageURL}
-        matchThumbnail={selectedMatch.thumbnailURL}
-      />
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="Summary" key="1">
+          <Summary
+            selectedMatch={selectedMatch}
+            mask={mask}
+            isLM={isLM}
+            maskOpen={maskOpen}
+            selected={selected}
+            matchesList={matchesList}
+            setMaskOpen={setMaskOpen}
+          />
+        </TabPane>
+        <TabPane tab="View in 3D" key="2">
+          <ViewIn3D selectedMatch={selectedMatch} />
+        </TabPane>
+      </Tabs>
     </Modal>
   );
 }

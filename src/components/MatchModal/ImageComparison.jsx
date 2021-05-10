@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import { Checkbox, Row, Col, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
-import { maskAndSearch } from "../libs/awsLib";
-import config from "../config";
-import { useMatches } from "../containers/MatchesContext";
+import { useMatches } from "../../containers/MatchesContext";
+import { maskAndSearch } from "../../libs/awsLib";
+import config from "../../config";
 
 import "./ImageComparison.css";
 
@@ -36,7 +36,15 @@ function drawCrosshair(x, y, ctx) {
 }
 
 export default function ImageComparison(props) {
-  const { mask, maskOpen, maskPath, match, matchPath, matchThumbnail } = props;
+  const {
+    mask,
+    maskOpen,
+    maskPath,
+    match,
+    matchPath,
+    matchThumbnail,
+    setMaskOpen
+  } = props;
 
   const { state, dispatch } = useMatches();
 
@@ -93,6 +101,14 @@ export default function ImageComparison(props) {
   function toggleMirrorMatch() {
     setMirroredMatch(mState => !mState);
   }
+
+  const handleHideMask = () => {
+    setMaskOpen(false);
+  };
+
+  const handleShowMask = () => {
+    setMaskOpen(true);
+  };
 
   const handleMaskSearch = async () => {
     setIsCopying(true);
@@ -196,10 +212,22 @@ export default function ImageComparison(props) {
             >
               Mask & Search
             </Button>
+            <Button style={{ marginLeft: "0.5em" }} onClick={handleHideMask}>
+              Hide Mask
+            </Button>
           </Col>
         )}
         <Col md={maskOpen ? 12 : 24}>
+          {!maskOpen ? (
+            <Button onClick={handleShowMask}>
+              Show Mask
+            </Button>
+          ) : (
+            ""
+          )}
+
           <Button
+            style={{ marginLeft: "0.5em" }}
             icon={
               <FontAwesomeIcon
                 icon={faRepeat}
@@ -236,5 +264,6 @@ ImageComparison.propTypes = {
   maskPath: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   matchPath: PropTypes.string.isRequired,
-  matchThumbnail: PropTypes.string.isRequired
+  matchThumbnail: PropTypes.string.isRequired,
+  setMaskOpen: PropTypes.func.isRequired
 };
