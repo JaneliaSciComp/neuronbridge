@@ -39,7 +39,7 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
       });
     }
     fetchData();
-  }, [searchDir]);
+  }, [searchDir, onChange]);
 
   const handleChannelSelect = e => {
     const channelImgSrc = channelObjects.filter(

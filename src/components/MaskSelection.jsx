@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
@@ -56,6 +56,11 @@ export default function MaskSelection({ match }) {
     }
   }, [searchId]);
 
+  const handleChannelSelect = useCallback((selectedChannel, imgSrc) => {
+    setChannelImgSrc(imgSrc);
+    setChannel(selectedChannel);
+  }, []);
+
   // if the search step is anything other than the mask selection step,
   // redirect the site back to the search results list.
   if (searchMeta && searchMeta.step !== 2) {
@@ -65,11 +70,6 @@ export default function MaskSelection({ match }) {
   if (missingResults) {
     return <NotFound />;
   }
-
-  const handleChannelSelect = (selectedChannel, imgSrc) => {
-    setChannelImgSrc(imgSrc);
-    setChannel(selectedChannel);
-  };
 
   const handleMaskChange = maskImageData => {
     setMaskedImage(maskImageData);
@@ -128,7 +128,7 @@ export default function MaskSelection({ match }) {
         });
       })
       .catch(error => {
-        console.log(error);
+        message.error(error.message);
         setSubmitting(false);
       });
   };
