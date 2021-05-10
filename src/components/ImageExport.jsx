@@ -1,10 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Auth, API, Storage } from "aws-amplify";
+import { Popover } from "antd";
+import config from "../config";
 
-// TODO: This needs to send the ids to a lambda function on AWS that will
-// return the .tar file for those images.
-export default function ImageExport({ ids, isFiltered, searchId, onChange, precomputed }) {
+const { ZIP_DOWNLOAD_LIMIT = 200 } = config;
+
+export default function ImageExport({
+  ids,
+  isFiltered,
+  searchId,
+  onChange,
+  precomputed
+}) {
+  const limitedIds = ids.slice(0, ZIP_DOWNLOAD_LIMIT);
+
   const handleDownload = e => {
     e.preventDefault();
     onChange(true);
@@ -12,7 +22,7 @@ export default function ImageExport({ ids, isFiltered, searchId, onChange, preco
       .then(async () => {
         API.post("DownloadAPI", "/create_download", {
           body: {
-            ids,
+            ids: limitedIds,
             searchId,
             precomputed
           }
@@ -46,11 +56,26 @@ export default function ImageExport({ ids, isFiltered, searchId, onChange, preco
       });
   };
 
-  return (
+  const popContent = (
+    <div>
+      <p>Downloads are limited to the first {ZIP_DOWNLOAD_LIMIT} images selected</p>
+    </div>
+  );
+
+  const downloadLink = (
     <a href="/" onClick={handleDownload}>
       {isFiltered ? "Selected" : "All"} Images
     </a>
   );
+
+  if (ids.length > ZIP_DOWNLOAD_LIMIT) {
+    return (
+      <Popover placement="right" content={popContent} title="Download limits">
+        {downloadLink}
+      </Popover>
+    );
+  }
+  return downloadLink;
 }
 
 ImageExport.propTypes = {

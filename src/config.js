@@ -42,6 +42,7 @@ if (endpointLevel === "dev") {
 const DOWNLOAD_ENDPOINT = "https://5bfu75vr0e.execute-api.us-east-1.amazonaws.com"
 
 export default {
+  ZIP_DOWNLOAD_LIMIT: 200,
   UNDER_MAINTENANCE,
   SEARCH_BUCKET,
   s3: {
