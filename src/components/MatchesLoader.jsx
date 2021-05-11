@@ -65,6 +65,8 @@ export default function MatchesLoader({ searchResult, searchType }) {
       <SkeletonSummary metaInfo={matchInput} />
     );
 
+  matchInput.precomputed = true;
+
   const matches = matchMeta ? (
     <Matches
       input={matchInput}

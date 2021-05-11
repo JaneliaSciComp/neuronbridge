@@ -37,6 +37,7 @@ export default function Results({ match }) {
               thumbnailURL: result,
               imageURL: result
             };
+            metaWithSignedUrls.precomputed = false;
             setSearchMeta(metaWithSignedUrls);
           });
         })

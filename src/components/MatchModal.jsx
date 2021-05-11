@@ -103,7 +103,7 @@ export default function MatchModal(props) {
           />
         </TabPane>
         <TabPane tab="View in 3D" key="2">
-          <ViewIn3D selectedMatch={selectedMatch} />
+          <ViewIn3D selectedMatch={selectedMatch} mask={mask} />
         </TabPane>
       </Tabs>
     </Modal>
