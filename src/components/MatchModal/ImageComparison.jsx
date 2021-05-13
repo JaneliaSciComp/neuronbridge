@@ -1,14 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Checkbox, Row, Col, Button } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
+import { Checkbox, Row, Col, Select } from "antd";
 import { useMatches } from "../../containers/MatchesContext";
-import { maskAndSearch } from "../../libs/awsLib";
-import config from "../../config";
+import ImageDisplay from "./ImageDisplay";
 
 import "./ImageComparison.css";
+
+const { Option } = Select;
 
 function getMousePos(evt) {
   const canvas = evt.target;
@@ -36,25 +34,16 @@ function drawCrosshair(x, y, ctx) {
 }
 
 export default function ImageComparison(props) {
-  const {
-    mask,
-    maskOpen,
-    maskPath,
-    match,
-    matchPath,
-    matchThumbnail,
-    setMaskOpen
-  } = props;
+  const { mask, maskOpen, match, setMaskOpen } = props;
 
   const { state, dispatch } = useMatches();
 
-  const [mirrored, setMirrored] = useState(false);
-  const [mirroredMatch, setMirroredMatch] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const matchRef = useRef();
   const maskRef = useRef();
-  const maskImageRef = useRef();
-  const history = useHistory();
+  const [matchImageURL, setMatchImageURL] = useState(
+    match.imageURL || match.thumbnailURL
+  );
 
   useEffect(() => {
     const currentMatch = matchRef.current;
@@ -62,9 +51,6 @@ export default function ImageComparison(props) {
 
     const matchCtx = currentMatch.getContext("2d");
     const maskCtx = currentMask ? currentMask.getContext("2d") : null;
-
-    // change the width and height of the canvas to match the image
-    // console.log(maskImageRef.current.width, maskImageRef.current.height);
 
     function movecrosshair(e) {
       const pos = getMousePos(e);
@@ -92,54 +78,7 @@ export default function ImageComparison(props) {
         currentMask.removeEventListener("mousemove", movecrosshair);
       }
     };
-  }, [maskOpen, maskPath, matchPath]);
-
-  function toggleMirrorMask() {
-    setMirrored(mState => !mState);
-  }
-
-  function toggleMirrorMatch() {
-    setMirroredMatch(mState => !mState);
-  }
-
-  const handleHideMask = () => {
-    setMaskOpen(false);
-  };
-
-  const handleShowMask = () => {
-    setMaskOpen(true);
-  };
-
-  const handleMaskSearch = async () => {
-    setIsCopying(true);
-    // copy the files
-    const imagePath = `https://s3.amazonaws.com/${config.SEARCH_BUCKET}/private/${mask.identityId}/${mask.searchDir}/${mask.searchMask}`;
-    const response = await maskAndSearch({
-      imageURL: mask.imageURL || imagePath,
-      thumbnailURL: mask.imageURL || imagePath
-    });
-    if (response) {
-      // redirect to the search input form
-      setIsCopying(false);
-      history.push(`/mask-selection/${response.newSearchMeta.id}`);
-    }
-    setIsCopying(false);
-  };
-
-  const handleMatchSearch = async () => {
-    setIsCopying(true);
-    // copy the files
-    const response = await maskAndSearch({
-      imageURL: props.matchPath,
-      thumbnailURL: props.matchThumbnail
-    });
-    if (response) {
-      // redirect to the search input form
-      setIsCopying(false);
-      history.push(`/mask-selection/${response.newSearchMeta.id}`);
-    }
-    setIsCopying(false);
-  };
+  }, [maskOpen, mask, match]);
 
   const handleDownloadChoice = e => {
     if (e.target.checked) {
@@ -149,109 +88,53 @@ export default function ImageComparison(props) {
     }
   };
 
-  const maskStyle = mirrored
-    ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
-    : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
-  const matchStyle = mirroredMatch
-    ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
-    : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
-
-  const maskState = mirrored ? "Restore" : "Flip";
-  const matchState = mirroredMatch ? "Restore" : "Flip";
-
-  const searchUrl = `/search?q=${match.publishedName}`;
-
   return (
     <>
       <p>
-        Select for Download{" "}
         <Checkbox
           onChange={handleDownloadChoice}
           checked={state.selected.includes(match.id)}
-        />
+        >
+          Select for Download{" "}
+        </Checkbox>
       </p>
-      <Row className="imageComparison">
+      <Row gutter={16}>
         {maskOpen && (
           <Col md={12}>
-            <canvas ref={maskRef} width="500" height="250" />
-            <img
-              src={maskPath}
-              style={maskStyle}
-              ref={maskImageRef}
+            <Row style={{ height: "2.2em" }} />
+            <ImageDisplay
+              meta={mask}
+              ref={maskRef}
+              src={mask.imageURL}
               alt="Mask for search"
+              onHide={() => setMaskOpen(false)}
+              setIsCopying={setIsCopying}
+              isCopying={isCopying}
             />
           </Col>
         )}
         <Col md={maskOpen ? 12 : 24}>
-          <canvas ref={matchRef} width="500" height="250" />
-          <img
-            src={matchPath || matchThumbnail}
-            style={matchStyle}
+          <Row>
+            <Select
+              onChange={e => setMatchImageURL(e)}
+              defaultValue={matchImageURL}
+              style={{ width: 200 }}
+            >
+              <Option value={match.imageURL || match.thumbnailURL}>Display Image</Option>
+              <Option value="/image.png">Match Image</Option>
+            </Select>
+          </Row>
+          <ImageDisplay
+            meta={match}
+            ref={matchRef}
+            src={matchImageURL}
             alt="Search Match"
+            isMask={false}
+            onShow={() => setMaskOpen(true)}
+            setIsCopying={setIsCopying}
+            isCopying={isCopying}
+            maskOpen={maskOpen}
           />
-        </Col>
-      </Row>
-      <Row style={{ marginTop: "0.5em" }}>
-        {maskOpen && (
-          <Col md={12}>
-            <Button
-              icon={
-                <FontAwesomeIcon
-                  icon={faRepeat}
-                  style={{ marginRight: "0.5em" }}
-                />
-              }
-              onClick={() => toggleMirrorMask()}
-            >
-              {maskState} Mask
-            </Button>
-            <Button
-              style={{ marginLeft: "0.5em" }}
-              onClick={handleMaskSearch}
-              loading={isCopying}
-            >
-              Mask & Search
-            </Button>
-            <Button style={{ marginLeft: "0.5em" }} onClick={handleHideMask}>
-              Hide Mask
-            </Button>
-          </Col>
-        )}
-        <Col md={maskOpen ? 12 : 24}>
-          {!maskOpen ? (
-            <Button onClick={handleShowMask}>
-              Show Mask
-            </Button>
-          ) : (
-            ""
-          )}
-
-          <Button
-            style={{ marginLeft: "0.5em" }}
-            icon={
-              <FontAwesomeIcon
-                icon={faRepeat}
-                style={{ marginRight: "0.5em" }}
-              />
-            }
-            onClick={() => toggleMirrorMatch()}
-          >
-            {matchState} Match
-          </Button>
-          <Button
-            style={{ marginLeft: "0.5em" }}
-            onClick={handleMatchSearch}
-            loading={isCopying}
-          >
-            Mask & Search
-          </Button>
-          <Link
-            className="ant-btn"
-            style={{ marginLeft: "0.5em" }}
-            to={searchUrl}
-          >
-            View Precomputed Search
-          </Link>
         </Col>
       </Row>
     </>
@@ -261,9 +144,6 @@ export default function ImageComparison(props) {
 ImageComparison.propTypes = {
   mask: PropTypes.object.isRequired,
   maskOpen: PropTypes.bool.isRequired,
-  maskPath: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
-  matchPath: PropTypes.string.isRequired,
-  matchThumbnail: PropTypes.string.isRequired,
   setMaskOpen: PropTypes.func.isRequired
 };

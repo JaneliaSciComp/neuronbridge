@@ -46,8 +46,6 @@ export default function Summary(props) {
         maskOpen={maskOpen}
         mask={mask}
         match={selectedMatch}
-        maskPath={mask.imageURL}
-        maskThumbnail={mask.thumbnailURL}
         matchPath={selectedMatch.imageURL}
         matchThumbnail={selectedMatch.thumbnailURL}
         setMaskOpen={setMaskOpen}
