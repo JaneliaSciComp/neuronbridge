@@ -153,7 +153,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       });
     }
 
-    fullList = fullList.filter(result => (result.publishedName.includes(filterState.idOrNameFilter)));
+    // id or name filter - case insensitive
+    fullList = fullList.filter(result => (result.publishedName.toLowerCase().includes(filterState.idOrNameFilter.toLowerCase())));
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
