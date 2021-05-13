@@ -45,6 +45,14 @@ export default function ImageComparison(props) {
     match.imageURL || match.thumbnailURL
   );
 
+  // Reset the image selection drop down if not a Gen1 MCFO.
+  // If we don't do this, the page will display a broken image.
+  useEffect(() => {
+    if (!match.libraryName.match(/gen1.*mcfo/i)) {
+     setMatchImageURL( match.imageURL || match.thumbnailURL);
+    }
+  },[match]);
+
   useEffect(() => {
     const currentMatch = matchRef.current;
     const currentMask = maskRef.current;
@@ -117,11 +125,12 @@ export default function ImageComparison(props) {
           <Row>
             <Select
               onChange={e => setMatchImageURL(e)}
-              defaultValue={matchImageURL}
+              value={matchImageURL}
               style={{ width: 200 }}
             >
               <Option value={match.imageURL || match.thumbnailURL}>Display Image</Option>
               <Option value="/image.png">Match Image</Option>
+              {match.libraryName.match(/gen1.*mcfo/i) ? <Option value="/gen1-mcfo-expression.png">Original Expression Pattern</Option> : null}
             </Select>
           </Row>
           <ImageDisplay
