@@ -4,7 +4,6 @@ import { InputNumber, Input, Switch, Divider, Col, Row, Radio } from "antd";
 
 import LibraryFormatter from "./LibraryFormatter";
 import { FilterContext } from "../containers/FilterContext";
-import { AppContext } from "../containers/AppContext";
 
 const radioStyle = {
   display: "block",
@@ -14,7 +13,6 @@ const radioStyle = {
 
 export default function FilterMenu({ searchType, countsByLibrary }) {
   const [filterState, setFilterState] = useContext(FilterContext);
-  const [appState] = useContext(AppContext);
 
   function handleResultsPerLine(count) {
     setFilterState({ ...filterState, resultsPerLine: count });
@@ -39,10 +37,6 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
 
   function handleIdFilter(event) {
     setFilterState({ ...filterState, idOrNameFilter: event.target.value });
-  }
-
-  if (!appState.showFilterMenu) {
-    return null;
   }
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
@@ -84,6 +78,8 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
               {libraryFilterSwitches}
             </Col>
           </Row>
+          <Divider orientation="left">Filter by match id or name</Divider>
+          <Input placeholder="id or name string" onChange={handleIdFilter} value={filterState.idOrNameFilter} />
         </Col>
         <Col xs={24} md={12}>
           <Divider orientation="left">Sort Results By</Divider>
@@ -97,9 +93,6 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
           </Radio.Group>
         </Col>
       </Row>
-        {process.env.NODE_ENV === "development" ? (
-      <Input placeholder="id or name string" onChange={handleIdFilter} value={filterState.idOrNameFilter} />
-        ): null}
       <Divider />
     </div>
   );

@@ -7,7 +7,7 @@ import { FilterContext } from "../containers/FilterContext";
 import MatchSummary from "./MatchSummary";
 import MatchModal from "./MatchModal";
 import HelpButton from "./Help/HelpButton";
-import FilterMenu from "./FilterMenu";
+import FilterMenuDisplay from "./FilterMenuDisplay";
 import FilterButton from "./FilterButton";
 import ExportMenu from "./ExportMenu";
 import { useQuery } from "../libs/hooksLib";
@@ -251,7 +251,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           />
         </Col>
       </Row>
-      <FilterMenu searchType={searchType} countsByLibrary={countsByLibrary} />
+      <FilterMenuDisplay searchType={searchType} countsByLibrary={countsByLibrary} />
       {matchSummaries}
       <Pagination
         current={page}
