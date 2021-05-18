@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
-import { Button, Switch, Row, Col, Pagination, Empty, Space } from "antd";
+import { Button, Switch, Row, Col, Pagination, Empty } from "antd";
 import { AppContext } from "../containers/AppContext";
 import { FilterContext } from "../containers/FilterContext";
 import MatchSummary from "./MatchSummary";
@@ -12,6 +12,8 @@ import FilterButton from "./FilterButton";
 import ExportMenu from "./ExportMenu";
 import { useQuery } from "../libs/hooksLib";
 import { useMatches } from "../containers/MatchesContext";
+
+import "./Matches.css";
 
 export default function Matches({ input, searchType, matches, precomputed }) {
   const query = useQuery();
@@ -55,7 +57,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   }
 
   function handleClearAll() {
-    dispatch({type: "clear"});
+    dispatch({ type: "clear" });
   }
 
   const resultsPerLine = filterState.resultsPerLine || 1;
@@ -154,7 +156,11 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     }
 
     // id or name filter - case insensitive
-    fullList = fullList.filter(result => (result.publishedName.toLowerCase().includes(filterState.idOrNameFilter.toLowerCase())));
+    fullList = fullList.filter(result =>
+      result.publishedName
+        .toLowerCase()
+        .includes(filterState.idOrNameFilter.toLowerCase())
+    );
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
@@ -197,7 +203,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   return (
     <div>
       <Row style={{ paddingBottom: "1em" }}>
-        <Col xs={24} md={{ span: 11, order: 1 }} xl={4}>
+        <Col
+          xs={{ span: 12, order: 1}}
+          sm={{span: 4, order: 1}}>
           <h3>
             {searchType === "lines" ? "EM" : "LM"} Matches{" "}
             <HelpButton
@@ -208,51 +216,55 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           </h3>
         </Col>
         <Col
-          xs={24}
-          sm={{ span: 14, order: 2 }}
-          md={{ span: 11, order: 2 }}
-          xl={16}
-          style={{ textAlign: "center", marginBottom: "1em" }}
+          xs={{ span: 24, order: 3}}
+          sm={{span: 16, order: 2}}
+          className="actionButtons"
         >
-          <Space size="large">
             <FilterButton />
-            <ExportMenu results={fullList} searchType={searchType} searchId={input.id} precomputed={precomputed} />
-            <Button disabled={state.selected.length <= 0} onClick={handleClearAll}>Clear Selected</Button>
-          </Space>
+            <ExportMenu
+              results={fullList}
+              searchType={searchType}
+              searchId={input.id}
+              precomputed={precomputed}
+            />
+            <Button
+              disabled={state.selected.length <= 0}
+              onClick={handleClearAll}
+            >
+              Clear Selected
+            </Button>
         </Col>
         <Col
-          xs={24}
-          sm={{ span: 2, order: 3 }}
-          xl={4}
+          xs={{ span: 12, order: 2}}
+          sm={{ span: 4, order: 3}}
           style={{ textAlign: "right", marginBottom: "1em" }}
         >
           <Switch
             checked={appState.gridView}
             checkedChildren="Grid"
             unCheckedChildren="List"
-            onChange={() =>
-              setPermanent({ gridView: !appState.gridView})
-            }
-          />
-        </Col>
-
-        <Col xs={{ span: 24, order: 4 }}>
-          <Pagination
-            current={page}
-            pageSize={matchesPerPage}
-            onShowSizeChange={handleChangePageSize}
-            pageSizeOptions={[10, 30, 50, 100]}
-            onChange={handlePageChange}
-            responsive
-            showLessItems
-            total={fullList.length}
-            showTotal={(total, range) =>
-              `${range[0]}-${range[1]} of ${total} matches`
-            }
+            onChange={() => setPermanent({ gridView: !appState.gridView })}
           />
         </Col>
       </Row>
-      <FilterMenuDisplay searchType={searchType} countsByLibrary={countsByLibrary} />
+      <Pagination
+        current={page}
+        pageSize={matchesPerPage}
+        onShowSizeChange={handleChangePageSize}
+        pageSizeOptions={[10, 30, 50, 100]}
+        onChange={handlePageChange}
+        responsive
+        showLessItems
+        total={fullList.length}
+        showTotal={(total, range) =>
+          `${range[0]}-${range[1]} of ${total} matches`
+        }
+      />
+
+      <FilterMenuDisplay
+        searchType={searchType}
+        countsByLibrary={countsByLibrary}
+      />
       {matchSummaries}
       <Pagination
         current={page}

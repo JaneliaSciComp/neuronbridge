@@ -1,0 +1,12 @@
+.actionButtons {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.actionButtons > * {
+  margin-left: 1.8em !important;
+}
+
+.actionButtons > *:first-child {
+  margin-left: 0 !important;
+}
