@@ -67,7 +67,11 @@ export default function MatchSummary(props) {
   return (
     <>
       <Row className="matchSummary">
-        <Col span={8}>
+        <Col
+          xs={{ span: 24, order: 1 }}
+          sm={{ span: 12, order: 1 }}
+          md={{ span: 8, order: 1 }}
+        >
           <ImageWithModal
             thumbSrc={match.thumbnailURL}
             src={match.imageURL}
@@ -75,14 +79,22 @@ export default function MatchSummary(props) {
             showModal={showModal}
           />
         </Col>
-        <Col span={10}>
+        <Col
+          xs={{ span: 24, order: 3 }}
+          sm={{ span: 24, order: 3 }}
+          md={{ span: 10, order: 2 }}
+        >
           {isLM ? (
             <LineMeta attributes={match} />
           ) : (
             <SkeletonMeta attributes={match} />
           )}
         </Col>
-        <Col span={6}>
+        <Col
+          xs={{ span: 24, order: 2 }}
+          sm={{ span: 12, order: 2 }}
+          md={{ span: 6, order: 3 }}
+        >
           <Button onClick={showModal} style={{ marginRight: "1em" }}>
             Select
           </Button>
