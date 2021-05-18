@@ -174,6 +174,13 @@ export default function SearchUploadMeta({
             />{" "}
           </Col>
         </Row>
+        <Form.Item label="Anatomical Region" name="anatomicalregion">
+          <Select>
+            <Option value="brain">Brain</Option>
+            <Option value="vnc">VNC</Option>
+          </Select>
+        </Form.Item>
+
         {!isAligned && (
           <>
             <Row>
@@ -272,12 +279,6 @@ export default function SearchUploadMeta({
                 </Form.Item>
               </>
             )}
-            <Form.Item label="Anatomical Region" name="anatomicalregion">
-              <Select disabled>
-                <Option value="brain">Brain</Option>
-                <Option value="vnc">VNC</Option>
-              </Select>
-            </Form.Item>
             {process.env.NODE_ENV === "development" && (
               <>
                 <Row>
