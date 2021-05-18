@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button } from "antd";
 import { signedLink } from "../../libs/awsLib";
 import StepTitle from "./StepTitle";
 
@@ -21,18 +20,11 @@ export default function ImageAlignmentStep({ state, search }) {
   let content = "";
   if (["complete"].includes(state)) {
     content = (
-      <>
-        <img
-          className="completeThumbnail"
-          src={thumbnailUrl}
-          alt="Alignment Thumbnail"
-        />
-        {search.alignFinished ? (
-          <Button style={{ marginTop: "0.5em", width: "150px" }}>
-            parameters
-          </Button>
-        ) : null}
-      </>
+      <img
+        className="completeThumbnail"
+        src={thumbnailUrl}
+        alt="Alignment Thumbnail"
+      />
     );
   }
 

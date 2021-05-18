@@ -26,7 +26,7 @@ export default function AlignmentMeta({ metadata }) {
   return (
     <Row>
       <Col md={24} lg={1} />
-      <Col md={24} lg={7}>
+      <Col md={24} lg={24}>
         <Space direction="vertical">
           <Text>
             <b>

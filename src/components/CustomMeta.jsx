@@ -6,10 +6,10 @@ import { Row, Col } from "antd";
 export default function CustomMeta({metadata}) {
   return (
     <Row>
-      <Col md={24} lg={12}>
         <p>
           <b>Name:</b> {metadata.upload}
         </p>
+      <Col md={24} lg={24}>
         <p>
           <b>Created:</b>{" "}
           {formatRelative(new Date(metadata.createdOn), new Date())}{" "}
@@ -17,17 +17,6 @@ export default function CustomMeta({metadata}) {
         <p>
           <b>Updated:</b>{" "}
           {formatRelative(new Date(metadata.updatedOn), new Date())}{" "}
-        </p>
-      </Col>
-      <Col md={24} lg={12}>
-        <p>
-          <b>Anatomical Area:</b> {metadata.anatomicalRegion}
-        </p>
-        <p>
-          <b>Ref. Channel:</b> {metadata.referenceChannel || "Auto-detect"}
-        </p>
-        <p>
-          <b>Algorithm:</b> {metadata.algorithm}
         </p>
       </Col>
     </Row>
