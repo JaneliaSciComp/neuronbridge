@@ -22,7 +22,7 @@ const { Header, Content, Footer } = Layout;
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [appState, setAppState, setPermanent] = useContext(AppContext);
+  const [appState, setAppState] = useContext(AppContext);
   // const history = useHistory();
   const location = useLocation();
 
@@ -87,11 +87,6 @@ export default function App() {
   if (isAuthenticating) {
     return <p>Loading</p>;
   }
-
-  const handleShowDebug = event => {
-    event.preventDefault();
-    setPermanent({ debug: !appState.debug });
-  };
 
   const searchEnpoints = config.api.endpoints.map(endpoint => (
     <p key={endpoint.name}>
@@ -171,12 +166,12 @@ export default function App() {
       </Content>
       <Footer style={{ textAlign: "center", position: "relative" }}>
         {appState.debug && (
-          <a href="/" onClick={handleShowDebug}>
+          <>
             <p>Data Bucket: {config.s3.BUCKET}</p>
             <p>Search Bucket: {config.SEARCH_BUCKET}</p>
             {searchEnpoints}
             <p>GraphQL: {config.appsync.graphqlEndpoint}</p>
-          </a>
+          </>
         )}
         <p>
           HHMI ©{new Date().getFullYear()}{" "}
@@ -205,15 +200,6 @@ export default function App() {
           </a>
           .
         </p>
-
-        <a
-          style={{ position: "absolute", left: 0 }}
-          onClick={handleShowDebug}
-          href="/"
-          className="debug"
-        >
-          debug
-        </a>
       </Footer>
       <HelpDrawer>
         <HelpContents />
