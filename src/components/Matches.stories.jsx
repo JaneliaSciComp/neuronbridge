@@ -18,711 +18,491 @@ const Template = args => (
 export const FirstStory = Template.bind({});
 
 FirstStory.args = {
-  input: {
-    id: "938b3b16-d45c-4095-8750-90debf2bd51c",
-    owner: "3a3bf91e-d063-4e3f-8cb8-aa6f07dc1c71",
-    identityId: "us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64",
-    upload:
-      "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-    searchDir: "f03debd0-acda-11eb-9897-d7acfcaf8837",
-    searchMask:
-      "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-    errorMessage: null,
-    step: 4,
-    anatomicalRegion: null,
-    algorithm: null,
-    searchType: "em2lm",
-    displayableMask:
-      "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-    uploadThumbnail: "upload_thumbnail.png",
-    nTotalMatches: 27,
-    updatedOn: "2021-05-04T13:18:58.915Z",
-    createdOn: "2021-05-04T13:16:52.663Z",
-    voxelX: null,
-    voxelY: null,
-    voxelZ: null,
-    referenceChannel: null,
-    alignStarted: null,
-    alignFinished: null,
-    thumbnailURL:
-      "https://janelia-neuronbridge-searches-dev.s3.us-east-1.amazonaws.com/private/us-east-1%3Abdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIA3KGBN3EJ5BDGZUGX%2F20210518%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210518T203234Z&X-Amz-Expires=500&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEM3%2F%2F%2F%2F%2F%...",
-    imageURL:
-      "https://janelia-neuronbridge-searches-dev.s3.us-east-1.amazonaws.com/private/us-east-1%3Abdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIA3KGBN3EJ5BDGZUGX%2F20210518%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210518T203234Z&X-Amz-Expires=500&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEM3%2F%2F%2F%2F%2F%...",
-    precomputed: false
+  "input": {
+    "id": "2820604044945391627",
+    "publishedName": "424789697",
+    "libraryName": "FlyEM_Hemibrain_v1.1",
+    "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.1/424789697-TC-JRC2018_Unisex_20x_HR-CDM.png",
+    "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.1/424789697-TC-JRC2018_Unisex_20x_HR-CDM.jpg",
+    "gender": "f",
+    "precomputed": true
   },
-  matches: {
-    maskId:
-      "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask",
-    maskPublishedName: null,
-    maskLibraryName: null,
-    maskImageURL:
-      "https://s3.amazonaws.com/janelia-neuronbridge-searches-dev/private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-    results: [
+  "searchType": "skeletons",
+  "matches": {
+    "maskId": "2820604044945391627",
+    "maskPublishedName": "424789697",
+    "maskLibraryName": "FlyEM_Hemibrain_v1.1",
+    "maskImageURL": null,
+    "results": [
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/18/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20150123_41_A2",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 4069,
-        matchingRatio: 0.14495386698015747,
-        gradientAreaGap: -1,
-        normalizedScore: 4069,
-        position: 1
+        "id": "2711776912971137035",
+        "publishedName": "R42D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20181012_61_E4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 738,
+        "matchingRatio": 0.07573891625615764,
+        "gradientAreaGap": 168,
+        "normalizedGapScore": 50000,
+        "normalizedScore": 50000,
+        "position": 1
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-02",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/18/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-02.tif",
-        slideCode: "20150123_41_A2",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 4051,
-        matchingRatio: 0.1443126358163229,
-        gradientAreaGap: -1,
-        normalizedScore: 4051
+        "id": "2711777056735100939",
+        "publishedName": "VT047170",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT047170-20180209_63_A2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT047170-20180209_63_A2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20180209_63_A2",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 725,
+        "matchingRatio": 0.0744047619047619,
+        "gradientAreaGap": 208,
+        "normalizedGapScore": 49119.24119241192,
+        "normalizedScore": 49119.24119241192,
+        "position": 2
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH1293-20160518_31_G3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1293",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/41/LH1293-20160518_31_G3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03.tif",
-        slideCode: "20160518_31_G3",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 1172,
-        matchingRatio: 0.041751273556339286,
-        gradientAreaGap: -1,
-        normalizedScore: 1172,
-        position: 2
+        "id": "2711777288835301387",
+        "publishedName": "R21D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20181207_64_A4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 708,
+        "matchingRatio": 0.07266009852216748,
+        "gradientAreaGap": 402,
+        "normalizedGapScore": 47967.47967479675,
+        "normalizedScore": 47967.47967479675,
+        "position": 3
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-05",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/30/LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-05.tif",
-        slideCode: "20150821_31_D4",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 1043,
-        matchingRatio: 0.037155783548858255,
-        gradientAreaGap: -1,
-        normalizedScore: 1043
+        "id": "2711777101064699915",
+        "publishedName": "R42D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20181012_61_E1",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 694,
+        "matchingRatio": 0.07122331691297208,
+        "gradientAreaGap": 55,
+        "normalizedGapScore": 47018.9701897019,
+        "normalizedScore": 47018.9701897019
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH1293-20160518_31_G2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1293",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/41/LH1293-20160518_31_G2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03.tif",
-        slideCode: "20160518_31_G2",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 864,
-        matchingRatio: 0.030779095864058994,
-        gradientAreaGap: -1,
-        normalizedScore: 864
+        "id": "2711776926191583243",
+        "publishedName": "VT046095",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT046095-20171103_64_J3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT046095-20171103_64_J3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20171103_64_J3",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 689,
+        "matchingRatio": 0.07071018062397373,
+        "gradientAreaGap": 289,
+        "normalizedGapScore": 46680.216802168026,
+        "normalizedScore": 46680.216802168026,
+        "position": 4
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH849-20150828_31_F3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH849-20150828_31_F3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH849-20150828_31_F3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-06",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH849",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/30/LH849-20150828_31_F3-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-06.tif",
-        slideCode: "20150828_31_F3",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 752,
-        matchingRatio: 0.02678921306686616,
-        gradientAreaGap: -1,
-        normalizedScore: 752,
-        position: 3
+        "id": "2711776951361601547",
+        "publishedName": "R42D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20181012_61_E4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 674,
+        "matchingRatio": 0.06917077175697865,
+        "gradientAreaGap": 0,
+        "normalizedGapScore": 45663.95663956639,
+        "normalizedScore": 45663.95663956639
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-02",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1293",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/66/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-02.tif",
-        slideCode: "20160518_31_G2",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 744,
-        matchingRatio: 0.026504221438495245,
-        gradientAreaGap: -1,
-        normalizedScore: 744
+        "id": "2711777102448820235",
+        "publishedName": "R18D09",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R18D09-20180914_62_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R18D09-20180914_62_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20180914_62_D4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 667,
+        "matchingRatio": 0.06845238095238096,
+        "gradientAreaGap": 0,
+        "normalizedGapScore": 45189.70189701897,
+        "normalizedScore": 45189.70189701897,
+        "position": 5
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1574-20180313_31_B6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1574-20180313_31_B6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH1574-20180313_31_B6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-05",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1574",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/66/LH1574-20180313_31_B6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-05.tif",
-        slideCode: "20180313_31_B6",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 743,
-        matchingRatio: 0.02646859748494888,
-        gradientAreaGap: -1,
-        normalizedScore: 743,
-        position: 4
+        "id": "2711776857899925515",
+        "publishedName": "VT058437",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT058437-20180905_61_C1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT058437-20180905_61_C1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20180905_61_C1",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 644,
+        "matchingRatio": 0.06609195402298851,
+        "gradientAreaGap": 4,
+        "normalizedGapScore": 43631.43631436314,
+        "normalizedScore": 43631.43631436314,
+        "position": 6
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1828-20150227_41_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1828-20150227_41_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH1828-20150227_41_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1828",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/18/LH1828-20150227_41_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20150227_41_C6",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 741,
-        matchingRatio: 0.02639734957785615,
-        gradientAreaGap: -1,
-        normalizedScore: 741,
-        position: 5
+        "id": "2711777241330614283",
+        "publishedName": "R56F01",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R56F01-20190125_64_H3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R56F01-20190125_64_H3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20190125_64_H3",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 610,
+        "matchingRatio": 0.06260262725779968,
+        "gradientAreaGap": 186,
+        "normalizedGapScore": 41327.91327913279,
+        "normalizedScore": 41327.91327913279,
+        "position": 7
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1129-20150929_33_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1129-20150929_33_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH1129-20150929_33_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-02",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1129",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/39/LH1129-20150929_33_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-02.tif",
-        slideCode: "20150929_33_F1",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 739,
-        matchingRatio: 0.02632610167076342,
-        gradientAreaGap: -1,
-        normalizedScore: 739,
-        position: 6
+        "id": "2711777103530950667",
+        "publishedName": "R42D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R42D02-20181012_61_E2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20181012_61_E2",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 610,
+        "matchingRatio": 0.06260262725779968,
+        "gradientAreaGap": 582,
+        "normalizedGapScore": 41327.91327913279,
+        "normalizedScore": 41327.91327913279
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1284-20151007_31_A1-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1284-20151007_31_A1-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH1284-20151007_31_A1-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-07",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1284",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/63/LH1284-20151007_31_A1-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-07.tif",
-        slideCode: "20151007_31_A1",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 716,
-        matchingRatio: 0.025506750739197035,
-        gradientAreaGap: -1,
-        normalizedScore: 716,
-        position: 7
+        "id": "2711777278886412299",
+        "publishedName": "VT032898",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT032898-20180717_62_I5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT032898-20180717_62_I5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20180717_62_I5",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 599,
+        "matchingRatio": 0.061473727422003285,
+        "gradientAreaGap": 108,
+        "normalizedGapScore": 40582.655826558264,
+        "normalizedScore": 40582.655826558264,
+        "position": 8
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-06",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/59/LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-06.tif",
-        slideCode: "20150821_31_D4",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 715,
-        matchingRatio: 0.025471126785650673,
-        gradientAreaGap: -1,
-        normalizedScore: 715
+        "id": "2711777072367271947",
+        "publishedName": "VT033453",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20170721_65_D5",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 582,
+        "matchingRatio": 0.05972906403940887,
+        "gradientAreaGap": 501,
+        "normalizedGapScore": 39430.89430894308,
+        "normalizedScore": 39430.89430894308,
+        "position": 9
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4--20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH173-20150821_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-06",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Spli-GAL4_Drivers/searchable_neurons/59/LH173-20150821_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-06.tif",
-        slideCode: "20150821_31_D5",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 710,
-        matchingRatio: 0.02529300701791885,
-        gradientAreaGap: -1,
-        normalizedScore: 710
+        "id": "2711776942645837835",
+        "publishedName": "R12C11",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R12C11-20190115_66_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R12C11-20190115_66_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20190115_66_A4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 674,
+        "matchingRatio": 0.05186211141889812,
+        "gradientAreaGap": 884,
+        "normalizedGapScore": 39163.33312784347,
+        "normalizedScore": 39163.33312784347,
+        "position": 10
       },
       {
-        maskImageName:
-          "privae/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH849-20150828_31_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH849-20150828_31_F1-Split_GAL4-f-63x-brain-JC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH849-20150828_31_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH849",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/30/LH849-20150828_31_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-03.tif",
-        slideCode: "20150828_31_F1",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 709,
-        mathingRatio: 0.025257383064372484,
-        gradientAreaGap: -1,
-        normalizedScore: 709
+        "id": "2711777096627126283",
+        "publishedName": "VT033453",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20170721_65_D5",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 620,
+        "matchingRatio": 0.0636288998357964,
+        "gradientAreaGap": 688,
+        "normalizedGapScore": 39113.786475074055,
+        "normalizedScore": 39113.786475074055
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylightcolor-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1284-20151007_31_A5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1284-20151007_31_A5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH1284-20151007_31_A5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-08",
-        libraryName: "FlyLight_Split-GAL4Drivers",
-        publishedName: "LH1284",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/63/LH1284-20151007_31_A5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-08.tif",
-        slideCode: "20151007_31_A5",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 671,
-        matchingRatio: 0.02390367282961063,
-        gradientAreaGap: -1,
-        normalizedScore: 671
+        "id": "2711776876841402379",
+        "publishedName": "VT007174",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007174-20171222_62_G1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007174-20171222_62_G1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20171222_62_G1",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 555,
+        "matchingRatio": 0.04270544783010157,
+        "gradientAreaGap": 616,
+        "normalizedGapScore": 37806.53950953678,
+        "normalizedScore": 37806.53950953678,
+        "position": 11
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT063305-20170727_62_A2-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT063305-20170727_62_A2-GL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "VT063305-20170727_62_A2-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01",
-        libraryName: "FlyLight_Gen1_MCFO",
-        publishedName: "VT063305",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/194/VT063305-20170727_62_A2-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01.tif",
-        slideCode: "20170727_62_A2",
-        objective: "40x",
-        gender: "m",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 645,
-        matchingRatio: 0.022977450037405152,
-        gradientAreaGap: -1,
-        normalizedScore: 645,
-        position: 8
+        "id": "2711777229733363723",
+        "publishedName": "VT033453",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D3-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D3-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "slideCode": "20170721_65_D3",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "1",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 551,
+        "matchingRatio": 0.05654761904761905,
+        "gradientAreaGap": 129,
+        "normalizedGapScore": 37330.623306233065,
+        "normalizedScore": 37330.623306233065
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.om/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH2033-20160629_31_E6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH2033-20160629_31_E6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH2033-20160629_31_E6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH2033",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/69/LH2033-20160629_31_E6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20160629_31_E6",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 617,
-        matchingRatio: 0.021979979338106942,
-        gradientAreaGap: -1,
-        normalizedScore: 617,
-        position: 9
+        "id": "2711777172472725515",
+        "publishedName": "R21D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20181207_64_A4",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 536,
+        "matchingRatio": 0.055008210180623976,
+        "gradientAreaGap": 545,
+        "normalizedGapScore": 36314.36314363143,
+        "normalizedScore": 36314.36314363143
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331af0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-07",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/30/LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2-07.tif",
-        slideCode: "20150821_31_D5",
-        objective: "63x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC201_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 611,
-        matchingRatio: 0.021766235616828757,
-        gradientAreaGap: -1,
-        normalizedScore: 611
+        "id": "2711777119372836875",
+        "publishedName": "R21D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20181207_64_A5",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 507,
+        "matchingRatio": 0.03901200369344414,
+        "gradientAreaGap": 532,
+        "normalizedGapScore": 34536.784741144416,
+        "normalizedScore": 34536.784741144416
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlLight_Gen1_MCFO/R39H01-20190305_62_I1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R39H01-20190305_62_I1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "R39H01-20190305_62_I1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Gen1_MCFO",
-        publishedName: "R39H01",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/1319/R39H01-20190305_2_I1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20190305_62_I1",
-        objective: "40x",
-        gender: "m",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 599,
-        matchingRatio: 0.021338748174272382,
-        gradientAreaGap: -1,
-        normalizedScore: 599,
-        position: 10
+        "id": "2711777121193164811",
+        "publishedName": "R21D02",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R21D02-20181207_64_A5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20181207_64_A5",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 506,
+        "matchingRatio": 0.03893505694059711,
+        "gradientAreaGap": 525,
+        "normalizedGapScore": 34468.664850136236,
+        "normalizedScore": 34468.664850136236
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_1_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-05",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH173",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/59/LH173-20150821_31_D4-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-05.tif",
-        slideCode: "20150821_31_D4",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matcingPixels: 594,
-        matchingRatio: 0.02116062840654056,
-        gradientAreaGap: -1,
-        normalizedScore: 594
+        "id": "2711776948752744459",
+        "publishedName": "VT007174",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007174-20171222_62_G2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007174-20171222_62_G2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20171222_62_G2",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 527,
+        "matchingRatio": 0.05408456486042693,
+        "gradientAreaGap": 673,
+        "normalizedGapScore": 33987.73006036153,
+        "normalizedScore": 33987.73006036153
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH2033-20160629_31_F6-Split_GA4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH2033-20160629_31_F6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH2033-20160629_31_F6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH2033",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/69/LH2033-20160629_31_F-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20160629_31_F6",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 585,
-        matchingRatio: 0.020840012824623277,
-        gradientAreaGap: -1,
-        normalizedScore: 585
+        "id": "2711776901638127627",
+        "publishedName": "VT032898",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT032898-20180717_62_I3-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT032898-20180717_62_I3-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20180717_62_I3",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 645,
+        "matchingRatio": 0.06619458128078817,
+        "gradientAreaGap": 849,
+        "normalizedGapScore": 32974.53149089795,
+        "normalizedScore": 32974.53149089795
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03ded0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R19A04-20181204_63_F5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R19A04-20181204_63_F5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "R19A04-20181204_63_F5-GAL4-f-40x-brin-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Gen1_MCFO",
-        publishedName: "R19A04",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/1111/R19A04-20181204_63_F5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20181204_63_F5",
-        objective: "40x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unsex_20x_HR",
-        channel: "1",
-        matchingPixels: 580,
-        matchingRatio: 0.020661893056891454,
-        gradientAreaGap: -1,
-        normalizedScore: 580,
-        position: 11
+        "id": "2711776861381197835",
+        "publishedName": "VT033453",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT033453-20170721_65_D5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20170721_65_D5",
+        "objective": "40x",
+        "gender": "m",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 603,
+        "matchingRatio": 0.06188423645320197,
+        "gradientAreaGap": 801,
+        "normalizedGapScore": 32674.684692914343,
+        "normalizedScore": 32674.684692914343
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC218_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007393-20180522_61_B1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT007393-20180522_61_B1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        id:
-          "VT007393-20180522_61_B1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01",
-        libraryName: "FlyLight_Gen1_MCFO",
-        publishedName: "VT007393",
-        imaeName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/651/VT007393-20180522_61_B1-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01.tif",
-        slideCode: "20180522_61_B1",
-        objective: "40x",
-        gender: "m",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "2",
-        matchingPixels: 576,
-        matchingRatio: 0.020519397242705996,
-        gradientAreaGap: -1,
-        normalizedScore: 576,
-        postion: 12
+        "id": "2711776868129832971",
+        "publishedName": "VT047170",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT047170-20180209_63_A2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT047170-20180209_63_A2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "slideCode": "20180209_63_A2",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "2",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 464,
+        "matchingRatio": 0.047619047619047616,
+        "gradientAreaGap": 291,
+        "normalizedGapScore": 31436.31436314363,
+        "normalizedScore": 31436.31436314363
       },
       {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH166-20150706_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-olor-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH166-20150706_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH166-20150706_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH166",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/64/LH166-20150706_31_D5-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20150706_31_D5",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 575,
-        matchingRatio: 0.02048377328915963,
-        gradientAreaGap: -1,
-        normalizedScore: 575,
-        position: 13
+        "id": "2711777001017966603",
+        "publishedName": "R59D04",
+        "libraryName": "FlyLight Gen1 MCFO",
+        "imageURL": "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R59D04-20190129_62_F1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "thumbnailURL": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R59D04-20190129_62_F1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "slideCode": "20190129_62_F1",
+        "objective": "40x",
+        "gender": "f",
+        "anatomicalArea": "Brain",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "channel": "3",
+        "mountingProtocol": "DPX PBS Mounting",
+        "matchingPixels": 517,
+        "matchingRatio": 0.03978147122191444,
+        "gradientAreaGap": 854,
+        "normalizedGapScore": 31096.01146073295,
+        "normalizedScore": 31096.01146073295,
+        "position": 12
       },
-      {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH73-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH185-20160427_32_E3-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH185-20160427_32_E3-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "LH185-20160427_32_E3-Split_GAL4-f-20x-bran-JRC2018_Unisex_20x_HR-CDM_1-04",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH185",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/64/LH185-20160427_32_E3-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-04.tif",
-        slideCode: "20160427_32_E3",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 568,
-        matchingRatio: 0.0202344056133508,
-        gradientAreaGap: -1,
-        normalizedScore: 568,
-        position: 14
-      },
-      {
-        maskImageName:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT03240920170623_61_B5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/VT032409-20170623_61_B5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "VT032409-20170623_61_B5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1-01",
-        libraryName: "FlyLight_Gen1_MCFO",
-        publishedName: "VT032409",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/48/VT032409-20170623_61_B5-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.tif",
-        slideCode: "20170623_61_B5",
-        objective: "40x",
-        gender: "m",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 566,
-        matchingRatio: 0.02016315770724235,
-        gradientAreaGap: -1,
-        normalizedScore: 566,
-        position: 15
-      },
-      {
-        maskImageNme:
-          "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/f03debd0-acda-11eb-9897-d7acfcaf8837/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1_1_mask.png",
-        imageURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
-        thumbnailURL:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        id:
-          "L1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-03",
-        libraryName: "FlyLight_Split-GAL4_Drivers",
-        publishedName: "LH1293",
-        imageName:
-          "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/66/LH1293-20160518_31_G2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-03.tif",
-        slideCode: "20160518_31_G2",
-        objective: "20x",
-        gender: "f",
-        anatomicalArea: "brain",
-        alignmentSpace: "JRC2018_Unisex_20x_HR",
-        channel: "1",
-        matchingPixels: 65,
-        matchingRatio: 0.020127533753695984,
-        gradientAreaGap: -1,
-        normalizedScore: 565
-      }
     ]
   },
-  searchType: "skeleton",
-  precomputed: false
+  "precomputed": true
 };
