@@ -24,5 +24,9 @@ export default function CustomMeta({metadata}) {
 }
 
 CustomMeta.propTypes = {
-  metadata: PropTypes.object.isRequired
+  metadata: PropTypes.shape({
+    upload: PropTypes.string,
+    createdOn: PropTypes.string,
+    updatedOn: PropTypes.string
+	}).isRequired
 };

@@ -39,5 +39,9 @@ export default function LineSummary(props) {
 }
 
 LineSummary.propTypes = {
-  lineMeta: PropTypes.object.isRequired
+  lineMeta: PropTypes.object
+};
+
+LineSummary.defaultProps = {
+  lineMeta: null
 };

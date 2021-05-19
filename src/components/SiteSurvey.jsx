@@ -16,11 +16,12 @@ export default function SiteSurvey() {
 
   function handleTakeSurvey() {
     handlePermaHide();
-    window.location.href = 'https://forms.gle/tJa6GAwEjs7fykhG7';
+    window.location.assign('https://forms.gle/tJa6GAwEjs7fykhG7');
   }
 
   return (
     <Alert
+      role="alert"
       type="warning"
       style={{ marginBottom: "1em" }}
       message="Please take a moment to fill out our site feedback survey."
