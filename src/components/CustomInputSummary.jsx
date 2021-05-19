@@ -5,10 +5,9 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import ImageWithModal from "./ImageWithModal";
 import CustomMeta from "./CustomMeta";
-import AlignmentMeta from "./AlignmentMeta";
 import { AppContext } from "../containers/AppContext";
 
-export default function CustomInputSummary({ searchMeta }) {
+export default function CustomInputSummary({ searchMeta, children }) {
   const history = useHistory();
   const [appState, setAppState] = useContext(AppContext);
 
@@ -48,7 +47,7 @@ export default function CustomInputSummary({ searchMeta }) {
               {appState.showAlignmentMeta ? (
                 <Row>
                   <Col md={24} lg={24}>
-                    <AlignmentMeta metadata={searchMeta} />
+                    {children}
                   </Col>
                 </Row>
               ) : (
@@ -68,5 +67,6 @@ export default function CustomInputSummary({ searchMeta }) {
 }
 
 CustomInputSummary.propTypes = {
-  searchMeta: PropTypes.object.isRequired
+  searchMeta: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired
 };

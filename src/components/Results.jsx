@@ -4,6 +4,7 @@ import { Storage, API, graphqlOperation } from "aws-amplify";
 import { Divider, message } from "antd";
 import Matches from "./Matches";
 import CustomInputSummary from "./CustomInputSummary";
+import AlignmentMeta from "./AlignmentMeta";
 import NotFound from "./NotFound";
 import * as queries from "../graphql/queries";
 import config from "../config";
@@ -103,7 +104,9 @@ export default function Results({ match }) {
 
   return (
     <div>
-      <CustomInputSummary searchMeta={searchMeta} />
+      <CustomInputSummary searchMeta={searchMeta}>
+        <AlignmentMeta metadata={searchMeta}/>
+      </CustomInputSummary>
       <Divider />
       <MatchesProvider>
         <Matches
