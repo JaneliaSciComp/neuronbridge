@@ -74,7 +74,6 @@
     "resolve-url-loader": "3.1.2",
     "sass-loader": "8.0.0",
     "semver": "6.3.0",
-    "serverless-finch": "^2.5.2",
     "sockette": "^2.0.6",
     "source-map-explorer": "^2.4.2",
     "style-loader": "1.0.0",
@@ -96,9 +95,9 @@
     "test:watch": "node scripts/test.js",
     "test:integration": "cypress run",
     "test:devel": "cypress open",
-    "deploy:dev": "npm run test && REACT_APP_LEVEL=dev npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-dev",
-    "deploy:val": "npm run test && REACT_APP_LEVEL=val npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-val",
-    "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && aws s3 sync --delete ./build s3://janelia-neuronbridge-web-prod",
+    "deploy:dev": "npm run test && REACT_APP_LEVEL=dev npm run build && sls client deploy",
+    "deploy:val": "npm run test && REACT_APP_LEVEL=val npm run build && sls client deploy --stage val",
+    "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && sls client deploy --stage prod",
     "storybook": "start-storybook  -s ./public -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -133,7 +132,9 @@
     "jest-axe": "^3.4.0",
     "less-loader": "^6.0.0",
     "prettier": "^1.19.1",
-    "react-is": "^16.13.1"
+    "react-is": "^16.13.1",
+    "serverless-finch": "^2.6.0",
+    "serverless-plugin-package-json": "^0.1.0"
   },
   "jest": {
     "roots": [
