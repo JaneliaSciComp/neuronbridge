@@ -16,12 +16,12 @@ custom:
       index.html:
         - name: Cache-Control
           value: max-age=0
+    tags:
+      PROJECT: neuronbridge
+      DEVELOPER: ${env:USER}
+      VERSION: ${pkgjson:version}
 
 provider:
   name: aws
   region: us-east-1
   stage: dev
-  tags:
-    PROJECT: neuronbridge
-    DEVELOPER: ${env:USER}
-    VERSION: ${pkgjson:version}
