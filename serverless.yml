@@ -1,14 +1,15 @@
-service: janelia-neuronbridge-website
+service: janelia-neuronbridge-web
 
 plugins:
   - serverless-finch
   - serverless-plugin-package-json
+  - serverless-deployment-bucket
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
   client:
-    bucketName: janelia-neuronbridge-web-${self:custom.stage}
+    bucketName: ${self:service}-${self:custom.stage}
     distributionFolder: build
     indexDocument: index.html
     errorDocument: index.html
@@ -16,12 +17,18 @@ custom:
       index.html:
         - name: Cache-Control
           value: max-age=0
-    tags:
-      PROJECT: neuronbridge
-      DEVELOPER: ${env:USER}
-      VERSION: ${pkgjson:version}
 
 provider:
   name: aws
   region: us-east-1
   stage: dev
+  deploymentBucket:
+    name: janelia-serverless-deployments
+    blockPublicAccess: true
+
+resources:
+  Resources:
+    DeploymentBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:service}-${self:custom.stage}

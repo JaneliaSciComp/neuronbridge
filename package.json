@@ -133,6 +133,7 @@
     "less-loader": "^6.0.0",
     "prettier": "^1.19.1",
     "react-is": "^16.13.1",
+    "serverless-deployment-bucket": "^1.5.1",
     "serverless-finch": "^2.6.0",
     "serverless-plugin-package-json": "^0.1.0"
   },

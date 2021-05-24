@@ -53,17 +53,15 @@ Then you can access your dev server like this: [https://neuronbridge-dev.janelia
 
 Note: Please make sure you have created a cognito user pool and the appropriate roles to access your data and search buckets on AWS. See [AWS setup](README_AWS.md) for more details. Once that is complete:
 
-Create optimized build for deployment:
+For initial deployment, make sure the AWS resources have been provisioned:
 ```bash
-npm run build
+sls deploy --stage <stage: dev, val, prod>
 ```
 
-Deployment to AWS:
+Deploy the website to AWS:
 ```bash
-npm run deploy:prod
+npm run deploy:<stage: dev, val, prod>
 ```
-Other stages of deployment can also be used. ```deploy:dev``` or ```deploy:val```
-
 Bucket targets, API endpoints and graphQL endpoints are hard coded into src/config.js. These values can be obtained from your aws console, after you have deployed the [neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) backend.
 
 ## Configuring AWS
