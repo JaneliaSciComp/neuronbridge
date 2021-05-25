@@ -32,3 +32,83 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:service}-${self:custom.stage}
+
+    CognitoUserPool:
+      Type: 'AWS::Cognito::UserPool'
+      Properties:
+        UserPoolName: ${self:service}-user-pool-${self:custom.stage}
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+
+    CognitoUserPoolDomain:
+      Type: AWS::Cognito::UserPoolDomain
+      Properties:
+        Domain: neuronbridge-${self:custom.stage}
+        UserPoolId:
+          Ref: CognitoUserPool
+
+    CognitoUserPoolGroupAdmin:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties:
+        Description: Administrative users for Neuronbridge
+        GroupName: neuronbridge-admins
+        Precedence: 0
+        RoleArn: arn:aws:iam::777794738451:role/NeuronBridge_AdminRole
+        UserPoolId:
+          Ref: CognitoUserPool
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        # Generate an app client name based on the stage
+        ClientName: ${self:service}-${self:custom.stage}-user-pool-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        AllowedOAuthFlows:
+          - code
+          - implicit
+        AllowedOAuthScopes:
+          - email
+          - openid
+        AllowedOAuthFlowsUserPoolClient: true
+        CallbackURLs:
+          - https://neuronbridge-dev.janelia.org:3000
+          - https://neuronbridge.janelia.org
+        LogoutURLs:
+          - https://neuronbridge-dev.janelia.org:3000
+          - https://neuronbridge.janelia.org
+        GenerateSecret: false
+        SupportedIdentityProviders:
+          - COGNITO
+          - Google
+      DependsOn:
+        - GoogleUserPoolIdentityProvider
+
+    GoogleUserPoolIdentityProvider:
+      Type: AWS::Cognito::UserPoolIdentityProvider
+      Properties:
+        UserPoolId:
+          Ref: CognitoUserPool
+        ProviderName: Google
+        ProviderDetails:
+          client_id: "{{resolve:secretsmanager:neuronbridge_google_id_provider:SecretString:appID}}"
+          client_secret: "{{resolve:secretsmanager:neuronbridge_google_id_provider:SecretString:appSecret}}"
+          authorize_scopes: profile email openid
+        ProviderType: Google
+        AttributeMapping:
+          email: email
+          email_verified: email_verified
+          username: sub
+
+  Outputs:
+    UserPoolId:
+      Value:
+        Ref: CognitoUserPool
+    UserPoolClientId:
+      Value:
+        Ref: CognitoUserPoolClient
+
