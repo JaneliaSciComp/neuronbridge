@@ -22,7 +22,8 @@ Resources:
       Description: Administrative users for Neuronbridge
       GroupName: neuronbridge-admins
       Precedence: 0
-      RoleArn: arn:aws:iam::777794738451:role/NeuronBridge_AdminRole
+      RoleArn:
+        Fn::GetAtt: [ CognitoAdminRole, Arn ]
       UserPoolId:
         Ref: CognitoUserPool
 
