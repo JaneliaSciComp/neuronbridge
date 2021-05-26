@@ -1,0 +1,11 @@
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${self:service}-${self:custom.stage}
+
+Outputs:
+  WebsiteBucketName:
+    Value:
+      Ref: WebsiteBucket
+
