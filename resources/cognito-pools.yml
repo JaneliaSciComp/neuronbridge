@@ -125,7 +125,7 @@ Resources:
                   - "s3:GetObject"
                   - "s3:GetObjectTagging"
                 Resource:
-                  - arn:aws:s3:::janelia-neuronbridge-download-${self:custom.stage}/*
+                  - arn:aws:s3:::janelia-neuronbridge-downloads-${self:custom.stage}/*
         - PolicyName: 'NeuronBridge_Private'
           PolicyDocument:
             Version: '2012-10-17'
