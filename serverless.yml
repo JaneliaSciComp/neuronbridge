@@ -8,6 +8,7 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
+  version : 1.0.0
   client:
     bucketName: ${self:service}-${self:custom.stage}
     distributionFolder: build
@@ -25,6 +26,11 @@ provider:
   deploymentBucket:
     name: janelia-serverless-deployments
     blockPublicAccess: true
+  tags:
+    PROJECT: NeuronBridge
+    VERSION: ${self:custom.version}
+    DEVELOPER: ${env:USER}
+
 
 resources:
   - ${file(resources/buckets.yml)}
