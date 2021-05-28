@@ -98,6 +98,7 @@
     "deploy:dev": "npm run test && REACT_APP_LEVEL=dev npm run build && sls client deploy",
     "deploy:val": "npm run test && REACT_APP_LEVEL=val npm run build && sls client deploy --stage val",
     "deploy:prod": "npm run test && REACT_APP_LEVEL=prod npm run build && sls client deploy --stage prod",
+    "deploy:int": "npm run test && REACT_APP_LEVEL=int npm run build && sls client deploy --stage int",
     "storybook": "start-storybook  -s ./public -p 6006",
     "build-storybook": "build-storybook"
   },

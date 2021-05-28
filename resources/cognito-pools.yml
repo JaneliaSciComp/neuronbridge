@@ -46,9 +46,13 @@ Resources:
       CallbackURLs:
         - https://neuronbridge-dev.janelia.org:3000
         - https://neuronbridge.janelia.org
+        - https://neuronbridge-pre.janelia.org
+        - https://neuronbridge-${self:custom.stage}.auth.${self:provider.region}.amazoncognito.com/
       LogoutURLs:
         - https://neuronbridge-dev.janelia.org:3000
         - https://neuronbridge.janelia.org
+        - https://neuronbridge-pre.janelia.org
+        - https://neuronbridge-${self:custom.stage}.auth.${self:provider.region}.amazoncognito.com/
       GenerateSecret: false
       SupportedIdentityProviders:
         - COGNITO

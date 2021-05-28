@@ -1,6 +1,28 @@
 import { Auth } from "aws-amplify";
 
-const validLevels = ["prod", "val", "dev"];
+const validLevels = ["prod", "val", "dev", "int"];
+
+const searchEndpoints = {
+  prod: "https://nan47vkv68.execute-api.us-east-1.amazonaws.com",
+  dev: "https://62d6tq28ji.execute-api.us-east-1.amazonaws.com",
+  val: "https://dxfoj63unb.execute-api.us-east-1.amazonaws.com",
+  int: "https://sgro2udww3.execute-api.us-east-1.amazonaws.com"
+};
+
+const graphqlEndpoints = {
+  prod: "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql",
+  dev: "https://uueocb3pcjesbepkdutc2lmfyu.appsync-api.us-east-1.amazonaws.com/graphql",
+  val: "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql",
+  int: "https://di6shlatmvdz7mpc7bkwf67j6u.appsync-api.us-east-1.amazonaws.com/graphql"
+};
+
+const downloadEndpoints = {
+  prod: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
+  dev: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
+  val: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
+  int: "https://sgs7phv2qa.execute-api.us-east-1.amazonaws.com",
+}
+
 
 const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 
@@ -22,26 +44,12 @@ if (validLevels.includes(searchLevel)) {
 
 const endpointLevel =
   process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
-
-let SEARCH_ENDPOINT = "https://nan47vkv68.execute-api.us-east-1.amazonaws.com";
-
-if (endpointLevel === "dev") {
-  SEARCH_ENDPOINT = "https://nt050zgj28.execute-api.us-east-1.amazonaws.com";
-} else if (endpointLevel === "val") {
-  SEARCH_ENDPOINT = "https://dxfoj63unb.execute-api.us-east-1.amazonaws.com";
-}
-
-let GRAPHQL_ENDPOINT = "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql";
-
-if (endpointLevel === "dev") {
-	GRAPHQL_ENDPOINT = "https://na2n7flfhbc5jihltfahcyplua.appsync-api.us-east-1.amazonaws.com/graphql";
-} else if (endpointLevel === "val") {
-  GRAPHQL_ENDPOINT = "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql";
-}
-
-const DOWNLOAD_ENDPOINT = "https://5bfu75vr0e.execute-api.us-east-1.amazonaws.com"
+const SEARCH_ENDPOINT = searchEndpoints[endpointLevel];
+const GRAPHQL_ENDPOINT = graphqlEndpoints[endpointLevel];
+const DOWNLOAD_ENDPOINT = downloadEndpoints[endpointLevel];
 
 export default {
+  APP_LEVEL: process.env.REACT_APP_LEVEL,
   ZIP_DOWNLOAD_LIMIT: 200,
   UNDER_MAINTENANCE,
   SEARCH_BUCKET,
