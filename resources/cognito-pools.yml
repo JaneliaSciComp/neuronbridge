@@ -42,6 +42,7 @@ Resources:
       AllowedOAuthScopes:
         - email
         - openid
+        - profile
       AllowedOAuthFlowsUserPoolClient: true
       CallbackURLs:
         - https://neuronbridge-dev.janelia.org:3000
