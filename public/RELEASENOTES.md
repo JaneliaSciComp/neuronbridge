@@ -1,9 +1,9 @@
-## Version 1.7.1 - 2010-11-30
+## Version 1.7.1 - 2020-11-30
 
 ### Bug Fixes
 * Fixes 'Mask & Search' button for precomputed images used as a search input.
 
-## Version 1.7.0 - 2010-11-10
+## Version 1.7.0 - 2020-11-10
 
 ### Data Alert
 * Due to the large changes made to the alignment and search framework we have had to delete the results of any custom searches run before Nov 10th 2020. We apologise for any inconvenience this may cause.
