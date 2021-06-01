@@ -24,8 +24,8 @@ export default function Login() {
         username: values.email
       });
     } catch (e) {
-      message.error("Login error:", e.message);
       setIsLoading(false);
+      message.error(`Login error: ${e.message}`);
     }
   }
 
