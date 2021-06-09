@@ -6,6 +6,7 @@ import { AppContext } from "../containers/AppContext";
 
 export default function Admin() {
   const [token, setToken] = useState("");
+  const [identityId, setIdentity] = useState();
   const [appState, , setPermanent] = useContext(AppContext);
 
   useEffect(() => {
@@ -14,6 +15,14 @@ export default function Admin() {
       setToken(session.accessToken.jwtToken);
     }
     getSession();
+  }, []);
+
+  useEffect(() => {
+    async function getCreds() {
+      const creds = await Auth.currentCredentials();
+      setIdentity(creds.identityId);
+    }
+    getCreds();
   }, []);
 
   const handleShowDebug = () => {
@@ -29,6 +38,7 @@ export default function Admin() {
         style={{ width: "100%", height: "15em" }}
         value={token}
       />
+    <p><b>Identity Id:</b> {identityId}</p>
       <Switch
         checked={appState.debug}
         onChange={handleShowDebug}
