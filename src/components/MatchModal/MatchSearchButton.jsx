@@ -12,8 +12,8 @@ export default function MatchSearchButton(props) {
     setIsCopying(true);
     // copy the files
     const response = await maskAndSearch({
-      imageURL: match.matchPath,
-      thumbnailURL: match.matchThumbnail
+      imageURL: match.imageURL,
+      thumbnailURL: match.thumbnailURL
     });
     if (response) {
       // redirect to the search input form
