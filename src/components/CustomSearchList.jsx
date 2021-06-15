@@ -3,6 +3,7 @@ import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchList from "./CustomSearch/SearchList";
+import DataMigration from "./CustomSearch/DataMigration";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
@@ -126,6 +127,7 @@ export default function CustomSearchList() {
       />
       <Divider dashed />
       <Title level={3}>Your Searches</Title>
+      <DataMigration />
       <SearchList searches={searches} />
     </div>
   );
