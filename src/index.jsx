@@ -13,9 +13,11 @@ import { AppProvider } from "./containers/AppContext";
 import { FilterProvider } from "./containers/FilterContext";
 import * as serviceWorker from "./serviceWorker";
 
+
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
+    // 👇 https://github.com/aws-amplify/amplify-js/issues/2634
     authenticationFlowType: "USER_PASSWORD_AUTH",
     region: config.cognito.REGION,
     userPoolId: config.cognito.USER_POOL_ID,
