@@ -59,12 +59,12 @@ export default {
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_owgI6RY6Y",
-    APP_CLIENT_ID: "4ham9v2s8c0d9v9mdm7vk3fggp",
-    IDENTITY_POOL_ID: "us-east-1:aa989ba7-1b37-4d5a-95f5-14b70c2694d2"
+    USER_POOL_ID: process.env.REACT_APP_USERPOOL_ID, // "us-east-1_IlMc6JlxA"
+    APP_CLIENT_ID: process.env.REACT_APP_USERPOOL_CLIENT_ID, // "2ionqplpshb3ghes9ik23d2tdb"
+    IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID // "us-east-1:fb9f4e5a-57f9-42b3-91f0-74d5921ecd6a"
   },
   oauth: {
-    DOMAIN: "neuronbridge.auth.us-east-1.amazoncognito.com",
+    DOMAIN: `neuronbridge-${process.env.REACT_APP_LEVEL}.auth.us-east-1.amazoncognito.com`,
     SCOPE: ["email", "openid", "profile"],
     REDIRECT_SIGN_IN: window.location.origin,
     REDIRECT_SIGN_OUT: window.location.origin

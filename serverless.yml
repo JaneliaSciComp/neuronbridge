@@ -1,14 +1,25 @@
 service: janelia-neuronbridge-web
 
+useDotenv: true
+
 plugins:
   - serverless-finch
   - serverless-plugin-package-json
   - serverless-deployment-bucket
+  - serverless-build-client
+  - serverless-export-env
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
   version : 1.0.0
+  export-env:
+    filename: .env
+    overwrite: true
+  buildClient:
+    packager: npm
+    command: run build
+    verbose: true
   client:
     bucketName: ${self:service}-${self:custom.stage}
     distributionFolder: build
@@ -30,6 +41,12 @@ provider:
     PROJECT: NeuronBridge
     VERSION: ${self:custom.version}
     DEVELOPER: ${env:USER}
+  environment:
+    REACT_APP_LEVEL: ${self:custom.stage}
+    REACT_APP_VERSION: $npm_package_version
+    REACT_APP_IDENTITY_POOL_ID: ${cf:${self:service}-${self:custom.stage}.IdentityPoolId}
+    REACT_APP_USERPOOL_ID: ${cf:${self:service}-${self:custom.stage}.UserPoolId}
+    REACT_APP_USERPOOL_CLIENT_ID: ${cf:${self:service}-${self:custom.stage}.UserPoolClientId}
 
 
 resources:
