@@ -20,7 +20,7 @@ export default function ImageExport({
     onChange(true);
     Auth.currentCredentials()
       .then(async () => {
-        API.post("DownloadAPI", "/create_download", {
+        API.post("SearchAPI", "/create_download", {
           body: {
             ids: limitedIds,
             searchId,

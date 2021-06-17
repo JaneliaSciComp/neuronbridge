@@ -6,23 +6,15 @@ const searchEndpoints = {
   prod: "https://nan47vkv68.execute-api.us-east-1.amazonaws.com",
   dev: "https://62d6tq28ji.execute-api.us-east-1.amazonaws.com",
   val: "https://dxfoj63unb.execute-api.us-east-1.amazonaws.com",
-  int: "https://sgro2udww3.execute-api.us-east-1.amazonaws.com"
+  int: "https://ek76dqtvai.execute-api.us-east-1.amazonaws.com"
 };
 
 const graphqlEndpoints = {
   prod: "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql",
   dev: "https://uueocb3pcjesbepkdutc2lmfyu.appsync-api.us-east-1.amazonaws.com/graphql",
   val: "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql",
-  int: "https://di6shlatmvdz7mpc7bkwf67j6u.appsync-api.us-east-1.amazonaws.com/graphql"
+  int: "https://olnk5b7oofaajb2qjvkepwdnwq.appsync-api.us-east-1.amazonaws.com/graphql"
 };
-
-const downloadEndpoints = {
-  prod: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
-  dev: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
-  val: "https://ouluxnaod2.execute-api.us-east-1.amazonaws.com",
-  int: "https://sgs7phv2qa.execute-api.us-east-1.amazonaws.com",
-}
-
 
 const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 
@@ -46,7 +38,6 @@ const endpointLevel =
   process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
 const SEARCH_ENDPOINT = searchEndpoints[endpointLevel];
 const GRAPHQL_ENDPOINT = graphqlEndpoints[endpointLevel];
-const DOWNLOAD_ENDPOINT = downloadEndpoints[endpointLevel];
 
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
@@ -74,17 +65,6 @@ export default {
       {
         name: "SearchAPI",
         endpoint: SEARCH_ENDPOINT,
-        custom_header: async () => {
-          return {
-            Authorization: `Bearer ${(await Auth.currentSession())
-              .getAccessToken()
-              .getJwtToken()}`
-          };
-        }
-      },
-      {
-        name: "DownloadAPI",
-        endpoint: DOWNLOAD_ENDPOINT,
         custom_header: async () => {
           return {
             Authorization: `Bearer ${(await Auth.currentSession())

@@ -8,7 +8,7 @@ export default function DataMigration() {
 
   useEffect(() => {
     Auth.currentCredentials().then(() => {
-      API.get("DownloadAPI", "/migration_check", {}).then(result => {
+      API.get("SearchAPI", "/migration_check", {}).then(result => {
         if (result.migrate) {
           setMigrationStatus(true);
         }
@@ -19,7 +19,7 @@ export default function DataMigration() {
   const handleMigration = () => {
     setLoading(true);
     Auth.currentCredentials().then(currentCreds => {
-      API.post("DownloadAPI", "/migrate_data", {
+      API.post("SearchAPI", "/migrate_data", {
         body: {
           identityId: currentCreds.identityId
         }
