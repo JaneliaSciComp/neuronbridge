@@ -3,6 +3,31 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: ${self:service}-${self:custom.stage}
+      CorsConfiguration:
+        CorsRules:
+          - AllowedMethods:
+            - GET
+            - HEAD
+            - POST
+            AllowedHeaders:
+            - "*"
+            ExposedHeaders:
+            - "x-amz-server-side-encryption"
+            - "x-amz-request-id"
+            - "x-amz-id-2"
+            - "ETag"
+            AllowedOrigins:
+            - "*.janelia.org:3000"
+            - "*.janelia.org"
+            - "*.hhmi.org"
+            - "*.hhmi.org:3000"
+            - Fn::Join:
+              - ""
+              - - "http://janelia-neuronbridge-web-"
+                - ${self:provider.stage}
+                - ".s3-website-"
+                - ${self:provider.region}
+                - ".amazonaws.com"
 
 Outputs:
   WebsiteBucketName:
