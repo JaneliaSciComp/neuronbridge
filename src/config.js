@@ -2,20 +2,6 @@ import { Auth } from "aws-amplify";
 
 const validLevels = ["prod", "val", "dev", "int"];
 
-const searchEndpoints = {
-  prod: "https://nan47vkv68.execute-api.us-east-1.amazonaws.com",
-  dev: "https://62d6tq28ji.execute-api.us-east-1.amazonaws.com",
-  val: "https://dxfoj63unb.execute-api.us-east-1.amazonaws.com",
-  int: "https://ek76dqtvai.execute-api.us-east-1.amazonaws.com"
-};
-
-const graphqlEndpoints = {
-  prod: "https://tujilg3ibbdvddaomn3t6tuap4.appsync-api.us-east-1.amazonaws.com/graphql",
-  dev: "https://uueocb3pcjesbepkdutc2lmfyu.appsync-api.us-east-1.amazonaws.com/graphql",
-  val: "https://wpd6x4kna5a3vdh7ldq5x4kkky.appsync-api.us-east-1.amazonaws.com/graphql",
-  int: "https://olnk5b7oofaajb2qjvkepwdnwq.appsync-api.us-east-1.amazonaws.com/graphql"
-};
-
 const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 
 const dataLevel =
@@ -34,10 +20,8 @@ if (validLevels.includes(searchLevel)) {
   SEARCH_BUCKET = `janelia-neuronbridge-searches-${searchLevel}`;
 }
 
-const endpointLevel =
-  process.env.REACT_APP_SEARCH_ENDPOINT || process.env.REACT_APP_LEVEL;
-const SEARCH_ENDPOINT = searchEndpoints[endpointLevel];
-const GRAPHQL_ENDPOINT = graphqlEndpoints[endpointLevel];
+const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
+const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
