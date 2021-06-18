@@ -25,7 +25,11 @@ export default function Login() {
       });
     } catch (e) {
       setIsLoading(false);
-      message.error(`Login error: ${e.message}`);
+      if (e.code === "UserNotFoundException") {
+        message.error("Login error: Incorrect username or password.");
+      } else {
+        message.error(`Login error: ${e.message}`);
+      }
     }
   }
 
