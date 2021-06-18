@@ -5,18 +5,23 @@ import { useHistory } from "react-router-dom";
 import { maskAndSearch } from "../../libs/awsLib";
 import config from "../../config";
 
-export default function MatchSearchButton(props) {
+export default function MaskSearchButton(props) {
   const { isCopying, setIsCopying, mask } = props;
   const history = useHistory();
 
   const handleSearch = async () => {
     setIsCopying(true);
     // copy the files
-    const imagePath = `https://s3.amazonaws.com/${config.SEARCH_BUCKET}/private/${mask.identityId}/${mask.searchDir}/${mask.searchMask}`;
-    const response = await maskAndSearch({
-      imageURL: mask.imageURL || imagePath,
-      thumbnailURL: mask.imageURL || imagePath
-    });
+    const params = {
+      imageURL: mask.imageURL,
+      thumbnailURL: mask.imageURL
+    };
+    if (mask.searchDir && mask.identityId && mask.searchMask) {
+      const imagePath = `https://s3.amazonaws.com/${config.SEARCH_BUCKET}/private/${mask.identityId}/${mask.searchDir}/${mask.searchMask}`;
+      params.imageURL = imagePath;
+      params.thumbnailURL = imagePath;
+    }
+    const response = await maskAndSearch(params)
     if (response) {
       // redirect to the search input form
       setIsCopying(false);
@@ -39,7 +44,7 @@ export default function MatchSearchButton(props) {
   )
 };
 
-MatchSearchButton.propTypes = {
+MaskSearchButton.propTypes = {
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
   mask: PropTypes.object.isRequired
