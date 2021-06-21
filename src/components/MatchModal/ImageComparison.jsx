@@ -45,6 +45,9 @@ export default function ImageComparison(props) {
     match.imageURL || match.thumbnailURL
   );
 
+  // generate the match image patch, from values in the match JSON
+  // const matchImagePath = `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${match.alignmentSpace}/${match.libraryName.replace(' ','_')}/searchable_neurons/pngs/${}`;
+
   // Reset the image selection drop down if not a Gen1 MCFO.
   // If we don't do this, the page will display a broken image.
   useEffect(() => {
