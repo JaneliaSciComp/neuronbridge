@@ -74,7 +74,7 @@ export default {
     DATA: {
       title: "Precomputed match data",
       url:
-        "https://janelia-neuronbridge-data-dev.s3.amazonaws.com/v2_1_0/DATA_NOTES.md"
+        `https://janelia-neuronbridge-data-${process.env.REACT_APP_LEVEL}.s3.amazonaws.com/v2_1_0/DATA_NOTES.md`
     },
     website: {
       title: "Neuronbridge Website",
