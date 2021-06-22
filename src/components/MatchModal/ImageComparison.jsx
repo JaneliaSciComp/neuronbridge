@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Checkbox, Row, Col, Select } from "antd";
+import { AppContext } from "../../containers/AppContext";
 import { useMatches } from "../../containers/MatchesContext";
 import ImageDisplay from "./ImageDisplay";
 
@@ -41,10 +42,7 @@ export default function ImageComparison(props) {
   const [isCopying, setIsCopying] = useState(false);
   const matchRef = useRef();
   const maskRef = useRef();
-  const [matchImageURL, setMatchImageURL] = useState(
-    match.imageURL || match.thumbnailURL
-  );
-
+  const [appState, , setPermanent] = useContext(AppContext);
   // generate the match image patch, from values in the match JSON
   const filename = match.imageName.match(/([^/]*).tif$/)[1];
   const matchImagePath = `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${
@@ -54,9 +52,35 @@ export default function ImageComparison(props) {
     "_"
   )}/searchable_neurons/pngs/${filename}.png`;
 
+  const imageOptions = {
+    display: ["Display Image", match.imageURL || match.thumbnailURL],
+    match: ["Match Image", matchImagePath]
+  };
+
+  if (match.libraryName.match(/gen1.*mcfo/i)) {
+    imageOptions.expression = [
+      "Original Expression Pattern",
+      "/expression_pattern.png"
+    ];
+  }
+
+  const matchImageURL = imageOptions[appState.comparisonImage]
+    ? imageOptions[appState.comparisonImage][1]
+    : imageOptions.display[1];
+
+  const handleImageChoice = selected => {
+    setPermanent({ comparisonImage: selected });
+  };
+
+  // Since only gen1 mcfo have this option, we need to reset to the
+  // display image choice for all other libraries.
   useEffect(() => {
-    setMatchImageURL(match.imageURL || match.thumbnailURL);
-  }, [match]);
+    if (!match.libraryName.match(/gen1.*mcfo/i)) {
+      if (appState.comparisonImage === "expression") {
+        setPermanent({ comparisonImage: "display" });
+      }
+    }
+  });
 
   useEffect(() => {
     const currentMatch = matchRef.current;
@@ -129,19 +153,15 @@ export default function ImageComparison(props) {
         <Col md={maskOpen ? 12 : 24}>
           <Row>
             <Select
-              onChange={e => setMatchImageURL(e)}
-              value={matchImageURL}
+              onChange={handleImageChoice}
+              value={imageOptions[appState.comparisonImage]}
               style={{ width: 200 }}
             >
-              <Option value={match.imageURL || match.thumbnailURL}>
-                Display Image
-              </Option>
-              <Option value={matchImagePath}>Match Image</Option>
-              {match.libraryName.match(/gen1.*mcfo/i) ? (
-                <Option value="/gen1-mcfo-expression.png">
-                  Original Expression Pattern
+              {Object.keys(imageOptions).map(key => (
+                <Option key={key} value={key}>
+                  {imageOptions[key][0]}
                 </Option>
-              ) : null}
+              ))}
             </Select>
           </Row>
           <ImageDisplay
