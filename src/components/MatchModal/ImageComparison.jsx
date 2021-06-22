@@ -34,6 +34,20 @@ function drawCrosshair(x, y, ctx) {
   ctx.stroke();
 }
 
+function createMatchImagePath(match) {
+   if (match.imageName) {
+    // generate the match image patch, from values in the match JSON
+    const filename = match.imageName.match(/([^/]*).tif$/)[1];
+    return `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${
+      match.alignmentSpace
+    }/${match.libraryName.replace(
+      " ",
+      "_"
+    )}/searchable_neurons/pngs/${filename}.png`;
+  }
+  return '/nopath.png';
+}
+
 export default function ImageComparison(props) {
   const { mask, maskOpen, match, setMaskOpen } = props;
 
@@ -43,14 +57,8 @@ export default function ImageComparison(props) {
   const matchRef = useRef();
   const maskRef = useRef();
   const [appState, , setPermanent] = useContext(AppContext);
-  // generate the match image patch, from values in the match JSON
-  const filename = match.imageName.match(/([^/]*).tif$/)[1];
-  const matchImagePath = `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${
-    match.alignmentSpace
-  }/${match.libraryName.replace(
-    " ",
-    "_"
-  )}/searchable_neurons/pngs/${filename}.png`;
+
+  const matchImagePath = createMatchImagePath(match);
 
   const imageOptions = {
     display: ["Display Image", match.imageURL || match.thumbnailURL],
