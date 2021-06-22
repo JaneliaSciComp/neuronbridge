@@ -23,7 +23,6 @@ export default function Summary(props) {
       metaBlock = <CustomMeta metadata={mask} />;
   }
 
-
   return (
     <>
       <Row>

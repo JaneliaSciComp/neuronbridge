@@ -46,15 +46,17 @@ export default function ImageComparison(props) {
   );
 
   // generate the match image patch, from values in the match JSON
-  // const matchImagePath = `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${match.alignmentSpace}/${match.libraryName.replace(' ','_')}/searchable_neurons/pngs/${}`;
+  const filename = match.imageName.match(/([^/]*).tif$/)[1];
+  const matchImagePath = `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${
+    match.alignmentSpace
+  }/${match.libraryName.replace(
+    " ",
+    "_"
+  )}/searchable_neurons/pngs/${filename}.png`;
 
-  // Reset the image selection drop down if not a Gen1 MCFO.
-  // If we don't do this, the page will display a broken image.
   useEffect(() => {
-    if (!match.libraryName.match(/gen1.*mcfo/i)) {
-     setMatchImageURL( match.imageURL || match.thumbnailURL);
-    }
-  },[match]);
+    setMatchImageURL(match.imageURL || match.thumbnailURL);
+  }, [match]);
 
   useEffect(() => {
     const currentMatch = matchRef.current;
@@ -131,9 +133,15 @@ export default function ImageComparison(props) {
               value={matchImageURL}
               style={{ width: 200 }}
             >
-              <Option value={match.imageURL || match.thumbnailURL}>Display Image</Option>
-              <Option value="/image.png">Match Image</Option>
-              {match.libraryName.match(/gen1.*mcfo/i) ? <Option value="/gen1-mcfo-expression.png">Original Expression Pattern</Option> : null}
+              <Option value={match.imageURL || match.thumbnailURL}>
+                Display Image
+              </Option>
+              <Option value={matchImagePath}>Match Image</Option>
+              {match.libraryName.match(/gen1.*mcfo/i) ? (
+                <Option value="/gen1-mcfo-expression.png">
+                  Original Expression Pattern
+                </Option>
+              ) : null}
             </Select>
           </Row>
           <ImageDisplay
