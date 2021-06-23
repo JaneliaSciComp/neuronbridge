@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
+import { LoadingOutlined } from "@ant-design/icons";
 import SearchUpload from "./SearchUpload";
 import SearchList from "./CustomSearch/SearchList";
 import DataMigration from "./CustomSearch/DataMigration";
@@ -12,6 +13,7 @@ const { Title } = Typography;
 
 export default function CustomSearchList() {
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   const [searches, dispatch] = useReducer((searchList, { type, value }) => {
     switch (type) {
       case "init":
@@ -36,6 +38,7 @@ export default function CustomSearchList() {
       });
       items.forEach(search => logSearchInfo(search));
       dispatch({ type: "init", value: items });
+      setLoading(false);
     }
     fetchSearches();
   }, []);
@@ -128,7 +131,11 @@ export default function CustomSearchList() {
       <Divider dashed />
       <Title level={3}>Your Searches</Title>
       <DataMigration />
-      <SearchList searches={searches} />
+      {isLoading ? (
+        <LoadingOutlined style={{ fontSize: 36 }} spin />
+      ) : (
+        <SearchList searches={searches} />
+      )}
     </div>
   );
 }
