@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
-import { Checkbox, Row, Col, Select } from "antd";
+import { Row, Col, Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
-import { useMatches } from "../../containers/MatchesContext";
 import ImageDisplay from "./ImageDisplay";
 
 import "./ImageComparison.css";
@@ -50,8 +49,6 @@ function createMatchImagePath(match) {
 
 export default function ImageComparison(props) {
   const { mask, maskOpen, match, setMaskOpen } = props;
-
-  const { state, dispatch } = useMatches();
 
   const [isCopying, setIsCopying] = useState(false);
   const matchRef = useRef();
@@ -125,24 +122,8 @@ export default function ImageComparison(props) {
     };
   }, [maskOpen, mask, match]);
 
-  const handleDownloadChoice = e => {
-    if (e.target.checked) {
-      dispatch({ type: "add", payload: match.id });
-    } else {
-      dispatch({ type: "remove", payload: match.id });
-    }
-  };
-
   return (
     <>
-      <p>
-        <Checkbox
-          onChange={handleDownloadChoice}
-          checked={state.selected.includes(match.id)}
-        >
-          Select for Download{" "}
-        </Checkbox>
-      </p>
       <Row gutter={16}>
         {maskOpen && (
           <Col md={12}>

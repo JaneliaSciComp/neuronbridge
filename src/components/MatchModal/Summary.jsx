@@ -2,12 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import ImageComparison from "./ImageComparison";
+import DownloadZipCheckbox from "./DownloadZipCheckbox";
 import LineMeta from "../LineMeta";
 import CustomMeta from "../CustomMeta";
 import SkeletonMeta from "../SkeletonMeta";
 
 export default function Summary(props) {
-  const {selectedMatch, mask, isLM, maskOpen, selected, matchesList, setMaskOpen} = props;
+  const {
+    selectedMatch,
+    mask,
+    isLM,
+    maskOpen,
+    selected,
+    matchesList,
+    setMaskOpen
+  } = props;
 
   let metaBlock = <p>Loading...</p>;
 
@@ -21,7 +30,7 @@ export default function Summary(props) {
       }
     } else {
       metaBlock = <CustomMeta metadata={mask} />;
-  }
+    }
 
   return (
     <>
@@ -31,6 +40,7 @@ export default function Summary(props) {
           {metaBlock}
         </Col>
         <Col sm={12}>
+          <DownloadZipCheckbox matchId={selectedMatch.id} />
           <h3>
             Match {selected} of {matchesList.length}
           </h3>
@@ -65,5 +75,5 @@ Summary.propTypes = {
 
 Summary.defaultProps = {
   matchesList: [],
-  mask: {},
+  mask: {}
 };
