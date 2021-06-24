@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { Typography, message, Divider } from "antd";
+import { Spin, Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
-import { LoadingOutlined } from "@ant-design/icons";
 import SearchUpload from "./SearchUpload";
 import SearchList from "./CustomSearch/SearchList";
 import DataMigration from "./CustomSearch/DataMigration";
@@ -132,7 +131,7 @@ export default function CustomSearchList() {
       <Title level={3}>Your Searches</Title>
       <DataMigration />
       {isLoading ? (
-        <LoadingOutlined style={{ fontSize: 36 }} spin />
+        <Spin size="large" />
       ) : (
         <SearchList searches={searches} />
       )}
