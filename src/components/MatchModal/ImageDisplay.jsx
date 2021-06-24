@@ -33,7 +33,11 @@ const ImageDisplay = (props, ref) => {
   if (meta.displayableMask) {
     downloadName = meta.displayableMask;
   } else if (meta.publishedName) {
-    downloadName = `${meta.publishedName}_${imageType}.png`;
+    if (imageType) {
+      downloadName = `${meta.publishedName}_${imageType}.png`;
+    } else {
+      downloadName = `${meta.publishedName}.png`;
+    }
   };
 
   return (
