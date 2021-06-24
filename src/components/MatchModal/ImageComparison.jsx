@@ -161,6 +161,7 @@ export default function ImageComparison(props) {
             isMask={false}
             onShow={() => setMaskOpen(true)}
             setIsCopying={setIsCopying}
+            imageType={appState.comparisonImage}
             isCopying={isCopying}
             maskOpen={maskOpen}
           />

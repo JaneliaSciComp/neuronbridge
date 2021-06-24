@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import MaskSearchButton from "./MaskSearchButton";
 import MatchSearchButton from "./MatchSearchButton";
+import DownloadButton from "./DownloadButton";
 
 const ImageDisplay = (props, ref) => {
   const {
@@ -17,7 +18,8 @@ const ImageDisplay = (props, ref) => {
     isCopying,
     setIsCopying,
     isMask = true,
-    maskOpen
+    maskOpen,
+    imageType
   } = props;
   const [mirrored, setMirrored] = useState(false);
 
@@ -26,6 +28,13 @@ const ImageDisplay = (props, ref) => {
     : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
 
   const searchUrl = `/search?q=${meta.publishedName}`;
+
+  let downloadName = 'image.png';
+  if (meta.displayableMask) {
+    downloadName = meta.displayableMask;
+  } else if (meta.publishedName) {
+    downloadName = `${meta.publishedName}_${imageType}.png`;
+  };
 
   return (
     <>
@@ -51,9 +60,17 @@ const ImageDisplay = (props, ref) => {
           {mirrored ? "Restore" : "Flip"} {isMask ? "Mask" : "Match"}
         </Button>
         {isMask ? (
-          <MaskSearchButton mask={meta} isCopying={isCopying} setIsCopying={setIsCopying} />
+          <MaskSearchButton
+            mask={meta}
+            isCopying={isCopying}
+            setIsCopying={setIsCopying}
+          />
         ) : (
-          <MatchSearchButton match={meta} isCopying={isCopying} setIsCopying={setIsCopying} />
+          <MatchSearchButton
+            match={meta}
+            isCopying={isCopying}
+            setIsCopying={setIsCopying}
+          />
         )}
         {isMask ? (
           <Button style={{ marginLeft: "0.5em" }} onClick={onHide}>
@@ -68,6 +85,11 @@ const ImageDisplay = (props, ref) => {
             View Precomputed Search
           </Link>
         )}
+        <DownloadButton
+          style={{ marginLeft: "0.5em" }}
+          imageURL={src}
+          name={downloadName}
+        />
       </Row>
     </>
   );
