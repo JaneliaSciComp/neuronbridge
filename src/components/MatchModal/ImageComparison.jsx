@@ -143,7 +143,7 @@ export default function ImageComparison(props) {
           <Row>
             <Select
               onChange={handleImageChoice}
-              value={imageOptions[appState.comparisonImage]}
+              value={imageOptions[appState.comparisonImage] || imageOptions.display}
               style={{ width: 200 }}
             >
               {Object.keys(imageOptions).map(key => (
