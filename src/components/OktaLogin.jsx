@@ -5,7 +5,7 @@ import { Button } from "antd";
 export default function OktaLogin() {
 
   function signIn() {
-    Auth.federatedSignIn({ provider: "Okta"});
+    Auth.federatedSignIn({ provider: "OKTA"});
   }
 
   return (
