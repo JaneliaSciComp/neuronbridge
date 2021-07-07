@@ -58,7 +58,7 @@ export default function ImageComparison(props) {
   const matchImagePath = createMatchImagePath(match);
 
   const imageOptions = {
-    display: ["Display Image", match.imageURL || match.thumbnailURL],
+    display: ["Gamma Corrected Color Depth MIP", match.imageURL || match.thumbnailURL],
     match: ["Match Image", matchImagePath]
   };
 
@@ -144,7 +144,7 @@ export default function ImageComparison(props) {
             <Select
               onChange={handleImageChoice}
               value={imageOptions[appState.comparisonImage] || imageOptions.display}
-              style={{ width: 200 }}
+              style={{ width: 300 }}
             >
               {Object.keys(imageOptions).map(key => (
                 <Option key={key} value={key}>
