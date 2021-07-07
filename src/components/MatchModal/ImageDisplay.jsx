@@ -61,7 +61,7 @@ const ImageDisplay = (props, ref) => {
           }
           onClick={() => setMirrored(mState => !mState)}
         >
-          {mirrored ? "Restore" : "Flip"} {isMask ? "Mask" : "Match"}
+          {mirrored ? "Restore" : "Flip"}
         </Button>
         {isMask ? (
           <MaskSearchButton
