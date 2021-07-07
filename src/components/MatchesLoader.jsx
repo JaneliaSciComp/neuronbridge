@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { Auth, Storage } from "aws-amplify";
 import { useParams } from "react-router-dom";
 import { Spin, Divider, message } from "antd";
-import LineSummary from "./LineSummary";
-import SkeletonSummary from "./SkeletonSummary";
+import SearchSummary from "./SearchSummary";
 import Matches from "./Matches";
 import { AppContext } from "../containers/AppContext";
 import { MatchesProvider } from "../containers/MatchesContext";
@@ -70,13 +69,6 @@ export default function MatchesLoader({ searchResult, searchType }) {
     result => result.id === matchId
   )[0];
 
-  const summary =
-    searchType === "lines" ? (
-      <LineSummary lineMeta={matchInput} />
-    ) : (
-      <SkeletonSummary metaInfo={matchInput} />
-    );
-
   matchInput.precomputed = true;
 
   const matches = matchMeta ? (
@@ -92,8 +84,8 @@ export default function MatchesLoader({ searchResult, searchType }) {
 
   return (
     <>
-      <h3>Input Image</h3>
-      {summary}
+      <h3>{searchType === "ppp" ? "PPP" : "CDM"} Input Image</h3>
+      <SearchSummary type={searchType} input={matchInput} />
       <Divider />
       <MatchesProvider>{matches}</MatchesProvider>
     </>
