@@ -27,18 +27,18 @@ export default function SkeletonResult(props) {
       <Col md={6}>
         <Space direction="vertical">
           <Button
-            aria-label="View CDM Matches"
+            aria-label="View Color Depth MIP Results"
             type="primary"
             disabled={/matches$/.test(location.pathname)}
           >
-            <Link to={matchesUrl}>View CDM Matches</Link>
+            <Link to={matchesUrl}>View Color Depth MIP Results</Link>
           </Button>
           <Button
-            aria-label="View PPP Matches"
+            aria-label="View PatchPerPixMatch Results"
             type="primary"
             disabled={/matches$/.test(location.pathname)}
           >
-            <Link to={pppUrl}>View PPP Matches</Link>
+            <Link to={pppUrl}>View PatchPerPixMatch Results </Link>
           </Button>
         </Space>
       </Col>

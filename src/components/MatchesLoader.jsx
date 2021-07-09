@@ -84,7 +84,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
 
   return (
     <>
-      <h3>{searchType === "ppp" ? "PPP" : "CDM"} Input Image</h3>
+      <h3>{searchType === "ppp" ? "PPPM" : "CDM"} Input Image</h3>
       <SearchSummary type={searchType} input={matchInput} />
       <Divider />
       <MatchesProvider>{matches}</MatchesProvider>
