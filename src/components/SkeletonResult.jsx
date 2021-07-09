@@ -31,14 +31,14 @@ export default function SkeletonResult(props) {
             type="primary"
             disabled={/matches$/.test(location.pathname)}
           >
-            <Link to={matchesUrl}>View Color Depth MIP Results</Link>
+            <Link to={matchesUrl}>Color Depth MIP Results</Link>
           </Button>
           <Button
             aria-label="View PatchPerPixMatch Results"
             type="primary"
             disabled={/matches$/.test(location.pathname)}
           >
-            <Link to={pppUrl}>View PatchPerPixMatch Results </Link>
+            <Link to={pppUrl}>PatchPerPixMatch Results </Link>
           </Button>
         </Space>
       </Col>
