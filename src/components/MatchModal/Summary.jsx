@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Row, Col } from "antd";
+import { Row, Col, Divider } from "antd";
 import ImageComparison from "./ImageComparison";
 import DownloadZipCheckbox from "./DownloadZipCheckbox";
 import LineMeta from "../LineMeta";
@@ -51,6 +51,7 @@ export default function Summary(props) {
           )}
         </Col>
       </Row>
+      <Divider />
       <ImageComparison
         maskOpen={maskOpen}
         mask={mask}

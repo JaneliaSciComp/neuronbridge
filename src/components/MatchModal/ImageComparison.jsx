@@ -59,7 +59,8 @@ export default function ImageComparison(props) {
 
   const imageOptions = {
     display: ["Gamma Corrected Color Depth MIP", match.imageURL || match.thumbnailURL],
-    match: ["Match Image", matchImagePath]
+    match: ["Match Image", matchImagePath],
+    input: ["Input Image", mask.imageURL]
   };
 
   if (match.libraryName.match(/gen1.*mcfo/i)) {
@@ -73,10 +74,17 @@ export default function ImageComparison(props) {
     ? imageOptions[appState.comparisonImage][1]
     : imageOptions.display[1];
 
+  const matchImageURL1 = imageOptions[appState.comparisonImage1]
+    ? imageOptions[appState.comparisonImage1][1]
+    : imageOptions.input[1];
+
   const handleImageChoice = selected => {
     setPermanent({ comparisonImage: selected });
   };
 
+  const handleFirstImageChoice = selected => {
+    setPermanent({ comparisonImage1: selected });
+  };
   // Since only gen1 mcfo have this option, we need to reset to the
   // display image choice for all other libraries.
   useEffect(() => {
@@ -127,12 +135,25 @@ export default function ImageComparison(props) {
       <Row gutter={16}>
         {maskOpen && (
           <Col md={12}>
-            <Row style={{ height: "2.2em" }} />
+            <Row>
+              <Select
+                onChange={handleFirstImageChoice}
+                value={imageOptions[appState.comparisonImage1] || imageOptions.input}
+                style={{ width: 300 }}
+              >
+                {Object.keys(imageOptions).map(key => (
+                  <Option key={key} value={key}>
+                    {imageOptions[key][0]}
+                  </Option>
+                ))}
+              </Select>
+            </Row>
+
             <ImageDisplay
               meta={mask}
               ref={maskRef}
-              src={mask.imageURL}
-              alt="Mask for search"
+              src={matchImageURL1}
+              alt={imageOptions[appState.comparisonImage1] ? imageOptions[appState.comparisonImage1][0] : imageOptions.input[0]}
               onHide={() => setMaskOpen(false)}
               setIsCopying={setIsCopying}
               isCopying={isCopying}
@@ -157,7 +178,7 @@ export default function ImageComparison(props) {
             meta={match}
             ref={matchRef}
             src={matchImageURL}
-            alt="Search Match"
+            alt={imageOptions[appState.comparisonImage] ? imageOptions[appState.comparisonImage][0] : imageOptions.display[0]}
             isMask={false}
             onShow={() => setMaskOpen(true)}
             setIsCopying={setIsCopying}
