@@ -282,6 +282,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
       <MatchModal
         isLM={!(searchType === "lines")}
+        searchType={searchType}
         open={modalOpen}
         setOpen={setModalOpen}
         matchesList={fullList}

@@ -7,7 +7,7 @@ import ViewIn3D from "./MatchModal/ViewIn3D";
 const { TabPane } = Tabs;
 
 export default function MatchModal(props) {
-  const { open, setOpen, matchesList, mask, isLM } = props;
+  const { open, setOpen, matchesList, mask, isLM, searchType } = props;
 
   const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
@@ -48,6 +48,8 @@ export default function MatchModal(props) {
   if (!selectedMatch) {
     return null;
   }
+
+  const summaryLabel = searchType === "ppp" ? "PPPM Summary" : "CDM Summary";
 
   return (
     <Modal
@@ -91,7 +93,7 @@ export default function MatchModal(props) {
       width="90%"
     >
       <Tabs defaultActiveKey="1">
-        <TabPane tab="Summary" key="1">
+        <TabPane tab={summaryLabel} key="1">
           <Summary
             selectedMatch={selectedMatch}
             mask={mask}
@@ -115,7 +117,8 @@ MatchModal.propTypes = {
   setOpen: PropTypes.func.isRequired,
   matchesList: PropTypes.arrayOf(PropTypes.object),
   mask: PropTypes.object,
-  isLM: PropTypes.bool.isRequired
+  isLM: PropTypes.bool.isRequired,
+  searchType: PropTypes.string.isRequired
 };
 
 MatchModal.defaultProps = {
