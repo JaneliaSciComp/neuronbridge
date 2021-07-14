@@ -11,7 +11,7 @@ import config from "./config";
 import App from "./App";
 import { AppProvider } from "./containers/AppContext";
 import { FilterProvider } from "./containers/FilterContext";
-import * as serviceWorker from "./serviceWorker";
+// import * as serviceWorker from "./serviceWorker";
 
 
 Amplify.configure({
@@ -45,6 +45,12 @@ Amplify.configure({
   "aws_appsync_apiKey": config.appsync.apiKey
 });
 
+if (process.env.NODE_ENV === 'development') {
+  /* eslint-disable-next-line global-require */
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 const alertOptions = {
   // you can also just use 'bottom center'
   position: positions.BOTTOM_CENTER,
@@ -73,4 +79,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();
