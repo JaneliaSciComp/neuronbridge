@@ -90,7 +90,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "sls export-env && HTTPS=true SSL_CRT_FILE=./cert/server.crt SSL_CRT_KEY=./cert/server.key node scripts/start.js",
+    "start": "sls export-env && HTTPS=true SSL_CRT_FILE=./cert/server.cert SSL_CRT_KEY=./cert/server.key node scripts/start.js",
     "start:int": "sls export-env --stage int && HTTPS=true node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest",

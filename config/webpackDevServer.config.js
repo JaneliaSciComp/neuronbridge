@@ -10,10 +10,15 @@ const paths = require('./paths');
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
-const httpsConfig = {
-  key: fs.readFileSync('./cert/server.key'),
-  cert: fs.readFileSync('./cert/server.cert'),
-};
+let httpsConfig = true;
+if (process.env.SSL_CRT_FILE && process.env.SSL_CRT_KEY) {
+  if (fs.existsSync(process.env.SSL_CRT_FILE) && fs.existsSync(process.env.SSL_CRT_KEY)) {
+    httpsConfig = {
+      key: fs.readFileSync(process.env.SSL_CRT_KEY),
+      cert: fs.readFileSync(process.env.SSL_CRT_FILE),
+    };
+  }
+}
 
 module.exports = function(proxy, allowedHost) {
   return {
