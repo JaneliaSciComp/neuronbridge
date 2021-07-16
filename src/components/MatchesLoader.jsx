@@ -12,7 +12,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
   const [isLoading, setLoading] = useState(false);
   const [matchMeta, setMatchMeta] = useState(null);
   const [appState] = useContext(AppContext);
-  const { matchId } = useParams();
+  const { matchId, searchTerm } = useParams();
 
   useEffect(() => {
     const storageOptions = {
@@ -25,7 +25,10 @@ export default function MatchesLoader({ searchResult, searchType }) {
 
     function getMatches() {
       setLoading(true);
-      const metadataPath = `${appState.paths.precomputedDataRootPath}/metadata/cdsresults/${matchId}.json`;
+      let metadataPath = `${appState.paths.precomputedDataRootPath}/metadata/cdsresults/${matchId}.json`;
+      if (searchType === "ppp") {
+        metadataPath = `${appState.paths.precomputedDataRootPath}/metadata/pppresults/${searchTerm}.json`;
+      }
 
       Auth.currentCredentials().then(() => {
         Storage.get(metadataPath, storageOptions).then(response => {
@@ -55,7 +58,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
     if ("precomputedDataRootPath" in appState.paths) {
       getMatches();
     }
-  }, [matchId, appState.paths, searchResult]);
+  }, [matchId, appState.paths, searchResult, searchType]);
 
   if (isLoading) {
     return (
