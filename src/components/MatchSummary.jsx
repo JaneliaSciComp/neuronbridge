@@ -13,6 +13,9 @@ export default function MatchSummary(props) {
   const { state, dispatch } = useMatches();
   const checked = state.selected.includes(match.id);
 
+  // set this flag if we are looking at a PPPM result.
+  const isPPP = Boolean(match.pppScore);
+
   const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
 
@@ -25,10 +28,11 @@ export default function MatchSummary(props) {
   };
 
   if (gridView) {
+    const resultScore = isPPP ? match.pppScore : match.normalizedScore;
     const score =
       filterState.sortResultsBy === 2
         ? `(Matched Pixels: ${match.matchingPixels})`
-        : `(Score: ${Math.round(match.normalizedScore)})`;
+        : `(Score: ${Math.round(resultScore)})`;
 
     return (
       <Col xs={24} md={12} lg={8} xl={6}>
