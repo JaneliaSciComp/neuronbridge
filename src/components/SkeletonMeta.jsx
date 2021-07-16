@@ -29,6 +29,9 @@ export default function SkeletonMeta({ attributes }) {
         ) : ""}
 
         <p>
+          <b>Neuron Type / Instance: </b> {attributes.neuronType} / {attributes.neuronInstance}
+        </p>
+        <p>
           <b>Library: </b>
           <LibraryFormatter type={libraryName} />
         </p>
