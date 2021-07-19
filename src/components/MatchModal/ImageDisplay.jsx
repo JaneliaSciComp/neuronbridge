@@ -28,7 +28,6 @@ const ImageDisplay = (props, ref) => {
   useEffect(() => {
     if (src) {
       const [, bucket, relativePath] = src.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
-      console.log({src, bucket, relativePath});
       signedPublicLink(relativePath, bucket).then(signed => {
         setSignedSrc(signed);
       });
