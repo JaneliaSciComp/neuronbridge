@@ -73,15 +73,15 @@ export const handlers = [
               mirrored: false,
               files: {
                 SignalMipMasked:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_2_masked_raw.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-masked_raw.png",
                 SignalMipMaskedSkel:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_3_skel.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-skel.png",
                 SignalMip:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_1_raw.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-raw.png",
                 ColorDepthMip:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_5_ch.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-ch.png",
                 ColorDepthMipSkel:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_6_ch_skel.png"
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-ch_skel.png"
               },
               sourceImageFiles: {
                 MASKED_RAW:
@@ -225,15 +225,15 @@ export const handlers = [
               mirrored: false,
               files: {
                 SignalMipMasked:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_2_masked_raw.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-masked_raw.png",
                 SignalMipMaskedSkel:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_3_skel.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-skel.png",
                 SignalMip:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_1_raw.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-raw.png",
                 ColorDepthMip:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_5_ch.png",
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-ch.png",
                 ColorDepthMipSkel:
-                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-_6_ch_skel.png"
+                  "19/1932493302/1932493302-VT034811-20170609_61_C5-40x-JRC2018_Unisex_20x_HR-ch_skel.png"
               },
               sourceImageFiles: {
                 MASKED_RAW:
