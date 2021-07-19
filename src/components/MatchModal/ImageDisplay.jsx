@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,7 @@ import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import MaskSearchButton from "./MaskSearchButton";
 import MatchSearchButton from "./MatchSearchButton";
 import DownloadButton from "./DownloadButton";
+import { signedPublicLink } from "../../libs/awsLib";
 
 const ImageDisplay = (props, ref) => {
   const {
@@ -22,6 +23,17 @@ const ImageDisplay = (props, ref) => {
     imageType
   } = props;
   const [mirrored, setMirrored] = useState(false);
+  const [signedSrc, setSignedSrc] = useState();
+
+  useEffect(() => {
+    if (src) {
+      const [, bucket, relativePath] = src.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
+      console.log({src, bucket, relativePath});
+      signedPublicLink(relativePath, bucket).then(signed => {
+        setSignedSrc(signed);
+      });
+    }
+  }, [src]);
 
   const style = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
@@ -29,7 +41,7 @@ const ImageDisplay = (props, ref) => {
 
   const searchUrl = `/search?q=${meta.publishedName}`;
 
-  let downloadName = 'image.png';
+  let downloadName = "image.png";
   if (meta.displayableMask) {
     downloadName = meta.displayableMask;
   } else if (meta.publishedName) {
@@ -38,13 +50,13 @@ const ImageDisplay = (props, ref) => {
     } else {
       downloadName = `${meta.publishedName}.png`;
     }
-  };
+  }
 
   return (
     <>
       <Row className="imageComparison">
         <canvas ref={ref} width="500" height="250" />
-        <img src={src} style={style} alt={alt} />
+        {signedSrc ? <img src={signedSrc} style={style} alt={alt} /> : null}
       </Row>
       <Row>
         {!isMask && !maskOpen ? (

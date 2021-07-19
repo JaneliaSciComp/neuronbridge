@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Row, Col, Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
+import config from "../../config";
+import {createPPPMImagePath} from "../../libs/awsLib";
 
 import "./ImageComparison.css";
 
@@ -34,17 +36,82 @@ function drawCrosshair(x, y, ctx) {
 }
 
 function createMatchImagePath(match) {
-   if (match.imageName) {
+  if (match.imageName) {
     // generate the match image patch, from values in the match JSON
     const filename = match.imageName.match(/([^/]*).tif$/)[1];
-    return `https://s3.amazonaws.com/janelia-flylight-color-depth-dev/${
+    return `https://s3.amazonaws.com/${config.CDM_BUCKET}/${
       match.alignmentSpace
     }/${match.libraryName.replace(
       " ",
       "_"
     )}/searchable_neurons/pngs/${filename}.png`;
   }
-  return '/nopath.png';
+  return "/nopath.png";
+}
+
+function getMatchImageOptions(isPPPM, match, library) {
+  if (isPPPM) {
+    const pppmOptions = {
+      display: [
+        "Best Channel MIP with EM overlay",
+        createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.ColorDepthMipSkel
+        )
+      ],
+      bestMip: [
+        "Best Channel MIP",
+        createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.SignalMip
+        )
+      ],
+      sampleMIP: [
+        "Sample MIP",
+        createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.ColorDepthMip
+        )
+      ],
+      fullExpression: ["Full Expression", "image_path"],
+      pppmMask: [
+        "PPP Mask",
+        createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.SignalMipMasked
+        )
+      ],
+      pppmMaskWithEMOverlay: [
+        "PPP Mask with EM Overlay ",
+        createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.SignalMipMaskedSkel
+        )
+      ]
+    };
+    return pppmOptions;
+  }
+
+  const matchImagePath = createMatchImagePath(match);
+  const cdmOptions = {
+    display: [
+      "Gamma Corrected Color Depth MIP",
+      match.imageURL || match.thumbnailURL
+    ],
+    match: ["Match Image", matchImagePath]
+  };
+  if (match.libraryName.match(/gen1.*mcfo/i)) {
+    cdmOptions.expression = [
+      "Original Expression Pattern",
+      "/expression_pattern.png"
+    ];
+  }
+  return cdmOptions;
 }
 
 export default function ImageComparison(props) {
@@ -55,20 +122,15 @@ export default function ImageComparison(props) {
   const maskRef = useRef();
   const [appState, , setPermanent] = useContext(AppContext);
 
-  const matchImagePath = createMatchImagePath(match);
+  // TODO: there are two sets of options. One set for PPPM and another for CDM
+  // look at the match to see if it is a PPPM result or CDM and apply accordingly?
+  const imageOptions = getMatchImageOptions(
+    Boolean(match.files && match.files.ColorDepthMipSkel),
+    match,
+    mask.libraryName
+  );
 
-  const imageOptions = {
-    display: ["Gamma Corrected Color Depth MIP", match.imageURL || match.thumbnailURL],
-    match: ["Match Image", matchImagePath],
-    input: ["Input Image", mask.imageURL]
-  };
-
-  if (match.libraryName.match(/gen1.*mcfo/i)) {
-    imageOptions.expression = [
-      "Original Expression Pattern",
-      "/expression_pattern.png"
-    ];
-  }
+  imageOptions.input = ["Input Image", mask.imageURL];
 
   const matchImageURL = imageOptions[appState.comparisonImage]
     ? imageOptions[appState.comparisonImage][1]
@@ -138,7 +200,9 @@ export default function ImageComparison(props) {
             <Row>
               <Select
                 onChange={handleFirstImageChoice}
-                value={imageOptions[appState.comparisonImage1] || imageOptions.input}
+                value={
+                  imageOptions[appState.comparisonImage1] || imageOptions.input
+                }
                 style={{ width: 300 }}
               >
                 {Object.keys(imageOptions).map(key => (
@@ -153,7 +217,11 @@ export default function ImageComparison(props) {
               meta={mask}
               ref={maskRef}
               src={matchImageURL1}
-              alt={imageOptions[appState.comparisonImage1] ? imageOptions[appState.comparisonImage1][0] : imageOptions.input[0]}
+              alt={
+                imageOptions[appState.comparisonImage1]
+                  ? imageOptions[appState.comparisonImage1][0]
+                  : imageOptions.input[0]
+              }
               onHide={() => setMaskOpen(false)}
               setIsCopying={setIsCopying}
               isCopying={isCopying}
@@ -164,7 +232,9 @@ export default function ImageComparison(props) {
           <Row>
             <Select
               onChange={handleImageChoice}
-              value={imageOptions[appState.comparisonImage] || imageOptions.display}
+              value={
+                imageOptions[appState.comparisonImage] || imageOptions.display
+              }
               style={{ width: 300 }}
             >
               {Object.keys(imageOptions).map(key => (
@@ -178,7 +248,11 @@ export default function ImageComparison(props) {
             meta={match}
             ref={matchRef}
             src={matchImageURL}
-            alt={imageOptions[appState.comparisonImage] ? imageOptions[appState.comparisonImage][0] : imageOptions.display[0]}
+            alt={
+              imageOptions[appState.comparisonImage]
+                ? imageOptions[appState.comparisonImage][0]
+                : imageOptions.display[0]
+            }
             isMask={false}
             onShow={() => setMaskOpen(true)}
             setIsCopying={setIsCopying}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Checkbox, Divider, Row, Col, Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
@@ -7,14 +7,40 @@ import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import { FilterContext } from "../containers/FilterContext";
 import { useMatches } from "../containers/MatchesContext";
+import { signedPublicLink, createRelativePPPMImagePath } from "../libs/awsLib";
+import config from "../config";
 
 export default function MatchSummary(props) {
-  const { match, showModal, isLM, gridView } = props;
+  const { match, showModal, isLM, gridView, library } = props;
   const { state, dispatch } = useMatches();
   const checked = state.selected.includes(match.id);
+  const [signedSrc, setSignedSrc] = useState();
+  const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppScore);
+
+  useEffect(() => {
+    if (isPPP && match.files.ColorDepthMipSkel) {
+      const bucket = config.PPPM_BUCKET;
+      const relativePath = createRelativePPPMImagePath(match.alignmentSpace, library, match.files.ColorDepthMipSkel);
+      signedPublicLink(relativePath, bucket).then(signed => {
+        setSignedSrc(signed);
+        setSignedThumbnailSrc(signed);
+      });
+    } else if (match.imageURL) {
+       const [, bucket, relativePath] = match.imageURL.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
+      signedPublicLink(relativePath, bucket).then(signed => {
+        setSignedSrc(signed);
+      });
+      const [, thumbBucket, thumbRelativePath] = match.thumbnailURL.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
+      signedPublicLink(thumbRelativePath, thumbBucket).then(signed => {
+        setSignedThumbnailSrc(signed);
+      });
+
+    }
+  },[match, isPPP]);
+
 
   const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
@@ -26,6 +52,13 @@ export default function MatchSummary(props) {
       dispatch({ type: "remove", payload: match.id });
     }
   };
+
+  const thumbnailURL = signedThumbnailSrc;
+  const imageURL = signedSrc;
+
+  if (!thumbnailURL || !imageURL) {
+    return null;
+  }
 
   if (gridView) {
     const resultScore = isPPP ? match.pppScore : match.normalizedScore;
@@ -48,8 +81,8 @@ export default function MatchSummary(props) {
             checked={checked}
           />
           <ImageWithModal
-            thumbSrc={match.thumbnailURL}
-            src={match.imageURL}
+            thumbSrc={thumbnailURL}
+            src={imageURL}
             alt={publishedName}
             showModal={showModal}
           />
@@ -77,8 +110,8 @@ export default function MatchSummary(props) {
           md={{ span: 8, order: 1 }}
         >
           <ImageWithModal
-            thumbSrc={match.thumbnailURL}
-            src={match.imageURL}
+            thumbSrc={thumbnailURL}
+            src={imageURL}
             alt={publishedName}
             showModal={showModal}
           />
@@ -117,6 +150,7 @@ export default function MatchSummary(props) {
 }
 
 MatchSummary.propTypes = {
+  library: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,

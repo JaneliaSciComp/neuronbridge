@@ -21,7 +21,7 @@ export async function deleteSearch(search) {
 
 export async function maskAndSearch(image) {
   // expect image to be object with imageURL and thumbnailURL attributes
-  const creds = await Auth.currentCredentials()
+  const creds = await Auth.currentCredentials();
   const response = await API.post("SearchAPI", "/new_from_image", {
     body: {
       image,
@@ -29,6 +29,19 @@ export async function maskAndSearch(image) {
     }
   });
   return response;
+}
+
+export function signedPublicLink(url, bucket) {
+  const downloadOptions = {
+    customPrefix: {
+      public: ""
+    },
+    expires: 500,
+    level: "public",
+    bucket
+  };
+
+  return Storage.get(url, downloadOptions).then(result => result);
 }
 
 export function signedLink(url, identityId) {
@@ -48,6 +61,20 @@ export function signedLink(url, identityId) {
   }
 
   return Storage.get(url, downloadOptions).then(result => result);
+}
+
+export function createRelativePPPMImagePath(
+  alignmentSpace,
+  library,
+  relativePath
+) {
+  return `${alignmentSpace}/${library}/${relativePath}`;
+}
+
+export function createPPPMImagePath(alignmentSpace, library, relativePath) {
+  return `https://s3.amazonaws.com/${
+    config.PPPM_BUCKET
+  }/${createRelativePPPMImagePath(alignmentSpace, library, relativePath)}`;
 }
 
 export function logSearchInfo(search) {
