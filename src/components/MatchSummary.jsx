@@ -39,7 +39,7 @@ export default function MatchSummary(props) {
       });
 
     }
-  },[match, isPPP]);
+  },[match, isPPP, library]);
 
 
   const [filterState] = useContext(FilterContext);
