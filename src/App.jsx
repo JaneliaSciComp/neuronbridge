@@ -169,6 +169,8 @@ export default function App() {
           <>
             <p>Data Bucket: {config.s3.BUCKET}</p>
             <p>Search Bucket: {config.SEARCH_BUCKET}</p>
+            <p>CDM Bucket: {config.CDM_BUCKET}</p>
+            <p>PPPM Bucket: {config.PPPM_BUCKET}</p>
             {searchEnpoints}
             <p>GraphQL: {config.appsync.graphqlEndpoint}</p>
             <p>App Level: {config.APP_LEVEL}</p>
