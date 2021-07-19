@@ -65,7 +65,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.SignalMip
+          match.files.ColorDepthMip
         )
       ],
       sampleMIP: [
@@ -73,7 +73,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.ColorDepthMip
+          match.files.SignalMip
         )
       ],
       fullExpression: ["Full Expression", "image_path"],

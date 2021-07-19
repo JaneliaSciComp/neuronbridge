@@ -23,7 +23,7 @@ export default function MatchSummary(props) {
   useEffect(() => {
     if (isPPP && match.files.ColorDepthMipSkel) {
       const bucket = config.PPPM_BUCKET;
-      const relativePath = createRelativePPPMImagePath(match.alignmentSpace, library, match.files.ColorDepthMipSkel);
+      const relativePath = createRelativePPPMImagePath(match.alignmentSpace, library, match.files.ColorDepthMip);
       signedPublicLink(relativePath, bucket).then(signed => {
         setSignedSrc(signed);
         setSignedThumbnailSrc(signed);
