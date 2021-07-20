@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import MaskSearchButton from "./MaskSearchButton";
@@ -37,8 +36,6 @@ const ImageDisplay = (props, ref) => {
   const style = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
     : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
-
-  const searchUrl = `/search?q=${meta.publishedName}`;
 
   let downloadName = "image.png";
   if (meta.displayableMask) {
@@ -91,15 +88,7 @@ const ImageDisplay = (props, ref) => {
           <Button style={{ marginLeft: "0.5em" }} onClick={onHide}>
             Hide Mask
           </Button>
-        ) : (
-          <Link
-            className="ant-btn"
-            style={{ marginLeft: "0.5em" }}
-            to={searchUrl}
-          >
-            View Precomputed Search
-          </Link>
-        )}
+        ) : ''}
         <DownloadButton
           style={{ marginLeft: "0.5em" }}
           imageURL={src}
