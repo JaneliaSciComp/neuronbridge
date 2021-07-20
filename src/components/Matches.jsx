@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Button, Switch, Row, Col, Pagination, Empty } from "antd";
@@ -34,7 +34,6 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
-  const [modalOpen, setModalOpen] = useState(0);
   const [appState, , setPermanent] = useContext(AppContext);
   const [filterState] = useContext(FilterContext);
 
@@ -47,6 +46,16 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   function handleChangePageSize(current, size) {
     query.set("pc", size);
     query.set("page", 1);
+    location.search = query.toString();
+    history.push(location);
+  }
+
+  function setModalOpen(index) {
+    if (index) {
+      query.set("m", index);
+    } else {
+      query.delete("m");
+    }
     location.search = query.toString();
     history.push(location);
   }
@@ -284,7 +293,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       <MatchModal
         isLM={!(searchType === "lines")}
         searchType={searchType}
-        open={modalOpen}
+        open={parseInt(query.get('m')||0, 10)}
         setOpen={setModalOpen}
         matchesList={fullList}
         mask={input}

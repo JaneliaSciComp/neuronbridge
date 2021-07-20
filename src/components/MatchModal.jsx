@@ -18,20 +18,12 @@ export default function MatchModal(props) {
 
   function downHandler({ key }) {
     if (/^Arrow(Left|Down)$/.test(key)) {
-      setSelected(current => {
-        if (current > 1) {
-          return current - 1;
-        }
-        return current;
-      });
+      const previous = open > 1 ? open - 1 : open;
+      setOpen(previous);
     }
     if (/^Arrow(Right|Up)$/.test(key)) {
-      setSelected(current => {
-        if (current < matchesList.length) {
-          return current + 1;
-        }
-        return current;
-      });
+      const next = open < matchesList.length ? open + 1 : open;
+      setOpen(next);
     }
   }
 
@@ -54,20 +46,16 @@ export default function MatchModal(props) {
   return (
     <Modal
       visible={Boolean(open)}
-      onCancel={() => setOpen(0)}
+      onCancel={() => setOpen()}
       footer={[
         <Button
           key="prev"
           type="primary"
           disabled={selected <= 1}
-          onClick={() =>
-            setSelected(current => {
-              if (current > 1) {
-                return current - 1;
-              }
-              return current;
-            })
-          }
+          onClick={() => {
+            const previous = open > 1 ? open - 1 : open;
+            setOpen(previous);
+          }}
         >
           Previous
         </Button>,
@@ -75,18 +63,14 @@ export default function MatchModal(props) {
           key="next"
           type="primary"
           disabled={selected >= matchesList.length}
-          onClick={() =>
-            setSelected(current => {
-              if (current < matchesList.length) {
-                return current + 1;
-              }
-              return current;
-            })
-          }
+          onClick={() => {
+            const next = open < matchesList.length ? open + 1 : open;
+            setOpen(next);
+          }}
         >
           Next
         </Button>,
-        <Button key="back" type="primary" onClick={() => setOpen(0)}>
+        <Button key="back" type="primary" onClick={() => setOpen()}>
           Done
         </Button>
       ]}
