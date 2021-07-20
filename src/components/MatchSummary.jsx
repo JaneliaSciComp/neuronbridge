@@ -73,9 +73,10 @@ export default function MatchSummary(props) {
           <Checkbox
             style={{
               position: "absolute",
-              top: "6px",
-              left: "20px",
-              zIndex: 2
+              top: "0px",
+              left: "10px",
+              zIndex: 2,
+              padding: "1em"
             }}
             onChange={handleChange}
             checked={checked}
