@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Divider } from "antd";
+import { Link } from "react-router-dom";
 import ImageComparison from "./ImageComparison";
 import DownloadZipCheckbox from "./DownloadZipCheckbox";
 import LineMeta from "../LineMeta";
@@ -32,6 +33,7 @@ export default function Summary(props) {
       metaBlock = <CustomMeta metadata={mask} />;
     }
 
+  const searchUrl = `/search?q=${selectedMatch.publishedName}`;
   return (
     <>
       <Row>
@@ -49,6 +51,9 @@ export default function Summary(props) {
           ) : (
             <SkeletonMeta attributes={selectedMatch} />
           )}
+          <Link className="ant-btn" style={{ marginLeft: "0.5em" }} to={searchUrl}>
+            View Precomputed Search
+          </Link>
         </Col>
       </Row>
       <Divider />
