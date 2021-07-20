@@ -57,7 +57,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       query.delete("m");
     }
     location.search = query.toString();
-    history.push(location);
+    // use replace instead of push, to get a better user experience. Nobody wants
+    // to hit the back button and see all the modals they opened appear again.
+    history.replace(location);
   }
 
   function handleModalOpen(index) {
