@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Button, Switch, Row, Col, Pagination, Empty } from "antd";
 import { AppContext } from "../containers/AppContext";
-import { FilterContext } from "../containers/FilterContext";
 import MatchSummary from "./MatchSummary";
 import MatchModal from "./MatchModal";
 import HelpButton from "./Help/HelpButton";
@@ -35,7 +34,6 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   );
 
   const [appState, , setPermanent] = useContext(AppContext);
-  const [filterState] = useContext(FilterContext);
 
   function handlePageChange(newPage) {
     query.set("page", newPage);
@@ -71,7 +69,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     dispatch({ type: "clear" });
   }
 
-  const resultsPerLine = filterState.resultsPerLine || 1;
+  const resultsPerLine = parseInt(query.get('rpl'), 10) || 1;
+  const filterString = query.get('id') || "";
+  const excludedLibs = query.getAll('xlib');
 
   if (!input) {
     return <p>Loading...</p>;
@@ -107,7 +107,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       matches.results.forEach(result => {
         const { publishedName, libraryName } = result;
         const currentScore =
-          filterState.sortResultsBy === 2
+          query.get('fisort') === "2"
             ? result.matchingPixels
             : result.normalizedScore;
 
@@ -131,7 +131,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       const limitedByLineCount = sortedByLine.map(line =>
         line.channels
           .sort((a, b) => {
-            if (filterState.sortResultsBy === 2) {
+            if (query.get('fisort') === "2") {
               return b.matchingPixels - a.matchingPixels;
             }
             return b.normalizedScore - a.normalizedScore;
@@ -145,17 +145,15 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount.filter(
-        result => !(result[0].libraryName in filterState.filteredLibraries)
+        result => !(excludedLibs.includes(result[0].libraryName))
       );
 
       fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = matches.results
-        .filter(
-          result => !(result.libraryName in filterState.filteredLibraries)
-        )
+        .filter(result => !(excludedLibs.includes(result.libraryName)))
         .sort((a, b) => {
-          if (filterState.sortResultsBy === 2) {
+          if (query.get('fisort') === "2") {
             return b.matchingPixels - a.matchingPixels;
           }
           return b.normalizedScore - a.normalizedScore;
@@ -170,7 +168,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     fullList = fullList.filter(result =>
       result.publishedName
         .toLowerCase()
-        .includes(filterState.idOrNameFilter.toLowerCase())
+        .includes(filterString.toLowerCase())
     );
 
     pageinatedList = fullList.slice(

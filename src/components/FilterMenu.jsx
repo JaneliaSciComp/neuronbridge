@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { InputNumber, Input, Switch, Divider, Col, Row, Radio } from "antd";
+import { useLocation, useHistory } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
-import { FilterContext } from "../containers/FilterContext";
+import { useQuery } from "../libs/hooksLib";
 
 const radioStyle = {
   display: "block",
@@ -12,39 +13,60 @@ const radioStyle = {
 };
 
 export default function FilterMenu({ searchType, countsByLibrary }) {
-  const [filterState, setFilterState] = useContext(FilterContext);
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
 
   function handleResultsPerLine(count) {
-    setFilterState({ ...filterState, resultsPerLine: count });
+    query.set("rpl", count);
+    location.search = query.toString();
+    history.push(location);
   }
 
   function handleLibraryToggle(checked, library) {
-    const existingLibraryFilters = filterState.filteredLibraries;
+    // get all the existing values for the query,
+    const libs = query.getAll("xlib");
     if (!checked) {
-      const newFilter = {};
-      newFilter[library] = 1;
-      const updatedFilters = Object.assign(existingLibraryFilters, newFilter);
-      setFilterState({ ...filterState, filteredLibraries: updatedFilters });
+      // if the lib isn't already in the URL
+      if (!libs.includes(library)) {
+        // update the URL.
+        query.append("xlib", library);
+        location.search = query.toString();
+        history.push(location);
+      }
     } else {
-      const { [library]: omit, ...updatedFilters } = existingLibraryFilters;
-      setFilterState({ ...filterState, filteredLibraries: updatedFilters });
+      // remove any that have been checked
+      query.delete("xlib");
+      libs.forEach(lib => {
+        if (lib !== library) {
+          query.append("xlib",lib);
+        }
+      });
+      location.search = query.toString();
+      history.push(location);
     }
   }
 
 	function onSortChange(event) {
-    setFilterState({ ...filterState, sortResultsBy: event.target.value });
+    query.set("fisort", event.target.value);
+    location.search = query.toString();
+    history.push(location);
 	}
 
   function handleIdFilter(event) {
-    setFilterState({ ...filterState, idOrNameFilter: event.target.value });
+    query.set("id", event.target.value);
+    location.search = query.toString();
+    history.push(location);
   }
+
+  const filteredLibs = query.getAll('xlib') || [];
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
     ([library, count]) => {
       return (
         <p key={library}>
           <Switch
-            checked={!(library in filterState.filteredLibraries)}
+            checked={!(filteredLibs.includes(library))}
             onChange={checked => handleLibraryToggle(checked, library)}
           />{" "}
           <LibraryFormatter type={library} /> ({count})
@@ -67,7 +89,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
                     style={{ width: "5em" }}
                     min={1}
                     max={100}
-                    value={filterState.resultsPerLine}
+                    value={parseInt(query.get('rpl') || 1, 10)}
                     onChange={handleResultsPerLine}
                   />
                 </div>
@@ -79,11 +101,11 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
             </Col>
           </Row>
           <Divider orientation="left">Filter by match id or name</Divider>
-          <Input placeholder="id or name string" onChange={handleIdFilter} value={filterState.idOrNameFilter} />
+          <Input placeholder="id or name string" onChange={handleIdFilter} value={query.get('id') || ""} />
         </Col>
         <Col xs={24} md={12}>
           <Divider orientation="left">Sort Results By</Divider>
-          <Radio.Group onChange={onSortChange} value={filterState.sortResultsBy}>
+          <Radio.Group onChange={onSortChange} value={parseInt(query.get('fisort') || 1, 10)}>
             <Radio style={radioStyle} value={1}>
               Normalized Score
             </Radio>

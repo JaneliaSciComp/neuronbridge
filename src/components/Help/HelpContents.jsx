@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { InputNumber, Col, Row, Divider } from "antd";
 import SearchInput from "../SearchInput";
-import { FilterContext } from "../../containers/FilterContext";
 import { AppContext } from "../../containers/AppContext";
+import { useQuery } from "../../libs/hooksLib";
 
 import DataGeneration1 from "./NeuronBridge_DataGen1.png";
 import DataGeneration2 from "./NeuronBridge_DataGen2.png";
@@ -17,8 +17,10 @@ import BrainReference from "./brain_reference.png";
 import "./HelpContents.css";
 
 export default function HelpContents({ scroll }) {
-  const [filterState, setFilterState] = useContext(FilterContext);
   const [appState] = useContext(AppContext);
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
 
   const helpContentRef = useRef();
 
@@ -52,7 +54,9 @@ export default function HelpContents({ scroll }) {
   }, [appState.helpTarget, refLookup, scroll]);
 
   function handleResultsPerLine(count) {
-    setFilterState({ ...filterState, resultsPerLine: count });
+    query.set("rpl", count);
+    location.search = query.toString();
+    history.push(location);
   }
 
   return (
@@ -146,7 +150,7 @@ export default function HelpContents({ scroll }) {
           style={{ width: "5em" }}
           min={1}
           max={100}
-          value={filterState.resultsPerLine}
+          value={parseInt(query.get('rpl') || 1, 10)}
           onChange={handleResultsPerLine}
         />{" "}
         results per line

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Checkbox, Divider, Row, Col, Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
-import { FilterContext } from "../containers/FilterContext";
 import { useMatches } from "../containers/MatchesContext";
 import { signedPublicLink, createRelativePPPMImagePath } from "../libs/awsLib";
+import { useQuery } from "../libs/hooksLib";
 import config from "../config";
 
 export default function MatchSummary(props) {
@@ -16,6 +16,7 @@ export default function MatchSummary(props) {
   const checked = state.selected.includes(match.id);
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
+  const query = useQuery();
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppScore);
@@ -42,7 +43,6 @@ export default function MatchSummary(props) {
   },[match, isPPP, library]);
 
 
-  const [filterState] = useContext(FilterContext);
   const { publishedName } = match;
 
   const handleChange = () => {
@@ -63,7 +63,7 @@ export default function MatchSummary(props) {
   if (gridView) {
     const resultScore = isPPP ? match.pppScore : match.normalizedScore;
     const score =
-      filterState.sortResultsBy === 2
+      query.get('fisort') === "2"
         ? `(Matched Pixels: ${match.matchingPixels})`
         : `(Score: ${Math.round(resultScore)})`;
 

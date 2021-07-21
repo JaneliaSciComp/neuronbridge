@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { FilterProvider } from "../src/containers/FilterContext";
 import { AppProvider } from "../src/containers/AppContext";
 
 export const parameters = {
@@ -11,9 +10,7 @@ export const decorators = [
   Story => (
     <Router>
       <AppProvider>
-        <FilterProvider>
-          <Story />
-        </FilterProvider>
+        <Story />
       </AppProvider>
     </Router>
   )

@@ -58,7 +58,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
     if ("precomputedDataRootPath" in appState.paths) {
       getMatches();
     }
-  }, [matchId, appState.paths, searchResult, searchType]);
+  }, [matchId, appState.paths, searchResult, searchType, searchTerm]);
 
   if (isLoading) {
     return (

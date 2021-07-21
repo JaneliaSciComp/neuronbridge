@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, Row, Col } from "antd";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
 
 export default function PPPSummary({ metaInfo }) {
 
-  const history = useHistory();
+  const searchUrl = `/search?q=${metaInfo.publishedName}`;
 
   return (
     <Row>
@@ -18,7 +18,9 @@ export default function PPPSummary({ metaInfo }) {
         <SkeletonMeta attributes={metaInfo} />
       </Col>
       <Col lg={4}>
-        <Button onClick={() => history.goBack()}>Back to all results</Button>
+        <Link to={searchUrl}>
+          <Button>Back to all results</Button>
+        </Link>
       </Col>
     </Row>
   );

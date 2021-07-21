@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 
 export default function LineSummary(props) {
   const { lineMeta } = props;
-  const history = useHistory();
+
+  const searchUrl = `/search?q=${lineMeta.publishedName}`;
 
   if (!lineMeta) {
     return (
@@ -32,7 +33,9 @@ export default function LineSummary(props) {
         <LineMeta attributes={lineMeta} />
       </Col>
       <Col lg={4}>
-        <Button onClick={() => history.goBack()}>Back to all results</Button>
+        <Link to={searchUrl}>
+          <Button >Back to all results</Button>
+        </Link>
       </Col>
     </Row>
   );

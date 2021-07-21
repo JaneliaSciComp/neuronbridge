@@ -10,7 +10,6 @@ import { CookiesProvider } from 'react-cookie';
 import config from "./config";
 import App from "./App";
 import { AppProvider } from "./containers/AppContext";
-import { FilterProvider } from "./containers/FilterContext";
 // import * as serviceWorker from "./serviceWorker";
 
 
@@ -66,11 +65,9 @@ ReactDOM.render(
   <Router>
     <AlertProvider template={AlertTemplate} {...alertOptions}>
       <AppProvider>
-        <FilterProvider>
-          <CookiesProvider>
-            <App />
-          </CookiesProvider>
-        </FilterProvider>
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
       </AppProvider>
     </AlertProvider>
   </Router>,
