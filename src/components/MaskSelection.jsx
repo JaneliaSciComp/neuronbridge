@@ -34,20 +34,24 @@ export default function MaskSelection({ match }) {
           const currentMeta = results.data.getSearch;
           // TODO: we should be using the mask image and not the upload for this
           // When masks are ready this needs to be changed over.
-          const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
-          // TODO: add another step here to generate the real imageURL,
-          // rather than use the same one as the thumbnail.
-          signedLink(uploadUrl).then(result => {
-            const metaWithSignedUrls = {
-              ...currentMeta,
-              thumbnailURL: result,
-              imageURL: result
-            };
-            setSearchMeta(metaWithSignedUrls);
-          });
+          if (!currentMeta) {
+            setMissingResults(true);
+          } else {
+            const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
+            // TODO: add another step here to generate the real imageURL,
+            // rather than use the same one as the thumbnail.
+            signedLink(uploadUrl).then(result => {
+              const metaWithSignedUrls = {
+                ...currentMeta,
+                thumbnailURL: result,
+                imageURL: result
+              };
+              setSearchMeta(metaWithSignedUrls);
+            });
+          }
         })
         .catch(error => {
-          if (error.response.status === 404) {
+          if (error.response && error.response.status === 404) {
             setMissingResults(true);
           } else {
             message.error(error.message);
