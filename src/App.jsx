@@ -65,7 +65,12 @@ export default function App() {
         public: ""
       },
       level: "public",
-      download: true
+      download: true,
+      // This should force the s3 bucket to respond with the correct
+      // cache control header to prevent aggressive caching of the
+      // paths.json file, so that the updated version on a release is
+      // used as soon as possible.
+      cacheControl: 'no-cache'
     };
 
     if (isAuthenticated) {
