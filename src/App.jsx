@@ -49,7 +49,7 @@ export default function App() {
           setAppState({ ...appState, username: email });
         }
       } catch (e) {
-        if (e !== "not authenticated") {
+        if (! /not authenticated/.test(e)) {
           message.error("Loading error:", e);
         }
       }
