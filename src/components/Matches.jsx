@@ -35,6 +35,21 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   const [appState, , setPermanent] = useContext(AppContext);
 
+  const sortType = query.get("fisort") || 1;
+
+  function sortByScoreOrAlt(a, b) {
+    if (searchType === "ppp") {
+      if (sortType === "2") {
+        return a.pppRank - b.pppRank;
+      }
+      return b.pppScore - a.pppScore;
+    }
+    if (sortType === "2") {
+      return b.matchingPixels - a.matchingPixels;
+    }
+    return b.normalizedScore - a.normalizedScore;
+  }
+
   function handlePageChange(newPage) {
     query.set("page", newPage);
     location.search = query.toString();
@@ -69,9 +84,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     dispatch({ type: "clear" });
   }
 
-  const resultsPerLine = parseInt(query.get('rpl'), 10) || 1;
-  const filterString = query.get('id') || "";
-  const excludedLibs = query.getAll('xlib');
+  const resultsPerLine = parseInt(query.get("rpl"), 10) || 1;
+  const filterString = query.get("id") || "";
+  const excludedLibs = query.getAll("xlib");
 
   if (!input) {
     return <p>Loading...</p>;
@@ -106,10 +121,16 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       const byLines = {};
       matches.results.forEach(result => {
         const { publishedName, libraryName } = result;
-        const currentScore =
-          query.get('fisort') === "2"
-            ? result.matchingPixels
-            : result.normalizedScore;
+        let currentScore = result.normalizedScore;
+        if (searchType === "ppp") {
+          if (sortType === "2") {
+            currentScore = result.pppRank;
+          } else {
+            currentScore = result.pppScore;
+          }
+        } else if (sortType === "2") {
+          currentScore = result.matchingPixels;
+        }
 
         if (publishedName in byLines) {
           byLines[publishedName].score = Math.max(
@@ -125,18 +146,14 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           };
         }
       });
-      const sortedByLine = Object.values(byLines).sort(
-        (a, b) => b.score - a.score
-      );
+      const sortedByLine = Object.values(byLines).sort((a, b) => {
+        if (sortType === "2" && searchType === "ppp") {
+          return a.score - b.score;
+        }
+        return b.score - a.score;
+      });
       const limitedByLineCount = sortedByLine.map(line =>
-        line.channels
-          .sort((a, b) => {
-            if (query.get('fisort') === "2") {
-              return b.matchingPixels - a.matchingPixels;
-            }
-            return b.normalizedScore - a.normalizedScore;
-          })
-          .slice(0, resultsPerLine)
+        line.channels.sort(sortByScoreOrAlt).slice(0, resultsPerLine)
       );
 
       limitedByLineCount.forEach(lines => {
@@ -145,19 +162,14 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount.filter(
-        result => !(excludedLibs.includes(result[0].libraryName))
+        result => !excludedLibs.includes(result[0].libraryName)
       );
 
       fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = matches.results
-        .filter(result => !(excludedLibs.includes(result.libraryName)))
-        .sort((a, b) => {
-          if (query.get('fisort') === "2") {
-            return b.matchingPixels - a.matchingPixels;
-          }
-          return b.normalizedScore - a.normalizedScore;
-        });
+        .filter(result => !excludedLibs.includes(result.libraryName))
+        .sort(sortByScoreOrAlt);
 
       matches.results.forEach(line => {
         incrementLibCount(line.libraryName);
@@ -166,9 +178,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
     // id or name filter - case insensitive
     fullList = fullList.filter(result =>
-      result.publishedName
-        .toLowerCase()
-        .includes(filterString.toLowerCase())
+      result.publishedName.toLowerCase().includes(filterString.toLowerCase())
     );
 
     pageinatedList = fullList.slice(
@@ -213,9 +223,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   return (
     <div>
       <Row style={{ paddingBottom: "1em" }}>
-        <Col
-          xs={{ span: 12, order: 1}}
-          sm={{span: 4, order: 1}}>
+        <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
             {searchType === "lines" ? "EM" : "LM"} Matches{" "}
             <HelpButton
@@ -226,27 +234,27 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           </h3>
         </Col>
         <Col
-          xs={{ span: 24, order: 3}}
-          sm={{span: 16, order: 2}}
+          xs={{ span: 24, order: 3 }}
+          sm={{ span: 16, order: 2 }}
           className="actionButtons"
         >
-            <FilterButton />
-            <ExportMenu
-              results={fullList}
-              searchType={searchType}
-              searchId={input.id}
-              precomputed={precomputed}
-            />
-            <Button
-              disabled={state.selected.length <= 0}
-              onClick={handleClearAll}
-            >
-              Clear Selected
-            </Button>
+          <FilterButton />
+          <ExportMenu
+            results={fullList}
+            searchType={searchType}
+            searchId={input.id}
+            precomputed={precomputed}
+          />
+          <Button
+            disabled={state.selected.length <= 0}
+            onClick={handleClearAll}
+          >
+            Clear Selected
+          </Button>
         </Col>
         <Col
-          xs={{ span: 12, order: 2}}
-          sm={{ span: 4, order: 3}}
+          xs={{ span: 12, order: 2 }}
+          sm={{ span: 4, order: 3 }}
           style={{ textAlign: "right", marginBottom: "1em" }}
         >
           <Switch
@@ -293,7 +301,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       <MatchModal
         isLM={!(searchType === "lines")}
         searchType={searchType}
-        open={parseInt(query.get('m')||0, 10)}
+        open={parseInt(query.get("m") || 0, 10)}
         setOpen={setModalOpen}
         matchesList={fullList}
         mask={input}

@@ -62,9 +62,11 @@ export default function MatchSummary(props) {
 
   if (gridView) {
     const resultScore = isPPP ? match.pppScore : match.normalizedScore;
+		const altLabel = isPPP ? "Rank" : "Matched Pixels";
+		const altScore = isPPP ?  match.pppRank : match.matchingPixels;
     const score =
       query.get('fisort') === "2"
-        ? `(Matched Pixels: ${match.matchingPixels})`
+        ? `(${altLabel}: ${altScore})`
         : `(Score: ${Math.round(resultScore)})`;
 
     return (

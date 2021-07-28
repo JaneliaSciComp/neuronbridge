@@ -107,10 +107,10 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
           <Divider orientation="left">Sort Results By</Divider>
           <Radio.Group onChange={onSortChange} value={parseInt(query.get('fisort') || 1, 10)}>
             <Radio style={radioStyle} value={1}>
-              Normalized Score
+              {searchType === "ppp" ? "Score" : "Normalized Score"}
             </Radio>
             <Radio style={radioStyle} value={2}>
-              Matched Pixels
+							{searchType === "ppp" ? "Rank" : "Matched Pixels"}
             </Radio>
           </Radio.Group>
         </Col>
