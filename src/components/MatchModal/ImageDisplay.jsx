@@ -26,10 +26,16 @@ const ImageDisplay = (props, ref) => {
 
   useEffect(() => {
     if (src) {
-      const [, bucket, relativePath] = src.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
-      signedPublicLink(relativePath, bucket).then(signed => {
-        setSignedSrc(signed);
-      });
+      const matched = src.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
+      if (matched) {
+        const [, bucket, relativePath] = matched;
+        signedPublicLink(relativePath, bucket).then(signed => {
+          setSignedSrc(signed);
+        });
+      }
+      else {
+        setSignedSrc(src);
+      }
     }
   }, [src]);
 
