@@ -4,7 +4,6 @@ import { Row, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import MaskSearchButton from "./MaskSearchButton";
-import MatchSearchButton from "./MatchSearchButton";
 import DownloadButton from "./DownloadButton";
 import { signedPublicLink } from "../../libs/awsLib";
 
@@ -32,8 +31,7 @@ const ImageDisplay = (props, ref) => {
         signedPublicLink(relativePath, bucket).then(signed => {
           setSignedSrc(signed);
         });
-      }
-      else {
+      } else {
         setSignedSrc(src);
       }
     }
@@ -63,7 +61,7 @@ const ImageDisplay = (props, ref) => {
       <Row>
         {!isMask && !maskOpen ? (
           <Button onClick={onShow} style={{ marginRight: "0.5em" }}>
-            Show Mask
+            Show Comparison
           </Button>
         ) : (
           ""
@@ -77,24 +75,18 @@ const ImageDisplay = (props, ref) => {
         >
           {mirrored ? "Restore" : "Flip"}
         </Button>
-        {isMask ? (
-          <MaskSearchButton
-            mask={meta}
-            isCopying={isCopying}
-            setIsCopying={setIsCopying}
-          />
-        ) : (
-          <MatchSearchButton
-            match={meta}
-            isCopying={isCopying}
-            setIsCopying={setIsCopying}
-          />
-        )}
+        <MaskSearchButton
+          src={src}
+          isCopying={isCopying}
+          setIsCopying={setIsCopying}
+        />
         {isMask ? (
           <Button style={{ marginLeft: "0.5em" }} onClick={onHide}>
-            Hide Mask
+            Hide
           </Button>
-        ) : ''}
+        ) : (
+          ""
+        )}
         <DownloadButton
           style={{ marginLeft: "0.5em" }}
           imageURL={src}
