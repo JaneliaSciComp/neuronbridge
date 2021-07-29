@@ -59,7 +59,7 @@ export const handlers = [
             {
               id: "2426524251948318865",
               publishedName: "VT034811",
-              libraryName: "Gen1 MCFO (meissnerg)",
+              libraryName: "Gen1 MCFO",
               pppRank: 1,
               pppScore: 124,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
@@ -211,7 +211,7 @@ export const handlers = [
 						{
               id: "2426524251948318864",
               publishedName: "VT034811",
-              libraryName: "Gen1 MCFO (meissnerg)",
+              libraryName: "Gen1 MCFO",
               pppRank: 2,
               pppScore: 100,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
@@ -363,7 +363,7 @@ export const handlers = [
 						{
               id: "2426524251948328864",
               publishedName: "VT034812",
-              libraryName: "Gen1 MCFO (meissnerg)",
+              libraryName: "Gen1 MCFO",
               pppRank: 3,
               pppScore: 200,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
