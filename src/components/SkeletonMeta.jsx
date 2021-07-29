@@ -21,15 +21,20 @@ export default function SkeletonMeta({ attributes }) {
           <p>
             <b>Score:</b> {Math.round(attributes.normalizedScore)}
           </p>
-        ) : ""}
+        ) : (
+          ""
+        )}
         {attributes.matchingPixels ? (
           <p>
             <b>Matched Pixels:</b> {Math.round(attributes.matchingPixels)}
           </p>
-        ) : ""}
+        ) : (
+          ""
+        )}
 
         <p>
-          <b>Neuron Type / Instance: </b> {attributes.neuronType} / {attributes.neuronInstance}
+          <b>Neuron Type / Instance: </b> {attributes.neuronType} /{" "}
+          {attributes.neuronInstance}
         </p>
         <p>
           <b>Library: </b>
@@ -39,13 +44,17 @@ export default function SkeletonMeta({ attributes }) {
           <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
         <p>
-          <b>External Links:</b>
+          <b>Links:</b>
           <br />
           <ExternalLink
             publishedName={publishedName}
             isLM={false}
             library={libraryName}
           />
+          <br/>
+          <Link to={searchUrl}>
+            View Precomputed Search
+          </Link>
         </p>
       </Col>
     </Row>
@@ -53,5 +62,5 @@ export default function SkeletonMeta({ attributes }) {
 }
 
 SkeletonMeta.propTypes = {
-  attributes: PropTypes.object.isRequired,
+  attributes: PropTypes.object.isRequired
 };

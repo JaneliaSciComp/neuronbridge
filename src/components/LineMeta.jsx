@@ -59,12 +59,16 @@ export default function LineMeta({ attributes }) {
           <b>Magnification:</b> {attributes.objective}
         </p>
         <p>
-          <b>External Links:</b> <br />
+          <b>Links:</b> <br />
           <ExternalLink
             publishedName={publishedName}
             isLM
             library={libraryName}
           />
+          <br/>
+          <Link to={searchUrl}>
+            View Precomputed Search
+          </Link>
         </p>
       </Col>
     </Row>
