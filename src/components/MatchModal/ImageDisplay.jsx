@@ -25,7 +25,7 @@ const ImageDisplay = (props, ref) => {
 
   useEffect(() => {
     if (src) {
-      const matched = src.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
+      const matched = src.match(/^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/);
       if (matched) {
         const [, bucket, relativePath] = matched;
         signedPublicLink(relativePath, bucket).then(signed => {
