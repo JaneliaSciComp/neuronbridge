@@ -46,7 +46,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
         style={{ backgroundColor: "#008b94" }}
         count={selectedResults.length}
       >
-        <Button onClick={e => e.preventDefault()}>
+        <Button type="link" onClick={e => e.preventDefault()}>
           {isLoading ? (
             <>
               <LoadingOutlined style={{ fontSize: 12 }} spin /> Downloading
