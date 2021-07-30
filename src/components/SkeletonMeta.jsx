@@ -31,7 +31,20 @@ export default function SkeletonMeta({ attributes }) {
         ) : (
           ""
         )}
-
+       {attributes.pppScore ? (
+          <p>
+            <b>Score:</b> {Math.round(attributes.pppScore)}
+          </p>
+        ) : (
+          ""
+        )}
+        {attributes.pppRank ? (
+          <p>
+            <b>Rank:</b> {Math.round(attributes.pppRank)}
+          </p>
+        ) : (
+          ""
+        )}
         <p>
           <b>Neuron Type / Instance: </b> {attributes.neuronType} /{" "}
           {attributes.neuronInstance}

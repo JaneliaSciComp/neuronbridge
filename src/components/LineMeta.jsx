@@ -30,7 +30,20 @@ export default function LineMeta({ attributes }) {
         ) : (
           ""
         )}
-
+       {attributes.pppRank ? (
+          <p>
+            <b>Rank:</b> {Math.round(attributes.pppRank)}
+          </p>
+        ) : (
+          ""
+        )}
+       {attributes.pppScore ? (
+          <p>
+            <b>Score:</b> {Math.round(attributes.pppScore)}
+          </p>
+        ) : (
+          ""
+        )}
         <p>
           <b>Slide Code:</b> {attributes.slideCode}
         </p>
