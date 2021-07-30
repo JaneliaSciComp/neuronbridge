@@ -39,7 +39,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
       query.delete("xlib");
       libs.forEach(lib => {
         if (lib !== library) {
-          query.append("xlib",lib);
+          query.append("xlib", lib);
         }
       });
       location.search = query.toString();
@@ -47,11 +47,11 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
     }
   }
 
-	function onSortChange(event) {
+  function onSortChange(event) {
     query.set("fisort", event.target.value);
     location.search = query.toString();
     history.push(location);
-	}
+  }
 
   function handleIdFilter(event) {
     query.set("id", event.target.value);
@@ -59,14 +59,14 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
     history.push(location);
   }
 
-  const filteredLibs = query.getAll('xlib') || [];
+  const filteredLibs = query.getAll("xlib") || [];
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
     ([library, count]) => {
       return (
         <p key={library}>
           <Switch
-            checked={!(filteredLibs.includes(library))}
+            checked={!filteredLibs.includes(library)}
             onChange={checked => handleLibraryToggle(checked, library)}
           />{" "}
           <LibraryFormatter type={library} /> ({count})
@@ -89,7 +89,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
                     style={{ width: "5em" }}
                     min={1}
                     max={100}
-                    value={parseInt(query.get('rpl') || 1, 10)}
+                    value={parseInt(query.get("rpl") || 1, 10)}
                     onChange={handleResultsPerLine}
                   />
                 </div>
@@ -101,17 +101,28 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
             </Col>
           </Row>
           <Divider orientation="left">Filter by match id or name</Divider>
-          <Input placeholder="id or name string" onChange={handleIdFilter} value={query.get('id') || ""} />
+          <Input
+            placeholder="id or name string"
+            onChange={handleIdFilter}
+            value={query.get("id") || ""}
+          />
         </Col>
         <Col xs={24} md={12}>
           <Divider orientation="left">Sort Results By</Divider>
-          <Radio.Group onChange={onSortChange} value={parseInt(query.get('fisort') || 1, 10)}>
+          <Radio.Group
+            onChange={onSortChange}
+            value={parseInt(query.get("fisort") || 1, 10)}
+          >
             <Radio style={radioStyle} value={1}>
-              {searchType === "ppp" ? "Score" : "Normalized Score"}
+              {searchType === "ppp" ? "Rank" : "Normalized Score"}
             </Radio>
-            <Radio style={radioStyle} value={2}>
-							{searchType === "ppp" ? "Rank" : "Matched Pixels"}
-            </Radio>
+            {searchType !== "ppp" ? (
+              <Radio style={radioStyle} value={2}>
+                Matched Pixels
+              </Radio>
+            ) : (
+              ""
+            )}
           </Radio.Group>
         </Col>
       </Row>

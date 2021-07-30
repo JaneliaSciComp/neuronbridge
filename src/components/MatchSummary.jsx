@@ -61,13 +61,12 @@ export default function MatchSummary(props) {
   }
 
   if (gridView) {
-    const resultScore = isPPP ? match.pppScore : match.normalizedScore;
-		const altLabel = isPPP ? "Rank" : "Matched Pixels";
-		const altScore = isPPP ?  match.pppRank : match.matchingPixels;
-    const score =
-      query.get('fisort') === "2"
-        ? `(${altLabel}: ${altScore})`
-        : `(Score: ${Math.round(resultScore)})`;
+    let score = ` - Rank: ${match.pppRank}, Score: ${match.pppScore}`;
+    if (!isPPP) {
+      score = query.get('fisort') === "2"
+        ? `(Matched Pixels: ${match.matchingPixels})`
+        : `(Score: ${Math.round(match.normalizedScore)})`;
+    }
 
     return (
       <Col xs={24} md={12} lg={8} xl={6}>

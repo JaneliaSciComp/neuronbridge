@@ -39,10 +39,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   function sortByScoreOrAlt(a, b) {
     if (searchType === "ppp") {
-      if (sortType === "2") {
-        return a.pppRank - b.pppRank;
-      }
-      return b.pppScore - a.pppScore;
+      return a.pppRank - b.pppRank;
     }
     if (sortType === "2") {
       return b.matchingPixels - a.matchingPixels;
@@ -123,11 +120,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         const { publishedName, libraryName } = result;
         let currentScore = result.normalizedScore;
         if (searchType === "ppp") {
-          if (sortType === "2") {
-            currentScore = result.pppRank;
-          } else {
-            currentScore = result.pppScore;
-          }
+          currentScore = result.pppRank;
         } else if (sortType === "2") {
           currentScore = result.matchingPixels;
         }
@@ -147,7 +140,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         }
       });
       const sortedByLine = Object.values(byLines).sort((a, b) => {
-        if (sortType === "2" && searchType === "ppp") {
+        if (searchType === "ppp") {
           return a.score - b.score;
         }
         return b.score - a.score;
