@@ -11,6 +11,10 @@ const initialState = {
   helpTarget: null,
   showFilterMenu: false,
   showAlignmentMeta: false,
+  imageChoices: {
+    ppp: {},
+    cdm: {}
+  },
   paths: {},
   debug: false
 }

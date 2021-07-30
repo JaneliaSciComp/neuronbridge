@@ -5,27 +5,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import MaskSearchButton from "./MaskSearchButton";
 import DownloadButton from "./DownloadButton";
+import MousePosition from "./MousePosition";
 import { signedPublicLink } from "../../libs/awsLib";
 
-const ImageDisplay = (props, ref) => {
+const ImageDisplay = props => {
   const {
     src,
     alt,
     meta,
-    onHide,
-    onShow,
     isCopying,
     setIsCopying,
-    isMask = true,
-    maskOpen,
-    imageType
+    imageType,
+    mousePosition,
+    setMousePosition
   } = props;
   const [mirrored, setMirrored] = useState(false);
   const [signedSrc, setSignedSrc] = useState();
 
+  const isPPP = Boolean(meta.files && meta.files.ColorDepthMipSkel);
+
   useEffect(() => {
     if (src) {
-      const matched = src.match(/^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/);
+      const matched = src.match(
+        /^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/
+      );
       if (matched) {
         const [, bucket, relativePath] = matched;
         signedPublicLink(relativePath, bucket).then(signed => {
@@ -55,38 +58,33 @@ const ImageDisplay = (props, ref) => {
   return (
     <>
       <Row className="imageComparison">
-        <canvas ref={ref} width="500" height="250" />
+        <MousePosition
+          mousePosition={mousePosition}
+          setMousePosition={setMousePosition}
+        />
         {signedSrc ? <img src={signedSrc} style={style} alt={alt} /> : null}
       </Row>
       <Row>
-        {!isMask && !maskOpen ? (
-          <Button onClick={onShow} style={{ marginRight: "0.5em" }}>
-            Show Comparison
-          </Button>
-        ) : (
+        {isPPP ? (
           ""
+        ) : (
+          <Button
+            icon={
+              <FontAwesomeIcon
+                icon={faRepeat}
+                style={{ marginRight: "0.5em" }}
+              />
+            }
+            onClick={() => setMirrored(mState => !mState)}
+          >
+            {mirrored ? "Restore" : "Flip"}
+          </Button>
         )}
-
-        <Button
-          icon={
-            <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
-          }
-          onClick={() => setMirrored(mState => !mState)}
-        >
-          {mirrored ? "Restore" : "Flip"}
-        </Button>
         <MaskSearchButton
           src={src}
           isCopying={isCopying}
           setIsCopying={setIsCopying}
         />
-        {isMask ? (
-          <Button style={{ marginLeft: "0.5em" }} onClick={onHide}>
-            Hide
-          </Button>
-        ) : (
-          ""
-        )}
         <DownloadButton
           style={{ marginLeft: "0.5em" }}
           imageURL={src}
@@ -97,4 +95,4 @@ const ImageDisplay = (props, ref) => {
   );
 };
 
-export default React.forwardRef(ImageDisplay);
+export default ImageDisplay;
