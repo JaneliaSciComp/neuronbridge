@@ -8,9 +8,6 @@ import { createPPPMImagePath } from "../../libs/awsLib";
 
 import "./ImageComparison.css";
 
-const maxComparisons = 6;
-const minComparisons = 1;
-
 function createMatchImagePath(match) {
   if (match.imageName) {
     // generate the match image patch, from values in the match JSON
@@ -100,6 +97,9 @@ export default function ImageComparison(props) {
   const [isCopying, setIsCopying] = useState(false);
   const [appState, , setPermanent] = useContext(AppContext);
 
+  const maxComparisons = isPPP ? 6 : 4;
+  const minComparisons = 1;
+
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName);
@@ -151,7 +151,7 @@ export default function ImageComparison(props) {
   /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>
-    <label htmlFor="cImages">Images for Comparison (1 - 6)</label>
+    <label htmlFor="cImages">Images for Comparison ({minComparisons} - {maxComparisons})</label>
       <Input
         name="cImages"
         id="cImages"
