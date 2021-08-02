@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
-import { Row, Col } from "antd";
+import { Row, Col, Input, Divider } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import config from "../../config";
 import ImageSelection from "./ImageSelection";
 import { createPPPMImagePath } from "../../libs/awsLib";
 
 import "./ImageComparison.css";
+
+const maxComparisons = 6;
+const minComparisons = 1;
 
 function createMatchImagePath(match) {
   if (match.imageName) {
@@ -92,7 +95,7 @@ export default function ImageComparison(props) {
 
   const isPPP = Boolean(match.files && match.files.ColorDepthMipSkel);
   const [comparisonCount, setCompCount] = useState(isPPP ? 4 : 2);
-  const [mousePosition, setMousePosition] = useState([0,0]);
+  const [mousePosition, setMousePosition] = useState([0, 0]);
 
   const [isCopying, setIsCopying] = useState(false);
   const [appState, , setPermanent] = useContext(AppContext);
@@ -102,6 +105,13 @@ export default function ImageComparison(props) {
   const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName);
 
   imageOptions.input = ["Input Image", mask.imageURL];
+
+  const handleImageCount = event => {
+    let imageCount = parseInt(event.target.value, 10);
+    imageCount = Math.max(minComparisons, imageCount);
+    imageCount = Math.min(maxComparisons, imageCount);
+    setCompCount(imageCount);
+  };
 
   // Since only gen1 mcfo have this option, we need to reset to the
   // display image choice for all other libraries.
@@ -119,7 +129,7 @@ export default function ImageComparison(props) {
     imageDefaults = ["input", "display", "pppmMask", "pppmMaskWithEMOverlay"];
   }
 
-  const images = [...Array(comparisonCount)].map((_, index) => {
+  const images = comparisonCount ? [...Array(comparisonCount)].map((_, index) => {
     const key = `Image${index}`;
     return (
       <Col key={key} md={comparisonCount <= 1 ? 24 : 12}>
@@ -136,18 +146,26 @@ export default function ImageComparison(props) {
         />
       </Col>
     );
-  });
+  }) : "";
 
+  /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>
-      <input
+    <label htmlFor="cImages">Images for Comparison (1 - 6)</label>
+      <Input
+        name="cImages"
+        id="cImages"
         type="number"
-        value={comparisonCount}
-        onChange={e => setCompCount(parseInt(e.target.value, 10) || 1)}
+        style={{ width: "4em", marginLeft: "1em" }}
+        value={comparisonCount || ''}
+        maxLength={1}
+        onChange={handleImageCount}
       />
+      <Divider />
       <Row gutter={16}>{images}</Row>
     </>
   );
+  /* eslint-enable jsx-a11y/label-has-associated-control */
 }
 
 ImageComparison.propTypes = {
