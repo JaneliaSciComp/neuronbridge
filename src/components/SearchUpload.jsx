@@ -75,6 +75,17 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             Or use an aligned and masked Color Depth MIP to proceed directly to
             the search.
           </p>
+          <b style={{ marginTop: "0.5em" }}>
+            Alignment requires the following file formats:
+          </b>
+          <p>
+            Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi
+            with a single sample, and .nd2.
+          </p>
+          <p>
+            The <i>.nrrd</i> format is not supported due to single channel
+            limitations.
+          </p>
         </Dragger>
       )}
       <SearchUploadMeta
