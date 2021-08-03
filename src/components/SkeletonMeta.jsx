@@ -10,6 +10,12 @@ export default function SkeletonMeta({ attributes }) {
   const { publishedName, libraryName } = attributes;
 
   const searchUrl = `/search?q=${publishedName}`;
+
+  const neuronTypeAndInstance = [
+    attributes.neuronType || "-",
+    attributes.neuronInstance || "-"
+  ].join(" / ");
+
   return (
     <Row>
       <Col md={24} lg={24}>
@@ -46,8 +52,7 @@ export default function SkeletonMeta({ attributes }) {
           ""
         )}
         <p>
-          <b>Neuron Type / Instance: </b> {attributes.neuronType} /{" "}
-          {attributes.neuronInstance}
+          <b>Neuron Type / Instance: </b> {neuronTypeAndInstance}
         </p>
         <p>
           <b>Library: </b>
