@@ -8,7 +8,6 @@ import LineMeta from "./LineMeta";
 export default function LineSummary(props) {
   const { lineMeta } = props;
 
-  const searchUrl = `/search?q=${lineMeta.publishedName}`;
 
   if (!lineMeta) {
     return (
@@ -19,6 +18,8 @@ export default function LineSummary(props) {
       </Row>
     );
   }
+
+  const searchUrl = `/search?q=${lineMeta.publishedName}`;
 
   return (
     <Row>
