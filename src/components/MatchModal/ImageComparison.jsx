@@ -31,7 +31,8 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.alignmentSpace,
           library,
           match.files.ColorDepthMipSkel
-        )
+        ),
+        true
       ],
       bestMip: [
         "Best Channel MIP",
@@ -39,7 +40,8 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.alignmentSpace,
           library,
           match.files.ColorDepthMip
-        )
+        ),
+        true
       ],
       sampleMIP: [
         "Sample MIP",
@@ -47,7 +49,8 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.alignmentSpace,
           library,
           match.files.SignalMip
-        )
+        ),
+        false
       ],
       fullExpression: ["Full Expression", "image_path"],
       pppmMask: [
@@ -56,7 +59,8 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.alignmentSpace,
           library,
           match.files.SignalMipMasked
-        )
+        ),
+        false
       ],
       pppmMaskWithEMOverlay: [
         "PPP Mask with EM Overlay ",
@@ -64,7 +68,8 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.alignmentSpace,
           library,
           match.files.SignalMipMaskedSkel
-        )
+        ),
+        false
       ]
     };
     return pppmOptions;
@@ -74,9 +79,10 @@ function getMatchImageOptions(isPPPM, match, library) {
   const cdmOptions = {
     display: [
       "Gamma Corrected Color Depth MIP",
-      match.imageURL || match.thumbnailURL
+      match.imageURL || match.thumbnailURL,
+      true
     ],
-    match: ["Match Image", matchImagePath]
+    match: ["Match Image", matchImagePath, true],
   };
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.expression = [
@@ -104,7 +110,7 @@ export default function ImageComparison(props) {
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName);
 
-  imageOptions.input = ["Input Image", mask.imageURL];
+  imageOptions.input = ["Input Image", mask.imageURL, true];
 
   const handleImageCount = event => {
     let imageCount = parseInt(event.target.value, 10);

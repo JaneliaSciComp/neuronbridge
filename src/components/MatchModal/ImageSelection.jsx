@@ -35,8 +35,15 @@ function ImageSelection({
   let selectValue = imageOptions[defaultImage];
   let imageAlt = imageOptions[defaultImage][0];
 
+  // Only the color depth MIPs can be used in the CDM search,
+  // so only those images should show the 'Mask & Search'
+  // button.
+  let canMask = false;
+
   if (imageChoices[searchType] && imageChoices[searchType][index]) {
-    [imageAlt, matchImageURL] = imageOptions[imageChoices[searchType][index]];
+    [imageAlt, matchImageURL, canMask] = imageOptions[
+      imageChoices[searchType][index]
+    ];
     selectValue = imageOptions[imageChoices[searchType][index]];
   }
   let downloadName = "image.png";
@@ -57,16 +64,20 @@ function ImageSelection({
           </Option>
         ))}
       </Select>
-        <DownloadButton
-          style={{ marginLeft: "0.5em" }}
-          imageURL={matchImageURL}
-          name={downloadName}
-        />
+      <DownloadButton
+        style={{ marginLeft: "0.5em" }}
+        imageURL={matchImageURL}
+        name={downloadName}
+      />
+      {canMask ? (
         <MaskSearchButton
           src={matchImageURL}
           isCopying={isCopying}
           setIsCopying={setIsCopying}
         />
+      ) : (
+        ""
+      )}
       <ImageDisplay
         meta={meta}
         src={matchImageURL}
