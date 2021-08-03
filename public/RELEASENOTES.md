@@ -1,3 +1,23 @@
+## Version 1.7.4 - 2021-08-03
+
+### Whats New
+* Alignment file format limitations
+  - Added a note on the upload page to show which file formats are supported by the alignment pipeline.
+
+## Version 1.7.3 - 2021-06-01
+
+### Bug Fixes
+* Fixes copyright date and a few typos.
+
+## Version 1.7.2 - 2020-12-07
+
+### Whats New
+* Site survey
+  - Added a link to the site feedback survey
+
+### Bug Fixes
+* Development & release fixes, no user facing changes.
+
 ## Version 1.7.1 - 2020-11-30
 
 ### Bug Fixes
