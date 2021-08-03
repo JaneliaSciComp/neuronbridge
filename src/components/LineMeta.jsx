@@ -54,11 +54,11 @@ export default function LineMeta({ attributes }) {
           <b>Library: </b>
           <LibraryFormatter type={libraryName} />
         </p>
-      </Col>
-      <Col md={24} lg={12}>
         <p>
           <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
+      </Col>
+      <Col md={24} lg={12}>
         <p>
           <b>Anatomical Area:</b> {attributes.anatomicalArea}
         </p>
