@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
+import MaskSearchButton from "./MaskSearchButton";
+import DownloadButton from "./DownloadButton";
 
 const { Option } = Select;
 
@@ -37,6 +39,10 @@ function ImageSelection({
     [imageAlt, matchImageURL] = imageOptions[imageChoices[searchType][index]];
     selectValue = imageOptions[imageChoices[searchType][index]];
   }
+  let downloadName = "image.png";
+  if (meta.displayableMask) {
+    downloadName = meta.displayableMask;
+  }
 
   return (
     <>
@@ -51,12 +57,20 @@ function ImageSelection({
           </Option>
         ))}
       </Select>
+        <DownloadButton
+          style={{ marginLeft: "0.5em" }}
+          imageURL={matchImageURL}
+          name={downloadName}
+        />
+        <MaskSearchButton
+          src={matchImageURL}
+          isCopying={isCopying}
+          setIsCopying={setIsCopying}
+        />
       <ImageDisplay
         meta={meta}
         src={matchImageURL}
         alt={imageAlt}
-        setIsCopying={setIsCopying}
-        isCopying={isCopying}
         mousePosition={mousePosition}
         setMousePosition={setMousePosition}
       />

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Row, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
-import MaskSearchButton from "./MaskSearchButton";
-import DownloadButton from "./DownloadButton";
 import MousePosition from "./MousePosition";
 import { signedPublicLink } from "../../libs/awsLib";
 
@@ -13,9 +11,6 @@ const ImageDisplay = props => {
     src,
     alt,
     meta,
-    isCopying,
-    setIsCopying,
-    imageType,
     mousePosition,
     setMousePosition
   } = props;
@@ -26,34 +21,15 @@ const ImageDisplay = props => {
 
   useEffect(() => {
     if (src) {
-      const matched = src.match(
-        /^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/
-      );
-      if (matched) {
-        const [, bucket, relativePath] = matched;
-        signedPublicLink(relativePath, bucket).then(signed => {
-          setSignedSrc(signed);
-        });
-      } else {
-        setSignedSrc(src);
-      }
+      signedPublicLink(src).then(signed => {
+        setSignedSrc(signed);
+      });
     }
   }, [src]);
 
   const style = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
     : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
-
-  let downloadName = "image.png";
-  if (meta.displayableMask) {
-    downloadName = meta.displayableMask;
-  } else if (meta.publishedName) {
-    if (imageType) {
-      downloadName = `${meta.publishedName}_${imageType}.png`;
-    } else {
-      downloadName = `${meta.publishedName}.png`;
-    }
-  }
 
   return (
     <>
@@ -80,16 +56,6 @@ const ImageDisplay = props => {
             {mirrored ? "Restore" : "Flip"}
           </Button>
         )}
-        <MaskSearchButton
-          src={src}
-          isCopying={isCopying}
-          setIsCopying={setIsCopying}
-        />
-        <DownloadButton
-          style={{ marginLeft: "0.5em" }}
-          imageURL={src}
-          name={downloadName}
-        />
       </Row>
     </>
   );

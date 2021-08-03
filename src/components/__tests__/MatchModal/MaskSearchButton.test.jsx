@@ -10,8 +10,8 @@ describe("MaskSearchButton: unit tests", () => {
     render(
       <MemoryRouter>
         <MaskSearchButton
+          src="http://www.example.com"
           isCopying={false}
-          mask={{}}
           setIsCopying={setIsCopying}
         />
       </MemoryRouter>

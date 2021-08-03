@@ -6,9 +6,8 @@ import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import { useMatches } from "../containers/MatchesContext";
-import { signedPublicLink, createRelativePPPMImagePath } from "../libs/awsLib";
+import { signedPublicLink, createPPPMImagePath } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
-import config from "../config";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView, library } = props;
@@ -23,25 +22,24 @@ export default function MatchSummary(props) {
 
   useEffect(() => {
     if (isPPP && match.files.ColorDepthMipSkel) {
-      const bucket = config.PPPM_BUCKET;
-      const relativePath = createRelativePPPMImagePath(match.alignmentSpace, library, match.files.ColorDepthMip);
-      signedPublicLink(relativePath, bucket).then(signed => {
+      const url = createPPPMImagePath(
+        match.alignmentSpace,
+        library,
+        match.files.ColorDepthMip
+      );
+      signedPublicLink(url).then(signed => {
         setSignedSrc(signed);
         setSignedThumbnailSrc(signed);
       });
     } else if (match.imageURL) {
-       const [, bucket, relativePath] = match.imageURL.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
-      signedPublicLink(relativePath, bucket).then(signed => {
+      signedPublicLink(match.imageURL).then(signed => {
         setSignedSrc(signed);
       });
-      const [, thumbBucket, thumbRelativePath] = match.thumbnailURL.match(/^http[s]:\/\/.*\.com\/([^/]*)\/(.*)/);
-      signedPublicLink(thumbRelativePath, thumbBucket).then(signed => {
+      signedPublicLink(match.thumbnailURL).then(signed => {
         setSignedThumbnailSrc(signed);
       });
-
     }
-  },[match, isPPP, library]);
-
+  }, [match, isPPP, library]);
 
   const { publishedName } = match;
 
@@ -63,9 +61,10 @@ export default function MatchSummary(props) {
   if (gridView) {
     let score = ` - Rank: ${match.pppRank}, Score: ${match.pppScore}`;
     if (!isPPP) {
-      score = query.get('fisort') === "2"
-        ? `(Matched Pixels: ${match.matchingPixels})`
-        : `(Score: ${Math.round(match.normalizedScore)})`;
+      score =
+        query.get("fisort") === "2"
+          ? `(Matched Pixels: ${match.matchingPixels})`
+          : `(Score: ${Math.round(match.normalizedScore)})`;
     }
 
     return (

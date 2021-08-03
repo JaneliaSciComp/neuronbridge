@@ -31,17 +31,29 @@ export async function maskAndSearch(image) {
   return response;
 }
 
-export function signedPublicLink(url, bucket) {
-  const downloadOptions = {
-    customPrefix: {
-      public: ""
-    },
-    expires: 500,
-    level: "public",
-    bucket
-  };
+// if provided with a url that starts with s3.amazonaws.com,
+// this function will return a signed url. If any other url
+// is provided, it will be returned untouched.
+export function signedPublicLink(url) {
+  const matched = url.match(
+    /^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/
+  );
+  if (matched) {
+    const [, bucket, relativePath] = matched;
+    const downloadOptions = {
+      customPrefix: {
+        public: ""
+      },
+      expires: 500,
+      level: "public",
+      bucket
+    };
 
-  return Storage.get(url, downloadOptions).then(result => result);
+    return Storage.get(relativePath, downloadOptions).then(result => result);
+  }
+  return new Promise((resolve) => {
+    resolve(url);
+  });
 }
 
 export function signedLink(url, identityId) {
