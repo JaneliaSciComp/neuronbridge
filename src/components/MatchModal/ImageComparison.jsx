@@ -88,7 +88,7 @@ function getMatchImageOptions(isPPPM, match, library) {
 }
 
 export default function ImageComparison(props) {
-  const { mask, match, setMaskOpen } = props;
+  const { mask, match } = props;
 
   const isPPP = Boolean(match.files && match.files.ColorDepthMipSkel);
   const [comparisonCount, setCompCount] = useState(isPPP ? 4 : 2);
@@ -141,7 +141,6 @@ export default function ImageComparison(props) {
           isCopying={isCopying}
           mousePosition={mousePosition}
           setMousePosition={setMousePosition}
-          setMaskOpen={setMaskOpen}
           defaultImage={imageDefaults[index] || imageDefaults[0]}
         />
       </Col>
@@ -170,6 +169,5 @@ export default function ImageComparison(props) {
 
 ImageComparison.propTypes = {
   mask: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  setMaskOpen: PropTypes.func.isRequired
+  match: PropTypes.object.isRequired
 };

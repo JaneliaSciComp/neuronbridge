@@ -11,7 +11,6 @@ function ImageSelection({
   isCopying,
   setIsCopying,
   meta,
-  setMaskOpen,
   index,
   defaultImage,
   mousePosition,
@@ -56,7 +55,6 @@ function ImageSelection({
         meta={meta}
         src={matchImageURL}
         alt={imageAlt}
-        onHide={() => setMaskOpen(false)}
         setIsCopying={setIsCopying}
         isCopying={isCopying}
         mousePosition={mousePosition}
@@ -71,7 +69,6 @@ ImageSelection.propTypes = {
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
-  setMaskOpen: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   defaultImage: PropTypes.string.isRequired,
   mousePosition: PropTypes.arrayOf(PropTypes.number).isRequired,

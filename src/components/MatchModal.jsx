@@ -9,7 +9,6 @@ const { TabPane } = Tabs;
 export default function MatchModal(props) {
   const { open, setOpen, matchesList, mask, isLM, searchType } = props;
 
-  const [maskOpen, setMaskOpen] = useState(true);
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
@@ -82,10 +81,8 @@ export default function MatchModal(props) {
             selectedMatch={selectedMatch}
             mask={mask}
             isLM={isLM}
-            maskOpen={maskOpen}
             selected={selected}
             matchesList={matchesList}
-            setMaskOpen={setMaskOpen}
           />
         </TabPane>
         <TabPane tab="View in 3D" key="2">

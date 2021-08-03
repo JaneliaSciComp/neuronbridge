@@ -12,10 +12,8 @@ export default function Summary(props) {
     selectedMatch,
     mask,
     isLM,
-    maskOpen,
     selected,
     matchesList,
-    setMaskOpen
   } = props;
 
   let metaBlock = <p>Loading...</p>;
@@ -34,7 +32,7 @@ export default function Summary(props) {
 
   return (
     <>
-      <Row>
+      <Row gutter={16}>
         <Col sm={12}>
           <h3>Input Image</h3>
           {metaBlock}
@@ -53,12 +51,10 @@ export default function Summary(props) {
       </Row>
       <Divider />
       <ImageComparison
-        maskOpen={maskOpen}
         mask={mask}
         match={selectedMatch}
         matchPath={selectedMatch.imageURL}
         matchThumbnail={selectedMatch.thumbnailURL}
-        setMaskOpen={setMaskOpen}
       />
     </>
   );
@@ -69,9 +65,7 @@ Summary.propTypes = {
   isLM: PropTypes.bool.isRequired,
   selectedMatch: PropTypes.object.isRequired,
   mask: PropTypes.object,
-  maskOpen: PropTypes.bool.isRequired,
-  selected: PropTypes.number.isRequired,
-  setMaskOpen: PropTypes.func.isRequired
+  selected: PropTypes.number.isRequired
 };
 
 Summary.defaultProps = {
