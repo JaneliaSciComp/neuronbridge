@@ -18,7 +18,7 @@ export default function SkeletonMeta({ attributes }) {
 
   return (
     <Row>
-      <Col md={24} lg={24}>
+      <Col md={24} lg={12}>
         <p>
           <b>Body Id:</b>
           <Link to={searchUrl}>{publishedName}</Link>
@@ -37,7 +37,7 @@ export default function SkeletonMeta({ attributes }) {
         ) : (
           ""
         )}
-       {attributes.pppScore ? (
+        {attributes.pppScore ? (
           <p>
             <b>Score:</b> {Math.round(attributes.pppScore)}
           </p>
@@ -61,6 +61,8 @@ export default function SkeletonMeta({ attributes }) {
         <p>
           <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
         </p>
+      </Col>
+      <Col md={24} lg={12}>
         <p>
           <b>Links:</b>
           <br />
@@ -69,10 +71,8 @@ export default function SkeletonMeta({ attributes }) {
             isLM={false}
             library={libraryName}
           />
-          <br/>
-          <Link to={searchUrl}>
-            View Precomputed Search
-          </Link>
+          <br />
+          <Link to={searchUrl}>View Precomputed Search</Link>
         </p>
       </Col>
     </Row>
