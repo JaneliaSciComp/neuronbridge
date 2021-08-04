@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
+import { useLocation, useHistory } from "react-router-dom";
 import { Row, Col, Input, Divider } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import config from "../../config";
 import ImageSelection from "./ImageSelection";
 import { createPPPMImagePath } from "../../libs/awsLib";
+import { useQuery } from "../../libs/hooksLib";
 import { CoordsProvider } from "../../containers/MouseCoordsContext";
 
 import "./ImageComparison.css";
@@ -97,8 +99,19 @@ function getMatchImageOptions(isPPPM, match, library) {
 export default function ImageComparison(props) {
   const { mask, match } = props;
 
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
+
   const isPPP = Boolean(match.files && match.files.ColorDepthMipSkel);
-  const [comparisonCount, setCompCount] = useState(isPPP ? 4 : 2);
+
+  const comparisonCount = parseInt(query.get("ci"), 10) || (isPPP ? 4 : 2);
+
+  function setCompCount(count) {
+    query.set("ci", count);
+    location.search = query.toString();
+    history.push(location);
+  }
 
   const [isCopying, setIsCopying] = useState(false);
   const [appState, , setPermanent] = useContext(AppContext);
