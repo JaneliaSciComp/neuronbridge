@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
-import MaskSearchButton from "./MaskSearchButton";
-import DownloadButton from "./DownloadButton";
-import FlipButton from "./FlipButton";
+import ImageActions from "./ImageActions";
 
 const { Option } = Select;
 
@@ -48,10 +46,6 @@ function ImageSelection({
     ];
     selectValue = imageOptions[imageChoices[searchType][index]];
   }
-  let downloadName = "image.png";
-  if (meta.displayableMask) {
-    downloadName = meta.displayableMask;
-  }
 
   return (
     <>
@@ -66,22 +60,15 @@ function ImageSelection({
           </Option>
         ))}
       </Select>
-      <DownloadButton
-        style={{ marginLeft: "0.5em" }}
-        imageURL={matchImageURL}
-        name={downloadName}
+      <ImageActions
+        isPPP={searchType === "ppp"}
+        src={matchImageURL}
+        mirrored={mirrored}
+        canMask={canMask}
+        isCopying={isCopying}
+        setIsCopying={setIsCopying}
+        setMirrored={setMirrored}
       />
-      {canMask ? (
-        <MaskSearchButton
-          src={matchImageURL}
-          isCopying={isCopying}
-          setIsCopying={setIsCopying}
-        />
-      ) : (
-        ""
-      )}
-
-      <FlipButton isPPP={searchType === "ppp"} mirrored={mirrored} onClick={setMirrored} />
       <ImageDisplay
         src={matchImageURL}
         alt={imageAlt}
