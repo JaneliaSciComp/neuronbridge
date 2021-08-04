@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
 import MaskSearchButton from "./MaskSearchButton";
 import DownloadButton from "./DownloadButton";
+import FlipButton from "./FlipButton";
 
 const { Option } = Select;
 
@@ -19,6 +20,7 @@ function ImageSelection({
   setMousePosition
 }) {
   const [appState, , setPermanent] = useContext(AppContext);
+  const [mirrored, setMirrored] = useState(false);
 
   const searchType = meta.files && meta.files.ColorDepthMipSkel ? "ppp" : "cdm";
   const { imageChoices } = appState;
@@ -78,11 +80,13 @@ function ImageSelection({
       ) : (
         ""
       )}
+
+      <FlipButton isPPP={searchType === "ppp"} mirrored={mirrored} onClick={setMirrored} />
       <ImageDisplay
-        meta={meta}
         src={matchImageURL}
         alt={imageAlt}
         mousePosition={mousePosition}
+        mirrored={mirrored}
         setMousePosition={setMousePosition}
       />
     </>
