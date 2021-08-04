@@ -91,7 +91,7 @@ export default function ImageActions({
 
   return (
     <Dropdown overlay={menu}>
-      <Button style={{marginLeft: "1em"}}>
+      <Button style={{marginLeft: "0.5em"}}>
         <EllipsisOutlined />
       </Button>
     </Dropdown>
