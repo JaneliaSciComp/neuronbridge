@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useCoords } from "../../containers/MouseCoordsContext";
 
 function getMousePos(evt) {
   const canvas = evt.target;
@@ -26,34 +26,31 @@ function drawCrosshair(x, y, ctx) {
   ctx.stroke();
 }
 
-export default function MousePosition({mousePosition, setMousePosition}) {
+export default function MousePosition() {
+
+  const { state, dispatch } = useCoords();
 
   const canvasRef = useRef();
 
   useEffect(() => {
     const currentCanvas = canvasRef.current;
     const currentCtx = currentCanvas.getContext("2d");
-    drawCrosshair(mousePosition[0], mousePosition[1], currentCtx);
-  },[mousePosition]);
+    drawCrosshair(state.position[0], state.position[1], currentCtx);
+  },[state.position]);
 
   useEffect(() => {
     const currentCanvas = canvasRef.current;
 
     function movecrosshair(e) {
       const pos = getMousePos(e);
-      setMousePosition([pos.x, pos.y]);
+      dispatch({type: "update", payload: [pos.x, pos.y]});
     }
     currentCanvas.addEventListener("mousemove", movecrosshair);
 
     return function cleanup() {
       currentCanvas.removeEventListener("mousemove", movecrosshair);
     }
-  },[setMousePosition]);
+  },[dispatch]);
 
   return <canvas ref={canvasRef} width="500" height="250" />
 }
-
-MousePosition.propTypes = {
-  mousePosition: PropTypes.arrayOf(PropTypes.number).isRequired,
-  setMousePosition: PropTypes.func.isRequired
-};

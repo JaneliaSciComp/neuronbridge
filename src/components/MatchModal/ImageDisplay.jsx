@@ -8,8 +8,6 @@ const ImageDisplay = props => {
   const {
     src,
     alt,
-    mousePosition,
-    setMousePosition,
     mirrored
   } = props;
   const [signedSrc, setSignedSrc] = useState();
@@ -29,10 +27,7 @@ const ImageDisplay = props => {
   return (
     <>
       <Row className="imageComparison">
-        <MousePosition
-          mousePosition={mousePosition}
-          setMousePosition={setMousePosition}
-        />
+        <MousePosition />
         {signedSrc ? <img src={signedSrc} style={style} alt={alt} /> : null}
       </Row>
     </>

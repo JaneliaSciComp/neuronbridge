@@ -13,9 +13,7 @@ function ImageSelection({
   setIsCopying,
   meta,
   index,
-  defaultImage,
-  mousePosition,
-  setMousePosition
+  defaultImage
 }) {
   const [appState, , setPermanent] = useContext(AppContext);
   const [mirrored, setMirrored] = useState(false);
@@ -72,9 +70,7 @@ function ImageSelection({
       <ImageDisplay
         src={matchImageURL}
         alt={imageAlt}
-        mousePosition={mousePosition}
         mirrored={mirrored}
-        setMousePosition={setMousePosition}
       />
     </>
   );
@@ -87,8 +83,6 @@ ImageSelection.propTypes = {
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   defaultImage: PropTypes.string.isRequired,
-  mousePosition: PropTypes.arrayOf(PropTypes.number).isRequired,
-  setMousePosition: PropTypes.func.isRequired
 };
 
 export default ImageSelection;

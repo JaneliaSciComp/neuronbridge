@@ -5,6 +5,7 @@ import { AppContext } from "../../containers/AppContext";
 import config from "../../config";
 import ImageSelection from "./ImageSelection";
 import { createPPPMImagePath } from "../../libs/awsLib";
+import { CoordsProvider } from "../../containers/MouseCoordsContext";
 
 import "./ImageComparison.css";
 
@@ -82,7 +83,7 @@ function getMatchImageOptions(isPPPM, match, library) {
       match.imageURL || match.thumbnailURL,
       true
     ],
-    match: ["Match Image", matchImagePath, true],
+    match: ["Match Image", matchImagePath, true]
   };
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.expression = [
@@ -98,7 +99,6 @@ export default function ImageComparison(props) {
 
   const isPPP = Boolean(match.files && match.files.ColorDepthMipSkel);
   const [comparisonCount, setCompCount] = useState(isPPP ? 4 : 2);
-  const [mousePosition, setMousePosition] = useState([0, 0]);
 
   const [isCopying, setIsCopying] = useState(false);
   const [appState, , setPermanent] = useContext(AppContext);
@@ -135,39 +135,43 @@ export default function ImageComparison(props) {
     imageDefaults = ["input", "display", "pppmMask", "pppmMaskWithEMOverlay"];
   }
 
-  const images = comparisonCount ? [...Array(comparisonCount)].map((_, index) => {
-    const key = `Image${index}`;
-    return (
-      <Col key={key} md={comparisonCount <= 1 ? 24 : 12}>
-        <ImageSelection
-          imageOptions={imageOptions}
-          meta={match}
-          index={index}
-          setIsCopying={setIsCopying}
-          isCopying={isCopying}
-          mousePosition={mousePosition}
-          setMousePosition={setMousePosition}
-          defaultImage={imageDefaults[index] || imageDefaults[0]}
-        />
-      </Col>
-    );
-  }) : "";
+  const images = comparisonCount
+    ? [...Array(comparisonCount)].map((_, index) => {
+        const key = `Image${index}`;
+        return (
+          <Col key={key} md={comparisonCount <= 1 ? 24 : 12}>
+            <ImageSelection
+              imageOptions={imageOptions}
+              meta={match}
+              index={index}
+              setIsCopying={setIsCopying}
+              isCopying={isCopying}
+              defaultImage={imageDefaults[index] || imageDefaults[0]}
+            />
+          </Col>
+        );
+      })
+    : "";
 
   /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>
-    <label htmlFor="cImages">Images for Comparison ({minComparisons} - {maxComparisons})</label>
+      <label htmlFor="cImages">
+        Images for Comparison ({minComparisons} - {maxComparisons})
+      </label>
       <Input
         name="cImages"
         id="cImages"
         type="number"
         style={{ width: "4em", marginLeft: "1em" }}
-        value={comparisonCount || ''}
+        value={comparisonCount || ""}
         maxLength={1}
         onChange={handleImageCount}
       />
       <Divider />
-      <Row gutter={16}>{images}</Row>
+      <Row gutter={16}>
+        <CoordsProvider>{images}</CoordsProvider>
+      </Row>
     </>
   );
   /* eslint-enable jsx-a11y/label-has-associated-control */
