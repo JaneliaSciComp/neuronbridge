@@ -10,9 +10,13 @@ function getMousePos(evt) {
   };
 }
 
+function clearCrosshair(ctx) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+}
+
 function drawCrosshair(x, y, ctx) {
   const armLength = 20;
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  clearCrosshair(ctx);
   ctx.strokeStyle = "#fff";
   ctx.beginPath();
   ctx.moveTo(x, y);
@@ -47,7 +51,13 @@ export default function MousePosition() {
     }
     currentCanvas.addEventListener("mousemove", movecrosshair);
 
+    function removecrosshair() {
+      dispatch({type: "clear"});
+    }
+    currentCanvas.addEventListener("mouseout", removecrosshair);
+
     return function cleanup() {
+      currentCanvas.removeEventListener("mouseout", removecrosshair);
       currentCanvas.removeEventListener("mousemove", movecrosshair);
     }
   },[dispatch]);
