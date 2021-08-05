@@ -55,7 +55,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         ),
         false
       ],
-      fullExpression: ["Full Expression", "image_path"],
+      fullExpression: ["Full Expression", "image_path", false],
       pppmMask: [
         "PPP Mask",
         createPPPMImagePath(
@@ -90,7 +90,8 @@ function getMatchImageOptions(isPPPM, match, library) {
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.expression = [
       "Original Expression Pattern",
-      "/expression_pattern.png"
+      "/expression_pattern.png",
+      false
     ];
   }
   return cdmOptions;
