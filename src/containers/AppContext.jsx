@@ -15,6 +15,10 @@ const initialState = {
     ppp: {},
     cdm: {}
   },
+  comparisonCount: {
+    ppp: 4,
+    cdm: 2
+  },
   paths: {},
   debug: false
 }

@@ -83,7 +83,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         desc: "Full Expression",
         path: "image_path",
         canMask: false
-      },
+      }
     ];
     return pppmOptions;
   }
@@ -121,20 +121,45 @@ export default function ImageComparison(props) {
   const location = useLocation();
   const history = useHistory();
 
-  const isPPP = Boolean(match.files && match.files.ColorDepthMipSkel);
+  const [appState, , setPermanent] = useContext(AppContext);
+  const [isCopying, setIsCopying] = useState(false);
 
-  const comparisonCount = parseInt(query.get("ci"), 10) || (isPPP ? 4 : 2);
+  const searchType =
+    match.files && match.files.ColorDepthMipSkel ? "ppp" : "cdm";
+  const isPPP = searchType === "ppp";
 
-  function setCompCount(count) {
-    query.set("ci", count);
+  // start by looking for a value in the url query parameters,
+  // then use the value stored in localStorage and finally fall back to the
+  // default values.
+  const storedCounts = appState.comparisonCount;
+
+  const urlImageCount = parseInt(query.get("ci"), 10);
+
+  const updatedCount =
+    urlImageCount ||
+    storedCounts[searchType] ||
+    (isPPP ? 4 : 2);
+
+  if (Number.isNaN(urlImageCount)) {
+    query.set("ci", updatedCount);
     location.search = query.toString();
-    history.push(location);
+    history.replace(location);
   }
 
-  const [isCopying, setIsCopying] = useState(false);
-  const [appState, , setPermanent] = useContext(AppContext);
 
-  const searchType = match.files && match.files.ColorDepthMipSkel ? "ppp" : "cdm";
+
+  function setCompCount(count) {
+    // update localStorage
+    storedCounts[searchType] = count
+    setPermanent({
+      comparisonCount: storedCounts
+    });
+    // update the url
+    query.set("ci", count);
+    location.search = query.toString();
+    history.replace(location);
+  }
+
   const { imageChoices } = appState;
 
   const maxComparisons = isPPP ? 6 : 4;
@@ -177,7 +202,9 @@ export default function ImageComparison(props) {
   if (urlImageChoices.length < 1) {
     const combinedChoices = imageOptions.map((_, index) => {
       if (imageChoices[searchType] && imageChoices[searchType][index]) {
-        return imageOptions.map(opt => opt.key).indexOf(imageChoices[searchType][index]);
+        return imageOptions
+          .map(opt => opt.key)
+          .indexOf(imageChoices[searchType][index]);
       }
       return index;
     });
@@ -187,12 +214,12 @@ export default function ImageComparison(props) {
     history.replace(location);
   }
 
-  const images = comparisonCount
-    ? [...Array(comparisonCount)].map((_, index) => {
+  const images = updatedCount
+    ? [...Array(updatedCount)].map((_, index) => {
         const key = `Image${index}`;
         const chosenImage = parseInt(urlImageChoices[index] || 0, 10);
         return (
-          <Col key={key} md={comparisonCount <= 1 ? 24 : 12}>
+          <Col key={key} md={updatedCount <= 1 ? 24 : 12}>
             <ImageSelection
               imageOptions={imageOptions}
               meta={match}
@@ -217,7 +244,7 @@ export default function ImageComparison(props) {
         id="cImages"
         type="number"
         style={{ width: "4em", marginLeft: "1em" }}
-        value={comparisonCount || ""}
+        value={updatedCount || ""}
         maxLength={1}
         onChange={handleImageCount}
       />

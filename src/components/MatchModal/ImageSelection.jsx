@@ -83,12 +83,12 @@ function ImageSelection({
 }
 
 ImageSelection.propTypes = {
-  imageOptions: PropTypes.object.isRequired,
+  imageOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  chosenImage: PropTypes.string.isRequired,
+  chosenImage: PropTypes.object.isRequired,
 };
 
 export default ImageSelection;
