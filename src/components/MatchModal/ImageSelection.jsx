@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
+import { useLocation, useHistory } from "react-router-dom";
 import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
 import ImageActions from "./ImageActions";
+import { useQuery } from "../../libs/hooksLib";
 
 const { Option } = Select;
 
@@ -13,10 +15,14 @@ function ImageSelection({
   setIsCopying,
   meta,
   index,
-  defaultImage
+  chosenImage
 }) {
   const [appState, , setPermanent] = useContext(AppContext);
   const [mirrored, setMirrored] = useState(false);
+
+  const query = useQuery();
+  const location = useLocation();
+  const history = useHistory();
 
   const searchType = meta.files && meta.files.ColorDepthMipSkel ? "ppp" : "cdm";
   const { imageChoices } = appState;
@@ -27,23 +33,23 @@ function ImageSelection({
     }
     imageChoices[searchType][index] = selected;
     setPermanent({ imageChoices });
+    // update the url with the newly chosen value
+    const urlImageChoices = (query.get("ic") || "").split("");
+    urlImageChoices[index] = imageOptions.map(opt => opt.key).indexOf(selected) || 0;
+    // convert the array into a 0 padded string and set it on the "ic"
+    // parameter in the query.
+    query.set("ic", Array.from(urlImageChoices, item => item || "0").join(""));
+    location.search = query.toString();
+    history.replace(location);
   };
 
-  let matchImageURL = imageOptions[defaultImage][1];
-  let selectValue = imageOptions[defaultImage];
-  let imageAlt = imageOptions[defaultImage][0];
-
+  const matchImageURL = chosenImage.path;
+  const selectValue = chosenImage.key;
+  const imageAlt = chosenImage.desc;
   // Only the color depth MIPs can be used in the CDM search,
   // so only those images should show the 'Mask & Search'
   // button.
-  let canMask = false;
-
-  if (imageChoices[searchType] && imageChoices[searchType][index]) {
-    [imageAlt, matchImageURL, canMask] = imageOptions[
-      imageChoices[searchType][index]
-    ];
-    selectValue = imageOptions[imageChoices[searchType][index]];
-  }
+  const { canMask } = chosenImage;
 
   return (
     <>
@@ -52,9 +58,9 @@ function ImageSelection({
         value={selectValue}
         style={{ width: 300 }}
       >
-        {Object.keys(imageOptions).map(key => (
-          <Option key={key} value={key}>
-            {imageOptions[key][0]}
+        {imageOptions.map(option => (
+          <Option key={option.key} value={option.key}>
+            {option.desc}
           </Option>
         ))}
       </Select>
@@ -82,7 +88,7 @@ ImageSelection.propTypes = {
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  defaultImage: PropTypes.string.isRequired,
+  chosenImage: PropTypes.string.isRequired,
 };
 
 export default ImageSelection;

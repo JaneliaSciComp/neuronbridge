@@ -27,72 +27,89 @@ function createMatchImagePath(match) {
 
 function getMatchImageOptions(isPPPM, match, library) {
   if (isPPPM) {
-    const pppmOptions = {
-      display: [
-        "Best Channel MIP with EM overlay",
-        createPPPMImagePath(
+    const pppmOptions = [
+      {
+        key: "display",
+        desc: "Best Channel MIP with EM overlay",
+        path: createPPPMImagePath(
           match.alignmentSpace,
           library,
           match.files.ColorDepthMipSkel
         ),
-        true
-      ],
-      bestMip: [
-        "Best Channel MIP",
-        createPPPMImagePath(
-          match.alignmentSpace,
-          library,
-          match.files.ColorDepthMip
-        ),
-        true
-      ],
-      sampleMIP: [
-        "Sample MIP",
-        createPPPMImagePath(
-          match.alignmentSpace,
-          library,
-          match.files.SignalMip
-        ),
-        false
-      ],
-      fullExpression: ["Full Expression", "image_path", false],
-      pppmMask: [
-        "PPP Mask",
-        createPPPMImagePath(
+        canMask: true
+      },
+      {
+        key: "pppmMask",
+        desc: "PPP Mask",
+        path: createPPPMImagePath(
           match.alignmentSpace,
           library,
           match.files.SignalMipMasked
         ),
-        false
-      ],
-      pppmMaskWithEMOverlay: [
-        "PPP Mask with EM Overlay ",
-        createPPPMImagePath(
+        canMask: false
+      },
+      {
+        key: "pppmMaskWithEMOverlay",
+        desc: "PPP Mask with EM Overlay ",
+        path: createPPPMImagePath(
           match.alignmentSpace,
           library,
           match.files.SignalMipMaskedSkel
         ),
-        false
-      ]
-    };
+        canMask: false
+      },
+      {
+        key: "bestMip",
+        desc: "Best Channel MIP",
+        path: createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.ColorDepthMip
+        ),
+        canMask: true
+      },
+      {
+        key: "sampleMIP",
+        desc: "Sample MIP",
+        path: createPPPMImagePath(
+          match.alignmentSpace,
+          library,
+          match.files.SignalMip
+        ),
+        canMask: false
+      },
+      {
+        key: "fullExpression",
+        desc: "Full Expression",
+        path: "image_path",
+        canMask: false
+      },
+    ];
     return pppmOptions;
   }
 
   const matchImagePath = createMatchImagePath(match);
-  const cdmOptions = {
-    display: [
-      "Gamma Corrected Color Depth MIP",
-      match.imageURL || match.thumbnailURL,
-      true
-    ],
-    match: ["Match Image", matchImagePath, true]
-  };
+  const cdmOptions = [
+    {
+      key: "display",
+      desc: "Gamma Corrected Color Depth MIP",
+      path: match.imageURL || match.thumbnailURL,
+      canMask: true
+    },
+    {
+      key: "match",
+      desc: "Match Image",
+      path: matchImagePath,
+      canMask: true
+    }
+  ];
   if (match.libraryName.match(/gen1.*mcfo/i)) {
-    cdmOptions.expression = [
-      "Original Expression Pattern",
-      "/expression_pattern.png",
-      false
-    ];
+    cdmOptions.push({
+      key: "expression",
+      desc: "Original Expression Pattern",
+      path: "/expression_pattern.png",
+      canMask: false
+    });
   }
   return cdmOptions;
 }
@@ -117,6 +134,9 @@ export default function ImageComparison(props) {
   const [isCopying, setIsCopying] = useState(false);
   const [appState, , setPermanent] = useContext(AppContext);
 
+  const searchType = match.files && match.files.ColorDepthMipSkel ? "ppp" : "cdm";
+  const { imageChoices } = appState;
+
   const maxComparisons = isPPP ? 6 : 4;
   const minComparisons = 1;
 
@@ -124,7 +144,12 @@ export default function ImageComparison(props) {
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName);
 
-  imageOptions.input = ["Input Image", mask.imageURL, true];
+  imageOptions.unshift({
+    key: "input",
+    desc: "Input Image",
+    path: mask.imageURL,
+    canMask: true
+  });
 
   const handleImageCount = event => {
     let imageCount = parseInt(event.target.value, 10);
@@ -143,15 +168,29 @@ export default function ImageComparison(props) {
     }
   });
 
-  let imageDefaults = ["input", "display"];
+  // grab chosen images from the url, these will override any choices
+  // made by the current user.
+  const urlImageChoices = (query.get("ic") || "").split("");
+  // if there were no image choices in the url, then take the current
+  // users choices and set them in the url, so that they can be passed
+  // on if the url is shared with another user.
+  if (urlImageChoices.length < 1) {
+    const combinedChoices = imageOptions.map((_, index) => {
+      if (imageChoices[searchType] && imageChoices[searchType][index]) {
+        return imageOptions.map(opt => opt.key).indexOf(imageChoices[searchType][index]);
+      }
+      return index;
+    });
 
-  if (isPPP) {
-    imageDefaults = ["input", "display", "pppmMask", "pppmMaskWithEMOverlay"];
+    query.set("ic", combinedChoices.join(""));
+    location.search = query.toString();
+    history.replace(location);
   }
 
   const images = comparisonCount
     ? [...Array(comparisonCount)].map((_, index) => {
         const key = `Image${index}`;
+        const chosenImage = parseInt(urlImageChoices[index] || 0, 10);
         return (
           <Col key={key} md={comparisonCount <= 1 ? 24 : 12}>
             <ImageSelection
@@ -160,7 +199,7 @@ export default function ImageComparison(props) {
               index={index}
               setIsCopying={setIsCopying}
               isCopying={isCopying}
-              defaultImage={imageDefaults[index] || imageDefaults[0]}
+              chosenImage={imageOptions[chosenImage]}
             />
           </Col>
         );
