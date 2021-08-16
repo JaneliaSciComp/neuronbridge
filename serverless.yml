@@ -12,7 +12,7 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
-  version : 1.0.0
+  version : $npm_package_version
   export-env:
     filename: .env
     overwrite: true
