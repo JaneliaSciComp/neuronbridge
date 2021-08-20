@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
-import { Input, Col, Row } from "antd";
+import { AutoComplete, Input, Col, Row } from "antd";
+import { Auth, API } from "aws-amplify";
 
 import HelpButton from "./Help/HelpButton";
 import "./SearchInput.css";
@@ -12,13 +13,31 @@ const { Search } = Input;
 export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const history = useHistory();
   const [search, setSearch] = useState("");
+  const [options, setOptions] = useState([]);
 
   useEffect(() => {
+    console.log(searchTerm);
     setSearch(searchTerm);
   }, [searchTerm, setSearch]);
 
   const handleSearch = value => {
     history.push(`/search?q=${value}`);
+  };
+
+  const onSearch = searchText => {
+    setSearch(searchText);
+    Auth.currentCredentials().then(() => {
+      API.get("SearchAPI", "/published_names", {
+        queryStringParameters: { q: searchText }
+      }).then(items => {
+        const newOptions = items.names.map(item => {
+          return { value: item.key, label: item.key };
+        });
+        setOptions(newOptions);
+      }).catch(() => {
+        setOptions([]);
+      });
+    });
   };
 
   return (
@@ -33,15 +52,20 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
       )}
       <Row>
         <Col xs={23}>
-          <Search
-            placeholder="Search with a line name or skeleton id."
-            enterButton="Search"
-            aria-label="Search"
-            size="large"
+          <AutoComplete
+            style={{ width: "100%" }}
+            options={options}
+            onSearch={onSearch}
             value={search}
-            onChange={e => setSearch(e.target.value)}
-            onSearch={value => handleSearch(value)}
-          />
+            onSelect={value => handleSearch(value)}
+          >
+            <Search
+              placeholder="Search with a line name or skeleton id."
+              enterButton="Search"
+              aria-label="Search"
+              size="large"
+            />
+          </AutoComplete>
         </Col>
         {help && (
           <Col xs={1} style={{ paddingLeft: "1em" }}>
@@ -51,8 +75,8 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
       </Row>
       {uploads && (
         <p>
-          Or <Link to="/upload">upload an image</Link> of your own to
-          perform a custom search of our data sets.
+          Or <Link to="/upload">upload an image</Link> of your own to perform a
+          custom search of our data sets.
         </p>
       )}
     </div>
