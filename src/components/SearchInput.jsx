@@ -14,9 +14,9 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const history = useHistory();
   const [search, setSearch] = useState("");
   const [options, setOptions] = useState([]);
+  const [dropDownOpen, setDropDownState] = useState(false);
 
   useEffect(() => {
-    console.log(searchTerm);
     setSearch(searchTerm);
   }, [searchTerm, setSearch]);
 
@@ -28,7 +28,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
     setSearch(searchText);
     Auth.currentCredentials().then(() => {
       API.get("SearchAPI", "/published_names", {
-        queryStringParameters: { q: searchText }
+        queryStringParameters: { q: searchText, f: 'start' }
       }).then(items => {
         const newOptions = items.names.map(item => {
           return { value: item.key, label: item.key };
@@ -57,13 +57,21 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
             options={options}
             onSearch={onSearch}
             value={search}
-            onSelect={value => handleSearch(value)}
+            onSelect={handleSearch}
+            onDropdownVisibleChange={open => setDropDownState(open)}
           >
             <Search
               placeholder="Search with a line name or skeleton id."
               enterButton="Search"
+              onSearch={handleSearch}
               aria-label="Search"
               size="large"
+              onPressEnter={e => {
+                if (!dropDownOpen) {
+                  handleSearch(search);
+                  e.preventDefault();
+                }
+              }}
             />
           </AutoComplete>
         </Col>
