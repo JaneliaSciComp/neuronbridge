@@ -22,6 +22,32 @@ export default function UnifiedSearch() {
   const [bodyLoading, setBodyLoading] = useState(false);
   const [appState] = useContext(AppContext);
 
+  function fixUrlResults(newResults) {
+     return newResults.results.map(result => {
+       const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+       const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+       return {
+         ...result,
+         imageURL: fullImageUrl,
+         thumbnailURL: fullThumbUrl
+       };
+     });
+  }
+
+  function readMetaData(metaData, combinedResults, setResults) {
+    // We can't use metaData.Body.text() here as it is not supported in safari
+    const fr = new FileReader();
+    fr.onload = evt => {
+      const text = evt.target.result;
+      const newResults = JSON.parse(text);
+      // convert stored relative urls into the full path urls.
+      const urlFixedResults = fixUrlResults(newResults);
+      combinedResults.results.push(...urlFixedResults);
+      setResults({ ...combinedResults });
+    };
+    fr.readAsText(metaData.Body);
+  }
+
   useEffect(() => {
     if ("precomputedDataRootPath" in appState.paths) {
       setByLineResults(null);
@@ -83,25 +109,7 @@ export default function UnifiedSearch() {
                 const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.key}.json`;
                 return Storage.get(byLineUrl, storageOptions)
                   .then(metaData => {
-                    // We can't use metaData.Body.text() here as it is not supported in safari
-                    const fr = new FileReader();
-                    fr.onload = evt => {
-                      const text = evt.target.result;
-                      const newResults = JSON.parse(text);
-                      // convert stored relative urls into the full path urls.
-                      const urlFixedResults = newResults.results.map(result => {
-                        const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-                        const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-                        return {
-                          ...result,
-                          imageURL: fullImageUrl,
-                          thumbnailURL: fullThumbUrl
-                        };
-                      });
-                      lineCombined.results.push(...urlFixedResults);
-                      setByLineResults({ ...lineCombined });
-                    };
-                    fr.readAsText(metaData.Body);
+                    readMetaData(metaData, lineCombined, setByLineResults);
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -115,25 +123,7 @@ export default function UnifiedSearch() {
                 const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.key}.json`;
                 return Storage.get(byBodyUrl, storageOptions)
                   .then(metaData => {
-                    // We can't use metaData.Body.text() here as it is not supported in safari
-                    const fr = new FileReader();
-                    fr.onload = evt => {
-                      const text = evt.target.result;
-                      const newResults = JSON.parse(text);
-                      // convert stored relative urls into the full path urls.
-                      const urlFixedResults = newResults.results.map(result => {
-                        const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-                        const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-                        return {
-                          ...result,
-                          imageURL: fullImageUrl,
-                          thumbnailURL: fullThumbUrl
-                        };
-                      });
-                      bodyCombined.results.push(...urlFixedResults);
-                      setByBodyResults({ ...bodyCombined });
-                    };
-                    fr.readAsText(metaData.Body);
+                    readMetaData(metaData, bodyCombined, setByBodyResults);
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -148,25 +138,7 @@ export default function UnifiedSearch() {
                   const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${bodyID}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
                     .then(metaData => {
-                      // We can't use metaData.Body.text() here as it is not supported in safari
-                      const fr = new FileReader();
-                      fr.onload = evt => {
-                        const text = evt.target.result;
-                        const newResults = JSON.parse(text);
-                        // convert stored relative urls into the full path urls.
-                        const urlFixedResults = newResults.results.map(result => {
-                          const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-                          const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-                          return {
-                            ...result,
-                            imageURL: fullImageUrl,
-                            thumbnailURL: fullThumbUrl
-                          };
-                        });
-                        bodyCombined.results.push(...urlFixedResults);
-                        setByBodyResults({ ...bodyCombined });
-                      };
-                      fr.readAsText(metaData.Body);
+                      readMetaData(metaData, bodyCombined, setByBodyResults);
                     })
                     .catch(error => {
                       if (error === "No credentials") {
