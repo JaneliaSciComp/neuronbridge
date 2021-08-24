@@ -52,9 +52,6 @@ export default function UnifiedSearch() {
       });
     }
 
-
-
-
     if ("precomputedDataRootPath" in appState.paths) {
       setByLineResults(null);
       setByBodyResults(null);
@@ -103,8 +100,8 @@ export default function UnifiedSearch() {
           const lineCombined = { results: [] };
           const bodyCombined = { results: [] };
 
-          const allItems =
-            items.names.sort((a,b) => {
+          const allItems = items.names
+            .sort((a, b) => {
               if (a.key === b.key) {
                 return 0;
               }
@@ -112,12 +109,17 @@ export default function UnifiedSearch() {
                 return -1;
               }
               return 1;
-            }).map(match => {
+            })
+            .map(match => {
               if (match.keyType === "publishingName") {
                 const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.key}.json`;
                 return Storage.get(byLineUrl, storageOptions)
                   .then(metaData => {
-                    return readMetaData(metaData, lineCombined, setByLineResults);
+                    return readMetaData(
+                      metaData,
+                      lineCombined,
+                      setByLineResults
+                    );
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -131,7 +133,11 @@ export default function UnifiedSearch() {
                 const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.key}.json`;
                 return Storage.get(byBodyUrl, storageOptions)
                   .then(metaData => {
-                    return readMetaData(metaData, bodyCombined, setByBodyResults);
+                    return readMetaData(
+                      metaData,
+                      bodyCombined,
+                      setByBodyResults
+                    );
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -141,12 +147,19 @@ export default function UnifiedSearch() {
                     setByBodyResults(bodyCombined);
                   });
               }
-              if (match.keyType === "neuronInstance" || match.keyType === "neuronType") {
+              if (
+                match.keyType === "neuronInstance" ||
+                match.keyType === "neuronType"
+              ) {
                 return match.bodyIDs.map(bodyID => {
                   const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${bodyID}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
                     .then(metaData => {
-                      return readMetaData(metaData, bodyCombined, setByBodyResults);
+                      return readMetaData(
+                        metaData,
+                        bodyCombined,
+                        setByBodyResults
+                      );
                     })
                     .catch(error => {
                       if (error === "No credentials") {
@@ -176,7 +189,6 @@ export default function UnifiedSearch() {
             }
             setLineLoading(false);
             setBodyLoading(false);
-
           });
         });
       });
@@ -188,7 +200,7 @@ export default function UnifiedSearch() {
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm && <NoSearch />}
       {(lineLoading || bodyLoading) && <p>loading...</p>}
-      {(byLineResult && byBodyResult && !lineLoading && !bodyLoading) && (
+      {byLineResult && byBodyResult && !lineLoading && !bodyLoading && (
         <UnifiedSearchResults
           searchTerm={searchTerm}
           linesResult={byLineResult}
