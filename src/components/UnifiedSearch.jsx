@@ -22,33 +22,39 @@ export default function UnifiedSearch() {
   const [bodyLoading, setBodyLoading] = useState(false);
   const [appState] = useContext(AppContext);
 
-  function fixUrlResults(newResults) {
-     return newResults.results.map(result => {
-       const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-       const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-       return {
-         ...result,
-         imageURL: fullImageUrl,
-         thumbnailURL: fullThumbUrl
-       };
-     });
-  }
-
-  function readMetaData(metaData, combinedResults, setResults) {
-    // We can't use metaData.Body.text() here as it is not supported in safari
-    const fr = new FileReader();
-    fr.onload = evt => {
-      const text = evt.target.result;
-      const newResults = JSON.parse(text);
-      // convert stored relative urls into the full path urls.
-      const urlFixedResults = fixUrlResults(newResults);
-      combinedResults.results.push(...urlFixedResults);
-      setResults({ ...combinedResults });
-    };
-    fr.readAsText(metaData.Body);
-  }
-
   useEffect(() => {
+    function fixUrlResults(newResults) {
+      return newResults.results.map(result => {
+        const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+        const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+        return {
+          ...result,
+          imageURL: fullImageUrl,
+          thumbnailURL: fullThumbUrl
+        };
+      });
+    }
+
+    function readMetaData(metaData, combinedResults, setResults) {
+      return new Promise((resolve, reject) => {
+        // We can't use metaData.Body.text() here as it is not supported in safari
+        const fr = new FileReader();
+        fr.onload = evt => {
+          const text = evt.target.result;
+          const newResults = JSON.parse(text);
+          // convert stored relative urls into the full path urls.
+          const urlFixedResults = fixUrlResults(newResults);
+          combinedResults.results.push(...urlFixedResults);
+          resolve(setResults({ ...combinedResults }));
+        };
+        fr.onerror = reject;
+        fr.readAsText(metaData.Body);
+      });
+    }
+
+
+
+
     if ("precomputedDataRootPath" in appState.paths) {
       setByLineResults(null);
       setByBodyResults(null);
@@ -58,6 +64,8 @@ export default function UnifiedSearch() {
         return;
       }
 
+      // don't let people search with strings shorter than 3 characters.
+      // This returns too many results.
       if (searchTerm.length < 3) {
         message.error("Searches must have a minimum of 3 characters.");
         setByLineResults({
@@ -109,7 +117,7 @@ export default function UnifiedSearch() {
                 const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.key}.json`;
                 return Storage.get(byLineUrl, storageOptions)
                   .then(metaData => {
-                    readMetaData(metaData, lineCombined, setByLineResults);
+                    return readMetaData(metaData, lineCombined, setByLineResults);
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -123,7 +131,7 @@ export default function UnifiedSearch() {
                 const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.key}.json`;
                 return Storage.get(byBodyUrl, storageOptions)
                   .then(metaData => {
-                    readMetaData(metaData, bodyCombined, setByBodyResults);
+                    return readMetaData(metaData, bodyCombined, setByBodyResults);
                   })
                   .catch(error => {
                     if (error === "No credentials") {
@@ -138,7 +146,7 @@ export default function UnifiedSearch() {
                   const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${bodyID}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
                     .then(metaData => {
-                      readMetaData(metaData, bodyCombined, setByBodyResults);
+                      return readMetaData(metaData, bodyCombined, setByBodyResults);
                     })
                     .catch(error => {
                       if (error === "No credentials") {
@@ -153,6 +161,8 @@ export default function UnifiedSearch() {
               return Promise.resolve();
             });
 
+          // switch this line to Promise.any if you want the items to load in
+          // to the page as they complete.
           const allPromisses = Promise.all(allItems.flat());
 
           // once all the items have loaded, we can clean up.
@@ -178,7 +188,7 @@ export default function UnifiedSearch() {
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm && <NoSearch />}
       {(lineLoading || bodyLoading) && <p>loading...</p>}
-      {byLineResult && byBodyResult && (
+      {(byLineResult && byBodyResult && !lineLoading && !bodyLoading) && (
         <UnifiedSearchResults
           searchTerm={searchTerm}
           linesResult={byLineResult}
