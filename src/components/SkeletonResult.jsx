@@ -21,10 +21,10 @@ export default function SkeletonResult(props) {
           title={metaInfo.publishedName}
         />
       </Col>
-      <Col md={8}>
+      <Col md={9}>
         <SkeletonMeta attributes={metaInfo} />
       </Col>
-      <Col md={6}>
+      <Col md={5}>
         <Space direction="vertical">
           <Button
             aria-label="View Color Depth MIP Results"

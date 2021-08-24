@@ -20,10 +20,10 @@ export default function LineResult(props) {
           title={metaInfo.publishedName}
         />
       </Col>
-      <Col md={10}>
+      <Col md={9}>
         <LineMeta attributes={metaInfo} />
       </Col>
-      <Col md={4}>
+      <Col md={5}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
           <Link to={matchesUrl}>View EM Matches</Link>
         </Button>

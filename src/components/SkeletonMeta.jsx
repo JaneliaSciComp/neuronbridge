@@ -18,51 +18,59 @@ export default function SkeletonMeta({ attributes }) {
 
   return (
     <Row>
-      <Col md={24} lg={12}>
+      <Col xs={24} lg={12}>
         <p>
           <b>Body Id:</b>
+          <br />
           <Link to={searchUrl}>{publishedName}</Link>
         </p>
         {attributes.normalizedScore ? (
           <p>
-            <b>Score:</b> {Math.round(attributes.normalizedScore)}
+            <b>Score:</b>
+            <br /> {Math.round(attributes.normalizedScore)}
           </p>
         ) : (
           ""
         )}
         {attributes.matchingPixels ? (
           <p>
-            <b>Matched Pixels:</b> {Math.round(attributes.matchingPixels)}
+            <b>Matched Pixels:</b>
+            <br /> {Math.round(attributes.matchingPixels)}
           </p>
         ) : (
           ""
         )}
         {attributes.pppScore ? (
           <p>
-            <b>Score:</b> {Math.round(attributes.pppScore)}
+            <b>Score:</b>
+            <br /> {Math.round(attributes.pppScore)}
           </p>
         ) : (
           ""
         )}
         {attributes.pppRank ? (
           <p>
-            <b>Rank:</b> {Math.round(attributes.pppRank)}
+            <b>Rank:</b>
+            <br /> {Math.round(attributes.pppRank)}
           </p>
         ) : (
           ""
         )}
         <p>
-          <b>Neuron Type / Instance: </b> {neuronTypeAndInstance}
+          <b>Neuron Type / Instance: </b>
+          <br /> {neuronTypeAndInstance}
         </p>
         <p>
           <b>Library: </b>
+          <br />
           <LibraryFormatter type={libraryName} />
         </p>
-        <p>
-          <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
-        </p>
       </Col>
-      <Col md={24} lg={12}>
+      <Col xs={24} lg={12}>
+        <p>
+          <b>Gender:</b>
+          <br /> {attributes.gender === "f" ? "Female" : "Male"}
+        </p>
         <p>
           <b>Links:</b>
           <br />
