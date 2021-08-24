@@ -180,6 +180,16 @@ export default function UnifiedSearch() {
 
           // once all the items have loaded, we can clean up.
           allPromisses.then(() => {
+            // remove duplicates from the combined results. This can happen if we are
+            // loading data from a partial neurontype string, eg: WED01
+            if (bodyCombined.results.length > 1) {
+              const ids = bodyCombined.results.map(result => result.id);
+              bodyCombined.results = bodyCombined.results.filter(
+                ({ id }, index) => !ids.includes(id, index + 1)
+              );
+              setByBodyResults(bodyCombined);
+            }
+
             if (lineCombined.results.length === 0) {
               setByLineResults({ results: [] });
             }
