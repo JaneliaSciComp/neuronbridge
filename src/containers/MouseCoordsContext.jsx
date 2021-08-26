@@ -9,7 +9,7 @@ function coordsReducer(state, action) {
       return { ...state, position: action.payload };
     }
     case "clear": {
-      return { ...state, position: [0,0] };
+      return { ...state, position: [0, 0] };
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -18,20 +18,23 @@ function coordsReducer(state, action) {
 }
 
 function CoordsProvider({ children }) {
-  const [state, dispatch] = React.useReducer(coordsReducer, { position: [0,0] });
+  const [state, dispatch] = React.useReducer(coordsReducer, {
+    position: [0, 0]
+  });
   const value = { state, dispatch };
   return (
-    <MouseCoordsContext.Provider value={value}>{children}</MouseCoordsContext.Provider>
+    <MouseCoordsContext.Provider value={value}>
+      {children}
+    </MouseCoordsContext.Provider>
   );
 }
-
 
 CoordsProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired
-}
+};
 
 function useCoords() {
   const context = React.useContext(MouseCoordsContext);
