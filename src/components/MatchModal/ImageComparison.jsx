@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
-import { Row, Col, Input, Divider } from "antd";
+import { Row, Col, Select, Divider } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import config from "../../config";
 import ImageSelection from "./ImageSelection";
@@ -10,6 +10,8 @@ import { useQuery } from "../../libs/hooksLib";
 import { CoordsProvider } from "../../containers/MouseCoordsContext";
 
 import "./ImageComparison.css";
+
+const { Option } = Select;
 
 function createMatchImagePath(match) {
   if (match.imageName) {
@@ -135,10 +137,7 @@ export default function ImageComparison(props) {
 
   const urlImageCount = parseInt(query.get("ci"), 10);
 
-  const updatedCount =
-    urlImageCount ||
-    storedCounts[searchType] ||
-    (isPPP ? 4 : 2);
+  const updatedCount = urlImageCount || storedCounts[searchType];
 
   if (Number.isNaN(urlImageCount)) {
     query.set("ci", updatedCount);
@@ -146,18 +145,18 @@ export default function ImageComparison(props) {
     history.replace(location);
   }
 
-
-
   function setCompCount(count) {
     // update localStorage
-    storedCounts[searchType] = count
+    storedCounts[searchType] = count;
     setPermanent({
       comparisonCount: storedCounts
     });
-    // update the url
-    query.set("ci", count);
-    location.search = query.toString();
-    history.replace(location);
+    if (count > 0) {
+      // update the url
+      query.set("ci", count);
+      location.search = query.toString();
+      history.replace(location);
+    }
   }
 
   const { imageChoices } = appState;
@@ -176,8 +175,8 @@ export default function ImageComparison(props) {
     canMask: true
   });
 
-  const handleImageCount = event => {
-    let imageCount = parseInt(event.target.value, 10);
+  const handleImageCount = newCount => {
+    let imageCount = parseInt(newCount, 10);
     imageCount = Math.max(minComparisons, imageCount);
     imageCount = Math.min(maxComparisons, imageCount);
     setCompCount(imageCount);
@@ -214,8 +213,10 @@ export default function ImageComparison(props) {
     history.replace(location);
   }
 
-  const images = updatedCount
-    ? [...Array(updatedCount)].map((_, index) => {
+  const imageCount = updatedCount || (isPPP ? 4 : 2);
+
+  const images = imageCount
+    ? [...Array(imageCount)].map((_, index) => {
         const key = `Image${index}`;
         const chosenImage = parseInt(urlImageChoices[index] || 0, 10);
         return (
@@ -233,21 +234,26 @@ export default function ImageComparison(props) {
       })
     : "";
 
+  const selectOptions = [...Array(maxComparisons)].map((_, index) => {
+    const key = `${index}option`;
+    return <Option key={key} value={index + 1}>{index + 1}</Option>;
+  });
+
   /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>
       <label htmlFor="cImages">
         Images for Comparison ({minComparisons} - {maxComparisons})
       </label>
-      <Input
+      <Select
         name="cImages"
         id="cImages"
-        type="number"
         style={{ width: "4em", marginLeft: "1em" }}
         value={updatedCount || ""}
-        maxLength={1}
-        onChange={handleImageCount}
-      />
+        onSelect={handleImageCount}
+      >
+        {selectOptions}
+      </Select>
       <Divider />
       <Row gutter={16}>
         <CoordsProvider>{images}</CoordsProvider>
