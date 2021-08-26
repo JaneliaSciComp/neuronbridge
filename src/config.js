@@ -1,6 +1,8 @@
 import { Auth } from "aws-amplify";
 
-const validLevels = ["prod", "val", "dev", "int"];
+const validDataEnvs = ["prod", "val", "dev", "int"];
+
+const validLevels = ["prod", "val", "dev", "int", "cgdev"];
 
 const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 
@@ -8,7 +10,7 @@ const dataLevel =
   process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
 
 let BUCKET_NAME = "janelia-neuronbridge-data-prod";
-if (validLevels.includes(dataLevel)) {
+if (validDataEnvs.includes(dataLevel)) {
   BUCKET_NAME = `janelia-neuronbridge-data-${dataLevel}`;
 }
 
@@ -21,7 +23,7 @@ if (validLevels.includes(searchLevel)) {
 }
 
 let CDM_BUCKET = "janelia-flylight-color-depth";
-if (process.env.REACT_APP_LEVEL === 'dev') {
+if (dataLevel === 'dev') {
   CDM_BUCKET = "janelia-flylight-color-depth-dev";
 }
 

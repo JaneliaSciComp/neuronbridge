@@ -101,8 +101,11 @@
     "deploy:val": "npm run test && REACT_APP_LEVEL=val sls client build --stage val && sls client deploy --stage val",
     "deploy:prod": "npm run test && REACT_APP_LEVEL=prod sls client build --stage prod && sls client deploy --stage prod",
     "deploy:int": "npm run test && REACT_APP_LEVEL=int sls client build --stage int && sls client deploy --stage int",
+    "deploy:cgdev": "REACT_APP_DATA_TARGET=int REACT_APP_LEVEL=cgdev sls client build --stage cgdev && sls client deploy --stage cgdev",
     "storybook": "start-storybook  -s ./public -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "startNoEnv": "HTTPS=true SSL_CRT_FILE=./cert/server.cert SSL_CRT_KEY=./cert/server.key node scripts/start.js",
+    "sls": "sls"
   },
   "eslintConfig": {
     "extends": "react-app"

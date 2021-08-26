@@ -22,6 +22,17 @@ describe('config testing', () => {
     expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-dev");
   });
 
+  test('test REACT_APP_LEVEL = cgdev', () => {
+    process.env.REACT_APP_LEVEL = 'cgdev';
+    process.env.REACT_APP_DATA_TARGET = 'dev';
+    process.env.REACT_APP_SEARCH_LEVEL = null;
+    process.env.REACT_APP_SEARCH_ENDPOINT = null;
+    // eslint-disable-next-line
+    const config = require("../config").default;
+    expect(config.SEARCH_BUCKET).toEqual("janelia-neuronbridge-searches-cgdev");
+    expect(config.s3.BUCKET).toEqual("janelia-neuronbridge-data-dev");
+  });
+
   test('test REACT_APP_LEVEL = val', () => {
     process.env.REACT_APP_LEVEL = 'val';
     process.env.REACT_APP_DATA_TARGET = null;
