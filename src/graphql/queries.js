@@ -11,6 +11,7 @@ export const getSearch = /* GraphQL */ `
       searchDir
       searchMask
       errorMessage
+      alignmentErrorMessage
       step
       anatomicalRegion
       algorithm
@@ -44,6 +45,7 @@ export const listSearches = /* GraphQL */ `
         searchDir
         searchMask
         errorMessage
+        alignmentErrorMessage
 				cdsStarted
 				cdsFinished
         step
