@@ -70,7 +70,7 @@ export default function SearchList({ searches }) {
             <Col span={24} style={{ marginTop: "1em" }}>
               <SearchSteps search={search} />
               {search.step === 1 && !search.errorMessage && <AlignmentWarning />}
-              <ErrorMessage error={search.errorMessage} />
+              <ErrorMessage error={search.alignmentErrorMessage || search.errorMessage} />
             </Col>
           </Row>
           <Divider style={{margin: '0.2em 0 1em 0'}}/>
