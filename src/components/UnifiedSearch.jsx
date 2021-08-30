@@ -23,19 +23,21 @@ export default function UnifiedSearch() {
   const [appState] = useContext(AppContext);
 
   useEffect(() => {
-    function fixUrlResults(newResults) {
+    function fixUrlResults(newResults, match) {
       return newResults.results.map(result => {
         const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
         const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
         return {
           ...result,
           imageURL: fullImageUrl,
-          thumbnailURL: fullThumbUrl
+          thumbnailURL: fullThumbUrl,
+          cdm: match.cdm,
+          ppp: match.ppp
         };
       });
     }
 
-    function readMetaData(metaData, combinedResults, setResults) {
+    function readMetaData(metaData, combinedResults, setResults, match) {
       return new Promise((resolve, reject) => {
         // We can't use metaData.Body.text() here as it is not supported in safari
         const fr = new FileReader();
@@ -43,7 +45,7 @@ export default function UnifiedSearch() {
           const text = evt.target.result;
           const newResults = JSON.parse(text);
           // convert stored relative urls into the full path urls.
-          const urlFixedResults = fixUrlResults(newResults);
+          const urlFixedResults = fixUrlResults(newResults, match);
           combinedResults.results.push(...urlFixedResults);
           resolve(setResults({ ...combinedResults }));
         };
@@ -118,7 +120,8 @@ export default function UnifiedSearch() {
                     return readMetaData(
                       metaData,
                       lineCombined,
-                      setByLineResults
+                      setByLineResults,
+                      match
                     );
                   })
                   .catch(error => {
@@ -136,7 +139,8 @@ export default function UnifiedSearch() {
                     return readMetaData(
                       metaData,
                       bodyCombined,
-                      setByBodyResults
+                      setByBodyResults,
+                      match
                     );
                   })
                   .catch(error => {
@@ -158,7 +162,8 @@ export default function UnifiedSearch() {
                       return readMetaData(
                         metaData,
                         bodyCombined,
-                        setByBodyResults
+                        setByBodyResults,
+                        match
                       );
                     })
                     .catch(error => {
