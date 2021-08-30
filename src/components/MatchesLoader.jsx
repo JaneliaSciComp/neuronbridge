@@ -48,6 +48,9 @@ export default function MatchesLoader({ searchResult, searchType }) {
             setLoading(false);
           };
           fr.readAsText(response.Body);
+        }).catch(() => {
+          message.error("Unable to load matches from the server");
+          setLoading(false);
         });
       }).catch(() => {
         message.error("Unable to load matches from the server");
@@ -74,7 +77,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
 
   matchInput.precomputed = true;
 
-  const matches = matchMeta ? (
+  const matches = matchMeta && !isLoading ? (
     <Matches
       input={matchInput}
       searchType={searchType}
@@ -82,7 +85,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
       precomputed
     />
   ) : (
-    <Spin size="large" />
+    <p>No matches Found</p>
   );
 
   return (
