@@ -11,10 +11,10 @@ export default function SkeletonMeta({ attributes }) {
 
   const searchUrl = `/search?q=${publishedName}`;
 
-  const neuronTypeAndInstance = [
+  const neuronTypeAndInstance = (attributes.neuronType) ? [
     attributes.neuronType || "-",
     attributes.neuronInstance || "-"
-  ].join(" / ");
+  ].join(" / ") : "";
 
   return (
     <Row>
