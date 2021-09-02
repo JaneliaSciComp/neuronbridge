@@ -33,7 +33,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
-  const [appState, , setPermanent] = useContext(AppContext);
+  const [appState, setPermanent] = useContext(AppContext);
 
   const sortType = query.get("fisort") || 1;
 
@@ -162,6 +162,19 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     } else {
       fullList = matches.results
         .filter(result => !excludedLibs.includes(result.libraryName))
+        .map(result => {
+          const fullImageUrl = result.imageURL.startsWith("https://") 
+            ? result.imageURL
+            :  `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+          const fullThumbUrl = result.thumbnailURL.startsWith("https://")
+            ? result.thumbnailURL
+            :  `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+          return {
+            ...result,
+            imageURL: fullImageUrl,
+            thumbnailURL: fullThumbUrl
+          }
+        })
         .sort(sortByScoreOrAlt);
 
       matches.results.forEach(line => {
