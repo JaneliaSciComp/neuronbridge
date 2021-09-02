@@ -46,6 +46,7 @@ export const listSearches = /* GraphQL */ `
         searchMask
         errorMessage
         alignmentErrorMessage
+        anatomicalRegion
 				cdsStarted
 				cdsFinished
         step

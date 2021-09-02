@@ -55,10 +55,14 @@ export default function MaskSelectionStep({ search, state }) {
       </Link>
     );
   } else if (state === "complete") {
+    const imgClass =
+      (search.anatomicalRegion && search.anatomicalRegion === "vnc")
+        ? "verticalThumbnail"
+        : "completeThumbnail";
     content = (
       <>
-        <img className="completeThumbnail" src={maskUrl} alt={search.upload} />
-        <br/>
+        <img className={imgClass} src={maskUrl} alt={search.upload} />
+        <br />
         <Button
           style={{ marginTop: "0.5em", width: "150px" }}
           loading={isCopying}
