@@ -47,11 +47,11 @@ export default function SearchUploadMeta({
         searchDir: uploadedFile.filename,
         upload: uploadedFile.file.name,
         mimeType: values.mimetype,
-        simulateMIPGeneration: fakeMips
+        simulateMIPGeneration: fakeMips,
+        anatomicalRegion: values.anatomicalregion
       };
 
       if (!isAligned) {
-        searchDetails.anatomicalRegion = values.anatomicalregion;
         if (override) {
           searchDetails.userDefinedImageParams = true;
           searchDetails.voxelX = parseFloat(values.voxelxy);
