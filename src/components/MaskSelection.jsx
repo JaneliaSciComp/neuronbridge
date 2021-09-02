@@ -143,6 +143,8 @@ export default function MaskSelection({ match }) {
       "Use your mouse to draw around the area you wish to search. This will create a mask by removing the contents of the image around the region you selected.";
   }
 
+  const anatomicalRegion = searchMeta ? searchMeta.anatomicalRegion : undefined;
+
   return (
     <div>
       <Title component="h2">Mask selection</Title>
@@ -154,7 +156,7 @@ export default function MaskSelection({ match }) {
         />
       ) : null}
       <Divider orientation="left">{dividerMessage}</Divider>
-      <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} />
+      <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} anatomicalRegion={anatomicalRegion} />
       <Divider />
       <Form
         labelCol={{ span: 8 }}

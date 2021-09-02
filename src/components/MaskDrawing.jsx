@@ -22,14 +22,21 @@ function getMousePos(evt) {
   ];
 }
 
+const alignedDimensions = {
+  brain: [1210,566,174],
+  vnc: [573,1119,219]
+};
+
 const img = new Image();
 
-export default function MaskDrawing({ imgSrc, onMaskChange }) {
+export default function MaskDrawing({ imgSrc, onMaskChange, signImage, anatomicalRegion }) {
   const [isDrawing, setDrawing] = useState(false);
   const canvasRef = useRef(null);
   const [pathStart, setPathStart] = useState([]);
   const [signedImgSrc, setSignedImgSrc] = useState(null);
   const [maskDrawn, setMaskDrawn] = useState(false);
+
+  const [imgWidth, imgHeight] = alignedDimensions[anatomicalRegion || 'brain'];
 
   const handleClearMask = () => {
     if (canvasRef.current) {
@@ -44,11 +51,15 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
 
   useEffect(() => {
     if (imgSrc) {
-      signedLink(imgSrc).then(signed => {
-        setSignedImgSrc(signed);
-      });
+      if (signImage) {
+        signedLink(imgSrc).then(signed => {
+          setSignedImgSrc(signed);
+        });
+      } else {
+        setSignedImgSrc(imgSrc);
+      }
     }
-  }, [imgSrc]);
+  }, [imgSrc, signImage]);
 
   useEffect(() => {
     // fetch the input image and save it to the state
@@ -60,21 +71,25 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
         ctx.closePath();
       }
 
-      // horrible hack to get canvas and cross origin images working. We can't
-      // load the image by placing an unsinged url in the img.src attribute, because
-      // AWS wont respond. We also can't use a signed url, and the
-      // img.crossorigin='anonymous' attribute, because AWS doesn't send back the
-      // correct CORS headers. So we have to download the image as a blob, generate
-      // an object url and then save that to the image in order to get past all the
-      // fucking security measures.
-      Storage.get(imgSrc, storageOptions).then(result => {
-        const objUrl = URL.createObjectURL(result.Body);
-        img.src = objUrl;
-      });
 
-      img.crossOrigin = "anonymous";
+      if (signImage) {
+        // horrible hack to get canvas and cross origin images working. We can't
+        // load the image by placing an unsinged url in the img.src attribute, because
+        // AWS wont respond. We also can't use a signed url, and the
+        // img.crossorigin='anonymous' attribute, because AWS doesn't send back the
+        // correct CORS headers. So we have to download the image as a blob, generate
+        // an object url and then save that to the image in order to get past all the
+        // fucking security measures.
+        Storage.get(imgSrc, storageOptions).then(result => {
+          const objUrl = URL.createObjectURL(result.Body);
+          img.src = objUrl;
+        });
+        img.crossOrigin = "anonymous";
+      } else {
+        img.src = imgSrc;
+      }
     }
-  }, [imgSrc]);
+  }, [imgSrc, signImage]);
 
   if (!imgSrc) {
     return (
@@ -95,7 +110,9 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.clip();
-    ctx.drawImage(img, 0, 0);
+    // the first 4 parameters in drawImage make sure the original image is copied in full
+    // and the second set of 4 make sure that it is scaled to fit our alignment template.
+    ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.restore();
     canvasRef.current.toBlob(data => onMaskChange(data));
   };
@@ -156,13 +173,13 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
             left: 0,
             top: 0,
             zIndex: 1,
-            width: 1210,
-            height: 566
+            width: imgWidth,
+            height: imgHeight
           }}
-          width={1210}
-          height={566}
+          width={imgWidth}
+          height={imgHeight}
         />
-        <img src={signedImgSrc} alt="desaturated color depth mip placeholder" />
+        <img src={signedImgSrc} alt="uploaded sample" width={imgWidth} height={imgHeight} />
       </div>
       <Button type="primary" disabled={!maskDrawn} onClick={handleClearMask}>
         Clear Mask
@@ -173,9 +190,13 @@ export default function MaskDrawing({ imgSrc, onMaskChange }) {
 
 MaskDrawing.propTypes = {
   imgSrc: PropTypes.string,
-  onMaskChange: PropTypes.func.isRequired
+  onMaskChange: PropTypes.func.isRequired,
+  signImage: PropTypes.bool,
+  anatomicalRegion: PropTypes.oneOf(Object.keys(alignedDimensions)),
 };
 
 MaskDrawing.defaultProps = {
-  imgSrc: null
+  imgSrc: null,
+  signImage: true,
+  anatomicalRegion: 'brain'
 };
