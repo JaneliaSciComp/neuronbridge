@@ -25,13 +25,13 @@ export default function ViewIn3D(props) {
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
-        <a href="/"> {mask.publishedName}.h5j </a> (mask)
+          <a href="/"> {mask.publishedName}.h5j </a> (mask)
         </Paragraph>
       ) : (
         <Text type="danger">
           <FileExclamationOutlined style={fileIconStyles} /> We don&apos;t have
-          a 3D representation of your uploaded file. You will need to supply
-          one.
+          a 3D representation of your uploaded file. You will need to generate
+          one from your original imagery.
         </Text>
       )}
     </>
