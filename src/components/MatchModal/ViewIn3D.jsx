@@ -1,8 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Typography } from "antd";
+import FileImageOutlined from "@ant-design/icons/FileImageOutlined";
+import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
 
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
+
+const fileIconStyles = {
+  fontSize: "2em",
+  float: "left",
+  marginRight: "0.3em"
+};
 
 export default function ViewIn3D(props) {
   const { selectedMatch, mask } = props;
@@ -10,16 +18,21 @@ export default function ViewIn3D(props) {
   // else show download for h5j file. Do the same for the match
   const downloadLinks = (
     <>
-      <p>
-        Download the <a href="/">match 3d volume</a> .h5j for{" "}
-        {selectedMatch.publishedName}
-      </p>
+      <Paragraph>
+        <FileImageOutlined style={fileIconStyles} />{" "}
+        <a href="/"> {selectedMatch.publishedName}.h5j </a> (match)
+      </Paragraph>
       {mask.precomputed ? (
-        <p>
-        Download the <a href="/">mask 3d volume</a> for {mask.publishedName}{" "}
-        </p>
+        <Paragraph>
+          <FileImageOutlined style={fileIconStyles} />{" "}
+        <a href="/"> {mask.publishedName}.h5j </a> (mask)
+        </Paragraph>
       ) : (
-        <Text type="danger">We don&apos;t have a 3D representation of your uploaded file. You will need to supply one.</Text>
+        <Text type="danger">
+          <FileExclamationOutlined style={fileIconStyles} /> We don&apos;t have
+          a 3D representation of your uploaded file. You will need to supply
+          one.
+        </Text>
       )}
     </>
   );
@@ -36,9 +49,6 @@ export default function ViewIn3D(props) {
           <Title level={3} style={{ textDecoration: "underline" }}>
             Download the 3D volumes
           </Title>
-          <Text mark>
-            Zip file with both files in it? - will require download lambda
-          </Text>
           {downloadLinks}
         </Col>
         <Col sm={24} md={12}>
