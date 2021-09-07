@@ -184,7 +184,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       return (
         <React.Fragment key={key}>
           <MatchSummary
-            library={input.libraryName}
+            library={input.libraryName || "unknown"}
             match={result}
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
