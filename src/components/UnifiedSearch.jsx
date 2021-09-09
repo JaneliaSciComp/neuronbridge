@@ -104,17 +104,17 @@ export default function UnifiedSearch() {
 
           const allItems = items.names
             .sort((a, b) => {
-              if (a.key === b.key) {
+              if (a.searchKey === b.searchKey) {
                 return 0;
               }
-              if (a.key < b.key) {
+              if (a.searchKey < b.searchKey) {
                 return -1;
               }
               return 1;
             })
             .map(match => {
               if (match.keyType === "publishingName") {
-                const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.key}.json`;
+                const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.name}.json`;
                 return Storage.get(byLineUrl, storageOptions)
                   .then(metaData => {
                     return readMetaData(
@@ -133,7 +133,7 @@ export default function UnifiedSearch() {
                   });
               }
               if (match.keyType === "bodyID") {
-                const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.key}.json`;
+                const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.name}.json`;
                 return Storage.get(byBodyUrl, storageOptions)
                   .then(metaData => {
                     return readMetaData(
@@ -175,7 +175,6 @@ export default function UnifiedSearch() {
                     });
                 });
               }
-              console.log(match.keyType, match);
               return Promise.resolve();
             });
 
