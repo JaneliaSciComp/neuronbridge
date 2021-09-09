@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button } from "antd";
 import PropTypes from "prop-types";
 import "./ImageWithModal.css";
+import { signedPublicLink } from "../libs/awsLib";
 
 export default function ImageWithModal(props) {
   const { thumbSrc, src, title, showModal } = props;
   const [modalOpen, setModalOpen] = useState(false);
+  const [signedSrc, setSignedSrc] = useState();
+  const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
+
+
+  useEffect(() => {
+    signedPublicLink(thumbSrc).then(signed => {
+      setSignedThumbnailSrc(signed);
+    });
+    signedPublicLink(src).then(signed => {
+      setSignedSrc(signed);
+    });
+  },[thumbSrc, src]);
 
   if (showModal) {
     return (
       <Button className="modalButton" onClick={showModal}>
-        <img className="thumbnail" src={thumbSrc} alt={title} style={{width: "100%"}} />
+        <img className="thumbnail" src={signedThumbnailSrc} alt={title} style={{width: "100%"}} />
       </Button>
     );
   }
@@ -18,7 +31,7 @@ export default function ImageWithModal(props) {
   return (
     <>
       <Button className="modalButton" onClick={() => setModalOpen(true)}>
-        <img className="thumbnail" src={thumbSrc} alt={title} />
+        <img className="thumbnail" src={signedThumbnailSrc} alt={title} />
       </Button>
       <Modal
         visible={modalOpen}
@@ -31,7 +44,7 @@ export default function ImageWithModal(props) {
         ]}
       >
         <p>{title}</p>
-        <img src={src} alt={title} />
+        <img src={signedSrc} alt={title} />
       </Modal>
     </>
   );
