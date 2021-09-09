@@ -20,6 +20,7 @@ export const onCreateSearch = /* GraphQL */ `
       step
       updatedOn
       createdOn
+      anatomicalRegion
     }
   }
 `;
@@ -50,6 +51,7 @@ export const onUpdateSearch = /* GraphQL */ `
       step
       updatedOn
       createdOn
+      anatomicalRegion
     }
   }
 `;

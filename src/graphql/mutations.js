@@ -15,6 +15,7 @@ export const createSearch = /* GraphQL */ `
       step
       createdOn
       updatedOn
+      anatomicalRegion
     }
   }
 `;
@@ -42,6 +43,7 @@ export const updateSearch = /* GraphQL */ `
       searchMask
       createdOn
       updatedOn
+      anatomicalRegion
     }
   }
 `;
