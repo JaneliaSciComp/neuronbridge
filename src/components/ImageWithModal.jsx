@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Skeleton } from "antd";
 import PropTypes from "prop-types";
 import "./ImageWithModal.css";
 import { signedPublicLink } from "../libs/awsLib";
@@ -19,6 +19,10 @@ export default function ImageWithModal(props) {
       setSignedSrc(signed);
     });
   },[thumbSrc, src]);
+
+  if (!signedSrc || !signedThumbnailSrc) {
+    return (<Skeleton.Image size="large"/>);
+  }
 
   if (showModal) {
     return (
