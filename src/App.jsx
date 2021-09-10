@@ -49,7 +49,7 @@ export default function App() {
           setAppState({ ...appState, username: email });
         }
       } catch (e) {
-        if (! /not authenticated/.test(e)) {
+        if (!/not authenticated/.test(e)) {
           message.error("Loading error:", e);
         }
       }
@@ -70,7 +70,7 @@ export default function App() {
       // cache control header to prevent aggressive caching of the
       // paths.json file, so that the updated version on a release is
       // used as soon as possible.
-      cacheControl: 'no-cache'
+      cacheControl: "no-cache"
     };
 
     if (isAuthenticated) {
@@ -89,9 +89,9 @@ export default function App() {
     }
   }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (isAuthenticating) {
+  /*  if (isAuthenticating) {
     return <p>Loading</p>;
-  }
+  } */
 
   const searchEnpoints = config.api.endpoints.map(endpoint => (
     <p key={endpoint.name}>
@@ -160,13 +160,19 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
-          <SiteSurvey />
-          <LoggedInAs username={appState.username} />
-          <Routes
-            appProps={{
-              isAuthenticated
-            }}
-          />
+          {isAuthenticating ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              <SiteSurvey />
+              <LoggedInAs username={appState.username} />
+              <Routes
+                appProps={{
+                  isAuthenticated
+                }}
+              />
+            </>
+          )}
         </div>
       </Content>
       <Footer style={{ textAlign: "center", position: "relative" }}>
@@ -197,7 +203,7 @@ export default function App() {
           <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
             <img
               alt="Creative Commons License"
-              style={{borderWidth:0}}
+              style={{ borderWidth: 0 }}
               src="https://i.creativecommons.org/l/by/4.0/88x31.png"
             />
           </a>
