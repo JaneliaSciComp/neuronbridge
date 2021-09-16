@@ -80,11 +80,6 @@ export default {
     apiKey: "oexu5gsgl5g5vcaah6q4nl7gui"
   },
   releasenotes: {
-    NEURONBRIDGE: {
-      title: "NeuronBridge",
-      url:
-        "https://raw.githubusercontent.com/JaneliaSciComp/open-data-flylight/master/janelia-flylight-color-depth/README.md"
-    },
     DATA: {
       title: "Precomputed match data",
       url:
