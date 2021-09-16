@@ -121,7 +121,7 @@ export default function ImageComparison(props) {
   const location = useLocation();
   const history = useHistory();
 
-  const [appState, setPermanent] = useContext(AppContext);
+  const [appState, ,setPermanent] = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
 
   const searchType =

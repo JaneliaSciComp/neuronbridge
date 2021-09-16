@@ -33,7 +33,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
-  const [appState, setPermanent] = useContext(AppContext);
+  const [appState, , setPermanent] = useContext(AppContext);
 
   const sortType = query.get("fisort") || 1;
 
