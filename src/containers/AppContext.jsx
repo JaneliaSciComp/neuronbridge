@@ -36,6 +36,7 @@ const AppProvider = ({children}) => {
     setState({ ...state, ...action });
   }
 
+  // TODO: convert the value returned from an [] to an {}.
   return (
     <AppContext.Provider value={[state, setState, setPermanent]}>
         {children}
