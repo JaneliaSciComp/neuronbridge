@@ -161,8 +161,6 @@ export default function ImageComparison(props) {
 
   const { imageChoices } = appState;
 
-  const maxComparisons = isPPP ? 6 : 4;
-  const minComparisons = 1;
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
@@ -174,6 +172,10 @@ export default function ImageComparison(props) {
     path: mask.imageURL,
     canMask: true
   });
+
+  const maxComparisons = imageOptions.length;
+  const defaultComparisons = (isPPP ? 4 : 2);
+  const minComparisons = 1;
 
   const handleImageCount = newCount => {
     let imageCount = parseInt(newCount, 10);
@@ -213,24 +215,28 @@ export default function ImageComparison(props) {
     history.replace(location);
   }
 
-  const imageCount = updatedCount || (isPPP ? 4 : 2);
+  const imageCount = updatedCount || defaultComparisons;
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
         const key = `Image${index}`;
-        const chosenImage = parseInt(urlImageChoices[index] || 0, 10);
-        return (
-          <Col key={key} md={updatedCount <= 1 ? 24 : 12}>
-            <ImageSelection
-              imageOptions={imageOptions}
-              meta={match}
-              index={index}
-              setIsCopying={setIsCopying}
-              isCopying={isCopying}
-              chosenImage={imageOptions[chosenImage]}
-            />
-          </Col>
-        );
+        const chosenImageId = parseInt(urlImageChoices[index] || 0, 10);
+        const chosenImage = imageOptions[chosenImageId];
+        if (chosenImage) {
+          return (
+            <Col key={key} md={updatedCount <= 1 ? 24 : 12}>
+              <ImageSelection
+                imageOptions={imageOptions}
+                meta={match}
+                index={index}
+                setIsCopying={setIsCopying}
+                isCopying={isCopying}
+                chosenImage={chosenImage}
+              />
+            </Col>
+          );
+        }
+        return null;
       })
     : "";
 
