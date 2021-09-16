@@ -40,16 +40,19 @@ export function signedPublicLink(url) {
   );
   if (matched) {
     const [, bucket, relativePath] = matched;
-    const downloadOptions = {
-      customPrefix: {
-        public: ""
-      },
-      expires: 500,
-      level: "public",
-      bucket
-    };
+    // if we aren't skipping the signing, then sign it.
+    if (!config.skip_signing_buckets.includes(bucket)) {
+      const downloadOptions = {
+        customPrefix: {
+          public: ""
+        },
+        expires: 500,
+        level: "public",
+        bucket
+      };
 
-    return Storage.get(relativePath, downloadOptions).then(result => result);
+      return Storage.get(relativePath, downloadOptions).then(result => result);
+    }
   }
   return new Promise((resolve) => {
     resolve(url);
