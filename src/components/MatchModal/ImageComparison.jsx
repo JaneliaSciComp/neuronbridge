@@ -105,6 +105,7 @@ function getMatchImageOptions(isPPPM, match, library) {
       canMask: true
     }
   ];
+  /* TODO: uncomment this when the data is ready.
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.push({
       key: "expression",
@@ -112,7 +113,7 @@ function getMatchImageOptions(isPPPM, match, library) {
       path: "/expression_pattern.png",
       canMask: false
     });
-  }
+  } */
   return cdmOptions;
 }
 
