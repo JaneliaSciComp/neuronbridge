@@ -9,10 +9,11 @@ import {
 } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
-import { maskAndSearch } from "../../libs/awsLib";
+import { maskAndSearch, signedPublicLink } from "../../libs/awsLib";
 
-function toDataURL(url) {
-  return fetch(url).then((response) => {
+async function toDataURL(url) {
+  const signed = await signedPublicLink(url);
+  return fetch(signed,{credentials: 'include'}).then((response) => {
     return response.blob();
   }).then(blob => {
     return URL.createObjectURL(blob);
