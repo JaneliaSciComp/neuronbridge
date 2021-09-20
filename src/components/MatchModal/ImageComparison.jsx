@@ -127,8 +127,7 @@ export default function ImageComparison(props) {
   const [appState, ,setPermanent] = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
 
-  const searchType =
-    match.files && match.files.ColorDepthMipSkel ? "ppp" : "cdm";
+  const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
   const isPPP = searchType === "ppp";
 
   // start by looking for a value in the url query parameters,
