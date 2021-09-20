@@ -21,11 +21,11 @@ export default function MatchSummary(props) {
   const isPPP = Boolean(match.pppScore);
 
   useEffect(() => {
-    if (isPPP && match.files.ColorDepthMipSkel) {
+    if (isPPP && match.files?.ColorDepthMipSkel) {
       const url = createPPPMImagePath(
         match.alignmentSpace,
         library,
-        match.files.ColorDepthMip
+        match.files?.ColorDepthMip
       );
       signedPublicLink(url).then(signed => {
         setSignedSrc(signed);

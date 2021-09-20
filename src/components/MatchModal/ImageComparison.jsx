@@ -36,7 +36,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.ColorDepthMipSkel
+          match.files?.ColorDepthMipSkel
         ),
         canMask: true
       },
@@ -46,7 +46,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.SignalMipMasked
+          match.files?.SignalMipMasked
         ),
         canMask: false
       },
@@ -56,7 +56,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.SignalMipMaskedSkel
+          match.files?.SignalMipMaskedSkel
         ),
         canMask: false
       },
@@ -66,7 +66,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.ColorDepthMip
+          match.files?.ColorDepthMip
         ),
         canMask: true
       },
@@ -76,7 +76,7 @@ function getMatchImageOptions(isPPPM, match, library) {
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
-          match.files.SignalMip
+          match.files?.SignalMip
         ),
         canMask: false
       },
