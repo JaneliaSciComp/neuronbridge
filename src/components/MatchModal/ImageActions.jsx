@@ -13,7 +13,8 @@ import { maskAndSearch, signedPublicLink } from "../../libs/awsLib";
 
 async function toDataURL(url) {
   const signed = await signedPublicLink(url);
-  return fetch(signed,{credentials: 'include'}).then((response) => {
+  const options = (signed !== url) ? {credentials: 'include'} : {};
+  return fetch(signed, options).then((response) => {
     return response.blob();
   }).then(blob => {
     return URL.createObjectURL(blob);
