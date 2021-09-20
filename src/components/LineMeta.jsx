@@ -30,14 +30,14 @@ export default function LineMeta({ attributes }) {
         ) : (
           ""
         )}
-       {attributes.pppRank ? (
+       {attributes.pppRank !== undefined ? (
           <p>
             <b>Rank:</b> {Math.round(attributes.pppRank)}
           </p>
         ) : (
           ""
         )}
-       {attributes.pppScore ? (
+       {attributes.pppScore !== undefined ? (
           <p>
             <b>Score:</b> {Math.round(attributes.pppScore)}
           </p>
