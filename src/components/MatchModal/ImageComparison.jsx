@@ -20,9 +20,18 @@ function createMatchImagePath(match) {
     return `https://s3.amazonaws.com/${config.CDM_BUCKET}/${
       match.alignmentSpace
     }/${match.libraryName.replace(
-      " ",
+      /\s/g,
       "_"
     )}/searchable_neurons/pngs/${filename}.png`;
+  }
+  if (match.searchablePNG) {
+    // for precomputed searches.
+    return `https://s3.amazonaws.com/${config.CDM_BUCKET}/${
+      match.alignmentSpace
+    }/${match.libraryName.replace(
+      /\s/g,
+      "_"
+    )}/searchable_neurons/pngs/${match.searchablePNG}`;
   }
   return "/nopath.png";
 }
