@@ -1,4 +1,6 @@
 import { rest } from "msw";
+import data1537331894 from './1537331894.json';
+import metadata1537331894 from './1537331894_metadata.json';
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
@@ -10,6 +12,24 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+  rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json?x-id=GetObject",
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json(metadata1537331894)
+      );
+    }
+  ),
+  rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1537331894.json?x-id=GetObject",
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json(data1537331894)
+      );
+    }
+  ),
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1932493302.json",
     (req, res, ctx) => {
@@ -60,7 +80,7 @@ export const handlers = [
               id: "2426524251948318865",
               publishedName: "VT034811",
               libraryName: "Gen1 MCFO",
-              pppRank: 1,
+              pppRank: 3,
               pppScore: 124,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
               slideCode: "20170609_61_C5",
@@ -208,11 +228,11 @@ export const handlers = [
                 }
               ]
             },
-						{
+            {
               id: "2426524251948318864",
               publishedName: "VT034811",
               libraryName: "Gen1 MCFO",
-              pppRank: 2,
+              pppRank: 1,
               pppScore: 100,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
               slideCode: "20170609_61_C5",
@@ -360,11 +380,11 @@ export const handlers = [
                 }
               ]
             },
-						{
+            {
               id: "2426524251948328864",
               publishedName: "VT034812",
               libraryName: "Gen1 MCFO",
-              pppRank: 3,
+              pppRank: 2,
               pppScore: 200,
               sampleName: "BJD_121B01_AE_01-20170609_61_C5",
               slideCode: "20170609_61_C5",
