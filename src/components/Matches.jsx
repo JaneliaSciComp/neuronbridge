@@ -33,17 +33,19 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
+  const isPPP = (searchType === "ppp");
+
   const [appState, , setPermanent] = useContext(AppContext);
 
   const sortType = query.get("fisort") || 1;
 
   function sortByScoreOrAlt(a, b) {
-    if (searchType === "ppp") {
+    if (isPPP) {
       return a.pppRank - b.pppRank;
-    }
+    };
     if (sortType === "2") {
       return b.matchingPixels - a.matchingPixels;
-    }
+    };
     return b.normalizedScore - a.normalizedScore;
   }
 
@@ -119,17 +121,24 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       matches.results.forEach(result => {
         const { publishedName, libraryName } = result;
         let currentScore = result.normalizedScore;
-        if (searchType === "ppp") {
+        if (isPPP) {
           currentScore = result.pppRank;
         } else if (sortType === "2") {
           currentScore = result.matchingPixels;
         }
 
         if (publishedName in byLines) {
-          byLines[publishedName].score = Math.max(
-            parseInt(byLines[publishedName].score, 10),
-            currentScore
-          );
+          if (isPPP) {
+            byLines[publishedName].score = Math.min(
+              parseInt(byLines[publishedName].score, 10),
+              currentScore
+            );
+          } else {
+            byLines[publishedName].score = Math.max(
+              parseInt(byLines[publishedName].score, 10),
+              currentScore
+            );
+          }
           byLines[publishedName].channels.push(result);
         } else {
           byLines[publishedName] = {
