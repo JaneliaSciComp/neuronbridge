@@ -83,27 +83,36 @@ export default function MatchesLoader({ searchResult, searchType }) {
     result => result.id === matchId
   )[0];
 
-  matchInput.precomputed = true;
+  if (matchInput) {
+    matchInput.precomputed = true;
 
-  const matches = matchMeta && !isLoading ? (
-    <Matches
-      input={matchInput}
-      searchType={searchType}
-      matches={matchMeta}
-      precomputed
-    />
-  ) : (
-    <p>No matches Found</p>
-  );
+    const matches = matchMeta && !isLoading ? (
+      <Matches
+        input={matchInput}
+        searchType={searchType}
+        matches={matchMeta}
+        precomputed
+      />
+    ) : (
+      <p>No matches Found</p>
+    );
 
+    return (
+      <>
+        <h3>{searchType === "ppp" ? "PPPM" : "CDM"} Input Image</h3>
+        <SearchSummary type={searchType} input={matchInput} />
+        <MatchesProvider>{matches}</MatchesProvider>
+      </>
+    );
+  }
   return (
     <>
       <h3>{searchType === "ppp" ? "PPPM" : "CDM"} Input Image</h3>
-      <SearchSummary type={searchType} input={matchInput} />
       <Divider />
-      <MatchesProvider>{matches}</MatchesProvider>
+      <p>Match results not found...</p>
     </>
   );
+
 }
 
 MatchesLoader.propTypes = {
