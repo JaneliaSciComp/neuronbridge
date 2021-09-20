@@ -35,16 +35,24 @@ export default function MatchesLoader({ searchResult, searchType }) {
           const fr = new FileReader();
           fr.onload = evt => {
             const json = JSON.parse(evt.target.result);
-            const urlFixedResults = json.results.map(result => {
+            const fixedResults = json.results.map(result => {
               const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
               const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-              return {
+              const fixedResult = {
                 ...result,
                 imageURL: fullImageUrl,
                 thumbnailURL: fullThumbUrl
               };
+              // The ppp results json starts the rank at 0, but the pdfs start the rank at 1,
+              // so we need to add 1 to the pppRank in the JSON to get the same rank in the UI
+              // as is displayed in the pdf.
+              if (searchType === "ppp") {
+                fixedResult.pppRank = result.pppRank + 1;
+              }
+              return fixedResult;
             });
-            setMatchMeta({ ...json, results: urlFixedResults });
+
+            setMatchMeta({ ...json, results: fixedResults });
             setLoading(false);
           };
           fr.readAsText(response.Body);
