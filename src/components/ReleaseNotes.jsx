@@ -1,28 +1,34 @@
-import React, {useEffect, useState}  from "react";
-import {useParams} from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Typography } from "antd";
+import { AppContext } from "../containers/AppContext";
 import config from "../config";
 
 const { Title } = Typography;
 
 export default function ReleaseNotes() {
+  const [appState] = useContext(AppContext);
+  const { precomputedDataRootPath: dataRoot } = appState.paths;
+
   const { name } = useParams();
-  const [markdown, setMarkdown] = useState(null)
+  const [markdown, setMarkdown] = useState(null);
   const cref = config.releasenotes[name];
+
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(cref.url);
-      if (response.status === 200) {
-        const mdtext = await response.text();
-        setMarkdown(mdtext);
-      }
-      else {
-        setMarkdown(`Could not open release notes at ${cref.url}`);
+      if (cref && dataRoot) {
+        const response = await fetch(cref.url.replace("{version}", dataRoot));
+        if (response.status === 200) {
+          const mdtext = await response.text();
+          setMarkdown(mdtext);
+        } else {
+          setMarkdown(`Could not open release notes at ${cref.url}`);
+        }
       }
     }
     fetchData();
-  }, [cref]); 
+  }, [cref, dataRoot]);
 
   return (
     <div>
