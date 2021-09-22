@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Typography } from "antd";
 import { AppContext } from "../containers/AppContext";
+import { signedPublicLink } from "../libs/awsLib";
 import config from "../config";
 
 const { Title } = Typography;
@@ -18,12 +19,14 @@ export default function ReleaseNotes() {
   useEffect(() => {
     async function fetchData() {
       if (cref && dataRoot) {
-        const response = await fetch(cref.url.replace("{version}", dataRoot));
+        const finalUrl = cref.url.replace("{version}", dataRoot);
+        const signedUrl = await signedPublicLink(finalUrl);
+        const response = await fetch(signedUrl);
         if (response.status === 200) {
           const mdtext = await response.text();
           setMarkdown(mdtext);
         } else {
-          setMarkdown(`Could not open release notes at ${cref.url}`);
+          setMarkdown(`Could not open release notes at ${finalUrl}`);
         }
       }
     }
