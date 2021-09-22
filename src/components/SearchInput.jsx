@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { AutoComplete, Input, Col, Row } from "antd";
 import { Auth, API } from "aws-amplify";
 
+import { useDebounce } from "../libs/hooksLib";
 import HelpButton from "./Help/HelpButton";
 import "./SearchInput.css";
 import "./LoaderButton.css";
@@ -15,6 +16,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const [search, setSearch] = useState("");
   const [options, setOptions] = useState([]);
   const [dropDownOpen, setDropDownState] = useState(false);
+  const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
     setSearch(searchTerm);
@@ -24,20 +26,25 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
     history.push(`/search?q=${value}`);
   };
 
+  useEffect(() => {
+    if (debouncedSearch.length >= 3) {
+      Auth.currentCredentials().then(() => {
+        API.get("SearchAPI", "/published_names", {
+          queryStringParameters: { q: debouncedSearch, f: 'start' }
+        }).then(items => {
+          const newOptions = items.names.map(item => {
+            return { value: item.name, label: item.name };
+          });
+          setOptions(newOptions);
+        }).catch(() => {
+          setOptions([]);
+        });
+      });
+    }
+  },[debouncedSearch]);
+
   const onSearch = searchText => {
     setSearch(searchText);
-    Auth.currentCredentials().then(() => {
-      API.get("SearchAPI", "/published_names", {
-        queryStringParameters: { q: searchText, f: 'start' }
-      }).then(items => {
-        const newOptions = items.names.map(item => {
-          return { value: item.name, label: item.name };
-        });
-        setOptions(newOptions);
-      }).catch(() => {
-        setOptions([]);
-      });
-    });
   };
 
   return (
