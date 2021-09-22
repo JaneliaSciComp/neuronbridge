@@ -88,13 +88,13 @@ function getMatchImageOptions(isPPPM, match, library) {
           match.files?.SignalMip
         ),
         canMask: false
-      },
-      {
+      }
+      /* {
         key: "fullExpression",
         desc: "Full Expression",
         path: "image_path",
         canMask: false
-      }
+      } */
     ];
     return pppmOptions;
   }
