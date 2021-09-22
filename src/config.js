@@ -12,13 +12,7 @@ if (validLevels.includes(dataLevel)) {
   BUCKET_NAME = `janelia-neuronbridge-data-${dataLevel}`;
 }
 
-const searchLevel =
-  process.env.REACT_APP_SEARCH_LEVEL || process.env.REACT_APP_LEVEL;
-
-let SEARCH_BUCKET = "janelia-neuronbridge-searches-prod";
-if (validLevels.includes(searchLevel)) {
-  SEARCH_BUCKET = `janelia-neuronbridge-searches-${searchLevel}`;
-}
+const SEARCH_BUCKET = process.env.REACT_APP_SEARCH_BUCKET;
 
 let CDM_BUCKET = "janelia-flylight-color-depth";
 if (process.env.REACT_APP_LEVEL === 'dev') {

@@ -50,6 +50,7 @@ provider:
     REACT_APP_USERPOOL_CLIENT_ID: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.UserPoolClientId}
     REACT_APP_SEARCH_ENDPOINT: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.HttpApiUrl}
     REACT_APP_GRAPHQL_ENDPOINT: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.GraphQlApiUrl}
+    REACT_APP_SEARCH_BUCKET: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.SearchBucketName}
 
 
 resources:
