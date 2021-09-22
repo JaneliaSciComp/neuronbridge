@@ -7,7 +7,8 @@ const lmUrl =
   "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=<NAME>";
 const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=<NAME>";
-const emUrl = "https://neuprint.janelia.org/view?bodyid=<NAME>";
+// https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
+const emUrl = "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
 export default function ExternalLink({ publishedName, isLM, library }) {
@@ -35,9 +36,11 @@ export default function ExternalLink({ publishedName, isLM, library }) {
     );
   }
 
+  const dataset = library.replace(/flyem_/i,'').toLowerCase().replace('_v',':');
+  const finalEMUrl = emUrl.replace(/<NAME>/, publishedName).replace(/<DATASET>/, dataset);
   return (
     <>
-      <a href={emUrl.replace(/<NAME>/, publishedName)}>
+      <a href={finalEMUrl}>
         NeuPrint{" "}
         <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
       </a>
