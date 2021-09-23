@@ -36,7 +36,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
     );
   }
 
-  const dataset = library.replace(/flyem_/i,'').toLowerCase().replace('_v',':');
+  const dataset = library.replace(/flyem_/i,'').toLowerCase().replace('_v',':').replace(/\s+/g, '_');
   const finalEMUrl = emUrl.replace(/<NAME>/, publishedName).replace(/<DATASET>/, dataset);
   return (
     <>

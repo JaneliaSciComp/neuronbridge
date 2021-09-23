@@ -25,7 +25,7 @@ describe("ExternalLink: unit tests", () => {
     rerender(<ExternalLink publishedName="foo" isLM={false} library="gen1_mcfo_foo bar"/>);
     expect(getByText("NeuPrint")).toHaveAttribute(
       "href",
-      "https://neuprint.janelia.org/view?bodyid=foo"
+      "https://neuprint.janelia.org/view?dataset=gen1_mcfo_foo_bar&bodyid=foo"
     );
   });
 
@@ -69,13 +69,13 @@ describe("ExternalLink: unit tests", () => {
     );
     expect(getByText("NeuPrint")).toHaveAttribute(
       "href",
-      "https://neuprint.janelia.org/view?bodyid=foo"
+      "https://neuprint.janelia.org/view?dataset=flylight_splitgal4_drivers&bodyid=foo"
     );
 
     rerender(<ExternalLink publishedName="foo" isLM={false} library="FlyLight Split-GAL4 Drivers" />);
     expect(getByText("NeuPrint")).toHaveAttribute(
       "href",
-      "https://neuprint.janelia.org/view?bodyid=foo"
+      "https://neuprint.janelia.org/view?dataset=flylight_split-gal4_drivers&bodyid=foo"
     );
   });
 
