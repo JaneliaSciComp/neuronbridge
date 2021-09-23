@@ -35,6 +35,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
           searchId={searchId}
           onChange={setLoading}
           precomputed={precomputed}
+          searchType={searchType}
         />
       </Menu.Item>
     </Menu>

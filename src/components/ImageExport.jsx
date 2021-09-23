@@ -11,7 +11,8 @@ export default function ImageExport({
   isFiltered,
   searchId,
   onChange,
-  precomputed
+  precomputed,
+  searchType
 }) {
   const limitedIds = ids.slice(0, ZIP_DOWNLOAD_LIMIT);
 
@@ -24,7 +25,8 @@ export default function ImageExport({
           body: {
             ids: limitedIds,
             searchId,
-            precomputed
+            precomputed,
+            algo: searchType
           }
         })
           .then(response => {
@@ -82,6 +84,7 @@ ImageExport.propTypes = {
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
   isFiltered: PropTypes.bool.isRequired,
   searchId: PropTypes.string.isRequired,
+  searchType: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   precomputed: PropTypes.bool.isRequired
 };

@@ -257,7 +257,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           <ExportMenu
             results={fullList}
             searchType={searchType}
-            searchId={input.id}
+            searchId={isPPP ? input.publishedName : input.id}
             precomputed={precomputed}
           />
           <Button
