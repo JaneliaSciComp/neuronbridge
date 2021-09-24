@@ -32,7 +32,7 @@ export default function HelpPage() {
         for your own research.
       </p>
       <HelpContents scroll={false} />
-      <Title level={3}>Other tools using NeuronBridge</Title>
+      <Title level={3} id="tools">Other tools using NeuronBridge</Title>
       <Typography>
         <a href="http://natverse.org/neuronbridger/">neuronbridger</a> - R
         client utilities for interacting with the NeuronBridge.
