@@ -13,7 +13,7 @@ export const handlers = [
     );
   }),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json?x-id=GetObject",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json",
     (req, res, ctx) => {
       return res(
         ctx.status(200),
@@ -22,7 +22,7 @@ export const handlers = [
     }
   ),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1537331894.json?x-id=GetObject",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1537331894.json",
     (req, res, ctx) => {
       return res(
         ctx.status(200),
