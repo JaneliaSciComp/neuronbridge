@@ -155,15 +155,17 @@ export default function UnifiedSearch() {
                 match.keyType === "neuronInstance" ||
                 match.keyType === "neuronType"
               ) {
-                return match.bodyIDs.map(bodyID => {
+                return match.bodyIDs.map(body => {
+                  const [bodyID, pppmatch] = Object.entries(body)[0];
                   const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${bodyID}.json`;
+                  const updatedMatch = {...match, ppp: pppmatch};
                   return Storage.get(byBodyUrl, storageOptions)
                     .then(metaData => {
                       return readMetaData(
                         metaData,
                         bodyCombined,
                         setByBodyResults,
-                        match
+                        updatedMatch
                       );
                     })
                     .catch(error => {
