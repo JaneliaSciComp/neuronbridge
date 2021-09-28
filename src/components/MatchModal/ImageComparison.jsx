@@ -36,7 +36,7 @@ function createMatchImagePath(match) {
   return "/nopath.png";
 }
 
-function getMatchImageOptions(isPPPM, match, library) {
+function getMatchImageOptions(isPPPM, match, library, isLM) {
   if (isPPPM) {
     const pppmOptions = [
       {
@@ -103,13 +103,13 @@ function getMatchImageOptions(isPPPM, match, library) {
   const cdmOptions = [
     {
       key: "display",
-      desc: "Gamma Corrected Color Depth MIP",
+      desc: `${isLM ? 'LM' : 'EM'} - Gamma Corrected Color Depth MIP`,
       path: match.imageURL || match.thumbnailURL,
       canMask: true
     },
     {
       key: "match",
-      desc: "Match Image",
+      desc: `${isLM ? 'LM' : 'EM'} - Match Image`,
       path: matchImagePath,
       canMask: true
     }
@@ -127,7 +127,7 @@ function getMatchImageOptions(isPPPM, match, library) {
 }
 
 export default function ImageComparison(props) {
-  const { mask, match } = props;
+  const { mask, match, isLM } = props;
 
   const query = useQuery();
   const location = useLocation();
@@ -138,6 +138,18 @@ export default function ImageComparison(props) {
 
   const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
   const isPPP = searchType === "ppp";
+
+  // There are two sets of options. One set for PPPM and another for CDM
+  // look at the match to see if it is a PPPM result or CDM and apply accordingly?
+  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM);
+
+  // both PPPM and CDM searches have an input image.
+  imageOptions.unshift({
+    key: "input",
+    desc: `${isLM ? 'EM' : 'LM'} - Input Image`,
+    path: mask.imageURL,
+    canMask: true
+  });
 
   // start by looking for a value in the url query parameters,
   // then use the value stored in localStorage and finally fall back to the
@@ -169,18 +181,6 @@ export default function ImageComparison(props) {
   }
 
   const { imageChoices } = appState;
-
-
-  // There are two sets of options. One set for PPPM and another for CDM
-  // look at the match to see if it is a PPPM result or CDM and apply accordingly?
-  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName);
-
-  imageOptions.unshift({
-    key: "input",
-    desc: "Input Image",
-    path: mask.imageURL,
-    canMask: true
-  });
 
   const maxComparisons = imageOptions.length;
   const defaultComparisons = (isPPP ? 4 : 2);
@@ -283,5 +283,6 @@ export default function ImageComparison(props) {
 
 ImageComparison.propTypes = {
   mask: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  isLM: PropTypes.bool.isRequired
 };
