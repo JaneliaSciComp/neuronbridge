@@ -56,7 +56,7 @@ function ImageSelection({
       <Select
         onChange={handleImageChoice}
         value={selectValue}
-        style={{ width: 300 }}
+        style={{ width: '80%' }}
       >
         {imageOptions.map(option => (
           <Option key={option.key} value={option.key}>
