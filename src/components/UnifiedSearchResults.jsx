@@ -48,12 +48,17 @@ export default function UnifiedSearchResults(props) {
 
     const resultsList = [
       ...lineEntries
-        .sort((a, b) =>
-          a.publishedName.localeCompare(
-            b.publishedName,
-            undefined,
-            { numeric: true, sensitivity: "base" }
-          )
+        .sort(
+          (a, b) =>
+            // sort by line name first
+            a.publishedName.localeCompare(b.publishedName, undefined, {
+              numeric: true,
+              sensitivity: "base"
+            }) ||
+            // then descending slide code to get most recent slides first.
+            b.slideCode.localeCompare(a.slideCode) ||
+            // then channel
+            a.channel - b.channel
         )
         .map(result => {
           const key = `${result.id}_${result.slideCode}_${result.channel}`;
