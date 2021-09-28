@@ -51,6 +51,7 @@ export default function Summary(props) {
       </Row>
       <Divider />
       <ImageComparison
+        isLM={isLM}
         mask={mask}
         match={selectedMatch}
         matchPath={selectedMatch.imageURL}
