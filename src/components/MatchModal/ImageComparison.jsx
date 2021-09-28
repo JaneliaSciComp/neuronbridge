@@ -224,7 +224,10 @@ export default function ImageComparison(props) {
     history.replace(location);
   }
 
-  const imageCount = updatedCount || defaultComparisons;
+  // some times the comparison count will be greater than the number of image options.
+  // In those cases, don't change the comparison count, just show the available images
+  // and move on.
+  const imageCount = Math.min(imageOptions.length, updatedCount || defaultComparisons);
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
@@ -264,7 +267,7 @@ export default function ImageComparison(props) {
         name="cImages"
         id="cImages"
         style={{ width: "4em", marginLeft: "1em" }}
-        value={updatedCount || ""}
+        value={Math.min(imageOptions.length, updatedCount) || ""}
         onSelect={handleImageCount}
       >
         {selectOptions}
