@@ -177,7 +177,7 @@ export default function SearchUploadMeta({
         <Form.Item label="Anatomical Region" name="anatomicalregion">
           <Select>
             <Option value="brain">Brain</Option>
-            <Option value="vnc">VNC</Option>
+            <Option value="vnc" disabled>VNC</Option>
           </Select>
         </Form.Item>
 
