@@ -41,7 +41,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
     const pppmOptions = [
       {
         key: "display",
-        desc: "Best Channel MIP with EM overlay",
+        desc: "LM - Best Channel CDM with EM overlay",
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
@@ -71,7 +71,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
       },
       {
         key: "bestMip",
-        desc: "Best Channel MIP",
+        desc: "LM - Best Channel CDM",
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
@@ -81,7 +81,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
       },
       {
         key: "sampleMIP",
-        desc: "Sample MIP",
+        desc: "LM - Sample All-Channel CDM",
         path: createPPPMImagePath(
           match.alignmentSpace,
           library,
@@ -91,7 +91,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
       }
       /* {
         key: "fullExpression",
-        desc: "Full Expression",
+        desc: "LM - Gen1-GAL4 Expression Pattern",
         path: "image_path",
         canMask: false
       } */
@@ -103,13 +103,13 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
   const cdmOptions = [
     {
       key: "display",
-      desc: `${isLM ? 'LM' : 'EM'} - Gamma Corrected Color Depth MIP`,
+      desc: `${isLM ? 'LM' : 'EM'} - Match`,
       path: match.imageURL || match.thumbnailURL,
       canMask: true
     },
     {
       key: "match",
-      desc: `${isLM ? 'LM' : 'EM'} - Match Image`,
+      desc: isLM ? 'LM - Computationally Matched CDM (Segmented)' : 'EM - Computationally Matched CDM (Generated)',
       path: matchImagePath,
       canMask: true
     }
@@ -118,7 +118,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM) {
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.push({
       key: "expression",
-      desc: "Original Expression Pattern",
+      desc: "LM - Gen1-GAL4 Expression Pattern",
       path: "/expression_pattern.png",
       canMask: false
     });
