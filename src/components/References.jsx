@@ -65,6 +65,11 @@ export default function References() {
           <a href="https://doi.org/10.1101/376384">Bogovic et al., 2019</a>
           </dd>
 
+      <dt>PatchPerPixMatch algorithm</dt>
+        <dd>
+          <a href="https://doi.org/10.1101/2021.07.23.453511">Hirsch et al., 2020</a>
+          </dd>
+
       <dt>NeuronBridge</dt>
       <dd>
         <a href="https://doi.org/10.25378/janelia.12159378.v1">Clements et al., 2020</a>
