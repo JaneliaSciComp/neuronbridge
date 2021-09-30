@@ -194,19 +194,6 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     } else {
       fullList = modifiedMatches.results
         .filter(result => !excludedLibs.includes(result.libraryName))
-        .map(result => {
-          const fullImageUrl = result.imageURL.startsWith("https://")
-            ? result.imageURL
-            : `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-          const fullThumbUrl = result.thumbnailURL.startsWith("https://")
-            ? result.thumbnailURL
-            : `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
-          return {
-            ...result,
-            imageURL: fullImageUrl,
-            thumbnailURL: fullThumbUrl
-          };
-        })
         .sort(sortByScoreOrAlt);
 
       modifiedMatches.results.forEach(line => {
@@ -215,9 +202,24 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     }
 
     // id or name filter - case insensitive
-    fullList = fullList.filter(result =>
-      result.publishedName.toLowerCase().includes(filterString.toLowerCase())
-    );
+    fullList = fullList
+      .map(result => {
+        const fullImageUrl = result.imageURL.startsWith("https://")
+          ? result.imageURL
+          : `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+        const fullThumbUrl = result.thumbnailURL.startsWith("https://")
+          ? result.thumbnailURL
+          : `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+        return {
+          ...result,
+          imageURL: fullImageUrl,
+          thumbnailURL: fullThumbUrl
+        };
+      })
+
+      .filter(result =>
+        result.publishedName.toLowerCase().includes(filterString.toLowerCase())
+      );
 
     pageinatedList = fullList.slice(
       page * matchesPerPage - matchesPerPage,
