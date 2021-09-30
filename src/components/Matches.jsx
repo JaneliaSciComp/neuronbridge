@@ -14,6 +14,26 @@ import { useMatches } from "../containers/MatchesContext";
 
 import "./Matches.css";
 
+// We need to modify the ppp results to update the pppRank. The data
+// stored in the json files is the internal pppRank, which can have
+// half values (eg: 12.5). This does not match the rank values as
+// shown in the pdf files for external use. We are assured that the
+// ppp results are sorted by pppRank, so we can apply the index of the
+// array to the result to replace the pppRank for external display.
+function correctPPPRank(matches) {
+  const fixed = matches.results
+    .sort((a, b) => a.pppRank - b.pppRank)
+    .map((result, index) => {
+      return {
+        ...result,
+        pppRank: index + 1,
+        pppRankOrig: result.pppRank
+      };
+    });
+
+  return { ...matches, results: fixed };
+}
+
 export default function Matches({ input, searchType, matches, precomputed }) {
   const query = useQuery();
   const location = useLocation();
@@ -33,7 +53,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
-  const isPPP = (searchType === "ppp");
+  const isPPP = searchType === "ppp";
 
   const [appState, , setPermanent] = useContext(AppContext);
 
@@ -42,10 +62,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   function sortByScoreOrAlt(a, b) {
     if (isPPP) {
       return a.pppRank - b.pppRank;
-    };
+    }
     if (sortType === "2") {
       return b.matchingPixels - a.matchingPixels;
-    };
+    }
     return b.normalizedScore - a.normalizedScore;
   }
 
@@ -104,6 +124,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   }
 
   if (matches) {
+    const modifiedMatches = isPPP ? correctPPPRank(matches) : matches;
+
     // if isLM then a more complex sort is required.
     // - convert fullList into a list of lines where each line name
     //   has the max score and  all the channels as an array of children
@@ -118,8 +140,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     //
     if (searchType !== "lines") {
       const byLines = {};
-      matches.results.forEach(result => {
+      modifiedMatches.results.forEach(result => {
         const { publishedName, libraryName } = result;
+
         let currentScore = result.normalizedScore;
         if (isPPP) {
           currentScore = result.pppRank;
@@ -169,24 +192,24 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
       fullList = [].concat(...filteredByLibrary);
     } else {
-      fullList = matches.results
+      fullList = modifiedMatches.results
         .filter(result => !excludedLibs.includes(result.libraryName))
         .map(result => {
-          const fullImageUrl = result.imageURL.startsWith("https://") 
+          const fullImageUrl = result.imageURL.startsWith("https://")
             ? result.imageURL
-            :  `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+            : `${appState.paths.imageryBaseURL}/${result.imageURL}`;
           const fullThumbUrl = result.thumbnailURL.startsWith("https://")
             ? result.thumbnailURL
-            :  `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+            : `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
           return {
             ...result,
             imageURL: fullImageUrl,
             thumbnailURL: fullThumbUrl
-          }
+          };
         })
         .sort(sortByScoreOrAlt);
 
-      matches.results.forEach(line => {
+      modifiedMatches.results.forEach(line => {
         incrementLibCount(line.libraryName);
       });
     }
