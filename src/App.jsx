@@ -16,6 +16,7 @@ import { AppContext } from "./containers/AppContext";
 import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
 import SiteSurvey from "./components/SiteSurvey";
+import MaintenanceBanner from "./components/MaintenanceBanner";
 import "antd/dist/antd.less";
 
 const { Header, Content, Footer } = Layout;
@@ -160,6 +161,7 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
+          {config.UNDER_MAINTENANCE ? <MaintenanceBanner/> : ''}
           {isAuthenticating ? (
             <p>Loading...</p>
           ) : (

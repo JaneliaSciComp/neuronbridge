@@ -36,30 +36,30 @@ export default function Routes({ appProps }) {
         <UnauthenticatedRoute
           path="/login"
           exact
-          component={Login}
+          component={config.UNDER_MAINTENANCE ? Maintenance : Login}
           appProps={appProps}
         />
         <UnauthenticatedRoute
           path="/signup"
           exact
-          component={Signup}
+          component={config.UNDER_MAINTENANCE ? Maintenance : Signup}
           appProps={appProps}
         />
         <UnauthenticatedRoute
           path="/login/reset"
           exact
-          component={ResetPassword}
+          component={config.UNDER_MAINTENANCE ? Maintenance : ResetPassword}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/search"
           exact
-          component={SearchErrorBoundary}
+          component={config.UNDER_MAINTENANCE ? Maintenance : SearchErrorBoundary}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/search/:searchType?/:searchTerm?"
-          component={Search}
+          component={config.UNDER_MAINTENANCE ? Maintenance : Search}
           appProps={appProps}
         />
         <AuthenticatedRoute
