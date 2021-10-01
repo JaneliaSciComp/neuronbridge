@@ -1,6 +1,10 @@
 .imageComparison {
   position:relative;
   margin-bottom: 1em;
+  /* this keeps the modal from jumping around as the images load
+   * TODO: The image height will need to be modified for VNC
+  */
+  min-height: 250px;
 }
 
 .imageComparison img {
