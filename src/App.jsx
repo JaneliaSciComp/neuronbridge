@@ -6,7 +6,6 @@ import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
-import "./App.css";
 import config from "./config";
 import janeliaLogo from "./janelia_logo.png";
 import flyemLogo from "./flyemLogo.png";
@@ -18,6 +17,7 @@ import HelpContents from "./components/Help/HelpContents";
 import SiteSurvey from "./components/SiteSurvey";
 import MaintenanceBanner from "./components/MaintenanceBanner";
 import "antd/dist/antd.less";
+import "./App.css";
 
 const { Header, Content, Footer } = Layout;
 
