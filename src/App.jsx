@@ -24,7 +24,6 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [appState, setAppState] = useContext(AppContext);
-  // const history = useHistory();
   const location = useLocation();
 
   const isAuthenticated = Boolean(appState.username);
@@ -153,7 +152,12 @@ export default function App() {
               <Link to="/login">Login</Link>
             </Menu.Item>
           ]}
-        </Menu>
+          {appState.isAdmin && (
+            <Menu.Item key="/admin">
+              <Link to="/admin">Admin</Link>
+            </Menu.Item>
+          )}
+          </Menu>
         <div className="janeliaLogo">
           <a
             className="projectLogo"
