@@ -74,10 +74,12 @@ function ImageSelection({
         setMirrored={setMirrored}
       />
       <ImageDisplay
+        key={matchImageURL}
         src={matchImageURL}
         alt={imageAlt}
         mirrored={mirrored}
       />
+      {appState.debug ? (<p>{matchImageURL}</p>): ''}
     </>
   );
 }

@@ -231,7 +231,7 @@ export default function ImageComparison(props) {
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
-        const key = `Image${index}`;
+        const key = `Image${index}-${match.id}`;
         const chosenImageId = parseInt(urlImageChoices[index] || 0, 10);
         const chosenImage = imageOptions[chosenImageId];
         if (chosenImage) {
