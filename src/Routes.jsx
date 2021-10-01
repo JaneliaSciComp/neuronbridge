@@ -27,6 +27,7 @@ const UsageTerms = React.lazy(() => import(/* webpackChunkName: 'usage' */ "./co
 const ResetPassword = React.lazy(() => import(/* webpackChunkName: 'reset-pass' */ "./components/ResetPassword"));
 
 export default function Routes({ appProps }) {
+  const showMaintenancePage = Boolean(config.UNDER_MAINTENANCE && !appProps.isAdmin);
   return (
     <Suspense fallback={<div>loading...</div>}>
       <Switch>
@@ -36,45 +37,45 @@ export default function Routes({ appProps }) {
         <UnauthenticatedRoute
           path="/login"
           exact
-          component={config.UNDER_MAINTENANCE ? Maintenance : Login}
+          component={showMaintenancePage ? Maintenance : Login}
           appProps={appProps}
         />
         <UnauthenticatedRoute
           path="/signup"
           exact
-          component={config.UNDER_MAINTENANCE ? Maintenance : Signup}
+          component={showMaintenancePage ? Maintenance : Signup}
           appProps={appProps}
         />
         <UnauthenticatedRoute
           path="/login/reset"
           exact
-          component={config.UNDER_MAINTENANCE ? Maintenance : ResetPassword}
+          component={showMaintenancePage ? Maintenance : ResetPassword}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/search"
           exact
-          component={config.UNDER_MAINTENANCE ? Maintenance : SearchErrorBoundary}
+          component={showMaintenancePage ? Maintenance : SearchErrorBoundary}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/search/:searchType?/:searchTerm?"
-          component={config.UNDER_MAINTENANCE ? Maintenance : Search}
+          component={showMaintenancePage ? Maintenance : Search}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/upload"
-          component={config.UNDER_MAINTENANCE ? Maintenance : CustomSearchList}
+          component={showMaintenancePage ? Maintenance : CustomSearchList}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/results/:id"
-          component={config.UNDER_MAINTENANCE ? Maintenance : Results}
+          component={showMaintenancePage ? Maintenance : Results}
           appProps={appProps}
         />
         <AuthenticatedRoute
           path="/mask-selection/:id"
-          component={config.UNDER_MAINTENANCE ? Maintenance : MaskSelection}
+          component={showMaintenancePage ? Maintenance : MaskSelection}
           appProps={appProps}
         />
 

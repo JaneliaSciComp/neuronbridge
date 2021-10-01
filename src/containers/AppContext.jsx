@@ -5,6 +5,7 @@ const AppContext = React.createContext([{}, () => {}]);
 
 const initialState = {
   username: null,
+  isAdmin: false,
   searchType: 'lines',
   gridView: true,
   showHelp: false,

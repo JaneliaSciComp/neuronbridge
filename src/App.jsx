@@ -37,17 +37,30 @@ export default function App() {
         const user = await Auth.currentAuthenticatedUser();
         let { email } = user;
 
+        const userSession = user.getSignInUserSession();
+
         // get email address from AWS login cognito user
         if (!email && user.attributes) {
           email = user.attributes.email;
         }
         // get email address from Google login cognito user
         if (!email) {
-          email = user.getSignInUserSession().idToken.payload.email;
+          email = userSession.idToken.payload.email;
         }
+
+        // get cognito groups information and see if the user is an admin.
+        let isAdmin = false;
+        const groups = userSession.accessToken.payload["cognito:groups"];
+        if (groups) {
+          if (groups.includes('neuronbridge-admins')) {
+            isAdmin = true;
+          }
+        }
+
+
         // don't update the state if we have the same user as before
         if (email !== appState.username) {
-          setAppState({ ...appState, username: email });
+          setAppState({ ...appState, username: email, isAdmin });
         }
       } catch (e) {
         if (!/not authenticated/.test(e)) {
@@ -170,7 +183,8 @@ export default function App() {
               <LoggedInAs username={appState.username} />
               <Routes
                 appProps={{
-                  isAuthenticated
+                  isAuthenticated,
+                  isAdmin: appState.isAdmin
                 }}
               />
             </>
