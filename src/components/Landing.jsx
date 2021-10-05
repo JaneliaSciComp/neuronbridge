@@ -62,9 +62,6 @@ function Landing(props) {
                   FlyLight Generation 1 MCFO
                 </a>
               </Col>
-              <Col span={12}>
-                <p>FlyLight Generation 1 GAL4 screen (coming soon)</p>
-              </Col>
             </Row>
 
             <Paragraph>
