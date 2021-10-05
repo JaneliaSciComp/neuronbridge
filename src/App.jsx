@@ -16,6 +16,7 @@ import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
 import SiteSurvey from "./components/SiteSurvey";
 import MaintenanceBanner from "./components/MaintenanceBanner";
+import { useKonami } from "./libs/hooksLib";
 import "antd/dist/antd.less";
 import "./App.css";
 
@@ -23,8 +24,12 @@ const { Header, Content, Footer } = Layout;
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [appState, setAppState] = useContext(AppContext);
+  const [appState, setAppState, setPermanent] = useContext(AppContext);
   const location = useLocation();
+
+  useKonami(() => {
+    setPermanent({ debug: !appState.debug });
+  });
 
   const isAuthenticated = Boolean(appState.username);
 
