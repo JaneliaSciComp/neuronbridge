@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useReducer } from "react";
-import { Spin, Typography, message, Divider } from "antd";
+import { Spin, Typography, message, Divider, Alert } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchList from "./CustomSearch/SearchList";
-import DataMigration from "./CustomSearch/DataMigration";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
@@ -128,8 +127,8 @@ export default function CustomSearchList() {
         handleUpload={setUploadedFile}
       />
       <Divider dashed />
+      <Alert style={{marginBottom: "1em"}} type="info" message="Previous searches" description="During the migration to v2.0.0 of the website, we lost the data for any previous searches that were run. We are putting measures in place to make sure this doesn't happen again and we apologize for any inconvenience this may have caused." showIcon/>
       <Title level={3}>Your Searches</Title>
-      <DataMigration />
       {isLoading ? (
         <Spin size="large" />
       ) : (
