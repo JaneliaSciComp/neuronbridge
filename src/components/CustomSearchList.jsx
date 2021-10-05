@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useContext } from "react";
 import { Spin, Typography, message, Divider, Alert } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
@@ -6,10 +6,12 @@ import SearchList from "./CustomSearch/SearchList";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
+import { AppContext } from "../containers/AppContext";
 
 const { Title } = Typography;
 
 export default function CustomSearchList() {
+  const [appState, , setPermanent] = useContext(AppContext);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [searches, dispatch] = useReducer((searchList, { type, value }) => {
@@ -127,13 +129,21 @@ export default function CustomSearchList() {
         handleUpload={setUploadedFile}
       />
       <Divider dashed />
-      <Alert style={{marginBottom: "1em"}} type="info" message="Previous searches" description="During the migration to v2.0.0 of the website, we lost the data for any previous searches that were run. We are putting measures in place to make sure this doesn't happen again and we apologize for any inconvenience this may have caused." showIcon/>
-      <Title level={3}>Your Searches</Title>
-      {isLoading ? (
-        <Spin size="large" />
+      {appState.migrationMessage ? (
+        <Alert
+          style={{ marginBottom: "1em" }}
+          type="info"
+          message="Previous searches"
+          description="During the migration to v2.0.0 of the website, we lost the data for any previous searches that were run. We are putting measures in place to make sure this doesn't happen again and we apologize for any inconvenience this may have caused."
+          showIcon
+          closable
+          onClose={() => setPermanent({ migrationMessage: false })}
+        />
       ) : (
-        <SearchList searches={searches} />
+        ""
       )}
+      <Title level={3}>Your Searches</Title>
+      {isLoading ? <Spin size="large" /> : <SearchList searches={searches} />}
     </div>
   );
 }
