@@ -56,11 +56,10 @@ export default function App() {
         let isAdmin = false;
         const groups = userSession.accessToken.payload["cognito:groups"];
         if (groups) {
-          if (groups.includes('neuronbridge-admins')) {
+          if (groups.includes("neuronbridge-admins")) {
             isAdmin = true;
           }
         }
-
 
         // don't update the state if we have the same user as before
         if (email !== appState.username) {
@@ -162,7 +161,7 @@ export default function App() {
               <Link to="/admin">Admin</Link>
             </Menu.Item>
           )}
-          </Menu>
+        </Menu>
         <div className="janeliaLogo">
           <a
             className="projectLogo"
@@ -183,7 +182,7 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
-          {config.UNDER_MAINTENANCE ? <MaintenanceBanner/> : ''}
+          {config.UNDER_MAINTENANCE ? <MaintenanceBanner /> : ""}
           {isAuthenticating ? (
             <p>Loading...</p>
           ) : (
@@ -221,7 +220,8 @@ export default function App() {
         <p>
           <a href="mailto:neuronbridge@janelia.hhmi.org">
             <FontAwesomeIcon icon={faEnvelope} /> Contact Us
-          </a>
+          </a>{" "}
+          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a>
         </p>
 
         <p>
