@@ -9,17 +9,7 @@ import {
 } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
-import { maskAndSearch, signedPublicLink } from "../../libs/awsLib";
-
-async function toDataURL(url) {
-  const signed = await signedPublicLink(url);
-  const options = (signed !== url) ? {credentials: 'include'} : {};
-  return fetch(signed, options).then((response) => {
-    return response.blob();
-  }).then(blob => {
-    return URL.createObjectURL(blob);
-  });
-}
+import { maskAndSearch, toDataURL } from "../../libs/awsLib";
 
 export default function ImageActions({
   src,

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Storage } from "aws-amplify";
-import { Typography, Radio, Row, Col, Card } from "antd";
-import { signedLink } from "../libs/awsLib";
+import { Typography, Radio, Row, Col, Card, Button, Tooltip } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
+
+import { signedLink, toDataURL } from "../libs/awsLib";
 import config from "../config";
 
 const { Paragraph } = Typography;
@@ -52,6 +54,20 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
     onChange(cobj.number, cobj.url);
   }
 
+  const handleDownload = async url => {
+    const filename = url
+      .split("\\")
+      .pop()
+      .split("/")
+      .pop();
+    const a = document.createElement("a");
+    a.href = await toDataURL(url, {private: true});
+    a.setAttribute("download", filename);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   const channelImages = channelObjects.map(cobj => {
     const title = `Channel ${cobj.number}`;
     const selectTitle = <Radio value={cobj.number}>{title}</Radio>;
@@ -63,6 +79,15 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
           style={{ width: "100%", marginBottom: "1em", cursor: "pointer" }}
           onClick={() => handleCardClick(cobj)}
         >
+          <Tooltip title="Download this aligned channel">
+            <Button
+              type="primary"
+              shape="circle"
+              style={{ position: "absolute", bottom: "2px", right: "2px" }}
+            >
+              <DownloadOutlined onClick={() => handleDownload(cobj.url)} />
+            </Button>
+          </Tooltip>
           <img
             src={cobj.signed}
             style={{ maxWidth: "100%" }}
