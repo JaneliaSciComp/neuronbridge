@@ -132,3 +132,16 @@ export async function fetchItemsNextToken({
   variables.nextToken = res.nextToken;
   return fetchItemsNextToken({ query, variables, items, callback });
 }
+
+
+export async function toDataURL(url, opts={}) {
+  const signed = opts.private ? await signedLink(url) : await signedPublicLink(url);
+  const options = (signed !== url) ? {credentials: 'include'} : {};
+  return fetch(signed, options).then((response) => {
+    return response.blob();
+  }).then(blob => {
+    return URL.createObjectURL(blob);
+  });
+}
+
+
