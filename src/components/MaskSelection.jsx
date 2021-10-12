@@ -12,7 +12,7 @@ import * as mutations from "../graphql/mutations";
 import { signedLink } from "../libs/awsLib";
 import config from "../config";
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 export default function MaskSelection({ match }) {
   const searchId = match.params.id;
@@ -137,7 +137,7 @@ export default function MaskSelection({ match }) {
       });
   };
 
-  let dividerMessage = "Please choose a channel to create your mask";
+  let dividerMessage = "Please choose a channel from above to create your mask";
   if (channel) {
     dividerMessage =
       "Use your mouse to draw around the area you wish to search. This will create a mask by removing the contents of the image around the region you selected.";
@@ -155,7 +155,8 @@ export default function MaskSelection({ match }) {
           onChange={handleChannelSelect}
         />
       ) : null}
-      <Divider orientation="left">{dividerMessage}</Divider>
+        <Divider orientation="left"/>
+        <Paragraph>{dividerMessage}</Paragraph>
       <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} anatomicalRegion={anatomicalRegion} />
       <Divider />
       <Form
