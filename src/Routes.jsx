@@ -19,6 +19,7 @@ const Results = React.lazy(() => import(/* webpackChunkName: 'results' */ "./com
 const Maintenance = React.lazy(() => import(/* webpackChunkName: 'maint' */ "./components/Maintenance"));
 const MaskSelection = React.lazy(() => import(/* webpackChunkName: 'mask' */ "./components/MaskSelection"));
 const AnnouncementsArchive = React.lazy(() => import(/* webpackChunkName: 'announcements' */ "./components/AnnouncementsArchive"));
+const Account = React.lazy(() => import(/* webpackChunkName: 'account' */ "./components/Account"));
 const CustomSearchList = React.lazy(() =>
   /* webpackChunkName: 'custom-search-list' */
   import("./components/CustomSearchList")
@@ -51,6 +52,12 @@ export default function Routes({ appProps }) {
           path="/login/reset"
           exact
           component={showMaintenancePage ? Maintenance : ResetPassword}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+          path="/account"
+          exact
+          component={showMaintenancePage ? Maintenance : Account}
           appProps={appProps}
         />
         <AuthenticatedRoute

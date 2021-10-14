@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { Button } from "antd";
 import { AppContext } from "../containers/AppContext";
@@ -27,7 +27,7 @@ export default function LoggedInAs(props) {
   return (
     <div>
       <p key="username" className="loggedInAs">
-        Logged in as {username}{" "}
+        Logged in as <Link to="/account">{username}</Link>{" "}
         <Button onClick={handleLogout} size="small">
           Logout
         </Button>
