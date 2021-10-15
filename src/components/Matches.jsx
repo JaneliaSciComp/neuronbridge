@@ -236,6 +236,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
             gridView={appState.gridView}
+            paths={appState.paths}
           />
         </React.Fragment>
       );

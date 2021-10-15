@@ -36,57 +36,62 @@ function createMatchImagePath(match) {
   return "/nopath.png";
 }
 
-function getMatchImageOptions(isPPPM, match, library, isLM) {
+function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
   if (isPPPM) {
     const pppmOptions = [
       {
         key: "display",
         desc: "LM - Best Channel CDM with EM overlay",
-        path: createPPPMImagePath(
-          match.alignmentSpace,
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
           library,
-          match.files?.ColorDepthMipSkel
-        ),
+          relativePath: match.files?.ColorDepthMipSkel,
+          baseURL
+        }),
         canMask: true
       },
       {
         key: "pppmMask",
         desc: "PPP Mask",
-        path: createPPPMImagePath(
-          match.alignmentSpace,
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
           library,
-          match.files?.SignalMipMasked
-        ),
+          relativePath: match.files?.SignalMipMasked,
+          baseURL
+        }),
         canMask: false
       },
       {
         key: "pppmMaskWithEMOverlay",
         desc: "PPP Mask with EM Overlay ",
-        path: createPPPMImagePath(
-          match.alignmentSpace,
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
           library,
-          match.files?.SignalMipMaskedSkel
-        ),
+          relativePath: match.files?.SignalMipMaskedSkel,
+          baseURL
+        }),
         canMask: false
       },
       {
         key: "bestMip",
         desc: "LM - Best Channel CDM",
-        path: createPPPMImagePath(
-          match.alignmentSpace,
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
           library,
-          match.files?.ColorDepthMip
-        ),
+          relativePath: match.files?.ColorDepthMip,
+          baseURL
+        }),
         canMask: true
       },
       {
         key: "sampleMIP",
         desc: "LM - Sample All-Channel CDM",
-        path: createPPPMImagePath(
-          match.alignmentSpace,
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
           library,
-          match.files?.SignalMip
-        ),
+          relativePath: match.files?.SignalMip,
+          baseURL
+        }),
         canMask: false
       },
       {
@@ -140,7 +145,7 @@ export default function ImageComparison(props) {
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
-  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM);
+  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM, appState.paths.pppImageryBaseURL);
 
   // both PPPM and CDM searches have an input image.
   imageOptions.unshift({

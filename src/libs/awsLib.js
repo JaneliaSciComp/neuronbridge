@@ -35,9 +35,7 @@ export async function maskAndSearch(image) {
 // this function will return a signed url. If any other url
 // is provided, it will be returned untouched.
 export function signedPublicLink(url) {
-  const matched = url.match(
-    /^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/
-  );
+  const matched = url.match(/^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/);
   if (matched) {
     const [, bucket, relativePath] = matched;
     // if we aren't skipping the signing, then sign it.
@@ -54,7 +52,7 @@ export function signedPublicLink(url) {
       return Storage.get(relativePath, downloadOptions).then(result => result);
     }
   }
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     resolve(url);
   });
 }
@@ -86,10 +84,21 @@ export function createRelativePPPMImagePath(
   return `${alignmentSpace}/${library}/${relativePath}`;
 }
 
-export function createPPPMImagePath(alignmentSpace, library, relativePath) {
-  return `https://s3.amazonaws.com/${
-    config.PPPM_BUCKET
-  }/${createRelativePPPMImagePath(alignmentSpace, library, relativePath)}`;
+export function createPPPMImagePath({
+  alignmentSpace,
+  library,
+  relativePath,
+  baseURL
+}) {
+  // if paths.json has pppm base url present, then use that, otherwise use the
+  // pppm_bucket from the configuration file.
+  const base = baseURL || `https://s3.amazonaws.com/${config.PPPM_BUCKET}`;
+
+  return `${base}/${createRelativePPPMImagePath(
+    alignmentSpace,
+    library,
+    relativePath
+  )}`;
 }
 
 export function logSearchInfo(search) {
@@ -133,15 +142,16 @@ export async function fetchItemsNextToken({
   return fetchItemsNextToken({ query, variables, items, callback });
 }
 
-
-export async function toDataURL(url, opts={}) {
-  const signed = opts.private ? await signedLink(url) : await signedPublicLink(url);
-  const options = (signed !== url) ? {credentials: 'include'} : {};
-  return fetch(signed, options).then((response) => {
-    return response.blob();
-  }).then(blob => {
-    return URL.createObjectURL(blob);
-  });
+export async function toDataURL(url, opts = {}) {
+  const signed = opts.private
+    ? await signedLink(url)
+    : await signedPublicLink(url);
+  const options = signed !== url ? { credentials: "include" } : {};
+  return fetch(signed, options)
+    .then(response => {
+      return response.blob();
+    })
+    .then(blob => {
+      return URL.createObjectURL(blob);
+    });
 }
-
-
