@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
-import { Checkbox, Typography } from "antd";
+import { Checkbox, Typography, message } from "antd";
 
 const { Title } = Typography;
 
@@ -14,7 +14,6 @@ export default function Account() {
     // survey and newsletter preferences to the state.
     async function getUserInfo() {
       const userInfo = await Auth.currentUserInfo();
-      console.log(userInfo.attributes);
       setSurvey(userInfo.attributes["custom:survey"] === "true");
       setNewsLetter(userInfo.attributes["custom:newsletter"] === "true");
       setLoading(false);
@@ -27,7 +26,10 @@ export default function Account() {
     const user = await Auth.currentAuthenticatedUser();
     await Auth.updateUserAttributes(user, {
       "custom:newsletter": event.target.checked.toString()
-    }).catch(() => setNewsLetter(!event.target.checked));
+    }).catch(() => {
+      message.error("Unable to change newsletter preference, please try again later.");
+      setNewsLetter(!event.target.checked)
+    });
   };
 
   const handleSurveyChange = async event => {
@@ -35,8 +37,8 @@ export default function Account() {
     const user = await Auth.currentAuthenticatedUser();
     await Auth.updateUserAttributes(user, {
       "custom:survey": event.target.checked.toString()
-    }).catch(error => {
-      console.log(error);
+    }).catch(() => {
+      message.error("Unable to change survey preference, please try again later.");
       setSurvey(!event.target.checked);
     });
   };
