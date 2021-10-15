@@ -10,7 +10,7 @@ import { signedPublicLink, createPPPMImagePath } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
 
 export default function MatchSummary(props) {
-  const { match, showModal, isLM, gridView, library } = props;
+  const { match, showModal, isLM, gridView, library, paths } = props;
   const { state, dispatch } = useMatches();
   const checked = state.selected.includes(match.id);
   const [signedSrc, setSignedSrc] = useState();
@@ -22,11 +22,12 @@ export default function MatchSummary(props) {
 
   useEffect(() => {
     if (isPPP && match.files?.ColorDepthMipSkel) {
-      const url = createPPPMImagePath(
-        match.alignmentSpace,
+      const url = createPPPMImagePath({
+        alignmentSpace: match.alignmentSpace,
         library,
-        match.files?.ColorDepthMip
-      );
+        relativePath: match.files?.ColorDepthMip,
+        baseURL: paths.pppImageBaseURL
+      });
       signedPublicLink(url).then(signed => {
         setSignedSrc(signed);
         setSignedThumbnailSrc(signed);
@@ -155,9 +156,11 @@ MatchSummary.propTypes = {
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,
-  gridView: PropTypes.bool.isRequired
+  gridView: PropTypes.bool.isRequired,
+  paths: PropTypes.object
 };
 
 MatchSummary.defaultProps = {
-  isLM: true
+  isLM: true,
+  paths: {}
 };
