@@ -26,7 +26,7 @@ export default function MatchSummary(props) {
         alignmentSpace: match.alignmentSpace,
         library,
         relativePath: match.files?.ColorDepthMip,
-        baseURL: paths.pppImageBaseURL
+        baseURL: paths.pppImageryBaseURL
       });
       signedPublicLink(url).then(signed => {
         setSignedSrc(signed);
