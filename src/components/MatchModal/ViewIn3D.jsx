@@ -41,7 +41,7 @@ export default function ViewIn3D(props) {
     <>
       <h3>
         We recommend using{" "}
-        <a href="https://github.com/takashi310/VVD_Viewer">VVD viewer</a> for 3D
+        <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer</a> for 3D
         comparison of the matches.
       </h3>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -58,20 +58,20 @@ export default function ViewIn3D(props) {
           <ol>
             <li>
               Download the latest release of VVD viewer from{" "}
-              <a href="https://github.com/takashi310/VVD_Viewer/releases">
-                https://github.com/takashi310/VVD_Viewer/releases
+              <a href="https://github.com/JaneliaSciComp/VVDViewer/releases">
+                https://github.com/JaneliaSciComp/VVDViewer/releases
               </a>
             </li>
             <li>
               Follow the installation{" "}
-              <a href="https://github.com/takashi310/VVD_Viewer">
+              <a href="https://github.com/JaneliaSciComp/VVDViewer">
                 instructions
               </a>
               .
             </li>
             <li>
               Usage instructions for VVD viewer can be found{" "}
-              <a href="https://github.com/takashi310/VVD_Viewer">here</a>.
+              <a href="https://github.com/JaneliaSciComp/VVDViewer">here</a>.
             </li>
           </ol>
         </Col>
