@@ -16,6 +16,7 @@ import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
 import SiteSurvey from "./components/SiteSurvey";
 import MaintenanceBanner from "./components/MaintenanceBanner";
+import DebugPanel from "./components/DebugPanel";
 import { useKonami } from "./libs/hooksLib";
 import "antd/dist/antd.less";
 import "./App.css";
@@ -106,16 +107,6 @@ export default function App() {
     }
   }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /*  if (isAuthenticating) {
-    return <p>Loading</p>;
-  } */
-
-  const searchEnpoints = config.api.endpoints.map(endpoint => (
-    <p key={endpoint.name}>
-      {endpoint.name} - {endpoint.endpoint}
-    </p>
-  ));
-
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
   return (
@@ -201,15 +192,7 @@ export default function App() {
       </Content>
       <Footer style={{ textAlign: "center", position: "relative" }}>
         {appState.debug && (
-          <>
-            <p>Data Bucket: {config.s3.BUCKET}</p>
-            <p>Search Bucket: {config.SEARCH_BUCKET}</p>
-            <p>CDM Bucket: {config.CDM_BUCKET}</p>
-            <p>PPPM Bucket: {config.PPPM_BUCKET}</p>
-            {searchEnpoints}
-            <p>GraphQL: {config.appsync.graphqlEndpoint}</p>
-            <p>App Level: {config.APP_LEVEL}</p>
-          </>
+          <DebugPanel paths={appState.paths} config={config} />
         )}
         <p>
           HHMI ©{new Date().getFullYear()}{" "}
