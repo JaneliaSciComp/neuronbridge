@@ -40,7 +40,7 @@ export default function MatchSummary(props) {
         setSignedThumbnailSrc(signed);
       });
     }
-  }, [match, isPPP, library]);
+  }, [match, isPPP, library, paths.pppImageryBaseURL]);
 
   const { publishedName } = match;
 
