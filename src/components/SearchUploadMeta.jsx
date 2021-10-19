@@ -136,6 +136,11 @@ export default function SearchUploadMeta({
     setIsAligned(checked);
   };
 
+  const initialAnatomicalRegion =
+    uploadedFile.height && uploadedFile.height > uploadedFile.width
+      ? "vnc"
+      : "brain";
+
   return (
     <div>
       <Title level={3}>
@@ -148,7 +153,7 @@ export default function SearchUploadMeta({
         name="basic"
         initialValues={{
           searchtype: "em2lm",
-          anatomicalregion: "brain",
+          anatomicalregion: initialAnatomicalRegion,
           algorithm: "max",
           referenceChannel: "auto",
           mimetype:
@@ -174,13 +179,24 @@ export default function SearchUploadMeta({
             />{" "}
           </Col>
         </Row>
-        <Form.Item label="Anatomical Region" name="anatomicalregion">
+        <Form.Item
+          label="Anatomical Region"
+          name="anatomicalregion"
+          help={
+            initialAnatomicalRegion !== "brain" ? (
+              <p>
+                Based on the dimensions of the image you uploaded we have chosen{" "}
+                {initialAnatomicalRegion} for the anatomical area. If this is
+                incorrect, please change it here.
+              </p>
+            ) : null
+          }
+        >
           <Select>
             <Option value="brain">Brain</Option>
             <Option value="vnc">VNC</Option>
           </Select>
         </Form.Item>
-
         {!isAligned && (
           <>
             <Row>

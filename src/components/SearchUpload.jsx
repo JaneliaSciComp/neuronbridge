@@ -11,25 +11,42 @@ import "./SearchUpload.css";
 
 const { Dragger } = Upload;
 
+function uploadToS3(upload, handleUpload) {
+  Auth.currentCredentials().then(() => {
+    Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
+      progressCallback: progress => {
+        const percent = (progress.loaded * 100) / progress.total;
+        upload.onProgress({ percent });
+      },
+      contentType: upload.file.type,
+      level: "private",
+      bucket: config.SEARCH_BUCKET,
+      tagging: "LIFECYCLE=DELETE"
+    })
+      .then(result => {
+        handleUpload(upload);
+        upload.onSuccess(result);
+      })
+      .catch(e => upload.onError(e));
+  });
+}
+
 export default function SearchUpload({ uploadedFile, handleUpload }) {
   function customRequest(upload) {
-    Auth.currentCredentials().then(() => {
-      Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
-        progressCallback: progress => {
-          const percent = (progress.loaded * 100) / progress.total;
-          upload.onProgress({ percent });
-        },
-        contentType: upload.file.type,
-        level: "private",
-        bucket: config.SEARCH_BUCKET,
-        tagging: "LIFECYCLE=DELETE"
-      })
-        .then(result => {
-          handleUpload(upload);
-          upload.onSuccess(result);
-        })
-        .catch(e => upload.onError(e));
-    });
+    // get the image dimensions for use later when checking if the image looks
+    // like a VNC or brain image.
+    const img = new Image();
+    img.src = window.URL.createObjectURL(upload.file);
+    img.onload = () => {
+      const updatedUpload = upload;
+      updatedUpload.width = img.naturalWidth;
+      updatedUpload.height = img.naturalHeight;
+      window.URL.revokeObjectURL(img.src);
+      uploadToS3(updatedUpload, handleUpload)
+    };
+    img.onerror = () => {
+      uploadToS3(upload, handleUpload)
+    };
   }
 
   function onRemove() {
