@@ -114,8 +114,8 @@ export default function App() {
 
   return (
     <Layout>
-    	{confetti && appState.debug ? <Confetti recycle={false}/> : ''}
-      <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+    	{confetti && appState.debug ? <Confetti style={{zIndex: 200}} numberOfPieces={500} colors={['#058d96', '#00a450', '#52b448', '#8ac341']} recycle={false}/> : ''}
+      <Header style={{ position: "fixed", zIndex: 50, width: "100%" }}>
         <Menu
           defaultSelectedKeys={["/"]}
           selectedKeys={[menuLocation]}
