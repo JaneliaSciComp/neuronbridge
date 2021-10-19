@@ -63,6 +63,7 @@
     "react-alert-template-basic": "^1.0.0",
     "react-alice-carousel": "^1.17.3",
     "react-app-polyfill": "^1.0.5",
+    "react-confetti": "^6.0.1",
     "react-cookie": "^4.0.3",
     "react-csv": "^2.0.3",
     "react-dev-utils": "^11.0.4",

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message } from "antd";
 import { Auth, Storage } from "aws-amplify";
+import Confetti from "react-confetti";
 import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
@@ -26,10 +27,12 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [appState, setAppState, setPermanent] = useContext(AppContext);
+	const [confetti, setConfetti] = useState(false);
   const location = useLocation();
 
   useKonami(() => {
     setPermanent({ debug: !appState.debug });
+		setConfetti(true);
   });
 
   const isAuthenticated = Boolean(appState.username);
@@ -111,6 +114,7 @@ export default function App() {
 
   return (
     <Layout>
+    	{confetti && appState.debug ? <Confetti recycle={false}/> : ''}
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
         <Menu
           defaultSelectedKeys={["/"]}

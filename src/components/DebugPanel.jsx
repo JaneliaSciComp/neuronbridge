@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
 export default function DebugPanel({ paths, config }) {
+
   const searchEndpoints = config.api.endpoints.map(endpoint => (
     <p key={endpoint.name}>
       <b>{endpoint.name}</b>: {endpoint.endpoint}
@@ -10,6 +11,7 @@ export default function DebugPanel({ paths, config }) {
   ));
 
   return (
+    <>
     <Row gutter={8}>
       <Col span={12} style={{ textAlign: "left" }}>
         <p>
@@ -47,6 +49,7 @@ export default function DebugPanel({ paths, config }) {
         </p>
       </Col>
     </Row>
+    </>
   );
 }
 
