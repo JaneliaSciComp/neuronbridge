@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Row, Col, Select, Divider } from "antd";
 import { AppContext } from "../../containers/AppContext";
-import config from "../../config";
 import ImageSelection from "./ImageSelection";
 import { createPPPMImagePath } from "../../libs/awsLib";
 import { useQuery } from "../../libs/hooksLib";
@@ -13,11 +12,11 @@ import "./ImageComparison.css";
 
 const { Option } = Select;
 
-function createMatchImagePath(match) {
+function createMatchImagePath(match, baseURL) {
   if (match.imageName) {
     // generate the match image patch, from values in the match JSON
     const filename = match.imageName.match(/([^/]*).tif$/)[1];
-    return `https://s3.amazonaws.com/${config.CDM_BUCKET}/${
+    return `${baseURL}/${
       match.alignmentSpace
     }/${match.libraryName.replace(
       /\s/g,
@@ -26,7 +25,7 @@ function createMatchImagePath(match) {
   }
   if (match.searchablePNG) {
     // for precomputed searches.
-    return `https://s3.amazonaws.com/${config.CDM_BUCKET}/${
+    return `${baseURL}/${
       match.alignmentSpace
     }/${match.libraryName.replace(
       /\s/g,
@@ -36,7 +35,7 @@ function createMatchImagePath(match) {
   return "/nopath.png";
 }
 
-function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
+function getMatchImageOptions(isPPPM, match, library, isLM, pppBaseURL, cdmBaseURL) {
   if (isPPPM) {
     const pppmOptions = [
       {
@@ -46,7 +45,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMipSkel,
-          baseURL
+          pppBaseURL
         }),
         canMask: true
       },
@@ -57,7 +56,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMasked,
-          baseURL
+          pppBaseURL
         }),
         canMask: false
       },
@@ -68,7 +67,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMaskedSkel,
-          baseURL
+          pppBaseURL
         }),
         canMask: false
       },
@@ -79,7 +78,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMip,
-          baseURL
+          pppBaseURL
         }),
         canMask: true
       },
@@ -90,7 +89,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMip,
-          baseURL
+          pppBaseURL
         }),
         canMask: false
       },
@@ -104,7 +103,7 @@ function getMatchImageOptions(isPPPM, match, library, isLM, baseURL) {
     return pppmOptions;
   }
 
-  const matchImagePath = createMatchImagePath(match);
+  const matchImagePath = createMatchImagePath(match, cdmBaseURL);
   const cdmOptions = [
     {
       key: "display",
@@ -145,7 +144,7 @@ export default function ImageComparison(props) {
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
-  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM, appState.paths.pppImageryBaseURL);
+  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM, appState.paths.pppImageryBaseURL, appState.paths.imageryBaseURL);
 
   // both PPPM and CDM searches have an input image.
   imageOptions.unshift({

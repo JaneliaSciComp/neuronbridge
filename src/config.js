@@ -14,17 +14,10 @@ if (validLevels.includes(dataLevel)) {
 
 const SEARCH_BUCKET = process.env.REACT_APP_SEARCH_BUCKET;
 
-let CDM_BUCKET = "janelia-flylight-color-depth";
-if (process.env.REACT_APP_LEVEL === 'dev') {
-  CDM_BUCKET = "janelia-flylight-color-depth-dev";
-}
-
 let PPPM_BUCKET = "janelia-ppp-match-prod";
 if (process.env.REACT_APP_LEVEL === 'dev') {
   PPPM_BUCKET = "janelia-ppp-match-dev";
 }
-
-
 
 const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
 const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
@@ -34,7 +27,6 @@ export default {
   ZIP_DOWNLOAD_LIMIT: 200,
   UNDER_MAINTENANCE,
   SEARCH_BUCKET,
-  CDM_BUCKET,
   PPPM_BUCKET,
   s3: {
     REGION: "us-east-1",

@@ -21,9 +21,6 @@ export default function DebugPanel({ paths, config }) {
           <b>Search Bucket:</b> {config.SEARCH_BUCKET}
         </p>
         <p>
-          <b>CDM Bucket:</b> {config.CDM_BUCKET}
-        </p>
-        <p>
           <b>PPPM Bucket:</b> {config.PPPM_BUCKET}
         </p>
         {searchEndpoints}
