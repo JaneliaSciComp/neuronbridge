@@ -4,11 +4,11 @@ import SearchSteps from "./SearchSteps";
 import "antd/dist/antd.less";
 
 export default {
-  title: 'SearchSteps',
-  component: SearchSteps,
+  title: "SearchSteps",
+  component: SearchSteps
 };
 
-const Template = (args) => <SearchSteps {...args} />;
+const Template = args => <SearchSteps {...args} />;
 
 export const StepZero = Template.bind({});
 StepZero.args = {
@@ -45,7 +45,7 @@ MaskSelectionStep.args = {
     errorMessage: null,
     step: 2
   }
-}
+};
 
 export const LoadingMaskSelectionStep = Template.bind({});
 LoadingMaskSelectionStep.args = {
@@ -54,7 +54,7 @@ LoadingMaskSelectionStep.args = {
     searchMask: "1110173824_TC_18U_1_mask.png",
     step: 2
   }
-}
+};
 
 export const StepThree = Template.bind({});
 StepThree.args = {
@@ -62,7 +62,7 @@ StepThree.args = {
     errorMessage: null,
     step: 3
   }
-}
+};
 
 export const CompleteStep = Template.bind({});
 CompleteStep.args = {
@@ -72,14 +72,40 @@ CompleteStep.args = {
     nTotalMatches: 9,
     step: 5
   }
-}
+};
+
+export const StepTwoErr = Template.bind({});
+StepTwoErr.args = {
+  search: {
+    id: "a5c16107-bf30-4217-8ac1-53c38e356f9f",
+    searchDir: "1640add0-30ee-11ec-bb96-a70746ee5819",
+    updatedOn: "2021-10-19T15:17:16.754Z",
+    anatomicalRegion: "brain",
+    dataThreshold: 100,
+    simulateMIPGeneration: false,
+    alignStarted: "2021-10-19T15:07:12.627Z",
+    maskThreshold: 100,
+    alignmentSize: 1,
+    upload: "1110173824_TC_18U.png",
+    identityId: "us-east-1:fa7ca00c-9ffc-426c-ad55-2c05b0f4a4d2",
+    step: 1,
+    xyShift: 2,
+    alignmentErrorMessage: "There are no signal channels",
+    pixColorFluctuation: 2,
+    mirrorMask: true,
+    createdOn: "2021-10-19T15:07:11.030Z",
+    maxResultsPerMask: -1,
+    errorMessage: "Alignment job failed",
+    owner: "f1b44154-26d1-4f77-a8af-11319eb87177",
+    minMatchingPixRatio: 2,
+    alignFinished: "2021-10-19T15:17:16.167Z"
+  }
+};
 
 export const StepOneErr = Template.bind({});
 StepOneErr.args = {
   search: {
-    errorMessage: 'failed',
+    errorMessage: "failed",
     step: 0
   }
 };
-
-
