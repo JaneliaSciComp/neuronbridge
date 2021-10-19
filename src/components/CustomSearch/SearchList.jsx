@@ -8,7 +8,11 @@ import SearchSteps from "./SearchSteps";
 
 const { Text } = Typography;
 
-function AlignmentWarning() {
+function AlignmentWarning({step}) {
+  if (step !== 1) {
+    return null;
+  }
+
   return (
     <Alert
       type="warning"
@@ -17,17 +21,14 @@ function AlignmentWarning() {
     />
   );
 }
+AlignmentWarning.propTypes = {
+  step: PropTypes.number.isRequired
+};
 
 function ErrorMessage({ error }) {
   if (error) {
     const message = `There was an error performing this search: ${error}`;
-    return (
-      <Alert
-        type="error"
-        showIcon
-        message={message}
-      />
-    );
+    return <Alert type="error" showIcon message={message} />;
   }
   return null;
 }
@@ -69,11 +70,16 @@ export default function SearchList({ searches }) {
           <Row>
             <Col span={24} style={{ marginTop: "1em" }}>
               <SearchSteps search={search} />
-              {search.step === 1 && !search.errorMessage && <AlignmentWarning />}
-              <ErrorMessage error={search.alignmentErrorMessage || search.errorMessage} />
+              {search.errorMessage || search.alignmentErrorMessage ? (
+                <ErrorMessage
+                  error={search.alignmentErrorMessage || search.errorMessage}
+                />
+              ) : (
+                <AlignmentWarning step={search.step} />
+              )}
             </Col>
           </Row>
-          <Divider style={{margin: '0.2em 0 1em 0'}}/>
+          <Divider style={{ margin: "0.2em 0 1em 0" }} />
         </div>
       );
     });
