@@ -7,6 +7,7 @@ export const createSearch = /* GraphQL */ `
       id
       owner
       identityId
+      channel
       upload
       uploadThumbnail
       searchDir
