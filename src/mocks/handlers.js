@@ -1,7 +1,7 @@
 import { rest } from "msw";
-import data1537331894 from './1537331894.json';
-import metadata1537331894 from './1537331894_metadata.json';
-import metadata1932493302 from './1932493302_metadata.json';
+import data1537331894 from "./1537331894.json";
+import metadata1537331894 from "./1537331894_metadata.json";
+import metadata1932493302 from "./1932493302_metadata.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
@@ -16,19 +16,13 @@ export const handlers = [
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json",
     (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json(metadata1537331894)
-      );
+      return res(ctx.status(200), ctx.json(metadata1537331894));
     }
   ),
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1537331894.json",
     (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json(data1537331894)
-      );
+      return res(ctx.status(200), ctx.json(data1537331894));
     }
   ),
   rest.get(
@@ -69,10 +63,23 @@ export const handlers = [
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1932493302.json",
     (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(metadata1932493302));
+    }
+  ),
+  /* rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/paths.json",
+    (req, res, ctx) => {
       return res(
         ctx.status(200),
-        ctx.json(metadata1932493302)
+        ctx.json({
+          precomputedDataRootPath: "v2_2_0",
+          imageryBaseURL:
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-dev",
+          thumbnailsBaseURLs:
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev",
+          pppImageryBaseURL: "https://s3.amazonaws.com/janelia-ppp-match-dev"
+        })
       );
     }
-  )
+  ) */
 ];
