@@ -27,12 +27,12 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [appState, setAppState, setPermanent] = useContext(AppContext);
-	const [confetti, setConfetti] = useState(false);
+  const [confetti, setConfetti] = useState(false);
   const location = useLocation();
 
   useKonami(() => {
     setPermanent({ debug: !appState.debug });
-		setConfetti(true);
+    setConfetti(true);
   });
 
   const isAuthenticated = Boolean(appState.username);
@@ -114,7 +114,16 @@ export default function App() {
 
   return (
     <Layout>
-    	{confetti && appState.debug ? <Confetti style={{zIndex: 200}} numberOfPieces={500} colors={['#058d96', '#00a450', '#52b448', '#8ac341']} recycle={false}/> : ''}
+      {confetti && appState.debug ? (
+        <Confetti
+          style={{ zIndex: 200 }}
+          numberOfPieces={500}
+          colors={["#058d96", "#00a450", "#52b448", "#8ac341"]}
+          recycle={false}
+        />
+      ) : (
+        ""
+      )}
       <Header style={{ position: "fixed", zIndex: 50, width: "100%" }}>
         <Menu
           defaultSelectedKeys={["/"]}
