@@ -16,18 +16,14 @@ function createMatchImagePath(match, baseURL) {
   if (match.imageName) {
     // generate the match image patch, from values in the match JSON
     const filename = match.imageName.match(/([^/]*).tif$/)[1];
-    return `${baseURL}/${
-      match.alignmentSpace
-    }/${match.libraryName.replace(
+    return `${baseURL}/${match.alignmentSpace}/${match.libraryName.replace(
       /\s/g,
       "_"
     )}/searchable_neurons/pngs/${filename}.png`;
   }
   if (match.searchablePNG) {
     // for precomputed searches.
-    return `${baseURL}/${
-      match.alignmentSpace
-    }/${match.libraryName.replace(
+    return `${baseURL}/${match.alignmentSpace}/${match.libraryName.replace(
       /\s/g,
       "_"
     )}/searchable_neurons/pngs/${match.searchablePNG}`;
@@ -35,7 +31,14 @@ function createMatchImagePath(match, baseURL) {
   return "/nopath.png";
 }
 
-function getMatchImageOptions(isPPPM, match, library, isLM, pppBaseURL, cdmBaseURL) {
+function getMatchImageOptions(
+  isPPPM,
+  match,
+  library,
+  isLM,
+  pppBaseURL,
+  cdmBaseURL
+) {
   if (isPPPM) {
     const pppmOptions = [
       {
@@ -107,13 +110,15 @@ function getMatchImageOptions(isPPPM, match, library, isLM, pppBaseURL, cdmBaseU
   const cdmOptions = [
     {
       key: "display",
-      desc: `${isLM ? 'LM' : 'EM'} - Match`,
+      desc: `${isLM ? "LM" : "EM"} - Match`,
       path: match.imageURL || match.thumbnailURL,
       canMask: true
     },
     {
       key: "match",
-      desc: isLM ? 'LM - Computationally Matched CDM (Segmented)' : 'EM - Computationally Matched CDM (Generated)',
+      desc: isLM
+        ? "LM - Computationally Matched CDM (Segmented)"
+        : "EM - Computationally Matched CDM (Generated)",
       path: matchImagePath,
       canMask: true
     }
@@ -136,20 +141,35 @@ export default function ImageComparison(props) {
   const location = useLocation();
   const history = useHistory();
 
-  const [appState, ,setPermanent] = useContext(AppContext);
+  const [appState, , setPermanent] = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
 
   const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
   const isPPP = searchType === "ppp";
 
+  // Unify the anatomical region properties from pre computed and custom searches.
+  // TODO: this step wouldn't be necessary if the keys were the same in both.
+  const anatomicalRegion = (
+    (mask.anatomicalArea ? mask.anatomicalArea : mask.anatomicalRegion) ||
+    "brain"
+  ).toLowerCase();
+  const isVertical = anatomicalRegion === "vnc";
+
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
-  const imageOptions = getMatchImageOptions(isPPP, match, mask.libraryName, isLM, appState.paths.pppImageryBaseURL, appState.paths.imageryBaseURL);
+  const imageOptions = getMatchImageOptions(
+    isPPP,
+    match,
+    mask.libraryName,
+    isLM,
+    appState.paths.pppImageryBaseURL,
+    appState.paths.imageryBaseURL
+  );
 
   // both PPPM and CDM searches have an input image.
   imageOptions.unshift({
     key: "input",
-    desc: `${isLM ? 'EM' : 'LM'} - Input Image`,
+    desc: `${isLM ? "EM" : "LM"} - Input Image`,
     path: mask.imageURL,
     canMask: true
   });
@@ -186,7 +206,7 @@ export default function ImageComparison(props) {
   const { imageChoices } = appState;
 
   const maxComparisons = imageOptions.length;
-  const defaultComparisons = (isPPP ? 4 : 2);
+  const defaultComparisons = isPPP ? 4 : 2;
   const minComparisons = 1;
 
   const handleImageCount = newCount => {
@@ -230,7 +250,13 @@ export default function ImageComparison(props) {
   // some times the comparison count will be greater than the number of image options.
   // In those cases, don't change the comparison count, just show the available images
   // and move on.
-  const imageCount = Math.min(imageOptions.length, updatedCount || defaultComparisons);
+  const imageCount = Math.min(
+    imageOptions.length,
+    updatedCount || defaultComparisons
+  );
+
+  // this sets narrower columns if the images are tall VNC images.
+  const colWidth = isVertical ? 7 : 12;
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
@@ -239,8 +265,9 @@ export default function ImageComparison(props) {
         const chosenImage = imageOptions[chosenImageId];
         if (chosenImage) {
           return (
-            <Col key={key} md={updatedCount <= 1 ? 24 : 12}>
+            <Col key={key} md={updatedCount <= 1 ? 24 : colWidth}>
               <ImageSelection
+                vertical={isVertical}
                 imageOptions={imageOptions}
                 meta={match}
                 index={index}
@@ -257,7 +284,11 @@ export default function ImageComparison(props) {
 
   const selectOptions = [...Array(maxComparisons)].map((_, index) => {
     const key = `${index}option`;
-    return <Option key={key} value={index + 1}>{index + 1}</Option>;
+    return (
+      <Option key={key} value={index + 1}>
+        {index + 1}
+      </Option>
+    );
   });
 
   /* eslint-disable jsx-a11y/label-has-associated-control */

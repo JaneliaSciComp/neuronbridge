@@ -12,6 +12,7 @@ const { Option } = Select;
 function ImageSelection({
   imageOptions,
   isCopying,
+  vertical,
   setIsCopying,
   meta,
   index,
@@ -56,7 +57,8 @@ function ImageSelection({
       <Select
         onChange={handleImageChoice}
         value={selectValue}
-        style={{ width: 300 }}
+        style={{ width: vertical ? 200 : 300 }}
+        dropdownMatchSelectWidth={false}
       >
         {imageOptions.map(option => (
           <Option key={option.key} value={option.key}>
@@ -74,6 +76,7 @@ function ImageSelection({
         setMirrored={setMirrored}
       />
       <ImageDisplay
+        vertical={vertical}
         key={matchImageURL}
         src={matchImageURL}
         alt={imageAlt}
@@ -87,6 +90,7 @@ function ImageSelection({
 ImageSelection.propTypes = {
   imageOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
   isCopying: PropTypes.bool.isRequired,
+  vertical: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
