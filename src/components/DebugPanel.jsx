@@ -44,6 +44,9 @@ export default function DebugPanel({ paths, config }) {
         <p>
           <b>Precomputed Data Root:</b> {paths.precomputedDataRootPath}
         </p>
+        <p>
+          <b>NODE_ENV:</b> {process.env.NODE_ENV}
+        </p>
       </Col>
     </Row>
     </>
