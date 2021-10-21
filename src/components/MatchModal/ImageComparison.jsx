@@ -256,7 +256,7 @@ export default function ImageComparison(props) {
   );
 
   // this sets narrower columns if the images are tall VNC images.
-  const colWidth = isVertical ? 7 : 12;
+  const colWidth = isVertical ? 8 : 12;
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
