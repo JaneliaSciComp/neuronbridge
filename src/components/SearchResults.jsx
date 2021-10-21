@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Spin, Divider, Typography } from "antd";
+import ImageWithModal from "./ImageWithModal";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 
@@ -23,7 +24,13 @@ export default function SearchResults(props) {
       if (searchType === "lines") {
         return (
           <React.Fragment key={result.id}>
-            <LineResult metaInfo={result} key={result.id} />
+            <LineResult metaInfo={result} key={result.id}>
+              <ImageWithModal
+                thumbSrc={result.thumbnailURL}
+                src={result.imageURL}
+                title={result.publishedName}
+              />
+            </LineResult>
             <Divider dashed />
           </React.Fragment>
         );

@@ -3,6 +3,10 @@ import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import LineResult from "../LineResult";
 
+function PlaceHolder() {
+  return <p>PlaceHolder</p>;
+}
+
 describe("LineResult: unit tests", () => {
   it("renders", () => {
     const { getByText } = render(
@@ -15,7 +19,9 @@ describe("LineResult: unit tests", () => {
             publishedName: "foo",
             libraryName: "bar"
           }}
-        />
+        >
+          <PlaceHolder />
+        </LineResult>
       </MemoryRouter>
     );
     expect(getByText(/View EM Matches/i));

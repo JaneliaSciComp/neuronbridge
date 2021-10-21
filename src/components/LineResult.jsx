@@ -2,23 +2,18 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col } from "antd";
 import PropTypes from "prop-types";
-import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 
 export default function LineResult(props) {
   const location = useLocation();
-  const { metaInfo } = props;
+  const { metaInfo, children } = props;
 
   const matchesUrl = `/search/lines/${metaInfo.publishedName}/matches/${metaInfo.id}`;
 
   return (
     <Row>
       <Col md={10}>
-        <ImageWithModal
-          thumbSrc={metaInfo.thumbnailURL}
-          src={metaInfo.imageURL}
-          title={metaInfo.publishedName}
-        />
+        {children}
       </Col>
       <Col md={9}>
         <LineMeta attributes={metaInfo} />
@@ -33,5 +28,6 @@ export default function LineResult(props) {
 }
 
 LineResult.propTypes = {
-  metaInfo: PropTypes.object.isRequired
+  metaInfo: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired
 };

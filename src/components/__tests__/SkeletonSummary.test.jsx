@@ -3,6 +3,10 @@ import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import SkeletonSummary from "../SkeletonSummary";
 
+function PlaceHolder() {
+  return <p>PlaceHolder</p>;
+}
+
 describe("SkeletonSummary: unit tests", () => {
   it("renders", () => {
     const { getByText } = render(
@@ -14,7 +18,9 @@ describe("SkeletonSummary: unit tests", () => {
             imageURL: "https://example.com",
             libraryName: "lib1"
           }}
-        />
+        >
+          <PlaceHolder />
+        </SkeletonSummary>
       </MemoryRouter>
     );
     expect(getByText(/Back to all results/i));

@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import CustomInputSummary from "../CustomInputSummary";
 
 function PlaceHolder() {
@@ -9,8 +9,8 @@ function PlaceHolder() {
 }
 
 describe("CustomInputSummary: unit tests", () => {
-  it("renders", () => {
-    const { getByText } = render(
+  it("renders", async () => {
+    render(
       <CustomInputSummary searchMeta={{
         upload: "test-file",
         updatedOn: "2021-05-04T13:18:58.915Z",
@@ -20,9 +20,10 @@ describe("CustomInputSummary: unit tests", () => {
         alignFinished: true
       }}>
         <PlaceHolder/>
+        <PlaceHolder/>
       </CustomInputSummary>
 
     );
-    expect(getByText(/Input Mask/i));
+    expect(await screen.getByText(/Input Mask/i));
   });
 });

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Spin, Divider, Typography, Pagination } from "antd";
+import ImageWithModal from "./ImageWithModal";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 import NoSearch from "./NoSearch";
@@ -64,7 +65,13 @@ export default function UnifiedSearchResults(props) {
           const key = `${result.id}_${result.slideCode}_${result.channel}`;
           return (
             <React.Fragment key={key}>
-              <LineResult metaInfo={result} key={result.id} />
+              <LineResult metaInfo={result} key={result.id}>
+                <ImageWithModal
+                  thumbSrc={result.thumbnailURL}
+                  src={result.imageURL}
+                  title={result.publishedName}
+                />
+              </LineResult>
               <Divider dashed />
             </React.Fragment>
           );

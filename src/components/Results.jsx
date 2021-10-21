@@ -4,6 +4,7 @@ import { Storage, API, graphqlOperation } from "aws-amplify";
 import { Divider, message } from "antd";
 import Matches from "./Matches";
 import CustomInputSummary from "./CustomInputSummary";
+import ImageWithModal from "./ImageWithModal";
 import AlignmentMeta from "./AlignmentMeta";
 import NotFound from "./NotFound";
 import * as queries from "../graphql/queries";
@@ -105,6 +106,11 @@ export default function Results({ match }) {
   return (
     <div>
       <CustomInputSummary searchMeta={searchMeta}>
+        <ImageWithModal
+          thumbSrc={searchMeta.thumbnailURL}
+          src={searchMeta.imageURL}
+          title={searchMeta.upload}
+        />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>
       <Divider />

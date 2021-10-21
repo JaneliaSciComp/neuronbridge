@@ -1,12 +1,12 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Maintenance from "../Maintenance";
+import MaintenanceBanner from "../MaintenanceBanner";
 
 describe("Maintenance: unit tests", () => {
   it("renders", () => {
     const { getByText } = render(
-      <Maintenance />
+      <MaintenanceBanner />
     );
-    expect(getByText(/search service is down/i));
+    expect(getByText(/Our services are down/i));
   });
 });

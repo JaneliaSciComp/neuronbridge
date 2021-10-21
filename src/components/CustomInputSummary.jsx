@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
-import ImageWithModal from "./ImageWithModal";
 import CustomMeta from "./CustomMeta";
 import { AppContext } from "../containers/AppContext";
 
@@ -23,11 +22,7 @@ export default function CustomInputSummary({ searchMeta, children }) {
       <h3>Input Mask</h3>
       <Row>
         <Col xs={24} lg={8}>
-          <ImageWithModal
-            thumbSrc={searchMeta.thumbnailURL}
-            src={searchMeta.imageURL}
-            title={searchMeta.upload}
-          />
+          {children[0]}
         </Col>
         <Col md={24} lg={12}>
           <CustomMeta metadata={searchMeta} />
@@ -47,7 +42,7 @@ export default function CustomInputSummary({ searchMeta, children }) {
               {appState.showAlignmentMeta ? (
                 <Row>
                   <Col md={24} lg={24}>
-                    {children}
+                    {children[1]}
                   </Col>
                 </Row>
               ) : (
@@ -68,5 +63,5 @@ export default function CustomInputSummary({ searchMeta, children }) {
 
 CustomInputSummary.propTypes = {
   searchMeta: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.arrayOf(PropTypes.element).isRequired
 };

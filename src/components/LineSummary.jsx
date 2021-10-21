@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
-import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 
 export default function LineSummary(props) {
-  const { lineMeta } = props;
+  const { lineMeta, children } = props;
 
 
   if (!lineMeta) {
@@ -24,11 +23,7 @@ export default function LineSummary(props) {
   return (
     <Row>
       <Col xs={24} lg={8}>
-        <ImageWithModal
-          thumbSrc={lineMeta.thumbnailURL}
-          src={lineMeta.imageURL}
-          title={lineMeta.publishedName}
-        />
+        {children}
       </Col>
       <Col lg={12}>
         <LineMeta attributes={lineMeta} />
@@ -43,7 +38,8 @@ export default function LineSummary(props) {
 }
 
 LineSummary.propTypes = {
-  lineMeta: PropTypes.object
+  lineMeta: PropTypes.object,
+  children: PropTypes.node.isRequired
 };
 
 LineSummary.defaultProps = {

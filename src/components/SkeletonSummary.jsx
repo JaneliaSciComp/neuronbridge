@@ -2,18 +2,17 @@ import React from "react";
 import { Button, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
 
 export default function SkeletonSummary(props) {
-  const { metaInfo } = props;
+  const { metaInfo, children } = props;
 
   const searchUrl = `/search?q=${metaInfo.publishedName}`;
 
   return (
     <Row>
       <Col xs={24} lg={8}>
-        <ImageWithModal thumbSrc={metaInfo.thumbnailURL} src={metaInfo.imageURL} title={metaInfo.publishedName} />
+        {children}
       </Col>
       <Col lg={12}>
         <SkeletonMeta attributes={metaInfo} />
@@ -28,5 +27,6 @@ export default function SkeletonSummary(props) {
 }
 
 SkeletonSummary.propTypes = {
-  metaInfo: PropTypes.object.isRequired
+  metaInfo: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired
 };
