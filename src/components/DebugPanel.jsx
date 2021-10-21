@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col } from "antd";
+import { Auth, API } from "aws-amplify";
 
 export default function DebugPanel({ paths, config }) {
+  const [publishedNames, setPublishedNames] = useState();
+
+  useEffect(() => {
+    Auth.currentCredentials().then(() => {
+        API.get("SearchAPI", "/published_names", {
+          queryStringParameters: { version: true }
+        }).then(data => {
+          setPublishedNames(data.version);
+        });
+    });
+  },[publishedNames]);
 
   const searchEndpoints = config.api.endpoints.map(endpoint => (
     <p key={endpoint.name}>
@@ -46,6 +58,9 @@ export default function DebugPanel({ paths, config }) {
         </p>
         <p>
           <b>NODE_ENV:</b> {process.env.NODE_ENV}
+        </p>
+        <p>
+          <b>Published Names table:</b> {publishedNames}
         </p>
       </Col>
     </Row>
