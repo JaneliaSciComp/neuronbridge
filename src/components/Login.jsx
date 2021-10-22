@@ -48,7 +48,7 @@ export default function Login() {
           By logging into this application you agree to the{" "}
           <Link to="/usage">Usage Terms</Link>
         </p>
-        {process.env.REACT_APP_LEVEL !== "int" ? (
+        {process.env.REACT_APP_LEVEL !== "int" || process.env.REACT_APP_NO_OKTA ? (
           <>
             <GoogleLogin userHasAuthenticated={userHasAuthenticated} />
             <Divider>or</Divider>
