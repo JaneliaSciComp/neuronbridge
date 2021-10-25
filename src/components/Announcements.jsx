@@ -12,6 +12,10 @@ export default function Announcements({ source }) {
       .then(result => result.json())
       .then(messages => {
         setAnnouncements(messages);
+      })
+      .catch((error) => {
+        console.log(error);
+        setAnnouncements([]);
       });
   }, [source]);
 
@@ -45,7 +49,7 @@ export default function Announcements({ source }) {
       return (
         <Alert
           style={{ marginBottom: "1em" }}
-          key={ann.start}
+          key={ann.id}
           message={message}
           type={ann.type || "info"}
           closable={ann.closable}
