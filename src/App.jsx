@@ -187,7 +187,7 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
-          <Announcements source={config.announcements}/>
+          <Announcements source={config.announcements} />
           {config.UNDER_MAINTENANCE ? <MaintenanceBanner /> : ""}
           {isAuthenticating ? (
             <p>Loading...</p>
@@ -219,7 +219,8 @@ export default function App() {
           <a href="mailto:neuronbridge@janelia.hhmi.org">
             <FontAwesomeIcon icon={faEnvelope} /> Contact Us
           </a>{" "}
-          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a>
+          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a> |
+          {" "}<Link to="/announcements">Announcements Archive</Link>
         </p>
 
         <p>
