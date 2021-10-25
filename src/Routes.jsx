@@ -18,6 +18,7 @@ const Search = React.lazy(() => import(/* webpackChunkName: 'search' */ "./compo
 const Results = React.lazy(() => import(/* webpackChunkName: 'results' */ "./components/Results"));
 const Maintenance = React.lazy(() => import(/* webpackChunkName: 'maint' */ "./components/Maintenance"));
 const MaskSelection = React.lazy(() => import(/* webpackChunkName: 'mask' */ "./components/MaskSelection"));
+const AnnouncementsArchive = React.lazy(() => import(/* webpackChunkName: 'announcements' */ "./components/AnnouncementsArchive"));
 const CustomSearchList = React.lazy(() =>
   /* webpackChunkName: 'custom-search-list' */
   import("./components/CustomSearchList")
@@ -88,6 +89,7 @@ export default function Routes({ appProps }) {
         <Route path="/releasenotes/:name" component={ReleaseNotes} />
         <Route path="/usage" component={UsageTerms} />
         <Route path="/help" component={HelpPage} />
+        <Route path="/announcements" component={AnnouncementsArchive} />
         {/* Finally, catch all unmatched routes */}
         <Route component={NotFound} />
       </Switch>
