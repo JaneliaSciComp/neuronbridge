@@ -21,6 +21,7 @@ const initialState = {
     cdm: 2
   },
   paths: {},
+  migrationMessage: true,
   debug: false
 }
 

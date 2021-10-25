@@ -250,7 +250,6 @@ export default function ImageComparison(props) {
   // some times the comparison count will be greater than the number of image options.
   // In those cases, don't change the comparison count, just show the available images
   // and move on.
-<<<<<<< HEAD
   const imageCount = Math.min(
     imageOptions.length,
     updatedCount || defaultComparisons
@@ -258,9 +257,6 @@ export default function ImageComparison(props) {
 
   // this sets narrower columns if the images are tall VNC images.
   const colWidth = isVertical ? 8 : 12;
-=======
-  const imageCount = Math.min(imageOptions.length, updatedCount || defaultComparisons);
->>>>>>> v2.0.0
 
   const images = imageCount
     ? [...Array(imageCount)].map((_, index) => {
