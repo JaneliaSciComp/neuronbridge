@@ -194,7 +194,7 @@ export default function SearchUploadMeta({
         >
           <Select>
             <Option value="brain">Brain</Option>
-            <Option value="vnc">VNC</Option>
+            <Option value="vnc" disabled>VNC</Option>
           </Select>
         </Form.Item>
         {!isAligned && (
