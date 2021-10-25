@@ -95,13 +95,13 @@ function getMatchImageOptions(
           pppBaseURL
         }),
         canMask: false
-      },
-      {
+      }
+      /* {
         key: "fullExpression",
         desc: "LM - Gen1-GAL4 Expression Pattern",
         path: "image_path",
         canMask: false
-      }
+      } */
     ];
     return pppmOptions;
   }
