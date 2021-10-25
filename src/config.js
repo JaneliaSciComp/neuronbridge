@@ -7,7 +7,8 @@ const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 const dataLevel =
   process.env.REACT_APP_DATA_TARGET || process.env.REACT_APP_LEVEL;
 
-let BUCKET_NAME = "janelia-neuronbridge-data-prod";
+const PROD_BUCKET_NAME = "janelia-neuronbridge-data-prod";
+let BUCKET_NAME = PROD_BUCKET_NAME;
 if (validLevels.includes(dataLevel)) {
   BUCKET_NAME = `janelia-neuronbridge-data-${dataLevel}`;
 }
@@ -65,6 +66,7 @@ export default {
     authenticationType: "AMAZON_COGNITO_USER_POOLS",
     apiKey: "oexu5gsgl5g5vcaah6q4nl7gui"
   },
+  announcements: `https://s3.amazonaws.com/${PROD_BUCKET_NAME}/announcements.json`,
   releasenotes: {
     DATA: {
       title: "Precomputed match data",

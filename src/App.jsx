@@ -18,6 +18,7 @@ import HelpContents from "./components/Help/HelpContents";
 import SiteSurvey from "./components/SiteSurvey";
 import MaintenanceBanner from "./components/MaintenanceBanner";
 import DebugPanel from "./components/DebugPanel";
+import Announcements from "./components/Announcements";
 import { useKonami } from "./libs/hooksLib";
 import "antd/dist/antd.less";
 import "./App.css";
@@ -186,6 +187,7 @@ export default function App() {
       </Header>
       <Content className="site-layout" style={{ marginTop: 86 }}>
         <div className="site-layout-background">
+          <Announcements source={config.announcements}/>
           {config.UNDER_MAINTENANCE ? <MaintenanceBanner /> : ""}
           {isAuthenticating ? (
             <p>Loading...</p>

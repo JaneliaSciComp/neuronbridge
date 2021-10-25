@@ -1,0 +1,25 @@
+[
+  {
+    "message": "Update your mailing list preferences on the new account page.",
+    "start": "2021-10-22T15:00:00.000Z",
+    "closable": true,
+    "type": "warning",
+    "action": {
+      "text": "Update",
+      "link": "/accounts"
+    }
+  },
+  {
+    "message": "test message2",
+    "stamp": true,
+    "start": "2021-10-22T17:00:00.000Z",
+    "closable": false
+  },
+  {
+    "message": "test message2",
+    "start": "2021-10-22T18:00:00.000Z",
+    "closable": false,
+    "type": "error"
+  }
+
+]

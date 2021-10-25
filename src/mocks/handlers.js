@@ -2,6 +2,7 @@ import { rest } from "msw";
 // import data1537331894 from "./1537331894.json";
 // import metadata1537331894 from "./1537331894_metadata.json";
 // import metadata1932493302 from "./1932493302_metadata.json";
+import announcements from "./announcements.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
@@ -13,6 +14,12 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+  rest.get(
+    "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/announcements.json",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(announcements));
+    }
+  ),
   /* rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json",
     (req, res, ctx) => {
@@ -67,12 +74,12 @@ export const handlers = [
     }
   ),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/paths.json",
+    "https://janelia-neuronbridge-data-dev-pre.s3.us-east-1.amazonaws.com/paths.json",
     (req, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json({
-          precomputedDataRootPath: "v2_2_0",
+          precomputedDataRootPath: "v2_3_0_pre",
           imageryBaseURL:
             "https://s3.amazonaws.com/janelia-flylight-color-depth-dev",
           thumbnailsBaseURLs:
