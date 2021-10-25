@@ -20,7 +20,7 @@ export default function LineResult(props) {
       </Col>
       <Col md={5}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>
-          <Link to={matchesUrl}>View EM Matches</Link>
+          <Link to={matchesUrl}>Color Depth Search Results</Link>
         </Button>
       </Col>
     </Row>

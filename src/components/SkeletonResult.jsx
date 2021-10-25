@@ -28,11 +28,11 @@ export default function SkeletonResult(props) {
         <Space direction="vertical">
           {metaInfo.cdm ? (
             <Button
-              aria-label="View Color Depth MIP Results"
+              aria-label="View Color Depth Search Results"
               type="primary"
               disabled={/matches$/.test(location.pathname)}
             >
-              <Link to={matchesUrl}>Color Depth MIP Results</Link>
+              <Link to={matchesUrl}>Color Depth Search Results</Link>
             </Button>
           ) : (
             ""
