@@ -76,6 +76,7 @@ export default function About() {
           <ul>
             <li>Jody Clements</li>
             <li>Cristian Goina</li>
+            <li>Donald Olbris</li>
             <li>Rob Svirskas</li>
             <li>Takashi Kawase</li>
             <li>Konrad Rokicki</li>
