@@ -24,7 +24,7 @@
     "message": "We are experiencing issues with the search system. We will post updates here.",
     "stamp": true,
     "start": "2021-10-23T18:00:00.000Z",
-    "end": "2021-10-27T10:00:00.000Z",
+    "end": "2021-10-24T10:00:00.000Z",
     "closable": true,
     "type": "error"
   }

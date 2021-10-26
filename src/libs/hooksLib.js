@@ -43,8 +43,6 @@ export function useTimeout(callback, delay) {
   }, [delay])
 }
 
-export default useTimeout
-
 // eslint-disable-next-line
 export function useQuery() {
   return new URLSearchParams(useLocation().search);

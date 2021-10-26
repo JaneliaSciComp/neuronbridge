@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Typography, Timeline } from "antd";
+import { signedPublicLink } from "../libs/awsLib";
 import config from "../config";
 
 const { Title } = Typography;
@@ -9,18 +10,20 @@ export default function AnnouncementsArchive() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(config.announcements)
-      .then(result => result.json())
-      .then(messages => {
-        setAnnouncements(messages);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setAnnouncements([]);
-        setLoading(false);
-      });
-  }, [config.announcements]);
+    signedPublicLink(config.announcements).then(signedUrl => {
+      fetch(signedUrl)
+        .then(result => result.json())
+        .then(messages => {
+          setAnnouncements(messages);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.log(error);
+          setAnnouncements([]);
+          setLoading(false);
+        });
+    });
+  }, []);
 
   if (loading) {
     return <p>Loading...</p>;

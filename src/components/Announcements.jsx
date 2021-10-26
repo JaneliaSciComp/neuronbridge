@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Alert, Button } from "antd";
+import { signedPublicLink } from "../libs/awsLib";
+import { useInterval } from "../libs/hooksLib";
 
 export default function Announcements({ source }) {
   // get the data from the source and then loop over it to generate an announcement
   const [announcements, setAnnouncements] = useState([]);
 
+
+  function updateAnnouncements(sourceUrl) {
+    signedPublicLink(sourceUrl).then(signedUrl => {
+      fetch(signedUrl)
+        .then(result => result.json())
+        .then(messages => {
+          setAnnouncements(messages);
+        })
+        .catch(error => {
+          console.log(error);
+          setAnnouncements([]);
+        });
+    });
+  }
+
+  // update the announcements every hour
+  useInterval(() => updateAnnouncements(source), 1000 * 60 * 60);
+
   useEffect(() => {
-    fetch(source)
-      .then(result => result.json())
-      .then(messages => {
-        setAnnouncements(messages);
-      })
-      .catch((error) => {
-        console.log(error);
-        setAnnouncements([]);
-      });
+    updateAnnouncements(source);
   }, [source]);
 
   const formatted = announcements
@@ -62,7 +74,9 @@ export default function Announcements({ source }) {
     <>
       {formatted}
       {formatted.length > 0 ? (
-        <Link to="/announcements" style={{float: "left"}}>See all announcements</Link>
+        <Link to="/announcements" style={{ float: "left" }}>
+          See all announcements
+        </Link>
       ) : null}
     </>
   );

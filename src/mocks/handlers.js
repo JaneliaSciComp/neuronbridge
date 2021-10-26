@@ -15,7 +15,7 @@ export const handlers = [
     );
   }),
   rest.get(
-    "https://s3.amazonaws.com/janelia-neuronbridge-data-dev/announcements.json",
+    "https://s3.amazonaws.com/janelia-neuronbridge-data-val/announcements.json",
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(announcements));
     }
