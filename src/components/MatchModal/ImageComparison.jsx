@@ -50,7 +50,7 @@ function getMatchImageOptions(
           relativePath: match.files?.ColorDepthMipSkel,
           pppBaseURL
         }),
-        canMask: true
+        canMask: false
       },
       {
         key: "pppmMask",
@@ -83,7 +83,7 @@ function getMatchImageOptions(
           relativePath: match.files?.ColorDepthMip,
           pppBaseURL
         }),
-        canMask: true
+        canMask: false
       },
       {
         key: "sampleMIP",
