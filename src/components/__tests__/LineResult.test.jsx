@@ -24,6 +24,6 @@ describe("LineResult: unit tests", () => {
         </LineResult>
       </MemoryRouter>
     );
-    expect(getByText(/View EM Matches/i));
+    expect(getByText(/Color Depth Search Results/i));
   });
 });
