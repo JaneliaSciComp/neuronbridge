@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Auth } from "aws-amplify";
 import { Switch } from "antd";
-import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { AppContext } from "../containers/AppContext";
+import AnnouncementsCreate from "./AnnouncementsCreate";
 
 export default function Admin() {
   const [token, setToken] = useState("");
@@ -38,15 +38,18 @@ export default function Admin() {
         style={{ width: "100%", height: "15em" }}
         value={token}
       />
-    <p><b>Identity Id:</b> {identityId}</p>
+      <p>
+        <b>Identity Id:</b> {identityId}
+      </p>
       <Switch
+        style={{ marginBottom: "1em" }}
         checked={appState.debug}
         onChange={handleShowDebug}
-        checkedChildren={<CheckOutlined />}
-        unCheckedChildren={<CloseOutlined />}
+        checkedChildren="debug enabled"
+        unCheckedChildren="debug disabled"
         defaultChecked
       />{" "}
-      debug enabled
+      {appState.isAdmin ? <AnnouncementsCreate /> : null}
     </>
   );
 }

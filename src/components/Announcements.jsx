@@ -1,59 +1,65 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Alert, Button } from "antd";
-import { signedPublicLink } from "../libs/awsLib";
+import { Auth, API } from "aws-amplify";
 import { useInterval } from "../libs/hooksLib";
 
-export default function Announcements({ source }) {
+export default function Announcements() {
   // get the data from the source and then loop over it to generate an announcement
   const [announcements, setAnnouncements] = useState([]);
 
-
-  function updateAnnouncements(sourceUrl) {
-    signedPublicLink(sourceUrl).then(signedUrl => {
-      fetch(signedUrl)
-        .then(result => result.json())
+  function updateAnnouncements() {
+    Auth.currentCredentials().then(() => {
+      API.get("SearchAPI", "/announcements", {
+        queryStringParameters: { date: "all" }
+      })
         .then(messages => {
           setAnnouncements(messages);
         })
-        .catch(error => {
-          console.log(error);
+        .catch(() => {
           setAnnouncements([]);
         });
     });
   }
 
   // update the announcements every hour
-  useInterval(() => updateAnnouncements(source), 1000 * 60 * 60);
+  useInterval(() => updateAnnouncements(), 1000 * 60 * 60);
 
   useEffect(() => {
-    updateAnnouncements(source);
-  }, [source]);
+    updateAnnouncements();
+  }, []);
 
   const formatted = announcements
     .filter(ann => {
       // only messages that start before current time and end after current
       // time should be shown.
-      const now = Date.now();
-      if (Date.parse(ann.start) <= now && now <= Date.parse(ann.end)) {
+      const now = new Date().getTime();
+      if (
+        new Date(parseInt(ann.startTime, 10)) <= now &&
+        now <= new Date(parseInt(ann.endTime, 10))
+      ) {
         return true;
       }
       return false;
     })
     .sort((a, b) => {
       // sort messages so newest are at the top.
-      return new Date(b.start) - new Date(a.start);
+      return (
+        new Date(parseInt(b.startTime, 10)) -
+        new Date(parseInt(a.startTime, 10))
+      );
     })
     .map(ann => {
       const message = ann.stamp
-        ? `${new Date(ann.start).toLocaleString()} - ${ann.message}`
+        ? `${new Date(parseInt(ann.startTime, 10)).toLocaleString()} - ${
+            ann.message
+          }`
         : ann.message;
 
-      const action = ann.action ? (
-        <Link to={ann.action.link}>
+      const action = ann.actionLink ? (
+        <Link to={ann.actionLink}>
           <Button size="small" type="ghost">
-            {ann.action.text}
+            {ann.actionText}
           </Button>
         </Link>
       ) : null;
@@ -61,7 +67,7 @@ export default function Announcements({ source }) {
       return (
         <Alert
           style={{ marginBottom: "1em" }}
-          key={ann.id}
+          key={ann.createdTime}
           message={message}
           type={ann.type || "info"}
           closable={ann.closable}
@@ -81,7 +87,3 @@ export default function Announcements({ source }) {
     </>
   );
 }
-
-Announcements.propTypes = {
-  source: PropTypes.string.isRequired
-};

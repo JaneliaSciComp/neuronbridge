@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { Card, Typography, Timeline } from "antd";
-import { signedPublicLink } from "../libs/awsLib";
-import config from "../config";
+import React, { useState, useEffect, useContext } from "react";
+import { Card, Typography, Timeline, message } from "antd";
+import { Auth, API } from "aws-amplify";
+import { AppContext } from "../containers/AppContext";
+import AnnouncementsDelete from "./AnnouncementsDelete";
 
 const { Title } = Typography;
 
 export default function AnnouncementsArchive() {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [appState] = useContext(AppContext);
 
   useEffect(() => {
-    signedPublicLink(config.announcements).then(signedUrl => {
-      fetch(signedUrl)
-        .then(result => result.json())
+    Auth.currentCredentials().then(() => {
+      API.get("SearchAPI", "/announcements", {
+        queryStringParameters: { date: "all" }
+      })
         .then(messages => {
           setAnnouncements(messages);
           setLoading(false);
         })
         .catch(error => {
-          console.log(error);
+          message.error(error.message);
           setAnnouncements([]);
           setLoading(false);
         });
@@ -32,17 +35,27 @@ export default function AnnouncementsArchive() {
   const formatted = announcements
     .sort((a, b) => {
       // sort messages so newest are at the top.
-      return new Date(b.start) - new Date(a.start);
+      return (
+        new Date(parseInt(b.startTime, 10)) -
+        new Date(parseInt(a.startTime, 10))
+      );
     })
     .map(announcement => {
-      const title = new Date(announcement.start).toLocaleString();
+      const title = new Date(
+        parseInt(announcement.startTime, 10)
+      ).toLocaleString();
       return (
-        <Timeline.Item key={announcement.id}>
+        <Timeline.Item key={announcement.createdTime}>
           <Card
             title={title}
             style={{ marginBottom: "1em" }}
             size="small"
             headStyle={{ background: "#eee" }}
+            extra={
+              appState.isAdmin ? (
+                <AnnouncementsDelete id={announcement.createdTime} />
+              ) : null
+            }
           >
             <p>{announcement.message}</p>
           </Card>
