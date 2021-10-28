@@ -1,12 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Button } from "antd";
 import { Auth, API } from "aws-amplify";
 import { useInterval } from "../libs/hooksLib";
+import { AppContext } from "../containers/AppContext";
 
 export default function Announcements() {
   // get the data from the source and then loop over it to generate an announcement
   const [announcements, setAnnouncements] = useState([]);
+  const [appState, , setPermanent] = useContext(AppContext);
+  const { closedAnnouncements } = appState;
+
+  function handleClose(id) {
+    if (!closedAnnouncements.includes(id)) {
+      closedAnnouncements.push(id);
+      setPermanent({ closedAnnouncements });
+    }
+  }
 
   function updateAnnouncements() {
     Auth.currentCredentials().then(() => {
@@ -31,6 +41,11 @@ export default function Announcements() {
 
   const formatted = announcements
     .filter(ann => {
+      // filter closed messages
+      if (closedAnnouncements && closedAnnouncements.includes(ann.createdTime)) {
+        return false;
+      }
+
       // only messages that start before current time and end after current
       // time should be shown.
       const now = new Date().getTime();
@@ -71,6 +86,7 @@ export default function Announcements() {
           message={message}
           type={ann.type || "info"}
           closable={ann.closable}
+          onClose={() => handleClose(ann.createdTime)}
           action={action}
         />
       );

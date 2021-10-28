@@ -22,7 +22,8 @@ const initialState = {
   },
   paths: {},
   migrationMessage: true,
-  debug: false
+  debug: false,
+  closedAnnouncements: []
 }
 
 const localState = JSON.parse(localStorage.getItem("appState"));
