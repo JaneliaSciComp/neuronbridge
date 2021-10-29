@@ -1,52 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Row, Col, Divider } from "antd";
+import { Row, Col, Divider, Button } from "antd";
 import ImageComparison from "./ImageComparison";
 import DownloadZipCheckbox from "./DownloadZipCheckbox";
-import LineMeta from "../LineMeta";
-import CustomMeta from "../CustomMeta";
-import SkeletonMeta from "../SkeletonMeta";
+import InputMeta from "./InputMeta";
+import MatchMeta from "./MatchMeta";
+import { AppContext } from "../../containers/AppContext";
 
 export default function Summary(props) {
-  const {
-    selectedMatch,
-    mask,
-    isLM,
-    selected,
-    matchesList,
-  } = props;
+  const { selectedMatch, mask, isLM, selected, matchesList } = props;
+  const [appState, , setPermanent] = useContext(AppContext);
 
-  let metaBlock = <p>Loading...</p>;
-
-  if (mask)
-    if (!mask.createdOn) {
-      if (!isLM) {
-        metaBlock = <LineMeta attributes={mask} />;
-      } else {
-        // skeleton type from EM
-        metaBlock = <SkeletonMeta attributes={mask} />;
-      }
-    } else {
-      metaBlock = <CustomMeta metadata={mask} />;
-    }
+  function handleDetailsToggle() {
+    setPermanent({compactMeta: !appState.compactMeta});
+  }
 
   return (
     <>
       <Row gutter={16}>
         <Col sm={12}>
-          <h3>Input Image</h3>
-          {metaBlock}
+          <InputMeta mask={mask} isLM={isLM} compact={appState.compactMeta} />
         </Col>
         <Col sm={12}>
           <DownloadZipCheckbox matchId={selectedMatch.id} />
-          <h3>
-            Match {selected} of {matchesList.length}
-          </h3>
-          {isLM ? (
-            <LineMeta attributes={selectedMatch} />
-          ) : (
-            <SkeletonMeta attributes={selectedMatch} />
-          )}
+          <MatchMeta
+            match={selectedMatch}
+            isLM={isLM}
+            matchesList={matchesList}
+            compact={appState.compactMeta}
+            matchRank={selected}
+          />
         </Col>
       </Row>
       <Divider />
@@ -56,7 +39,11 @@ export default function Summary(props) {
         match={selectedMatch}
         matchPath={selectedMatch.imageURL}
         matchThumbnail={selectedMatch.thumbnailURL}
-      />
+      >
+        <Button type="button" onClick={handleDetailsToggle} style={{float: "right"}}>
+          {appState.compactMeta ? 'Show' : 'Hide'} Match Info
+        </Button>
+      </ImageComparison>
     </>
   );
 }

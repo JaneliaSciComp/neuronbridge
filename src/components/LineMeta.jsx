@@ -6,9 +6,19 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function LineMeta({ attributes }) {
+export default function LineMeta({ attributes, compact }) {
   const { publishedName, libraryName } = attributes;
   const searchUrl = `/search?q=${publishedName}`;
+
+  if (compact) {
+    return (
+      <p>
+        <b>Line Name: </b>
+        <Link to={searchUrl}>{publishedName}</Link>
+      </p>
+    );
+  }
+
   return (
     <Row>
       <Col md={24} lg={12}>
@@ -30,14 +40,14 @@ export default function LineMeta({ attributes }) {
         ) : (
           ""
         )}
-       {attributes.pppRank !== undefined ? (
+        {attributes.pppRank !== undefined ? (
           <p>
             <b>Rank:</b> {Math.round(attributes.pppRank)}
           </p>
         ) : (
           ""
         )}
-       {attributes.pppScore !== undefined ? (
+        {attributes.pppScore !== undefined ? (
           <p>
             <b>Score:</b> {Math.round(attributes.pppScore)}
           </p>
@@ -78,10 +88,8 @@ export default function LineMeta({ attributes }) {
             isLM
             library={libraryName}
           />
-          <br/>
-          <Link to={searchUrl}>
-            View Precomputed Search
-          </Link>
+          <br />
+          <Link to={searchUrl}>View Precomputed Search</Link>
         </p>
       </Col>
     </Row>
@@ -89,5 +97,10 @@ export default function LineMeta({ attributes }) {
 }
 
 LineMeta.propTypes = {
-  attributes: PropTypes.object.isRequired
+  attributes: PropTypes.object.isRequired,
+  compact: PropTypes.bool
+};
+
+LineMeta.defaultProps = {
+  compact: false
 };

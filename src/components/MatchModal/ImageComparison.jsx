@@ -136,7 +136,7 @@ function getMatchImageOptions(
 }
 
 export default function ImageComparison(props) {
-  const { mask, match, isLM } = props;
+  const { mask, match, isLM, children } = props;
 
   const query = useQuery();
   const location = useLocation();
@@ -307,6 +307,7 @@ export default function ImageComparison(props) {
       >
         {selectOptions}
       </Select>
+      {children}
       <Divider />
       <Row gutter={16}>
         <CoordsProvider>{images}</CoordsProvider>
@@ -317,7 +318,12 @@ export default function ImageComparison(props) {
 }
 
 ImageComparison.propTypes = {
+  children: PropTypes.node,
   mask: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   isLM: PropTypes.bool.isRequired
+};
+
+ImageComparison.defaultProps = {
+  children: null
 };

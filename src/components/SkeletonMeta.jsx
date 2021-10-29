@@ -6,15 +6,25 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function SkeletonMeta({ attributes }) {
+export default function SkeletonMeta({ attributes, compact }) {
   const { publishedName, libraryName } = attributes;
 
   const searchUrl = `/search?q=${publishedName}`;
 
-  const neuronTypeAndInstance = (attributes.neuronType) ? [
-    attributes.neuronType || "-",
-    attributes.neuronInstance || "-"
-  ].join(" / ") : "";
+  const neuronTypeAndInstance = attributes.neuronType
+    ? [attributes.neuronType || "-", attributes.neuronInstance || "-"].join(
+        " / "
+      )
+    : "";
+
+  if (compact) {
+    return (
+      <p>
+        <b>Body Id:</b>
+        <Link to={searchUrl}>{publishedName}</Link>
+      </p>
+    );
+  }
 
   return (
     <Row>
@@ -88,5 +98,10 @@ export default function SkeletonMeta({ attributes }) {
 }
 
 SkeletonMeta.propTypes = {
-  attributes: PropTypes.object.isRequired
+  attributes: PropTypes.object.isRequired,
+  compact: PropTypes.bool
+};
+
+SkeletonMeta.defaultProps = {
+  compact: false
 };
