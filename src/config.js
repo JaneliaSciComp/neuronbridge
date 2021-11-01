@@ -1,6 +1,6 @@
 import { Auth } from "aws-amplify";
 
-const validLevels = ["prod", "val", "dev", "int"];
+const validLevels = ["prod", "val", "dev", "devpre", "prodpre"];
 
 const UNDER_MAINTENANCE = process.env.REACT_APP_UNDER_MAINTENANCE || false;
 

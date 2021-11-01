@@ -11,6 +11,8 @@ import OktaLogin from "./OktaLogin";
 
 import "./Login.css";
 
+const isInternalSite = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
+
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [appState, setAppState] = useContext(AppContext);
@@ -48,7 +50,7 @@ export default function Login() {
           By logging into this application you agree to the{" "}
           <Link to="/usage">Usage Terms</Link>
         </p>
-        {process.env.REACT_APP_LEVEL !== "int" || process.env.REACT_APP_NO_OKTA ? (
+        {!isInternalSite || process.env.REACT_APP_NO_OKTA ? (
           <>
             <GoogleLogin userHasAuthenticated={userHasAuthenticated} />
             <Divider>or</Divider>
