@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { Dropdown } from "antd";
 import PropTypes from "prop-types";
 import { useCoords } from "../../containers/MouseCoordsContext";
 
@@ -31,7 +32,7 @@ function drawCrosshair(x, y, ctx) {
   ctx.stroke();
 }
 
-export default function MousePosition({ vertical }) {
+export default function MousePosition({ vertical, contextMenu }) {
   const { state, dispatch } = useCoords();
 
   const canvasRef = useRef();
@@ -62,15 +63,29 @@ export default function MousePosition({ vertical }) {
     };
   }, [dispatch]);
 
+  const canvas = (      <canvas
+        ref={canvasRef}
+        width={vertical ? "250" : "500"}
+        height={vertical ? "500" : "250"}
+      /> );
+
+
+  if (!contextMenu) {
+    return canvas
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      width={vertical ? "250" : "500"}
-      height={vertical ? "500" : "250"}
-    />
+    <Dropdown overlay={contextMenu} trigger={["contextMenu"]}>
+      {canvas}
+    </Dropdown>
   );
 }
 
 MousePosition.propTypes = {
-  vertical: PropTypes.bool.isRequired
+  vertical: PropTypes.bool.isRequired,
+  contextMenu: PropTypes.node
 };
+
+MousePosition.defaultProps = {
+  contextMenu: null
+}

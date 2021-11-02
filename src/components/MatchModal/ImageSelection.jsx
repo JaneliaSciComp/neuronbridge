@@ -5,6 +5,7 @@ import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
 import ImageActions from "./ImageActions";
+import ContextMenu from "./ContextMenu";
 import { useQuery } from "../../libs/hooksLib";
 
 const { Option } = Select;
@@ -36,7 +37,8 @@ function ImageSelection({
     setPermanent({ imageChoices });
     // update the url with the newly chosen value
     const urlImageChoices = (query.get("ic") || "").split("");
-    urlImageChoices[index] = imageOptions.map(opt => opt.key).indexOf(selected) || 0;
+    urlImageChoices[index] =
+      imageOptions.map(opt => opt.key).indexOf(selected) || 0;
     // convert the array into a 0 padded string and set it on the "ic"
     // parameter in the query.
     query.set("ic", Array.from(urlImageChoices, item => item || "0").join(""));
@@ -51,6 +53,18 @@ function ImageSelection({
   // so only those images should show the 'Mask & Search'
   // button.
   const { canMask } = chosenImage;
+
+  const contextMenu = (
+    <ContextMenu
+      isPPP={searchType === "ppp"}
+      src={matchImageURL}
+      mirrored={mirrored}
+      canMask={canMask}
+      isCopying={isCopying}
+      setIsCopying={setIsCopying}
+      setMirrored={setMirrored}
+    />
+  );
 
   return (
     <>
@@ -67,13 +81,7 @@ function ImageSelection({
         ))}
       </Select>
       <ImageActions
-        isPPP={searchType === "ppp"}
-        src={matchImageURL}
-        mirrored={mirrored}
-        canMask={canMask}
-        isCopying={isCopying}
-        setIsCopying={setIsCopying}
-        setMirrored={setMirrored}
+        contextMenu={contextMenu}
       />
       <ImageDisplay
         vertical={vertical}
@@ -81,8 +89,9 @@ function ImageSelection({
         src={matchImageURL}
         alt={imageAlt}
         mirrored={mirrored}
+        contextMenu={contextMenu}
       />
-      {appState.debug ? (<p>{matchImageURL}</p>): ''}
+      {appState.debug ? <p>{matchImageURL}</p> : ""}
     </>
   );
 }
@@ -94,7 +103,7 @@ ImageSelection.propTypes = {
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  chosenImage: PropTypes.object.isRequired,
+  chosenImage: PropTypes.object.isRequired
 };
 
 export default ImageSelection;

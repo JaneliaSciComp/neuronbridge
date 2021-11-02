@@ -9,7 +9,8 @@ const ImageDisplay = props => {
     src,
     alt,
     mirrored,
-    vertical
+    vertical,
+    contextMenu
   } = props;
   const [signedSrc, setSignedSrc] = useState();
 
@@ -28,7 +29,7 @@ const ImageDisplay = props => {
   return (
     <>
       <Row className="imageComparison">
-        <MousePosition  vertical={vertical} />
+        <MousePosition  vertical={vertical} contextMenu={contextMenu}/>
         {signedSrc ? <img src={signedSrc} style={style} alt={alt} /> : null}
       </Row>
     </>
