@@ -5,22 +5,26 @@ import MousePosition from "./MousePosition";
 import { signedPublicLink } from "../../libs/awsLib";
 
 const ImageDisplay = props => {
-  const {
-    src,
-    alt,
-    mirrored,
-    vertical,
-    contextMenu
-  } = props;
+  const { src, alt, mirrored, vertical, contextMenu } = props;
   const [signedSrc, setSignedSrc] = useState();
+  const [imageLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (src) {
       signedPublicLink(src).then(signed => {
-        setSignedSrc(signed);
+        const img = new Image();
+        img.onload = () => {
+          setSignedSrc(signed);
+          setLoaded(true);
+        }
+        img.src = signed;
       });
     }
   }, [src]);
+
+  function handleLoaded() {
+    setLoaded(true);
+  }
 
   const style = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
@@ -29,8 +33,12 @@ const ImageDisplay = props => {
   return (
     <>
       <Row className="imageComparison">
-        <MousePosition  vertical={vertical} contextMenu={contextMenu}/>
-        {signedSrc ? <img src={signedSrc} style={style} alt={alt} /> : null}
+        <MousePosition vertical={vertical} contextMenu={contextMenu} />
+        {imageLoaded ? (
+          <img src={signedSrc} style={style} alt={alt} onLoad={handleLoaded} />
+        ) : (
+          <img src="/vnc_placeholder.png" alt="placeholder" />
+        )}
       </Row>
     </>
   );

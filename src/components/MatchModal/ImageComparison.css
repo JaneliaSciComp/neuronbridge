@@ -4,11 +4,9 @@
   /* this keeps the modal from jumping around as the images load
    * TODO: The image height will need to be modified for VNC
   */
-  min-height: 250px;
 }
 
 .imageComparison img {
-  float:left;
   z-index: 1;
 }
 
