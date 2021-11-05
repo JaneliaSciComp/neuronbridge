@@ -26,6 +26,8 @@ const ImageDisplay = props => {
     setLoaded(true);
   }
 
+  const placeHolderSrc = vertical ? "/vnc_placeholder.png" : "/brain_placeholder.png";
+
   const style = mirrored
     ? { transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
     : { transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
@@ -37,7 +39,7 @@ const ImageDisplay = props => {
         {imageLoaded ? (
           <img src={signedSrc} style={style} alt={alt} onLoad={handleLoaded} />
         ) : (
-          <img src="/vnc_placeholder.png" alt="placeholder" />
+          <img src={placeHolderSrc} alt="placeholder" />
         )}
       </Row>
     </>
