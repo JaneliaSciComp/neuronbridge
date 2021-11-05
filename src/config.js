@@ -15,8 +15,8 @@ if (validLevels.includes(dataLevel)) {
 const SEARCH_BUCKET = process.env.REACT_APP_SEARCH_BUCKET;
 
 let PPPM_BUCKET = "janelia-ppp-match-prod";
-if (process.env.REACT_APP_LEVEL === 'dev') {
-  PPPM_BUCKET = "janelia-ppp-match-dev";
+if (validLevels.includes(dataLevel)) {
+  PPPM_BUCKET = `janelia-ppp-match-dev-${dataLevel}`;
 }
 
 const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
