@@ -172,6 +172,7 @@ export default function ImageComparison(props) {
   // TODO: this step wouldn't be necessary if the keys were the same in both.
   const anatomicalRegion = (
     (mask.anatomicalArea ? mask.anatomicalArea : mask.anatomicalRegion) ||
+    match.anatomicalArea ||
     "brain"
   ).toLowerCase();
   const isVertical = anatomicalRegion === "vnc";

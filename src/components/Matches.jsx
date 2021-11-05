@@ -216,7 +216,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           thumbnailURL: fullThumbUrl,
           // add the anatomical Area for code later down the tree to use
           // for determining image widths and heights.
-          anatomicalArea: input.anatomicalArea
+          anatomicalArea: result.anatomicalArea || input.anatomicalArea
         };
       })
 
