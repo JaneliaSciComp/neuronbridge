@@ -68,8 +68,8 @@ export default function MatchSummary(props) {
           : `(Score: ${Math.round(match.normalizedScore)})`;
     }
 
-    return (
-      <Col xs={24} md={12} lg={8} xl={6}>
+    const thumbnails = (
+      <>
         <div style={{ position: "relative" }}>
           <Checkbox
             style={{
@@ -99,8 +99,13 @@ export default function MatchSummary(props) {
           </Button>
           {score}
         </p>
-      </Col>
+      </>
     );
+    if (match.anatomicalArea === "VNC") {
+      // squeeze a few more images into the row if they are vertical.
+      return (<Col xs={12} md={8} lg={6} xl={4}>{thumbnails}</Col>);
+    }
+    return (<Col xs={24} md={12} lg={8} xl={6}>{thumbnails}</Col>);
   }
 
   return (

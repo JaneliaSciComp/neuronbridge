@@ -213,7 +213,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         return {
           ...result,
           imageURL: fullImageUrl,
-          thumbnailURL: fullThumbUrl
+          thumbnailURL: fullThumbUrl,
+          // add the anatomical Area for code later down the tree to use
+          // for determining image widths and heights.
+          anatomicalArea: input.anatomicalArea
         };
       })
 
