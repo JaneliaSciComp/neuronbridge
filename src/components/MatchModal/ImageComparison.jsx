@@ -12,6 +12,17 @@ import "./ImageComparison.css";
 
 const { Option } = Select;
 
+function createSourceSearchablePath(match, baseURL, library) {
+  if (match.sourceSearchablePNG) {
+    // for precomputed searches.
+    return `${baseURL}/${match.alignmentSpace}/${library.replace(
+      /\s/g,
+      "_"
+    )}/searchable_neurons/pngs/${match.sourceSearchablePNG}`;
+  }
+  return "/nopath.png";
+}
+
 function createMatchImagePath(match, baseURL) {
   if (match.imageName) {
     // generate the match image patch, from values in the match JSON
@@ -123,6 +134,15 @@ function getMatchImageOptions(
       canMask: true
     }
   ];
+  if (match.sourceSearchablePNG) {
+    const path = createSourceSearchablePath(match, cdmBaseURL, library);
+    cdmOptions.unshift({
+      key: "segmented",
+      desc: `${isLM ? "EM" : "LM"} - Input Image (Segmented)`,
+      path,
+      canMask: false
+    });
+  }
   /* TODO: uncomment this when the data is ready.
   if (match.libraryName.match(/gen1.*mcfo/i)) {
     cdmOptions.push({
