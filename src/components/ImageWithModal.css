@@ -18,5 +18,6 @@ button.modalButton:hover {
 }
 
 .ant-modal-root img {
-  width: 99%;
+  max-width: 99%;
+  max-height: 900px;
 }
