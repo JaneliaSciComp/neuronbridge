@@ -13,6 +13,8 @@
 /* SEARCH AND BACKEND */
   Developer: Cristian Goina
   Developer: Rob Svirskas
+  Developer: Donald Olbris
+  Developer: Takashi Kawase
   Developer/Manager: Konrad Rokicki
 
 /* LOGO DESIGN */
