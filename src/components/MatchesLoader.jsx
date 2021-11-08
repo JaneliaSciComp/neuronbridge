@@ -56,11 +56,17 @@ export default function MatchesLoader({ searchResult, searchType }) {
             setLoading(false);
           };
           fr.readAsText(response.Body);
-        }).catch(() => {
-          message.error("Unable to load matches from the server");
+        }).catch((e) => {
+          if (e.response.status === 404) {
+            message.error("No results were found for the provided ID.");
+          }
+          else {
+            message.error("Unable to load matches from the server");
+          }
           setLoading(false);
         });
-      }).catch(() => {
+      }).catch((e) => {
+        console.log(e);
         message.error("Unable to load matches from the server");
         setLoading(false);
       });
@@ -79,7 +85,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
     );
   }
 
-  const matchInput = searchResult.results.filter(
+  const matchInput = searchResult.results?.filter(
     result => result.id === matchId
   )[0];
 
