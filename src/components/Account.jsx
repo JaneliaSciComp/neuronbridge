@@ -49,7 +49,7 @@ export default function Account() {
 
   return (
     <>
-      <Title>Your Account Preferences</Title>
+      <Title>Account Preferences</Title>
       {loading ? (
         <p>Loading...</p>
       ) : (
