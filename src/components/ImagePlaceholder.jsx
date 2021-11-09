@@ -8,11 +8,12 @@ export default function ImagePlaceholder({src, alt, mirrored, imageDimensions, p
 
 
   const updatedStyle = mirrored
-    ? { ...style, transition: "transform .25s ease-in-out", transform: "scaleX(-1)" }
-    : { ...style, transition: "transform .25s ease-in-out", transform: "scaleX(1)" };
+    ? { ...style, transition: "transform .25s ease-in-out", transform: "scaleX(-1)", width: "100%", height: "auto" }
+    : { ...style, transition: "transform .25s ease-in-out", transform: "scaleX(1)", width: "100%", height: "auto" };
 
   useEffect(() => {
     if (src) {
+      setLoaded(false);
       signedPublicLink(src).then(signed => {
         const img = new Image();
         img.onload = () => {

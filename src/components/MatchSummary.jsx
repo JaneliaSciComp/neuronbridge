@@ -87,6 +87,7 @@ export default function MatchSummary(props) {
             src={imageURL}
             alt={publishedName}
             showModal={showModal}
+            vertical={match.anatomicalArea === "VNC"}
           />
         </div>
         <p style={{ paddingLeft: "2em" }}>
@@ -121,6 +122,7 @@ export default function MatchSummary(props) {
             src={imageURL}
             alt={publishedName}
             showModal={showModal}
+            vertical={match.anatomicalArea === "VNC"}
           />
         </Col>
         <Col

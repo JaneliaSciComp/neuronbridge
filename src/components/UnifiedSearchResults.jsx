@@ -70,6 +70,7 @@ export default function UnifiedSearchResults(props) {
                   thumbSrc={result.thumbnailURL}
                   src={result.imageURL}
                   title={result.publishedName}
+                  vertical={result.anatomicalArea === "VNC"}
                 />
               </LineResult>
               <Divider dashed />
