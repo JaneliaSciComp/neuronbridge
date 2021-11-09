@@ -32,7 +32,7 @@ function drawCrosshair(x, y, ctx) {
   ctx.stroke();
 }
 
-export default function MousePosition({ vertical, contextMenu }) {
+export default function MousePosition({ vertical, contextMenu, imageDimensions }) {
   const { state, dispatch } = useCoords();
 
   const canvasRef = useRef();
@@ -65,8 +65,8 @@ export default function MousePosition({ vertical, contextMenu }) {
 
   const canvas = (      <canvas
         ref={canvasRef}
-        width={vertical ? "250" : "500"}
-        height={vertical ? "500" : "250"}
+        height={vertical ? imageDimensions.vertical[0]: imageDimensions.horizontal[0]}
+        width={vertical ? imageDimensions.vertical[1]: imageDimensions.horizontal[1]}
       /> );
 
 
@@ -83,7 +83,8 @@ export default function MousePosition({ vertical, contextMenu }) {
 
 MousePosition.propTypes = {
   vertical: PropTypes.bool.isRequired,
-  contextMenu: PropTypes.node
+  contextMenu: PropTypes.node,
+  imageDimensions: PropTypes.object.isRequired
 };
 
 MousePosition.defaultProps = {
