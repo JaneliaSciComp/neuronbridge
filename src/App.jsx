@@ -15,7 +15,6 @@ import neuronbridgeLogo from "./neuronbridge_logo.png";
 import { AppContext } from "./containers/AppContext";
 import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
-import SiteSurvey from "./components/SiteSurvey";
 import MaintenanceBanner from "./components/MaintenanceBanner";
 import DebugPanel from "./components/DebugPanel";
 import Announcements from "./components/Announcements";
@@ -193,7 +192,6 @@ export default function App() {
             <p>Loading...</p>
           ) : (
             <>
-              <SiteSurvey />
               <LoggedInAs username={appState.username} />
               <Routes
                 appProps={{
