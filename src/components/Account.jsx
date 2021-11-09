@@ -28,7 +28,7 @@ export default function Account() {
       "custom:newsletter": event.target.checked.toString()
     }).catch(() => {
       message.error(
-        "Unable to change newsletter preference, please try again later."
+        "Unable to change newsletter preference, please try again later or contact us via the support email in the page footer."
       );
       setNewsLetter(!event.target.checked);
     });
@@ -64,7 +64,10 @@ export default function Account() {
               you grant us permission to send emails to the email address you
               provided when logging in to this site.
             </p>
-            <Checkbox checked={newsLetter} onChange={handleNewsLetterChange} > Yes, please send me updates. </Checkbox>
+            <Checkbox checked={newsLetter} onChange={handleNewsLetterChange}>
+              {" "}
+              Yes, please send me updates.{" "}
+            </Checkbox>
           </Card>
         </>
       )}
