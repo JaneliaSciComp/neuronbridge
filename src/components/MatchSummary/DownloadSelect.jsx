@@ -44,7 +44,7 @@ export default function DownloadSelect({ id, asButton }) {
 }
 
 DownloadSelect.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   asButton: PropTypes.bool
 };
 
