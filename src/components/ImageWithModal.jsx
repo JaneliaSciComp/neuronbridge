@@ -5,12 +5,14 @@ import "./ImageWithModal.css";
 import ImagePlaceholder from "./ImagePlaceholder";
 import { signedPublicLink } from "../libs/awsLib";
 
+
 export default function ImageWithModal(props) {
   const { thumbSrc, src, title, showModal, vertical } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
 
+  const imageDimensions = vertical ? ["497px", "236px"] : ["236px", "497px"];
   const placeholderSrc = vertical
     ? "/vnc_placeholder.png"
     : "/brain_placeholder.png";
@@ -28,6 +30,8 @@ export default function ImageWithModal(props) {
     return <Skeleton.Image size="large" />;
   }
 
+
+
   if (showModal) {
     return (
       <Button className="modalButton" onClick={showModal}>
@@ -35,7 +39,7 @@ export default function ImageWithModal(props) {
           src={signedThumbnailSrc}
           alt={title}
           placeholderSrc={placeholderSrc}
-          imageDimensions={["497px", "236px"]}
+          imageDimensions={imageDimensions}
           className="thumbnail"
         />
       </Button>
@@ -49,7 +53,7 @@ export default function ImageWithModal(props) {
           src={signedThumbnailSrc}
           alt={title}
           placeholderSrc={placeholderSrc}
-          imageDimensions={["497px", "236px"]}
+          imageDimensions={imageDimensions}
           className="thumbnail"
         />
       </Button>

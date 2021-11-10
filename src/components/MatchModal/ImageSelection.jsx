@@ -17,7 +17,7 @@ function ImageSelection({
   setIsCopying,
   meta,
   index,
-  chosenImage
+  chosenImageId
 }) {
   const [appState, , setPermanent] = useContext(AppContext);
   const [mirrored, setMirrored] = useState(false);
@@ -45,6 +45,8 @@ function ImageSelection({
     location.search = query.toString();
     history.replace(location);
   };
+
+  const chosenImage = imageOptions[chosenImageId];
 
   const matchImageURL = chosenImage.path;
   const selectValue = chosenImage.key;
@@ -103,7 +105,7 @@ ImageSelection.propTypes = {
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  chosenImage: PropTypes.object.isRequired
+  chosenImageId: PropTypes.string.isRequired
 };
 
 export default ImageSelection;

@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
+    "@welldone-software/why-did-you-render": "^6.2.1",
     "antd": "^4.9.2",
     "aws-amplify": "^3.0.16",
     "aws-sdk": "^2.704.0",

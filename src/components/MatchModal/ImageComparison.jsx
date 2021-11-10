@@ -175,7 +175,9 @@ export default function ImageComparison(props) {
     match.anatomicalArea ||
     "brain"
   ).toLowerCase();
-  const isVertical = anatomicalRegion === "vnc" || mask.libraryName.toLowerCase().includes('vnc');
+  const isVertical =
+    anatomicalRegion === "vnc" ||
+    mask.libraryName.toLowerCase().includes("vnc");
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
@@ -284,8 +286,7 @@ export default function ImageComparison(props) {
     ? [...Array(imageCount)].map((_, index) => {
         const key = `Image${index}-${match.id}`;
         const chosenImageId = parseInt(urlImageChoices[index] || 0, 10);
-        const chosenImage = imageOptions[chosenImageId];
-        if (chosenImage) {
+        if (imageOptions[chosenImageId]) {
           return (
             <Col key={key} md={updatedCount <= 1 ? 24 : colWidth}>
               <ImageSelection
@@ -295,7 +296,7 @@ export default function ImageComparison(props) {
                 index={index}
                 setIsCopying={setIsCopying}
                 isCopying={isCopying}
-                chosenImage={chosenImage}
+                chosenImageId={chosenImageId}
               />
             </Col>
           );
