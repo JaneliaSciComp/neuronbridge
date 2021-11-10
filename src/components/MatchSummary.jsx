@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Checkbox, Divider, Row, Col, Button } from "antd";
-import { CheckOutlined } from "@ant-design/icons";
+import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
-import { useMatches } from "../containers/MatchesContext";
+import DownloadSelect from "./MatchSummary/DownloadSelect";
 import { signedPublicLink, createPPPMImagePath } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView, library, paths } = props;
-  const { state, dispatch } = useMatches();
-  const checked = state.selected.includes(match.id);
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
   const query = useQuery();
@@ -44,14 +41,6 @@ export default function MatchSummary(props) {
 
   const { publishedName } = match;
 
-  const handleChange = () => {
-    if (!checked) {
-      dispatch({ type: "add", payload: match.id });
-    } else {
-      dispatch({ type: "remove", payload: match.id });
-    }
-  };
-
   const thumbnailURL = signedThumbnailSrc;
   const imageURL = signedSrc;
 
@@ -71,17 +60,7 @@ export default function MatchSummary(props) {
     const thumbnails = (
       <>
         <div style={{ position: "relative" }}>
-          <Checkbox
-            style={{
-              position: "absolute",
-              top: "0px",
-              left: "10px",
-              zIndex: 2,
-              padding: "1em"
-            }}
-            onChange={handleChange}
-            checked={checked}
-          />
+          <DownloadSelect id={match.id} />
           <ImageWithModal
             thumbSrc={thumbnailURL}
             src={imageURL}
@@ -144,13 +123,7 @@ export default function MatchSummary(props) {
           <Button onClick={showModal} style={{ marginRight: "1em" }}>
             Select
           </Button>
-          <Button
-            onClick={handleChange}
-            type={checked ? "primary" : "default"}
-            ghost={checked}
-          >
-            Download {checked ? <CheckOutlined /> : null}
-          </Button>
+          <DownloadSelect id={match.id} asButton />
         </Col>
       </Row>
       <Divider dashed />

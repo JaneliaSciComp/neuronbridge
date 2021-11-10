@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
-import { Button, Switch, Row, Col, Pagination, Empty } from "antd";
+import { Switch, Row, Col, Pagination, Empty } from "antd";
 import { AppContext } from "../containers/AppContext";
 import MatchSummary from "./MatchSummary";
 import MatchModal from "./MatchModal";
@@ -9,8 +9,8 @@ import HelpButton from "./Help/HelpButton";
 import FilterMenuDisplay from "./FilterMenuDisplay";
 import FilterButton from "./FilterButton";
 import ExportMenu from "./ExportMenu";
+import ClearMatchSelection from "./ClearMatchSelection";
 import { useQuery } from "../libs/hooksLib";
-import { useMatches } from "../containers/MatchesContext";
 
 import "./Matches.css";
 
@@ -38,7 +38,6 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
-  const { state, dispatch } = useMatches();
 
   // get the current page number for the results, but prevent page
   // numbers below 0. Can't set the max value here, but if the user
@@ -97,10 +96,6 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   function handleModalOpen(index) {
     const matchPosition = page * matchesPerPage - matchesPerPage + index + 1;
     setModalOpen(matchPosition);
-  }
-
-  function handleClearAll() {
-    dispatch({ type: "clear" });
   }
 
   const resultsPerLine = parseInt(query.get("rpl"), 10) || 1;
@@ -289,12 +284,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
             searchId={isPPP ? input.publishedName : input.id}
             precomputed={precomputed}
           />
-          <Button
-            disabled={state.selected.length <= 0}
-            onClick={handleClearAll}
-          >
-            Clear Selected
-          </Button>
+          <ClearMatchSelection />
         </Col>
         <Col
           xs={{ span: 12, order: 2 }}
