@@ -12,7 +12,6 @@ export default function ContextMenu({
   setMirrored,
   src,
   canMask,
-  isPPP,
   mirrored,
   isCopying
 }) {
@@ -72,7 +71,6 @@ export default function ContextMenu({
 ContextMenu.propTypes = {
   src: PropTypes.string.isRequired,
   mirrored: PropTypes.bool.isRequired,
-  isPPP: PropTypes.bool.isRequired,
   canMask: PropTypes.bool.isRequired,
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
