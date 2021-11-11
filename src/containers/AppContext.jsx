@@ -17,7 +17,7 @@ const initialState = {
     cdm: {}
   },
   comparisonCount: {
-    ppp: 4,
+    ppp: 2,
     cdm: 2
   },
   paths: {},

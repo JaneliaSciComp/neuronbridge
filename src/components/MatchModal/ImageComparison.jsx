@@ -53,12 +53,34 @@ function getMatchImageOptions(
   if (isPPPM) {
     const pppmOptions = [
       {
+        key: "bestMip",
+        desc: "LM - Best Channel CDM",
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
+          library,
+          relativePath: match.files?.ColorDepthMip,
+          pppBaseURL
+        }),
+        canMask: false
+      },
+      {
         key: "display",
         desc: "LM - Best Channel CDM with EM overlay",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMipSkel,
+          pppBaseURL
+        }),
+        canMask: false
+      },
+      {
+        key: "sampleMIP",
+        desc: "LM - Sample All-Channel CDM",
+        path: createPPPMImagePath({
+          alignmentSpace: match.alignmentSpace,
+          library,
+          relativePath: match.files?.SignalMip,
           pppBaseURL
         }),
         canMask: false
@@ -84,28 +106,6 @@ function getMatchImageOptions(
           pppBaseURL
         }),
         canMask: false
-      },
-      {
-        key: "bestMip",
-        desc: "LM - Best Channel CDM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
-          library,
-          relativePath: match.files?.ColorDepthMip,
-          pppBaseURL
-        }),
-        canMask: false
-      },
-      {
-        key: "sampleMIP",
-        desc: "LM - Sample All-Channel CDM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
-          library,
-          relativePath: match.files?.SignalMip,
-          pppBaseURL
-        }),
-        canMask: false
       }
       /* {
         key: "fullExpression",
@@ -121,15 +121,15 @@ function getMatchImageOptions(
   const cdmOptions = [
     {
       key: "display",
-      desc: `${isLM ? "LM" : "EM"} - Match`,
+      desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
       path: match.imageURL || match.thumbnailURL,
       canMask: true
     },
     {
       key: "match",
       desc: isLM
-        ? "LM - Computationally Matched CDM (Segmented)"
-        : "EM - Computationally Matched CDM (Generated)",
+        ? "LM - Matched CDM (Segmented)"
+        : "EM - Matched CDM (Generated)",
       path: matchImagePath,
       canMask: true
     }
@@ -138,7 +138,7 @@ function getMatchImageOptions(
     const path = createSourceSearchablePath(match, cdmBaseURL, library);
     cdmOptions.unshift({
       key: "segmented",
-      desc: `${isLM ? "EM" : "LM"} - Input Image (Segmented)`,
+      desc: `${isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"}`,
       path,
       canMask: false
     });
@@ -193,7 +193,7 @@ export default function ImageComparison(props) {
   // both PPPM and CDM searches have an input image.
   imageOptions.unshift({
     key: "input",
-    desc: `${isLM ? "EM" : "LM"} - Input Image`,
+    desc: `${isLM ? "EM - Neuron CDM" : "LM - Original Channel CDM"}`,
     path: mask.imageURL,
     canMask: true
   });
