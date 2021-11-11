@@ -56,7 +56,7 @@ export default function ImagePlaceholder({
         img.src = signed;
       });
     }
-  }, [src]);
+  }, [src, imageLoaded]);
 
   function handleLoaded(imgSrc) {
     setLoaded(imgSrc);
