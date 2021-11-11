@@ -65,8 +65,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
           }
           setLoading(false);
         });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(() => {
         message.error("Unable to load matches from the server");
         setLoading(false);
       });
