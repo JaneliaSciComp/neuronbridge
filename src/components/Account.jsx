@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Auth } from "aws-amplify";
-import { Card, Checkbox, Typography, message } from "antd";
+import { Button, Card, Checkbox, Typography, message } from "antd";
+import { AppContext } from "../containers/AppContext";
 
 const { Title } = Typography;
 
@@ -8,6 +9,7 @@ export default function Account() {
   // const [survey, setSurvey] = useState(false);
   const [newsLetter, setNewsLetter] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [, , ,resetPermanent] = useContext(AppContext);
 
   useEffect(() => {
     // load the logged in users attributes and see save the
@@ -34,6 +36,11 @@ export default function Account() {
     });
   };
 
+  function handleReset() {
+    resetPermanent();
+    window.location.reload();
+  }
+
   /* const handleSurveyChange = async event => {
     setSurvey(event.target.checked);
     const user = await Auth.currentAuthenticatedUser();
@@ -57,6 +64,7 @@ export default function Account() {
           <Card
             title="Updates and New Releases"
             style={{ marginBottom: "1em" }}
+            headStyle={{ background: "#efefef" }}
           >
             <p>
               Periodically, we will send out an email newsletter describing
@@ -68,6 +76,17 @@ export default function Account() {
               {" "}
               Yes, please send me updates.{" "}
             </Checkbox>
+          </Card>
+          <Card
+            title="Reset Preferences"
+            style={{ marginBottom: "1em" }}
+            headStyle={{ background: "#efefef" }}
+          >
+            <p>
+              If you would like to see the site without any of your preferences
+              applied, please reset them here.
+            </p>
+            <Button onClick={handleReset}>Reset to defaults</Button>
           </Card>
         </>
       )}
