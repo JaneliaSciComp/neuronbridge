@@ -136,7 +136,7 @@ function getMatchImageOptions(
   ];
   if (match.sourceSearchablePNG) {
     const path = createSourceSearchablePath(match, cdmBaseURL, library);
-    cdmOptions.unshift({
+    cdmOptions.push({
       key: "segmented",
       desc: `${isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"}`,
       path,
