@@ -19,6 +19,7 @@ export default function SkeletonResult(props) {
           thumbSrc={metaInfo.thumbnailURL}
           src={metaInfo.imageURL}
           title={metaInfo.publishedName}
+          vertical={metaInfo.anatomicalArea === "VNC" || metaInfo.libraryName?.toLowerCase().includes("vnc")}
         />
       </Col>
       <Col md={9}>

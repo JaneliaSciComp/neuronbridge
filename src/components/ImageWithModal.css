@@ -15,7 +15,6 @@ button.modalButton:hover {
   background-color: transparent;
 }
 
-.ant-modal-root img {
-  max-width: 99%;
+img.limitedheight {
   max-height: 900px;
 }

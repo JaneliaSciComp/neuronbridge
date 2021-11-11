@@ -11,7 +11,10 @@ export default function SearchSummary({ type, input }) {
       thumbSrc={input.thumbnailURL}
       src={input.imageURL}
       title={input.publishedName}
-      vertical={input.anatomicalArea === "VNC"}
+      vertical={
+        input.anatomicalArea === "VNC" ||
+        input.libraryName?.toLowerCase().includes("vnc")
+      }
     />
   );
 

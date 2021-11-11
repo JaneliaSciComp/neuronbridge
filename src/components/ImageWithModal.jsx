@@ -14,7 +14,7 @@ export default function ImageWithModal(props) {
 
   const imageDimensions = vertical ? ["497px", "236px"] : ["236px", "497px"];
   const placeholderSrc = vertical
-    ? "/vnc_placeholder.png"
+    ? "/vnc_placeholder_thumbnail.jpg"
     : "/brain_placeholder.png";
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function ImageWithModal(props) {
         ]}
       >
         <p>{title}</p>
-        <img src={signedSrc} alt={title} />
+        <img className="limitedheight" src={signedSrc} alt={title} />
       </Modal>
     </>
   );

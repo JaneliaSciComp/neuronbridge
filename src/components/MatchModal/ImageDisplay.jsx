@@ -16,9 +16,11 @@ const ImageDisplay = props => {
     ? "/vnc_placeholder.png"
     : "/brain_placeholder.png";
 
+  const widthRestrict = vertical ? { maxWidth: imageDimensions.vertical[1] } : null;
+
   return (
     <>
-      <Row className="imageComparison">
+      <Row className="imageComparison" style={widthRestrict}>
         <MousePosition
           vertical={vertical}
           contextMenu={contextMenu}

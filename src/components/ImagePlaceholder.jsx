@@ -76,8 +76,8 @@ export default function ImagePlaceholder({
         />
       ) : (
         <img
-          style={updatedStyle}
           src={placeholderSrc}
+          style={updatedStyle}
           alt="placeholder"
           height={imageDimensions[0]}
           width={imageDimensions[1]}
