@@ -39,7 +39,7 @@ export default function ContextMenu({
   };
 
   const handleDownload = async () => {
-    const downloadName = src.split('/').pop();
+    const downloadName = src.split("/").pop();
     const a = document.createElement("a");
     a.href = await toDataURL(src);
     a.setAttribute("download", downloadName);
@@ -53,14 +53,10 @@ export default function ContextMenu({
       <Menu.Item onClick={handleDownload}>
         <DownloadOutlined /> Download
       </Menu.Item>
-      {isPPP ? (
-        ""
-      ) : (
-        <Menu.Item onClick={handleFlip}>
-          <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
-          {mirrored ? "Restore" : "Flip"}
-        </Menu.Item>
-      )}
+      <Menu.Item onClick={handleFlip}>
+        <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
+        {mirrored ? "Restore" : "Flip"}
+      </Menu.Item>
       {canMask ? (
         <Menu.Item onClick={handleSearch} disabled={isCopying}>
           <SearchOutlined />
