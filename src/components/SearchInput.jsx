@@ -30,33 +30,42 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
     if (debouncedSearch.length >= 3) {
       Auth.currentCredentials().then(() => {
         API.get("SearchAPI", "/published_names", {
-          queryStringParameters: { q: debouncedSearch, f: 'start' }
-        }).then(items => {
-          const newOptions = items.names.map(item => {
-            return { value: item.name, label: item.name };
+          queryStringParameters: { q: debouncedSearch, f: "start" }
+        })
+          .then(items => {
+            const newOptions = items.names.map(item => {
+              return { value: item.name, label: item.name };
+            });
+            setOptions(newOptions);
+          })
+          .catch(() => {
+            setOptions([]);
           });
-          setOptions(newOptions);
-        }).catch(() => {
-          setOptions([]);
-        });
       });
     }
-  },[debouncedSearch]);
+  }, [debouncedSearch]);
 
   const onSearch = searchText => {
     setSearch(searchText);
   };
 
+  const exampleIds = process.env.REACT_APP_LEVEL.match(/pre$/i)
+    ? ["R33C10", "SS39036", "15758", "13319", "12288"]
+    : ["MB543B", "LH173", "1077847238", "1537331894"];
+
+  const exampleLinks = exampleIds.map((id, i) => {
+    const url = `/search?q=${id}`;
+    return (
+      <>
+        {i > 0 && ", "}
+        <Link to={url}>{id}</Link>
+      </>
+    );
+  });
+
   return (
     <div className="searchInput">
-      {examples && (
-        <p>
-          examples: <Link to="/search?q=MB543B">MB543B</Link>,{" "}
-          <Link to="/search?q=LH173">LH173</Link>,{" "}
-          <Link to="/search?q=1077847238">1077847238</Link>,{" "}
-          <Link to="/search?q=1537331894">1537331894</Link>
-        </p>
-      )}
+      {examples && <p> examples: {exampleLinks} </p>}
       <Row>
         <Col xs={23}>
           <AutoComplete
