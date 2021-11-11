@@ -56,10 +56,10 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   const exampleLinks = exampleIds.map((id, i) => {
     const url = `/search?q=${id}`;
     return (
-      <>
+      <React.Fragment key={id}>
         {i > 0 && ", "}
         <Link to={url}>{id}</Link>
-      </>
+      </React.Fragment>
     );
   });
 
