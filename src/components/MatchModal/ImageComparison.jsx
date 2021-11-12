@@ -59,7 +59,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMip,
-          pppBaseURL
+          baseURL: pppBaseURL
         }),
         canMask: false
       },
@@ -70,7 +70,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMipSkel,
-          pppBaseURL
+          baseURL: pppBaseURL
         }),
         canMask: false
       },
@@ -81,7 +81,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMip,
-          pppBaseURL
+          baseURL: pppBaseURL
         }),
         canMask: false
       },
@@ -92,7 +92,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMasked,
-          pppBaseURL
+          baseURL: pppBaseURL
         }),
         canMask: false
       },
@@ -103,7 +103,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMaskedSkel,
-          pppBaseURL
+          baseURL: pppBaseURL
         }),
         canMask: false
       }
