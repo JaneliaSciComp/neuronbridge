@@ -8,8 +8,23 @@ import "./Landing.css";
 
 const { Title, Paragraph } = Typography;
 
+const isInternalSite =
+  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
+
 function Landing(props) {
   const { isAuthenticated } = props;
+
+  const loginText = isInternalSite ? (
+    <>
+      Please <Link to="/login">login with Okta</Link> to start searching.
+    </>
+  ) : (
+    <>
+      Please <Link to="/login">login</Link> or <Link to="signup">sign up</Link>{" "}
+      to start searching.
+    </>
+  );
+
   return (
     <>
       {isAuthenticated && <SearchInput />}
@@ -17,12 +32,7 @@ function Landing(props) {
         <Title>Welcome to NeuronBridge</Title>
         <Row>
           <Col md={12} className="copy">
-            {!isAuthenticated && (
-              <Paragraph strong>
-                Please <Link to="/login">login</Link> or{" "}
-                <Link to="signup">sign up</Link> to start searching.
-              </Paragraph>
-            )}
+            {!isAuthenticated && <Paragraph strong>{loginText}</Paragraph>}
             <Paragraph>Find your neuron fast!</Paragraph>
 
             <Paragraph>

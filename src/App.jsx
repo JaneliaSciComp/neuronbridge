@@ -23,6 +23,8 @@ import "antd/dist/antd.less";
 import "./App.css";
 
 const { Header, Content, Footer } = Layout;
+const isInternalSite =
+  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -152,14 +154,16 @@ export default function App() {
           <Menu.Item key="/help">
             <Link to="/help">Help</Link>
           </Menu.Item>
-          {!isAuthenticated && [
+          {!isAuthenticated && !isInternalSite && (
             <Menu.Item key="/signup">
               <Link to="/signup">Signup</Link>
-            </Menu.Item>,
+            </Menu.Item>
+          )}
+          {!isAuthenticated && (
             <Menu.Item key="/login">
               <Link to="/login">Login</Link>
             </Menu.Item>
-          ]}
+          )}
           {appState.isAdmin && (
             <Menu.Item key="/admin">
               <Link to="/admin">Admin</Link>
@@ -217,8 +221,8 @@ export default function App() {
           <a href="mailto:neuronbridge@janelia.hhmi.org">
             <FontAwesomeIcon icon={faEnvelope} /> Contact Us
           </a>{" "}
-          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a> |
-          {" "}<Link to="/announcements">Announcements Archive</Link>
+          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a> |{" "}
+          <Link to="/announcements">Announcements Archive</Link>
         </p>
 
         <p>
