@@ -17,7 +17,8 @@ function ImageSelection({
   setIsCopying,
   meta,
   index,
-  chosenImageId
+  chosenImageId,
+  anatomicalRegion
 }) {
   const [appState, , setPermanent] = useContext(AppContext);
   const [mirrored, setMirrored] = useState(false);
@@ -65,6 +66,7 @@ function ImageSelection({
       isCopying={isCopying}
       setIsCopying={setIsCopying}
       setMirrored={setMirrored}
+      anatomicalRegion={anatomicalRegion}
     />
   );
 
@@ -105,7 +107,8 @@ ImageSelection.propTypes = {
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  chosenImageId: PropTypes.string.isRequired
+  chosenImageId: PropTypes.string.isRequired,
+  anatomicalRegion: PropTypes.string.isRequired
 };
 
 export default ImageSelection;

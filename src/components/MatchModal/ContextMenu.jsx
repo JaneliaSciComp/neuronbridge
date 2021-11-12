@@ -13,7 +13,8 @@ export default function ContextMenu({
   src,
   canMask,
   mirrored,
-  isCopying
+  isCopying,
+  anatomicalRegion
 }) {
   const history = useHistory();
 
@@ -22,7 +23,8 @@ export default function ContextMenu({
     // copy the files
     const params = {
       imageURL: src,
-      thumbnailURL: src
+      thumbnailURL: src,
+      anatomicalRegion
     };
     const response = await maskAndSearch(params);
     if (response) {
@@ -74,5 +76,10 @@ ContextMenu.propTypes = {
   canMask: PropTypes.bool.isRequired,
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
-  setMirrored: PropTypes.func.isRequired
+  setMirrored: PropTypes.func.isRequired,
+  anatomicalRegion: PropTypes.string
 };
+
+ContextMenu.defaultProps = {
+  anatomicalRegion: 'brain'
+}

@@ -25,7 +25,7 @@ export async function maskAndSearch(image) {
   const response = await API.post("SearchAPI", "/new_from_image", {
     body: {
       image,
-      identityId: creds.identityId
+      identityId: creds.identityId,
     }
   });
   return response;

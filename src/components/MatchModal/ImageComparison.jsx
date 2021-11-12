@@ -297,6 +297,7 @@ export default function ImageComparison(props) {
                 setIsCopying={setIsCopying}
                 isCopying={isCopying}
                 chosenImageId={chosenImageId}
+                anatomicalRegion={anatomicalRegion}
               />
             </Col>
           );
