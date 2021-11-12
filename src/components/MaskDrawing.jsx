@@ -24,7 +24,7 @@ function getMousePos(evt) {
 
 const alignedDimensions = {
   brain: [1210,566,174],
-  vnc: [573,1119,219]
+  vnc: [573,1209,219]
 };
 
 const img = new Image();
