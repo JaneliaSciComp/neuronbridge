@@ -29,7 +29,7 @@ function Landing(props) {
     <>
       {isAuthenticated && <SearchInput />}
       <div className="landing">
-        <Title>Welcome to NeuronBridge</Title>
+        <Title>{isInternalSite ? "NeuronBridge (pre-release)" : "Welcome to NeuronBridge"}</Title>
         <Row>
           <Col md={12} className="copy">
             {!isAuthenticated && <Paragraph strong>{loginText}</Paragraph>}
