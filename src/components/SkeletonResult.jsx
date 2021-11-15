@@ -19,7 +19,10 @@ export default function SkeletonResult(props) {
           thumbSrc={metaInfo.thumbnailURL}
           src={metaInfo.imageURL}
           title={metaInfo.publishedName}
-          vertical={metaInfo.anatomicalArea === "VNC" || metaInfo.libraryName?.toLowerCase().includes("vnc")}
+          vertical={
+            metaInfo.anatomicalArea === "VNC" ||
+            metaInfo.libraryName?.toLowerCase().includes("vnc")
+          }
         />
       </Col>
       <Col md={9}>
@@ -32,6 +35,7 @@ export default function SkeletonResult(props) {
               aria-label="View Color Depth Search Results"
               type="primary"
               disabled={/matches$/.test(location.pathname)}
+              style={{ width: "100%" }}
             >
               <Link to={matchesUrl}>Color Depth Search Results</Link>
             </Button>
@@ -43,6 +47,7 @@ export default function SkeletonResult(props) {
               aria-label="View PatchPerPixMatch Results"
               type="primary"
               disabled={/matches$/.test(location.pathname)}
+              style={{ width: "100%" }}
             >
               <Link to={pppUrl}>PatchPerPixMatch Results </Link>
             </Button>
