@@ -8,47 +8,86 @@ const lmUrl =
 const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
-const emUrl = "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
+const emUrl =
+  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)
+  ? "https://neuprint-pre.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>"
+    : "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
+
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
 export default function ExternalLink({ publishedName, isLM, library }) {
   if (isLM) {
     let extUrl = lmUrl;
-    let extName = 'FlyLight Split-GAL4';
+    let extName = "FlyLight Split-GAL4";
 
     if (library.match(/gen1.*mcfo/i)) {
       extUrl = mcfoUrl;
-      extName = 'FlyLight Gen1 MCFO';
+      extName = "FlyLight Gen1 MCFO";
     }
 
     return (
       <>
-      <a href={extUrl.replace(/<NAME>/, publishedName)}>
-        {extName}{" "}
-        <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
-      </a>
-      <br/>
-      <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
-        Virtual Fly Brain{" "}
-        <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
-      </a>
+        <a href={extUrl.replace(/<NAME>/, publishedName)}>
+          {extName}{" "}
+          <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
+        </a>
+        {process.env.REACT_APP_LEVEL &&
+        process.env.REACT_APP_LEVEL.match(/pre$/) ? (
+          ""
+        ) : (
+          <>
+            <br />
+            <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
+              Virtual Fly Brain{" "}
+              <FontAwesomeIcon
+                icon={faExternalLink}
+                size="xs"
+                transform="up-10"
+              />
+            </a>
+          </>
+        )}
       </>
     );
   }
 
-  const dataset = library.replace(/flyem_/i,'').toLowerCase().replace('_v',':').replace(/\s+/g, '_');
-  const finalEMUrl = emUrl.replace(/<NAME>/, publishedName).replace(/<DATASET>/, dataset);
+  let dataset = library
+    .replace(/flyem_/i, "")
+    .toLowerCase()
+    .replace("_v", ":")
+    .replace(/\s+/g, "_");
+
+  // TODO: fix the pre-release site dataset since it shouldn't be missing the
+  // version number, but the pre-release site doesn't have a version number.
+  if (process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)) {
+    dataset = dataset.split(':').shift();
+  }
+
+  const finalEMUrl = emUrl
+    .replace(/<NAME>/, publishedName)
+    .replace(/<DATASET>/, dataset);
   return (
     <>
       <a href={finalEMUrl}>
         NeuPrint{" "}
         <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
       </a>
-      <br/>
-      <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
-        Virtual Fly Brain{" "}
-        <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
-      </a>
+      {process.env.REACT_APP_LEVEL &&
+      process.env.REACT_APP_LEVEL.match(/pre$/) ? (
+        ""
+      ) : (
+        <>
+          <br />
+          <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
+            Virtual Fly Brain{" "}
+            <FontAwesomeIcon
+              icon={faExternalLink}
+              size="xs"
+              transform="up-10"
+            />
+          </a>
+        </>
+      )}
     </>
   );
 }
