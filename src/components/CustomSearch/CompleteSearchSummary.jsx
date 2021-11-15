@@ -35,9 +35,14 @@ export default function CompleteSearchSummary({ search }) {
     </div>
   );
   if (search.displayableMask) {
+    const imgClass =
+      (search.anatomicalRegion && search.anatomicalRegion === "vnc")
+        ? "verticalThumbnail"
+        : "completeThumbnail";
+
     thumbnail = (
       <img
-        className="completeThumbnail"
+        className={imgClass}
         src={thumbnailUrl}
         alt={search.upload}
       />

@@ -58,6 +58,7 @@ export const listSearches = /* GraphQL */ `
         createdOn
         alignFinished
         alignStarted
+        anatomicalRegion
       }
       nextToken
     }

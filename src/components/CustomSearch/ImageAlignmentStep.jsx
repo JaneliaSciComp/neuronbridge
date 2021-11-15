@@ -19,9 +19,14 @@ export default function ImageAlignmentStep({ state, search }) {
 
   let content = "";
   if (["complete"].includes(state)) {
+    const imgClass =
+      (search.anatomicalRegion && search.anatomicalRegion === "vnc")
+        ? "verticalThumbnail"
+        : "completeThumbnail";
+
     content = (
       <img
-        className="completeThumbnail"
+        className={imgClass}
         src={thumbnailUrl}
         alt="Alignment Thumbnail"
       />
