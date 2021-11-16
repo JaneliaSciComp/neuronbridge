@@ -107,7 +107,7 @@ ImageSelection.propTypes = {
   setIsCopying: PropTypes.func.isRequired,
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  chosenImageId: PropTypes.string.isRequired,
+  chosenImageId: PropTypes.number.isRequired,
   anatomicalRegion: PropTypes.string.isRequired
 };
 
