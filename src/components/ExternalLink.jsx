@@ -54,7 +54,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
   let dataset = library
     .replace(/flyem_/i, "")
     .toLowerCase()
-    .replace("_v", ":")
+    .replace("_v", ":v")
     .replace(/\s+/g, "_");
 
   // TODO: fix the pre-release site dataset since it shouldn't be missing the
