@@ -85,7 +85,7 @@ export default function SkeletonMeta({ attributes, compact }) {
           <b>Links:</b>
           <br />
           <ExternalLink
-            publishedName={publishedName}
+            id={publishedName}
             isLM={false}
             library={libraryName}
           />

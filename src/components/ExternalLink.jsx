@@ -4,9 +4,9 @@ import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const lmUrl =
-  "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=<NAME>";
+  "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=<NAME>";
 const mcfoUrl =
-  "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=<NAME>";
+  "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
 const emUrl =
   process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)
@@ -15,7 +15,7 @@ const emUrl =
 
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
-export default function ExternalLink({ publishedName, isLM, library }) {
+export default function ExternalLink({ id, isLM, library }) {
   if (isLM) {
     let extUrl = lmUrl;
     let extName = "FlyLight Split-GAL4";
@@ -27,7 +27,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
 
     return (
       <>
-        <a href={extUrl.replace(/<NAME>/, publishedName)}>
+        <a href={extUrl.replace(/<NAME>/, id)}>
           {extName}{" "}
           <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
         </a>
@@ -37,7 +37,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
         ) : (
           <>
             <br />
-            <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
+            <a href={vfbUrl.replace(/<NAME>/, id)}>
               Virtual Fly Brain{" "}
               <FontAwesomeIcon
                 icon={faExternalLink}
@@ -64,7 +64,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
   }
 
   const finalEMUrl = emUrl
-    .replace(/<NAME>/, publishedName)
+    .replace(/<NAME>/, id)
     .replace(/<DATASET>/, dataset);
   return (
     <>
@@ -78,7 +78,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
       ) : (
         <>
           <br />
-          <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
+          <a href={vfbUrl.replace(/<NAME>/, id)}>
             Virtual Fly Brain{" "}
             <FontAwesomeIcon
               icon={faExternalLink}
@@ -93,7 +93,7 @@ export default function ExternalLink({ publishedName, isLM, library }) {
 }
 
 ExternalLink.propTypes = {
-  publishedName: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   library: PropTypes.string,
   isLM: PropTypes.bool
 };
