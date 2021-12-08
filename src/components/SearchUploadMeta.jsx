@@ -176,6 +176,7 @@ export default function SearchUploadMeta({
               unCheckedChildren={<CloseOutlined />}
               checked={isAligned}
               onChange={onAlignedChange}
+              disabled={process.env.REACT_APP_DISABLE_ALIGNMENT === 'true'}
             />{" "}
           </Col>
         </Row>

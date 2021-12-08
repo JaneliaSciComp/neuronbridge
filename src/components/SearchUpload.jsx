@@ -42,10 +42,10 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
       updatedUpload.width = img.naturalWidth;
       updatedUpload.height = img.naturalHeight;
       window.URL.revokeObjectURL(img.src);
-      uploadToS3(updatedUpload, handleUpload)
+      uploadToS3(updatedUpload, handleUpload);
     };
     img.onerror = () => {
-      uploadToS3(upload, handleUpload)
+      uploadToS3(upload, handleUpload);
     };
   }
 
@@ -83,26 +83,34 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           <p className="ant-upload-text">
             Upload a file by clicking here or dragging it to this area.
           </p>
-          <p>
-            You can upload an unaligned confocal stack and NeuronBridge will
-            attempt to align it for you.
-          </p>
-          <p>
-            {" "}
-            Or use an aligned and masked Color Depth MIP to proceed directly to
-            the search.
-          </p>
-          <b style={{ marginTop: "0.5em" }}>
-            Alignment requires the following file formats:
-          </b>
-          <p>
-            Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi
-            with a single sample, and .nd2.
-          </p>
-          <p>
-            The <i>.nrrd</i> format is not supported due to single channel
-            limitations.
-          </p>
+          {process.env.REACT_APP_DISABLE_ALIGNMENT === 'true' ? (
+            <p>
+              Upload an aligned and masked Color Depth MIP to perform a search.
+            </p>
+          ) : (
+            <>
+              <p>
+                You can upload an unaligned confocal stack and NeuronBridge will
+                attempt to align it for you.
+              </p>
+              <p>
+                {" "}
+                Or use an aligned and masked Color Depth MIP to proceed directly
+                to the search.
+              </p>
+              <b style={{ marginTop: "0.5em" }}>
+                Alignment requires the following file formats:
+              </b>
+              <p>
+                Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib,
+                .czi with a single sample, and .nd2.
+              </p>
+              <p>
+                The <i>.nrrd</i> format is not supported due to single channel
+                limitations.
+              </p>
+            </>
+          )}
         </Dragger>
       )}
       <SearchUploadMeta
