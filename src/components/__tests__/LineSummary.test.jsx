@@ -15,7 +15,7 @@ describe("LineSummary: unit tests", () => {
       <MemoryRouter>
         <LineSummary
           lineMeta={{
-            publishedName: "test1",
+            slideCode: "test1",
             thumbnailURL: "https://example.com",
             imageURL: "https://example.com",
             libraryName: "lib1"

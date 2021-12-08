@@ -7,19 +7,19 @@ describe("ExternalLink: unit tests", () => {
     const { getByText, rerender } = render(<ExternalLink id="foo" library="FlyEM Gen1 MCFO"/>);
     expect(getByText("FlyLight Gen1 MCFO")).toHaveAttribute(
       "href",
-      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=foo"
+      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" library="flylight_gen1_mcfo_case1"/>);
     expect(getByText("FlyLight Gen1 MCFO")).toHaveAttribute(
       "href",
-      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=foo"
+      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" library="gen1_mcfo_foo bar"/>);
     expect(getByText("FlyLight Gen1 MCFO")).toHaveAttribute(
       "href",
-      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?line=foo"
+      "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" isLM={false} library="gen1_mcfo_foo bar"/>);
@@ -35,31 +35,31 @@ describe("ExternalLink: unit tests", () => {
     );
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
-      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=foo"
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" library="FlyLight Split-GAL4 Drivers" />);
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
-      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=foo"
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" library="FlyLight Split-GAL4" />);
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
-      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=foo"
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" />);
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
-      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=foo"
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
 
     rerender(<ExternalLink id="foo" library="SOme other text split gal4" />);
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
-      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?line=foo"
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
   });
 

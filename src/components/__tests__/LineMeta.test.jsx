@@ -8,7 +8,7 @@ describe("LineMeta: unit tests", () => {
     const { getByText } = render(
       <MemoryRouter>
         <LineMeta attributes={{
-          publishedName: 'foo',
+          slideCode: 'foo',
           libraryName: 'bar'
         }}/>
       </MemoryRouter>

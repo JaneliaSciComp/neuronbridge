@@ -16,7 +16,7 @@ describe("LineResult: unit tests", () => {
             upload: "test-file",
             thumbnailURL: "http://example.com",
             imageURL: "http://example.com",
-            publishedName: "foo",
+            slideCode: "foo",
             libraryName: "bar"
           }}
         >
