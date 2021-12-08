@@ -10,12 +10,24 @@ export default {
 
 const Template = (args) => <SearchUploadMeta {...args} />;
 
-export const FirstStory = Template.bind({});
+export const Brain = Template.bind({});
 
-FirstStory.args = {
+Brain.args = {
   uploadedFile: {
     file: {
       name: 'foo.png'
     }
+  }
+};
+
+export const VNC = Template.bind({});
+
+VNC.args = {
+  uploadedFile: {
+    file: {
+      name: 'foo.png'
+    },
+    height: 400,
+    width: 100
   }
 };

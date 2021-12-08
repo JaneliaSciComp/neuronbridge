@@ -16,9 +16,12 @@ import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import { deleteSearch } from "../libs/awsLib";
+import config from "../config";
 
 const { Option } = Select;
 const { Title } = Typography;
+
+const { anatomicalRegions } = config;
 
 export default function SearchUploadMeta({
   uploadedFile,
@@ -137,9 +140,11 @@ export default function SearchUploadMeta({
   };
 
   const initialAnatomicalRegion =
-    uploadedFile.height && uploadedFile.height > uploadedFile.width
+    anatomicalRegions.filter(region => region.value === "vnc").length > 0 &&
+    uploadedFile.height &&
+    uploadedFile.height > uploadedFile.width
       ? "vnc"
-      : "brain";
+      : anatomicalRegions[0].value;
 
   return (
     <div>
@@ -176,7 +181,7 @@ export default function SearchUploadMeta({
               unCheckedChildren={<CloseOutlined />}
               checked={isAligned}
               onChange={onAlignedChange}
-              disabled={process.env.REACT_APP_DISABLE_ALIGNMENT === 'true'}
+              disabled={process.env.REACT_APP_DISABLE_ALIGNMENT === "true"}
             />{" "}
           </Col>
         </Row>
@@ -184,7 +189,7 @@ export default function SearchUploadMeta({
           label="Anatomical Region"
           name="anatomicalregion"
           help={
-            initialAnatomicalRegion !== "brain" ? (
+            anatomicalRegions.length > 1 && initialAnatomicalRegion !== "brain" ? (
               <p>
                 Based on the dimensions of the image you uploaded we have chosen{" "}
                 {initialAnatomicalRegion} for the anatomical area. If this is
@@ -194,8 +199,9 @@ export default function SearchUploadMeta({
           }
         >
           <Select>
-            <Option value="brain">Brain</Option>
-            <Option value="vnc" disabled>VNC</Option>
+            {anatomicalRegions.map(region => (
+              <Option value={region.value} disabled={region.disabled}>{region.label}</Option>
+            ))}
           </Select>
         </Form.Item>
         {!isAligned && (

@@ -82,5 +82,16 @@ export default {
   // access
   skip_signing_buckets: [
     'janelia-flylight-color-depth',
+  ],
+  // these are the regions that are available in the search upload form.
+  // example region component:
+  // {
+  //   label: String: <value displayed in the form>,
+  //   value: String: <value sent to API>,
+  //   disabled: Boolean: <default is true>
+  // }
+  anatomicalRegions: [
+    { label: "Brain", value: "brain" },
+    { label: "VNC", value: "vnc", disabled: true}
   ]
 };
