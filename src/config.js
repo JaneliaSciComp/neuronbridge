@@ -90,6 +90,8 @@ export default {
   //   value: String: <value sent to API>,
   //   disabled: Boolean: <default is true>
   // }
+  // Order is important. The first value in the list will be the default value that
+  // the site selects 
   anatomicalRegions: [
     { label: "Brain", value: "brain" },
     { label: "VNC", value: "vnc", disabled: true}
