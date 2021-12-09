@@ -177,14 +177,14 @@ export default function ImageComparison(props) {
   ).toLowerCase();
   const isVertical =
     anatomicalRegion === "vnc" ||
-    mask.libraryName.toLowerCase().includes("vnc");
+    match.libraryName.toLowerCase().includes("vnc");
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(
     isPPP,
     match,
-    mask.libraryName,
+    match.libraryName,
     isLM,
     appState.paths.pppImageryBaseURL,
     appState.paths.imageryBaseURL
