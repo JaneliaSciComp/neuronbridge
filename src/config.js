@@ -22,6 +22,26 @@ if (validLevels.includes(dataLevel)) {
 const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
 const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
+// these are the regions that are available in the search upload form.
+// example region component:
+// {
+//   label: String: <value displayed in the form>,
+//   value: String: <value sent to API>,
+//   disabled: Boolean: <default is true>
+// }
+// Order is important. The first value in the list will be the default value that
+// the site selects 
+let ANATOMICAL_REGIONS = [
+    { label: "Brain", value: "brain" },
+    { label: "VNC", value: "vnc", disabled: true}
+];
+
+if (process.env.REACT_APP_DISABLE_BRAIN_SEARCH) {
+  ANATOMICAL_REGIONS = [
+    { label: "VNC", value: "vnc"}
+  ];
+}
+
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
   ZIP_DOWNLOAD_LIMIT: 200,
@@ -84,16 +104,5 @@ export default {
     'janelia-flylight-color-depth',
   ],
   // these are the regions that are available in the search upload form.
-  // example region component:
-  // {
-  //   label: String: <value displayed in the form>,
-  //   value: String: <value sent to API>,
-  //   disabled: Boolean: <default is true>
-  // }
-  // Order is important. The first value in the list will be the default value that
-  // the site selects 
-  anatomicalRegions: [
-    { label: "Brain", value: "brain" },
-    { label: "VNC", value: "vnc", disabled: true}
-  ]
+  anatomicalRegions: ANATOMICAL_REGIONS
 };
