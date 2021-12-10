@@ -138,7 +138,9 @@ function getMatchImageOptions(
     const path = createSourceSearchablePath(match, cdmBaseURL, library);
     cdmOptions.push({
       key: "segmented",
-      desc: `${isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"}`,
+      desc: `${
+        isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"
+      }`,
       path,
       canMask: false
     });
@@ -162,7 +164,7 @@ export default function ImageComparison(props) {
   const location = useLocation();
   const history = useHistory();
 
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
 
   const searchType = match.pppRank !== undefined ? "ppp" : "cdm";

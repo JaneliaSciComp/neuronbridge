@@ -26,9 +26,23 @@ const { Header, Content, Footer } = Layout;
 const isInternalSite =
   process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
+// Storage options used to load current.txt and config.json
+const storageOptions = {
+  customPrefix: {
+    public: ""
+  },
+  level: "public",
+  download: true,
+  // This should force the s3 bucket to respond with the correct
+  // cache control header to prevent aggressive caching of the
+  // config.json file, so that the updated version on a release is
+  // used as soon as possible.
+  cacheControl: "no-cache"
+};
+
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [appState, setAppState, setPermanent] = useContext(AppContext);
+  const { appState, setState, setAppState, setPermanent } = useContext(AppContext);
   const [confetti, setConfetti] = useState(false);
   const location = useLocation();
 
@@ -83,34 +97,39 @@ export default function App() {
   }, [isAuthenticated, appState, appState.username, setAppState]);
 
   useEffect(() => {
-    const storageOptions = {
-      customPrefix: {
-        public: ""
-      },
-      level: "public",
-      download: true,
-      // This should force the s3 bucket to respond with the correct
-      // cache control header to prevent aggressive caching of the
-      // paths.json file, so that the updated version on a release is
-      // used as soon as possible.
-      cacheControl: "no-cache"
-    };
-
-    if (isAuthenticated) {
+    if (isAuthenticated && !appState.dataVersion) {
+      // TODO: convert to fetching the top level "current" text file.
+      // grab the version number out of it and use that to grab the current
+      // config.json file, which replaces paths.json.
       Auth.currentCredentials().then(() => {
-        Storage.get("paths.json", storageOptions).then(result => {
+        Storage.get("current.txt", storageOptions).then(result => {
+          const fr = new FileReader();
+          fr.onload = evt => {
+            const dataVersion = evt.target.result.trim();
+            setState({ dataVersion });
+          };
+          fr.readAsText(result.Body);
+        });
+      });
+    }
+  }, [isAuthenticated, setState, appState.dataVersion]); // ieslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (isAuthenticated && appState.dataVersion && !appState.paths.imageryBaseURL) {
+      Auth.currentCredentials().then(() => {
+        Storage.get(`${appState.dataVersion}/config.json`, storageOptions).then(result => {
           const fr = new FileReader();
           fr.onload = evt => {
             const paths = JSON.parse(evt.target.result);
             if (paths !== appState.paths) {
-              setAppState({ ...appState, paths });
+              setState({ paths });
             }
           };
           fr.readAsText(result.Body);
         });
       });
     }
-  }, [isAuthenticated]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, setState, appState.dataVersion, appState.paths]); // ieslint-disable-line react-hooks/exhaustive-deps
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
@@ -233,7 +252,6 @@ export default function App() {
                 v{process.env.REACT_APP_VERSION}
               </Link>{" "}
             </p>
-
             <p>
               <a
                 rel="license"

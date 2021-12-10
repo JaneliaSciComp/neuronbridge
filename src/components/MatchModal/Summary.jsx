@@ -9,7 +9,7 @@ import { AppContext } from "../../containers/AppContext";
 
 export default function Summary(props) {
   const { selectedMatch, mask, isLM, selected, matchesList } = props;
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
 
   function handleDetailsToggle() {
     setPermanent({compactMeta: !appState.compactMeta});

@@ -21,7 +21,7 @@ function querystring(name, url = window.location.href) {
 
 export default function UnauthenticatedRoute({ component: C, appProps, ...rest }) {
     const redirect = querystring("redirect");
-    const [appState] = useContext(AppContext);
+    const { appState } = useContext(AppContext);
     return (
       <Route
         {...rest}

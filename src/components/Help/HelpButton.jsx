@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { AppContext } from "../../containers/AppContext";
 
 export default function HelpButton({target, text}) {
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   function handleHelp() {
     setAppState({ ...appState, showHelp: true, helpTarget: target });

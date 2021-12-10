@@ -21,6 +21,7 @@ const initialState = {
     cdm: 2
   },
   paths: {},
+  dataVersion: null,
   migrationMessage: true,
   debug: false,
   closedAnnouncements: []
@@ -31,12 +32,16 @@ const localState = JSON.parse(localStorage.getItem("appState"));
 const combinedState = {...initialState, ...localState};
 
 const AppProvider = ({children}) => {
-  const [state, setState] = useState(combinedState);
+  const [appState, setAppState] = useState(combinedState);
+
+  const setState = (payload) => {
+    setAppState({ ...appState, ...payload});
+  }
 
   const setPermanent = (action) => {
     const updatedState = { ...localState, ...action};
     localStorage.setItem("appState", JSON.stringify(updatedState));
-    setState({ ...state, ...action });
+    setAppState({ ...appState, ...action });
   }
 
   const resetPermanent = () => {
@@ -45,7 +50,7 @@ const AppProvider = ({children}) => {
 
   // TODO: convert the value returned from an [] to an {}.
   return (
-    <AppContext.Provider value={[state, setState, setPermanent, resetPermanent]}>
+    <AppContext.Provider value={{appState, setState, setAppState, setPermanent, resetPermanent}}>
         {children}
     </AppContext.Provider>
   );

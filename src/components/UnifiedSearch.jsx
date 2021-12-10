@@ -18,9 +18,10 @@ export default function UnifiedSearch() {
 
   const [byLineResult, setByLineResults] = useState(null);
   const [byBodyResult, setByBodyResults] = useState(null);
+  const [loadedTerm, setLoadedTerm] = useState(null);
   const [lineLoading, setLineLoading] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
     function fixUrlResults(newResults, match) {
@@ -54,7 +55,8 @@ export default function UnifiedSearch() {
       });
     }
 
-    if ("precomputedDataRootPath" in appState.paths) {
+    if ("imageryBaseURL" in appState.paths && loadedTerm !== searchTerm) {
+      setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);
 
@@ -114,7 +116,7 @@ export default function UnifiedSearch() {
             })
             .map(match => {
               if (match.keyType === "publishingName") {
-                const byLineUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_line/${match.name}.json`;
+                const byLineUrl = `${appState.dataVersion}/metadata/by_line/${match.name}.json`;
                 return Storage.get(byLineUrl, storageOptions)
                   .then(metaData => {
                     return readMetaData(
@@ -133,7 +135,7 @@ export default function UnifiedSearch() {
                   });
               }
               if (match.keyType === "bodyID") {
-                const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${match.name}.json`;
+                const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${match.name}.json`;
                 return Storage.get(byBodyUrl, storageOptions)
                   .then(metaData => {
                     return readMetaData(
@@ -157,7 +159,7 @@ export default function UnifiedSearch() {
               ) {
                 return match.bodyIDs.map(body => {
                   const [bodyID, pppmatch] = Object.entries(body)[0];
-                  const byBodyUrl = `${appState.paths.precomputedDataRootPath}/metadata/by_body/${bodyID}.json`;
+                  const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                   const updatedMatch = {...match, ppp: pppmatch};
                   return Storage.get(byBodyUrl, storageOptions)
                     .then(metaData => {
@@ -209,7 +211,7 @@ export default function UnifiedSearch() {
         });
       });
     }
-  }, [searchTerm, appState.paths]);
+  }, [searchTerm, loadedTerm, appState.paths, appState.dataVersion]);
 
   return (
     <div>

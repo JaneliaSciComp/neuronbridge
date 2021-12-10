@@ -8,7 +8,7 @@ import { AppContext } from "../containers/AppContext";
 
 export default function CustomInputSummary({ searchMeta, children }) {
   const history = useHistory();
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   const handleAlignToggle = () => {
     setAppState({

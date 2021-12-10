@@ -54,7 +54,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   const isPPP = searchType === "ppp";
 
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
 
   const sortType = query.get("fisort") || 1;
 

@@ -8,7 +8,7 @@ export default function AuthenticatedRoute({
   appProps,
   ...rest
 }) {
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   return (
     <Route
       {...rest}

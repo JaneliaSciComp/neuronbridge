@@ -17,7 +17,7 @@ import BrainReference from "./brain_reference.png";
 import "./HelpContents.css";
 
 export default function HelpContents({ scroll }) {
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();

@@ -26,7 +26,7 @@ export default function Signup() {
   const [savedUser, setSavedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
   const history = useHistory();
 
   async function handleSubmit(values) {

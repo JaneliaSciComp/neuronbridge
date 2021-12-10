@@ -9,7 +9,7 @@ const { Title } = Typography;
 export default function AnnouncementsArchive() {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
     Auth.currentCredentials().then(() => {

@@ -11,7 +11,7 @@ import { useQuery } from "../libs/hooksLib";
 
 export default function FilterButton() {
 
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   function handleFilterMenuVisability() {
     setAppState({ ...appState, showFilterMenu: !appState.showFilterMenu });

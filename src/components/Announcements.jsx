@@ -8,7 +8,7 @@ import { AppContext } from "../containers/AppContext";
 export default function Announcements() {
   // get the data from the source and then loop over it to generate an announcement
   const [announcements, setAnnouncements] = useState([]);
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   const { closedAnnouncements } = appState;
 
   function handleClose(id) {
