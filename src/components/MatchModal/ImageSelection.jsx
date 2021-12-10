@@ -20,7 +20,7 @@ function ImageSelection({
   chosenImageId,
   anatomicalRegion
 }) {
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   const [mirrored, setMirrored] = useState(false);
 
   const query = useQuery();

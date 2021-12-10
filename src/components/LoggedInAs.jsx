@@ -9,7 +9,7 @@ import "./LoggedInAs.css";
 
 export default function LoggedInAs(props) {
   const { username } = props;
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   const history = useHistory();
 

@@ -9,8 +9,8 @@ import config from "../config";
 const { Title } = Typography;
 
 export default function ReleaseNotes() {
-  const [appState] = useContext(AppContext);
-  const { precomputedDataRootPath: dataRoot } = appState.paths;
+  const { appState } = useContext(AppContext);
+  const { dataVersion } = appState;
 
   const { name } = useParams();
   const [markdown, setMarkdown] = useState(null);
@@ -18,8 +18,8 @@ export default function ReleaseNotes() {
 
   useEffect(() => {
     async function fetchData() {
-      if (cref && dataRoot) {
-        const finalUrl = cref.url.replace("{version}", dataRoot);
+      if (cref && dataVersion) {
+        const finalUrl = cref.url.replace("{version}", dataVersion);
         const signedUrl = await signedPublicLink(finalUrl);
         const response = await fetch(signedUrl);
         if (response.status === 200) {
@@ -31,7 +31,7 @@ export default function ReleaseNotes() {
       }
     }
     fetchData();
-  }, [cref, dataRoot]);
+  }, [cref, dataVersion]);
 
   return (
     <div>

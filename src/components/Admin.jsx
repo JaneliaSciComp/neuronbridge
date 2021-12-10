@@ -7,7 +7,7 @@ import AnnouncementsCreate from "./AnnouncementsCreate";
 export default function Admin() {
   const [token, setToken] = useState("");
   const [identityId, setIdentity] = useState();
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
 
   useEffect(() => {
     async function getSession() {

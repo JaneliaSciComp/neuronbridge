@@ -16,10 +16,10 @@ function Search() {
   const [chosenType, setChosenType] = useState("lines");
   const [isLoading, setIsLoading] = useState(false);
   const routeMatch = useRouteMatch();
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
-    if ("precomputedDataRootPath" in appState.paths) {
+    if ("imageryBaseURL" in appState.paths) {
       setResults(null);
 
       if (!searchTerm) {
@@ -48,7 +48,7 @@ function Search() {
 
       const s3group = searchType === "lines" ? "by_line" : "by_body";
 
-      const metadataUrl = `${appState.paths.precomputedDataRootPath}/metadata/${s3group}/${searchTerm}`;
+      const metadataUrl = `${appState.dataVersion}/metadata/${s3group}/${searchTerm}`;
 
       Storage.list(metadataUrl, storageOptions)
         .then(results => {
@@ -82,7 +82,7 @@ function Search() {
           setIsLoading(false);
         });
     }
-  }, [searchTerm, searchType, appState.paths]);
+  }, [searchTerm, searchType, appState.dataVersion, appState.paths]);
 
   return (
     <div>

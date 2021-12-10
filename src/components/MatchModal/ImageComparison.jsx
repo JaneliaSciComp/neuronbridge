@@ -138,7 +138,9 @@ function getMatchImageOptions(
     const path = createSourceSearchablePath(match, cdmBaseURL, library);
     cdmOptions.push({
       key: "segmented",
-      desc: `${isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"}`,
+      desc: `${
+        isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"
+      }`,
       path,
       canMask: false
     });
@@ -162,7 +164,7 @@ export default function ImageComparison(props) {
   const location = useLocation();
   const history = useHistory();
 
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
 
   const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
@@ -177,14 +179,14 @@ export default function ImageComparison(props) {
   ).toLowerCase();
   const isVertical =
     anatomicalRegion === "vnc" ||
-    match.libraryName.toLowerCase().includes("vnc");
+    (mask.libraryName && mask.libraryName.toLowerCase().includes("vnc"));
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(
     isPPP,
     match,
-    match.libraryName,
+    mask.libraryName,
     isLM,
     appState.paths.pppImageryBaseURL,
     appState.paths.imageryBaseURL

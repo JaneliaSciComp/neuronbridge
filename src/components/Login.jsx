@@ -15,7 +15,7 @@ const isInternalSite = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVE
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   async function handleSubmit(values) {
     setIsLoading(true);

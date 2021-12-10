@@ -4,7 +4,7 @@ import FilterMenu from "./FilterMenu";
 import { AppContext } from "../containers/AppContext";
 
 export default function FilterMenuDisplay({ searchType, countsByLibrary }) {
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
 
   if (!appState.showFilterMenu) {
     return null;

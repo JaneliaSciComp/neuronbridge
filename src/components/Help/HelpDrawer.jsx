@@ -5,7 +5,7 @@ import { Drawer } from "antd";
 import { AppContext } from "../../containers/AppContext";
 
 export default function HelpDrawer({ children }) {
-  const [appState, setAppState] = useContext(AppContext);
+  const { appState, setAppState } = useContext(AppContext);
 
   function handleClose() {
     setAppState({ ...appState, showHelp: false });

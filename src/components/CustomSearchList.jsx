@@ -11,7 +11,7 @@ import { AppContext } from "../containers/AppContext";
 const { Title } = Typography;
 
 export default function CustomSearchList() {
-  const [appState, , setPermanent] = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [searches, dispatch] = useReducer((searchList, { type, value }) => {

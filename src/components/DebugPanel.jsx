@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 import { Auth, API } from "aws-amplify";
 
-export default function DebugPanel({ paths, config }) {
+export default function DebugPanel({ appState, config }) {
   const [publishedNames, setPublishedNames] = useState();
+  const { paths } = appState;
 
   useEffect(() => {
     Auth.currentCredentials().then(() => {
@@ -45,6 +46,9 @@ export default function DebugPanel({ paths, config }) {
       </Col>
       <Col span={12} style={{ textAlign: "left" }}>
         <p>
+          <b>Data version:</b> {appState.dataVersion}
+        </p>
+        <p>
           <b>Imagery Base URL:</b> {paths.imageryBaseURL}
         </p>
         <p>
@@ -52,9 +56,6 @@ export default function DebugPanel({ paths, config }) {
         </p>
         <p>
           <b>PPP Imagery Base URL:</b> {paths.pppImageryBaseURL}
-        </p>
-        <p>
-          <b>Precomputed Data Root:</b> {paths.precomputedDataRootPath}
         </p>
         <p>
           <b>NODE_ENV:</b> {process.env.NODE_ENV}
@@ -69,6 +70,6 @@ export default function DebugPanel({ paths, config }) {
 }
 
 DebugPanel.propTypes = {
-  paths: PropTypes.object.isRequired,
+  appState: PropTypes.object.isRequired,
   config: PropTypes.object.isRequired
 };

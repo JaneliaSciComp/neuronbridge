@@ -9,7 +9,7 @@ export default function Account() {
   // const [survey, setSurvey] = useState(false);
   const [newsLetter, setNewsLetter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [, , ,resetPermanent] = useContext(AppContext);
+  const { resetPermanent } = useContext(AppContext);
 
   useEffect(() => {
     // load the logged in users attributes and see save the

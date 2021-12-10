@@ -30,7 +30,7 @@ const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 //   disabled: Boolean: <default is true>
 // }
 // Order is important. The first value in the list will be the default value that
-// the site selects 
+// the site selects
 let ANATOMICAL_REGIONS = [
     { label: "Brain", value: "brain" },
     { label: "VNC", value: "vnc", disabled: true}

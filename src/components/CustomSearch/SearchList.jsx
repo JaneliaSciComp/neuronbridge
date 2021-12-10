@@ -42,7 +42,7 @@ ErrorMessage.defaultProps = {
 };
 
 export default function SearchList({ searches }) {
-  const [appContext] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
@@ -52,7 +52,7 @@ export default function SearchList({ searches }) {
             <Col span={23}>
               <Text strong> &raquo; {search.upload}</Text>{" "}
               <Text type="secondary">
-                {appContext.debug ? search.id : null}
+                {appState.debug ? search.id : null}
               </Text>
             </Col>
             <Col span={1}>
