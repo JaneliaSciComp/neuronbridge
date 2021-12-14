@@ -1,3 +1,52 @@
+## Version 2.1.1 - 2021-12-14
+
+### Bug fixes
+- ### Links to flylight websites now use slide codes instead of line name.
+  - This should make it easier to identify the images of interest on the flylight website.
+
+## Version 2.1.0 - 2021-12-13
+
+### What's New
+- ### Added a download button on mask selection
+  - This allows people to download the channels after alignment, but before
+  they have been masked and searched.
+- ### Added an announcements archive page.
+  - All past announcements that have been made on the site will now be shown
+  in an archive, that can be reached from a link in the site footer.
+- ### New button to collapse Match meta information.
+  - The button removes almost all of the match meta information from the
+  modal pop up when looking at individual matches. The data remains hidden
+  until the button is used to toggle the data back on.
+- ### Custom contextMenu for comparison images
+  - This replaces the default browser contextMenu when right clicking on images
+  in the image comparison modal. The custom menu provides the same options as the
+  actions button above the image.
+- ### Account Preferences page.
+  - Clicking on your username at the top right of the page will access the account page,
+  which lists communication preferences and provides an option to reset the site to
+  its' default state.
+- ### Adds support for future VNC release
+
+### Bug Fixes
+- ### External links to neuPrint have been fixed.
+  - ensuring the correct dataset is loaded
+- ### Renamed 'View EM Matches' & 'View Color Depth MIP Results' buttons.
+  - These have been renamed to 'Color Depth Search Results' to provide a
+  more consistent user interface.
+- ### Added reference to the PatchPerPixMatch algorithm
+- ### Internal pppRanks replaced with whole number values
+  - The internal pppRanks were intended for use only within the algorithm
+  and did not match the values used in the publication pdf.
+- ### Removed "Mask & Search" option from PPPM images.
+  - These images can not be reliably searched with the CDM algorithm, so
+  the option to do so has been removed.
+- ### Image loading updated to use placeholders.
+  - The placeholders will prevent the page from jumping around as content
+  is replaced or reloaded.
+- ### Adds "Flip" to the PatchPerPixMatch Images.
+  - The images can now be flipped around the y axis.
+- ### Various behind the scenes fixes to improve DX & UX
+
 ## Version 2.0.0 - 2021-09-30
 
 ### What's New
