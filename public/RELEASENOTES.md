@@ -1,3 +1,8 @@
+## VERSION 2.1.2 - 2022-01-07
+
+### Bug fixes
+- ### A link to the MIP data README on open.quiltdata.com was added to the help page.
+
 ## Version 2.1.1 - 2021-12-14
 
 ### Bug fixes
