@@ -9,15 +9,21 @@ export default function Account() {
   // const [survey, setSurvey] = useState(false);
   const [newsLetter, setNewsLetter] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [, , ,resetPermanent] = useContext(AppContext);
+  const [, , , resetPermanent] = useContext(AppContext);
 
   useEffect(() => {
     // load the logged in users attributes and see save the
     // survey and newsletter preferences to the state.
     async function getUserInfo() {
       const userInfo = await Auth.currentUserInfo();
+      const all = await Auth.currentAuthenticatedUser();
       // setSurvey(userInfo.attributes["custom:survey"] === "true");
-      setNewsLetter(userInfo.attributes["custom:newsletter"] === "true");
+      console.log(all, userInfo);
+      setNewsLetter(
+        userInfo &&
+          userInfo.attributes &&
+          userInfo.attributes["custom:newsletter"] === "true"
+      );
       setLoading(false);
     }
     getUserInfo();
@@ -72,7 +78,7 @@ export default function Account() {
               you grant us permission to send emails to the email address you
               provided when logging in to this site.
             </p>
-            <Checkbox checked={newsLetter} onChange={handleNewsLetterChange}>
+            <Checkbox disabled checked={newsLetter} onChange={handleNewsLetterChange}>
               {" "}
               Yes, please send me updates.{" "}
             </Checkbox>
