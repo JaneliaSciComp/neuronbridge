@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Layout, Menu, message } from "antd";
+import { Layout, Menu, message, Row, Col } from "antd";
 import { Auth, Storage } from "aws-amplify";
 import Confetti from "react-confetti";
-import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
+import { faEnvelope, faQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
@@ -207,39 +207,66 @@ export default function App() {
           )}
         </div>
       </Content>
-      <Footer style={{ textAlign: "center", position: "relative" }}>
+      <Footer className="siteFooter" style={{ position: "relative" }}>
         {appState.debug && (
           <DebugPanel paths={appState.paths} config={config} />
         )}
-        <p>
-          HHMI ©{new Date().getFullYear()}{" "}
-          <Link to="/releasenotes/website">
-            v{process.env.REACT_APP_VERSION}
-          </Link>{" "}
-        </p>
-        <p>
-          <a href="mailto:neuronbridge@janelia.hhmi.org">
-            <FontAwesomeIcon icon={faEnvelope} /> Contact Us
-          </a>{" "}
-          | <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a> |{" "}
-          <Link to="/announcements">Announcements Archive</Link>
-        </p>
+        <Row>
+          <Col span={8}>
+            <ul>
+              <li>
+                <a href="mailto:neuronbridge@janelia.hhmi.org">
+                  <FontAwesomeIcon icon={faEnvelope} /> Email Us
+                </a>
+              </li>
+              <li>
+                <a href="https://groups.google.com/g/neuronbridge-support">
+                  <FontAwesomeIcon icon={faQuestion} />  Ask a question on our help forum.
+                </a>
+              </li>
+            </ul>
+          </Col>
+          <Col span={8} style={{ textAlign: "center" }}>
+            <p>
+              HHMI ©{new Date().getFullYear()}{" "}
+              <Link to="/releasenotes/website">
+                v{process.env.REACT_APP_VERSION}
+              </Link>{" "}
+            </p>
 
-        <p>
-          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-            <img
-              alt="Creative Commons License"
-              style={{ borderWidth: 0 }}
-              src="https://i.creativecommons.org/l/by/4.0/88x31.png"
-            />
-          </a>
-          <br />
-          This work is licensed under a{" "}
-          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
-            Creative Commons Attribution 4.0 International License
-          </a>
-          .
-        </p>
+            <p>
+              <a
+                rel="license"
+                href="http://creativecommons.org/licenses/by/4.0/"
+              >
+                <img
+                  alt="Creative Commons License"
+                  style={{ borderWidth: 0 }}
+                  src="https://i.creativecommons.org/l/by/4.0/88x31.png"
+                />
+              </a>
+              <br />
+              This work is licensed under a{" "}
+              <a
+                rel="license"
+                href="http://creativecommons.org/licenses/by/4.0/"
+              >
+                Creative Commons Attribution 4.0 International License
+              </a>
+              .
+            </p>
+          </Col>
+          <Col span={8} style={{textAlign: "right"}}>
+            <ul>
+              <li>
+                <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a>
+              </li>
+              <li>
+                <Link to="/announcements">Announcements Archive</Link>
+              </li>
+            </ul>
+          </Col>
+        </Row>
       </Footer>
       <HelpDrawer>
         <HelpContents />

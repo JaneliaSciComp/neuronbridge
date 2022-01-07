@@ -68,3 +68,8 @@ body {
 .debug {
   color: #f0f2f5;
 }
+
+.siteFooter ul {
+  list-style: none;
+  padding: 0;
+}
