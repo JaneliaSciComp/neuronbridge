@@ -42,7 +42,6 @@ export default function About() {
       <Paragraph>
         <Title level={3}>Release notes:</Title>
         <ul>
-          <li><a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md">NeuronBridge</a></li>
           {Object.keys(config.releasenotes).map(name => (
             <li key={name}>
               <Link to={{ pathname: `/releasenotes/${name}` }}>

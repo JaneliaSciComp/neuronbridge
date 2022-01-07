@@ -88,12 +88,12 @@ export default {
   announcements: `https://s3.amazonaws.com/${BUCKET_NAME}/announcements.json`,
   releasenotes: {
     DATA: {
-      title: "Precomputed match data",
+      title: "Precomputed Match Data",
       url:
       `https://s3.amazonaws.com/janelia-neuronbridge-data-${process.env.REACT_APP_LEVEL}/{version}/DATA_NOTES.md`
     },
     website: {
-      title: "Neuronbridge Website",
+      title: "Neuronbridge Software",
       url: "/RELEASENOTES.md"
     }
   },

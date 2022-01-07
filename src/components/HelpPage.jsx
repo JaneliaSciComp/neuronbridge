@@ -31,8 +31,17 @@ export default function HelpPage() {
         </a>{" "}
         for your own research.
       </p>
+      <p>
+        View the{" "}
+        <a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md">
+          README on open.quiltdata.com
+        </a>{" "}
+        to see how the MIP files are labeled and organized.
+      </p>
       <HelpContents scroll={false} />
-      <Title level={3} id="tools">Other tools using NeuronBridge</Title>
+      <Title level={3} id="tools">
+        Other tools using NeuronBridge
+      </Title>
       <Typography>
         <a href="http://natverse.org/neuronbridger/">neuronbridger</a> - R
         client utilities for interacting with the NeuronBridge.
