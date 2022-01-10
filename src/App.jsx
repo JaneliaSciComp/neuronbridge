@@ -228,7 +228,7 @@ export default function App() {
       </Content>
       <Footer className="siteFooter" style={{ position: "relative" }}>
         {appState.debug && (
-          <DebugPanel paths={appState.paths} config={config} />
+          <DebugPanel appState={appState} config={config} />
         )}
         <Row>
           <Col span={8}>
