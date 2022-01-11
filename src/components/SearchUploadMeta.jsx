@@ -141,10 +141,13 @@ export default function SearchUploadMeta({
   };
 
   const initialAnatomicalRegion =
-    // if VNC is in the list of regions, then we can guess, based on file
-    // height and width, if the uploaded file was a VNC image. IF it is,
-    // then we can set the anatomical region to vnc by default.
-    anatomicalRegions.filter(region => region.value === "vnc").length > 0 &&
+    // if VNC is in the list of regions and not disabled, then we can
+    // guess, based on file height and width, if the uploaded file was
+    // a VNC image. If it is taller than it is wide, then we can set
+    // the anatomical region to vnc by default.
+    anatomicalRegions.filter(
+      region => region.value === "vnc" && !region.disabled
+    ).length > 0 &&
     uploadedFile.height &&
     uploadedFile.height > uploadedFile.width
       ? "vnc"
