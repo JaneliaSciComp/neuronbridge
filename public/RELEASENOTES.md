@@ -1,3 +1,8 @@
+## VERSION 2.1.3 - 2022-01-11
+
+### Bug fixes
+- ### Backend fixes to improve site configuration and deployment.
+
 ## VERSION 2.1.2 - 2022-01-07
 
 ### What's New
