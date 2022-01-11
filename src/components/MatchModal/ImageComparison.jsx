@@ -187,8 +187,8 @@ export default function ImageComparison(props) {
     match,
     mask.libraryName,
     isLM,
-    appState.paths.pppImageryBaseURL,
-    appState.paths.imageryBaseURL
+    appState.dataConfig.pppImageryBaseURL,
+    appState.dataConfig.imageryBaseURL
   );
 
   // both PPPM and CDM searches have an input image.

@@ -5,7 +5,7 @@ import { Auth, API } from "aws-amplify";
 
 export default function DebugPanel({ appState, config }) {
   const [publishedNames, setPublishedNames] = useState();
-  const { paths } = appState;
+  const { dataConfig } = appState;
 
   useEffect(() => {
     Auth.currentCredentials().then(() => {
@@ -49,13 +49,13 @@ export default function DebugPanel({ appState, config }) {
           <b>Data version:</b> {appState.dataVersion}
         </p>
         <p>
-          <b>Imagery Base URL:</b> {paths.imageryBaseURL}
+          <b>Imagery Base URL:</b> {dataConfig.imageryBaseURL}
         </p>
         <p>
-          <b>Thumbnails Base URL:</b> {paths.thumbnailsBaseURLs}
+          <b>Thumbnails Base URL:</b> {dataConfig.thumbnailsBaseURLs}
         </p>
         <p>
-          <b>PPP Imagery Base URL:</b> {paths.pppImageryBaseURL}
+          <b>PPP Imagery Base URL:</b> {dataConfig.pppImageryBaseURL}
         </p>
         <p>
           <b>NODE_ENV:</b> {process.env.NODE_ENV}

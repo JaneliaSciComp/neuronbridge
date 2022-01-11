@@ -19,7 +19,7 @@ function Search() {
   const { appState } = useContext(AppContext);
 
   useEffect(() => {
-    if ("imageryBaseURL" in appState.paths) {
+    if ("imageryBaseURL" in appState.dataConfig) {
       setResults(null);
 
       if (!searchTerm) {
@@ -65,8 +65,8 @@ function Search() {
                 const newResults = JSON.parse(text);
                 // convert stored relative urls into the full path urls.
                 const urlFixedResults = newResults.results.map(newResult => {
-                  const fullImageUrl = `${appState.paths.imageryBaseURL}/${newResult.imageURL}`;
-                  const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${newResult.thumbnailURL}`;
+                  const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${newResult.imageURL}`;
+                  const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${newResult.thumbnailURL}`;
                   return {...newResult, imageURL: fullImageUrl, thumbnailURL: fullThumbUrl};
                 });
                 combined.results.push(...urlFixedResults);
@@ -82,7 +82,7 @@ function Search() {
           setIsLoading(false);
         });
     }
-  }, [searchTerm, searchType, appState.dataVersion, appState.paths]);
+  }, [searchTerm, searchType, appState.dataVersion, appState.dataConfig]);
 
   return (
     <div>

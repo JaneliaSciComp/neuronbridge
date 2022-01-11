@@ -201,10 +201,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       .map(result => {
         const fullImageUrl = result.imageURL.startsWith("https://")
           ? result.imageURL
-          : `${appState.paths.imageryBaseURL}/${result.imageURL}`;
+          : `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
         const fullThumbUrl = result.thumbnailURL.startsWith("https://")
           ? result.thumbnailURL
-          : `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+          : `${appState.dataConfig.thumbnailsBaseURLs}/${result.thumbnailURL}`;
         return {
           ...result,
           imageURL: fullImageUrl,
@@ -234,7 +234,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
             isLM={!(searchType === "lines")}
             showModal={() => handleModalOpen(index)}
             gridView={appState.gridView}
-            paths={appState.paths}
+            paths={appState.dataConfig}
           />
         </React.Fragment>
       );

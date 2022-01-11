@@ -20,7 +20,7 @@ const initialState = {
     ppp: 2,
     cdm: 2
   },
-  paths: {},
+  dataConfig: {},
   dataVersion: null,
   migrationMessage: true,
   debug: false,

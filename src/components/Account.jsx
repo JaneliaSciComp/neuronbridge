@@ -16,9 +16,7 @@ export default function Account() {
     // survey and newsletter preferences to the state.
     async function getUserInfo() {
       const userInfo = await Auth.currentUserInfo();
-      const all = await Auth.currentAuthenticatedUser();
       // setSurvey(userInfo.attributes["custom:survey"] === "true");
-      console.log(all, userInfo);
       setNewsLetter(
         userInfo &&
           userInfo.attributes &&

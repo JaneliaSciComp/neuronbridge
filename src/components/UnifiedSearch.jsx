@@ -26,8 +26,8 @@ export default function UnifiedSearch() {
   useEffect(() => {
     function fixUrlResults(newResults, match) {
       return newResults.results.map(result => {
-        const fullImageUrl = `${appState.paths.imageryBaseURL}/${result.imageURL}`;
-        const fullThumbUrl = `${appState.paths.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+        const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
+        const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${result.thumbnailURL}`;
         return {
           ...result,
           imageURL: fullImageUrl,
@@ -55,7 +55,7 @@ export default function UnifiedSearch() {
       });
     }
 
-    if ("imageryBaseURL" in appState.paths && loadedTerm !== searchTerm) {
+    if ("imageryBaseURL" in appState.dataConfig && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);
@@ -211,7 +211,7 @@ export default function UnifiedSearch() {
         });
       });
     }
-  }, [searchTerm, loadedTerm, appState.paths, appState.dataVersion]);
+  }, [searchTerm, loadedTerm, appState.dataConfig, appState.dataVersion]);
 
   return (
     <div>

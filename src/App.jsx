@@ -115,21 +115,21 @@ export default function App() {
   }, [isAuthenticated, setState, appState.dataVersion]); // ieslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (isAuthenticated && appState.dataVersion && !appState.paths.imageryBaseURL) {
+    if (isAuthenticated && appState.dataVersion && !appState.dataConfig.imageryBaseURL) {
       Auth.currentCredentials().then(() => {
         Storage.get(`${appState.dataVersion}/config.json`, storageOptions).then(result => {
           const fr = new FileReader();
           fr.onload = evt => {
-            const paths = JSON.parse(evt.target.result);
-            if (paths !== appState.paths) {
-              setState({ paths });
+            const dataConfig = JSON.parse(evt.target.result);
+            if (dataConfig !== appState.dataConfig) {
+              setState({ dataConfig });
             }
           };
           fr.readAsText(result.Body);
         });
       });
     }
-  }, [isAuthenticated, setState, appState.dataVersion, appState.paths]); // ieslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, setState, appState.dataVersion, appState.dataConfig]); // ieslint-disable-line react-hooks/exhaustive-deps
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
