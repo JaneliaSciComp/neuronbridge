@@ -1,16 +1,16 @@
 # NeuronBridge
 
-NeuronBridge is a web-based color depth search tool for neuroscience data.
+NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. 
 
 [Janelia's production instance of NeuronBridge](https://neuronbridge.janelia.org/)
 
 ## Source Code
 
-This repository contains the web client. See also:
-* [Backend API for AWS](https://github.com/JaneliaSciComp/neuronbridge-services)
-* [Color Depth MIP Algorithms](https://github.com/JaneliaSciComp/colormipsearch)
+This repository contains the web client. Other related repositories:
+* [https://github.com/JaneliaSciComp/neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) - Backend API for AWS
+* [https://github.com/JaneliaSciComp/colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Algorithms
 
-The data is stored in AWS S3, and is available here:
+The imagery is stored in AWS S3, and is available for browsing here:
 * [Color Depth MIPS on S3](https://open.quiltdata.com/b/janelia-flylight-color-depth)
 
 ## Release Notes
@@ -19,7 +19,7 @@ See the [RELEASENOTES.md](public/RELEASENOTES.md) in the public directory.
 
 ## License
 
-This code is made available under the [Janeia Open Source License](LICENSE.md). All studies and publications that use this software must cite [doi:10.25378/janelia.12159378.v1](https://doi.org/10.25378/janelia.12159378.v1).
+This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.25378/janelia.12159378.v1](https://doi.org/10.25378/janelia.12159378.v1).
 
 # For Developers
 
@@ -66,4 +66,4 @@ Bucket targets, API endpoints and graphQL endpoints are hard coded into src/conf
 
 ## Configuring AWS
 
-see [AWS setup](README_AWS.md)
+See [AWS setup](README_AWS.md).
