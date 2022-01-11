@@ -42,7 +42,10 @@ export default function Announcements() {
   const formatted = announcements
     .filter(ann => {
       // filter closed messages
-      if (closedAnnouncements && closedAnnouncements.includes(ann.createdTime)) {
+      if (
+        closedAnnouncements &&
+        closedAnnouncements.includes(ann.createdTime)
+      ) {
         return false;
       }
 
@@ -71,13 +74,25 @@ export default function Announcements() {
           }`
         : ann.message;
 
-      const action = ann.actionLink ? (
-        <Link to={ann.actionLink}>
-          <Button size="small" type="ghost">
-            {ann.actionText}
-          </Button>
-        </Link>
-      ) : null;
+      let action = null;
+
+      if (ann.actionLink) {
+        if (ann.actionLink.match(/^http/)) {
+          action = (
+            <Button size="small" type="ghost" href={ann.actionLink}>
+              {ann.actionText}
+            </Button>
+          );
+        } else {
+          action = (
+            <Link to={{ pathname: ann.actionLink }}>
+              <Button size="small" type="ghost">
+                {ann.actionText}
+              </Button>
+            </Link>
+          );
+        }
+      }
 
       return (
         <Alert
