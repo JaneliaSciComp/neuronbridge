@@ -102,8 +102,8 @@
     "deploy:dev": "npm run test && REACT_APP_LEVEL=dev sls client build && sls client deploy --stage dev",
     "deploy:val": "npm run test && REACT_APP_LEVEL=val REACT_APP_DATA_TARGET=prod sls client build --stage val && sls client deploy --stage val",
     "deploy:prod": "npm run test && REACT_APP_ANALYTICS_KEY=MIHSEMHS REACT_APP_LEVEL=prod sls client build --stage prod && sls client deploy --stage prod",
-    "deploy:devpre": "npm run test && REACT_APP_LEVEL=devpre REACT_APP_DISABLE_BRAIN_SEARCH=true REACT_APP_DISABLE_ALIGNMENT=true REACT_APP_NO_OKTA=true sls client build --stage devpre && sls client deploy --stage devpre",
-    "deploy:prodpre": "npm run test && REACT_APP_ANALYTICS_KEY=ERAVKYRB REACT_APP_LEVEL=prodpre REACT_APP_DISABLE_BRAIN_SEARCH=true REACT_APP_DISABLE_ALIGNMENT=true sls client build --stage prodpre && sls client deploy --stage prodpre",
+    "deploy:devpre": "npm run test && REACT_APP_LEVEL=devpre REACT_APP_DISABLE_ALIGNMENT=true REACT_APP_NO_OKTA=true sls client build --stage devpre && sls client deploy --stage devpre",
+    "deploy:prodpre": "npm run test && REACT_APP_ANALYTICS_KEY=ERAVKYRB REACT_APP_LEVEL=prodpre REACT_APP_DISABLE_ALIGNMENT=true sls client build --stage prodpre && sls client deploy --stage prodpre",
     "storybook": "start-storybook  -s ./public -p 6007",
     "build-storybook": "build-storybook"
   },
