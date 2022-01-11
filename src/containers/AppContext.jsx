@@ -35,7 +35,8 @@ const initialState = {
     anatomicalRegions: [
       { label: "Brain", value: "brain" },
       { label: "VNC", value: "vnc", disabled: true }
-    ]
+    ],
+    disableAlignment: false
   },
   dataVersion: null,
   migrationMessage: true,

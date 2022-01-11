@@ -122,7 +122,7 @@ export default function App() {
           fr.onload = evt => {
             const dataConfig = JSON.parse(evt.target.result);
             if (dataConfig !== appState.dataConfig) {
-              setState({ dataConfig });
+              setState({dataConfig: { ...appState.dataConfig, ...dataConfig, loaded: true }});
             }
           };
           fr.readAsText(result.Body);

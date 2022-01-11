@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Upload, message } from "antd";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v1 as uuidv1 } from "uuid";
 import { Auth, Storage } from "aws-amplify";
 import SearchUploadMeta from "./SearchUploadMeta";
+import { AppContext } from "../containers/AppContext";
 import config from "../config";
 import "./SearchUpload.css";
 
@@ -32,6 +33,7 @@ function uploadToS3(upload, handleUpload) {
 }
 
 export default function SearchUpload({ uploadedFile, handleUpload }) {
+  const { appState } = useContext(AppContext);
   function customRequest(upload) {
     // get the image dimensions for use later when checking if the image looks
     // like a VNC or brain image.
@@ -66,6 +68,33 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   // Dragger component. This way we can use that to name the upload
   // directory something other than the fc-<uid> name currently used.
 
+  const uploadHelp = appState.dataConfig.disableAlignment ? (
+    <p>Upload an aligned and masked Color Depth MIP to perform a search.</p>
+  ) : (
+    <>
+      <p>
+        You can upload an unaligned confocal stack and NeuronBridge will attempt
+        to align it for you.
+      </p>
+      <p>
+        {" "}
+        Or use an aligned and masked Color Depth MIP to proceed directly to the
+        search.
+      </p>
+      <b style={{ marginTop: "0.5em" }}>
+        Alignment requires the following file formats:
+      </b>
+      <p>
+        Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi with
+        a single sample, and .nd2.
+      </p>
+      <p>
+        The <i>.nrrd</i> format is not supported due to single channel
+        limitations.
+      </p>
+    </>
+  );
+
   return (
     <div className="uploader">
       {!uploadedFile && (
@@ -83,34 +112,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           <p className="ant-upload-text">
             Upload a file by clicking here or dragging it to this area.
           </p>
-          {process.env.REACT_APP_DISABLE_ALIGNMENT === 'true' ? (
-            <p>
-              Upload an aligned and masked Color Depth MIP to perform a search.
-            </p>
-          ) : (
-            <>
-              <p>
-                You can upload an unaligned confocal stack and NeuronBridge will
-                attempt to align it for you.
-              </p>
-              <p>
-                {" "}
-                Or use an aligned and masked Color Depth MIP to proceed directly
-                to the search.
-              </p>
-              <b style={{ marginTop: "0.5em" }}>
-                Alignment requires the following file formats:
-              </b>
-              <p>
-                Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib,
-                .czi with a single sample, and .nd2.
-              </p>
-              <p>
-                The <i>.nrrd</i> format is not supported due to single channel
-                limitations.
-              </p>
-            </>
-          )}
+          {appState.dataConfig.loaded ? uploadHelp : ""}
         </Dragger>
       )}
       <SearchUploadMeta

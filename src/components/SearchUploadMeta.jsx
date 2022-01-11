@@ -27,7 +27,7 @@ export default function SearchUploadMeta({
   onCancel
 }) {
   const { appState } = useContext(AppContext);
-  const { anatomicalRegions } = appState.dataConfig;
+  const { anatomicalRegions, disableAlignment } = appState.dataConfig;
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
@@ -187,7 +187,7 @@ export default function SearchUploadMeta({
               unCheckedChildren={<CloseOutlined />}
               checked={isAligned}
               onChange={onAlignedChange}
-              disabled={process.env.REACT_APP_DISABLE_ALIGNMENT === "true"}
+              disabled={disableAlignment}
             />{" "}
           </Col>
         </Row>
