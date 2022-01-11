@@ -22,26 +22,6 @@ if (validLevels.includes(dataLevel)) {
 const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
 const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
-// these are the regions that are available in the search upload form.
-// example region component:
-// {
-//   label: String: <value displayed in the form>,
-//   value: String: <value sent to API>,
-//   disabled: Boolean: <default is true>
-// }
-// Order is important. The first value in the list will be the default value that
-// the site selects
-let ANATOMICAL_REGIONS = [
-    { label: "Brain", value: "brain" },
-    { label: "VNC", value: "vnc", disabled: true}
-];
-
-if (process.env.REACT_APP_DISABLE_BRAIN_SEARCH) {
-  ANATOMICAL_REGIONS = [
-    { label: "VNC", value: "vnc"}
-  ];
-}
-
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
   ZIP_DOWNLOAD_LIMIT: 200,
@@ -89,8 +69,7 @@ export default {
   releasenotes: {
     DATA: {
       title: "Precomputed Match Data",
-      url:
-      `https://s3.amazonaws.com/janelia-neuronbridge-data-${process.env.REACT_APP_LEVEL}/{version}/DATA_NOTES.md`
+      url: `https://s3.amazonaws.com/janelia-neuronbridge-data-${process.env.REACT_APP_LEVEL}/{version}/DATA_NOTES.md`
     },
     website: {
       title: "Neuronbridge Software",
@@ -100,9 +79,5 @@ export default {
   // These buckets get skipped, because they are not in our AWS stack and as such,
   // don't allow signed requests. By default these buckets should allow public
   // access
-  skip_signing_buckets: [
-    'janelia-flylight-color-depth',
-  ],
-  // these are the regions that are available in the search upload form.
-  anatomicalRegions: ANATOMICAL_REGIONS
+  skip_signing_buckets: ["janelia-flylight-color-depth"]
 };

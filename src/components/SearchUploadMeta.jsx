@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -16,18 +16,19 @@ import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import { deleteSearch } from "../libs/awsLib";
-import config from "../config";
+import { AppContext } from "../containers/AppContext";
 
 const { Option } = Select;
 const { Title } = Typography;
 
-const { anatomicalRegions } = config;
 
 export default function SearchUploadMeta({
   uploadedFile,
   onSearchSubmit,
   onCancel
 }) {
+  const { appState } = useContext(AppContext);
+  const { anatomicalRegions } = appState.dataConfig;
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
