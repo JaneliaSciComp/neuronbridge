@@ -21,7 +21,6 @@ import { AppContext } from "../containers/AppContext";
 const { Option } = Select;
 const { Title } = Typography;
 
-
 export default function SearchUploadMeta({
   uploadedFile,
   onSearchSubmit,
@@ -196,7 +195,8 @@ export default function SearchUploadMeta({
           label="Anatomical Region"
           name="anatomicalregion"
           help={
-            anatomicalRegions.length > 1 && initialAnatomicalRegion !== anatomicalRegions[0].value ? (
+            anatomicalRegions.length > 1 &&
+            initialAnatomicalRegion !== anatomicalRegions[0].value ? (
               <p>
                 Based on the dimensions of the image you uploaded we have chosen{" "}
                 {initialAnatomicalRegion} for the anatomical area. If this is
@@ -207,7 +207,9 @@ export default function SearchUploadMeta({
         >
           <Select>
             {anatomicalRegions.map(region => (
-              <Option value={region.value} disabled={region.disabled}>{region.label}</Option>
+              <Option value={region.value} disabled={region.disabled}>
+                {region.label}
+              </Option>
             ))}
           </Select>
         </Form.Item>
