@@ -142,7 +142,7 @@
     "serverless-build-client": "^2.5.0",
     "serverless-deployment-bucket": "^1.5.1",
     "serverless-export-env": "^2.0.0",
-    "serverless-finch": "^2.8.0",
+    "serverless-finch": "^2.6.0",
     "serverless-plugin-package-json": "^0.1.0"
   },
   "jest": {
