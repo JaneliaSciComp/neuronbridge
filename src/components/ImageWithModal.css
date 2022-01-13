@@ -16,5 +16,6 @@ button.modalButton:hover {
 }
 
 img.limitedheight {
+  max-width:100%;
   max-height: 900px;
 }
