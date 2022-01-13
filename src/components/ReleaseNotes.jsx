@@ -38,7 +38,7 @@ export default function ReleaseNotes() {
       <Title>{cref.title} Release Notes</Title>
       <hr />
       <div className="App">
-        <ReactMarkdown source={markdown} />
+        <ReactMarkdown>{markdown}</ReactMarkdown>
       </div>
       <hr />
     </div>
