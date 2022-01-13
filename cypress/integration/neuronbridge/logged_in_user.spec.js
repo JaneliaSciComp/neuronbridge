@@ -29,7 +29,7 @@ describe("logged in neuronbridge user", () => {
     cy.findByLabelText("Login").click();
 
     cy.visit("/help");
-    cy.findByText("Help");
+    cy.findByText("Obtaining the raw data");
   });
   it("can't see the signup page", () => {
     cy.visit("/login");
@@ -69,7 +69,7 @@ describe("logged in neuronbridge user", () => {
     cy.visit("/search");
     cy.findByText(/search help/i, { timeout: 4000 });
     cy.visit("/search?q=1077847238")
-    cy.findByLabelText(/view cdm matches/i, { timeout: 4000 });
+    cy.findByLabelText(/color depth search results/i, { timeout: 4000 });
     cy.visit("/search/skeletons/1077847238/matches/2757945537360560139");
     cy.findByLabelText("Search", { timeout: 4000 });
     cy.visit("/search/lines/LH173/matches/2711777430657302539");

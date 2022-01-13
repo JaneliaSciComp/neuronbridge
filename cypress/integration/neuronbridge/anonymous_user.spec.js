@@ -11,7 +11,7 @@ describe("anonymous neuronbridge user", () => {
   });
   it("can see the help page", () => {
     cy.visit("/help")
-    cy.findByText("Help");
+    cy.findByText("Obtaining the raw data");
   });
   it("can see the signup page", () => {
     cy.visit("/signup")
