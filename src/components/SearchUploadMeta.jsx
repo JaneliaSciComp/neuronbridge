@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
   Switch,
+  Radio,
   message
 } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
@@ -135,8 +136,8 @@ export default function SearchUploadMeta({
     setOverride(checked);
   };
 
-  const onAlignedChange = checked => {
-    setIsAligned(checked);
+  const onAlignedChange = event => {
+    setIsAligned(event.target.value);
   };
 
   const initialAnatomicalRegion =
@@ -175,20 +176,14 @@ export default function SearchUploadMeta({
         <Row>
           <Col span={8} style={{ textAlign: "right" }}>
             <label htmlFor="aligned" style={{ marginRight: "8px" }}>
-              Has this image been aligned already?:{" "}
+              The uploaded image is :{" "}
             </label>
           </Col>
-          <Col>
-            <Switch
-              style={{ margin: "0 0 1em 0" }}
-              id="aligned"
-              name="aligned"
-              checkedChildren={<CheckOutlined />}
-              unCheckedChildren={<CloseOutlined />}
-              checked={isAligned}
-              onChange={onAlignedChange}
-              disabled={disableAlignment}
-            />{" "}
+          <Col style={{marginBottom: "1em"}}>
+            <Radio.Group onChange={onAlignedChange} value={isAligned}>
+               <Radio value disabled={disableAlignment}>Aligned Color Depth 2D MIP</Radio>
+               <Radio value={false} disabled={disableAlignment}>Not Aligned confocal 3D stack</Radio>
+            </Radio.Group>
           </Col>
         </Row>
         <Form.Item

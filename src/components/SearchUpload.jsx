@@ -113,6 +113,11 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             Upload a file by clicking here or dragging it to this area.
           </p>
           {appState.dataConfig.loaded ? uploadHelp : ""}
+          <p>Expected image dimensions:</p>
+          <ul>
+            <li>Brain: 1210 x 566 px</li>
+            <li>VNC: 573 x 1119 px</li>
+          </ul>
         </Dragger>
       )}
       <SearchUploadMeta
