@@ -154,7 +154,7 @@ export default function App() {
           mode="horizontal"
           style={{ lineHeight: "64px" }}
         >
-          <Menu.Item className="logo">
+          <Menu.Item key="logo" className="logo">
             <Link to="/">
               <img src={neuronbridgeLogo} alt="NeuronBridge" />
             </Link>

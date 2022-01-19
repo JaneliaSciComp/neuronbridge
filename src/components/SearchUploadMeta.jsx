@@ -202,7 +202,7 @@ export default function SearchUploadMeta({
         >
           <Select>
             {anatomicalRegions.map(region => (
-              <Option value={region.value} disabled={region.disabled}>
+              <Option key={region.value} value={region.value} disabled={region.disabled}>
                 {region.label}
               </Option>
             ))}
