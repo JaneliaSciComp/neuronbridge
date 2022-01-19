@@ -76,6 +76,10 @@ export default {
       url: "/RELEASENOTES.md"
     }
   },
+  uploadDimensions: {
+    'brain': '1210 x 566 px',
+    'vnc': '573 x 1119 px'
+  },
   // These buckets get skipped, because they are not in our AWS stack and as such,
   // don't allow signed requests. By default these buckets should allow public
   // access

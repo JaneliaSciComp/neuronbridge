@@ -51,6 +51,11 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
     };
   }
 
+  const uploadDimensions = appState.dataConfig.anatomicalRegions
+    .map(region => {
+      return !region.disabled ? <p key={region.label}>{region.label}: {config.uploadDimensions[region.value]}</p> : null;
+    })
+    .filter(region => region);
   function onRemove() {
     Auth.currentCredentials().then(() => {
       Storage.remove(`${uploadedFile.filename}/${uploadedFile.file.name}`, {
@@ -113,11 +118,8 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             Upload a file by clicking here or dragging it to this area.
           </p>
           {appState.dataConfig.loaded ? uploadHelp : ""}
-          <p>Expected image dimensions:</p>
-          <ul>
-            <li>Brain: 1210 x 566 px</li>
-            <li>VNC: 573 x 1119 px</li>
-          </ul>
+          <b>Expected Color Depth MIP dimensions:</b>
+          {uploadDimensions}
         </Dragger>
       )}
       <SearchUploadMeta
