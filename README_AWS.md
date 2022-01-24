@@ -46,7 +46,7 @@
     - Set the following:
         - Claim: "cognito:groups"
         - Value: "contains"
-        - Role: "neuronbridge-admin"
+        - Role: "neuronbridge-admins"
     - Click "save changes" at the bottom of the page.
 - update access permissions for the Authorized and Admin roles
     - Admin - the admin role needs to have write access to all data in the searches bucket.
