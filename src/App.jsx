@@ -211,7 +211,7 @@ export default function App() {
         <div className="site-layout-background">
           <Announcements source={config.announcements} />
           {config.UNDER_MAINTENANCE ? <MaintenanceBanner /> : ""}
-          {isAuthenticating || !appState.dataConfig.loaded ? (
+          {isAuthenticating ? (
             <p>Loading...</p>
           ) : (
             <>

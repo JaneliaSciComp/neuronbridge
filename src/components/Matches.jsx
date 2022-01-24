@@ -56,6 +56,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   const { appState, setPermanent } = useContext(AppContext);
 
+  if (!appState.dataConfig.loaded) {
+    return (<p>Loading...</p>);
+  }
+
   const sortType = query.get("fisort") || 1;
 
   function sortByScoreOrAlt(a, b) {
