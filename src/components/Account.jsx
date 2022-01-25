@@ -1,42 +1,49 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { Button, Card, Checkbox, Typography, message } from "antd";
 import { AppContext } from "../containers/AppContext";
 
 const { Title } = Typography;
 
 export default function Account() {
-  // const [survey, setSurvey] = useState(false);
-  const [newsLetter, setNewsLetter] = useState(false);
+  const [userPrefs, setUserPrefs] = useState({});
   const [loading, setLoading] = useState(true);
   const { resetPermanent } = useContext(AppContext);
 
   useEffect(() => {
     // load the logged in users attributes and see save the
-    // survey and newsletter preferences to the state.
+    // preferences to the state.
     async function getUserInfo() {
-      const userInfo = await Auth.currentUserInfo();
-      // setSurvey(userInfo.attributes["custom:survey"] === "true");
-      setNewsLetter(
-        userInfo &&
-          userInfo.attributes &&
-          userInfo.attributes["custom:newsletter"] === "true"
-      );
+      Auth.currentCredentials().then(() => {
+        API.get("SearchAPI", "/preferences")
+          .then(preferences => {
+            setUserPrefs(preferences);
+          })
+          .catch(() => {
+            setUserPrefs({});
+          });
+      });
       setLoading(false);
     }
     getUserInfo();
   }, []);
 
   const handleNewsLetterChange = async event => {
-    setNewsLetter(event.target.checked);
-    const user = await Auth.currentAuthenticatedUser();
-    await Auth.updateUserAttributes(user, {
-      "custom:newsletter": event.target.checked.toString()
-    }).catch(() => {
-      message.error(
-        "Unable to change newsletter preference, please try again later or contact us via the support email in the page footer."
-      );
-      setNewsLetter(!event.target.checked);
+    setUserPrefs({ ...userPrefs, mailingList: event.target.checked });
+    Auth.currentCredentials().then(() => {
+      API.post("SearchAPI", "/preferences", {
+        body: { mailingList: event.target.checked }
+      })
+        .then(preferences => {
+          message.success("Your newsletter preferences have been updated.");
+          setUserPrefs(preferences);
+        })
+        .catch(() => {
+          setUserPrefs({ ...userPrefs, mailingList: !event.target.checked });
+          message.error(
+            "Unable to change newsletter preference, please try again later or contact us via the support email in the page footer."
+          );
+        });
     });
   };
 
@@ -44,19 +51,6 @@ export default function Account() {
     resetPermanent();
     window.location.reload();
   }
-
-  /* const handleSurveyChange = async event => {
-    setSurvey(event.target.checked);
-    const user = await Auth.currentAuthenticatedUser();
-    await Auth.updateUserAttributes(user, {
-      "custom:survey": event.target.checked.toString()
-    }).catch(() => {
-      message.error(
-        "Unable to change survey preference, please try again later."
-      );
-      setSurvey(!event.target.checked);
-    });
-  }; */
 
   return (
     <>
@@ -76,7 +70,11 @@ export default function Account() {
               you grant us permission to send emails to the email address you
               provided when logging in to this site.
             </p>
-            <Checkbox disabled checked={newsLetter} onChange={handleNewsLetterChange}>
+            <Checkbox
+              disabled={loading}
+              checked={userPrefs?.mailingList}
+              onChange={handleNewsLetterChange}
+            >
               {" "}
               Yes, please send me updates.{" "}
             </Checkbox>
