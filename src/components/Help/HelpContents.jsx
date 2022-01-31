@@ -27,7 +27,8 @@ export default function HelpContents({ scroll }) {
   const refLookup = {
     MatchesEMtoLM: useRef(),
     MatchesLMtoEM: useRef(),
-    SearchInput: useRef()
+    SearchInput: useRef(),
+    UploadAlignment: useRef()
   };
 
   // use Effect to scroll to target set in the appState?
@@ -150,7 +151,7 @@ export default function HelpContents({ scroll }) {
           style={{ width: "5em" }}
           min={1}
           max={100}
-          value={parseInt(query.get('rpl') || 1, 10)}
+          value={parseInt(query.get("rpl") || 1, 10)}
           onChange={handleResultsPerLine}
         />{" "}
         results per line
@@ -158,7 +159,7 @@ export default function HelpContents({ scroll }) {
 
       <Divider />
 
-      <h2>Upload Alignment:</h2>
+      <h2 ref={refLookup.UploadAlignment}>Upload Alignment:</h2>
 
       <h3>Supported File Formats</h3>
       <p>
@@ -178,9 +179,16 @@ export default function HelpContents({ scroll }) {
         <dd>
           The reference channel needs to contain a full central brain in the XY
           plane. The optic lobe is not necessary and the brain can be tilted
-          within +/-90 degrees.
+          within +/-90 degrees. Images tilted within +-55 degrees are much more
+          likely to align correctly. It may be possible to fix your input by
+          running one of the options found in the &ldquo;Image/Transform&rdquo; Fiji menu.
         </dd>
-          <dd><img src={BrainReference} alt="FlyLight 40x MCFO reference channel tilted 45 degrees to the left"/></dd>
+        <dd>
+          <img
+            src={BrainReference}
+            alt="FlyLight 40x MCFO reference channel tilted 45 degrees to the left"
+          />
+        </dd>
 
         <dd>
           The brain needs to have a whole Z-brain scan (from the antennal lobe
@@ -189,19 +197,29 @@ export default function HelpContents({ scroll }) {
 
         <dt>The input voxel size was not correct</dt>
         <dd>
-          Please measure your fly brain size by using the Fiji/Imagej &quot;Straight&quot;
-          line selection tool. The length of both ends of the lateral horn (LH)
-          should be between 330 &amp; 340 µm. You can fix the voxel size in
-          Fiji/ImageJ menu /Images/Properties...
+          Please measure your fly brain size by using the Fiji/Imagej
+          &quot;Straight&quot; line selection tool. The length of both ends of
+          the lateral horn (LH) should be between 330 &amp; 340 µm. You can fix
+          the voxel size in Fiji/ImageJ menu /Images/Properties...
         </dd>
-          <dd><img src={LHLength} alt="Fiji window showing a line drawn between the two sides of the lateral horn."/></dd>
+        <dd>
+          <img
+            src={LHLength}
+            alt="Fiji window showing a line drawn between the two sides of the lateral horn."
+          />
+        </dd>
 
         <dt>The brain was tilted too far in the dorsal-ventral direction.</dt>
         <dd>Here is an example of a good scan</dd>
-          <dd><img src={BrainScan} alt="Brain scan"/></dd>
+        <dd>
+          <img src={BrainScan} alt="Brain scan" />
+        </dd>
 
         <dt>The brain may have too much debris or be too distorted.</dt>
-          <dd>This is unrecoverable in our system. Please use an alternative method to align.</dd>
+        <dd>
+          This is unrecoverable in our system. Please use an alternative method
+          to align.
+        </dd>
       </dl>
 
       <Divider />
