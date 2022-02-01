@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Card } from "antd";
 import { Auth, API } from "aws-amplify";
+import "./DebugPanel.css";
 
 export default function DebugPanel({ appState, config }) {
   const [publishedNames, setPublishedNames] = useState();
@@ -27,6 +28,15 @@ export default function DebugPanel({ appState, config }) {
     endpoint => endpoint.endpoint
   );
 
+  let pppBucketMatch = true;
+
+  if (dataConfig.pppImageryBaseURL) {
+    const pppmPathFromConfig = dataConfig.pppImageryBaseURL.split("/");
+    if (!pppmPathFromConfig.includes(config.PPPM_BUCKET)) {
+      pppBucketMatch = false;
+    }
+  }
+
   return (
     <>
       <Row gutter={[16, 16]} style={{ marginBottom: "1rem" }}>
@@ -39,7 +49,8 @@ export default function DebugPanel({ appState, config }) {
               <b>Search Bucket:</b> {config.SEARCH_BUCKET}
             </p>
             <p>
-              <b>PPPM Bucket:</b> {config.PPPM_BUCKET}
+              <b className={pppBucketMatch ? "" : "noMatch"}> PPPM Bucket:</b>{" "}
+              {config.PPPM_BUCKET}
             </p>
             {searchEndpoints}
             <p>
@@ -75,7 +86,7 @@ export default function DebugPanel({ appState, config }) {
               <b>Thumbnails Base URL:</b> {dataConfig.thumbnailsBaseURLs}
             </p>
             <p>
-              <b>PPP Imagery Base URL:</b> {dataConfig.pppImageryBaseURL}
+              <b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b> {dataConfig.pppImageryBaseURL}
             </p>
           </Card>
 
