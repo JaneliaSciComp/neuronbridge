@@ -81,7 +81,6 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(metadata1932493302));
     }
   ),
-  */
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json",
     (req, res, ctx) => {
@@ -103,4 +102,5 @@ export const handlers = [
       );
     }
   )
+  */
 ];
