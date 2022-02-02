@@ -7,12 +7,14 @@ import AnnouncementsCreate from "./AnnouncementsCreate";
 export default function Admin() {
   const [token, setToken] = useState("");
   const [identityId, setIdentity] = useState();
+  const [cognitoUser, setCognitoUser] = useState("");
   const { appState, setPermanent } = useContext(AppContext);
 
   useEffect(() => {
     async function getSession() {
       const session = await Auth.currentSession();
       setToken(session.accessToken.jwtToken);
+      setCognitoUser(session.accessToken.payload.sub);
     }
     getSession();
   }, []);
@@ -40,6 +42,8 @@ export default function Admin() {
       />
       <p>
         <b>Identity Id:</b> {identityId}
+
+        <b style={{marginLeft: "1rem"}}>Cognito Id:</b> {cognitoUser}
       </p>
       <Switch
         style={{ marginBottom: "1em" }}
