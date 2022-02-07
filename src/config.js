@@ -22,6 +22,16 @@ if (validLevels.includes(dataLevel)) {
 const SEARCH_ENDPOINT = process.env.REACT_APP_SEARCH_ENDPOINT;
 const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
+const fathomEventKeys = {
+  "prod": {
+    "imageUpload": "MGYJFBMS",
+  },
+  "pre": {
+    "imageUpload": "L1SRH70K",
+  }
+};
+
+
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
   ZIP_DOWNLOAD_LIMIT: 200,
@@ -83,5 +93,6 @@ export default {
   // These buckets get skipped, because they are not in our AWS stack and as such,
   // don't allow signed requests. By default these buckets should allow public
   // access
-  skip_signing_buckets: ["janelia-flylight-color-depth"]
+  skip_signing_buckets: ["janelia-flylight-color-depth"],
+  fathomEventKeys: fathomEventKeys[process.env.REACT_APP_LEVEL]
 };

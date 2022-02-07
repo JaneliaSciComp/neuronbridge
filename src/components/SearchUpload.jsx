@@ -13,6 +13,9 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 function uploadToS3(upload, handleUpload) {
+  if (config.fathomEventKeys) {
+    window.fathom.trackGoal(config.fathomEventKeys.imageUpload, 0);
+  }
   Auth.currentCredentials().then(() => {
     Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
       progressCallback: progress => {
@@ -53,7 +56,11 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
 
   const uploadDimensions = appState.dataConfig.anatomicalRegions
     .map(region => {
-      return !region.disabled ? <p key={region.label}>{region.label}: {config.uploadDimensions[region.value]}</p> : null;
+      return !region.disabled ? (
+        <p key={region.label}>
+          {region.label}: {config.uploadDimensions[region.value]}
+        </p>
+      ) : null;
     })
     .filter(region => region);
   function onRemove() {
