@@ -21,8 +21,8 @@ function ImageSelection({
   anatomicalRegion
 }) {
   const { appState, setPermanent } = useContext(AppContext);
-  const isInput = imageOptions[index].key === "input";
-  const initialMirrored = isInput ? meta.mirrored : false;
+  const isNotInput = imageOptions[index].key !== "input";
+  const initialMirrored = isNotInput ? meta.mirrored : false;
   const [mirrored, setMirrored] = useState(initialMirrored);
 
   const query = useQuery();
