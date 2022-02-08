@@ -29,11 +29,11 @@ export default function MatchSummary(props) {
         setSignedSrc(signed);
       });
 
-      // TODO: pppm thumbnails are in the same location as the full sized
+      // pppm thumbnails are in the same location as the full sized
       // image. The difference is instead of a png, they are jpegs.
       // NOTE: This can't be enabled, until the thumbnail images are release
       // to the prod buckets.
-      const thumbUrl = url; // .replace(/\.png$/, '.jpg');
+      const thumbUrl = url.replace(/\.png$/, '.jpg');
       signedPublicLink(thumbUrl).then(signed => {
         setSignedThumbnailSrc(signed);
       });
