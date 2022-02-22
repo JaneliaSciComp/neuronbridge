@@ -13,12 +13,20 @@ const fileIconStyles = {
   marginRight: "0.3em"
 };
 
-function getSWCFilePath(baseURL, mask) {
-  return `${baseURL}/${mask.libraryName}/${mask.publishedName}.swc`;
+function getSWCLink(baseURL, construct) {
+  const filePath = `${baseURL}/${construct.libraryName}/${construct.publishedName}.swc`;
+  return <a href={filePath}>{construct.publishedName}.swc</a>;
+}
+
+function getH5JLink(construct) {
+  if (construct.imageStack) {
+    return <a href={construct.imageStack}>{construct.publishedName}.h5j</a>;
+  }
+  return <span>h5j file missing</span>;
 }
 
 export default function ViewIn3D(props) {
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   const { selectedMatch, mask, isLM } = props;
   // TODO: if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
@@ -26,25 +34,17 @@ export default function ViewIn3D(props) {
     <>
       <Paragraph>
         <FileImageOutlined style={fileIconStyles} />{" "}
-        <a
-          href={
-            isLM
-              ? "/"
-              : getSWCFilePath(appState.paths.swcBaseURL, selectedMatch)
-          }
-        >
-          {selectedMatch.publishedName}.swc
-        </a>{" "}
+        {isLM
+          ? getH5JLink(selectedMatch)
+          : getSWCLink(appState.dataConfig.swcBaseURL, selectedMatch)}{" "}
         (match)
       </Paragraph>
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
-          <a
-            href={isLM ? getSWCFilePath(appState.paths.swcBaseURL, mask) : "/"}
-          >
-            {mask.publishedName}.swc
-          </a>{" "}
+          {isLM
+            ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
+            : getH5JLink(mask)}{" "}
           (mask)
         </Paragraph>
       ) : (
