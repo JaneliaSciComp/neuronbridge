@@ -1,61 +1,102 @@
+## VERSION 2.3.0 - 2022-02-23
+
+### What's New
+
+- ### Images in the image comparison modal are now displayed mirrored by default, if the mirror match was superior.
+  - When CDM searches are precomputed, they are searched against both the input image and a mirrored copy of that input image. This is also the default when uploading an image, but can be turned off by unselecting the 'mirror mask' option when selecting the search parameters. If the result shown was a match against the mirrored input, then
+  the match images will be flipped to make comparisons between them easier. The image can be reverted to the other orientation by clicking on the action
+  button just above it, to the right of the image name.
+
+- ### Added a "View in 3D" tab to each result summary modal.
+  - This provides links to the VVD viewer, instructions on how to use it and links to the 3D files for the match and mask images.
+
+### Bug fixes
+
+- ### The PPPM images on the matches screen are now using smaller "thumbnail" images
+  - This should help with load times on slower connections.
+
+## VERSION 2.2.1 - 2022-02-01
+
+### What's New
+
+- ### Added additional inline help when an alignment job fails.
+- ### Added mailing list preferences, which can be accessed at [https://neuronbridge.janelia.org/account](https://neuronbridge.janelia.org/account)
+
+## VERSION 2.2.0 - 2022-01-20
+
+### What's New
+
+- ### Added expected image dimensions to the search upload form. This should people figure out the size of the image they should be using in a search.
+
+### Bug fixes
+
+- ### There were some cases where the displayed images would break out of their modal windows on small screens.
+- ### The "Tell us more about your image" form now uses a radio button to indicate if the uploaded image is already aligned.
+
 ## VERSION 2.1.3 - 2022-01-11
 
 ### Bug fixes
+
 - ### Backend fixes to improve site configuration and deployment.
 
 ## VERSION 2.1.2 - 2022-01-07
 
 ### What's New
+
 - ### Added a link to the help forum in the site footer.
 
 ### Bug fixes
+
 - ### A link to the MIP data README on open.quiltdata.com was added to the help page.
 
 ## Version 2.1.1 - 2021-12-14
 
 ### Bug fixes
+
 - ### Links to flylight websites now use slide codes instead of line name.
   - This should make it easier to identify the images of interest on the flylight website.
 
 ## Version 2.1.0 - 2021-12-13
 
 ### What's New
+
 - ### Added a download button on mask selection
   - This allows people to download the channels after alignment, but before
-  they have been masked and searched.
+    they have been masked and searched.
 - ### Added an announcements archive page.
   - All past announcements that have been made on the site will now be shown
-  in an archive, that can be reached from a link in the site footer.
+    in an archive, that can be reached from a link in the site footer.
 - ### New button to collapse Match meta information.
   - The button removes almost all of the match meta information from the
-  modal pop up when looking at individual matches. The data remains hidden
-  until the button is used to toggle the data back on.
+    modal pop up when looking at individual matches. The data remains hidden
+    until the button is used to toggle the data back on.
 - ### Custom contextMenu for comparison images
   - This replaces the default browser contextMenu when right clicking on images
-  in the image comparison modal. The custom menu provides the same options as the
-  actions button above the image.
+    in the image comparison modal. The custom menu provides the same options as the
+    actions button above the image.
 - ### Account Preferences page.
   - Clicking on your username at the top right of the page will access the account page,
-  which lists communication preferences and provides an option to reset the site to
-  its' default state.
+    which lists communication preferences and provides an option to reset the site to
+    its' default state.
 - ### Adds support for future VNC release
 
 ### Bug Fixes
+
 - ### External links to neuPrint have been fixed.
   - ensuring the correct dataset is loaded
 - ### Renamed 'View EM Matches' & 'View Color Depth MIP Results' buttons.
   - These have been renamed to 'Color Depth Search Results' to provide a
-  more consistent user interface.
+    more consistent user interface.
 - ### Added reference to the PatchPerPixMatch algorithm
 - ### Internal pppRanks replaced with whole number values
   - The internal pppRanks were intended for use only within the algorithm
-  and did not match the values used in the publication pdf.
+    and did not match the values used in the publication pdf.
 - ### Removed "Mask & Search" option from PPPM images.
   - These images can not be reliably searched with the CDM algorithm, so
-  the option to do so has been removed.
+    the option to do so has been removed.
 - ### Image loading updated to use placeholders.
   - The placeholders will prevent the page from jumping around as content
-  is replaced or reloaded.
+    is replaced or reloaded.
 - ### Adds "Flip" to the PatchPerPixMatch Images.
   - The images can now be flipped around the y axis.
 - ### Various behind the scenes fixes to improve DX & UX
