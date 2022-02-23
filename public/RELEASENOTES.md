@@ -7,9 +7,6 @@
   the match images will be flipped to make comparisons between them easier. The image can be reverted to the other orientation by clicking on the action
   button just above it, to the right of the image name.
 
-- ### Added a "View in 3D" tab to each result summary modal.
-  - This provides links to the VVD viewer, instructions on how to use it and links to the 3D files for the match and mask images.
-
 ### Bug fixes
 
 - ### The PPPM images on the matches screen are now using smaller "thumbnail" images
