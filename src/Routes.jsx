@@ -8,28 +8,62 @@ import SearchErrorBoundary from "./components/SearchErrorBoundary";
 import Landing from "./components/Landing";
 import config from "./config";
 
-const ReleaseNotes = React.lazy(() => import(/* webpackChunkName: 'rel-notes' */"./components/ReleaseNotes"));
-const About = React.lazy(() => import(/* webpackChunkName: 'about' */ "./components/About"));
-const Admin = React.lazy(() => import(/* webpackChunkName: 'admin' */ "./components/Admin"));
-const Login = React.lazy(() => import(/* webpackChunkName: 'login' */ "./components/Login"));
-const HelpPage = React.lazy(() => import(/* webpackChunkName: 'help' */ "./components/HelpPage"));
-const Signup = React.lazy(() => import(/* webpackChunkName: 'signup' */ "./components/Signup"));
-const Search = React.lazy(() => import(/* webpackChunkName: 'search' */ "./components/Search"));
-const Results = React.lazy(() => import(/* webpackChunkName: 'results' */ "./components/Results"));
-const Maintenance = React.lazy(() => import(/* webpackChunkName: 'maint' */ "./components/Maintenance"));
-const MaskSelection = React.lazy(() => import(/* webpackChunkName: 'mask' */ "./components/MaskSelection"));
-const AnnouncementsArchive = React.lazy(() => import(/* webpackChunkName: 'announcements' */ "./components/AnnouncementsArchive"));
-const Account = React.lazy(() => import(/* webpackChunkName: 'account' */ "./components/Account"));
+const ReleaseNotes = React.lazy(() =>
+  import(/* webpackChunkName: 'rel-notes' */ "./components/ReleaseNotes")
+);
+const About = React.lazy(() =>
+  import(/* webpackChunkName: 'about' */ "./components/About")
+);
+const Admin = React.lazy(() =>
+  import(/* webpackChunkName: 'admin' */ "./components/Admin")
+);
+const Login = React.lazy(() =>
+  import(/* webpackChunkName: 'login' */ "./components/Login")
+);
+const HelpPage = React.lazy(() =>
+  import(/* webpackChunkName: 'help' */ "./components/HelpPage")
+);
+const Signup = React.lazy(() =>
+  import(/* webpackChunkName: 'signup' */ "./components/Signup")
+);
+const Search = React.lazy(() =>
+  import(/* webpackChunkName: 'search' */ "./components/Search")
+);
+const Results = React.lazy(() =>
+  import(/* webpackChunkName: 'results' */ "./components/Results")
+);
+const Maintenance = React.lazy(() =>
+  import(/* webpackChunkName: 'maint' */ "./components/Maintenance")
+);
+const MaskSelection = React.lazy(() =>
+  import(/* webpackChunkName: 'mask' */ "./components/MaskSelection")
+);
+const AnnouncementsArchive = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'announcements' */ "./components/AnnouncementsArchive"
+  )
+);
+const Account = React.lazy(() =>
+  import(/* webpackChunkName: 'account' */ "./components/Account")
+);
 const CustomSearchList = React.lazy(() =>
   /* webpackChunkName: 'custom-search-list' */
   import("./components/CustomSearchList")
 );
-const NotFound = React.lazy(() => import(/* webpackChunkName: 'notfound' */ "./components/NotFound"));
-const UsageTerms = React.lazy(() => import(/* webpackChunkName: 'usage' */ "./components/UsageTerms"));
-const ResetPassword = React.lazy(() => import(/* webpackChunkName: 'reset-pass' */ "./components/ResetPassword"));
+const NotFound = React.lazy(() =>
+  import(/* webpackChunkName: 'notfound' */ "./components/NotFound")
+);
+const UsageTerms = React.lazy(() =>
+  import(/* webpackChunkName: 'usage' */ "./components/UsageTerms")
+);
+const ResetPassword = React.lazy(() =>
+  import(/* webpackChunkName: 'reset-pass' */ "./components/ResetPassword")
+);
 
 export default function Routes({ appProps }) {
-  const showMaintenancePage = Boolean(config.UNDER_MAINTENANCE && !appProps.isAdmin);
+  const showMaintenancePage = Boolean(
+    config.UNDER_MAINTENANCE && !appProps.isAdmin
+  );
   return (
     <Suspense fallback={<div>loading...</div>}>
       <Switch>
@@ -93,7 +127,11 @@ export default function Routes({ appProps }) {
           component={Admin}
           appProps={appProps}
         />
-        <Route path="/releasenotes/:name" component={ReleaseNotes} />
+        <AuthenticatedRoute
+          path="/releasenotes/:name"
+          component={ReleaseNotes}
+          appProps={appProps}
+        />
         <Route path="/usage" component={UsageTerms} />
         <Route path="/help" component={HelpPage} />
         <Route path="/announcements" component={AnnouncementsArchive} />
