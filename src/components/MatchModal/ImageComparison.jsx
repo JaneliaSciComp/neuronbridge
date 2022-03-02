@@ -120,17 +120,17 @@ function getMatchImageOptions(
   const matchImagePath = createMatchImagePath(match, cdmBaseURL);
   const cdmOptions = [
     {
-      key: "display",
-      desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
-      path: match.imageURL || match.thumbnailURL,
-      canMask: true
-    },
-    {
       key: "match",
       desc: isLM
         ? "LM - Matched CDM (Segmented)"
         : "EM - Matched CDM (Generated)",
       path: matchImagePath,
+      canMask: true
+    },
+    {
+      key: "display",
+      desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
+      path: match.imageURL || match.thumbnailURL,
       canMask: true
     }
   ];
@@ -178,7 +178,8 @@ export default function ImageComparison(props) {
     "brain"
   ).toLowerCase();
   const isVertical =
-    anatomicalRegion === "vnc" || Boolean(mask?.libraryName?.toLowerCase()?.includes("vnc"));
+    anatomicalRegion === "vnc" ||
+    Boolean(mask?.libraryName?.toLowerCase()?.includes("vnc"));
 
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
