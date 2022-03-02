@@ -22,12 +22,11 @@ export const handlers = [
     }
   ),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/current.txt",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/next.txt",
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.text('v2_3_0'));
+      return res(ctx.status(200), ctx.text('v2_4_0'));
     }
   ),
-
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json",
     (req, res, ctx) => {
