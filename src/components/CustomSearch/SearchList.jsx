@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Divider, Typography, Button, Tooltip, Row, Col, Alert } from "antd";
+import { Divider, Typography, Button, Row, Col, Alert, Popconfirm } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { AppContext } from "../../containers/AppContext";
 import { deleteSearch } from "../../libs/awsLib";
@@ -8,7 +8,7 @@ import SearchSteps from "./SearchSteps";
 
 const { Text } = Typography;
 
-function AlignmentWarning({step}) {
+function AlignmentWarning({ step }) {
   if (step !== 1) {
     return null;
   }
@@ -51,20 +51,23 @@ export default function SearchList({ searches }) {
           <Row>
             <Col span={23}>
               <Text strong> &raquo; {search.upload}</Text>{" "}
-              <Text type="secondary">
-                {appState.debug ? search.id : null}
-              </Text>
+              <Text type="secondary">{appState.debug ? search.id : null}</Text>
             </Col>
             <Col span={1}>
-              <Tooltip title="Delete">
+              <Popconfirm
+                title="Are you sure you want to delete this search?"
+                onConfirm={() => deleteSearch(search)}
+                okText="Yes"
+                cancelText="No"
+                placement="topRight"
+              >
                 <Button
                   danger
                   size="small"
                   shape="circle"
-                  onClick={() => deleteSearch(search)}
                   icon={<CloseOutlined />}
                 />
-              </Tooltip>
+              </Popconfirm>
             </Col>
           </Row>
           <Row>
