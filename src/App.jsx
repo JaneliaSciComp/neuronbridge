@@ -19,6 +19,7 @@ import MaintenanceBanner from "./components/MaintenanceBanner";
 import DebugPanel from "./components/DebugPanel";
 import Announcements from "./components/Announcements";
 import { useKonami } from "./libs/hooksLib";
+import { dataVersionFile } from "./libs/utils";
 import "antd/dist/antd.less";
 import "./App.css";
 
@@ -102,7 +103,7 @@ export default function App() {
       // grab the version number out of it and use that to grab the current
       // config.json file, which replaces paths.json.
       Auth.currentCredentials().then(() => {
-        Storage.get("current.txt", storageOptions).then(result => {
+        Storage.get(dataVersionFile(), storageOptions).then(result => {
           const fr = new FileReader();
           fr.onload = evt => {
             const dataVersion = evt.target.result.trim();

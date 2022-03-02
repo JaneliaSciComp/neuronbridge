@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Row, Col, Card } from "antd";
 import { Auth, API } from "aws-amplify";
+import { dataVersionFile } from "../libs/utils";
 import "./DebugPanel.css";
 
 export default function DebugPanel({ appState, config }) {
@@ -67,7 +68,7 @@ export default function DebugPanel({ appState, config }) {
         <Col span={12} style={{ textAlign: "left" }}>
           <Card
             size="small"
-            title={`s3://${config.s3.BUCKET}/current.txt`}
+            title={`s3://${config.s3.BUCKET}/${dataVersionFile()}`}
             style={{ marginBottom: "1rem" }}
           >
             <p>
