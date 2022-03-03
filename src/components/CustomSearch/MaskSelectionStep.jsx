@@ -83,7 +83,7 @@ export default function MaskSelectionStep({ search, state }) {
   }
   return (
     <>
-      <StepTitle state={loaderState} step={3} text="Mask Selection" />
+      <StepTitle state={loaderState} step={3} text="Search Mask Selection" />
       {content}
     </>
   );
