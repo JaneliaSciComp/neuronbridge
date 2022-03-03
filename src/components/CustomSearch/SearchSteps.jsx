@@ -54,6 +54,8 @@ export default function SearchSteps({ search }) {
           <FileUploadStep
             state={stepState(0, currentStep, errorMessage)}
             date={search.createdOn}
+            alignStarted={Boolean(search?.alignStarted)}
+            upload={search?.upload}
           />
         </Col>
         <Col xs={5}>

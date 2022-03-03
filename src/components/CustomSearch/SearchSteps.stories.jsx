@@ -102,6 +102,30 @@ StepTwoErr.args = {
   }
 };
 
+export const IncorrectUpload = Template.bind({});
+IncorrectUpload.args = {
+  search: {
+    id: "a5c16107-bf30-4217-8ac1-53c38e356f9f",
+    searchDir: "1640add0-30ee-11ec-bb96-a70746ee5819",
+    updatedOn: "2021-10-19T15:17:16.754Z",
+    anatomicalRegion: "brain",
+    dataThreshold: 100,
+    simulateMIPGeneration: false,
+    maskThreshold: 100,
+    upload: "1110173824_TC_18U.czi",
+    identityId: "us-east-1:fa7ca00c-9ffc-426c-ad55-2c05b0f4a4d2",
+    step: 1,
+    pixColorFluctuation: 2,
+    mirrorMask: true,
+    createdOn: "2021-10-19T15:07:11.030Z",
+    maxResultsPerMask: -1,
+    errorMessage: "Alignment job failed",
+    owner: "f1b44154-26d1-4f77-a8af-11319eb87177",
+    minMatchingPixRatio: 2,
+  }
+};
+
+
 export const StepOneErr = Template.bind({});
 StepOneErr.args = {
   search: {
