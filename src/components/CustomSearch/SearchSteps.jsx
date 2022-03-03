@@ -74,7 +74,8 @@ export default function SearchSteps({ search }) {
         </Col>
         <Col xs={5}>
           <ColorDepthSearchStep
-            date={search.cdsFinished}
+            started={search.cdsStarted}
+            finished={search.cdsFinished}
             state={stepState(3, currentStep, errorMessage)}
           />
         </Col>

@@ -1,29 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { formatRelative } from "date-fns";
+import { formatRelative, formatDistanceStrict } from "date-fns";
 import StepTitle from "./StepTitle";
 
-export default function ColorDepthSearchStep({ date, state }) {
-  let content = "";
+export default function ColorDepthSearchStep({ started, finished, state }) {
+  let searchEnd = "";
+  let duration = "";
+
   if (["active", "complete"].includes(state)) {
-    if (date) {
-      content = `Finished ${formatRelative(new Date(date), new Date())}`;
+    if (finished) {
+      duration = `Duration: ${formatDistanceStrict(new Date(finished), new Date(started))}`;
+      searchEnd = `Finished ${formatRelative(new Date(finished), new Date())}`;
     }
   }
 
   return (
     <>
       <StepTitle state={state} step={4} text="Color Depth Search" />
-      <p style={{ marginTop: "1em" }}>{content}</p>
+      <p style={{ marginTop: "1em" }}>{searchEnd}</p>
+      <p style={{ marginTop: "1em" }}>{duration}</p>
     </>
   );
 }
 
 ColorDepthSearchStep.propTypes = {
   state: PropTypes.string.isRequired,
-  date: PropTypes.string
+  finished: PropTypes.string,
+  started: PropTypes.string,
 };
 
 ColorDepthSearchStep.defaultProps = {
-  date: null
+  finished: null,
+  started: null
 };
