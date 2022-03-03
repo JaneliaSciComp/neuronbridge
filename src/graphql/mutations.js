@@ -17,6 +17,7 @@ export const createSearch = /* GraphQL */ `
       createdOn
       updatedOn
       anatomicalRegion
+      referenceChannel
     }
   }
 `;

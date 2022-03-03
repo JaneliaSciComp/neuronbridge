@@ -109,13 +109,20 @@ export default function SearchUploadMeta({
                 setIsUploading(false);
                 onSearchSubmit();
               })
-              .catch(() => {
+              .catch((e) => {
                 deleteSearch({ id: result.data.createSearch.id });
                 setIsUploading(false);
-                message.error(
-                  "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
-                  8
-                );
+                if (e?.response?.data?.errorMessage){
+                  message.error(
+                    e.response.data.errorMessage,
+                    8
+                  );
+                } else {
+                  message.error(
+                    "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                    8
+                  );
+                }
               });
           }
         })
