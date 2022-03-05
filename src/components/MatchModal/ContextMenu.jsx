@@ -40,7 +40,9 @@ export default function ContextMenu({
   };
 
   const handleDownload = async () => {
-    const downloadName = src.split("/").pop();
+    // need to get rid of host string / file path and all the query
+    // parameters, so the download name is correct.
+    const downloadName = src.split("/").pop().split('?')[0];
     const a = document.createElement("a");
     a.href = await toDataURL(src);
     a.setAttribute("download", downloadName);
