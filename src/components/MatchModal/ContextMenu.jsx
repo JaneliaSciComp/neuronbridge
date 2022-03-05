@@ -53,15 +53,15 @@ export default function ContextMenu({
 
   return (
     <Menu>
-      <Menu.Item onClick={handleDownload}>
+      <Menu.Item onClick={handleDownload} key="download">
         <DownloadOutlined /> Download
       </Menu.Item>
-      <Menu.Item onClick={handleFlip}>
+      <Menu.Item onClick={handleFlip} key="flip">
         <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
         {mirrored ? "Restore" : "Flip"}
       </Menu.Item>
       {canMask ? (
-        <Menu.Item onClick={handleSearch} disabled={isCopying}>
+        <Menu.Item onClick={handleSearch} disabled={isCopying} key="mask">
           <SearchOutlined />
           Mask &amp; Search
         </Menu.Item>
