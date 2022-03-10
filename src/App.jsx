@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Layout, Menu, message, Row, Col } from "antd";
 import { Auth, Storage } from "aws-amplify";
 import Confetti from "react-confetti";
+import { TwitterOutlined } from "@ant-design/icons";
 import { faEnvelope, faQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
@@ -235,8 +236,13 @@ export default function App() {
           <Col span={8}>
             <ul>
               <li>
+                <a href="https://twitter.com/NeuronBridge">
+                  <TwitterOutlined /> Follow us
+                </a>
+              </li>
+              <li>
                 <a href="mailto:neuronbridge@janelia.hhmi.org">
-                  <FontAwesomeIcon icon={faEnvelope} /> Email Us
+                  <FontAwesomeIcon icon={faEnvelope} /> Email us
                 </a>
               </li>
               <li>
