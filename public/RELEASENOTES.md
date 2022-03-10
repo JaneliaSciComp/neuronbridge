@@ -1,11 +1,35 @@
+## VERSION 2.3.1 - 2022-03-10
+
+### What's New
+
+- ### Added fileType information to File Upload Step of a custom search.
+  - This summary text on the neuronbridge.janelia.org/upload page shows either '2D CDM' or '3D stack' to indicate which type of file was uploaded to initiate the search / alignment.
+- ### Added search duration to color depth search step of a custom search.
+  - Provides a quick indication as to the duration of the CDM search step. This does not include the duration of the alignment.
+- ### Placed segmented image before default image match.
+  - The Segmented or Generated images in the list of images for comparison have been moved to the second item in the list and will now be show before the original CDM imagery.
+- ### Added confirmation for deleting a search.
+  - The delete icon in the "Your Searches" list now asks for confirmation before removing the search result.
+
+### Bug fixes
+
+- ### Fixed download issues in safari browser.
+  - The Download action for images in the image comparison list was not working correctly in the safari browser.
+- ### Fixed download name for custom search uploads.
+  - The custom search upload file was incorrectly named when downloaded. This fixes the name and file extension, so that it can be opened correctly.
+- ### Improved error message when submitting too many alignments.
+  - The previous error message simply stated that there was an error with the backend servers. The updated error message now indicates that the maximum number of concurrent searches has been reached if that is the case.
+- ### Added 'Search' to mask selection step title.
+  - The "Mask Selection" step on the "Your Searches" list has been renamed to "Search Mask Selection".
+
 ## VERSION 2.3.0 - 2022-02-23
 
 ### What's New
 
 - ### Images in the image comparison modal are now displayed mirrored by default, if the mirror match was superior.
   - When CDM searches are precomputed, they are searched against both the input image and a mirrored copy of that input image. This is also the default when uploading an image, but can be turned off by unselecting the 'mirror mask' option when selecting the search parameters. If the result shown was a match against the mirrored input, then
-  the match images will be flipped to make comparisons between them easier. The image can be reverted to the other orientation by clicking on the action
-  button just above it, to the right of the image name.
+    the match images will be flipped to make comparisons between them easier. The image can be reverted to the other orientation by clicking on the action
+    button just above it, to the right of the image name.
 
 ### Bug fixes
 
