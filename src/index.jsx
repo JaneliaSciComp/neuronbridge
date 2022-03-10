@@ -45,7 +45,7 @@ Amplify.configure({
 });
 
 if (process.env.NODE_ENV === 'development') {
-  /* eslint-disable-next-line global-require */
+  // eslint-disable-next-line global-require
   const { worker } = require('./mocks/browser');
   worker.start({
     onUnhandledRequest: 'bypass',

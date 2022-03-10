@@ -25,7 +25,7 @@ export async function maskAndSearch(image) {
   const response = await API.post("SearchAPI", "/new_from_image", {
     body: {
       image,
-      identityId: creds.identityId,
+      identityId: creds.identityId
     }
   });
   return response;
@@ -143,15 +143,41 @@ export async function fetchItemsNextToken({
 }
 
 export async function toDataURL(url, opts = {}) {
-  const signed = opts.private
-    ? await signedLink(url)
-    : await signedPublicLink(url);
-  const options = signed !== url ? { credentials: "include" } : {};
-  return fetch(signed, options)
+  let signed;
+  if (opts.private) {
+    signed = await signedLink(url);
+  } else {
+    signed = await signedPublicLink(url);
+  }
+  // "cache-control": "no-cache" was added to the fetch options here,
+  // because safari was refusing to download images in a fetch request.
+  // I created a proxy service that showed the requests weren't even being
+  // sent to the 'signed' url unless the cache was disabled. This change
+  // will force the image to be downloaded from the server, even if it was
+  // once loaded into the http cache, but that seems like a small price to
+  // pay for up to date and working downloads.
+  const options =
+    signed !== url
+      ? {
+          credentials: "include",
+          headers: {
+            "cache-control": "no-cache"
+          }
+        }
+      : {
+          headers: {
+            "cache-control": "no-cache"
+          }
+        };
+  const objectUrl = await fetch(signed, options)
     .then(response => {
       return response.blob();
     })
     .then(blob => {
       return URL.createObjectURL(blob);
+    })
+    .catch(e => {
+      console.log(e);
     });
+  return objectUrl;
 }

@@ -42,7 +42,10 @@ export default function ContextMenu({
   const handleDownload = async () => {
     // need to get rid of host string / file path and all the query
     // parameters, so the download name is correct.
-    const downloadName = src.split("/").pop().split('?')[0];
+    const downloadName = src
+      .split("/")
+      .pop()
+      .split("?")[0];
     const a = document.createElement("a");
     a.href = await toDataURL(src);
     a.setAttribute("download", downloadName);
@@ -83,5 +86,5 @@ ContextMenu.propTypes = {
 };
 
 ContextMenu.defaultProps = {
-  anatomicalRegion: 'brain'
-}
+  anatomicalRegion: "brain"
+};
