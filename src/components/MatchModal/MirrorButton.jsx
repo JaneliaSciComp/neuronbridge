@@ -6,7 +6,7 @@ import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 
 export default function MirrorButton ({mirrored, onClick }) {
   return (
-    <Button style={{float: "right"}} onClick={() => onClick(!mirrored)}>
+    <Button style={{marginLeft: "0.5em" }} onClick={() => onClick(!mirrored)}>
       <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
       {mirrored ? "Unmirror" : "Mirror"}
     </Button>

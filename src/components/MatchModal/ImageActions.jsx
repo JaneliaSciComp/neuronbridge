@@ -9,12 +9,12 @@ export default function ImageActions({contextMenu, children}) {
 
   return (
     <>
+    {children}
     <Dropdown overlay={contextMenu}>
       <Button style={{marginLeft: "0.5em"}}>
         <EllipsisOutlined />
       </Button>
     </Dropdown>
-    {children}
     </>
   );
 }
