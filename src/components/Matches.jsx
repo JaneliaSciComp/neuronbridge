@@ -263,6 +263,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     );
   }
 
+  const updatedInput = {...input, maskImageStack: matches.maskImageStack || null};
+
   return (
     <div>
       <Row style={{ paddingBottom: "1em" }}>
@@ -342,7 +344,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         open={parseInt(query.get("m") || 0, 10)}
         setOpen={setModalOpen}
         matchesList={fullList}
-        mask={input}
+        mask={updatedInput}
       />
     </div>
   );

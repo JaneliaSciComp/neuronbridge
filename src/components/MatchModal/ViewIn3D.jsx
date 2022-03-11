@@ -19,8 +19,9 @@ function getSWCLink(baseURL, construct) {
 }
 
 function getH5JLink(construct) {
-  if (construct.imageStack) {
-    return <a href={construct.imageStack}>{construct.publishedName}.h5j</a>;
+  const imageStack = construct.imageStack || construct.maskImageStack;
+  if (imageStack) {
+    return <a href={imageStack}>{construct.publishedName}.h5j</a>;
   }
   return <span>h5j file missing</span>;
 }
