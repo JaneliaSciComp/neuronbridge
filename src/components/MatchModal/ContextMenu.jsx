@@ -2,17 +2,13 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { Menu } from "antd";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRepeat } from "@fortawesome/pro-regular-svg-icons";
 import { SearchOutlined, DownloadOutlined } from "@ant-design/icons";
 import { maskAndSearch, toDataURL } from "../../libs/awsLib";
 
 export default function ContextMenu({
   setIsCopying,
-  setMirrored,
   src,
   canMask,
-  mirrored,
   isCopying,
   anatomicalRegion
 }) {
@@ -35,10 +31,6 @@ export default function ContextMenu({
     setIsCopying(false);
   };
 
-  const handleFlip = () => {
-    setMirrored(mState => !mState);
-  };
-
   const handleDownload = async () => {
     // need to get rid of host string / file path and all the query
     // parameters, so the download name is correct.
@@ -59,10 +51,6 @@ export default function ContextMenu({
       <Menu.Item onClick={handleDownload} key="download">
         <DownloadOutlined /> Download
       </Menu.Item>
-      <Menu.Item onClick={handleFlip} key="flip">
-        <FontAwesomeIcon icon={faRepeat} style={{ marginRight: "0.5em" }} />
-        {mirrored ? "Restore" : "Flip"}
-      </Menu.Item>
       {canMask ? (
         <Menu.Item onClick={handleSearch} disabled={isCopying} key="mask">
           <SearchOutlined />
@@ -77,11 +65,9 @@ export default function ContextMenu({
 
 ContextMenu.propTypes = {
   src: PropTypes.string.isRequired,
-  mirrored: PropTypes.bool.isRequired,
   canMask: PropTypes.bool.isRequired,
   isCopying: PropTypes.bool.isRequired,
   setIsCopying: PropTypes.func.isRequired,
-  setMirrored: PropTypes.func.isRequired,
   anatomicalRegion: PropTypes.string
 };
 

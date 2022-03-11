@@ -5,6 +5,7 @@ import { Select } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageDisplay from "./ImageDisplay";
 import ImageActions from "./ImageActions";
+import MirrorButton from "./MirrorButton";
 import ContextMenu from "./ContextMenu";
 import { useQuery } from "../../libs/hooksLib";
 
@@ -86,9 +87,9 @@ function ImageSelection({
           </Option>
         ))}
       </Select>
-      <ImageActions
-        contextMenu={contextMenu}
-      />
+      <ImageActions contextMenu={contextMenu}>
+        <MirrorButton mirrored={mirrored} onClick={setMirrored} />
+      </ImageActions>
       <ImageDisplay
         vertical={vertical}
         key={matchImageURL}

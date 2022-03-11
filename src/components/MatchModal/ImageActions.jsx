@@ -5,17 +5,25 @@ import {
   EllipsisOutlined,
 } from "@ant-design/icons";
 
-export default function ImageActions({contextMenu}) {
+export default function ImageActions({contextMenu, children}) {
 
   return (
+    <>
     <Dropdown overlay={contextMenu}>
       <Button style={{marginLeft: "0.5em"}}>
         <EllipsisOutlined />
       </Button>
     </Dropdown>
+    {children}
+    </>
   );
 }
 
 ImageActions.propTypes = {
-  contextMenu: PropTypes.object.isRequired
+  contextMenu: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType(PropTypes.element)
+};
+
+ImageActions.defaultProps = {
+  children: null
 };
