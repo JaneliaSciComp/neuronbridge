@@ -21,7 +21,7 @@ function getSWCLink(baseURL, construct) {
 function getH5JLink(construct) {
   const imageStack = construct.imageStack || construct.maskImageStack;
   if (imageStack) {
-    return <a href={imageStack}>{construct.publishedName}.h5j</a>;
+    return <a href={imageStack}>{construct.publishedName}-{construct.slideCode}.h5j</a>;
   }
   return <span>h5j file missing</span>;
 }
@@ -36,17 +36,17 @@ export default function ViewIn3D(props) {
       <Paragraph>
         <FileImageOutlined style={fileIconStyles} />{" "}
         {isLM
-          ? getH5JLink(selectedMatch)
+          ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
           : getSWCLink(appState.dataConfig.swcBaseURL, selectedMatch)}{" "}
-        (match)
+        (EM Skeleton)
       </Paragraph>
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
           {isLM
-            ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
+            ? getH5JLink(selectedMatch)
             : getH5JLink(mask)}{" "}
-          (mask)
+          (LM image stack)
         </Paragraph>
       ) : (
         <Text type="danger">
@@ -68,7 +68,7 @@ export default function ViewIn3D(props) {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col sm={24} md={12}>
           <Title level={3} style={{ textDecoration: "underline" }}>
-            Download the 3D volumes
+            Download the 3D files
           </Title>
           {downloadLinks}
         </Col>
