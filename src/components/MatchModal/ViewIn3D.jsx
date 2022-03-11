@@ -84,13 +84,6 @@ export default function ViewIn3D(props) {
               </a>
             </li>
             <li>
-              Follow the installation{" "}
-              <a href="https://github.com/JaneliaSciComp/VVDViewer">
-                instructions
-              </a>
-              .
-            </li>
-            <li>
               Usage instructions for VVD viewer can be found{" "}
               <a href="https://github.com/JaneliaSciComp/VVDViewer">here</a>.
             </li>
