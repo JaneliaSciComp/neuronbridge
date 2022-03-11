@@ -11,21 +11,42 @@ import OktaLogin from "./OktaLogin";
 
 import "./Login.css";
 
-const isInternalSite = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
+const isInternalSite =
+  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordUpdate, setPasswordUpdate] = useState(false);
   const { appState, setAppState } = useContext(AppContext);
 
   async function handleSubmit(values) {
     setIsLoading(true);
 
     try {
-      await Auth.signIn(values.email, values.password);
-      setAppState({
-        ...appState,
-        username: values.email
-      });
+      const userObject = await Auth.signIn(values.email, values.password);
+
+      if (userObject && userObject.challengeName === "NEW_PASSWORD_REQUIRED") {
+        if (passwordUpdate && values.newPassword) {
+          const { requiredAttributes } = userObject.challengeParam;
+          await Auth.completeNewPassword(
+            userObject, // the Cognito User Object
+            values.newPassword, // the new password
+            requiredAttributes
+          ).then(() => {
+            setAppState({
+              ...appState,
+              username: values.email
+            });
+          });
+        }
+        setPasswordUpdate(true);
+        setIsLoading(false);
+      } else {
+        setAppState({
+          ...appState,
+          username: values.email
+        });
+      }
     } catch (e) {
       setIsLoading(false);
       if (e.code === "UserNotFoundException") {
@@ -91,6 +112,28 @@ export default function Login() {
                 placeholder="Password"
               />
             </Form.Item>
+            {passwordUpdate ? (
+              <Form.Item
+                name="newPassword"
+                label="New Password"
+                rules={[
+                  { required: true, message: "Please input your new password" }
+                ]}
+              >
+                <Input
+                  prefix={
+                    <FontAwesomeIcon
+                      icon={faLockAlt}
+                      style={{ color: "rgba(0,0,0,.25)" }}
+                    />
+                  }
+                  type="password"
+                  placeholder="New Password"
+                />
+              </Form.Item>
+            ) : (
+              ""
+            )}
             <LoaderButton
               block
               type="primary"
