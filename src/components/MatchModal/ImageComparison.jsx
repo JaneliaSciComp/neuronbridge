@@ -290,7 +290,7 @@ export default function ImageComparison(props) {
         const chosenImageId = parseInt(urlImageChoices[index] || 0, 10);
         if (imageOptions[chosenImageId]) {
           return (
-            <Col key={key} md={updatedCount <= 1 ? 24 : colWidth}>
+            <Col key={key} lg={updatedCount <= 1 ? 24 : colWidth}>
               <ImageSelection
                 vertical={isVertical}
                 imageOptions={imageOptions}

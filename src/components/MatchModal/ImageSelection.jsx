@@ -75,21 +75,23 @@ function ImageSelection({
 
   return (
     <>
-      <Select
-        onChange={handleImageChoice}
-        value={selectValue}
-        style={{ width: vertical ? 200 : 300 }}
-        dropdownMatchSelectWidth={false}
-      >
-        {imageOptions.map(option => (
-          <Option key={option.key} value={option.key}>
-            {option.desc}
-          </Option>
-        ))}
-      </Select>
-      <ImageActions contextMenu={contextMenu}>
-        <MirrorButton mirrored={mirrored} onClick={setMirrored} />
-      </ImageActions>
+      <div style={{ display: "inline-block", width: "100%" }}>
+        <Select
+          onChange={handleImageChoice}
+          value={selectValue}
+          style={{ width: vertical ? 200 : 300 }}
+          dropdownMatchSelectWidth={false}
+        >
+          {imageOptions.map(option => (
+            <Option key={option.key} value={option.key}>
+              {option.desc}
+            </Option>
+          ))}
+        </Select>
+        <ImageActions contextMenu={contextMenu}>
+          <MirrorButton mirrored={mirrored} onClick={setMirrored} />
+        </ImageActions>
+      </div>
       <ImageDisplay
         vertical={vertical}
         key={matchImageURL}
