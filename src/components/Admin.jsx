@@ -34,6 +34,9 @@ export default function Admin() {
   return (
     <>
       <h2>Admin Page</h2>
+      <a href="https://janelia-neuronbridge-admin-prod.s3.amazonaws.com/index.html">
+        Custom search admin site
+      </a>
       <p>Bearer token:</p>
       <textarea
         readOnly
@@ -42,8 +45,7 @@ export default function Admin() {
       />
       <p>
         <b>Identity Id:</b> {identityId}
-
-        <b style={{marginLeft: "1rem"}}>Cognito Id:</b> {cognitoUser}
+        <b style={{ marginLeft: "1rem" }}>Cognito Id:</b> {cognitoUser}
       </p>
       <Switch
         style={{ marginBottom: "1em" }}
