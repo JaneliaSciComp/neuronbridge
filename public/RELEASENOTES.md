@@ -1,3 +1,19 @@
+## VERSION 2.4.0 - 2022-03-28
+
+### What's New
+
+- ### Download 3D files
+  - We have added a "Download 3D Files" tab to the image comparison modal. On this tab you can download the EM Skeleton in SWC format and the LM image stack in H5J format. The tab also includes instructions for downloading and installing VVD viewer, our recommended software for viewing the 3D files.
+- ### More metadata has been added to the matches export feature.
+  - For LM matches, we have added Channel, Magnification, Gender, Alignment Space, Mounting Protocol, and Anatomical Area information.
+  - For EM matches, we have added Gender, Alignment Space, Anatomical Area, Neuron Type and Neuron Instance information.
+- ### Added twitter icon and link to site footer.
+  - Follow our [twitter account](https://twitter.com/NeuronBridge) for data and feature release announcements.
+
+### Bug fixes
+- ### Image mirroring button is no longer in a dropdown menu.
+  - In release 2.3.0 we added default mirroring to the image comparison modal, if the mirror match was superior. However, there was no indicator when mirroring was turned on for an image. To fix this we have moved the "Mirror" button out of the dropdown menu associated with each image and placed it next to the image type dropdown. This will make it more obvious when an image has been mirrored by default.
+
 ## VERSION 2.3.1 - 2022-03-10
 
 ### What's New
