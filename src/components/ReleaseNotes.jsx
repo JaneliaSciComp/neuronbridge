@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Typography } from "antd";
 import { AppContext } from "../containers/AppContext";
+import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import { signedPublicLink } from "../libs/awsLib";
 import config from "../config";
 
@@ -35,6 +36,7 @@ export default function ReleaseNotes() {
 
   return (
     <div>
+      <ScrollToTopOnMount />
       <Title>{cref.title} Release Notes</Title>
       <hr />
       <div className="App">

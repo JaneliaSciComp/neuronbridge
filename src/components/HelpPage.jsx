@@ -1,12 +1,14 @@
 import React from "react";
 import { Typography } from "antd";
 import HelpContents from "./Help/HelpContents";
+import ScrollToTopOnMount from "./ScrollToTopOnMount";
 
 const { Title } = Typography;
 
 export default function HelpPage() {
   return (
     <div>
+      <ScrollToTopOnMount/>
       <Title>Help</Title>
       <p>
         A quick tutorial video highlighting different aspects of neuronbridge.
