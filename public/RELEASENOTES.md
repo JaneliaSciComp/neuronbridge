@@ -1,5 +1,7 @@
 ## VERSION 2.4.0 - 2022-03-28
 
+#### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.4.0)
+
 ### What's New
 
 - ### Download 3D files
@@ -15,6 +17,8 @@
   - In release 2.3.0 we added default mirroring to the image comparison modal, if the mirror match was superior. However, there was no indicator when mirroring was turned on for an image. To fix this we have moved the "Mirror" button out of the dropdown menu associated with each image and placed it next to the image type dropdown. This will make it more obvious when an image has been mirrored by default.
 
 ## VERSION 2.3.1 - 2022-03-10
+
+#### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.3.1)
 
 ### What's New
 
