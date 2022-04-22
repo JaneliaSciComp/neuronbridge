@@ -55,6 +55,7 @@ function getMatchImageOptions(
       {
         key: "bestMip",
         desc: "LM - Best Channel CDM",
+        imageType: "LM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
@@ -66,6 +67,7 @@ function getMatchImageOptions(
       {
         key: "display",
         desc: "LM - Best Channel CDM with EM overlay",
+        imageType: "LM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
@@ -77,6 +79,7 @@ function getMatchImageOptions(
       {
         key: "sampleMIP",
         desc: "LM - Sample All-Channel CDM",
+        imageType: "LM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
@@ -88,6 +91,7 @@ function getMatchImageOptions(
       {
         key: "pppmMask",
         desc: "PPP Mask",
+        imageType: "EM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
@@ -99,6 +103,7 @@ function getMatchImageOptions(
       {
         key: "pppmMaskWithEMOverlay",
         desc: "PPP Mask with EM Overlay ",
+        imageType: "EM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
           library,
@@ -110,6 +115,7 @@ function getMatchImageOptions(
       /* {
         key: "fullExpression",
         desc: "LM - Gen1-GAL4 Expression Pattern",
+        imageType: "LM",
         path: "image_path",
         canMask: false
       } */
@@ -124,12 +130,14 @@ function getMatchImageOptions(
       desc: isLM
         ? "LM - Matched CDM (Segmented)"
         : "EM - Matched CDM (Generated)",
+      imageType: isLM ? "LM" : "EM",
       path: matchImagePath,
       canMask: true
     },
     {
       key: "display",
       desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
+      imageType: isLM ? "LM" : "EM",
       path: match.imageURL || match.thumbnailURL,
       canMask: true
     }
@@ -141,6 +149,7 @@ function getMatchImageOptions(
       desc: `${
         isLM ? "EM - Matched CDM (Generated)" : "LM - Matched CDM (Segmented)"
       }`,
+      imageType: isLM ? "EM" : "LM",
       path,
       canMask: false
     });
@@ -150,6 +159,7 @@ function getMatchImageOptions(
     cdmOptions.push({
       key: "expression",
       desc: "LM - Gen1-GAL4 Expression Pattern",
+      imageType: "LM",
       path: "/expression_pattern.png",
       canMask: false
     });
@@ -196,6 +206,7 @@ export default function ImageComparison(props) {
   imageOptions.unshift({
     key: "input",
     desc: `${isLM ? "EM - Neuron CDM" : "LM - Original Channel CDM"}`,
+    imageType: isLM ? "EM" : "LM",
     path: mask.imageURL,
     canMask: true
   });

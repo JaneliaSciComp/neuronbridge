@@ -19,11 +19,14 @@ function ImageSelection({
   meta,
   index,
   chosenImageId,
-  anatomicalRegion
+  anatomicalRegion,
 }) {
   const { appState, setPermanent } = useContext(AppContext);
   const isNotInput = imageOptions[index].key !== "input";
-  const initialMirrored = isNotInput ? meta.mirrored : false;
+  const { imageType } = imageOptions[index];
+  // if the image is an EM image or the input image then it should not be mirrored
+  const initialMirrored =
+    isNotInput && imageType === "LM" ? meta.mirrored : false;
   const [mirrored, setMirrored] = useState(initialMirrored);
 
   const query = useQuery();
@@ -33,7 +36,7 @@ function ImageSelection({
   const searchType = meta.files && meta.files.ColorDepthMipSkel ? "ppp" : "cdm";
   const { imageChoices } = appState;
 
-  const handleImageChoice = selected => {
+  const handleImageChoice = (selected) => {
     if (!imageChoices[searchType]) {
       imageChoices[searchType] = {};
     }
@@ -42,10 +45,13 @@ function ImageSelection({
     // update the url with the newly chosen value
     const urlImageChoices = (query.get("ic") || "").split("");
     urlImageChoices[index] =
-      imageOptions.map(opt => opt.key).indexOf(selected) || 0;
+      imageOptions.map((opt) => opt.key).indexOf(selected) || 0;
     // convert the array into a 0 padded string and set it on the "ic"
     // parameter in the query.
-    query.set("ic", Array.from(urlImageChoices, item => item || "0").join(""));
+    query.set(
+      "ic",
+      Array.from(urlImageChoices, (item) => item || "0").join("")
+    );
     location.search = query.toString();
     history.replace(location);
   };
@@ -82,7 +88,7 @@ function ImageSelection({
           style={{ width: vertical ? 200 : 300 }}
           dropdownMatchSelectWidth={false}
         >
-          {imageOptions.map(option => (
+          {imageOptions.map((option) => (
             <Option key={option.key} value={option.key}>
               {option.desc}
             </Option>
@@ -113,7 +119,7 @@ ImageSelection.propTypes = {
   meta: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   chosenImageId: PropTypes.number.isRequired,
-  anatomicalRegion: PropTypes.string.isRequired
+  anatomicalRegion: PropTypes.string.isRequired,
 };
 
 export default ImageSelection;
