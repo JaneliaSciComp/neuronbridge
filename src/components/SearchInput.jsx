@@ -51,7 +51,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
 
   const exampleIds = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/i)
     ? ["R33C10", "SS39036", "15758", "13319", "12288"]
-    : ["MB543B", "LH173", "1077847238", "1537331894"];
+    : ["MB543B", "LH173", "1077847238", "1537331894", "M_vPNml55"];
 
   const exampleLinks = exampleIds.map((id, i) => {
     const url = `/search?q=${id}`;
