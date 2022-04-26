@@ -1,5 +1,7 @@
 # NeuronBridge
 
+[![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
+
 NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. 
 
 [Janelia's production instance of NeuronBridge](https://neuronbridge.janelia.org/)
@@ -7,10 +9,12 @@ NeuronBridge is a web-based neuron matching service for cross-modality searches.
 ## Source Code
 
 This repository contains the web client. Other related repositories:
-* [https://github.com/JaneliaSciComp/neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) - Backend API for AWS
-* [https://github.com/JaneliaSciComp/colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Algorithms
+* https://github.com/JaneliaSciComp/neuronbridge-services - Serverless backend
+* https://github.com/JaneliaSciComp/neuronbridge-python - Python API
+* https://github.com/JaneliaSciComp/neuronbridge-utilities - Utility scripts
+* https://github.com/JaneliaSciComp/colormipsearch - Color Depth MIP Search Algorithms
 
-The imagery is stored in AWS S3, and is available for browsing here:
+The imagery is stored in AWS S3, and is available for browsing in the Registry of Open Data:
 * [Color Depth MIPS on S3](https://open.quiltdata.com/b/janelia-flylight-color-depth)
 
 ## Release Notes
