@@ -4,6 +4,7 @@ import { Row, Col, Typography } from "antd";
 import FileImageOutlined from "@ant-design/icons/FileImageOutlined";
 import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
 import { AppContext } from "../../containers/AppContext";
+import VolViewer from "./VolViewer";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -60,6 +61,7 @@ export default function ViewIn3D(props) {
 
   return (
     <>
+      <VolViewer />
       <h3>
         We recommend using{" "}
         <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer</a> for
