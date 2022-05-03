@@ -21,7 +21,7 @@ export default function ImageActions({contextMenu, children}) {
 
 ImageActions.propTypes = {
   contextMenu: PropTypes.object.isRequired,
-  children: PropTypes.oneOfType(PropTypes.element)
+  children: PropTypes.oneOfType([PropTypes.element])
 };
 
 ImageActions.defaultProps = {
