@@ -66,7 +66,7 @@ function getMatchImageOptions(
       },
       {
         key: "display",
-        desc: "LM - Best Channel CDM with EM overlay",
+        desc: "LM - Best Channel CDM with EM Overlay",
         imageType: "LM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
@@ -90,7 +90,7 @@ function getMatchImageOptions(
       },
       {
         key: "pppmMask",
-        desc: "PPP Mask",
+        desc: "PPPM Mask",
         imageType: "EM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
@@ -102,7 +102,7 @@ function getMatchImageOptions(
       },
       {
         key: "pppmMaskWithEMOverlay",
-        desc: "PPP Mask with EM Overlay ",
+        desc: "PPPM Mask with EM Overlay",
         imageType: "EM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
