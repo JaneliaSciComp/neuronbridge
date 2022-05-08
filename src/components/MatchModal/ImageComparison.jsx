@@ -78,7 +78,7 @@ function getMatchImageOptions(
       },
       {
         key: "sampleMIP",
-        desc: "LM - Sample All-Channel CDM",
+        desc: "LM - Sample All-Channel MIP",
         imageType: "LM",
         path: createPPPMImagePath({
           alignmentSpace: match.alignmentSpace,
