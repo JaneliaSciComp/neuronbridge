@@ -23,7 +23,7 @@ See the [RELEASENOTES.md](public/RELEASENOTES.md) in the public directory.
 
 ## License
 
-This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.25378/janelia.12159378.v1](https://doi.org/10.25378/janelia.12159378.v1).
+This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.25378/janelia.12159378.v2](https://doi.org/10.25378/janelia.12159378.v2).
 
 # For Developers
 
