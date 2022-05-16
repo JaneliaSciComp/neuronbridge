@@ -87,12 +87,12 @@ export const handlers = [
         ctx.status(200),
         ctx.json({
           imageryBaseURL:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth",
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-dev",
           thumbnailsBaseURLs:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails",
-          pppImageryBaseURL: "https://s3.amazonaws.com/janelia-ppp-match",
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev",
+          pppImageryBaseURL: "https://s3.amazonaws.com/janelia-ppp-match-dev",
           swcBaseURL:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth/SWC",
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/SWC",
           anatomicalRegions: [
             { label: "Brain", value: "brain" },
             { label: "VNC", value: "vnc", disabled: true }
