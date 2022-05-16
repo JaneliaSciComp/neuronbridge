@@ -31,6 +31,8 @@ const fathomEventKeys = {
   }
 };
 
+const VOL_VIEWER = process.env.REACT_APP_VOL_VIEWER || "https://neuronbridge-vol-viewer.janelia.org";
+
 
 export default {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
@@ -94,5 +96,6 @@ export default {
   // don't allow signed requests. By default these buckets should allow public
   // access
   skip_signing_buckets: ["janelia-flylight-color-depth"],
-  fathomEventKeys: fathomEventKeys[process.env.REACT_APP_LEVEL]
+  fathomEventKeys: fathomEventKeys[process.env.REACT_APP_LEVEL],
+  volumeViewer: VOL_VIEWER
 };
