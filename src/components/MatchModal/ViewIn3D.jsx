@@ -74,11 +74,12 @@ export default function ViewIn3D(props) {
 
   const ref = window.location;
   const h5j = isLM ? getH5JLink(selectedMatch) : getH5JLink(mask);
-  const channel = isLM ? parseInt(selectedMatch.channel, 10) : mask.channel;
+  const channel = isLM ? parseInt(selectedMatch.channel, 10) : parseInt(mask.channel, 10);
+  const mirrored = isLM ? selectedMatch.mirrored : mask.mirrored;
 
   // must encode the signedSWC, so that it makes it to the volume viewer in the
   // correct state for loading the swc
-  const volViewerLink = `${config.volumeViewer}?ref=${encodeURIComponent(ref)}&h5j=${encodeURIComponent(h5j.props.href)}&swc=${encodeURIComponent(signedSwc)}&ch=${channel}`;
+  const volViewerLink = `${config.volumeViewer}?ref=${encodeURIComponent(ref)}&h5j=${encodeURIComponent(h5j.props.href)}&swc=${encodeURIComponent(signedSwc)}&ch=${channel}&mx=${mirrored}`;
 
   return (
     <>
