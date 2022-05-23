@@ -5,6 +5,7 @@ import ImageComparison from "./ImageComparison";
 import DownloadZipCheckbox from "./DownloadZipCheckbox";
 import InputMeta from "./InputMeta";
 import MatchMeta from "./MatchMeta";
+import ViewIn3DButton from "./ViewIn3DButton";
 import { AppContext } from "../../containers/AppContext";
 
 export default function Summary(props) {
@@ -43,6 +44,7 @@ export default function Summary(props) {
         <Button type="button" onClick={handleDetailsToggle} style={{float: "right"}}>
           {appState.compactMeta ? 'Show' : 'Hide'} Match Info
         </Button>
+        <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} />
       </ImageComparison>
     </>
   );
