@@ -32,7 +32,7 @@ function getH5JLink(construct) {
   return <span>h5j file missing</span>;
 }
 
-export default function ViewIn3D(props) {
+export default function Download3D(props) {
   const [ signedSwc, setSignedSwc ] = useState(null);
   const { appState } = useContext(AppContext);
   const { selectedMatch, mask, isLM } = props;
@@ -119,7 +119,7 @@ export default function ViewIn3D(props) {
   );
 }
 
-ViewIn3D.propTypes = {
+Download3D.propTypes = {
   selectedMatch: PropTypes.object.isRequired,
   mask: PropTypes.object.isRequired,
   isLM: PropTypes.bool.isRequired,

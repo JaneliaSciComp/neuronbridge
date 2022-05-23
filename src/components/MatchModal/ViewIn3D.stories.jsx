@@ -1,14 +1,14 @@
 import React from "react";
-import ViewIn3D from "./ViewIn3D";
+import Download3D from "./Download3D";
 
 import "antd/dist/antd.less";
 
 export default {
-  title: "ViewIn3D",
-  component: ViewIn3D
+  title: "Download3D",
+  component: Download3D
 };
 
-const Template = args => <ViewIn3D {...args} />;
+const Template = args => <Download3D {...args} />;
 
 export const CustomSearch = Template.bind({});
 

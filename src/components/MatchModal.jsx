@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Modal, Button, Tabs } from "antd";
 import Summary from "./MatchModal/Summary";
-import ViewIn3D from "./MatchModal/ViewIn3D";
+import Download3D from "./MatchModal/Download3D";
 
 const { TabPane } = Tabs;
 
@@ -86,7 +86,7 @@ export default function MatchModal(props) {
           />
         </TabPane>
         <TabPane tab="Download 3D Files" key="2">
-          <ViewIn3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
+          <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
         </TabPane>
       </Tabs>
     </Modal>
