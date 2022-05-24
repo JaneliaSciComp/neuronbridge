@@ -33,7 +33,7 @@ function getH5JLink(construct) {
 }
 
 export default function Download3D(props) {
-  const [ signedSwc, setSignedSwc ] = useState(null);
+  const [signedSwc, setSignedSwc] = useState(null);
   const { appState } = useContext(AppContext);
   const { selectedMatch, mask, isLM } = props;
 
@@ -41,10 +41,10 @@ export default function Download3D(props) {
     const swc = isLM
       ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
       : getSWCLink(appState.dataConfig.swcBaseURL, selectedMatch);
-    signedPublicLink(swc.props.href).then(signed =>  {
+    signedPublicLink(swc.props.href).then((signed) => {
       setSignedSwc(signed);
     });
-  },[appState.dataConfig.swcBaseURL, isLM, mask, selectedMatch]);
+  }, [appState.dataConfig.swcBaseURL, isLM, mask, selectedMatch]);
 
   // TODO: if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
@@ -74,19 +74,27 @@ export default function Download3D(props) {
 
   const ref = window.location;
   const h5j = isLM ? getH5JLink(selectedMatch) : getH5JLink(mask);
-  const channel = isLM ? parseInt(selectedMatch.channel, 10) : parseInt(mask.channel, 10);
+  const channel = isLM
+    ? parseInt(selectedMatch.channel, 10)
+    : parseInt(mask.channel, 10);
   const mirrored = isLM ? selectedMatch.mirrored : mask.mirrored;
 
   // must encode the signedSWC, so that it makes it to the volume viewer in the
   // correct state for loading the swc
-  const volViewerLink = `${config.volumeViewer}?ref=${encodeURIComponent(ref)}&h5j=${encodeURIComponent(h5j.props.href)}&swc=${encodeURIComponent(signedSwc)}&ch=${channel}&mx=${mirrored}`;
+  const volViewerLink = `${config.volumeViewer}?ref=${encodeURIComponent(
+    ref
+  )}&h5j=${encodeURIComponent(h5j.props.href)}&swc=${encodeURIComponent(
+    signedSwc
+  )}&ch=${channel}&mx=${mirrored}`;
 
   return (
     <>
-    <p>View the match in our online volume viewer</p>
-    <Button href={volViewerLink}>Vol Viewer</Button>
+      <p>
+        View the match in our online volume viewer{" "}
+        <Button href={volViewerLink}>Vol Viewer</Button>
+      </p>
       <h3>
-        We recommend using{" "}
+        For offline viewing of the data, We recommend using{" "}
         <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer</a> for
         3D comparison of the matches.
       </h3>
