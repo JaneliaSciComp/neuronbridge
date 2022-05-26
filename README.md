@@ -6,9 +6,9 @@
 NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. Visit the service here:
 
 [![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Instance&color=008B94)](https://neuronbridge.janelia.org/)
-[![Janelia's pre-production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-production%20Instance&color=84297E)](https://neuronbridge-pre.janelia.org/) 
+[![Janelia's pre-release instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-release%20Instance&color=84297E)](https://neuronbridge-pre.janelia.org/) 
 
-(Pre-production is only accessible on Janelia's network)
+(Pre-release is only accessible on Janelia's network)
 
 
 ## Source Code
