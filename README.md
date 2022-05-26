@@ -1,6 +1,7 @@
 # NeuronBridge
 
 [![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
+[![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
 NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. 
 
