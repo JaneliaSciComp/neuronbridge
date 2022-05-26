@@ -3,9 +3,13 @@
 [![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
-NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. 
+NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. Visit the service here:
 
-[Janelia's production instance of NeuronBridge](https://neuronbridge.janelia.org/)
+[![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Instance&color=008B94)](https://neuronbridge.janelia.org/)
+[![Janelia's pre-production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-production%20Instance&color=84297E)](https://neuronbridge-pre.janelia.org/) 
+
+(Pre-production is only accessible on Janelia's network)
+
 
 ## Source Code
 
