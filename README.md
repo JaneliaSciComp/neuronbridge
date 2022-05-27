@@ -3,76 +3,41 @@
 [![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
-NeuronBridge is a web-based neuron matching service for cross-modality searches. We index large data sets of LM and EM imagery to enable finding similar neurons. Visit the service here:
+![NeuronBridge logo](assets/neuronbridge_logo_light.png)
+
+NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. Visit the service here:
 
 [![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Site&color=008B94)](https://neuronbridge.janelia.org/)
-[![Janelia's pre-release instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-release%20Site&color=84297E)](https://neuronbridge-pre.janelia.org/) 
+[![Janelia's pre-release instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-release%20Site&color=84297E)](https://neuronbridge-pre.janelia.org/)
 
 (Pre-release is only accessible on Janelia's network)
-
 
 ## Source Code
 
 This repository contains the web client. Other related repositories:
-* https://github.com/JaneliaSciComp/neuronbridge-services - Serverless backend
-* https://github.com/JaneliaSciComp/neuronbridge-python - Python API
-* https://github.com/JaneliaSciComp/neuronbridge-utilities - Utility scripts
-* https://github.com/JaneliaSciComp/colormipsearch - Color Depth MIP Search Algorithms
 
-The imagery is stored in AWS S3, and is available for browsing in the Registry of Open Data:
-* [Color Depth MIPS on S3](https://open.quiltdata.com/b/janelia-flylight-color-depth)
+* [neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) - Backend implementation
+* [neuronbridge-utilities](https://github.com/JaneliaSciComp/neuronbridge-utilities) - Utility scripts
+* [neuronbridge-aligners](https://github.com/JaneliaSciComp/neuronbridge-aligners) - Aligner implementation
+* [colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Search Algorithms
+* [neuronbridge-python](https://github.com/JaneliaSciComp/neuronbridge-python) - Python API
+
+## Data Availability
+
+The imagery and metadata are stored on AWS S3, and are available for browsing and reuse, subject to the license agreement:
+
+* [Color Depth MIPS](https://open.quiltdata.com/b/janelia-flylight-color-depth)
+* [Precomputed CDM match metadata](https://open.quiltdata.com/b/janelia-neuronbridge-data-prod)
+* [Precomputed PPPM match metadata](https://open.quiltdata.com/b/janelia-ppp-match-prod)
 
 ## Release Notes
 
-See the [RELEASENOTES.md](public/RELEASENOTES.md) in the public directory.
-
-## License
-
-This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.25378/janelia.12159378.v2](https://doi.org/10.25378/janelia.12159378.v2).
-
-# For Developers
+View the [Release Notes](public/RELEASENOTES.md) for a history of changes to the web client.
 
 ## Development
 
-The build currently requires Python 2.x. You can create that with Conda as follows:
-```
-conda create --name py2 python=2.7
-conda activate py2
-```
+Read the [Developer's Guide](docs/Development.md) for more information about developing and deploying this service.
 
-Build:
-```bash
-npm install
-```
+## License
 
-Start dev server:
-```bash
-npm start
-```
-
-1. Currently you need to edit node_modules/react-dev-utils/webpackHotDevClient.js:62 and change "ws" to "wss". This will be fixed soon.
-
-2. In order for uploads to work, the default localhost URL cannot be used. Instead, add this to your /etc/hosts:
-```
-127.0.0.1 neuronbridge-dev.janelia.org
-```
-Then you can access your dev server like this: [https://neuronbridge-dev.janelia.org:3000](https://neuronbridge-dev.janelia.org:3000)
-
-## Deployment
-
-Note: Please make sure you have created a cognito user pool and the appropriate roles to access your data and search buckets on AWS. See [AWS setup](README_AWS.md) for more details. Once that is complete:
-
-For initial deployment, make sure the AWS resources have been provisioned:
-```bash
-sls deploy --stage <stage: dev, val, prod>
-```
-
-Deploy the website to AWS:
-```bash
-npm run deploy:<stage: dev, val, prod>
-```
-Bucket targets, API endpoints and graphQL endpoints are hard coded into src/config.js. These values can be obtained from your aws console, after you have deployed the [neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) backend.
-
-## Configuring AWS
-
-See [AWS setup](README_AWS.md).
+This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.25378/janelia.12159378.v2](<https://doi.org/10.25378/janelia.121593>
