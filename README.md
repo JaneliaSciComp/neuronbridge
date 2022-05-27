@@ -3,7 +3,9 @@
 [![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
-![NeuronBridge logo](assets/neuronbridge_logo_light.png)
+<p align="center">
+  <img src="assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
+</p>
 
 NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. Visit the service here:
 
