@@ -77,7 +77,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
             onDropdownVisibleChange={open => setDropDownState(open)}
           >
             <Search
-              placeholder="Search with a line name or skeleton id."
+              placeholder="Search with a line name, skeleton id, or neuron name."
               enterButton="Search"
               onSearch={handleSearch}
               aria-label="Search"
