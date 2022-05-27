@@ -20,10 +20,10 @@ This repository contains the web client. Other related repositories:
 
 * [neuronbridge-services](https://github.com/JaneliaSciComp/neuronbridge-services) - Backend implementation
 * [neuronbridge-aligners](https://github.com/JaneliaSciComp/neuronbridge-aligners) - Aligner implementation
-* [colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Search Algorithms
-* [neuronbridge-utilities](https://github.com/JaneliaSciComp/neuronbridge-precompute) - Precompute scripts
+* [neuronbridge-precompute](https://github.com/JaneliaSciComp/neuronbridge-precompute) - Precompute scripts
 * [neuronbridge-utilities](https://github.com/JaneliaSciComp/neuronbridge-utilities) - Utility scripts
 * [neuronbridge-python](https://github.com/JaneliaSciComp/neuronbridge-python) - Python API
+* [colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Search Algorithms
 
 ## Data Availability
 
