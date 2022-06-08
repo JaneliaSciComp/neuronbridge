@@ -94,9 +94,9 @@ export default function Download3D(props) {
         <Button href={volViewerLink}>Vol Viewer</Button>
       </p>
       <h3>
-        For offline viewing of the data, We recommend using{" "}
-        <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer</a> for
-        3D comparison of the matches.
+        For a 3D comparison with more features, use the{" "}
+        <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer </a>
+        desktop application.
       </h3>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col sm={24} md={12}>
