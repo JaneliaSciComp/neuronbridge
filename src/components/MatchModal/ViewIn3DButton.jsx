@@ -15,7 +15,7 @@ function getSWCLink(baseURL, construct) {
   return <a href={filePath}>{construct.publishedName}.swc</a>;
 }
 
-export default function ViewIn3DButton({ isLM, match, mask }) {
+export default function ViewIn3DButton({ isLM, match, mask, style }) {
   const [ signedSwc, setSignedSwc ] = React.useState(null);
   const { appState } = React.useContext(AppContext);
   const ref = window.location;
@@ -23,7 +23,7 @@ export default function ViewIn3DButton({ isLM, match, mask }) {
   const channel = isLM
     ? parseInt(match.channel, 10)
     : parseInt(mask.channel, 10);
-  const mirrored = isLM ? match.mirrored : mask.mirrored;
+  const { mirrored }  = match
 
   React.useEffect(() => {
     const swc = isLM
@@ -50,7 +50,7 @@ export default function ViewIn3DButton({ isLM, match, mask }) {
       href={volViewerLink}
       type="primary"
       ghost
-      style={{ float: "right", marginRight: "0.5em" }}
+      style={style}
     >
       View in 3D
     </Button>
@@ -61,4 +61,9 @@ ViewIn3DButton.propTypes = {
   isLM: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
   mask: PropTypes.object.isRequired,
+  style: PropTypes.object,
+};
+
+ViewIn3DButton.defaultProps = {
+  style: {}
 };

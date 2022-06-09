@@ -13,7 +13,7 @@ export default function Summary(props) {
   const { appState, setPermanent } = useContext(AppContext);
 
   function handleDetailsToggle() {
-    setPermanent({compactMeta: !appState.compactMeta});
+    setPermanent({ compactMeta: !appState.compactMeta });
   }
 
   return (
@@ -41,10 +41,19 @@ export default function Summary(props) {
         matchPath={selectedMatch.imageURL}
         matchThumbnail={selectedMatch.thumbnailURL}
       >
-        <Button type="button" onClick={handleDetailsToggle} style={{float: "right"}}>
-          {appState.compactMeta ? 'Show' : 'Hide'} Match Info
+        <Button
+          type="button"
+          onClick={handleDetailsToggle}
+          style={{ float: "right" }}
+        >
+          {appState.compactMeta ? "Show" : "Hide"} Match Info
         </Button>
-        <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} />
+        <ViewIn3DButton
+          style={{ float: "right", marginRight: "0.5em" }}
+          isLM={isLM}
+          mask={mask}
+          match={selectedMatch}
+        />
       </ImageComparison>
     </>
   );
@@ -55,10 +64,10 @@ Summary.propTypes = {
   isLM: PropTypes.bool.isRequired,
   selectedMatch: PropTypes.object.isRequired,
   mask: PropTypes.object,
-  selected: PropTypes.number.isRequired
+  selected: PropTypes.number.isRequired,
 };
 
 Summary.defaultProps = {
   matchesList: [],
-  mask: {}
+  mask: {},
 };
