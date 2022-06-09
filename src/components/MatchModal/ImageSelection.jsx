@@ -22,11 +22,17 @@ function ImageSelection({
   anatomicalRegion,
 }) {
   const { appState, setPermanent } = useContext(AppContext);
-  const isNotInput = imageOptions[index].key !== "input";
+  const isInput = imageOptions[index].key === "input";
   const { imageType } = imageOptions[index];
-  // if the image is an EM image or the input image then it should not be mirrored
-  const initialMirrored =
-    isNotInput && imageType === "LM" ? meta.mirrored : false;
+  const inputImageType = imageOptions.filter(opt => opt.key === 'input')[0]?.imageType
+  let initialMirrored = meta.mirrored;
+  // if the image is an EM image and the input is LM
+  // or the it is the input image then it should not be mirrored
+  if (isInput) {
+    initialMirrored = false;
+  } else if (imageType === "EM" && inputImageType === "EM") {
+    initialMirrored = false;
+  }
   const [mirrored, setMirrored] = useState(initialMirrored);
 
   const query = useQuery();
