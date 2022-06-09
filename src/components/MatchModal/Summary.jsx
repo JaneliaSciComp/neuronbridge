@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Row, Col, Divider, Button } from "antd";
 import ImageComparison from "./ImageComparison";
@@ -10,6 +11,7 @@ import { AppContext } from "../../containers/AppContext";
 
 export default function Summary(props) {
   const { selectedMatch, mask, isLM, selected, matchesList } = props;
+  const { searchType } = useParams();
   const { appState, setPermanent } = useContext(AppContext);
 
   function handleDetailsToggle() {
@@ -48,12 +50,16 @@ export default function Summary(props) {
         >
           {appState.compactMeta ? "Show" : "Hide"} Match Info
         </Button>
-        <ViewIn3DButton
-          style={{ float: "right", marginRight: "0.5em" }}
-          isLM={isLM}
-          mask={mask}
-          match={selectedMatch}
-        />
+        {searchType !== "ppp" ? (
+          <ViewIn3DButton
+            style={{ float: "right", marginRight: "0.5em" }}
+            isLM={isLM}
+            mask={mask}
+            match={selectedMatch}
+          />
+        ) : (
+          ""
+        )}
       </ImageComparison>
     </>
   );

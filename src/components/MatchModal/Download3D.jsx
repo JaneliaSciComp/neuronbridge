@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 import { Row, Col, Typography } from "antd";
 import FileImageOutlined from "@ant-design/icons/FileImageOutlined";
 import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
@@ -32,8 +33,9 @@ function getH5JLink(construct) {
 }
 
 export default function Download3D(props) {
-  const { appState } = useContext(AppContext);
   const { selectedMatch, mask, isLM } = props;
+  const { appState } = useContext(AppContext);
+  const { searchType } = useParams();
 
   // TODO: if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
@@ -63,10 +65,14 @@ export default function Download3D(props) {
 
   return (
     <>
-      <p>
-        View the match in our online volume viewer{" "}
-        <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} />
-      </p>
+      {searchType !== "ppp" ? (
+        <p>
+          View the match in our online volume viewer{" "}
+          <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} />
+        </p>
+      ) : (
+        ""
+      )}
       <h3>
         For a 3D comparison with more features, use the{" "}
         <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer </a>
