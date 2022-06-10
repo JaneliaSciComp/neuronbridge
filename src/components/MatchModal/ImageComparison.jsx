@@ -154,16 +154,15 @@ function getMatchImageOptions(
       canMask: false
     });
   }
-  /* TODO: uncomment this when the data is ready.
-  if (match.libraryName.match(/gen1.*mcfo/i)) {
+  if (match.libraryName.match(/gen1.*mcfo/i) && match.screenImage) {
     cdmOptions.push({
       key: "expression",
-      desc: "LM - Gen1-GAL4 Expression Pattern",
+      desc: "LM - Gen1-GAL4 Expression CDM",
       imageType: "LM",
-      path: "/expression_pattern.png",
+      path: match.screenImage,
       canMask: false
     });
-  } */
+  }
   return cdmOptions;
 }
 
