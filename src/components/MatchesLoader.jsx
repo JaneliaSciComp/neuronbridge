@@ -43,6 +43,14 @@ export default function MatchesLoader({ searchResult, searchType }) {
                 imageURL: fullImageUrl,
                 thumbnailURL: fullThumbUrl
               };
+
+              if (result.screenImage) {
+                const alteredScreenImage = result.screenImage.replace(/s3\.amazonaws\.com\/janelia-flylight-imagery/, 'janelia-flylight-imagery.s3.us-east-1.amazonaws.com');
+                fixedResult.screenImage = alteredScreenImage;
+              }
+
+
+
               // The ppp results json starts the rank at 0, but the pdfs start the rank at 1,
               // so we need to add 1 to the pppRank in the JSON to get the same rank in the UI
               // as is displayed in the pdf.
