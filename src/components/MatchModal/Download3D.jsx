@@ -67,8 +67,8 @@ export default function Download3D(props) {
     <>
       {searchType !== "ppp" ? (
         <p>
+          <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} /> -
           View the match in our online volume viewer{" "}
-          <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} />
         </p>
       ) : (
         ""
