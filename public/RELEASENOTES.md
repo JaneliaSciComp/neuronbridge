@@ -1,3 +1,18 @@
+## VERSION 2.5.0 - 2022-06-23
+
+#### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.5.0)
+
+### What's New
+
+- ### In browser 3D volume viewer
+  - We have added a link to our browser based volume viewer [neuronbridge-vol-viewer.janelia.org](https://neuronbridge-vol-viewer.janelia.org). The ["View in 3D"](/search/lines/MB543B/matches/2711777703895236619?m=2&ci=3&ic=021) button can now be found on the CDM summary tab of a match, just above the image comparison. This button will load the image viewer and pre-populate it with the volumes of the current match. We also included the button in the "Download 3D Files" tab, for convenience.
+
+### Bug fixes
+- ### Incorrect default image mirroring
+  - In release 2.3.0 we added default mirroring to the image comparison modal, if the mirror match was superior. The mirroring algorithm didn't take into account the input image and mirrored all the images, including the EM - Matched CDM. This image should not be mirrored by default and this has been corrected in this release.
+
+
+
 ## VERSION 2.4.0 - 2022-03-28
 
 #### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.4.0)
