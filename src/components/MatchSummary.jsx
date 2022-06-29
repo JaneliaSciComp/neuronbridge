@@ -5,6 +5,7 @@ import ImageWithModal from "./ImageWithModal";
 import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import DownloadSelect from "./MatchSummary/DownloadSelect";
+import GenderIcon from "./MatchSummary/GenderIcon";
 import { signedPublicLink, createPPPMImagePath } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
 
@@ -69,6 +70,7 @@ export default function MatchSummary(props) {
       <>
         <div style={{ position: "relative" }}>
           <DownloadSelect id={match.id} />
+          <GenderIcon gender={match.gender} />
           <ImageWithModal
             thumbSrc={thumbnailURL}
             src={imageURL}
