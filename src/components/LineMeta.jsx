@@ -85,6 +85,7 @@ export default function LineMeta({ attributes, compact }) {
           <b>Links:</b> <br />
           <ExternalLink
             id={attributes.slideCode}
+            publishedName={publishedName}
             isLM
             library={libraryName}
           />

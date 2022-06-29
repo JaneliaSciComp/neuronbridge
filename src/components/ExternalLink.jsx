@@ -15,7 +15,7 @@ const emUrl =
 
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
-export default function ExternalLink({ id, isLM, library }) {
+export default function ExternalLink({ id, isLM, library, publishedName }) {
   if (isLM) {
     let extUrl = lmUrl;
     let extName = "FlyLight Split-GAL4";
@@ -37,7 +37,7 @@ export default function ExternalLink({ id, isLM, library }) {
         ) : (
           <>
             <br />
-            <a href={vfbUrl.replace(/<NAME>/, id)}>
+            <a href={vfbUrl.replace(/<NAME>/, publishedName)}>
               Virtual Fly Brain{" "}
               <FontAwesomeIcon
                 icon={faExternalLink}
@@ -94,11 +94,13 @@ export default function ExternalLink({ id, isLM, library }) {
 
 ExternalLink.propTypes = {
   id: PropTypes.string.isRequired,
+  publishedName: PropTypes.string,
   library: PropTypes.string,
   isLM: PropTypes.bool
 };
 
 ExternalLink.defaultProps = {
   isLM: true,
+  publishedName: "",
   library: "flylight_splitgal4_drivers"
 };

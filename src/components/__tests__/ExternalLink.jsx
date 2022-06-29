@@ -79,4 +79,19 @@ describe("ExternalLink: unit tests", () => {
     );
   });
 
+  it("formats VFB links correctly", () => {
+    const { getByText } = render(
+      <ExternalLink id="foo" publishedName="bar" isLM />
+    );
+    expect(getByText("Virtual Fly Brain")).toHaveAttribute(
+      "href",
+      "http://virtualflybrain.org/xref/neuronbridge/bar"
+    );
+    expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
+      "href",
+      "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
+    );
+
+  });
+
 });
