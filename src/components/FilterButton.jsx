@@ -24,7 +24,8 @@ export default function FilterButton() {
     rpl: ["1"], // resultsPerLine
     fisort: ["1"], // sortResultsBy
     xlib: [], // filteredLibraries
-    id: [""] // idOrNameFilter
+    id: [""], // idOrNameFilter
+    gr: ["m","f"] // gender
   };
 
   const query = useQuery();
@@ -32,7 +33,13 @@ export default function FilterButton() {
   let count = 0;
   Object.keys(defaults).forEach(key => {
     if (query.has(key)) {
-      const values = query.getAll(key);
+      let values = query.getAll(key);
+      // the gender value needs to be split into an array, this is different to the
+      // other values.
+      if (key === "gr") {
+        values = query.get(key).split('');
+      }
+      // check to see if the default matches the current value in the url
       if (!deepEqual(defaults[key], values)) {
         count += 1;
       }

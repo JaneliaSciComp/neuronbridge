@@ -106,6 +106,11 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   const filterString = query.get("id") || "";
   const excludedLibs = query.getAll("xlib");
 
+  let genders = ['m','f']
+  if (query.get("gr") !== null) {
+    genders = query.get("gr").split('')
+  }
+
   if (!input) {
     return <p>Loading...</p>;
   }
@@ -187,12 +192,15 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount.filter(
         result => !excludedLibs.includes(result[0].libraryName)
+      ).filter(
+        result => genders.includes(result[0].gender)
       );
 
       fullList = [].concat(...filteredByLibrary);
     } else {
       fullList = modifiedMatches.results
         .filter(result => !excludedLibs.includes(result.libraryName))
+        .filter(result => genders.includes(result.gender))
         .sort(sortByScoreOrAlt);
 
       modifiedMatches.results.forEach(line => {

@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Input, Switch, Divider, Col, Row, Radio } from "antd";
+import {
+  Checkbox,
+  InputNumber,
+  Input,
+  Switch,
+  Divider,
+  Col,
+  Row,
+  Radio,
+} from "antd";
 import { useLocation, useHistory } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
@@ -9,8 +18,19 @@ import { useQuery } from "../libs/hooksLib";
 const radioStyle = {
   display: "block",
   height: "30px",
-  lineHeight: "30px"
+  lineHeight: "30px",
 };
+
+const genderOptions = [
+  {
+    label: "Male",
+    value: "m",
+  },
+  {
+    label: "Female",
+    value: "f",
+  },
+];
 
 export default function FilterMenu({ searchType, countsByLibrary }) {
   const query = useQuery();
@@ -37,7 +57,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
     } else {
       // remove any that have been checked
       query.delete("xlib");
-      libs.forEach(lib => {
+      libs.forEach((lib) => {
         if (lib !== library) {
           query.append("xlib", lib);
         }
@@ -59,7 +79,18 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
     history.push(location);
   }
 
+  function handleGenderFilter(checkedValues) {
+    query.set("gr", checkedValues.join(''));
+    location.search = query.toString();
+    history.push(location);
+  }
+
   const filteredLibs = query.getAll("xlib") || [];
+
+  let genderValue = ['m','f']
+  if (query.get("gr") !== null) {
+    genderValue = query.get("gr").split('')
+  }
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
     ([library, count]) => {
@@ -67,7 +98,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
         <p key={library}>
           <Switch
             checked={!filteredLibs.includes(library)}
-            onChange={checked => handleLibraryToggle(checked, library)}
+            onChange={(checked) => handleLibraryToggle(checked, library)}
           />{" "}
           <LibraryFormatter type={library} /> ({count})
         </p>
@@ -100,12 +131,25 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
               {libraryFilterSwitches}
             </Col>
           </Row>
-          <Divider orientation="left">Filter by match id or name</Divider>
-          <Input
-            placeholder="id or name string"
-            onChange={handleIdFilter}
-            value={query.get("id") || ""}
-          />
+          <Divider orientation="left">Filter by:</Divider>
+          <Row gutter={16}>
+            <Col xs={24} md={12}>
+              <p>Match id or Name</p>
+              <Input
+                placeholder="id or name string"
+                onChange={handleIdFilter}
+                value={query.get("id") || ""}
+              />
+            </Col>
+            <Col xs={24} md={6}>
+              <p>Gender</p>
+              <Checkbox.Group
+                options={genderOptions}
+                value={genderValue}
+                onChange={handleGenderFilter}
+              />
+            </Col>
+          </Row>
         </Col>
         <Col xs={24} md={12}>
           <Divider orientation="left">Sort Results By</Divider>
@@ -133,9 +177,9 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
 
 FilterMenu.propTypes = {
   searchType: PropTypes.string,
-  countsByLibrary: PropTypes.object.isRequired
+  countsByLibrary: PropTypes.object.isRequired,
 };
 
 FilterMenu.defaultProps = {
-  searchType: "lines"
+  searchType: "lines",
 };
