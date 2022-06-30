@@ -1,3 +1,19 @@
+## VERSION 2.6.0 - 2022-06-30
+
+#### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.6.0)
+
+### What's New
+
+- ### Added Gender Icons to the match grid.
+  - All the thumbnail images in the match grid now have a (M/F) icon in the bottom left corner to indicate the gender of the matched body id or line.
+- ### Gender filter
+  - The Filters / Sorting menu now has a section to filter the results by gender.
+
+### Bug fixes
+- ### Virtual Fly Brain links
+  - The links to the Virtual Fly Brain website were broken when using a slide code as an identifier
+
+
 ## VERSION 2.5.0 - 2022-06-23
 
 #### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.5.0)
