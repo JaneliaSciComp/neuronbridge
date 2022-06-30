@@ -1,22 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVenus, faMars } from "@fortawesome/pro-regular-svg-icons";
+import { Tooltip } from "antd";
 
 export default function GenderIcon({ gender }) {
-  const icon = (gender === 'f') ? faVenus : faMars;
+  const icon = (gender === 'f') ? "F" : "M";
 
   return (
     <div
       style={{
         position: "absolute",
-        top: "10px",
-        right: "20px",
+        bottom: "5px",
+        left: gender === "f" ? "22px" : "20px",
         zIndex: 2,
-        color: (gender === 'f') ? "#ffe1ea" : "#d6eaff"
+        color: "#fff",
+        fontWeight: "bold"
       }}
     >
-      <FontAwesomeIcon icon={icon} size="2x" />
+      <Tooltip title={gender === "f" ? "Female": "Male"} placement="left">
+      {icon}
+      </Tooltip>
     </div>
   );
 }
