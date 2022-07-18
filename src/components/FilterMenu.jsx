@@ -32,7 +32,11 @@ const genderOptions = [
   },
 ];
 
-export default function FilterMenu({ searchType, countsByLibrary }) {
+export default function FilterMenu({
+  searchType,
+  countsByLibrary,
+  useGenderFilter,
+}) {
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -80,16 +84,16 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
   }
 
   function handleGenderFilter(checkedValues) {
-    query.set("gr", checkedValues.join(''));
+    query.set("gr", checkedValues.join(""));
     location.search = query.toString();
     history.push(location);
   }
 
   const filteredLibs = query.getAll("xlib") || [];
 
-  let genderValue = ['m','f']
+  let genderValue = ["m", "f"];
   if (query.get("gr") !== null) {
-    genderValue = query.get("gr").split('')
+    genderValue = query.get("gr").split("");
   }
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
@@ -141,14 +145,18 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
                 value={query.get("id") || ""}
               />
             </Col>
-            <Col xs={24} md={6}>
-              <p>Gender</p>
-              <Checkbox.Group
-                options={genderOptions}
-                value={genderValue}
-                onChange={handleGenderFilter}
-              />
-            </Col>
+            {useGenderFilter ? (
+              <Col xs={24} md={6}>
+                <p>Gender</p>
+                <Checkbox.Group
+                  options={genderOptions}
+                  value={genderValue}
+                  onChange={handleGenderFilter}
+                />
+              </Col>
+            ) : (
+              ""
+            )}
           </Row>
         </Col>
         <Col xs={24} md={12}>
@@ -178,6 +186,7 @@ export default function FilterMenu({ searchType, countsByLibrary }) {
 FilterMenu.propTypes = {
   searchType: PropTypes.string,
   countsByLibrary: PropTypes.object.isRequired,
+  useGenderFilter: PropTypes.bool.isRequired,
 };
 
 FilterMenu.defaultProps = {

@@ -27,7 +27,7 @@ function correctPPPRank(matches) {
       return {
         ...result,
         pppRank: index + 1,
-        pppRankOrig: result.pppRank
+        pppRankOrig: result.pppRank,
       };
     });
 
@@ -57,7 +57,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   const { appState, setPermanent } = useContext(AppContext);
 
   if (!appState.dataConfig.loaded) {
-    return (<p>Loading...</p>);
+    return <p>Loading...</p>;
   }
 
   const sortType = query.get("fisort") || 1;
@@ -106,9 +106,9 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   const filterString = query.get("id") || "";
   const excludedLibs = query.getAll("xlib");
 
-  let genders = ['m','f']
+  let genders = ["m", "f"];
   if (query.get("gr") !== null) {
-    genders = query.get("gr").split('')
+    genders = query.get("gr").split("");
   }
 
   if (!input) {
@@ -119,6 +119,12 @@ export default function Matches({ input, searchType, matches, precomputed }) {
   let fullList = [];
   let matchSummaries = [];
   const countsByLibrary = {};
+
+  // if there are gender attributes on the results object, then we can
+  // filter by gender, if not then we need to skip the gender filter
+  // or no results will be returned by default. This value is updated
+  // by looping over the results library, later in this file.
+  let useGenderFilter = false;
 
   function incrementLibCount(library) {
     if (!(library in countsByLibrary)) {
@@ -144,7 +150,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     //
     if (searchType !== "lines") {
       const byLines = {};
-      modifiedMatches.results.forEach(result => {
+      modifiedMatches.results.forEach((result) => {
         const { publishedName, libraryName } = result;
 
         let currentScore = result.normalizedScore;
@@ -171,7 +177,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           byLines[publishedName] = {
             score: parseInt(currentScore, 10),
             channels: [result],
-            libraryName
+            libraryName,
           };
         }
       });
@@ -181,36 +187,46 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         }
         return b.score - a.score;
       });
-      const limitedByLineCount = sortedByLine.map(line =>
+      const limitedByLineCount = sortedByLine.map((line) =>
         line.channels.sort(sortByScoreOrAlt).slice(0, resultsPerLine)
       );
 
-      limitedByLineCount.forEach(lines => {
-        lines.forEach(line => incrementLibCount(line.libraryName));
+      limitedByLineCount.forEach((lines) => {
+        lines.forEach((line) => incrementLibCount(line.libraryName));
       });
 
       // remove the filtered libraries
-      const filteredByLibrary = limitedByLineCount.filter(
-        result => !excludedLibs.includes(result[0].libraryName)
-      ).filter(
-        result => genders.includes(result[0].gender)
-      );
+      const filteredByLibrary = limitedByLineCount
+        .filter((result) => !excludedLibs.includes(result[0].libraryName))
 
-      fullList = [].concat(...filteredByLibrary);
+      useGenderFilter = limitedByLineCount.some(item => item[0].gender)
+
+      if (useGenderFilter) {
+        fullList = [].concat(...filteredByLibrary.filter((result) => genders.includes(result[0].gender)));
+      } else {
+        fullList = [].concat(...filteredByLibrary);
+      }
     } else {
-      fullList = modifiedMatches.results
-        .filter(result => !excludedLibs.includes(result.libraryName))
-        .filter(result => genders.includes(result.gender))
+      const filteredByLibrary = modifiedMatches.results
+        .filter((result) => !excludedLibs.includes(result.libraryName))
         .sort(sortByScoreOrAlt);
 
-      modifiedMatches.results.forEach(line => {
+      useGenderFilter = modifiedMatches.results.some(item => item.gender)
+
+      if (useGenderFilter) {
+        fullList = filteredByLibrary.filter((result) => genders.includes(result.gender));
+      } else {
+        fullList = filteredByLibrary;
+      }
+
+      modifiedMatches.results.forEach((line) => {
         incrementLibCount(line.libraryName);
       });
     }
 
     // id or name filter - case insensitive
     fullList = fullList
-      .map(result => {
+      .map((result) => {
         const fullImageUrl = result.imageURL.startsWith("https://")
           ? result.imageURL
           : `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
@@ -223,11 +239,11 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           thumbnailURL: fullThumbUrl,
           // add the anatomical Area for code later down the tree to use
           // for determining image widths and heights.
-          anatomicalArea: result.anatomicalArea || input.anatomicalArea
+          anatomicalArea: result.anatomicalArea || input.anatomicalArea,
         };
       })
 
-      .filter(result =>
+      .filter((result) =>
         result.publishedName.toLowerCase().includes(filterString.toLowerCase())
       );
 
@@ -271,7 +287,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     );
   }
 
-  const updatedInput = {...input, maskImageStack: matches.maskImageStack || null};
+  const updatedInput = {
+    ...input,
+    maskImageStack: matches.maskImageStack || null,
+  };
 
   return (
     <div>
@@ -330,6 +349,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       <FilterMenuDisplay
         searchType={searchType}
         countsByLibrary={countsByLibrary}
+        useGenderFilter={useGenderFilter}
       />
       {matchSummaries}
       <Pagination
@@ -362,9 +382,9 @@ Matches.propTypes = {
   input: PropTypes.object.isRequired,
   matches: PropTypes.object.isRequired,
   searchType: PropTypes.string.isRequired,
-  precomputed: PropTypes.bool
+  precomputed: PropTypes.bool,
 };
 
 Matches.defaultProps = {
-  precomputed: false
+  precomputed: false,
 };
