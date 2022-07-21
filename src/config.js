@@ -84,7 +84,7 @@ export default {
       url: `https://s3.amazonaws.com/janelia-neuronbridge-data-${process.env.REACT_APP_LEVEL}/{version}/DATA_NOTES.md`
     },
     website: {
-      title: "Neuronbridge Software",
+      title: "NeuronBridge Software",
       url: "/RELEASENOTES.md"
     }
   },
