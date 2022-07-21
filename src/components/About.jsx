@@ -11,30 +11,7 @@ export default function About() {
     <div>
       <Title>About NeuronBridge</Title>
       <Paragraph>
-        Neuroscience research is being revolutionized by the comprehensive
-        mapping of whole nervous systems. Janelia Research Campus is leading
-        this effort in the fruit fly, Drosophila melanogaster, via light and
-        electron microscopy. Moving between these two modalities was previously
-        possible through the use of NBLAST, which provides a powerful geometric
-        vector-based comparison between neurons. However, use of NBLAST requires
-        segmented neuron skeletons, which are difficult to reconstruct in dense
-        light microscopy data. A complementary approach, termed “color depth
-        mask search”, was published in{" "}
-        <a href="https://doi.org/10.1101/318006">Otsuna, et. al(2018)</a> and is
-        now in widespread use for LM-EM finding correspondences. The
-        NeuronBridge application provides browsing of color depth search results
-        for LM and EM data published by the FlyLight and FlyEM projects. For LM
-        this includes the Gen1 and Split-GAL4 data sets, and for EM, the
-        Hemibrain release. In the near future, we will continue to update the
-        available image libraries and also add the ability to search published
-        data using user-provided neuronal masks.
-      </Paragraph>
-
-      <Paragraph>
-        This method represents 3d voxel space in a 2d image by encoding depth as
-        color, and allows for a fast pixel-based comparison across specimens.
-        Both LM image volumes and EM reconstructions can be represented in this
-        space, leading to efficient LM-&gt;EM and EM-&gt;LM searching.
+        A preprint describing this software in detail is <a href="https://doi.org/10.1101/2022.07.20.500311">available on bioRxiv</a>.
       </Paragraph>
       <Paragraph>
         <Link to="/usage">View Usage Terms</Link>

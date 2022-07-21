@@ -4,6 +4,20 @@ import "./References.css";
 export default function References() {
   return (
     <dl>
+
+      <dt>NeuronBridge</dt>
+      <dd>
+        <a href="https://doi.org/10.1101/2022.07.20.500311">Clements et al., 2022</a>
+      </dd>
+
+      <dt>Neuron matching algorithms</dt>
+      <dd>
+        <a href="https://doi.org/10.1101/318006">Otsuna et al., 2018</a>
+      </dd>
+      <dd>
+        <a href="https://doi.org/10.1101/2021.07.23.453511">Hirsch et al., 2020</a>
+      </dd>
+
       <dt>Gen1 MCFO collection</dt>
       <dd>
         <a href="https://doi.org/10.1101/2020.05.29.080473">Meissner et al., 2020</a>
@@ -61,22 +75,10 @@ export default function References() {
       </dd>
 
       <dt>EM-LM unification template</dt>
-        <dd>
-          <a href="https://doi.org/10.1101/376384">Bogovic et al., 2019</a>
-          </dd>
-
-      <dt>PatchPerPixMatch algorithm</dt>
-        <dd>
-          <a href="https://doi.org/10.1101/2021.07.23.453511">Hirsch et al., 2020</a>
-          </dd>
-
-      <dt>NeuronBridge</dt>
       <dd>
-        <a href="https://doi.org/10.25378/janelia.12159378.v1">Clements et al., 2020</a>
+        <a href="https://doi.org/10.1101/376384">Bogovic et al., 2019</a>
       </dd>
-      <dd>
-        <a href="https://doi.org/10.1101/318006">Otsuna et al., 2018</a>
-      </dd>
+
     </dl>
   );
 }
