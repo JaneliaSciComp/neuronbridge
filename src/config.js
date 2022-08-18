@@ -27,7 +27,7 @@ const fathomEventKeys = {
     "imageUpload": "MGYJFBMS",
     "viewIn3D": "HLWKDRI8",
   },
-  "pre": {
+  "prodpre": {
     "imageUpload": "L1SRH70K",
     "viewIn3D": "DY4DQ29T",
   }
