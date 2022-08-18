@@ -45,12 +45,21 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
     signedSwc
   )}&ch=${channel}&mx=${mirrored}`;
 
+  const handleClick = () => {
+    if (config.fathomEventKeys) {
+      if (config.fathomEventKeys.viewIn3D) {
+        window.fathom.trackGoal(config.fathomEventKeys.viewIn3D, 0);
+      }
+    }
+  };
+
   return (
     <Button
       href={volViewerLink}
       type="primary"
       ghost
       style={style}
+      onClick={handleClick}
     >
       View in 3D
     </Button>

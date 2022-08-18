@@ -25,9 +25,11 @@ const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 const fathomEventKeys = {
   "prod": {
     "imageUpload": "MGYJFBMS",
+    "viewIn3D": "HLWKDRI8",
   },
   "pre": {
     "imageUpload": "L1SRH70K",
+    "viewIn3D": "DY4DQ29T",
   }
 };
 
