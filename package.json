@@ -1,6 +1,6 @@
 {
   "name": "neuronbridge",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.0.3",
