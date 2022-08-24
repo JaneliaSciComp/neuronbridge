@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, Button, Tabs } from "antd";
 import Summary from "./MatchModal/Summary";
 import Download3D from "./MatchModal/Download3D";
+import Citations from "./MatchModal/Citations";
 
 const { TabPane } = Tabs;
 
@@ -87,6 +88,9 @@ export default function MatchModal(props) {
         </TabPane>
         <TabPane tab="Download 3D Files" key="2">
           <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
+        </TabPane>
+        <TabPane tab="Citations" key="3">
+          <Citations match={selectedMatch} />
         </TabPane>
       </Tabs>
     </Modal>
