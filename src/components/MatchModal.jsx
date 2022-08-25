@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Modal, Button, Tabs } from "antd";
 import Summary from "./MatchModal/Summary";
@@ -8,6 +9,9 @@ import Citations from "./MatchModal/Citations";
 const { TabPane } = Tabs;
 
 export default function MatchModal(props) {
+  const location = useLocation();
+  const { page } = useParams();
+  const history = useHistory();
   const { open, setOpen, matchesList, mask, isLM, searchType } = props;
 
   const [selected, setSelected] = useState(0);
@@ -43,6 +47,15 @@ export default function MatchModal(props) {
 
   const summaryLabel = searchType === "ppp" ? "PPPM Summary" : "CDM Summary";
 
+  const handleTabChange = (key) => {
+    let updatedPath = `${location.pathname}/${key}`;
+    if (location.pathname.match(/\/(cite|download|summary)$/)) {
+      updatedPath = location.pathname.replace(/[^/]*$/, key);
+    }
+    location.pathname = updatedPath;
+    history.push(location);
+  }
+
   return (
     <Modal
       visible={Boolean(open)}
@@ -76,8 +89,8 @@ export default function MatchModal(props) {
       ]}
       width="90%"
     >
-      <Tabs defaultActiveKey="1">
-        <TabPane tab={summaryLabel} key="1">
+      <Tabs activeKey={ page|| "summary" } onChange={handleTabChange}>
+        <TabPane tab={summaryLabel} key="summary">
           <Summary
             selectedMatch={selectedMatch}
             mask={mask}
@@ -86,10 +99,10 @@ export default function MatchModal(props) {
             matchesList={matchesList}
           />
         </TabPane>
-        <TabPane tab="Download 3D Files" key="2">
+        <TabPane tab="Download 3D Files" key="download">
           <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
         </TabPane>
-        <TabPane tab="Citations" key="3">
+        <TabPane tab="Cite this Match" key="cite">
           <Citations match={selectedMatch} />
         </TabPane>
       </Tabs>
