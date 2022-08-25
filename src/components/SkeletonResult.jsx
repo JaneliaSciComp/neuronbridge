@@ -4,6 +4,7 @@ import { Button, Row, Col, Space } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
+import config from "../config";
 
 export default function SkeletonResult(props) {
   const location = useLocation();
@@ -11,6 +12,16 @@ export default function SkeletonResult(props) {
 
   const matchesUrl = `/search/skeletons/${metaInfo.publishedName}/matches/${metaInfo.id}`;
   const pppUrl = `/search/ppp/${metaInfo.publishedName}/matches/${metaInfo.id}`;
+
+  const handleClick = (type) => {
+    if (config.fathomEventKeys) {
+      if (config.fathomEventKeys[type]) {
+        if (window.fathom) {
+          window.fathom.trackGoal(config.fathomEventKeys[type], 0);
+        }
+      }
+    }
+  };
 
   return (
     <Row>
@@ -36,6 +47,7 @@ export default function SkeletonResult(props) {
               type="primary"
               disabled={/matches$/.test(location.pathname)}
               style={{ width: "100%" }}
+              onClick={() => handleClick('clickCDM')}
             >
               <Link to={matchesUrl}>Color Depth Search Results</Link>
             </Button>
@@ -48,6 +60,7 @@ export default function SkeletonResult(props) {
               type="primary"
               disabled={/matches$/.test(location.pathname)}
               style={{ width: "100%" }}
+              onClick={() => handleClick('clickPPP')}
             >
               <Link to={pppUrl}>PatchPerPixMatch Results </Link>
             </Button>

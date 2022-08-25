@@ -26,6 +26,8 @@ const fathomEventKeys = {
   "prod": {
     "imageUpload": "MGYJFBMS",
     "viewIn3D": "HLWKDRI8",
+    "clickCDM": "LZMI06DW",
+    "clickPPP": "1HZFVZTS",
   },
   "prodpre": {
     "imageUpload": "L1SRH70K",
