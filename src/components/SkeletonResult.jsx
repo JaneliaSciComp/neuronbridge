@@ -27,8 +27,8 @@ export default function SkeletonResult(props) {
     <Row>
       <Col md={10}>
         <ImageWithModal
-          thumbSrc={metaInfo.thumbnailURL}
-          src={metaInfo.imageURL}
+          thumbSrc={metaInfo.files.ColorDepthMipThumbnail}
+          src={metaInfo.files.ColorDepthMip}
           title={metaInfo.publishedName}
           vertical={
             metaInfo.anatomicalArea === "VNC" ||

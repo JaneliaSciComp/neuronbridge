@@ -36,8 +36,8 @@ export default function MatchesLoader({ searchResult, searchType }) {
           fr.onload = evt => {
             const json = JSON.parse(evt.target.result);
             const fixedResults = json.results.map(result => {
-              const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
-              const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+              const fullImageUrl = `${appState.dataConfig.constants.img}/${result.imageURL}`;
+              const fullThumbUrl = `${appState.dataConfig.constants.thm}/${result.thumbnailURL}`;
               const fixedResult = {
                 ...result,
                 imageURL: fullImageUrl,
@@ -71,7 +71,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
       });
     }
 
-    if ("imageryBaseURL" in appState.dataConfig) {
+    if ("constants" in appState.dataConfig) {
       getMatches();
     }
   }, [matchId, appState.dataConfig, appState.dataVersion, searchResult, searchType, searchTerm]);
@@ -99,7 +99,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
         precomputed
       />
     ) : (
-      <p>No matches Found</p>
+      <p>No matches found</p>
     );
 
     return (

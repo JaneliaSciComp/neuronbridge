@@ -29,12 +29,12 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
 
   React.useEffect(() => {
     const swc = isLM
-      ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
-      : getSWCLink(appState.dataConfig.swcBaseURL, match);
+      ? getSWCLink(appState.dataConfig.constants.swc, mask)
+      : getSWCLink(appState.dataConfig.constants.swc, match);
     signedPublicLink(swc.props.href).then((signed) => {
       setSignedSwc(signed);
     });
-  }, [appState.dataConfig.swcBaseURL, isLM, mask, match]);
+  }, [appState.dataConfig.constants, isLM, mask, match]);
 
   // must encode the signedSWC, so that it makes it to the volume viewer in the
   // correct state for loading the swc

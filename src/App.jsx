@@ -46,6 +46,7 @@ export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const { appState, setState, setAppState, setPermanent } = useContext(AppContext);
   const [confetti, setConfetti] = useState(false);
+  const [configLoadStatus, setConfigLoadStatus] = useState('pending');
   const location = useLocation();
 
   useKonami(() => {
@@ -114,24 +115,28 @@ export default function App() {
         });
       });
     }
-  }, [isAuthenticated, setState, appState.dataVersion]); // ieslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, setState, appState.dataVersion]);
 
   useEffect(() => {
-    if (isAuthenticated && appState.dataVersion && !appState.dataConfig.imageryBaseURL) {
-      Auth.currentCredentials().then(() => {
-        Storage.get(`${appState.dataVersion}/config.json`, storageOptions).then(result => {
-          const fr = new FileReader();
-          fr.onload = evt => {
-            const dataConfig = JSON.parse(evt.target.result);
-            if (dataConfig !== appState.dataConfig) {
-              setState({dataConfig: { ...appState.dataConfig, ...dataConfig, loaded: true }});
-            }
-          };
-          fr.readAsText(result.Body);
+    if (configLoadStatus === "pending") {
+      if (isAuthenticated && appState.dataVersion && !appState.dataConfig.loaded) {
+        setConfigLoadStatus("loading");
+        Auth.currentCredentials().then(() => {
+          Storage.get(`${appState.dataVersion}/config.json`, storageOptions).then(result => {
+            const fr = new FileReader();
+            fr.onload = evt => {
+              const dataConfig = JSON.parse(evt.target.result);
+              if (dataConfig !== appState.dataConfig) {
+                setState({dataConfig: { ...appState.dataConfig, ...dataConfig, loaded: true }});
+              }
+            };
+            fr.readAsText(result.Body);
+            setConfigLoadStatus("loaded");
+          });
         });
-      });
+      }
     }
-  }, [isAuthenticated, setState, appState.dataVersion, appState.dataConfig]); // ieslint-disable-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, setState, appState.dataVersion, appState.dataConfig, configLoadStatus]);
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 

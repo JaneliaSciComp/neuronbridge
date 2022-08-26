@@ -27,7 +27,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   };
 
   useEffect(() => {
-    if (debouncedSearch.length >= 3) {
+    if (debouncedSearch && debouncedSearch.length >= 3) {
       Auth.currentCredentials().then(() => {
         API.get("SearchAPI", "/published_names", {
           queryStringParameters: { q: debouncedSearch, f: "start" }

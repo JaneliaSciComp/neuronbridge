@@ -1,8 +1,9 @@
 import { rest } from "msw";
 // import data1537331894 from "./1537331894.json";
-// import metadata1537331894 from "./1537331894_metadata.json";
+import metadata1537331894 from "./1537331894_metadata.json";
 // import metadata1932493302 from "./1932493302_metadata.json";
 // import announcements from "./announcements.json";
+import config from "./config.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
@@ -14,6 +15,18 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+  rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json?",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(config));
+    }
+  ),
+  rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/metadata/by_body/1537331894.json",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(metadata1537331894));
+    }
+  ),
   /*
   rest.get(
     "https://s3.amazonaws.com/janelia-neuronbridge-data-val/announcements.json",

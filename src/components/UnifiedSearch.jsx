@@ -26,8 +26,8 @@ export default function UnifiedSearch() {
   useEffect(() => {
     function fixUrlResults(newResults, match) {
       return newResults.results.map(result => {
-        const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
-        const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+        const fullImageUrl = `${appState.dataConfig.constants.img}/${result.imageURL}`;
+        const fullThumbUrl = `${appState.dataConfig.constants.thm}/${result.thumbnailURL}`;
         return {
           ...result,
           imageURL: fullImageUrl,
@@ -55,7 +55,7 @@ export default function UnifiedSearch() {
       });
     }
 
-    if ("imageryBaseURL" in appState.dataConfig && loadedTerm !== searchTerm) {
+    if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);

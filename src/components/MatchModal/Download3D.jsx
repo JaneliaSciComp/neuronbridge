@@ -44,8 +44,8 @@ export default function Download3D(props) {
       <Paragraph>
         <FileImageOutlined style={fileIconStyles} />{" "}
         {isLM
-          ? getSWCLink(appState.dataConfig.swcBaseURL, mask)
-          : getSWCLink(appState.dataConfig.swcBaseURL, selectedMatch)}{" "}
+          ? getSWCLink(appState.dataConfig.constants.swc, mask)
+          : getSWCLink(appState.dataConfig.constants.swc, selectedMatch)}{" "}
         (EM Skeleton)
       </Paragraph>
       {mask.precomputed ? (

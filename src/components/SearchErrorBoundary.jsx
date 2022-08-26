@@ -17,9 +17,10 @@ class SearchErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  componentDidCatch() {
+  componentDidCatch(error, errorInfo) {
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo);
+    console.log(error, errorInfo);
     message.error(
       "There was a problem with your search input, please try again",
     ).then(this.clearError);

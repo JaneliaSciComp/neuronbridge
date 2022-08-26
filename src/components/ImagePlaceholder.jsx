@@ -13,6 +13,7 @@ export default function ImagePlaceholder({
 }) {
   const [signedSrc, setSignedSrc] = useState();
   const [imageLoaded, setLoaded] = useState(false);
+  const [loadError, setLoadError] = useState();
 
   const updatedStyle = mirrored
     ? {
@@ -31,7 +32,7 @@ export default function ImagePlaceholder({
       };
 
   useEffect(() => {
-    if (src) {
+    if (src && !loadError) {
       // Prevents blinking of image when the same image is loaded into
       // the page more than once, it was blinking to the placeholder image.
       // We only want the placeholder image to show up if a new image
@@ -42,24 +43,34 @@ export default function ImagePlaceholder({
       // be the same in subsequent calls. However, the path will be
       // identical, so we can just check that to see if we need to
       // reload the image.
-      const path = new URL(src).pathname;
-      const loadedPath = imageLoaded ? new URL(imageLoaded).pathname : null;
-      if (path !== loadedPath) {
-        setLoaded(false);
+      try {
+        const path = new URL(src).pathname;
+        const loadedPath = imageLoaded ? new URL(imageLoaded).pathname : null;
+        if (path !== loadedPath) {
+          setLoaded(false);
+        }
+        signedPublicLink(src).then(signed => {
+          const img = new Image();
+          img.onload = () => {
+            setSignedSrc(signed);
+            setLoaded(src);
+          };
+          img.src = signed;
+        });
+      } catch (error) {
+        setLoadError(error);
       }
-      signedPublicLink(src).then(signed => {
-        const img = new Image();
-        img.onload = () => {
-          setSignedSrc(signed);
-          setLoaded(src);
-        };
-        img.src = signed;
-      });
     }
-  }, [src, imageLoaded]);
+  }, [src, imageLoaded, loadError]);
 
   function handleLoaded(imgSrc) {
     setLoaded(imgSrc);
+  }
+
+  if (loadError) {
+    return (
+      <p style={{color: "#f00"}}>Error Loading Image</p>
+    );
   }
 
   return (

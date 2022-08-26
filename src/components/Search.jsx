@@ -19,7 +19,7 @@ function Search() {
   const { appState } = useContext(AppContext);
 
   useEffect(() => {
-    if ("imageryBaseURL" in appState.dataConfig) {
+    if ("constants" in appState.dataConfig) {
       setResults(null);
 
       if (!searchTerm) {
@@ -65,8 +65,8 @@ function Search() {
                 const newResults = JSON.parse(text);
                 // convert stored relative urls into the full path urls.
                 const urlFixedResults = newResults.results.map(newResult => {
-                  const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${newResult.imageURL}`;
-                  const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${newResult.thumbnailURL}`;
+                  const fullImageUrl = `${appState.dataConfig.constants.img}/${newResult.imageURL}`;
+                  const fullThumbUrl = `${appState.dataConfig.constants.thm}/${newResult.thumbnailURL}`;
                   return {...newResult, imageURL: fullImageUrl, thumbnailURL: fullThumbUrl};
                 });
                 combined.results.push(...urlFixedResults);

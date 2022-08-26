@@ -1,0 +1,20 @@
+{
+  "constants": {
+    "img": "https://s3.amazonaws.com/janelia-flylight-color-depth",
+    "thm": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails",
+    "ppp": "https://s3.amazonaws.com/janelia-ppp-match-prod",
+    "swc": "https://s3.amazonaws.com/janelia-flylight-color-depth/SWC"
+  },
+  "anatomicalRegions": [
+    {
+      "value": "brain",
+      "label": "Brain",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR"
+    },
+    {
+      "value": "vnc",
+      "label": "VNC",
+      "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS"
+    }
+  ]
+}
