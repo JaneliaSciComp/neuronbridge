@@ -21,7 +21,7 @@ export default function MatchSummary(props) {
   useEffect(() => {
     if (isPPP && match.files?.ColorDepthMipSkel) {
       const url = createPPPMImagePath({
-        alignmentSpace: match.alignmentSpace,
+        alignmentSpace: match.image.alignmentSpace,
         library,
         relativePath: match.files?.ColorDepthMip,
         baseURL: paths.pppImageryBaseURL
@@ -48,7 +48,7 @@ export default function MatchSummary(props) {
     }
   }, [match, isPPP, library, paths.pppImageryBaseURL]);
 
-  const { publishedName } = match;
+  const { publishedName } = match.image;
 
   const thumbnailURL = signedThumbnailSrc;
   const imageURL = signedSrc;
@@ -69,8 +69,8 @@ export default function MatchSummary(props) {
     const thumbnails = (
       <>
         <div style={{ position: "relative" }}>
-          <DownloadSelect id={match.id} />
-          <GenderIcon gender={match.gender} />
+          <DownloadSelect id={match.image.id} />
+          <GenderIcon gender={match.image.gender} />
           <ImageWithModal
             thumbSrc={thumbnailURL}
             src={imageURL}
@@ -133,7 +133,7 @@ export default function MatchSummary(props) {
           <Button onClick={showModal} style={{ marginRight: "1em" }}>
             Select
           </Button>
-          <DownloadSelect id={match.id} asButton />
+          <DownloadSelect id={match.image.id} asButton />
         </Col>
       </Row>
       <Divider dashed />

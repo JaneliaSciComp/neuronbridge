@@ -36,16 +36,16 @@ export default function MatchesLoader({ searchResult, searchType }) {
           fr.onload = evt => {
             const json = JSON.parse(evt.target.result);
             const fixedResults = json.results.map(result => {
-              const fullImageUrl = `${appState.dataConfig.constants.img}/${result.imageURL}`;
-              const fullThumbUrl = `${appState.dataConfig.constants.thm}/${result.thumbnailURL}`;
+              const fullImageUrl = `${appState.dataConfig.constants.img}/${result.image.files.ColorDepthMip}`;
+              const fullThumbUrl = `${appState.dataConfig.constants.thm}/${result.image.files.ColorDepthMipThumbnail}`;
               const fixedResult = {
                 ...result,
                 imageURL: fullImageUrl,
                 thumbnailURL: fullThumbUrl
               };
-              // The ppp results json starts the rank at 0, but the pdfs start the rank at 1,
-              // so we need to add 1 to the pppRank in the JSON to get the same rank in the UI
-              // as is displayed in the pdf.
+              // The ppp results json starts the rank at 0, but the pdfs start
+              // the rank at 1, so we need to add 1 to the pppRank in the JSON
+              // to get the same rank in the UI as is displayed in the pdf.
               if (searchType === "ppp") {
                 fixedResult.pppRank = result.pppRank + 1;
               }

@@ -151,7 +151,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     if (searchType !== "lines") {
       const byLines = {};
       modifiedMatches.results.forEach((result) => {
-        const { publishedName, libraryName } = result;
+        const { publishedName, libraryName } = result.image;
 
         let currentScore = result.normalizedScore;
         if (isPPP) {
@@ -244,7 +244,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       })
 
       .filter((result) =>
-        result.publishedName.toLowerCase().includes(filterString.toLowerCase())
+        result?.image?.publishedName?.toLowerCase().includes(filterString.toLowerCase())
       );
 
     pageinatedList = fullList.slice(

@@ -7,7 +7,17 @@ import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes, compact }) {
-  const { publishedName, libraryName } = attributes;
+  const {
+    publishedName,
+    libraryName,
+    slideCode,
+    objective,
+    gender,
+    anatomicalArea,
+    channel,
+    mountingProtocol,
+    alignmentSpace,
+  } = attributes.image;
   const searchUrl = `/search?q=${publishedName}`;
 
   if (compact) {
@@ -55,36 +65,36 @@ export default function LineMeta({ attributes, compact }) {
           ""
         )}
         <p>
-          <b>Slide Code:</b> {attributes.slideCode}
+          <b>Slide Code:</b> {slideCode}
         </p>
         <p>
-          <b>Channel:</b> {attributes.channel}
+          <b>Channel:</b> {channel}
         </p>
         <p>
           <b>Library: </b>
           <LibraryFormatter type={libraryName} />
         </p>
         <p>
-          <b>Gender:</b> {attributes.gender === "f" ? "Female" : "Male"}
+          <b>Gender:</b> {gender === "f" ? "Female" : "Male"}
         </p>
       </Col>
       <Col md={24} lg={12}>
         <p>
-          <b>Anatomical Area:</b> {attributes.anatomicalArea}
+          <b>Anatomical Area:</b> {anatomicalArea}
         </p>
         <p>
-          <b>Mounting Protocol:</b> {attributes.mountingProtocol}
+          <b>Mounting Protocol:</b> {mountingProtocol}
         </p>
         <p>
-          <b>Alignment Space:</b> {attributes.alignmentSpace}
+          <b>Alignment Space:</b> {alignmentSpace}
         </p>
         <p>
-          <b>Magnification:</b> {attributes.objective}
+          <b>Magnification:</b> {objective}
         </p>
         <p>
           <b>Links:</b> <br />
           <ExternalLink
-            id={attributes.slideCode}
+            id={slideCode}
             publishedName={publishedName}
             isLM
             library={libraryName}
@@ -99,9 +109,9 @@ export default function LineMeta({ attributes, compact }) {
 
 LineMeta.propTypes = {
   attributes: PropTypes.object.isRequired,
-  compact: PropTypes.bool
+  compact: PropTypes.bool,
 };
 
 LineMeta.defaultProps = {
-  compact: false
+  compact: false,
 };

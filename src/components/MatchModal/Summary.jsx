@@ -25,7 +25,7 @@ export default function Summary(props) {
           <InputMeta mask={mask} isLM={isLM} compact={appState.compactMeta} />
         </Col>
         <Col sm={12}>
-          <DownloadZipCheckbox matchId={selectedMatch.id} />
+          <DownloadZipCheckbox matchId={selectedMatch.image.id} />
           <MatchMeta
             match={selectedMatch}
             isLM={isLM}

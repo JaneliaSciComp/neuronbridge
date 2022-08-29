@@ -256,7 +256,7 @@ export default function ImageComparison(props) {
   // Since only gen1 mcfo have this option, we need to reset to the
   // display image choice for all other libraries.
   useEffect(() => {
-    if (!match.libraryName.match(/gen1.*mcfo/i)) {
+    if (!match.image.libraryName.match(/gen1.*mcfo/i)) {
       if (appState.comparisonImage === "expression") {
         setPermanent({ comparisonImage: "display" });
       }
