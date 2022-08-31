@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Row, Col, Space } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
 import config from "../config";
+import { AppContext } from "../containers/AppContext";
 
 export default function SkeletonResult(props) {
+  const { appState } = useContext(AppContext);
   const location = useLocation();
   const { metaInfo } = props;
 
@@ -27,8 +29,8 @@ export default function SkeletonResult(props) {
     <Row>
       <Col md={10}>
         <ImageWithModal
-          thumbSrc={metaInfo.files.ColorDepthMipThumbnail}
-          src={metaInfo.files.ColorDepthMip}
+          thumbSrc={`${appState.dataConfig.constants.thm}/${metaInfo.files.ColorDepthMipThumbnail}`}
+          src={`${appState.dataConfig.constants.img}/${metaInfo.files.ColorDepthMip}`}
           title={metaInfo.publishedName}
           vertical={
             metaInfo.anatomicalArea === "VNC" ||

@@ -192,35 +192,35 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       );
 
       limitedByLineCount.forEach((lines) => {
-        lines.forEach((line) => incrementLibCount(line.libraryName));
+        lines.forEach((line) => incrementLibCount(line.image.libraryName));
       });
 
       // remove the filtered libraries
       const filteredByLibrary = limitedByLineCount
-        .filter((result) => !excludedLibs.includes(result[0].libraryName))
+        .filter((result) => !excludedLibs.includes(result[0].image.libraryName))
 
-      useGenderFilter = limitedByLineCount.some(item => item[0].gender)
+      useGenderFilter = limitedByLineCount.some(item => item[0].image.gender)
 
       if (useGenderFilter) {
-        fullList = [].concat(...filteredByLibrary.filter((result) => genders.includes(result[0].gender)));
+        fullList = [].concat(...filteredByLibrary.filter((result) => genders.includes(result[0].image.gender)));
       } else {
         fullList = [].concat(...filteredByLibrary);
       }
     } else {
       const filteredByLibrary = modifiedMatches.results
-        .filter((result) => !excludedLibs.includes(result.libraryName))
+        .filter((result) => !excludedLibs.includes(result.image.libraryName))
         .sort(sortByScoreOrAlt);
 
-      useGenderFilter = modifiedMatches.results.some(item => item.gender)
+      useGenderFilter = modifiedMatches.results.some(item => item.image.gender)
 
       if (useGenderFilter) {
-        fullList = filteredByLibrary.filter((result) => genders.includes(result.gender));
+        fullList = filteredByLibrary.filter((result) => genders.includes(result.image.gender));
       } else {
         fullList = filteredByLibrary;
       }
 
       modifiedMatches.results.forEach((line) => {
-        incrementLibCount(line.libraryName);
+        incrementLibCount(line.image.libraryName);
       });
     }
 

@@ -23,7 +23,7 @@ export default function MatchSummary(props) {
       const url = createPPPMImagePath({
         alignmentSpace: match.image.alignmentSpace,
         library,
-        relativePath: match.files?.ColorDepthMip,
+        relativePath: match.image.files?.ColorDepthMip,
         baseURL: paths.pppImageryBaseURL
       });
       signedPublicLink(url).then(signed => {

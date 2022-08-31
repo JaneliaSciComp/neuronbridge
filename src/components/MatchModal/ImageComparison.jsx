@@ -24,13 +24,9 @@ function createSourceSearchablePath(match, baseURL, library) {
 }
 
 function createMatchImagePath(match, baseURL) {
-  if (match.imageName) {
-    // generate the match image patch, from values in the match JSON
-    const filename = match.imageName.match(/([^/]*).tif$/)[1];
-    return `${baseURL}/${match.alignmentSpace}/${match.libraryName.replace(
-      /\s/g,
-      "_"
-    )}/searchable_neurons/pngs/${filename}.png`;
+  if (match?.image?.files?.ColorDepthMipMatch) {
+    // generate the match image path, from values in the match JSON
+    return `${baseURL}/${match.image.files.ColorDepthMipMatch}`;
   }
   if (match.searchablePNG) {
     // for precomputed searches.

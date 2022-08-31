@@ -21,11 +21,11 @@ function getSWCLink(baseURL, construct) {
 }
 
 function getH5JLink(construct) {
-  const imageStack = construct.imageStack || construct.maskImageStack;
+  const imageStack = construct.image.files.VisuallyLosslessStack || construct.maskImageStack;
   if (imageStack) {
     return (
       <a href={imageStack}>
-        {construct.publishedName}-{construct.slideCode}.h5j
+        {construct.image.publishedName}-{construct.image.slideCode}.h5j
       </a>
     );
   }
