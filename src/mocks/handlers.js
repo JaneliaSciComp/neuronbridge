@@ -1,23 +1,14 @@
 import { rest } from "msw";
-// import data1537331894 from "./1537331894.json";
 import metadata1537331894 from "./1537331894_metadata.json";
-// import metadata1932493302 from "./1932493302_metadata.json";
-// import announcements from "./announcements.json";
+import LH173metadata from "./LH173_metadata.json";
 import config from "./config.json";
 import cdsResults from "./2945073141049430027.json";
+import cdsResults2798488256260341771 from "./2798488256260341771.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
-  rest.post("/login", (req, res, ctx) => {
-    // Persist user's authentication in the session
-    sessionStorage.setItem("is-authenticated", "true");
-    return res(
-      // Respond with a 200 status code
-      ctx.status(200)
-    );
-  }),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json?",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json",
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(config));
     }
@@ -34,93 +25,16 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(cdsResults));
     }
   ),
-
-  /*
   rest.get(
-    "https://s3.amazonaws.com/janelia-neuronbridge-data-val/announcements.json",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/metadata/by_line/LH173.json",
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(announcements));
+      return res(ctx.status(200), ctx.json(LH173metadata));
     }
   ),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/next.txt",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/metadata/cdsresults/2798488256260341771.json",
     (req, res, ctx) => {
-      return res(ctx.status(200), ctx.text('v2_4_0'));
+      return res(ctx.status(200), ctx.json(cdsResults2798488256260341771));
     }
   ),
-  rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1537331894.json",
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(metadata1537331894));
-    }
-  ),
-  rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1537331894.json",
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(data1537331894));
-    }
-  ),
-  rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/by_body/1932493302.json",
-    (req, res, ctx) => {
-      return res(
-        // Respond with a 200 status code
-        ctx.status(200),
-        ctx.json({
-          results: [
-            {
-              id: "2945073156357976075",
-              publishedName: "1932493302",
-              libraryName: "FlyEM_Hemibrain_v1.2.1",
-              imageURL:
-                "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1932493302-JRC2018_Unisex_20x_HR-CDM.png",
-              thumbnailURL:
-                "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1932493302-JRC2018_Unisex_20x_HR-CDM.jpg",
-              neuronType: "PS071",
-              neuronInstance: "PS071_R",
-              gender: "f"
-            },
-            {
-              id: "2820604191108497419",
-              publishedName: "1932493302",
-              libraryName: "FlyEM_Hemibrain_v1.1",
-              imageURL:
-                "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.1/1932493302-RT-JRC2018_Unisex_20x_HR-CDM.png",
-              thumbnailURL:
-                "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.1/1932493302-RT-JRC2018_Unisex_20x_HR-CDM.jpg",
-              gender: "f"
-            }
-          ]
-        })
-      );
-    }
-  ),
-  rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_1_0/metadata/pppresults/1932493302.json",
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(metadata1932493302));
-    }
-  ),
-  rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json",
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json({
-          imageryBaseURL:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth-dev",
-          thumbnailsBaseURLs:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev",
-          pppImageryBaseURL: "https://s3.amazonaws.com/janelia-ppp-match-dev",
-          swcBaseURL:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/SWC",
-          anatomicalRegions: [
-            { label: "Brain", value: "brain" },
-            { label: "VNC", value: "vnc", disabled: true }
-          ]
-        })
-      );
-    }
-  )
-  */
 ];

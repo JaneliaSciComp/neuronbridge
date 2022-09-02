@@ -31,8 +31,8 @@ export default function DebugPanel({ appState, config }) {
 
   let pppBucketMatch = true;
 
-  if (dataConfig.constants) {
-    const pppmPathFromConfig = dataConfig.constants?.ppp.split("/");
+  if (dataConfig.prefixes) {
+    const pppmPathFromConfig = dataConfig.prefixes?.ColorDepthMipSkel.split("/");
     if (!pppmPathFromConfig.includes(config.PPPM_BUCKET)) {
       pppBucketMatch = false;
     }
@@ -81,13 +81,13 @@ export default function DebugPanel({ appState, config }) {
             style={{ marginBottom: "1rem" }}
           >
             <p>
-              <b>Imagery Base URL:</b> {dataConfig?.constants?.img}
+              <b>Imagery Base URL:</b> {dataConfig?.prefixes?.ColorDepthMip}
             </p>
             <p>
-              <b>Thumbnails Base URL:</b> {dataConfig?.constants?.thm}
+              <b>Thumbnails Base URL:</b> {dataConfig?.prefixes?.ColorDepthMipThumbnail}
             </p>
             <p>
-              <b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b> {dataConfig?.constants?.ppp}
+              <b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b> {dataConfig?.prefixes?.ColorDepthMipSkel}
             </p>
           </Card>
 

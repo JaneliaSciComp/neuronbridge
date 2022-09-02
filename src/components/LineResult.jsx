@@ -16,7 +16,7 @@ export default function LineResult(props) {
         {children}
       </Col>
       <Col md={9}>
-        <LineMeta attributes={metaInfo} />
+        <LineMeta attributes={{image: metaInfo}} />
       </Col>
       <Col md={5}>
         <Button type="primary" disabled={/matches$/.test(location.pathname)}>

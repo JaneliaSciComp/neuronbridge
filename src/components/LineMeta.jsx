@@ -7,6 +7,10 @@ import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes, compact }) {
+  if (!attributes.image) {
+    return (<span style={{color: "red"}}>attribute.image missing</span>);
+  }
+
   const {
     publishedName,
     libraryName,
@@ -108,7 +112,24 @@ export default function LineMeta({ attributes, compact }) {
 }
 
 LineMeta.propTypes = {
-  attributes: PropTypes.object.isRequired,
+  attributes: PropTypes.shape({
+    image: PropTypes.shape({
+      id: PropTypes.string,
+      libraryName: PropTypes.string,
+      publishedName: PropTypes.string,
+      alignmentSpace: PropTypes.string,
+      gender: PropTypes.oneOf(["m", "f"]),
+      slideCode: PropTypes.string,
+      objective: PropTypes.string,
+      anatomicalArea: PropTypes.string,
+      channel: PropTypes.number,
+      mountingProtocol: PropTypes.string,
+    }),
+    normalizedScore: PropTypes.number,
+    matchingPixels: PropTypes.number,
+    pppScore: PropTypes.string,
+    pppRank: PropTypes.string,
+  }).isRequired,
   compact: PropTypes.bool,
 };
 

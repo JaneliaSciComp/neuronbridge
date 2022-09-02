@@ -9,12 +9,15 @@ describe("SkeletonMeta: unit tests", () => {
       <MemoryRouter>
         <SkeletonMeta
           attributes={{
-            publishedName: "skeleton1",
-            libraryName: "lib1"
+            image: {
+              publishedName: "skeleton1",
+              libraryName: "lib1",
+              gender: 'f'
+            }
           }}
         />
       </MemoryRouter>
     );
-    expect(getByText(/Gender/i));
+    expect(getByText(/Gender/i).closest('p').innerHTML.match(/Female/)).not.toBe(null);
   });
 });

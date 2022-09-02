@@ -4,6 +4,11 @@ import "./LibraryFormatter.css";
 
 export default function LibraryFormatter(props) {
   const { type } = props;
+  if (!type) {
+    return (
+      <span style={{color: "red"}}>type missing in LibraryFormatter</span>
+    );
+  }
   const convertedType = type
     .replace(/_/g, " ")
     .replace(/split-?gal4/i, "Split-GAL4")

@@ -29,8 +29,8 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
 
   React.useEffect(() => {
     const swc = isLM
-      ? getSWCLink(appState.dataConfig.constants.swc, mask)
-      : getSWCLink(appState.dataConfig.constants.swc, match);
+      ? getSWCLink(appState.dataConfig?.constants?.swc, mask)
+      : getSWCLink(appState.dataConfig?.constants?.swc, match);
     signedPublicLink(swc.props.href).then((signed) => {
       setSignedSwc(signed);
     });

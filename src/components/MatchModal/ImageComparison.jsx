@@ -15,7 +15,7 @@ const { Option } = Select;
 function createSourceSearchablePath(match, baseURL, library) {
   if (match.sourceSearchablePNG) {
     // for precomputed searches.
-    return `${baseURL}/${match.alignmentSpace}/${library.replace(
+    return `${baseURL}${match.alignmentSpace}/${library.replace(
       /\s/g,
       "_"
     )}/searchable_neurons/pngs/${match.sourceSearchablePNG}`;
@@ -23,17 +23,10 @@ function createSourceSearchablePath(match, baseURL, library) {
   return "/nopath.png";
 }
 
-function createMatchImagePath(match, baseURL) {
-  if (match?.image?.files?.ColorDepthMipMatch) {
+function createMatchImagePath(match, prefixes) {
+  if (match?.files?.ColorDepthMipMatch) {
     // generate the match image path, from values in the match JSON
-    return `${baseURL}/${match.image.files.ColorDepthMipMatch}`;
-  }
-  if (match.searchablePNG) {
-    // for precomputed searches.
-    return `${baseURL}/${match.alignmentSpace}/${match.libraryName.replace(
-      /\s/g,
-      "_"
-    )}/searchable_neurons/pngs/${match.searchablePNG}`;
+    return `${prefixes.ColorDepthMipMatch}${match.files.ColorDepthMipMatch}`;
   }
   return "/nopath.png";
 }
@@ -43,8 +36,7 @@ function getMatchImageOptions(
   match,
   library,
   isLM,
-  pppBaseURL,
-  cdmBaseURL
+  prefixes,
 ) {
   if (isPPPM) {
     const pppmOptions = [
@@ -56,7 +48,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMip,
-          baseURL: pppBaseURL
+          baseURL: prefixes
         }),
         canMask: false
       },
@@ -68,7 +60,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMipSkel,
-          baseURL: pppBaseURL
+          baseURL: prefixes
         }),
         canMask: false
       },
@@ -80,7 +72,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMip,
-          baseURL: pppBaseURL
+          baseURL: prefixes
         }),
         canMask: false
       },
@@ -92,7 +84,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMasked,
-          baseURL: pppBaseURL
+          baseURL: prefixes
         }),
         canMask: false
       },
@@ -104,7 +96,7 @@ function getMatchImageOptions(
           alignmentSpace: match.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMaskedSkel,
-          baseURL: pppBaseURL
+          baseURL: prefixes
         }),
         canMask: false
       }
@@ -119,7 +111,7 @@ function getMatchImageOptions(
     return pppmOptions;
   }
 
-  const matchImagePath = createMatchImagePath(match, cdmBaseURL);
+  const matchImagePath = createMatchImagePath(match, prefixes);
   const cdmOptions = [
     {
       key: "match",
@@ -139,7 +131,7 @@ function getMatchImageOptions(
     }
   ];
   if (match.sourceSearchablePNG) {
-    const path = createSourceSearchablePath(match, cdmBaseURL, library);
+    const path = createSourceSearchablePath(match, prefixes, library);
     cdmOptions.push({
       key: "segmented",
       desc: `${
@@ -194,8 +186,7 @@ export default function ImageComparison(props) {
     match,
     mask.libraryName,
     isLM,
-    appState.dataConfig.constants.ppp,
-    appState.dataConfig.constants.img
+    appState.dataConfig.prefixes,
   );
 
   // both PPPM and CDM searches have an input image.

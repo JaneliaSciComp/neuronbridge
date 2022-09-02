@@ -36,8 +36,8 @@ export default function MatchesLoader({ searchResult, searchType }) {
           fr.onload = evt => {
             const json = JSON.parse(evt.target.result);
             const fixedResults = json.results.map(result => {
-              const fullImageUrl = `${appState.dataConfig.constants.img}/${result.image.files.ColorDepthMip}`;
-              const fullThumbUrl = `${appState.dataConfig.constants.thm}/${result.image.files.ColorDepthMipThumbnail}`;
+              const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${result.image.files.ColorDepthMip}`;
+              const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result.image.files.ColorDepthMipThumbnail}`;
               const fixedResult = {
                 ...result,
                 imageURL: fullImageUrl,
@@ -71,7 +71,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
       });
     }
 
-    if ("constants" in appState.dataConfig) {
+    if ("prefixes" in appState.dataConfig) {
       getMatches();
     }
   }, [matchId, appState.dataConfig, appState.dataVersion, searchResult, searchType, searchTerm]);

@@ -19,7 +19,7 @@ function Search() {
   const { appState } = useContext(AppContext);
 
   useEffect(() => {
-    if ("constants" in appState.dataConfig) {
+    if ("prefixes" in appState.dataConfig) {
       setResults(null);
 
       if (!searchTerm) {
@@ -65,8 +65,8 @@ function Search() {
                 const newResults = JSON.parse(text);
                 // convert stored relative urls into the full path urls.
                 const urlFixedResults = newResults.results.map(newResult => {
-                  const fullImageUrl = `${appState.dataConfig.constants.img}/${newResult.files.ColorDepthMip}`;
-                  const fullThumbUrl = `${appState.dataConfig.constants.thm}/${newResult.files.ColorDepthMipThumbnail}`;
+                  const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${newResult.files.ColorDepthMip}`;
+                  const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${newResult.files.ColorDepthMipThumbnail}`;
                   return {...newResult, imageURL: fullImageUrl, thumbnailURL: fullThumbUrl};
                 });
                 combined.results.push(...urlFixedResults);

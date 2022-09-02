@@ -15,7 +15,7 @@ export default function SkeletonSummary(props) {
         {children}
       </Col>
       <Col lg={12}>
-        <SkeletonMeta attributes={metaInfo} />
+        <SkeletonMeta attributes={{ image: metaInfo }} />
       </Col>
       <Col lg={4}>
         <Link to={searchUrl}>

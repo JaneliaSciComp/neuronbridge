@@ -229,17 +229,17 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       .map((result) => {
         const fullImageUrl = result.imageURL.startsWith("https://")
           ? result.imageURL
-          : `${appState.dataConfig.constants.img}/${result.imageURL}`;
+          : `${appState.dataConfig.prefixes.ColorDepthMip}${result.imageURL}`;
         const fullThumbUrl = result.thumbnailURL.startsWith("https://")
           ? result.thumbnailURL
-          : `${appState.dataConfig.constants.thm}/${result.thumbnailURL}`;
+          : `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result.thumbnailURL}`;
         return {
           ...result,
           imageURL: fullImageUrl,
           thumbnailURL: fullThumbUrl,
           // add the anatomical Area for code later down the tree to use
           // for determining image widths and heights.
-          anatomicalArea: result.anatomicalArea || input.anatomicalArea,
+          anatomicalArea: result.image.anatomicalArea || input.anatomicalArea,
         };
       })
 

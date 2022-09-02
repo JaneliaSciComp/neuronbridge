@@ -26,7 +26,7 @@ export default function LineSummary(props) {
         {children}
       </Col>
       <Col lg={12}>
-        <LineMeta attributes={lineMeta} />
+        <LineMeta attributes={{image: lineMeta}} />
       </Col>
       <Col lg={4}>
         <Link to={searchUrl}>

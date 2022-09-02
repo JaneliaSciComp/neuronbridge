@@ -22,7 +22,7 @@ export default function Summary(props) {
     <>
       <Row gutter={16}>
         <Col sm={12}>
-          <InputMeta mask={mask} isLM={isLM} compact={appState.compactMeta} />
+          <InputMeta mask={{image: mask}} isLM={isLM} compact={appState.compactMeta} />
         </Col>
         <Col sm={12}>
           <DownloadZipCheckbox matchId={selectedMatch.image.id} />

@@ -29,8 +29,8 @@ export default function SkeletonResult(props) {
     <Row>
       <Col md={10}>
         <ImageWithModal
-          thumbSrc={`${appState.dataConfig.constants.thm}/${metaInfo.files.ColorDepthMipThumbnail}`}
-          src={`${appState.dataConfig.constants.img}/${metaInfo.files.ColorDepthMip}`}
+          thumbSrc={`${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${metaInfo.files.ColorDepthMipThumbnail}`}
+          src={`${appState.dataConfig.prefixes.ColorDepthMip}${metaInfo.files.ColorDepthMip}`}
           title={metaInfo.publishedName}
           vertical={
             metaInfo.anatomicalArea === "VNC" ||
@@ -39,7 +39,7 @@ export default function SkeletonResult(props) {
         />
       </Col>
       <Col md={9}>
-        <SkeletonMeta attributes={metaInfo} />
+        <SkeletonMeta attributes={{image: metaInfo}} />
       </Col>
       <Col md={5}>
         <Space direction="vertical">

@@ -8,11 +8,18 @@ describe("LineMeta: unit tests", () => {
     const { getByText } = render(
       <MemoryRouter>
         <LineMeta attributes={{
-          slideCode: 'foo',
-          libraryName: 'bar'
+          image: {
+            slideCode: 'foo',
+            libraryName: 'bar',
+            gender: 'f',
+            anatomicalArea: 'Brain'
+          }
         }}/>
       </MemoryRouter>
     );
-    expect(getByText(/Slide Code/i));
+    expect(getByText(/Slide Code/i).closest('p').innerHTML.match(/foo/)).not.toBe(null);
+    expect(getByText(/Library/i).closest('p').innerHTML.match(/bar/)).not.toBe(null);
+    expect(getByText(/Gender/i).closest('p').innerHTML.match(/Female/)).not.toBe(null);
+    expect(getByText(/Anatomical Area/i).closest('p').innerHTML.match(/Brain/)).not.toBe(null);
   });
 });

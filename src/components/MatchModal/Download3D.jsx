@@ -16,16 +16,16 @@ const fileIconStyles = {
 };
 
 function getSWCLink(baseURL, construct) {
-  const filePath = `${baseURL}/${construct.libraryName}/${construct.publishedName}.swc`;
+  const filePath = `${baseURL}${construct.files.AlignedBodySWC}`;
   return <a href={filePath}>{construct.publishedName}.swc</a>;
 }
 
 function getH5JLink(construct) {
-  const imageStack = construct.image.files.VisuallyLosslessStack || construct.maskImageStack;
+  const imageStack = construct.files.VisuallyLosslessStack;
   if (imageStack) {
     return (
       <a href={imageStack}>
-        {construct.image.publishedName}-{construct.image.slideCode}.h5j
+        {construct.publishedName}-{construct.slideCode}.h5j
       </a>
     );
   }
@@ -44,14 +44,14 @@ export default function Download3D(props) {
       <Paragraph>
         <FileImageOutlined style={fileIconStyles} />{" "}
         {isLM
-          ? getSWCLink(appState.dataConfig.constants.swc, mask)
-          : getSWCLink(appState.dataConfig.constants.swc, selectedMatch)}{" "}
+          ? getSWCLink(appState.dataConfig?.prefixes?.AlignedBodySWC, mask)
+          : getSWCLink(appState.dataConfig?.prefixes?.AlignedBodySWC, selectedMatch.image)}{" "}
         (EM Skeleton)
       </Paragraph>
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
-          {isLM ? getH5JLink(selectedMatch) : getH5JLink(mask)} (LM image stack)
+          {isLM ? getH5JLink(selectedMatch.image) : getH5JLink(mask)} (LM image stack)
         </Paragraph>
       ) : (
         <Text type="danger">

@@ -13,11 +13,12 @@ describe("LineResult: unit tests", () => {
       <MemoryRouter>
         <LineResult
           metaInfo={{
+            publishedName: "pbname",
+            slideCode: "foo",
+            libraryName: "bar",
             upload: "test-file",
             thumbnailURL: "http://example.com",
             imageURL: "http://example.com",
-            slideCode: "foo",
-            libraryName: "bar"
           }}
         >
           <PlaceHolder />

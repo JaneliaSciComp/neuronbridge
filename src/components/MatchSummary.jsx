@@ -122,7 +122,7 @@ export default function MatchSummary(props) {
           {isLM ? (
             <LineMeta attributes={match} />
           ) : (
-            <SkeletonMeta attributes={match} />
+            <SkeletonMeta attributes={match.image} />
           )}
         </Col>
         <Col

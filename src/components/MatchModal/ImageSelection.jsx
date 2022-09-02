@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Select } from "antd";
@@ -34,6 +34,10 @@ function ImageSelection({
     initialMirrored = false;
   }
   const [mirrored, setMirrored] = useState(initialMirrored);
+
+  useEffect(() => {
+    setMirrored(initialMirrored);
+  },[initialMirrored]);
 
   const query = useQuery();
   const location = useLocation();

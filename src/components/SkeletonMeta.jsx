@@ -7,12 +7,22 @@ import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
 export default function SkeletonMeta({ attributes, compact }) {
-  const { publishedName, libraryName } = attributes;
+  if (!attributes.image) {
+    return (<span style={{color: "red"}}>attribute.image missing</span>);
+  }
+
+  const {
+    publishedName,
+    libraryName,
+    neuronType,
+    neuronInstance,
+    gender
+  } = attributes.image;
 
   const searchUrl = `/search?q=${publishedName}`;
 
-  const neuronTypeAndInstance = attributes.neuronType
-    ? [attributes.neuronType || "-", attributes.neuronInstance || "-"].join(
+  const neuronTypeAndInstance = neuronType
+    ? [neuronType || "-", neuronInstance || "-"].join(
         " / "
       )
     : "";
@@ -79,16 +89,12 @@ export default function SkeletonMeta({ attributes, compact }) {
       <Col xs={24} lg={12}>
         <p>
           <b>Gender:</b>
-          <br /> {attributes.gender === "f" ? "Female" : "Male"}
+          <br /> {gender === "f" ? "Female" : "Male"}
         </p>
         <p>
           <b>Links:</b>
           <br />
-          <ExternalLink
-            id={publishedName}
-            isLM={false}
-            library={libraryName}
-          />
+          <ExternalLink id={publishedName} isLM={false} library={libraryName} />
           <br />
           <Link to={searchUrl}>View Precomputed Search</Link>
         </p>
@@ -98,10 +104,24 @@ export default function SkeletonMeta({ attributes, compact }) {
 }
 
 SkeletonMeta.propTypes = {
-  attributes: PropTypes.object.isRequired,
-  compact: PropTypes.bool
+  attributes: PropTypes.shape({
+    image: PropTypes.shape({
+      id: PropTypes.string,
+      libraryName: PropTypes.string,
+      publishedName: PropTypes.string,
+      alignmentSpace: PropTypes.string,
+      gender: PropTypes.oneOf(["m", "f"]),
+      neuronType: PropTypes.string,
+      neuronInstance: PropTypes.string,
+    }),
+    normalizedScore: PropTypes.number,
+    matchingPixels: PropTypes.number,
+    pppScore: PropTypes.string,
+    pppRank: PropTypes.string,
+  }).isRequired,
+  compact: PropTypes.bool,
 };
 
 SkeletonMeta.defaultProps = {
-  compact: false
+  compact: false,
 };

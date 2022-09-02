@@ -1,0 +1,157 @@
+{
+  "results": [
+    {
+      "id": "2798488256180649995",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F1-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F1",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 1
+    },
+    {
+      "id": "2798488256155484171",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F1-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F1",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 2
+    },
+    {
+      "id": "2798488256151289867",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F1-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F1-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F1",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 3
+    },
+    {
+      "id": "2798488256260341771",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F2-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F2",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 1
+    },
+    {
+      "id": "2798488256176455691",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F2-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F2",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 2
+    },
+    {
+      "id": "2798488256214204427",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F2-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150828_24_F2",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 3
+    },
+    {
+      "id": "2798488454810304523",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D4-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150821_31_D4-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150821_31_D4",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 2
+    },
+    {
+      "id": "2798488454961299467",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150821_31_D5-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150821_31_D5-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150821_31_D5",
+      "objective": "63x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 2
+    },
+    {
+      "id": "2711777720504680459",
+      "libraryName": "FlyLight Split-GAL4 Drivers",
+      "publishedName": "LH173",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR",
+      "gender": "f",
+      "files": {
+        "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150123_41_A2-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150123_41_A2-f-20x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      },
+      "slideCode": "20150123_41_A2",
+      "objective": "20x",
+      "anatomicalArea": "Brain",
+      "mountingProtocol": "DPX PBS Mounting",
+      "channel": 1
+    }
+  ]
+}
