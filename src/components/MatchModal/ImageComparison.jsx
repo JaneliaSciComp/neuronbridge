@@ -12,13 +12,10 @@ import "./ImageComparison.css";
 
 const { Option } = Select;
 
-function createSourceSearchablePath(match, baseURL, library) {
-  if (match.sourceSearchablePNG) {
+function createSourceSearchablePath(match, baseURL) {
+  if (match.files.ColorDepthMipInput) {
     // for precomputed searches.
-    return `${baseURL}${match.alignmentSpace}/${library.replace(
-      /\s/g,
-      "_"
-    )}/searchable_neurons/pngs/${match.sourceSearchablePNG}`;
+    return `${baseURL.ColorDepthMipInput}${match.files.ColorDepthMipInput}`;
   }
   return "/nopath.png";
 }
@@ -130,8 +127,8 @@ function getMatchImageOptions(
       canMask: true
     }
   ];
-  if (match.sourceSearchablePNG) {
-    const path = createSourceSearchablePath(match, prefixes, library);
+  if (match.files.ColorDepthMipInput) {
+    const path = createSourceSearchablePath(match, prefixes);
     cdmOptions.push({
       key: "segmented",
       desc: `${

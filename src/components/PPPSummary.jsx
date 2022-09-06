@@ -14,7 +14,7 @@ export default function PPPSummary({ metaInfo, children }) {
         {children}
       </Col>
       <Col lg={12}>
-        <SkeletonMeta attributes={metaInfo} />
+        <SkeletonMeta attributes={{ image: metaInfo}} />
       </Col>
       <Col lg={4}>
         <Link to={searchUrl}>
