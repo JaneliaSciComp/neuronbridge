@@ -42,10 +42,10 @@ function getMatchImageOptions(
         desc: "LM - Best Channel CDM",
         imageType: "LM",
         path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
+          alignmentSpace: match.image.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMip,
-          baseURL: prefixes
+          baseURL: prefixes.SignalMip
         }),
         canMask: false
       },
@@ -54,10 +54,10 @@ function getMatchImageOptions(
         desc: "LM - Best Channel CDM with EM Overlay",
         imageType: "LM",
         path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
+          alignmentSpace: match.image.alignmentSpace,
           library,
           relativePath: match.files?.ColorDepthMipSkel,
-          baseURL: prefixes
+          baseURL: prefixes.ColorDepthMipSkel
         }),
         canMask: false
       },
@@ -66,10 +66,10 @@ function getMatchImageOptions(
         desc: "LM - Sample All-Channel MIP",
         imageType: "LM",
         path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
+          alignmentSpace: match.image.alignmentSpace,
           library,
           relativePath: match.files?.SignalMip,
-          baseURL: prefixes
+          baseURL: prefixes.SignalMip
         }),
         canMask: false
       },
@@ -78,10 +78,10 @@ function getMatchImageOptions(
         desc: "PPPM Mask",
         imageType: "EM",
         path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
+          alignmentSpace: match.image.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMasked,
-          baseURL: prefixes
+          baseURL: prefixes.SignalMipMasked
         }),
         canMask: false
       },
@@ -90,10 +90,10 @@ function getMatchImageOptions(
         desc: "PPPM Mask with EM Overlay",
         imageType: "EM",
         path: createPPPMImagePath({
-          alignmentSpace: match.alignmentSpace,
+          alignmentSpace: match.image.alignmentSpace,
           library,
           relativePath: match.files?.SignalMipMaskedSkel,
-          baseURL: prefixes
+          baseURL: prefixes.SignalMipMaskedSkel
         }),
         canMask: false
       }

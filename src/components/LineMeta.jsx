@@ -8,7 +8,7 @@ import ExternalLink from "./ExternalLink";
 
 export default function LineMeta({ attributes, compact }) {
   if (!attributes.image) {
-    return (<span style={{color: "red"}}>attribute.image missing</span>);
+    return <span style={{ color: "red" }}>attribute.image missing</span>;
   }
 
   const {
@@ -71,9 +71,13 @@ export default function LineMeta({ attributes, compact }) {
         <p>
           <b>Slide Code:</b> {slideCode}
         </p>
-        <p>
-          <b>Channel:</b> {channel}
-        </p>
+        {channel ? (
+          <p>
+            <b>Channel:</b> {channel}
+          </p>
+        ) : (
+          ""
+        )}
         <p>
           <b>Library: </b>
           <LibraryFormatter type={libraryName} />
