@@ -22,7 +22,7 @@ export default function LineMeta({ attributes, compact }) {
     mountingProtocol,
     alignmentSpace,
   } = attributes.image;
-  const searchUrl = `/search?q=${publishedName}`;
+  const searchUrl = `/search/lines/${publishedName}/matches/${attributes.image.id}`;
 
   if (compact) {
     return (
@@ -108,7 +108,7 @@ export default function LineMeta({ attributes, compact }) {
             library={libraryName}
           />
           <br />
-          <Link to={searchUrl}>View Precomputed Search</Link>
+          <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
       </Col>
     </Row>

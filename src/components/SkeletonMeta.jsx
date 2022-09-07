@@ -19,7 +19,7 @@ export default function SkeletonMeta({ attributes, compact }) {
     gender
   } = attributes.image;
 
-  const searchUrl = `/search?q=${publishedName}`;
+  const searchUrl = `/search/skeletons/${publishedName}/matches/${attributes.image.id}`;
 
   const neuronTypeAndInstance = neuronType
     ? [neuronType || "-", neuronInstance || "-"].join(
@@ -96,7 +96,7 @@ export default function SkeletonMeta({ attributes, compact }) {
           <br />
           <ExternalLink id={publishedName} isLM={false} library={libraryName} />
           <br />
-          <Link to={searchUrl}>View Precomputed Search</Link>
+          <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
       </Col>
     </Row>
