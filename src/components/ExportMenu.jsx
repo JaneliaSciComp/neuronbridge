@@ -20,7 +20,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
     state.selected.length <= 0
       ? resultsWithPosition
       : resultsWithPosition.filter(result =>
-          state.selected.includes(result.id)
+          state.selected.includes(result.image.id)
         );
 
   const menu = (
@@ -30,7 +30,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
       </Menu.Item>
       <Menu.Item key="image">
         <ImageExport
-          ids={selectedResults.map(result => result.id)}
+          ids={selectedResults.map(result => result.image.id)}
           isFiltered={state.selected.length >= 1}
           searchId={searchId}
           onChange={setLoading}
