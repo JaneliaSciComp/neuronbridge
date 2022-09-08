@@ -10,6 +10,17 @@ import { MatchesProvider } from "../containers/MatchesContext";
 
 import "./MatchesLoader.css";
 
+function formatFullImageUrl(baseUrl, result) {
+  return `${baseUrl}${result.image.files.ColorDepthMip || result.files.ColorDepthMip}`;
+}
+
+function formatFullImageThumbnailUrl(baseUrl, result, searchType) {
+  if (searchType === "ppp") {
+    return `${baseUrl}${result.files.ColorDepthMip.replace(/\.png$/, '.jpg')}`;
+  }
+	return `${baseUrl}${result.image.files.ColorDepthMipThumbnail}`;
+}
+
 export default function MatchesLoader({ searchResult, searchType }) {
   const [isLoading, setLoading] = useState(false);
   const [matchMeta, setMatchMeta] = useState(null);
@@ -40,8 +51,8 @@ export default function MatchesLoader({ searchResult, searchType }) {
               fr.onload = (evt) => {
                 const json = JSON.parse(evt.target.result);
                 const fixedResults = json.results.map((result) => {
-                  const fullImageUrl = `${appState.dataConfig.imageryBaseURL}/${result.imageURL}`;
-                  const fullThumbUrl = `${appState.dataConfig.thumbnailsBaseURLs}/${result.thumbnailURL}`;
+                  const fullImageUrl = formatFullImageUrl(appState.dataConfig.prefixes.ColorDepthMip, result);
+                  const fullThumbUrl = formatFullImageThumbnailUrl(appState.dataConfig.prefixes.ColorDepthMipThumbnail, result, searchType);
                   const fixedResult = {
                     ...result,
                     imageURL: fullImageUrl,
