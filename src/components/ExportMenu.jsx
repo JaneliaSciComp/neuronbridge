@@ -28,7 +28,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
       <Menu.Item key="results" disabled={selectedResults.length < 1}>
         <ResultsExport results={selectedResults} searchType={searchType} />
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="image">
         <ImageExport
           ids={selectedResults.map(result => result.id)}
           isFiltered={state.selected.length >= 1}
