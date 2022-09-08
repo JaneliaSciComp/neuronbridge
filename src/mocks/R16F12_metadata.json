@@ -9,7 +9,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776897754202123.json"
       },
       "slideCode": "20181127_64_D1",
       "objective": "40x",
@@ -26,7 +27,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777268786528267.json"
       },
       "slideCode": "20181127_64_D1",
       "objective": "40x",
@@ -43,7 +45,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777073050943499.json"
       },
       "slideCode": "20181127_64_D1",
       "objective": "40x",
@@ -60,7 +63,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776882696650763.json"
       },
       "slideCode": "20181127_64_D2",
       "objective": "40x",
@@ -77,7 +81,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777357399588875.json"
       },
       "slideCode": "20181127_64_D2",
       "objective": "40x",
@@ -94,7 +99,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D2-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D2-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776940934561803.json"
       },
       "slideCode": "20181127_64_D2",
       "objective": "40x",
@@ -111,7 +117,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777129653075979.json"
       },
       "slideCode": "20181127_64_D3",
       "objective": "40x",
@@ -128,7 +135,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777108698333195.json"
       },
       "slideCode": "20181127_64_D3",
       "objective": "40x",
@@ -145,7 +153,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D3-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D3-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776998811762699.json"
       },
       "slideCode": "20181127_64_D3",
       "objective": "40x",
@@ -162,7 +171,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777397543272459.json"
       },
       "slideCode": "20181127_64_D4",
       "objective": "40x",
@@ -179,7 +189,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777106034950155.json"
       },
       "slideCode": "20181127_64_D4",
       "objective": "40x",
@@ -196,7 +207,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D4-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D4-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776944290005003.json"
       },
       "slideCode": "20181127_64_D4",
       "objective": "40x",
@@ -213,7 +225,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776906910367755.json"
       },
       "slideCode": "20181127_64_D5",
       "objective": "40x",
@@ -230,7 +243,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776902707675147.json"
       },
       "slideCode": "20181127_64_D5",
       "objective": "40x",
@@ -247,7 +261,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D5-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D5-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777308275900427.json"
       },
       "slideCode": "20181127_64_D5",
       "objective": "40x",
@@ -264,7 +279,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777361455480843.json"
       },
       "slideCode": "20181127_64_D6",
       "objective": "40x",
@@ -281,7 +297,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711776870440894475.json"
       },
       "slideCode": "20181127_64_D6",
       "objective": "40x",
@@ -298,7 +315,8 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D6-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_3.jpg",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D6-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+        "CDSResults": "2711777122036219915.json"
       },
       "slideCode": "20181127_64_D6",
       "objective": "40x",
