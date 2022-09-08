@@ -9,7 +9,9 @@
       "files": {
         "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1537331894-JRC2018_Unisex_20x_HR-CDM.png",
         "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1537331894-JRC2018_Unisex_20x_HR-CDM.jpg",
-        "AlignedBodySWC": "FlyEM_Hemibrain_v1.2.1/1537331894.swc"
+        "AlignedBodySWC": "FlyEM_Hemibrain_v1.2.1/1537331894.swc",
+        "CDSResults": "2945073141049430027.json",
+        "PPPMResults": "1537331894.json"
       },
       "neuronType": "vDeltaA_a",
       "neuronInstance": "vDeltaA_a(AB)_C2"

@@ -43,7 +43,7 @@ export default function SkeletonResult(props) {
       </Col>
       <Col md={5}>
         <Space direction="vertical">
-          {metaInfo.cdm ? (
+          {metaInfo?.files?.CDSResults ? (
             <Button
               aria-label="View Color Depth Search Results"
               type="primary"
@@ -56,7 +56,7 @@ export default function SkeletonResult(props) {
           ) : (
             ""
           )}
-          {metaInfo.ppp ? (
+          {metaInfo?.files?.PPPMResults ? (
             <Button
               aria-label="View PatchPerPixMatch Results"
               type="primary"
