@@ -14,24 +14,27 @@ export default function ResultsExport({ results, searchType }) {
   // in the list, then add it to the headers we are going to use.
   const headersList = [
     { label: "Number", key: "position" },
-    { label: name, key: "publishedName" },
+    { label: name, key: "image.publishedName" },
     { label: "Rank", key: "pppRank" },
     { label: "Score", key: "normalizedScore" },
     { label: "Score", key: "pppScore" },
     { label: "Matched Pixels", key: "matchingPixels" },
-    { label: "Library", key: "libraryName" },
-    { label: "Channel", key: "channel" },
-    { label: "Magnification", key: "objective" },
-    { label: "Slide Code", key: "slideCode" },
-    { label: "Gender", key: "gender" },
-    { label: "Alignment Space", key: "alignmentSpace" },
-    { label: "Mounting Protocol", key: "mountingProtocol" },
-    { label: "Anatomical Area", key: "anatomicalArea" },
-    { label: "Neuron Type", key: "neuronType" },
-    { label: "Neuron Instance", key: "neuronInstance" }
+    { label: "Library", key: "image.libraryName" },
+    { label: "Channel", key: "image.channel" },
+    { label: "Magnification", key: "image.objective" },
+    { label: "Slide Code", key: "image.slideCode" },
+    { label: "Gender", key: "image.gender" },
+    { label: "Alignment Space", key: "image.alignmentSpace" },
+    { label: "Mounting Protocol", key: "image.mountingProtocol" },
+    { label: "Anatomical Area", key: "image.anatomicalArea" },
+    { label: "Neuron Type", key: "image.neuronType" },
+    { label: "Neuron Instance", key: "image.neuronInstance" }
   ];
 
-  const dataKeys = Object.keys(results[0]);
+	// we have to unroll the keys from the top level and the ones inside
+	// the image key, so that we don't miss any when creating the csv file
+	// headers.
+  const dataKeys = [...Object.keys(results[0]), ...Object.keys(results[0].image).map(key => `image.${key}`)];
 
   const headers = headersList.map(header => {
     if (dataKeys.includes(header.key)) {
