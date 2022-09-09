@@ -65,8 +65,8 @@ function Search() {
                 const newResults = JSON.parse(text);
                 // convert stored relative urls into the full path urls.
                 const urlFixedResults = newResults.results.map(newResult => {
-                  const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${newResult.files.ColorDepthMip}`;
-                  const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${newResult.files.ColorDepthMipThumbnail}`;
+                  const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${newResult?.files?.ColorDepthMip}`;
+                  const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${newResult?.files?.ColorDepthMipThumbnail}`;
                   return {...newResult, imageURL: fullImageUrl, thumbnailURL: fullThumbUrl};
                 });
                 combined.results.push(...urlFixedResults);

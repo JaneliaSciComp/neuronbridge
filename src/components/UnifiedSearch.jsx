@@ -26,8 +26,8 @@ export default function UnifiedSearch() {
   useEffect(() => {
     function fixUrlResults(newResults, match) {
       return newResults.results.map(result => {
-        const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${result.files.ColorDepthMip}`;
-        const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result.files.ColorDepthMipThumbnail}`;
+        const fullImageUrl = `${appState.dataConfig.prefixes.ColorDepthMip}${result?.files?.ColorDepthMip}`;
+        const fullThumbUrl = `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result?.files?.ColorDepthMipThumbnail}`;
         return {
           ...result,
           imageURL: fullImageUrl,
