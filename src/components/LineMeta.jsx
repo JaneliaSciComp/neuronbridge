@@ -126,7 +126,7 @@ LineMeta.propTypes = {
       slideCode: PropTypes.string,
       objective: PropTypes.string,
       anatomicalArea: PropTypes.string,
-      channel: PropTypes.number,
+      channel: PropTypes.string,
       mountingProtocol: PropTypes.string,
     }),
     normalizedScore: PropTypes.number,
