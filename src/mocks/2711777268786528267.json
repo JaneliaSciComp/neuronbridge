@@ -8,7 +8,8 @@
     "files": {
       "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
       "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R16F12-20181127_64_D1-GAL4-f-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-      "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Gen1+MCFO/R16F12/R16F12-20181127_64_D1-f-40x-central-GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+      "CDSResults": "2711777268786528267.json"
     },
     "slideCode": "20181127_64_D1",
     "objective": "40x",

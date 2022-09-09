@@ -8,7 +8,8 @@
     "files": {
       "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
       "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/LH173-20150828_24_F2-Split_GAL4-f-63x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
-      "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F2-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j"
+      "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/Lateral+Horn+2019/LH173/LH173-20150828_24_F2-f-63x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+      "CDSResults": "2798488256260341771.json"
     },
     "slideCode": "20150828_24_F2",
     "objective": "63x",
