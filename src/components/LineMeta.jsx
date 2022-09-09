@@ -131,8 +131,8 @@ LineMeta.propTypes = {
     }),
     normalizedScore: PropTypes.number,
     matchingPixels: PropTypes.number,
-    pppScore: PropTypes.string,
-    pppRank: PropTypes.string,
+    pppScore: PropTypes.number,
+    pppRank: PropTypes.number,
   }).isRequired,
   compact: PropTypes.bool,
 };
