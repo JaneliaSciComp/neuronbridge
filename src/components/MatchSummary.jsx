@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
@@ -6,26 +6,23 @@ import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import DownloadSelect from "./MatchSummary/DownloadSelect";
 import GenderIcon from "./MatchSummary/GenderIcon";
-import { signedPublicLink, createPPPMImagePath } from "../libs/awsLib";
+import { signedPublicLink } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
+import { AppContext } from "../containers/AppContext";
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView, library, paths } = props;
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
   const query = useQuery();
+  const { appState } = useContext(AppContext);
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppScore);
 
   useEffect(() => {
     if (isPPP && match.files?.ColorDepthMipSkel) {
-      const url = createPPPMImagePath({
-        alignmentSpace: match.image.alignmentSpace,
-        library,
-        relativePath: match.files?.ColorDepthMip,
-        baseURL: paths.pppImageryBaseURL
-      });
+      const url = `${appState.dataConfig.prefixes.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
       signedPublicLink(url).then(signed => {
         setSignedSrc(signed);
       });
@@ -46,7 +43,7 @@ export default function MatchSummary(props) {
         setSignedThumbnailSrc(signed);
       });
     }
-  }, [match, isPPP, library, paths.pppImageryBaseURL]);
+  }, [appState.dataConfig, match, isPPP, library, paths.pppImageryBaseURL]);
 
   const { publishedName } = match.image;
 
@@ -122,7 +119,7 @@ export default function MatchSummary(props) {
           {isLM ? (
             <LineMeta attributes={match} />
           ) : (
-            <SkeletonMeta attributes={match.image} />
+            <SkeletonMeta attributes={match} />
           )}
         </Col>
         <Col
