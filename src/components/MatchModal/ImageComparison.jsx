@@ -4,7 +4,6 @@ import { useLocation, useHistory } from "react-router-dom";
 import { Row, Col, Select, Divider } from "antd";
 import { AppContext } from "../../containers/AppContext";
 import ImageSelection from "./ImageSelection";
-import { createPPPMImagePath } from "../../libs/awsLib";
 import { useQuery } from "../../libs/hooksLib";
 import { CoordsProvider } from "../../containers/MouseCoordsContext";
 
@@ -41,60 +40,35 @@ function getMatchImageOptions(
         key: "bestMip",
         desc: "LM - Best Channel CDM",
         imageType: "LM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.image.alignmentSpace,
-          library,
-          relativePath: match.files?.ColorDepthMip,
-          baseURL: prefixes.SignalMip
-        }),
+        path: `${prefixes.ColorDepthMipBest}${match.files?.ColorDepthMipBest}`,
         canMask: false
       },
       {
         key: "display",
         desc: "LM - Best Channel CDM with EM Overlay",
         imageType: "LM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.image.alignmentSpace,
-          library,
-          relativePath: match.files?.ColorDepthMipSkel,
-          baseURL: prefixes.ColorDepthMipSkel
-        }),
+        path: `${prefixes.ColorDepthMipSkel}${match.files?.ColorDepthMipSkel}`,
         canMask: false
       },
       {
         key: "sampleMIP",
         desc: "LM - Sample All-Channel MIP",
         imageType: "LM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.image.alignmentSpace,
-          library,
-          relativePath: match.files?.SignalMip,
-          baseURL: prefixes.SignalMip
-        }),
+        path: `${prefixes.SignalMip}${match.files?.SignalMip}`,
         canMask: false
       },
       {
         key: "pppmMask",
         desc: "PPPM Mask",
         imageType: "EM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.image.alignmentSpace,
-          library,
-          relativePath: match.files?.SignalMipMasked,
-          baseURL: prefixes.SignalMipMasked
-        }),
+        path: `${prefixes.SignalMipMasked}${match.files?.SignalMipMasked}`,
         canMask: false
       },
       {
         key: "pppmMaskWithEMOverlay",
         desc: "PPPM Mask with EM Overlay",
         imageType: "EM",
-        path: createPPPMImagePath({
-          alignmentSpace: match.image.alignmentSpace,
-          library,
-          relativePath: match.files?.SignalMipMaskedSkel,
-          baseURL: prefixes.SignalMipMaskedSkel
-        }),
+        path: `${prefixes.SignalMipMaskedSkel}${match.files?.SignalMipMaskedSkel}`,
         canMask: false
       }
       /* {
