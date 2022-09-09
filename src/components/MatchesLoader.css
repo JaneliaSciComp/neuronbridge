@@ -1,12 +1,16 @@
 .searchTabs a.activeSearch {
-  border-bottom: 3px solid;
+  border-bottom: 2px solid;
 }
 
 .searchTabs a {
   margin-right: 1em;
-  border-bottom: 3px solid #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
+  position: relative;
+  top: -0.5em;
+  padding-bottom: 0.5em;
 }
 
 .searchTabs {
   border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1em;
 }

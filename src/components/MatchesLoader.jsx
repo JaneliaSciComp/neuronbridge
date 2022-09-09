@@ -10,15 +10,18 @@ import { MatchesProvider } from "../containers/MatchesContext";
 
 import "./MatchesLoader.css";
 
-function formatFullImageUrl(baseUrl, result) {
-  return `${baseUrl}${result.image.files.ColorDepthMip || result.files.ColorDepthMip}`;
+function formatFullImageUrl(baseUrl, result, searchType) {
+  if (searchType === "ppp") {
+    return `${baseUrl}${result?.image?.files?.ColorDepthMipBest || result?.files?.ColorDepthMipBest}`;
+  }
+  return `${baseUrl}${result?.image?.files?.ColorDepthMip || result?.files?.ColorDepthMip}`;
 }
 
 function formatFullImageThumbnailUrl(baseUrl, result, searchType) {
   if (searchType === "ppp") {
-    return `${baseUrl}${result.files.ColorDepthMip.replace(/\.png$/, '.jpg')}`;
+    return `${baseUrl}${result?.files?.ColorDepthMipBest.replace(/\.png$/, '.jpg')}`;
   }
-	return `${baseUrl}${result.image.files.ColorDepthMipThumbnail}`;
+	return `${baseUrl}${result?.image?.files?.ColorDepthMipThumbnail}`;
 }
 
 export default function MatchesLoader({ searchResult, searchType }) {
@@ -51,7 +54,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
               fr.onload = (evt) => {
                 const json = JSON.parse(evt.target.result);
                 const fixedResults = json.results.map((result) => {
-                  const fullImageUrl = formatFullImageUrl(appState.dataConfig.prefixes.ColorDepthMip, result);
+                  const fullImageUrl = formatFullImageUrl(appState.dataConfig.prefixes.ColorDepthMip, result, searchType);
                   const fullThumbUrl = formatFullImageThumbnailUrl(appState.dataConfig.prefixes.ColorDepthMipThumbnail, result, searchType);
                   const fixedResult = {
                     ...result,
@@ -135,7 +138,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
           >
             Color Depth Search Results
           </Link>
-          {matchMeta ? (
+          {matchMeta?.inputImage?.files?.PPPMResults ? (
             <Link
               className={searchType === "ppp" ? "activeSearch" : ""}
               to={`/search/ppp/${searchTerm}/matches/${matchId}`}
