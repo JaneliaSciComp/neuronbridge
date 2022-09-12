@@ -22,8 +22,6 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
             />
           </li>
         </ul>
-      </Col>
-      <Col md={24} lg={12}>
         <h3>Matching Image:</h3>
         <ul>
           <li>
@@ -35,6 +33,14 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         </ul>
       </Col>
       <Col xs={24}>
+          <h3>Cite NeuronBridge</h3>
+          <ul>
+          <li>
+            <a href="https://doi.org/10.1101/2022.07.20.500311">
+              Clements et al., 2022
+            </a>
+          </li>
+        </ul>
         <p>
           See also, the <Link to="/about">references section</Link> on our about
           page
