@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
-import MatchReferences from "./MatchReferences";
 
 export default function SkeletonMeta({ attributes, compact }) {
-
   if (!attributes.image) {
-    return (<span style={{color: "red"}}>attribute.image missing</span>);
+    return <span style={{ color: "red" }}>attribute.image missing</span>;
   }
 
   const {
@@ -18,15 +16,13 @@ export default function SkeletonMeta({ attributes, compact }) {
     libraryName,
     neuronType,
     neuronInstance,
-    gender
+    gender,
   } = attributes.image;
 
   const searchUrl = `/search/skeletons/${publishedName}/matches/${attributes.image.id}`;
 
   const neuronTypeAndInstance = neuronType
-    ? [neuronType || "-", neuronInstance || "-"].join(
-        " / "
-      )
+    ? [neuronType || "-", neuronInstance || "-"].join(" / ")
     : "";
 
   if (compact) {
@@ -100,7 +96,6 @@ export default function SkeletonMeta({ attributes, compact }) {
           <br />
           <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
-        <MatchReferences library={libraryName} publishedName={publishedName} />
       </Col>
     </Row>
   );

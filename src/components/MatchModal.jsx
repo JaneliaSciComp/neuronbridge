@@ -103,7 +103,10 @@ export default function MatchModal(props) {
           <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
         </TabPane>
         <TabPane tab="Cite this Match" key="cite">
-          <Citations match={selectedMatch} />
+          <Citations match={selectedMatch} mask={mask}
+            matchRank={selected}
+            matchesTotal={matchesList.length}
+        />
         </TabPane>
       </Tabs>
     </Modal>

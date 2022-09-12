@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
-import MatchReferences from "./MatchReferences";
 
 export default function LineMeta({ attributes, compact }) {
   if (!attributes.image) {
@@ -111,7 +110,6 @@ export default function LineMeta({ attributes, compact }) {
           <br />
           <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
-        <MatchReferences library={libraryName} publishedName={publishedName} />
       </Col>
     </Row>
   );

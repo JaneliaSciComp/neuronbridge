@@ -10,9 +10,13 @@ export default function MatchReferences({ library, publishedName }) {
   useEffect(() => {
     if (appState?.dataConfig?.datasets) {
       Auth.currentCredentials().then(() => {
+        const queryString = library && appState.dataConfig.datasets[library]
+          ? `${appState.dataConfig.datasets[library]}#${publishedName}`
+          : publishedName;
+
         API.get("SearchAPI", "/publishing_dois", {
           queryStringParameters: {
-            q: `${appState.dataConfig.datasets[library]}#${publishedName}`,
+            q: queryString,
           },
         })
           .then((papers) => {
@@ -26,16 +30,10 @@ export default function MatchReferences({ library, publishedName }) {
   }, [publishedName, library, appState.dataConfig.datasets]);
 
   if (!publication) {
-    return <p>loading...</p>;
+    return <span>loading...</span>;
   }
 
-  return (
-    <p>
-      References:
-      <br />
-      <a href={publication.doi}>{publication.citation}</a>
-    </p>
-  );
+  return <a href={publication.doi}>{publication.citation}</a>;
 }
 
 MatchReferences.propTypes = {
