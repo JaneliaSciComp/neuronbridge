@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
+import MatchReferences from "./MatchReferences";
 
 export default function SkeletonMeta({ attributes, compact }) {
+
   if (!attributes.image) {
     return (<span style={{color: "red"}}>attribute.image missing</span>);
   }
@@ -98,6 +100,7 @@ export default function SkeletonMeta({ attributes, compact }) {
           <br />
           <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
+        <MatchReferences library={libraryName} publishedName={publishedName} />
       </Col>
     </Row>
   );

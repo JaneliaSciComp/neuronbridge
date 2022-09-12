@@ -15,6 +15,9 @@
         "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0-alpha/metadata/cdsresults/",
         "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0-alpha/metadata/pppresults/"
     },
+    "datasets": {
+      "FlyEM_Hemibrain_v1.2.1": "hemibrain"
+    },
     "anatomicalRegions": [
         { "label": "Brain", "value": "brain" },
         { "label": "VNC", "value": "vnc", "disabled": true}

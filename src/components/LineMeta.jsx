@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
+import MatchReferences from "./MatchReferences";
 
 export default function LineMeta({ attributes, compact }) {
   if (!attributes.image) {
@@ -110,6 +111,7 @@ export default function LineMeta({ attributes, compact }) {
           <br />
           <Link to={searchUrl}>View Precomputed Matches</Link>
         </p>
+        <MatchReferences library={libraryName} publishedName={publishedName} />
       </Col>
     </Row>
   );
@@ -126,7 +128,7 @@ LineMeta.propTypes = {
       slideCode: PropTypes.string,
       objective: PropTypes.string,
       anatomicalArea: PropTypes.string,
-      channel: PropTypes.string,
+      channel: PropTypes.number,
       mountingProtocol: PropTypes.string,
     }),
     normalizedScore: PropTypes.number,
