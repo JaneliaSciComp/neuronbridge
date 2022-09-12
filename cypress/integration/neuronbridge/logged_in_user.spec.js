@@ -1,10 +1,14 @@
 describe("logged in neuronbridge user", () => {
-  it("can load the home page and see the search input", () => {
-    cy.visit("/login");
+  beforeEach(() => {
+   cy.visit("/login");
     cy.findByLabelText("Email")
       .type(Cypress.env("username"));
     cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
+    cy.wait(2000);
+  });
+
+  it("can load the home page and see the search input", () => {
     cy.findByText("Welcome to NeuronBridge", {
       timeout: 8000
     });
@@ -12,33 +16,14 @@ describe("logged in neuronbridge user", () => {
   });
 
   it("can see the about page", () => {
-    cy.visit("/login");
-    cy.findByLabelText("Email")
-      .type(Cypress.env("username"));
-    cy.findByLabelText("Password").type(Cypress.env("password"));
-    cy.findByLabelText("Login").click();
-
     cy.visit("/about");
     cy.findByText("About NeuronBridge", { timeout: 4000 });
   });
   it("can see the help page", () => {
-    cy.visit("/login");
-    cy.findByLabelText("Email")
-      .type(Cypress.env("username"));
-    cy.findByLabelText("Password").type(Cypress.env("password"));
-    cy.findByLabelText("Login").click();
-
     cy.visit("/help");
     cy.findByText("Obtaining the raw data");
   });
   it("can't see the signup page", () => {
-    cy.visit("/login");
-    cy.findByLabelText("Email")
-      .type(Cypress.env("username"));
-    cy.findByLabelText("Password").type(Cypress.env("password"));
-    cy.findByLabelText("Login").click();
-    // need to wait for the login code to set the logged in user.
-    cy.wait(2000);
     // should get the homepage instead
     cy.visit("/signup");
     cy.findByText("Welcome to NeuronBridge", { timeout: 4000 });
@@ -46,25 +31,11 @@ describe("logged in neuronbridge user", () => {
 
   it("can't see the login page", () => {
     cy.visit("/login");
-    cy.findByLabelText("Email")
-      .type(Cypress.env("username"));
-    cy.findByLabelText("Password").type(Cypress.env("password"));
-    cy.findByLabelText("Login").click();
-    // need to wait for the login code to set the logged in user.
-    cy.wait(2000);
-    cy.visit("/login");
     // should get the homepage instead
     cy.findByText("Welcome to NeuronBridge", { timeout: 4000 });
   });
 
   it("can see the search pages", () => {
-    cy.visit("/login");
-    cy.findByLabelText("Email")
-      .type(Cypress.env("username"));
-    cy.findByLabelText("Password").type(Cypress.env("password"));
-    cy.findByLabelText("Login").click();
-    // need to wait for the login code to set the logged in user.
-    cy.wait(2000);
     // should see search results.
     cy.visit("/search");
     cy.findByText(/search help/i, { timeout: 4000 });
