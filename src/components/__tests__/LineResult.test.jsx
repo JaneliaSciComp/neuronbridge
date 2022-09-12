@@ -8,7 +8,7 @@ function PlaceHolder() {
 }
 
 describe("LineResult: unit tests", () => {
-  it("renders", () => {
+  it("Shows CDM results button", () => {
     const { getByText } = render(
       <MemoryRouter>
         <LineResult
@@ -19,6 +19,9 @@ describe("LineResult: unit tests", () => {
             upload: "test-file",
             thumbnailURL: "http://example.com",
             imageURL: "http://example.com",
+            files: {
+              CDSResults: 'foo'
+            },
           }}
         >
           <PlaceHolder />
@@ -26,5 +29,27 @@ describe("LineResult: unit tests", () => {
       </MemoryRouter>
     );
     expect(getByText(/Color Depth Search Results/i));
+  });
+  it("hides CDM results button when no results are found", () => {
+    const { queryByText } = render(
+      <MemoryRouter>
+        <LineResult
+          metaInfo={{
+            publishedName: "pbname",
+            slideCode: "foo",
+            libraryName: "bar",
+            upload: "test-file",
+            thumbnailURL: "http://example.com",
+            imageURL: "http://example.com",
+            files: {
+              PPPMResults: 'foo'
+            },
+          }}
+        >
+          <PlaceHolder />
+        </LineResult>
+      </MemoryRouter>
+    );
+    expect(queryByText(/Color Depth Search Results/i)).toBeNull();
   });
 });
