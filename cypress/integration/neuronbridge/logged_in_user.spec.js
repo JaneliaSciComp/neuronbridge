@@ -2,20 +2,20 @@ describe("logged in neuronbridge user", () => {
   it("can load the home page and see the search input", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
     cy.findByText("Welcome to NeuronBridge", {
-      timeout: 4000
+      timeout: 8000
     });
-    cy.findByLabelText("Search", { timeout: 4000 });
+    cy.findByLabelText("Search", { timeout: 8000 });
   });
 
   it("can see the about page", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
 
     cy.visit("/about");
@@ -24,8 +24,8 @@ describe("logged in neuronbridge user", () => {
   it("can see the help page", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
 
     cy.visit("/help");
@@ -34,8 +34,8 @@ describe("logged in neuronbridge user", () => {
   it("can't see the signup page", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
     // need to wait for the login code to set the logged in user.
     cy.wait(2000);
@@ -47,8 +47,8 @@ describe("logged in neuronbridge user", () => {
   it("can't see the login page", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
     // need to wait for the login code to set the logged in user.
     cy.wait(2000);
@@ -60,17 +60,17 @@ describe("logged in neuronbridge user", () => {
   it("can see the search pages", () => {
     cy.visit("/login");
     cy.findByLabelText("Email")
-      .type("test2@jodyclements.com");
-    cy.findByLabelText("Password").type("Testing_!123");
+      .type(Cypress.env("username"));
+    cy.findByLabelText("Password").type(Cypress.env("password"));
     cy.findByLabelText("Login").click();
     // need to wait for the login code to set the logged in user.
     cy.wait(2000);
     // should see search results.
     cy.visit("/search");
     cy.findByText(/search help/i, { timeout: 4000 });
-    cy.visit("/search?q=1077847238")
+    cy.visit("/search?q=1537331894")
     cy.findByLabelText(/color depth search results/i, { timeout: 4000 });
-    cy.visit("/search/skeletons/1077847238/matches/2757945537360560139");
+    cy.visit("/search/skeletons/1537331894/matches/2945073141049430027");
     cy.findByLabelText("Search", { timeout: 4000 });
     cy.visit("/search/lines/LH173/matches/2711777430657302539");
     cy.findByText(/input image/i, { timeout: 4000 });
