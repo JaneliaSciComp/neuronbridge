@@ -18,6 +18,7 @@ describe("logged in neuronbridge user", () => {
     cy.findByText("Help").click();
     cy.findByText("Obtaining the raw data");
   });
+
   it("can't see the signup and login page", () => {
     // should get the homepage instead
     cy.visit("/signup");
@@ -46,9 +47,9 @@ describe("logged in neuronbridge user", () => {
     cy.findByText(/Scheffer, et al., 2020/i);
     cy.findByText(/download 3d files/i, { timeout: 4000 }).click();
     cy.findByText(/\d+\.swc/i);
-    // cy.findAllByLabelText(/close/i, { timeout: 4000 })[0].click();
-    // cy.findByLabelText(/back to all results/i, { timeout: 4000 }).click();
-    // cy.findByLabelText(/patchperpixmatch results/i, { timeout: 4000 }).click();
-    // cy.findByText(/neuron type \/ instance/i);
+    cy.get('.ant-modal-close-x').click();
+    cy.findByText(/back to all results/i, { timeout: 4000 }).click();
+    cy.findByLabelText(/patchperpixmatch results/i, { timeout: 4000 }).click();
+    cy.findByText(/neuron type \/ instance/i);
   });
 });
