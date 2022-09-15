@@ -76,7 +76,7 @@ export default function References() {
 
       <dt>EM-LM unification template</dt>
       <dd>
-        <a href="https://doi.org/10.1101/376384">Bogovic et al., 2019</a>
+        <a href="https://doi.org/10.1371/journal.pone.0236495">Bogovic et al., 2020</a>
       </dd>
 
     </dl>

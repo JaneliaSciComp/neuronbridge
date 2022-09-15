@@ -35,6 +35,8 @@ export default function About() {
       </Paragraph>
       <Row>
         <Col sm={12}>
+          <Title>Source Code</Title>
+          <p><a href="https://github.com/JaneliaSciComp/neuronbridge">Github</a></p>
           <Title>Team</Title>
           <Title level={3}>Scientific Advisors:</Title>
           <ul>
