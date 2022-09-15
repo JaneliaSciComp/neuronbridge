@@ -17,6 +17,9 @@ export default function References() {
       <dd>
         <a href="https://doi.org/10.1101/2021.07.23.453511">Hirsch et al., 2020</a>
       </dd>
+      <dd>
+        <a href="https://doi.org/10.1101/2021.07.23.453511">Mais et al., 2021</a>
+      </dd>
 
       <dt>Gen1 MCFO collection</dt>
       <dd>
