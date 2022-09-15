@@ -5,6 +5,7 @@ import { Auth, Storage } from "aws-amplify";
 import Confetti from "react-confetti";
 import { TwitterOutlined } from "@ant-design/icons";
 import { faEnvelope, faQuestion } from "@fortawesome/pro-regular-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
 import LoggedInAs from "./components/LoggedInAs";
@@ -31,7 +32,7 @@ const isInternalSite =
 // Storage options used to load current.txt and config.json
 const storageOptions = {
   customPrefix: {
-    public: ""
+    public: "",
   },
   level: "public",
   download: true,
@@ -39,14 +40,16 @@ const storageOptions = {
   // cache control header to prevent aggressive caching of the
   // config.json file, so that the updated version on a release is
   // used as soon as possible.
-  cacheControl: "no-cache"
+  cacheControl: "no-cache",
 };
 
 export default function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const { appState, setState, setAppState, setPermanent } = useContext(AppContext);
+  const { appState, setState, setAppState, setPermanent } = useContext(
+    AppContext
+  );
   const [confetti, setConfetti] = useState(false);
-  const [configLoadStatus, setConfigLoadStatus] = useState('pending');
+  const [configLoadStatus, setConfigLoadStatus] = useState("pending");
   const location = useLocation();
 
   useKonami(() => {
@@ -105,9 +108,9 @@ export default function App() {
       // grab the version number out of it and use that to grab the current
       // config.json file, which replaces paths.json.
       Auth.currentCredentials().then(() => {
-        Storage.get(dataVersionFile(), storageOptions).then(result => {
+        Storage.get(dataVersionFile(), storageOptions).then((result) => {
           const fr = new FileReader();
-          fr.onload = evt => {
+          fr.onload = (evt) => {
             const dataVersion = evt.target.result.trim();
             setState({ dataVersion });
           };
@@ -119,15 +122,28 @@ export default function App() {
 
   useEffect(() => {
     if (configLoadStatus === "pending") {
-      if (isAuthenticated && appState.dataVersion && !appState.dataConfig.loaded) {
+      if (
+        isAuthenticated &&
+        appState.dataVersion &&
+        !appState.dataConfig.loaded
+      ) {
         setConfigLoadStatus("loading");
         Auth.currentCredentials().then(() => {
-          Storage.get(`${appState.dataVersion}/config.json`, storageOptions).then(result => {
+          Storage.get(
+            `${appState.dataVersion}/config.json`,
+            storageOptions
+          ).then((result) => {
             const fr = new FileReader();
-            fr.onload = evt => {
+            fr.onload = (evt) => {
               const dataConfig = JSON.parse(evt.target.result);
               if (dataConfig !== appState.dataConfig) {
-                setState({dataConfig: { ...appState.dataConfig, ...dataConfig, loaded: true }});
+                setState({
+                  dataConfig: {
+                    ...appState.dataConfig,
+                    ...dataConfig,
+                    loaded: true,
+                  },
+                });
               }
             };
             fr.readAsText(result.Body);
@@ -136,7 +152,13 @@ export default function App() {
         });
       }
     }
-  }, [isAuthenticated, setState, appState.dataVersion, appState.dataConfig, configLoadStatus]);
+  }, [
+    isAuthenticated,
+    setState,
+    appState.dataVersion,
+    appState.dataConfig,
+    configLoadStatus,
+  ]);
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
@@ -226,7 +248,7 @@ export default function App() {
               <Routes
                 appProps={{
                   isAuthenticated,
-                  isAdmin: appState.isAdmin
+                  isAdmin: appState.isAdmin,
                 }}
               />
             </>
@@ -234,9 +256,7 @@ export default function App() {
         </div>
       </Content>
       <Footer className="siteFooter" style={{ position: "relative" }}>
-        {appState.debug && (
-          <DebugPanel appState={appState} config={config} />
-        )}
+        {appState.debug && <DebugPanel appState={appState} config={config} />}
         <Row>
           <Col span={8}>
             <ul>
@@ -252,7 +272,8 @@ export default function App() {
               </li>
               <li>
                 <a href="https://groups.google.com/g/neuronbridge-support">
-                  <FontAwesomeIcon icon={faQuestion} />  Ask a question on our help forum.
+                  <FontAwesomeIcon icon={faQuestion} /> Ask a question on our
+                  help forum.
                 </a>
               </li>
             </ul>
@@ -286,13 +307,18 @@ export default function App() {
               .
             </p>
           </Col>
-          <Col span={8} style={{textAlign: "right"}}>
+          <Col span={8} style={{ textAlign: "right" }}>
             <ul>
               <li>
                 <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a>
               </li>
               <li>
                 <Link to="/announcements">Announcements Archive</Link>
+              </li>
+              <li>
+                <a href="https://github.com/JaneliaSciComp/neuronbridge">
+                  <FontAwesomeIcon icon={faGithub} /> Github
+                </a>
               </li>
             </ul>
           </Col>
