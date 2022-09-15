@@ -227,10 +227,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     // id or name filter - case insensitive
     fullList = fullList
       .map((result) => {
-        const fullImageUrl = result.imageURL.startsWith("https://")
+        const fullImageUrl = result.imageUrl && result.imageURL.startsWith("https://")
           ? result.imageURL
           : `${appState.dataConfig.prefixes.ColorDepthMip}${result.imageURL}`;
-        const fullThumbUrl = result.thumbnailURL.startsWith("https://")
+        const fullThumbUrl = result.thumbnailURL && result.thumbnailURL.startsWith("https://")
           ? result.thumbnailURL
           : `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result.thumbnailURL}`;
         return {

@@ -8,6 +8,7 @@ import cdsResults from "./2945073141049430027.json";
 import cdsResults2798488256260341771 from "./2798488256260341771.json";
 import pppresults1537331894 from "./1537331894_pppresults.json";
 
+import customResults from "./custom_results.json";
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
   rest.get(
@@ -46,7 +47,6 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(cdsResults2711777268786528267));
     }
   ),
-
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/metadata/cdsresults/2798488256260341771.json",
     (req, res, ctx) => {
@@ -59,6 +59,13 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(pppresults1537331894));
     }
   ),
+  rest.get(
+    "https://janelia-neuronbridge-search-dev.s3.us-east-1.amazonaws.com/private/us-east-1%3Afa7ca00c-9ffc-426c-ad55-2c05b0f4a4d2/0751e020-9b09-11ec-98f4-5f9e052d4953/1077847238_undefined%20%282%29_1_mask.result",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(customResults));
+    }
+  ),
+
 
 
 ];
