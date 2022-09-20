@@ -13,7 +13,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         </h3>
       </Col>
       <Col md={24} lg={12}>
-        <h3>Mask:</h3>
+        <h3>Input Image:</h3>
         <ul>
           <li>
             <MatchReferences
