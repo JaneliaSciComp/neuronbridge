@@ -8,7 +8,7 @@ export default function InputMeta({ mask, isLM, compact }) {
   let metaBlock = <p>Loading...</p>;
 
   if (mask) {
-    if (!mask.createdOn) {
+    if (!mask.image.createdOn) {
       if (!isLM) {
         metaBlock = <LineMeta attributes={mask} compact={compact} />;
       } else {
@@ -16,7 +16,7 @@ export default function InputMeta({ mask, isLM, compact }) {
         metaBlock = <SkeletonMeta attributes={mask} compact={compact} />;
       }
     } else {
-      metaBlock = <CustomMeta metadata={mask} compact={compact} />;
+      metaBlock = <CustomMeta metadata={mask.image} compact={compact} />;
     }
   }
 
