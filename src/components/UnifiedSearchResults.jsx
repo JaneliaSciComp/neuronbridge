@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
 import { Spin, Divider, Typography, Pagination } from "antd";
@@ -7,10 +7,13 @@ import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 import NoSearch from "./NoSearch";
 import { useQuery } from "../libs/hooksLib";
+import { AppContext } from "../containers/AppContext";
 
 const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
+  const { appState } = useContext(AppContext);
+	const { prefixes } = appState.dataConfig;
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -67,8 +70,8 @@ export default function UnifiedSearchResults(props) {
             <React.Fragment key={key}>
               <LineResult metaInfo={result} key={result.id}>
                 <ImageWithModal
-                  thumbSrc={result.thumbnailURL}
-                  src={result.imageURL}
+                  thumbSrc={`${prefixes.ColorDepthMipThumbnail}${result.files.ColorDepthMipThumbnail}`}
+                  src={`${prefixes.ColorDepthMip}${result.files.ColorDepthMip}`}
                   title={result.publishedName}
                   vertical={result.anatomicalArea === "VNC"}
                 />

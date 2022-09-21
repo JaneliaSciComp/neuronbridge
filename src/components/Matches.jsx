@@ -227,16 +227,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     // id or name filter - case insensitive
     fullList = fullList
       .map((result) => {
-        const fullImageUrl = result.imageUrl && result.imageURL.startsWith("https://")
-          ? result.imageURL
-          : `${appState.dataConfig.prefixes.ColorDepthMip}${result.imageURL}`;
-        const fullThumbUrl = result.thumbnailURL && result.thumbnailURL.startsWith("https://")
-          ? result.thumbnailURL
-          : `${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${result.thumbnailURL}`;
         return {
           ...result,
-          imageURL: fullImageUrl,
-          thumbnailURL: fullThumbUrl,
           // add the anatomical Area for code later down the tree to use
           // for determining image widths and heights.
           anatomicalArea: result.image.anatomicalArea || input.anatomicalArea,

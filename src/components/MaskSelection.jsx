@@ -9,7 +9,6 @@ import MaskChannelSelection from "./MaskChannelSelection";
 import ColorDepthSearchParameters from "./ColorDepthSearchParameters";
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
-import { signedLink } from "../libs/awsLib";
 import config from "../config";
 
 const { Title, Paragraph } = Typography;
@@ -37,17 +36,7 @@ export default function MaskSelection({ match }) {
           if (!currentMeta) {
             setMissingResults(true);
           } else {
-            const uploadUrl = `${currentMeta.searchDir}/${currentMeta.upload}`;
-            // TODO: add another step here to generate the real imageURL,
-            // rather than use the same one as the thumbnail.
-            signedLink(uploadUrl).then(result => {
-              const metaWithSignedUrls = {
-                ...currentMeta,
-                thumbnailURL: result,
-                imageURL: result
-              };
-              setSearchMeta(metaWithSignedUrls);
-            });
+            setSearchMeta(currentMeta);
           }
         })
         .catch(error => {

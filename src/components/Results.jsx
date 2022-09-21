@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Storage, API, graphqlOperation } from "aws-amplify";
 import { Divider, message } from "antd";
@@ -11,12 +11,28 @@ import * as queries from "../graphql/queries";
 import config from "../config";
 import { signedLink } from "../libs/awsLib";
 import { MatchesProvider } from "../containers/MatchesContext";
+import { AppContext } from "../containers/AppContext";
 
 export default function Results({ match }) {
   const searchId = match.params.id;
   const [searchMeta, setSearchMeta] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
+  const [imageUrls, setImageUrls] = useState(null);
+  const { appState } = useContext(AppContext);
+	const { prefixes } = appState.dataConfig;
+
+  useEffect(() => {
+    if (prefixes && searchResults && searchMeta) {
+      const unsignedUrl = searchResults.inputImage.files.ColorDepthMip.replace(/^[^/]*\//, '');
+      signedLink(unsignedUrl, searchMeta.identityId).then(result => {
+        setImageUrls({
+          thumbSrc: result,
+          src: result,
+        });
+      });
+    }
+  }, [prefixes, searchResults, searchMeta]);
 
   useEffect(() => {
     if (searchId) {
@@ -30,18 +46,7 @@ export default function Results({ match }) {
             setMissingResults(true);
             return;
           }
-          const uploadUrl = `${currentMeta.searchDir}/${currentMeta.displayableMask}`;
-          // TODO: add another step here to generate the real imageURL,
-          // rather than use the same one as the thumbnail.
-          signedLink(uploadUrl, currentMeta.identityId).then(result => {
-            const metaWithSignedUrls = {
-              ...currentMeta,
-              thumbnailURL: result,
-              imageURL: result
-            };
-            metaWithSignedUrls.precomputed = false;
-            setSearchMeta(metaWithSignedUrls);
-          });
+          setSearchMeta(currentMeta);
         })
         .catch(error => {
           if (error.response && error.response.status === 404) {
@@ -103,20 +108,25 @@ export default function Results({ match }) {
 
   const searchType = searchMeta.searchType === "em2lm" ? "skeleton" : "lines";
 
+  // we need information from both of these objects further down
+  // the tree, and their attributes don't overlap, so they are being
+  // combined here to pass as single object to the Matches component.
+  const combinedMetaResults = {...searchMeta, ...searchResults.inputImage};
+
   return (
     <div>
       <CustomInputSummary searchMeta={searchMeta}>
         <ImageWithModal
-          thumbSrc={searchMeta.thumbnailURL}
-          src={searchMeta.imageURL}
+          thumbSrc={imageUrls ? imageUrls.thumbSrc : ""}
+          src={imageUrls ? imageUrls.src : ""}
           title={searchMeta.upload}
-        />
+      />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>
       <Divider />
       <MatchesProvider>
         <Matches
-          input={searchMeta}
+          input={combinedMetaResults}
           matches={searchResults}
           searchType={searchType}
         />

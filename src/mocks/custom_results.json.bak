@@ -1,0 +1,63 @@
+{
+  "inputImage": {
+    "id": "1077847238_undefined (2)_1_mask",
+    "alignmentSpace": "JRC2018_Unisex_20x_HR",
+    "files": {
+      "ColorDepthMip": "us-east-1:fa7ca00c-9ffc-426c-ad55-2c05b0f4a4d2/0751e020-9b09-11ec-98f4-5f9e052d4953/1077847238_undefined (2)_1_mask.png",
+      "ColorDepthMipThumbnail": "",
+      "VisuallyLosslessStack": "",
+      "CDSResults": ""
+    },
+    "anatomicalArea": "brain"
+  },
+  "results": [
+    {
+      "image": {
+        "id": "1077847238-JRC2018_Unisex_20x_HR-CDM",
+        "libraryName": "FlyEM_Hemibrain_v1.2.1",
+        "publishedName": "1077847238",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "anatomicalArea": "brain",
+        "gender": "f",
+        "files": {
+          "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1077847238-JRC2018_Unisex_20x_HR-CDM.png",
+          "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1077847238-JRC2018_Unisex_20x_HR-CDM.jpg",
+          "AlignedBodySWC": ""
+        },
+        "neuronType": "",
+        "neuronInstance": ""
+      },
+      "files": {
+        "ColorDepthMipInput": "",
+				"ColorDepthMipMatch": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/searchable_neurons/pngs/1077847238-JRC2018_Unisex_20x_HR-CDM.png"
+      },
+      "mirrored": false,
+      "normalizedScore": 4151,
+      "matchingPixels": 4151
+    },
+    {
+      "image": {
+        "id": "1110972158-JRC2018_Unisex_20x_HR-CDM",
+        "libraryName": "FlyEM_Hemibrain_v1.2.1",
+        "publishedName": "1110972158",
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "gender": "f",
+        "files": {
+          "ColorDepthMip": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1110972158-JRC2018_Unisex_20x_HR-CDM.png",
+          "ColorDepthMipThumbnail": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/1110972158-JRC2018_Unisex_20x_HR-CDM.jpg",
+          "AlignedBodySWC": ""
+        },
+        "anatomicalArea": "brain",
+        "neuronType": "",
+        "neuronInstance": ""
+      },
+      "files": {
+        "ColorDepthMipInput": "",
+				"ColorDepthMipMatch": "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/searchable_neurons/pngs/1110972158-JRC2018_Unisex_20x_HR-CDM.png"
+      },
+      "mirrored": false,
+      "normalizedScore": 85,
+      "matchingPixels": 85
+    }
+  ]
+}

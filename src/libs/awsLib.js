@@ -21,6 +21,13 @@ export async function deleteSearch(search) {
 
 export async function maskAndSearch(image) {
   // expect image to be object with imageURL and thumbnailURL attributes
+	/*
+		{
+			imageURL: "",
+			thumbnailURL: "",
+			anatomicalRegion: ""
+	  }
+	*/
   const creds = await Auth.currentCredentials();
   const response = await API.post("SearchAPI", "/new_from_image", {
     body: {

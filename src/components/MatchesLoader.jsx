@@ -10,20 +10,6 @@ import { MatchesProvider } from "../containers/MatchesContext";
 
 import "./MatchesLoader.css";
 
-function formatFullImageUrl(baseUrl, result, searchType) {
-  if (searchType === "ppp") {
-    return `${baseUrl}${result?.image?.files?.ColorDepthMipBest || result?.files?.ColorDepthMipBest}`;
-  }
-  return `${baseUrl}${result?.image?.files?.ColorDepthMip || result?.files?.ColorDepthMip}`;
-}
-
-function formatFullImageThumbnailUrl(baseUrl, result, searchType) {
-  if (searchType === "ppp") {
-    return `${baseUrl}${result?.files?.ColorDepthMipBest.replace(/\.png$/, '.jpg')}`;
-  }
-	return `${baseUrl}${result?.image?.files?.ColorDepthMipThumbnail}`;
-}
-
 export default function MatchesLoader({ searchResult, searchType }) {
   const [isLoading, setLoading] = useState(false);
   const [matchMeta, setMatchMeta] = useState(null);
@@ -53,24 +39,7 @@ export default function MatchesLoader({ searchResult, searchType }) {
               const fr = new FileReader();
               fr.onload = (evt) => {
                 const json = JSON.parse(evt.target.result);
-                const fixedResults = json.results.map((result) => {
-                  const fullImageUrl = formatFullImageUrl(appState.dataConfig.prefixes.ColorDepthMip, result, searchType);
-                  const fullThumbUrl = formatFullImageThumbnailUrl(appState.dataConfig.prefixes.ColorDepthMipThumbnail, result, searchType);
-                  const fixedResult = {
-                    ...result,
-                    imageURL: fullImageUrl,
-                    thumbnailURL: fullThumbUrl,
-                  };
-                  // The ppp results json starts the rank at 0, but the pdfs start the rank at 1,
-                  // so we need to add 1 to the pppRank in the JSON to get the same rank in the UI
-                  // as is displayed in the pdf.
-                  if (searchType === "ppp") {
-                    fixedResult.pppRank = result.pppRank + 1;
-                  }
-                  return fixedResult;
-                });
-
-                setMatchMeta({ ...json, results: fixedResults });
+                setMatchMeta(json);
                 setLoading(false);
               };
               fr.readAsText(response.Body);

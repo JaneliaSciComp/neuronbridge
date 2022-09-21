@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
@@ -6,53 +6,34 @@ import LineMeta from "./LineMeta";
 import SkeletonMeta from "./SkeletonMeta";
 import DownloadSelect from "./MatchSummary/DownloadSelect";
 import GenderIcon from "./MatchSummary/GenderIcon";
-import { signedPublicLink } from "../libs/awsLib";
 import { useQuery } from "../libs/hooksLib";
 import { AppContext } from "../containers/AppContext";
 
+function getImageSrc (match, prefixes, isPPP, isThumbnail) {
+	if (isPPP) {
+		if (isThumbnail) {
+			return `${prefixes.ColorDepthMipBestThumbnail}${match.files.ColorDepthMipBestThumbnail}`;
+    }
+    return `${prefixes.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
+  }
+  if (isThumbnail) {
+    return `${prefixes.ColorDepthMipThumbnail}${match.image.files.ColorDepthMipThumbnail}`;
+  }
+  return `${prefixes.ColorDepthMip}${match.image.files.ColorDepthMip}`;
+}
+
+
+
 export default function MatchSummary(props) {
-  const { match, showModal, isLM, gridView, library, paths } = props;
-  const [signedSrc, setSignedSrc] = useState();
-  const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
+  const { match, showModal, isLM, gridView } = props;
   const query = useQuery();
   const { appState } = useContext(AppContext);
+	const { prefixes } = appState.dataConfig;
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppScore);
 
-  useEffect(() => {
-    if (isPPP && match.files?.ColorDepthMipSkel) {
-      const url = `${appState.dataConfig.prefixes.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
-      signedPublicLink(url).then(signed => {
-        setSignedSrc(signed);
-      });
-
-      // pppm thumbnails are in the same location as the full sized
-      // image. The difference is instead of a png, they are jpegs.
-      // NOTE: This can't be enabled, until the thumbnail images are release
-      // to the prod buckets.
-      const thumbUrl = url.replace(/\.png$/, '.jpg');
-      signedPublicLink(thumbUrl).then(signed => {
-        setSignedThumbnailSrc(signed);
-      });
-    } else if (match.imageURL) {
-      signedPublicLink(match.imageURL).then(signed => {
-        setSignedSrc(signed);
-      });
-      signedPublicLink(match.thumbnailURL).then(signed => {
-        setSignedThumbnailSrc(signed);
-      });
-    }
-  }, [appState.dataConfig, match, isPPP, library, paths.pppImageryBaseURL]);
-
   const { publishedName } = match.image;
-
-  const thumbnailURL = signedThumbnailSrc;
-  const imageURL = signedSrc;
-
-  if (!thumbnailURL || !imageURL) {
-    return null;
-  }
 
   if (gridView) {
     let score = ` - Rank: ${match.pppRank}, Score: ${match.pppScore}`;
@@ -69,8 +50,8 @@ export default function MatchSummary(props) {
           <DownloadSelect id={match.image.id} />
           <GenderIcon gender={match.image.gender} />
           <ImageWithModal
-            thumbSrc={thumbnailURL}
-            src={imageURL}
+            thumbSrc={getImageSrc(match, prefixes, isPPP, true)}
+            src={getImageSrc(match, prefixes, isPPP)}
             alt={publishedName}
             showModal={showModal}
             vertical={match.anatomicalArea === "VNC"}
@@ -104,8 +85,8 @@ export default function MatchSummary(props) {
           md={{ span: 8, order: 1 }}
         >
           <ImageWithModal
-            thumbSrc={thumbnailURL}
-            src={imageURL}
+            thumbSrc={getImageSrc(match, prefixes, isPPP, true)}
+            src={getImageSrc(match, prefixes, isPPP)}
             alt={publishedName}
             showModal={showModal}
             vertical={match.anatomicalArea === "VNC"}
@@ -139,15 +120,12 @@ export default function MatchSummary(props) {
 }
 
 MatchSummary.propTypes = {
-  library: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,
-  gridView: PropTypes.bool.isRequired,
-  paths: PropTypes.object
+  gridView: PropTypes.bool.isRequired
 };
 
 MatchSummary.defaultProps = {
   isLM: true,
-  paths: {}
 };

@@ -5,6 +5,7 @@
         "ColorDepthMipInput": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
         "ColorDepthMipMatch": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
         "ColorDepthMipBest": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "ColorDepthMipBestThumbnail": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
         "ColorDepthMipSkel": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
         "SignalMip": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
         "SignalMipMasked": "https://s3.amazonaws.com/janelia-ppp-match-prod/",

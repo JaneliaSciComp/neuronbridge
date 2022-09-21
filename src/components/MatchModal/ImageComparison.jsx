@@ -6,6 +6,7 @@ import { AppContext } from "../../containers/AppContext";
 import ImageSelection from "./ImageSelection";
 import { useQuery } from "../../libs/hooksLib";
 import { CoordsProvider } from "../../containers/MouseCoordsContext";
+import { signedLink } from "../../libs/awsLib";
 
 import "./ImageComparison.css";
 
@@ -97,7 +98,7 @@ function getMatchImageOptions(
       key: "display",
       desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
       imageType: isLM ? "LM" : "EM",
-      path: match.imageURL || match.thumbnailURL,
+      path: `${prefixes.ColorDepthMip}${match.image.files.ColorDepthMip}`,
       canMask: true
     }
   ];
@@ -135,9 +136,23 @@ export default function ImageComparison(props) {
 
   const { appState, setPermanent } = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
+  const [inputImageUrl, setInputImageUrl] = useState(null);
 
   const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
   const isPPP = searchType === "ppp";
+
+  useEffect(() => {
+    if (mask.identityId) {
+      const unsignedUrl = mask.files.ColorDepthMip.replace(/^[^/]*\//, '');
+      signedLink(unsignedUrl).then(result => {
+        setInputImageUrl(result);
+      });
+    } else {
+      setInputImageUrl(`${appState.dataConfig.prefixes.ColorDepthMip}${mask.files.ColorDepthMip}`);
+    }
+  },[appState.dataConfig.prefixes, mask]);
+
+
 
   // Unify the anatomical region properties from pre computed and custom searches.
   // TODO: this step wouldn't be necessary if the keys were the same in both.
@@ -165,7 +180,8 @@ export default function ImageComparison(props) {
     key: "input",
     desc: `${isLM ? "EM - Neuron CDM" : "LM - Original Channel CDM"}`,
     imageType: isLM ? "EM" : "LM",
-    path: mask.imageURL,
+    // TODO: this needs to be signed if the input is an uploaded image.
+    path: inputImageUrl,
     canMask: true
   });
 
