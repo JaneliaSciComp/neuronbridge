@@ -25,7 +25,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="results" disabled={selectedResults.length < 1}>
         <ResultsExport results={selectedResults} searchType={searchType} />
       </Menu.Item>
       <Menu.Item>
