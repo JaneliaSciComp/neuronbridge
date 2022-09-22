@@ -12,29 +12,26 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
           Match {matchRank} of {matchesTotal}
         </h3>
       </Col>
-      <Col md={24} lg={12}>
-        <h3>Input Image:</h3>
-        <ul>
-          <li>
-            <MatchReferences
-              library={mask.libraryName}
-              publishedName={mask.publishedName}
-            />
-          </li>
-        </ul>
-        <h3>Matching Image:</h3>
-        <ul>
-          <li>
-            <MatchReferences
-              library={match.image.libraryName}
-              publishedName={match.image.publishedName}
-            />
-          </li>
-        </ul>
+      <Col xs={24}>
+        <h3>
+          Input Image ({mask.publishedName} - {mask.libraryName}):
+        </h3>
+        <MatchReferences
+          library={mask.libraryName}
+          publishedName={mask.publishedName}
+        />
+        <h3>
+          Matching Image ({match.image.publishedName} -{" "}
+          {match.image.libraryName}):
+        </h3>
+        <MatchReferences
+          library={match.image.libraryName}
+          publishedName={match.image.publishedName}
+        />
       </Col>
       <Col xs={24}>
-          <h3>Cite NeuronBridge</h3>
-          <ul>
+        <h3>Cite NeuronBridge</h3>
+        <ul>
           <li>
             <a href="https://doi.org/10.1101/2022.07.20.500311">
               Clements et al., 2022
