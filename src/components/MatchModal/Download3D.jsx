@@ -35,7 +35,7 @@ function getH5JLink(construct) {
 export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
   const { appState } = useContext(AppContext);
-  const { searchType } = useParams();
+  const { algorithm } = useParams();
 
   // TODO: if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
@@ -65,7 +65,7 @@ export default function Download3D(props) {
 
   return (
     <>
-      {searchType !== "ppp" ? (
+      {algorithm !== "pppm" ? (
         <p>
           <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} /> -
           View the match in our online volume viewer{" "}

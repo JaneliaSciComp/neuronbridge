@@ -11,7 +11,7 @@ import { AppContext } from "../../containers/AppContext";
 
 export default function Summary(props) {
   const { selectedMatch, mask, isLM, selected, matchesList } = props;
-  const { searchType } = useParams();
+  const { algorithm } = useParams();
   const { appState, setPermanent } = useContext(AppContext);
 
   function handleDetailsToggle() {
@@ -50,7 +50,7 @@ export default function Summary(props) {
         >
           {appState.compactMeta ? "Show" : "Hide"} Match Info
         </Button>
-        {searchType !== "ppp" ? (
+        {algorithm !== "pppm" ? (
           <ViewIn3DButton
             style={{ float: "right", marginRight: "0.5em" }}
             isLM={isLM}
