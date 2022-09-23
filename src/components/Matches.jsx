@@ -10,6 +10,7 @@ import FilterMenuDisplay from "./FilterMenuDisplay";
 import FilterButton from "./FilterButton";
 import ExportMenu from "./ExportMenu";
 import ClearMatchSelection from "./ClearMatchSelection";
+import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import { useQuery } from "../libs/hooksLib";
 
 import "./Matches.css";
@@ -286,6 +287,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   return (
     <div>
+      <ScrollToTopOnMount/>
       <Row style={{ paddingBottom: "1em", marginTop: "2em" }}>
         <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
