@@ -40,7 +40,7 @@ export default function MatchReferences({ library, publishedName }) {
   return (
     <ul>
       {publication.doi.map((entry) => (
-        <li>
+        <li key={entry.citation}>
           <a href={entry.link}>{entry.citation}</a>
         </li>
       ))}
