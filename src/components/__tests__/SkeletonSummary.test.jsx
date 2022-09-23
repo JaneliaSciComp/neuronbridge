@@ -23,6 +23,6 @@ describe("SkeletonSummary: unit tests", () => {
         </SkeletonSummary>
       </MemoryRouter>
     );
-    expect(getByText(/Back to all results/i));
+    expect(getByText(/Neuron Type \/ Instance/i));
   });
 });

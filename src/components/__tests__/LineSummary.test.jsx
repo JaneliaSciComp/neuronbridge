@@ -26,7 +26,7 @@ describe("LineSummary: unit tests", () => {
         </LineSummary>
       </MemoryRouter>
     );
-    expect(getByText(/Back to all results/i));
+    expect(getByText(/Slide Code/i));
     rerender(
       <MemoryRouter>
         <LineSummary>
