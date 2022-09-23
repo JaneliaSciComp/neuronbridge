@@ -6,7 +6,7 @@ import SkeletonSummary from "./SkeletonSummary";
 import ImageWithModal from "./ImageWithModal";
 import { AppContext } from "../containers/AppContext";
 
-export default function SearchSummary({ type, input }) {
+export default function SearchSummary({ type, searchAlgorithm, input }) {
   const { appState } = useContext(AppContext);
 	const { prefixes } = appState.dataConfig;
   const modalImage = (
@@ -21,12 +21,12 @@ export default function SearchSummary({ type, input }) {
     />
   );
 
-  if (type === "lines") {
-    return <LineSummary lineMeta={input}>{modalImage}</LineSummary>;
+  if (searchAlgorithm === "pppm") {
+    return <PPPSummary metaInfo={input}>{modalImage}</PPPSummary>;
   }
 
-  if (type === "ppp") {
-    return <PPPSummary metaInfo={input}>{modalImage}</PPPSummary>;
+  if (type === "lm") {
+    return <LineSummary lineMeta={input}>{modalImage}</LineSummary>;
   }
 
   return <SkeletonSummary metaInfo={input}>{modalImage}</SkeletonSummary>;
@@ -34,5 +34,6 @@ export default function SearchSummary({ type, input }) {
 
 SearchSummary.propTypes = {
   type: PropTypes.string.isRequired,
-  input: PropTypes.object.isRequired
+  input: PropTypes.object.isRequired,
+  searchAlgorithm: PropTypes.string.isRequired
 };

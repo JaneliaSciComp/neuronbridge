@@ -34,6 +34,7 @@ const genderOptions = [
 
 export default function FilterMenu({
   searchType,
+  searchAlgorithm,
   countsByLibrary,
   useGenderFilter,
 }) {
@@ -117,7 +118,7 @@ export default function FilterMenu({
           <Divider orientation="left">Results Filters</Divider>
           <Row>
             <Col xs={24} md={6}>
-              {searchType !== "lines" && (
+              {searchType !== "lm" && (
                 <div>
                   <p>Results per line</p>
                   <InputNumber
@@ -166,9 +167,9 @@ export default function FilterMenu({
             value={parseInt(query.get("fisort") || 1, 10)}
           >
             <Radio style={radioStyle} value={1}>
-              {searchType === "ppp" ? "Rank" : "Normalized Score"}
+              {searchAlgorithm === "pppm" ? "Rank" : "Normalized Score"}
             </Radio>
-            {searchType !== "ppp" ? (
+            {searchAlgorithm !== "pppm" ? (
               <Radio style={radioStyle} value={2}>
                 Matched Pixels
               </Radio>
@@ -185,10 +186,11 @@ export default function FilterMenu({
 
 FilterMenu.propTypes = {
   searchType: PropTypes.string,
+  searchAlgorithm: PropTypes.string.isRequired,
   countsByLibrary: PropTypes.object.isRequired,
   useGenderFilter: PropTypes.bool.isRequired,
 };
 
 FilterMenu.defaultProps = {
-  searchType: "lines",
+  searchType: "lm",
 };

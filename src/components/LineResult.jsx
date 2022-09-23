@@ -8,7 +8,21 @@ export default function LineResult(props) {
   const location = useLocation();
   const { metaInfo, children } = props;
 
-  const matchesUrl = `/search/lines/${metaInfo.publishedName}/matches/${metaInfo.id}`;
+  // TODO: this needs to come from the url.
+  const inputType = "lm";
+
+  function generateCdmResultsButton() {
+    const matchesUrl = `/matches/cdm/${inputType}/${metaInfo.files?.CDSResults.replace(
+      /\.json$/,
+      ""
+    )}`;
+    return (
+
+          <Button type="primary" disabled={/matches$/.test(location.pathname)}>
+            <Link to={matchesUrl}>Color Depth Search Results</Link>
+          </Button>
+    );
+  }
 
   return (
     <Row>
@@ -17,13 +31,7 @@ export default function LineResult(props) {
         <LineMeta attributes={{ image: metaInfo }} />
       </Col>
       <Col md={5}>
-        {metaInfo?.files?.CDSResults ? (
-          <Button type="primary" disabled={/matches$/.test(location.pathname)}>
-            <Link to={matchesUrl}>Color Depth Search Results</Link>
-          </Button>
-        ) : (
-          ""
-        )}
+        {metaInfo?.files?.CDSResults ? generateCdmResultsButton() : ""}
       </Col>
     </Row>
   );

@@ -29,6 +29,9 @@ const Signup = React.lazy(() =>
 const Search = React.lazy(() =>
   import(/* webpackChunkName: 'search' */ "./components/Search")
 );
+const SearchMatches = React.lazy(() =>
+  import(/* webpackChunkName: 'search' */ "./components/SearchMatches")
+);
 const Results = React.lazy(() =>
   import(/* webpackChunkName: 'results' */ "./components/Results")
 );
@@ -98,6 +101,11 @@ export default function Routes({ appProps }) {
           path="/search"
           exact
           component={showMaintenancePage ? Maintenance : SearchErrorBoundary}
+          appProps={appProps}
+        />
+        <AuthenticatedRoute
+        path="/matches/:algorithm?/:inputType?/:matchId?/:page?"
+          component={showMaintenancePage ? Maintenance : SearchMatches}
           appProps={appProps}
         />
         <AuthenticatedRoute

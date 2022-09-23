@@ -70,8 +70,8 @@ export default function UnifiedSearchResults(props) {
             <React.Fragment key={key}>
               <LineResult metaInfo={result} key={result.id}>
                 <ImageWithModal
-                  thumbSrc={`${prefixes.ColorDepthMipThumbnail}${result.files.ColorDepthMipThumbnail}`}
-                  src={`${prefixes.ColorDepthMip}${result.files.ColorDepthMip}`}
+                  thumbSrc={`${prefixes.ColorDepthMipThumbnail}${result?.files?.ColorDepthMipThumbnail}`}
+                  src={`${prefixes.ColorDepthMip}${result?.files?.ColorDepthMip}`}
                   title={result.publishedName}
                   vertical={result.anatomicalArea === "VNC"}
                 />

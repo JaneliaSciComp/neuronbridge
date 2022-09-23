@@ -106,7 +106,7 @@ export default function Results({ match }) {
     return <p>...loading</p>;
   }
 
-  const searchType = searchMeta.searchType === "em2lm" ? "skeleton" : "lines";
+  const searchType = searchMeta.searchType === "em2lm" ? "em" : "lm";
 
   // we need information from both of these objects further down
   // the tree, and their attributes don't overlap, so they are being

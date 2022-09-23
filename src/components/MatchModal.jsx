@@ -12,7 +12,7 @@ export default function MatchModal(props) {
   const location = useLocation();
   const { page } = useParams();
   const history = useHistory();
-  const { open, setOpen, matchesList, mask, isLM, searchType } = props;
+  const { open, setOpen, matchesList, mask, isLM, searchAlgorithm } = props;
 
   const [selected, setSelected] = useState(0);
 
@@ -45,7 +45,7 @@ export default function MatchModal(props) {
     return null;
   }
 
-  const summaryLabel = searchType === "ppp" ? "PPPM Summary" : "CDM Summary";
+  const summaryLabel = searchAlgorithm === "pppm" ? "PPPM Summary" : "CDM Summary";
 
   const handleTabChange = (key) => {
     let updatedPath = `${location.pathname}/${key}`;
@@ -119,7 +119,7 @@ MatchModal.propTypes = {
   matchesList: PropTypes.arrayOf(PropTypes.object),
   mask: PropTypes.object,
   isLM: PropTypes.bool.isRequired,
-  searchType: PropTypes.string.isRequired
+  searchAlgorithm: PropTypes.string.isRequired
 };
 
 MatchModal.defaultProps = {

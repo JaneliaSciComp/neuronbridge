@@ -35,7 +35,7 @@ function correctPPPRank(matches) {
   return { ...matches, results: fixed };
 }
 
-export default function Matches({ input, searchType, matches, precomputed }) {
+export default function Matches({ input, searchType, searchAlgorithm, matches, precomputed }) {
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -53,7 +53,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     100
   );
 
-  const isPPP = searchType === "ppp";
+  const isPPP = searchAlgorithm === "pppm";
 
   const { appState, setPermanent } = useContext(AppContext);
 
@@ -149,7 +149,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
     //     {...}
     //   ]
     //
-    if (searchType !== "lines") {
+    if (searchType !== "lm") {
       const byLines = {};
       modifiedMatches.results.forEach((result) => {
         const { publishedName, libraryName } = result.image;
@@ -183,7 +183,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
         }
       });
       const sortedByLine = Object.values(byLines).sort((a, b) => {
-        if (searchType === "ppp") {
+        if (searchAlgorithm === "pppm") {
           return a.score - b.score;
         }
         return b.score - a.score;
@@ -252,7 +252,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
           <MatchSummary
             library={input.libraryName || "unknown"}
             match={result}
-            isLM={!(searchType === "lines")}
+            isLM={!(searchType === "lm")}
             showModal={() => handleModalOpen(index)}
             gridView={appState.gridView}
             paths={appState.dataConfig}
@@ -291,10 +291,10 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       <Row style={{ paddingBottom: "1em", marginTop: "2em" }}>
         <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
-            {searchType === "lines" ? "EM" : "LM"} Matches{" "}
+            {searchType === "lm" ? "EM" : "LM"} Matches{" "}
             <HelpButton
               target={
-                searchType === "lines" ? "MatchesLMtoEM" : "MatchesEMtoLM"
+                searchType === "lm" ? "MatchesLMtoEM" : "MatchesEMtoLM"
               }
             />
           </h3>
@@ -341,6 +341,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       />
 
       <FilterMenuDisplay
+        searchAlgorithm={searchAlgorithm}
         searchType={searchType}
         countsByLibrary={countsByLibrary}
         useGenderFilter={useGenderFilter}
@@ -361,8 +362,8 @@ export default function Matches({ input, searchType, matches, precomputed }) {
       />
 
       <MatchModal
-        isLM={!(searchType === "lines")}
-        searchType={searchType}
+        isLM={!(searchType === "lm")}
+        searchAlgorithm={searchAlgorithm}
         open={parseInt(query.get("m") || 0, 10)}
         setOpen={setModalOpen}
         matchesList={fullList}
@@ -376,6 +377,7 @@ Matches.propTypes = {
   input: PropTypes.object.isRequired,
   matches: PropTypes.object.isRequired,
   searchType: PropTypes.string.isRequired,
+  searchAlgorithm: PropTypes.string.isRequired,
   precomputed: PropTypes.bool,
 };
 

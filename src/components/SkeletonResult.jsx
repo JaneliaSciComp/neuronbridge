@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Row, Col, Space } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
@@ -9,11 +9,10 @@ import { AppContext } from "../containers/AppContext";
 
 export default function SkeletonResult(props) {
   const { appState } = useContext(AppContext);
-  const location = useLocation();
   const { metaInfo } = props;
 
-  const matchesUrl = `/search/skeletons/${metaInfo.publishedName}/matches/${metaInfo.id}`;
-  const pppUrl = `/search/ppp/${metaInfo.publishedName}/matches/${metaInfo.id}`;
+  // TODO: this needs to come fro the url.
+  const inputType = "em";
 
   const handleClick = (type) => {
     if (config.fathomEventKeys) {
@@ -24,6 +23,48 @@ export default function SkeletonResult(props) {
       }
     }
   };
+
+  function generateCdmMatchesButton() {
+    const matchesUrl = `/matches/cdm/${inputType}/${metaInfo.files?.CDSResults.replace(
+      /\.json$/,
+      ""
+    )}`;
+    return (
+      <Button
+        aria-label="View Color Depth Search Results"
+        type="primary"
+        style={{ width: "100%" }}
+        onClick={() => handleClick("clickCDM")}
+      >
+        <Link to={matchesUrl}>Color Depth Search Results</Link>
+      </Button>
+    );
+  }
+
+  const cdmMatchesButton = metaInfo?.files?.CDSResults
+    ? generateCdmMatchesButton()
+    : "";
+
+  function generatePppmMatchesButton() {
+    const pppUrl = `/matches/pppm/${inputType}/${metaInfo.files?.PPPMResults.replace(
+      /\.json$/,
+      ""
+    )}`;
+    return (
+      <Button
+        aria-label="View PatchPerPixMatch Results"
+        type="primary"
+        style={{ width: "100%" }}
+        onClick={() => handleClick("clickPPP")}
+      >
+        <Link to={pppUrl}>PatchPerPixMatch Results </Link>
+      </Button>
+    );
+  }
+
+  const pppmMatchesButton = metaInfo?.files?.PPPMResults
+    ? generatePppmMatchesButton()
+    : "";
 
   return (
     <Row>
@@ -39,36 +80,12 @@ export default function SkeletonResult(props) {
         />
       </Col>
       <Col md={9}>
-        <SkeletonMeta attributes={{image: metaInfo}} />
+        <SkeletonMeta attributes={{ image: metaInfo }} />
       </Col>
       <Col md={5}>
         <Space direction="vertical">
-          {metaInfo?.files?.CDSResults ? (
-            <Button
-              aria-label="View Color Depth Search Results"
-              type="primary"
-              disabled={/matches$/.test(location.pathname)}
-              style={{ width: "100%" }}
-              onClick={() => handleClick('clickCDM')}
-            >
-              <Link to={matchesUrl}>Color Depth Search Results</Link>
-            </Button>
-          ) : (
-            ""
-          )}
-          {metaInfo?.files?.PPPMResults ? (
-            <Button
-              aria-label="View PatchPerPixMatch Results"
-              type="primary"
-              disabled={/matches$/.test(location.pathname)}
-              style={{ width: "100%" }}
-              onClick={() => handleClick('clickPPP')}
-            >
-              <Link to={pppUrl}>PatchPerPixMatch Results </Link>
-            </Button>
-          ) : (
-            ""
-          )}
+          {cdmMatchesButton}
+          {pppmMatchesButton}
         </Space>
       </Col>
     </Row>
@@ -76,5 +93,5 @@ export default function SkeletonResult(props) {
 }
 
 SkeletonResult.propTypes = {
-  metaInfo: PropTypes.object.isRequired
+  metaInfo: PropTypes.object.isRequired,
 };
