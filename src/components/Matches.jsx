@@ -286,7 +286,7 @@ export default function Matches({ input, searchType, matches, precomputed }) {
 
   return (
     <div>
-      <Row style={{ paddingBottom: "1em" }}>
+      <Row style={{ paddingBottom: "1em", marginTop: "2em" }}>
         <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
             {searchType === "lines" ? "EM" : "LM"} Matches{" "}
