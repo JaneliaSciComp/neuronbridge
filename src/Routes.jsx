@@ -111,7 +111,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <AuthenticatedRoute
-          path="/results/:id"
+        path="/results/:id/:page?"
           component={showMaintenancePage ? Maintenance : Results}
           appProps={appProps}
         />
