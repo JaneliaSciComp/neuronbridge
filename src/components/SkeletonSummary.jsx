@@ -1,26 +1,18 @@
 import React from "react";
-import { Button, Row, Col } from "antd";
-import { Link } from "react-router-dom";
+import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import SkeletonMeta from "./SkeletonMeta";
 
 export default function SkeletonSummary(props) {
   const { metaInfo, children } = props;
 
-  const searchUrl = `/search?q=${metaInfo.publishedName}`;
-
   return (
     <Row>
       <Col xs={24} lg={8}>
         {children}
       </Col>
-      <Col lg={12}>
+      <Col lg={16}>
         <SkeletonMeta attributes={{ image: metaInfo }} />
-      </Col>
-      <Col lg={4}>
-        <Link to={searchUrl}>
-          <Button>Back to all results</Button>
-        </Link>
       </Col>
     </Row>
   );
