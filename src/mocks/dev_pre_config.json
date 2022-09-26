@@ -1,0 +1,23 @@
+{
+    "prefixes": {
+        "ColorDepthMip": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "ColorDepthMipThumbnail": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/",
+        "ColorDepthMipInput": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "ColorDepthMipMatch": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "ColorDepthMipBest": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "ColorDepthMipBestThumbnail": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "ColorDepthMipSkel": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "SignalMip": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "SignalMipMasked": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "SignalMipMaskedSkel": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "SignalMipExpression": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
+        "AlignedBodySWC": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/cdsresults/",
+        "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/pppmresults/"
+    },
+    "anatomicalRegions": [
+        { "label": "Brain", "value": "brain" },
+        { "label": "VNC", "value": "vnc"}
+    ]
+}
