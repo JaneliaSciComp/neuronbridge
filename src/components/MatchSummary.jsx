@@ -54,7 +54,7 @@ export default function MatchSummary(props) {
             src={getImageSrc(match, prefixes, isPPP)}
             alt={publishedName}
             showModal={showModal}
-            vertical={match.anatomicalArea === "VNC"}
+            vertical={Boolean(match.anatomicalArea.match(/^vnc$/i))}
           />
         </div>
         <p style={{ paddingLeft: "2em" }}>
@@ -69,7 +69,7 @@ export default function MatchSummary(props) {
         </p>
       </>
     );
-    if (match.anatomicalArea === "VNC") {
+    if (match.anatomicalArea.match(/^vnc$/i)) {
       // squeeze a few more images into the row if they are vertical.
       return (<Col xs={12} md={8} lg={6} xl={4}>{thumbnails}</Col>);
     }
