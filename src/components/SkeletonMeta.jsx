@@ -58,18 +58,18 @@ export default function SkeletonMeta({ attributes, compact }) {
         ) : (
           ""
         )}
-        {attributes.pppScore ? (
+        {attributes.pppmScore ? (
           <p>
             <b>Score:</b>
-            <br /> {Math.round(attributes.pppScore)}
+            <br /> {Math.round(attributes.pppmScore)}
           </p>
         ) : (
           ""
         )}
-        {attributes.pppRank ? (
+        {attributes.pppmRank ? (
           <p>
             <b>Rank:</b>
-            <br /> {Math.round(attributes.pppRank)}
+            <br /> {Math.round(attributes.pppmRank)}
           </p>
         ) : (
           ""
@@ -114,8 +114,8 @@ SkeletonMeta.propTypes = {
     }),
     normalizedScore: PropTypes.number,
     matchingPixels: PropTypes.number,
-    pppScore: PropTypes.string,
-    pppRank: PropTypes.string,
+    pppmScore: PropTypes.string,
+    pppmRank: PropTypes.string,
   }).isRequired,
   compact: PropTypes.bool,
 };

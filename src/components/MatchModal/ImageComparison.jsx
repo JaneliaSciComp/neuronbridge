@@ -138,8 +138,8 @@ export default function ImageComparison(props) {
   const [isCopying, setIsCopying] = useState(false);
   const [inputImageUrl, setInputImageUrl] = useState(null);
 
-  const searchType = match.pppRank !== undefined ? "ppp" : "cdm";
-  const isPPP = searchType === "ppp";
+  const searchType = match.pppmRank !== undefined ? "pppm" : "cdm";
+  const isPPP = searchType === "pppm";
 
   useEffect(() => {
     if (mask.identityId) {

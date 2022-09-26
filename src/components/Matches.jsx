@@ -15,20 +15,20 @@ import { useQuery } from "../libs/hooksLib";
 
 import "./Matches.css";
 
-// We need to modify the ppp results to update the pppRank. The data
-// stored in the json files is the internal pppRank, which can have
+// We need to modify the pppm results to update the pppmRank. The data
+// stored in the json files is the internal pppmRank, which can have
 // half values (eg: 12.5). This does not match the rank values as
 // shown in the pdf files for external use. We are assured that the
-// ppp results are sorted by pppRank, so we can apply the index of the
-// array to the result to replace the pppRank for external display.
+// pppm results are sorted by pppmRank, so we can apply the index of the
+// array to the result to replace the pppmRank for external display.
 function correctPPPRank(matches) {
   const fixed = matches.results
-    .sort((a, b) => a.pppRank - b.pppRank)
+    .sort((a, b) => a.pppmRank - b.pppmRank)
     .map((result, index) => {
       return {
         ...result,
-        pppRank: index + 1,
-        pppRankOrig: result.pppRank,
+        pppmRank: index + 1,
+        pppmRankOrig: result.pppmRank,
       };
     });
 
@@ -65,7 +65,7 @@ export default function Matches({ input, searchType, searchAlgorithm, matches, p
 
   function sortByScoreOrAlt(a, b) {
     if (isPPP) {
-      return a.pppRank - b.pppRank;
+      return a.pppmRank - b.pppmRank;
     }
     if (sortType === "2") {
       return b.matchingPixels - a.matchingPixels;
@@ -156,7 +156,7 @@ export default function Matches({ input, searchType, searchAlgorithm, matches, p
 
         let currentScore = result.normalizedScore;
         if (isPPP) {
-          currentScore = result.pppRank;
+          currentScore = result.pppmRank;
         } else if (sortType === "2") {
           currentScore = result.matchingPixels;
         }

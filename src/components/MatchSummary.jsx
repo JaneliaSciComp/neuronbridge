@@ -31,12 +31,12 @@ export default function MatchSummary(props) {
 	const { prefixes } = appState.dataConfig;
 
   // set this flag if we are looking at a PPPM result.
-  const isPPP = Boolean(match.pppScore);
+  const isPPP = Boolean(match.pppmScore);
 
   const { publishedName } = match.image;
 
   if (gridView) {
-    let score = ` - Rank: ${match.pppRank}, Score: ${match.pppScore}`;
+    let score = ` - Rank: ${match.pppmRank}, Score: ${match.pppmScore}`;
     if (!isPPP) {
       score =
         query.get("fisort") === "2"

@@ -54,16 +54,16 @@ export default function LineMeta({ attributes, compact }) {
         ) : (
           ""
         )}
-        {attributes.pppRank !== undefined ? (
+        {attributes.pppmRank !== undefined ? (
           <p>
-            <b>Rank:</b> {Math.round(attributes.pppRank)}
+            <b>Rank:</b> {Math.round(attributes.pppmRank)}
           </p>
         ) : (
           ""
         )}
-        {attributes.pppScore !== undefined ? (
+        {attributes.pppmScore !== undefined ? (
           <p>
-            <b>Score:</b> {Math.round(attributes.pppScore)}
+            <b>Score:</b> {Math.round(attributes.pppmScore)}
           </p>
         ) : (
           ""
@@ -131,8 +131,8 @@ LineMeta.propTypes = {
     }),
     normalizedScore: PropTypes.number,
     matchingPixels: PropTypes.number,
-    pppScore: PropTypes.number,
-    pppRank: PropTypes.number,
+    pppmScore: PropTypes.number,
+    pppmRank: PropTypes.number,
   }).isRequired,
   compact: PropTypes.bool,
 };

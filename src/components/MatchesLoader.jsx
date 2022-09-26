@@ -29,7 +29,7 @@ export default function MatchesLoader({ inputType, searchAlgorithm }) {
       setLoading(true);
       let metadataPath = `${appState.dataVersion}/metadata/cdsresults/${matchId}.json`;
       if (searchAlgorithm === "pppm") {
-        metadataPath = `${appState.dataVersion}/metadata/pppresults/${matchId}.json`;
+        metadataPath = `${appState.dataVersion}/metadata/pppmresults/${matchId}.json`;
       }
 
       Auth.currentCredentials()

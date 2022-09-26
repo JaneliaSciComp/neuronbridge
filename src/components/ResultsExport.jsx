@@ -15,9 +15,9 @@ export default function ResultsExport({ results, searchType }) {
   const headersList = [
     { label: "Number", key: "position" },
     { label: name, key: "image.publishedName" },
-    { label: "Rank", key: "pppRank" },
+    { label: "Rank", key: "pppmRank" },
     { label: "Score", key: "normalizedScore" },
-    { label: "Score", key: "pppScore" },
+    { label: "Score", key: "pppmScore" },
     { label: "Matched Pixels", key: "matchingPixels" },
     { label: "Library", key: "image.libraryName" },
     { label: "Channel", key: "image.channel" },
