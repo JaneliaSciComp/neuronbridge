@@ -23,7 +23,7 @@ export default function SkeletonMeta({ attributes, compact }) {
 
   const neuronTypeAndInstance = neuronType
     ? [neuronType || "-", neuronInstance || "-"].join(" / ")
-    : "";
+    : "- / -";
 
   if (compact) {
     return (
