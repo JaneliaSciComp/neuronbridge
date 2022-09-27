@@ -21,9 +21,7 @@ export default function SkeletonMeta({ attributes, compact }) {
 
   const searchUrl = `/matches/cdm/em/${attributes.image.id}`;
 
-  const neuronTypeAndInstance = neuronType
-    ? [neuronType || "-", neuronInstance || "-"].join(" / ")
-    : "- / -";
+  const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
 
   if (compact) {
     return (
