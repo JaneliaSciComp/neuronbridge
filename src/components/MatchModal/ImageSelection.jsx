@@ -43,7 +43,7 @@ function ImageSelection({
   const location = useLocation();
   const history = useHistory();
 
-  const searchType = meta.files && meta.files.ColorDepthMipSkel ? "ppp" : "cdm";
+  const searchType = meta.files && meta.files.ColorDepthMipSkel ? "pppm" : "cdm";
   const { imageChoices } = appState;
 
   const handleImageChoice = (selected) => {

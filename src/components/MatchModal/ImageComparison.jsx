@@ -140,6 +140,7 @@ export default function ImageComparison(props) {
 
   const searchType = match.pppmRank !== undefined ? "pppm" : "cdm";
   const isPPP = searchType === "pppm";
+  const defaultComparisons = isPPP ? 4 : 2;
 
   useEffect(() => {
     if (mask.identityId) {
@@ -192,7 +193,7 @@ export default function ImageComparison(props) {
 
   const urlImageCount = parseInt(query.get("ci"), 10);
 
-  const updatedCount = urlImageCount || storedCounts[searchType];
+  const updatedCount = urlImageCount || storedCounts[searchType] || defaultComparisons;
 
   if (Number.isNaN(urlImageCount)) {
     query.set("ci", updatedCount);
@@ -217,7 +218,6 @@ export default function ImageComparison(props) {
   const { imageChoices } = appState;
 
   const maxComparisons = imageOptions.length;
-  const defaultComparisons = isPPP ? 4 : 2;
   const minComparisons = 1;
 
   const handleImageCount = newCount => {

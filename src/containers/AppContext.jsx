@@ -13,11 +13,11 @@ const initialState = {
   showFilterMenu: false,
   showAlignmentMeta: false,
   imageChoices: {
-    ppp: {},
+    pppm: {},
     cdm: {}
   },
   comparisonCount: {
-    ppp: 2,
+    pppm: 2,
     cdm: 2
   },
   // dataConfig is overwritten by the config,json file loaded in
