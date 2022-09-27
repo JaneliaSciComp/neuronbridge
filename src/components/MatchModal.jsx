@@ -48,11 +48,9 @@ export default function MatchModal(props) {
   const summaryLabel = searchAlgorithm === "pppm" ? "PPPM Summary" : "CDM Summary";
 
   const handleTabChange = (key) => {
-    let updatedPath = `${location.pathname}/${key}`;
-    if (location.pathname.match(/\/(cite|download|summary)$/)) {
-      updatedPath = location.pathname.replace(/[^/]*$/, key);
-    }
-    location.pathname = updatedPath;
+    const strippedPath = location.pathname.replace(/(cite|download|summary)$/, "");
+    const updatedPath = `${strippedPath}/${key}`;
+    location.pathname = updatedPath.replace(/\/\/+/, '/');
     history.push(location);
   }
 
