@@ -22,7 +22,7 @@ export default function LineMeta({ attributes, compact }) {
     mountingProtocol,
     alignmentSpace,
   } = attributes.image;
-  const searchUrl = `/search/lines/${publishedName}/matches/${attributes.image.id}`;
+  const searchUrl = `/matches/cdm/lm/${attributes.image.id}`;
 
   if (compact) {
     return (

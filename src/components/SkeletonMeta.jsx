@@ -19,7 +19,7 @@ export default function SkeletonMeta({ attributes, compact }) {
     gender,
   } = attributes.image;
 
-  const searchUrl = `/search/skeletons/${publishedName}/matches/${attributes.image.id}`;
+  const searchUrl = `/matches/cdm/em/${attributes.image.id}`;
 
   const neuronTypeAndInstance = neuronType
     ? [neuronType || "-", neuronInstance || "-"].join(" / ")
