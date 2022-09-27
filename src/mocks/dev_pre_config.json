@@ -13,6 +13,7 @@
         "SignalMipExpression": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
         "AlignedBodySWC": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
         "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/",
         "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/cdsresults/",
         "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/pppmresults/"
     },
