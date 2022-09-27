@@ -14,14 +14,14 @@ export default function DownloadZipCheckbox({ matchId }) {
   };
 
   return (
-    <p style={{ float: "right" }}>
+    <span style={{ float: "right" }}>
       <Checkbox
         onChange={handleDownloadChoice}
         checked={state.selected.includes(matchId)}
       >
         Add to .zip Download{" "}
       </Checkbox>
-    </p>
+    </span>
   );
 }
 
