@@ -16,6 +16,7 @@ export default function DownloadZipCheckbox({ matchId }) {
   return (
     <span style={{ float: "right" }}>
       <Checkbox
+        disabled={!matchId}
         onChange={handleDownloadChoice}
         checked={state.selected.includes(matchId)}
       >
