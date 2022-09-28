@@ -120,6 +120,7 @@ export default function Results({ match }) {
           thumbSrc={imageUrls ? imageUrls.thumbSrc : ""}
           src={imageUrls ? imageUrls.src : ""}
           title={searchMeta.upload}
+          vertical={searchMeta.anatomicalRegion.match(/^vnc$/i)}
       />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>
