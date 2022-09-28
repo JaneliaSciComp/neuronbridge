@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
 import MatchReferences from "../MatchReferences";
+import LibraryFormatter from "../LibraryFormatter";
 
 export default function Citations({ match, mask, matchRank, matchesTotal }) {
   const inputBlock = mask.identityId ? "" : (
     <>
       <h3>
-        Input Image ({mask.publishedName} - {mask.libraryName}):
+        Input Image ({mask.publishedName} - <LibraryFormatter type={mask.libraryName} />):
       </h3>
       <MatchReferences
         library={mask.libraryName}
@@ -28,7 +29,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         {inputBlock}
         <h3>
           Matching Image ({match.image.publishedName} -{" "}
-          {match.image.libraryName}):
+          <LibraryFormatter type={match.image.libraryName}/>):
         </h3>
         <MatchReferences
           library={match.image.libraryName}
