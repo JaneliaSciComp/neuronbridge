@@ -80,7 +80,7 @@ export default function SkeletonResult(props) {
         />
       </Col>
       <Col md={9}>
-        <SkeletonMeta attributes={{ image: metaInfo }} />
+        <SkeletonMeta attributes={{ image: metaInfo }} fromSearch />
       </Col>
       <Col md={5}>
         <Space direction="vertical">

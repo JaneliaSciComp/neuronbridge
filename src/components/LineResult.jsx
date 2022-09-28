@@ -28,7 +28,7 @@ export default function LineResult(props) {
     <Row>
       <Col md={10}>{children}</Col>
       <Col md={9}>
-        <LineMeta attributes={{ image: metaInfo }} />
+        <LineMeta attributes={{ image: metaInfo }} fromSearch />
       </Col>
       <Col md={5}>
         {metaInfo?.files?.CDSResults ? generateCdmResultsButton() : ""}

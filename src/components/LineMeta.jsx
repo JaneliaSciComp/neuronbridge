@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function LineMeta({ attributes, compact }) {
+export default function LineMeta({ attributes, compact, fromSearch }) {
   if (!attributes.image) {
     return <span style={{ color: "red" }}>attribute.image missing</span>;
   }
@@ -24,7 +24,7 @@ export default function LineMeta({ attributes, compact }) {
   } = attributes.image;
 
   // TODO: this link is wrong when showing a pppm result.
-  const searchUrl = `/matches/cdm/lm/${attributes.image.id}`;
+  const searchUrl = fromSearch ? `/search?q=${publishedName.split(':').slice(-1)}` : `/matches/cdm/lm/${attributes.image.id}`;
 
   if (compact) {
     return (
@@ -137,8 +137,10 @@ LineMeta.propTypes = {
     pppmRank: PropTypes.number,
   }).isRequired,
   compact: PropTypes.bool,
+  fromSearch: PropTypes.bool
 };
 
 LineMeta.defaultProps = {
   compact: false,
+  fromSearch: false
 };

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
-export default function SkeletonMeta({ attributes, compact }) {
+export default function SkeletonMeta({ attributes, compact, fromSearch }) {
   if (!attributes.image) {
     return <span style={{ color: "red" }}>attribute.image missing</span>;
   }
@@ -20,7 +20,7 @@ export default function SkeletonMeta({ attributes, compact }) {
   } = attributes.image;
 
   // TODO: this link is wrong when showing a pppm result.
-  const searchUrl = `/matches/cdm/em/${attributes.image.id}`;
+  const searchUrl = fromSearch ? `/search?q=${publishedName.split(':').slice(-1)}`  : `/matches/cdm/em/${attributes.image.id}`;
 
   const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
 
@@ -117,8 +117,10 @@ SkeletonMeta.propTypes = {
     pppmRank: PropTypes.string,
   }).isRequired,
   compact: PropTypes.bool,
+  fromSearch: PropTypes.bool
 };
 
 SkeletonMeta.defaultProps = {
   compact: false,
+  fromSearch: false
 };
