@@ -50,7 +50,7 @@ export default function Summary(props) {
         >
           {appState.compactMeta ? "Show" : "Hide"} Match Info
         </Button>
-        {algorithm !== "pppm" ? (
+        {algorithm !== "pppm" && !mask.identityId ? (
           <ViewIn3DButton
             style={{ float: "right", marginRight: "0.5em" }}
             isLM={isLM}
