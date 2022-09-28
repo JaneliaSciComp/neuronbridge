@@ -5,6 +5,18 @@ import { Row, Col } from "antd";
 import MatchReferences from "../MatchReferences";
 
 export default function Citations({ match, mask, matchRank, matchesTotal }) {
+  const inputBlock = mask.identityId ? "" : (
+    <>
+      <h3>
+        Input Image ({mask.publishedName} - {mask.libraryName}):
+      </h3>
+      <MatchReferences
+        library={mask.libraryName}
+        publishedName={mask.publishedName}
+      />
+    </>
+  );
+
   return (
     <Row>
       <Col xs={24}>
@@ -13,13 +25,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         </h3>
       </Col>
       <Col xs={24}>
-        <h3>
-          Input Image ({mask.publishedName} - {mask.libraryName}):
-        </h3>
-        <MatchReferences
-          library={mask.libraryName}
-          publishedName={mask.publishedName}
-        />
+        {inputBlock}
         <h3>
           Matching Image ({match.image.publishedName} -{" "}
           {match.image.libraryName}):
