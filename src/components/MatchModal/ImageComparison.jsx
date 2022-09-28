@@ -144,7 +144,7 @@ export default function ImageComparison(props) {
 
   useEffect(() => {
     if (mask.identityId) {
-      const unsignedUrl = mask.files.ColorDepthMip.replace(/^[^/]*\//, '');
+      const unsignedUrl = mask.files.ColorDepthMip;
       signedLink(unsignedUrl).then(result => {
         setInputImageUrl(result);
       });

@@ -24,7 +24,7 @@ export default function Results({ match }) {
 
   useEffect(() => {
     if (prefixes && searchResults && searchMeta) {
-      const unsignedUrl = searchResults.inputImage.files.ColorDepthMip.replace(/^[^/]*\//, '');
+      const unsignedUrl = searchResults.inputImage.files.ColorDepthMip;
       signedLink(unsignedUrl, searchMeta.identityId).then(result => {
         setImageUrls({
           thumbSrc: result,
