@@ -89,7 +89,7 @@ export default function MatchSummary(props) {
             src={getImageSrc(match, prefixes, isPPP)}
             alt={publishedName}
             showModal={showModal}
-            vertical={match.anatomicalArea === "VNC"}
+            vertical={match.anatomicalArea.match(/^vnc$/i)}
           />
         </Col>
         <Col
