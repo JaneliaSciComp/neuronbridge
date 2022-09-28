@@ -64,7 +64,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
   }
 
   const finalEMUrl = emUrl
-    .replace(/<NAME>/, id)
+    .replace(/<NAME>/, id.split(':').slice(-1))
     .replace(/<DATASET>/, dataset);
   return (
     <>

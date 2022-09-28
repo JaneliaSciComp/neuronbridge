@@ -78,6 +78,23 @@ describe("ExternalLink: unit tests", () => {
       "https://neuprint.janelia.org/view?dataset=flylight_split-gal4_drivers&bodyid=foo"
     );
   });
+  it("formats EM links with dataset and version in the publishedName correctly", () => {
+    const { getByText, rerender } = render(
+      <ExternalLink id="bar_set:v1.0:foo" isLM={false} />
+    );
+    expect(getByText("NeuPrint")).toHaveAttribute(
+      "href",
+      "https://neuprint.janelia.org/view?dataset=flylight_splitgal4_drivers&bodyid=foo"
+    );
+
+    rerender(<ExternalLink id="foo" isLM={false} library="FlyLight Split-GAL4 Drivers" />);
+    expect(getByText("NeuPrint")).toHaveAttribute(
+      "href",
+      "https://neuprint.janelia.org/view?dataset=flylight_split-gal4_drivers&bodyid=foo"
+    );
+  });
+
+
 
   it("formats VFB links correctly", () => {
     const { getByText } = render(
