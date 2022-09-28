@@ -130,6 +130,7 @@ export default function Results({ match }) {
           input={combinedMetaResults}
           matches={searchResults}
           searchType={searchType}
+          searchAlgorithm="cdm"
         />
       </MatchesProvider>
     </div>
