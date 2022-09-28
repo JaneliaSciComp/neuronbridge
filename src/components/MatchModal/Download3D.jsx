@@ -16,8 +16,12 @@ const fileIconStyles = {
 };
 
 function getSWCLink(baseURL, construct) {
-  const filePath = `${baseURL}${construct.files.AlignedBodySWC}`;
-  return <a href={filePath}>{construct.publishedName}.swc</a>;
+  const swc = construct.files.AlignedBodySWC;
+  if (swc) {
+    const filePath = `${baseURL}${swc}`;
+    return <a href={filePath}>{construct.publishedName}.swc</a>;
+  }
+  return <span>swc file not available</span>;
 }
 
 function getH5JLink(construct) {
