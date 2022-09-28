@@ -19,6 +19,7 @@ export default function SkeletonMeta({ attributes, compact }) {
     gender,
   } = attributes.image;
 
+  // TODO: this link is wrong when showing a pppm result.
   const searchUrl = `/matches/cdm/em/${attributes.image.id}`;
 
   const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;

@@ -22,6 +22,8 @@ export default function LineMeta({ attributes, compact }) {
     mountingProtocol,
     alignmentSpace,
   } = attributes.image;
+
+  // TODO: this link is wrong when showing a pppm result.
   const searchUrl = `/matches/cdm/lm/${attributes.image.id}`;
 
   if (compact) {
