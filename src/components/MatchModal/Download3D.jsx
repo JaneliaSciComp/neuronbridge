@@ -24,22 +24,24 @@ function getSWCLink(baseURL, construct) {
   return <span>swc file not available</span>;
 }
 
-function getH5JLink(construct) {
+function getH5JLink(baseUrl, construct) {
   const imageStack = construct.files.VisuallyLosslessStack;
   if (imageStack) {
     return (
-      <a href={imageStack}>
+      <a href={`${baseUrl}${imageStack}`}>
         {construct.publishedName}-{construct.slideCode}.h5j
       </a>
     );
   }
-  return <span>h5j file missing</span>;
+  return <span>h5j file not available</span>;
 }
 
 export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
   const { appState } = useContext(AppContext);
   const { algorithm } = useParams();
+
+  const h5jBaseUrl = appState.dataConfig?.prefixes?.VisuallyLosslessStack;
 
   // TODO: if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
@@ -55,7 +57,7 @@ export default function Download3D(props) {
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
-          {isLM ? getH5JLink(selectedMatch.image) : getH5JLink(mask)} (LM image stack)
+          {isLM ? getH5JLink(h5jBaseUrl, selectedMatch.image) : getH5JLink(h5jBaseUrl, mask)} (LM image stack)
         </Paragraph>
       ) : (
         <Text type="danger">
