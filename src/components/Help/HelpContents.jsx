@@ -157,7 +157,7 @@ export default function HelpContents({ scroll }) {
         results per line
       </div>
 
-      <Divider />
+      <Divider id="upload_alignment" />
 
       <h2 ref={refLookup.UploadAlignment}>Upload Alignment:</h2>
 
