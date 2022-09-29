@@ -50,4 +50,4 @@ All code related to NeuronBridge is made available under the [3-Clause BSD Licen
 
 All data served by the application is made available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
-All studies and publications that use this software should cite [doi:10.1101/2022.07.20.500311](<https://doi.org/10.1101/2022.07.20.500311>).
+Studies and publications that use this software should cite [doi:10.1101/2022.07.20.500311](<https://doi.org/10.1101/2022.07.20.500311>).
