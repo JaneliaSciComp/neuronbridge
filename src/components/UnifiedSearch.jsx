@@ -91,6 +91,7 @@ export default function UnifiedSearch() {
       };
 
       Auth.currentCredentials().then(() => {
+        setLoadError(false);
         API.get("SearchAPI", "/published_names", {
           queryStringParameters: { q: searchTerm },
         })
