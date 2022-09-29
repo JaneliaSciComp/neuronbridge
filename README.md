@@ -43,4 +43,6 @@ Read the [Developer's Guide](docs/Development.md) for more information about dev
 
 ## License
 
-This code is made available under the [Janelia Open Source License](LICENSE.md). All studies and publications that use this software should cite [doi:10.1101/2022.07.20.500311](<https://doi.org/10.1101/2022.07.20.500311>).
+This code is made available under the [3-Clause BSD License](LICENSE.md). All data is made available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+All studies and publications that use this software should cite [doi:10.1101/2022.07.20.500311](<https://doi.org/10.1101/2022.07.20.500311>).
