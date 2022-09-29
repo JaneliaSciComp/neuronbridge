@@ -20,12 +20,12 @@ export const handlers = [
     }
   ),
   rest.get(
-    "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names?q=12288",
+    "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names",
     (req, res, ctx) => {
       if (req.url.searchParams.get('q') === '12288') {
         return res(ctx.status(200), ctx.json(publishedNames12288));
       }
-      return res(ctx.status(404));
+      return req.passthrough();
     }
   ),
 
