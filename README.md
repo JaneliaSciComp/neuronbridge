@@ -1,6 +1,7 @@
 # NeuronBridge
 
 [![DOI](https://zenodo.org/badge/257408159.svg)](https://zenodo.org/badge/latestdoi/257408159)
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-10.1101%2F2022.07.20.500311%20-red)](https://www.biorxiv.org/content/10.1101/2022.07.20.500311v1)
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
 <p align="center">
