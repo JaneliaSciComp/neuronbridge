@@ -7,7 +7,9 @@
   <img src="assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
 </p>
 
-NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. Visit the service here:
+NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. A preprint descibing the service is [available on bioRxiv](https://doi.org/10.1101/2022.07.20.500311). 
+
+Visit the service here:
 
 [![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Site&color=008B94)](https://neuronbridge.janelia.org/)
 [![Janelia's pre-release instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-release%20Site&color=84297E)](https://neuronbridge-pre.janelia.org/)
@@ -43,6 +45,8 @@ Read the [Developer's Guide](docs/Development.md) for more information about dev
 
 ## License
 
-This code is made available under the [3-Clause BSD License](LICENSE.md). All data is made available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+All code related to NeuronBridge is made available under the [3-Clause BSD License](LICENSE.md). 
+
+All data served by the application is made available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
 All studies and publications that use this software should cite [doi:10.1101/2022.07.20.500311](<https://doi.org/10.1101/2022.07.20.500311>).
