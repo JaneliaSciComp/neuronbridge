@@ -9,6 +9,7 @@ import cdsResults from "./2945073141049430027.json";
 import cdsResults2798488256260341771 from "./2798488256260341771.json";
 import pppresults1537331894 from "./1537331894_pppresults.json";
 import customResults from "./custom_results.json";
+import publishedNames12288 from "./published_names_12288.json"; 
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
@@ -18,6 +19,16 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(devPreConfig));
     }
   ),
+  rest.get(
+    "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names?q=12288",
+    (req, res, ctx) => {
+      if (req.url.searchParams.get('q') === '12288') {
+        return res(ctx.status(200), ctx.json(publishedNames12288));
+      }
+      return res(ctx.status(404));
+    }
+  ),
+
 
   rest.get(
     "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v2_4_0/config.json",

@@ -1,0 +1,22 @@
+{
+  "names": [
+    {
+      "searchKey": "12288",
+      "filterKey": "12288",
+      "itemType": "searchString",
+      "cdm": true,
+      "ppp": true,
+      "name": "12288",
+      "keyType": "bodyID"
+    }
+  ],
+  "params": {
+    "TableName": "janelia-neuronbridge-published-v2.3.0-devpre",
+    "KeyConditionExpression": "itemType = :itemType and searchKey = :search",
+    "ExpressionAttributeValues": {
+      ":itemType": "searchString",
+      ":search": "12288"
+    },
+    "ReturnConsumedCapacity": "TOTAL"
+  }
+}
