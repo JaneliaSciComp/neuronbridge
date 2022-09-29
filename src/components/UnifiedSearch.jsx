@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
-import { message } from "antd";
+import { message, Typography } from "antd";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
+
+const { Title, Paragraph } = Typography;
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -20,6 +22,7 @@ export default function UnifiedSearch() {
   const [byBodyResult, setByBodyResults] = useState(null);
   const [loadedTerm, setLoadedTerm] = useState(null);
   const [lineLoading, setLineLoading] = useState(false);
+  const [loadError, setLoadError] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
   const { appState } = useContext(AppContext);
 
@@ -32,7 +35,7 @@ export default function UnifiedSearch() {
       return new Promise((resolve, reject) => {
         // We can't use metaData.Body.text() here as it is not supported in safari
         const fr = new FileReader();
-        fr.onload = evt => {
+        fr.onload = (evt) => {
           const text = evt.target.result;
           const newResults = JSON.parse(text);
           // convert stored relative urls into the full path urls.
@@ -61,11 +64,11 @@ export default function UnifiedSearch() {
         message.error("Searches must have a minimum of 3 characters.");
         setByLineResults({
           error: "Searches must have a minimum of 3 characters.",
-          results: []
+          results: [],
         });
         setByBodyResults({
           error: "Searches must have a minimum of 3 characters.",
-          results: []
+          results: [],
         });
         return;
       }
@@ -81,135 +84,155 @@ export default function UnifiedSearch() {
 
       const storageOptions = {
         customPrefix: {
-          public: ""
+          public: "",
         },
         level: "public",
-        download: true
+        download: true,
       };
 
       Auth.currentCredentials().then(() => {
         API.get("SearchAPI", "/published_names", {
-          queryStringParameters: { q: searchTerm }
-        }).then(items => {
-          const lineCombined = { results: [] };
-          const bodyCombined = { results: [] };
+          queryStringParameters: { q: searchTerm },
+        })
+          .then((items) => {
+            const lineCombined = { results: [] };
+            const bodyCombined = { results: [] };
 
-          const allItems = items.names
-            .sort((a, b) => {
-              if (a.searchKey === b.searchKey) {
-                return 0;
-              }
-              if (a.searchKey < b.searchKey) {
-                return -1;
-              }
-              return 1;
-            })
-            .map(match => {
-              if (match.keyType === "publishingName") {
-                const byLineUrl = `${appState.dataVersion}/metadata/by_line/${match.name}.json`;
-                return Storage.get(byLineUrl, storageOptions)
-                  .then(metaData => {
-                    return readMetaData(
-                      metaData,
-                      lineCombined,
-                      setByLineResults,
-                    );
-                  })
-                  .catch(error => {
-                    if (error === "No credentials") {
-                      // Log me out and prompt me to login again.
-                    }
-                    lineCombined.error = error;
-                    setByLineResults(lineCombined);
-                  });
-              }
-              if (match.keyType === "bodyID") {
-                const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${match.name}.json`;
-                return Storage.get(byBodyUrl, storageOptions)
-                  .then(metaData => {
-                    return readMetaData(
-                      metaData,
-                      bodyCombined,
-                      setByBodyResults,
-                    );
-                  })
-                  .catch(error => {
-                    if (error === "No credentials") {
-                      // Log me out and prompt me to login again.
-                    }
-                    bodyCombined.error = error;
-                    setByBodyResults(bodyCombined);
-                  });
-              }
-              if (
-                match.keyType === "neuronInstance" ||
-                match.keyType === "neuronType"
-              ) {
-                return match.bodyIDs.map(body => {
-                  const [bodyID] = Object.entries(body)[0];
-                  const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
+            const allItems = items.names
+              .sort((a, b) => {
+                if (a.searchKey === b.searchKey) {
+                  return 0;
+                }
+                if (a.searchKey < b.searchKey) {
+                  return -1;
+                }
+                return 1;
+              })
+              .map((match) => {
+                if (match.keyType === "publishingName") {
+                  const byLineUrl = `${appState.dataVersion}/metadata/by_line/${match.name}.json`;
+                  return Storage.get(byLineUrl, storageOptions)
+                    .then((metaData) => {
+                      return readMetaData(
+                        metaData,
+                        lineCombined,
+                        setByLineResults
+                      );
+                    })
+                    .catch((error) => {
+                      if (error === "No credentials") {
+                        // Log me out and prompt me to login again.
+                      }
+                      lineCombined.error = error;
+                      setByLineResults(lineCombined);
+                    });
+                }
+                if (match.keyType === "bodyID") {
+                  const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${match.name}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
-                    .then(metaData => {
+                    .then((metaData) => {
                       return readMetaData(
                         metaData,
                         bodyCombined,
-                        setByBodyResults,
+                        setByBodyResults
                       );
                     })
-                    .catch(error => {
+                    .catch((error) => {
                       if (error === "No credentials") {
                         // Log me out and prompt me to login again.
                       }
                       bodyCombined.error = error;
                       setByBodyResults(bodyCombined);
                     });
-                });
+                }
+                if (
+                  match.keyType === "neuronInstance" ||
+                  match.keyType === "neuronType"
+                ) {
+                  return match.bodyIDs.map((body) => {
+                    const [bodyID] = Object.entries(body)[0];
+                    const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
+                    return Storage.get(byBodyUrl, storageOptions)
+                      .then((metaData) => {
+                        return readMetaData(
+                          metaData,
+                          bodyCombined,
+                          setByBodyResults
+                        );
+                      })
+                      .catch((error) => {
+                        if (error === "No credentials") {
+                          // Log me out and prompt me to login again.
+                        }
+                        bodyCombined.error = error;
+                        setByBodyResults(bodyCombined);
+                      });
+                  });
+                }
+                return Promise.resolve();
+              });
+
+            // switch this line to Promise.any if you want the items to load in
+            // to the page as they complete.
+            const allPromisses = Promise.all(allItems.flat());
+
+            // once all the items have loaded, we can clean up.
+            allPromisses.then(() => {
+              // remove duplicates from the combined results. This can happen if we are
+              // loading data from a partial neurontype string, eg: WED01
+              if (bodyCombined.results.length > 1) {
+                const ids = bodyCombined.results.map((result) => result.id);
+                bodyCombined.results = bodyCombined.results.filter(
+                  ({ id }, index) => !ids.includes(id, index + 1)
+                );
+                setByBodyResults(bodyCombined);
               }
-              return Promise.resolve();
+
+              if (lineCombined.results.length === 0) {
+                setByLineResults({ results: [] });
+              }
+
+              if (bodyCombined.results.length === 0) {
+                setByBodyResults({ results: [] });
+              }
+              setLineLoading(false);
+              setBodyLoading(false);
             });
-
-          // switch this line to Promise.any if you want the items to load in
-          // to the page as they complete.
-          const allPromisses = Promise.all(allItems.flat());
-
-          // once all the items have loaded, we can clean up.
-          allPromisses.then(() => {
-            // remove duplicates from the combined results. This can happen if we are
-            // loading data from a partial neurontype string, eg: WED01
-            if (bodyCombined.results.length > 1) {
-              const ids = bodyCombined.results.map(result => result.id);
-              bodyCombined.results = bodyCombined.results.filter(
-                ({ id }, index) => !ids.includes(id, index + 1)
-              );
-              setByBodyResults(bodyCombined);
-            }
-
-            if (lineCombined.results.length === 0) {
-              setByLineResults({ results: [] });
-            }
-
-            if (bodyCombined.results.length === 0) {
-              setByBodyResults({ results: [] });
-            }
-            setLineLoading(false);
-            setBodyLoading(false);
-          });
-        });
+          })
+          .catch((e) => setLoadError(e));
       });
     }
   }, [searchTerm, loadedTerm, appState.dataConfig, appState.dataVersion]);
 
+  const searchError = (
+    <div>
+      <Title>System Error</Title>
+      <Paragraph>There was a problem contacting the search service.</Paragraph>
+      <Paragraph>Reloading the page may resolve the issue.</Paragraph>
+      <Paragraph>
+        If this problem persists, please contact us at{" "}
+        <a href="mailto:neuronbridge@janelia.hhmi.org">
+          neuronbridge@janelia.hhmi.org
+        </a>
+        .
+      </Paragraph>
+    </div>
+  );
+
   return (
     <div>
       <SearchInput searchTerm={searchTerm} />
-      {!searchTerm && <NoSearch />}
-      {(lineLoading || bodyLoading) && <p>loading...</p>}
-      {byLineResult && byBodyResult && !lineLoading && !bodyLoading && (
+      {!searchTerm ? <NoSearch /> : ""}
+      {(lineLoading || bodyLoading) && !loadError ? <p>loading...</p> : ""}
+      {loadError ? searchError : ""}
+      {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
         <UnifiedSearchResults
           searchTerm={searchTerm}
           linesResult={byLineResult}
           skeletonsResult={byBodyResult}
         />
+      ) : (
+        ""
       )}
     </div>
   );
