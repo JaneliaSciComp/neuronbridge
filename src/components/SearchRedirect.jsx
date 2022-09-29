@@ -10,10 +10,9 @@ export default function SearchRedirect() {
   const { searchType, matchId, page } = useParams();
   const query = useQuery();
   const algorithm = searchType === "ppp" ? "pppm" : "cdm";
-  const inputType = searchType === "lines" ? "lm" : "em";
 
   const queryString = query.toString() !== "" ? `?${query.toString()}` : "";
 
-  const newUrl = `/matches/${algorithm}/${inputType}/${matchId}/${page || ""}${queryString}`;
+  const newUrl = `/matches/${algorithm}/${matchId}/${page || ""}${queryString}`;
   return (<Redirect to={newUrl} />);
 }

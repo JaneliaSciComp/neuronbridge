@@ -10,7 +10,7 @@ import { MatchesProvider } from "../containers/MatchesContext";
 
 import "./MatchesLoader.css";
 
-export default function MatchesLoader({ inputType, searchAlgorithm }) {
+export default function MatchesLoader({ searchAlgorithm }) {
   const [isLoading, setLoading] = useState(false);
   const [matchMeta, setMatchMeta] = useState(null);
   const { appState } = useContext(AppContext);
@@ -86,7 +86,6 @@ export default function MatchesLoader({ inputType, searchAlgorithm }) {
       matchMeta && !isLoading ? (
         <Matches
           input={matchInput}
-          searchType={inputType}
           searchAlgorithm={searchAlgorithm}
           matches={matchMeta}
           precomputed
@@ -101,14 +100,14 @@ export default function MatchesLoader({ inputType, searchAlgorithm }) {
           {matchMeta?.inputImage?.files?.CDSResults ? (
           <Link
             className={searchAlgorithm === "pppm" ? "" : "activeSearch"}
-          to={`/matches/cds/${inputType}/${matchMeta?.inputImage?.files?.CDSResults.replace(/\.json$/,'')}`}
+          to={`/matches/cds/${matchMeta?.inputImage?.files?.CDSResults.replace(/\.json$/,'')}`}
           >
             Color Depth Search Results
           </Link>) : ""}
           {matchMeta?.inputImage?.files?.PPPMResults ? (
             <Link
               className={searchAlgorithm === "pppm" ? "activeSearch" : ""}
-            to={`/matches/pppm/${inputType}/${matchMeta?.inputImage?.files?.PPPMResults.replace(/\.json$/,'')}`}
+            to={`/matches/pppm/${matchMeta?.inputImage?.files?.PPPMResults.replace(/\.json$/,'')}`}
             >
               PatchPerPixMatch Results
             </Link>
@@ -117,7 +116,7 @@ export default function MatchesLoader({ inputType, searchAlgorithm }) {
           )}
         </div>
         <h3>{searchAlgorithm === "pppm" ? "PPPM" : "CDM"} Input Image</h3>
-        <SearchSummary type={inputType} searchAlgorithm={searchAlgorithm} input={matchInput} />
+        <SearchSummary searchAlgorithm={searchAlgorithm} input={matchInput} />
         <MatchesProvider>{matches}</MatchesProvider>
       </>
     );
@@ -132,6 +131,5 @@ export default function MatchesLoader({ inputType, searchAlgorithm }) {
 }
 
 MatchesLoader.propTypes = {
-  inputType: PropTypes.oneOf(['em','lm']).isRequired,
   searchAlgorithm: PropTypes.string.isRequired,
 };

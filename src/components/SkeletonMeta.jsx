@@ -19,8 +19,34 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
     gender,
   } = attributes.image;
 
-  // TODO: this link is wrong when showing a pppm result.
-  const searchUrl = fromSearch ? `/search?q=${publishedName.split(':').slice(-1)}`  : `/matches/cdm/em/${attributes.image.id}`;
+  const matchUrls = [];
+
+  if (attributes?.image?.files?.PPPMResults) {
+    const matchId = attributes?.image?.files?.PPPMResults;
+    if ( matchId ) {
+      const matchUrl = `/matches/pppm/${matchId.replace(/\.json$/,'')}`;
+      matchUrls.push({ type: "PPPM", url: matchUrl});
+    }
+  }
+  if (attributes?.image?.files?.CDSResults) {
+    const matchId = attributes?.image?.files?.CDSResults;
+    if ( matchId ) {
+      const matchUrl = `/matches/cdm/${matchId.replace(/\.json$/,'')}`;
+      matchUrls.push({ type: "CDM", url:  matchUrl});
+    }
+  }
+
+  const precomputedLinks = matchUrls.map((match) => {
+    return (
+      <React.Fragment key={match.url}>
+        <Link key={match.url} to={match.url}>
+          View Precomputed {match.type} Matches
+        </Link>
+        <br />
+      </React.Fragment>
+    );
+  });
+
 
   const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
 
@@ -28,7 +54,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
     return (
       <p>
         <b>Body Id:</b>
-        <Link to={searchUrl}>{publishedName}</Link>
+        <span>{publishedName}</span>
       </p>
     );
   }
@@ -39,7 +65,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
         <p>
           <b>Body Id:</b>
           <br />
-          <Link to={searchUrl}>{publishedName}</Link>
+          <span>{publishedName}</span>
         </p>
         {attributes.normalizedScore ? (
           <p>
@@ -93,7 +119,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
           <br />
           <ExternalLink id={publishedName} isLM={false} library={libraryName} />
           <br />
-          <Link to={searchUrl}>View Precomputed Matches</Link>
+          {!fromSearch ? precomputedLinks : ""}
         </p>
       </Col>
     </Row>
@@ -110,6 +136,10 @@ SkeletonMeta.propTypes = {
       gender: PropTypes.oneOf(["m", "f"]),
       neuronType: PropTypes.string,
       neuronInstance: PropTypes.string,
+      files: PropTypes.shape({
+        CDSResults: PropTypes.string,
+        PPPMResults: PropTypes.string,
+      }),
     }),
     normalizedScore: PropTypes.number,
     matchingPixels: PropTypes.number,
@@ -117,7 +147,7 @@ SkeletonMeta.propTypes = {
     pppmRank: PropTypes.string,
   }).isRequired,
   compact: PropTypes.bool,
-  fromSearch: PropTypes.bool
+  fromSearch: PropTypes.bool,
 };
 
 SkeletonMeta.defaultProps = {

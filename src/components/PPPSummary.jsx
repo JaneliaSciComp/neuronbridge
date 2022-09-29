@@ -11,7 +11,7 @@ export default function PPPSummary({ metaInfo, children }) {
         {children}
       </Col>
       <Col lg={16}>
-        <SkeletonMeta attributes={{ image: metaInfo}} />
+        <SkeletonMeta attributes={{ image: metaInfo}} searchAlgorithm="pppm" fromSearch />
       </Col>
     </Row>
   );

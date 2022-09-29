@@ -8,11 +8,8 @@ export default function LineResult(props) {
   const location = useLocation();
   const { metaInfo, children } = props;
 
-  // TODO: this needs to come from the url.
-  const inputType = "lm";
-
   function generateCdmResultsButton() {
-    const matchesUrl = `/matches/cdm/${inputType}/${metaInfo.files?.CDSResults.replace(
+    const matchesUrl = `/matches/cdm/${metaInfo.files?.CDSResults.replace(
       /\.json$/,
       ""
     )}`;

@@ -23,7 +23,7 @@ export default function LineSummary(props) {
         {children}
       </Col>
       <Col lg={16}>
-        <LineMeta attributes={{image: lineMeta}} />
+        <LineMeta attributes={{image: lineMeta}} fromSearch />
       </Col>
     </Row>
   );

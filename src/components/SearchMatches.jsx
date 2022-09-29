@@ -4,13 +4,12 @@ import SearchInput from "./SearchInput";
 import MatchesLoader from "./MatchesLoader";
 
 export default function SearchMatches() {
-  const { algorithm, inputType } = useParams();
+  const { algorithm } = useParams();
   return (
     <div>
       <SearchInput />
       <MatchesLoader
         searchAlgorithm={algorithm}
-        inputType={inputType}
       />
     </div>
 

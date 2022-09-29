@@ -107,7 +107,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <AuthenticatedRoute
-        path="/matches/:algorithm?/:inputType?/:matchId?/:page?"
+        path="/matches/:algorithm?/:matchId?/:page?"
           component={showMaintenancePage ? Maintenance : SearchMatches}
           appProps={appProps}
         />

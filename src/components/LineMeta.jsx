@@ -23,14 +23,39 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
     alignmentSpace,
   } = attributes.image;
 
-  // TODO: this link is wrong when showing a pppm result.
-  const searchUrl = fromSearch ? `/search?q=${publishedName.split(':').slice(-1)}` : `/matches/cdm/lm/${attributes.image.id}`;
+  const matchUrls = [];
+
+  if (attributes?.image?.files?.PPPMResults) {
+    const matchId = attributes?.image?.files?.PPPMResults;
+    if (matchId) {
+      const matchUrl = `/matches/pppm/${matchId.replace(/\.json$/, "")}`;
+      matchUrls.push({ type: "PPPM", url: matchUrl });
+    }
+  }
+  if (attributes?.image?.files?.CDSResults) {
+    const matchId = attributes?.image?.files?.CDSResults;
+    if (matchId) {
+      const matchUrl = `/matches/cdm/${matchId.replace(/\.json$/, "")}`;
+      matchUrls.push({ type: "CDM", url: matchUrl });
+    }
+  }
+
+  const precomputedLinks = matchUrls.map((match) => {
+    return (
+      <React.Fragment key={match.url}>
+        <Link to={match.url}>
+          View Precomputed {match.type} Matches
+        </Link>
+        <br />
+      </React.Fragment>
+    );
+  });
 
   if (compact) {
     return (
       <p>
         <b>Line Name: </b>
-        <Link to={searchUrl}>{publishedName}</Link>
+        <span>publishedName</span>
       </p>
     );
   }
@@ -40,7 +65,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
       <Col md={24} lg={12}>
         <p>
           <b>Line Name: </b>
-          <Link to={searchUrl}>{publishedName}</Link>
+          <span>{publishedName}</span>
         </p>
         {attributes.normalizedScore ? (
           <p>
@@ -110,7 +135,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
             library={libraryName}
           />
           <br />
-          <Link to={searchUrl}>View Precomputed Matches</Link>
+          {!fromSearch ? precomputedLinks : ""}
         </p>
       </Col>
     </Row>
@@ -128,8 +153,13 @@ LineMeta.propTypes = {
       slideCode: PropTypes.string,
       objective: PropTypes.string,
       anatomicalArea: PropTypes.string,
+      files: PropTypes.shape({
+        CDSResults: PropTypes.string,
+        PPPMResults: PropTypes.string,
+      }),
       channel: PropTypes.number,
       mountingProtocol: PropTypes.string,
+      type: PropTypes.string
     }),
     normalizedScore: PropTypes.number,
     matchingPixels: PropTypes.number,
@@ -137,10 +167,10 @@ LineMeta.propTypes = {
     pppmRank: PropTypes.number,
   }).isRequired,
   compact: PropTypes.bool,
-  fromSearch: PropTypes.bool
+  fromSearch: PropTypes.bool,
 };
 
 LineMeta.defaultProps = {
   compact: false,
-  fromSearch: false
+  fromSearch: false,
 };

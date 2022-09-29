@@ -25,12 +25,8 @@ export default function FilterMenuDisplay({
 }
 
 FilterMenuDisplay.propTypes = {
-  searchType: PropTypes.string,
+  searchType: PropTypes.string.isRequired,
   countsByLibrary: PropTypes.object.isRequired,
   useGenderFilter: PropTypes.bool.isRequired,
   searchAlgorithm: PropTypes.string.isRequired,
-};
-
-FilterMenuDisplay.defaultProps = {
-  searchType: "lines",
 };

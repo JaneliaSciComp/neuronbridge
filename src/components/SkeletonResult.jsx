@@ -11,9 +11,6 @@ export default function SkeletonResult(props) {
   const { appState } = useContext(AppContext);
   const { metaInfo } = props;
 
-  // TODO: this needs to come fro the url.
-  const inputType = "em";
-
   const handleClick = (type) => {
     if (config.fathomEventKeys) {
       if (config.fathomEventKeys[type]) {
@@ -25,7 +22,7 @@ export default function SkeletonResult(props) {
   };
 
   function generateCdmMatchesButton() {
-    const matchesUrl = `/matches/cdm/${inputType}/${metaInfo.files?.CDSResults.replace(
+    const matchesUrl = `/matches/cdm/${metaInfo.files?.CDSResults.replace(
       /\.json$/,
       ""
     )}`;
@@ -46,7 +43,7 @@ export default function SkeletonResult(props) {
     : "";
 
   function generatePppmMatchesButton() {
-    const pppUrl = `/matches/pppm/${inputType}/${metaInfo.files?.PPPMResults.replace(
+    const pppUrl = `/matches/pppm/${metaInfo.files?.PPPMResults.replace(
       /\.json$/,
       ""
     )}`;
