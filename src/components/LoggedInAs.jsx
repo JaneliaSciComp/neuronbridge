@@ -26,12 +26,12 @@ export default function LoggedInAs(props) {
 
   return (
     <div>
-      <p key="username" className="loggedInAs">
+      <span key="username" className="loggedInAs">
         Logged in as <Link to="/account">{username}</Link>{" "}
         <Button onClick={handleLogout} size="small">
           Logout
         </Button>
-      </p>
+      </span>
       <br style={{ clear: "all" }} />
     </div>
   );

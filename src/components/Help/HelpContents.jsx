@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { InputNumber, Col, Row, Divider } from "antd";
+import { Typography, InputNumber, Col, Row, Divider } from "antd";
 import SearchInput from "../SearchInput";
 import { AppContext } from "../../containers/AppContext";
 import { useQuery } from "../../libs/hooksLib";
@@ -15,6 +15,8 @@ import BrainScan from "./brain_scan.gif";
 import BrainReference from "./brain_reference.png";
 
 import "./HelpContents.css";
+
+const { Title } = Typography;
 
 export default function HelpContents({ scroll }) {
   const { appState } = useContext(AppContext);
@@ -62,7 +64,8 @@ export default function HelpContents({ scroll }) {
 
   return (
     <div ref={helpContentRef} className="helpcontents">
-      <h2 ref={refLookup.SearchInput}>Searching:</h2>
+      <a className="anchorOffset" id="search" href="#search">#search</a>
+      <Title level={3} ref={refLookup.SearchInput}>Searching:</Title>
       <p>
         The search input bar is the primary interface to this website. It is
         used to locate an EM body id or cell line of interest. To that end, We
@@ -157,9 +160,9 @@ export default function HelpContents({ scroll }) {
         results per line
       </div>
 
-      <Divider id="upload_alignment" />
-
-      <h2 ref={refLookup.UploadAlignment}>Upload Alignment:</h2>
+      <Divider />
+      <a className="anchorOffset" id="upload_alignment" href="#upload_alignment">#upload_alignment</a>
+      <Title level={3} ref={refLookup.UploadAlignment}>Upload Alignment:</Title>
 
       <h3>Supported File Formats</h3>
       <p>
@@ -204,6 +207,7 @@ export default function HelpContents({ scroll }) {
         </dd>
         <dd>
           <img
+            style={{width: "100%"}}
             src={LHLength}
             alt="Fiji window showing a line drawn between the two sides of the lateral horn."
           />
@@ -223,8 +227,9 @@ export default function HelpContents({ scroll }) {
       </dl>
 
       <Divider />
+      <a className="anchorOffset" id="search_pipeline" href="#search_pipeline">#search_pipeline</a>
       <div className="pipelines">
-        <h2>Search Pipeline:</h2>
+        <Title level={3}>Search Pipeline:</Title>
 
         <Row>
           <Col lg={12}>
@@ -276,8 +281,8 @@ export default function HelpContents({ scroll }) {
         </Row>
 
         <Divider />
-
-        <h2>Data Generation Pipelines:</h2>
+        <a className="anchorOffset" id="data_generation" href="#data_generation">#data_generation</a>
+        <Title level={3}>Data Generation Pipelines:</Title>
         <Row gutter={24}>
           <Col lg={12}>
             <h3> Light Microscopy Data Generation</h3>
