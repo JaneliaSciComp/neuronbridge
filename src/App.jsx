@@ -297,7 +297,7 @@ export default function App() {
                 />
               </a>
               <br />
-              This work is licensed under a{" "}
+              The data displayed here are licensed under a {" "}
               <a
                 rel="license"
                 href="http://creativecommons.org/licenses/by/4.0/"
