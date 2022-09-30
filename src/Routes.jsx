@@ -65,6 +65,9 @@ const UsageTerms = React.lazy(() =>
 const ResetPassword = React.lazy(() =>
   import(/* webpackChunkName: 'reset-pass' */ "./components/ResetPassword")
 );
+const UploadPolicy = React.lazy(() =>
+  import(/* webpackChunkName: 'upload-policy' */ "./components/UploadPolicy")
+);
 
 export default function Routes({ appProps }) {
   const showMaintenancePage = Boolean(
@@ -149,6 +152,7 @@ export default function Routes({ appProps }) {
           appProps={appProps}
         />
         <Route path="/usage" component={UsageTerms} />
+        <Route path="/upload-policy" component={UploadPolicy} />
         <Route path="/help" component={HelpPage} />
         <Route path="/announcements" component={AnnouncementsArchive} />
         {/* Finally, catch all unmatched routes */}

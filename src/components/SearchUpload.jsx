@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Upload, message } from "antd";
+import { Upload, message, Card, Button } from "antd";
+import { Link } from "react-router-dom";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v1 as uuidv1 } from "uuid";
 import { Auth, Storage } from "aws-amplify";
 import SearchUploadMeta from "./SearchUploadMeta";
+import UploadPolicy from "./UploadPolicy";
 import { AppContext } from "../containers/AppContext";
 import config from "../config";
 import "./SearchUpload.css";
@@ -18,25 +20,25 @@ function uploadToS3(upload, handleUpload) {
   }
   Auth.currentCredentials().then(() => {
     Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
-      progressCallback: progress => {
+      progressCallback: (progress) => {
         const percent = (progress.loaded * 100) / progress.total;
         upload.onProgress({ percent });
       },
       contentType: upload.file.type,
       level: "private",
       bucket: config.SEARCH_BUCKET,
-      tagging: "LIFECYCLE=DELETE"
+      tagging: "LIFECYCLE=DELETE",
     })
-      .then(result => {
+      .then((result) => {
         handleUpload(upload);
         upload.onSuccess(result);
       })
-      .catch(e => upload.onError(e));
+      .catch((e) => upload.onError(e));
   });
 }
 
 export default function SearchUpload({ uploadedFile, handleUpload }) {
-  const { appState } = useContext(AppContext);
+  const { appState, setPermanent } = useContext(AppContext);
   function customRequest(upload) {
     // get the image dimensions for use later when checking if the image looks
     // like a VNC or brain image.
@@ -55,24 +57,24 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   }
 
   const uploadDimensions = appState.dataConfig.anatomicalRegions
-    .map(region => {
+    .map((region) => {
       return !region.disabled ? (
         <p key={region.label}>
           {region.label}: {config.uploadDimensions[region.value]}
         </p>
       ) : null;
     })
-    .filter(region => region);
+    .filter((region) => region);
   function onRemove() {
     Auth.currentCredentials().then(() => {
       Storage.remove(`${uploadedFile.filename}/${uploadedFile.file.name}`, {
         level: "private",
-        bucket: config.SEARCH_BUCKET
+        bucket: config.SEARCH_BUCKET,
       })
         .then(() => {
           handleUpload(null);
         })
-        .catch(e => message.error(e));
+        .catch((e) => message.error(e));
     });
   }
 
@@ -109,7 +111,8 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
 
   return (
     <div className="uploader">
-      {!uploadedFile && (
+      {appState.uploadAccepted && !uploadedFile ? (
+        <>
         <Dragger
           name={uuidv1()}
           action=""
@@ -128,6 +131,20 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
           <b>Expected Color Depth MIP dimensions:</b>
           {uploadDimensions}
         </Dragger>
+        <Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link>
+        </>
+      ) : (
+        ""
+      )}
+      {!appState.uploadAccepted ? (
+        <Card title="Please click to accept the following agreement before uploading" >
+          <UploadPolicy textOnly />
+          <Button type="primary" onClick={() => setPermanent({ uploadAccepted: true})}>
+            Accept
+          </Button>
+        </Card>
+      ) : (
+        ""
       )}
       <SearchUploadMeta
         uploadedFile={uploadedFile}
@@ -140,9 +157,9 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
 
 SearchUpload.propTypes = {
   handleUpload: PropTypes.func.isRequired,
-  uploadedFile: PropTypes.object
+  uploadedFile: PropTypes.object,
 };
 
 SearchUpload.defaultProps = {
-  uploadedFile: null
+  uploadedFile: null,
 };
