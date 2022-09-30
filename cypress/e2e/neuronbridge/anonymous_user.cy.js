@@ -1,17 +1,17 @@
 describe("anonymous neuronbridge user", () => {
   it("can load the home page but not see the search input", () => {
     cy.visit("/");
-    cy.findByText("Welcome to NeuronBridge", {timeout: 4000})
-      .findByLabelText("Search", {timeout: 4000})
+    cy.findByText(/Search light and electron/i);
+    cy.findByLabelText("Search")
       .should("not.exist");
   });
   it("can see the about page", () => {
     cy.visit("/about")
-    cy.findByText("About NeuronBridge", {timeout: 4000})
+    cy.findByText("About NeuronBridge")
   });
   it("can see the help page", () => {
     cy.visit("/help")
-    cy.findByText("Obtaining the raw data");
+    cy.findByText(/The search input bar/i);
   });
   it("can see the signup page", () => {
     cy.visit("/signup")
@@ -30,4 +30,13 @@ describe("anonymous neuronbridge user", () => {
     cy.visit("/search/lines/LH173/matches/2711777430657302539")
     cy.findByLabelText('Login')
   });
+  it("can't see the upload pages", () => {
+    // should be redirected to the login page.
+    cy.visit("/upload")
+    cy.findByLabelText('Login')
+    cy.visit("/results/7271bfea-b5e6-4983-b576-ea892b6e9c11")
+    cy.findByLabelText('Login')
+    cy.url().should('be.equal', 'https://localhost:3000/login?redirect=/results/7271bfea-b5e6-4983-b576-ea892b6e9c11')
+  });
+
 });
