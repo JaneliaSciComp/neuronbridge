@@ -64,8 +64,8 @@ export default function HelpContents({ scroll }) {
 
   return (
     <div ref={helpContentRef} className="helpcontents">
-      <a className="anchorOffset" id="search" href="#search">#search</a>
-      <Title level={3} ref={refLookup.SearchInput}>Searching:</Title>
+      <a ref={refLookup.SearchInput} className="anchorOffset" id="search" href="#search">#search</a>
+      <Title level={3}>Searching:</Title>
       <p>
         The search input bar is the primary interface to this website. It is
         used to locate an EM body id or cell line of interest. To that end, We
@@ -161,8 +161,8 @@ export default function HelpContents({ scroll }) {
       </div>
 
       <Divider />
-      <a className="anchorOffset" id="upload_alignment" href="#upload_alignment">#upload_alignment</a>
-      <Title level={3} ref={refLookup.UploadAlignment}>Upload Alignment:</Title>
+      <a ref={refLookup.UploadAlignment} className="anchorOffset" id="upload_alignment" href="#upload_alignment">#upload_alignment</a>
+      <Title level={3}>Upload Alignment:</Title>
 
       <h3>Supported File Formats</h3>
       <p>

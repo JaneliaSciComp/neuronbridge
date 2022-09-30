@@ -12,13 +12,13 @@ describe("HelpPage: unit tests", () => {
   });
 
   it("renders", () => {
-    const { getByText } = render(
+    const { findAllByText } = render(
       <AppProvider>
         <MemoryRouter>
           <HelpPage />
         </MemoryRouter>
       </AppProvider>
     );
-    expect(getByText(/Obtaining the raw data/i));
+    expect(findAllByText(/Obtaining the raw data/i));
   });
 });
