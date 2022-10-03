@@ -1,4 +1,5 @@
 import { rest } from "msw";
+import publishedNames12288 from "./published_names_12288.json";
 import metadata1537331894 from "./1537331894_metadata.json";
 import LH173metadata from "./LH173_metadata.json";
 import R16F12metadata from "./R16F12_metadata.json";
@@ -9,18 +10,12 @@ import cdsResults from "./2945073141049430027.json";
 import cdsResults2798488256260341771 from "./2798488256260341771.json";
 import pppresults1537331894 from "./1537331894_pppresults.json";
 import customResults from "./custom_results.json";
-import publishedNames12288 from "./published_names_12288.json";
 import byBody12288 from "./12288.json";
+import results2988247185125302403 from "./2988247185125302403.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
-  rest.get(
-		"https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(devPreConfig));
-    }
-  ),
-  rest.get(
+   rest.get(
     "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names",
     (req, res, ctx) => {
       if (req.url.searchParams.get('q') === '12288') {
@@ -29,10 +24,23 @@ export const handlers = [
       return req.passthrough();
     }
   ),
+
   rest.get(
+		"https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(devPreConfig));
+    }
+  ),
+   rest.get(
     "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/metadata/by_body/12288.json",
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(byBody12288));
+    }
+  ),
+  rest.get(
+    "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/metadata/cdsresults/2988247185125302403.json",
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(results2988247185125302403));
     }
   ),
 
@@ -91,7 +99,4 @@ export const handlers = [
       return res(ctx.status(200), ctx.json(customResults));
     }
   ),
-
-
-
 ];
