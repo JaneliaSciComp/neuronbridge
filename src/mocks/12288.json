@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "libraryName": "FlyEM_VNC_v0.5",
+      "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+      "anatomicalArea": "vnc",
+      "gender": "m",
+      "neuronInstance": "12288_R",
+      "id": "2972571958285762571",
+      "publishedName": "vnc:v0.5:12288",
+      "store": "fl:pre_release:vnc",
+      "files": {
+        "ColorDepthMipThumbnail": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.5/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
+        "PPPMResults": "2970434048817627682.json",
+        "ColorDepthMip": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.5/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
+        "AlignedBodySWC": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.5/SWC/12288.swc"
+      },
+      "type": "EMImage"
+    },
+    {
+      "libraryName": "FlyEM_VNC_v0.6",
+      "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+      "anatomicalArea": "vnc",
+      "gender": "m",
+      "neuronInstance": "12288_R",
+      "id": "2988247185125302403",
+      "publishedName": "vnc:v0.6:12288",
+      "store": "fl:pre_release:vnc",
+      "files": {
+        "ColorDepthMipThumbnail": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
+        "CDSResults": "2988247185125302403.json",
+        "ColorDepthMip": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png"
+      },
+      "type": "EMImage"
+    }
+  ]
+}
