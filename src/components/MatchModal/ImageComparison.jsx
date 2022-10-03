@@ -148,10 +148,12 @@ export default function ImageComparison(props) {
       signedLink(unsignedUrl).then(result => {
         setInputImageUrl(result);
       });
-    } else {
-      setInputImageUrl(`${appState.dataConfig.prefixes.ColorDepthMip}${mask.files.ColorDepthMip}`);
+    } else if (appState?.dataConfig?.stores) {
+      if (appState.dataConfig.stores[mask.store]) {
+        setInputImageUrl(`${appState.dataConfig.stores[mask.store].prefixes.ColorDepthMip}${mask.files.ColorDepthMip}`);
+      }
     }
-  },[appState.dataConfig.prefixes, mask]);
+  },[appState.dataConfig.stores, mask]);
 
 
 
@@ -166,6 +168,12 @@ export default function ImageComparison(props) {
     anatomicalRegion === "vnc" ||
     Boolean(mask?.libraryName?.toLowerCase()?.includes("vnc"));
 
+  let prefixes = {};
+  if (appState?.dataConfig?.stores) {
+    if (appState?.dataConfig?.stores[match.store]) {
+      prefixes = appState?.dataConfig?.stores[match.store].prefixes;
+    }
+  }
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(
@@ -173,7 +181,7 @@ export default function ImageComparison(props) {
     match,
     mask.libraryName,
     isLM,
-    appState.dataConfig.prefixes,
+    prefixes
   );
 
   // both PPPM and CDM searches have an input image.

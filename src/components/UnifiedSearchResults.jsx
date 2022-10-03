@@ -13,7 +13,6 @@ const { Title } = Typography;
 
 export default function UnifiedSearchResults(props) {
   const { appState } = useContext(AppContext);
-	const { prefixes } = appState.dataConfig;
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
@@ -65,6 +64,14 @@ export default function UnifiedSearchResults(props) {
             a.channel - b.channel
         )
         .map(result => {
+
+          let prefixes = {};
+          if (appState?.dataConfig?.stores) {
+            if (appState?.dataConfig?.stores[result.store]) {
+              prefixes = appState?.dataConfig?.stores[result.store].prefixes;
+            }
+          }
+
           const key = `${result.id}_${result.slideCode}_${result.channel}`;
           return (
             <React.Fragment key={key}>

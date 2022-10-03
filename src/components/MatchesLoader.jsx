@@ -59,7 +59,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
         });
     }
 
-    if ("prefixes" in appState.dataConfig) {
+    if ("stores" in appState.dataConfig) {
       getMatches();
     }
   }, [

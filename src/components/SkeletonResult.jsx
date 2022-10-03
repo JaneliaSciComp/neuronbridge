@@ -63,12 +63,16 @@ export default function SkeletonResult(props) {
     ? generatePppmMatchesButton()
     : "";
 
+  const { store } = metaInfo;
+  const thumbSrc = `${appState.dataConfig.stores[store].prefixes.ColorDepthMipThumbnail}${metaInfo?.files?.ColorDepthMipThumbnail}`;
+  const imgSrc = `${appState.dataConfig.stores[store].prefixes.ColorDepthMip}${metaInfo?.files?.ColorDepthMip}`;
+
   return (
     <Row>
       <Col md={10}>
         <ImageWithModal
-          thumbSrc={`${appState.dataConfig.prefixes.ColorDepthMipThumbnail}${metaInfo?.files?.ColorDepthMipThumbnail}`}
-          src={`${appState.dataConfig.prefixes.ColorDepthMip}${metaInfo?.files?.ColorDepthMip}`}
+          thumbSrc={thumbSrc}
+          src={imgSrc}
           title={metaInfo.publishedName}
           vertical={
             metaInfo.anatomicalArea === "VNC" ||

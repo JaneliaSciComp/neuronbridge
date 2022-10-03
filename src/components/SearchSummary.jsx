@@ -8,11 +8,16 @@ import { AppContext } from "../containers/AppContext";
 
 export default function SearchSummary({ searchAlgorithm, input }) {
   const { appState } = useContext(AppContext);
-	const { prefixes } = appState.dataConfig;
+
+  const { store } = input;
+
+  const thumbSrc = `${appState?.dataConfig?.stores[store]?.prefixes?.ColorDepthMipThumbnail}${input.files.ColorDepthMipThumbnail}`;
+  const imgSrc = `${appState?.dataConfig?.stores[store]?.prefixes?.ColorDepthMip}${input.files.ColorDepthMip}`
+
   const modalImage = (
     <ImageWithModal
-      thumbSrc={`${prefixes.ColorDepthMipThumbnail}${input.files.ColorDepthMipThumbnail}`}
-      src={`${prefixes.ColorDepthMip}${input.files.ColorDepthMip}`}
+      thumbSrc={thumbSrc}
+      src={imgSrc}
       title={input.publishedName}
       vertical={
         input.anatomicalArea === "VNC" ||

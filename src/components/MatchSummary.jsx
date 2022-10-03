@@ -9,26 +9,29 @@ import GenderIcon from "./MatchSummary/GenderIcon";
 import { useQuery } from "../libs/hooksLib";
 import { AppContext } from "../containers/AppContext";
 
-function getImageSrc (match, prefixes, isPPP, isThumbnail) {
-	if (isPPP) {
-		if (isThumbnail) {
-			return `${prefixes.ColorDepthMipBestThumbnail}${match.files.ColorDepthMipBestThumbnail}`;
+function getImageSrc(match, prefixes, isPPP, isThumbnail) {
+  if (isPPP) {
+    if (isThumbnail) {
+      return `${prefixes?.ColorDepthMipBestThumbnail}${match.files.ColorDepthMipBestThumbnail}`;
     }
-    return `${prefixes.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
+    return `${prefixes?.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
   }
   if (isThumbnail) {
-    return `${prefixes.ColorDepthMipThumbnail}${match.image.files.ColorDepthMipThumbnail}`;
+    return `${prefixes?.ColorDepthMipThumbnail}${match.image.files.ColorDepthMipThumbnail}`;
   }
-  return `${prefixes.ColorDepthMip}${match.image.files.ColorDepthMip}`;
+  return `${prefixes?.ColorDepthMip}${match.image.files.ColorDepthMip}`;
 }
-
-
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
   const query = useQuery();
   const { appState } = useContext(AppContext);
-	const { prefixes } = appState.dataConfig;
+  let prefixes = {};
+  if (appState?.dataConfig?.stores) {
+    if (appState?.dataConfig?.stores[match.store]) {
+      prefixes = appState?.dataConfig?.stores[match.store].prefixes;
+    }
+  }
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppmScore);
@@ -71,9 +74,17 @@ export default function MatchSummary(props) {
     );
     if (match.anatomicalArea.match(/^vnc$/i)) {
       // squeeze a few more images into the row if they are vertical.
-      return (<Col xs={12} md={8} lg={6} xl={4}>{thumbnails}</Col>);
+      return (
+        <Col xs={12} md={8} lg={6} xl={4}>
+          {thumbnails}
+        </Col>
+      );
     }
-    return (<Col xs={24} md={12} lg={8} xl={6}>{thumbnails}</Col>);
+    return (
+      <Col xs={24} md={12} lg={8} xl={6}>
+        {thumbnails}
+      </Col>
+    );
   }
 
   return (
@@ -123,7 +134,7 @@ MatchSummary.propTypes = {
   match: PropTypes.object.isRequired,
   showModal: PropTypes.func.isRequired,
   isLM: PropTypes.bool,
-  gridView: PropTypes.bool.isRequired
+  gridView: PropTypes.bool.isRequired,
 };
 
 MatchSummary.defaultProps = {
