@@ -1,5 +1,51 @@
 {
-    "prefixes": {
+  "anatomicalAreas": {
+    "Brain": {
+      "label": "Brain",
+      "alignmentSpace": "JRC2018_Unisex_20x_HR"
+    },
+    "VNC": {
+      "label": "Ventral Nerve Cord",
+      "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS"
+    }
+  },
+  "stores": {
+    "fl:open_data:brain": {
+      "label": "FlyLight Brain Open Data Store",
+      "anatomicalArea": "Brain",
+      "prefixes": {
+        "ColorDepthMip": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
+        "ColorDepthMipThumbnail": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/",
+        "ColorDepthMipInput": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
+        "ColorDepthMipMatch": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
+        "ColorDepthMipBest": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "ColorDepthMipBestThumbnail": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "ColorDepthMipSkel": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "SignalMip": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "SignalMipMasked": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "SignalMipMaskedSkel": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "SignalMipExpression": "https://s3.amazonaws.com/janelia-ppp-match-prod/",
+        "AlignedBodySWC": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
+        "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
+        "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0/metadata/cdsresults/",
+        "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0/metadata/pppresults/",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/"
+      },
+      "customSearch": {
+        "alignmentSpace": "JRC2018_Unisex_20x_HR",
+        "searchFolder": "searchable_neurons",
+        "lmLibraries": [
+          "FlyLight_Split-GAL4_Drivers",
+          "FlyLight_Gen1_MCFO",
+          "FlyLight_Annotator_Gen1_MCFO"
+        ],
+        "emLibraries": ["FlyEM_Hemibrain_v1.2.1"]
+      }
+    },
+    "fl:pre_release:vnc": {
+      "label": "FlyLight VNC Pre-Release Store",
+      "anatomicalArea": "VNC",
+      "prefixes": {
         "ColorDepthMip": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
         "ColorDepthMipThumbnail": "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/",
         "ColorDepthMipInput": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
@@ -11,15 +57,18 @@
         "SignalMipMasked": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
         "SignalMipMaskedSkel": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
         "SignalMipExpression": "https://s3.amazonaws.com/janelia-ppp-match-devpre/",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/",
-        "Gal4Expression": "https://s3.amazonaws.com/janelia-flylight-imagery/",
         "AlignedBodySWC": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
         "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
-        "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/cdsresults/",
-        "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3_0_0/metadata/pppmresults/"
-    },
-    "anatomicalRegions": [
-        { "label": "Brain", "value": "brain" },
-        { "label": "VNC", "value": "vnc"}
-    ]
+        "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3.0.0/metadata/cdsresults/",
+        "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3.0.0/metadata/pppresults/",
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/"
+      },
+      "customSearch": {
+        "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+        "searchFolder": "searchable_neurons",
+        "lmLibraries": ["FlyLight_Split-GAL4_Drivers", "FlyLight_Gen1_MCFO"],
+        "emLibraries": ["FlyEM_VNC_v0.6"]
+      }
+    }
+  }
 }
