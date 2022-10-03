@@ -1,0 +1,86 @@
+{
+  "inputImage": {
+    "libraryName": "FlyEM_VNC_v0.6",
+    "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+    "anatomicalArea": "vnc",
+    "gender": "m",
+    "neuronInstance": "12288_R",
+    "id": "2988247185125302403",
+    "publishedName": "vnc:v0.6:12288",
+    "store": "fl:pre_release:vnc",
+    "files": {
+      "ColorDepthMipThumbnail": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
+      "CDSResults": "2988247185125302403.json",
+      "ColorDepthMip": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png"
+    },
+    "type": "EMImage"
+  },
+  "results": [
+    {
+      "mirrored": false,
+      "normalizedScore": 38547.02,
+      "matchingPixels": 687,
+      "matchingPixelsRatio": 0.05343393,
+      "gradientAreaGap": 101,
+    	"store": "fl:pre_release:vnc",
+      "image": {
+        "libraryName": "FlyLight Gen1 MCFO",
+        "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+        "anatomicalArea": "VNC",
+        "gender": "f",
+        "slideCode": "20170929_61_G2",
+        "objective": "40x",
+        "mountingProtocol": "DPX PBS Mounting",
+        "channel": 3,
+        "id": "2711773553484627979",
+        "publishedName": "VT063303",
+        "files": {
+          "VisuallyLosslessStack": "Gen1+MCFO/VT063303/VT063303-20170929_61_G2-f-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j",
+          "ColorDepthMipThumbnail": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.jpg",
+          "CDSResults": "2711773553484627979.json",
+          "Gal4Expression": "Gen1/CDM/VT063303/VT063303-sample_002901-f-20x-ventral_nerve_cord-JRC2018_VNC_Unisex_40x_DS-CDM_1.png",
+          "ColorDepthMip": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.png"
+        },
+        "type": "LMImage"
+      },
+      "files": {
+        "ColorDepthMipMatch": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/searchable_neurons/pngs/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3-01.png",
+        "ColorDepthMipInput": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/searchable_neurons/pngs/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png"
+      },
+      "type": "CDSMatch"
+    },
+    {
+      "mirrored": false,
+      "normalizedScore": 38106.234,
+      "matchingPixels": 660,
+      "matchingPixelsRatio": 0.051333904,
+      "gradientAreaGap": 25,
+    	"store": "fl:pre_release:vnc",
+      "image": {
+        "libraryName": "FlyLight Gen1 MCFO",
+        "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
+        "anatomicalArea": "VNC",
+        "gender": "m",
+        "slideCode": "20170510_61_B1",
+        "objective": "40x",
+        "mountingProtocol": "DPX PBS Mounting",
+        "channel": 2,
+        "id": "2711773245299752971",
+        "publishedName": "VT008484",
+        "files": {
+          "VisuallyLosslessStack": "Gen1+MCFO/VT008484/VT008484-20170510_61_B1-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j",
+          "ColorDepthMipThumbnail": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT008484-20170510_61_B1-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2.jpg",
+          "CDSResults": "2711773245299752971.json",
+          "Gal4Expression": "Gen1/CDM/VT008484/VT008484-sample_000368-f-20x-ventral_nerve_cord-JRC2018_VNC_Unisex_40x_DS-CDM_1.png",
+          "ColorDepthMip": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT008484-20170510_61_B1-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2.png"
+        },
+        "type": "LMImage"
+      },
+      "files": {
+        "ColorDepthMipMatch": "JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/searchable_neurons/pngs/VT008484-20170510_61_B1-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2-01.png",
+        "ColorDepthMipInput": "JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/searchable_neurons/pngs/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png"
+      },
+      "type": "CDSMatch"
+    }
+  ]
+}
