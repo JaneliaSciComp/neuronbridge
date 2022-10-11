@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Row, Col, Typography } from "antd";
 import FileImageOutlined from "@ant-design/icons/FileImageOutlined";
 import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
 import ViewIn3DButton from "./ViewIn3DButton";
-import { AppContext } from "../../containers/AppContext";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -15,20 +14,19 @@ const fileIconStyles = {
   marginRight: "0.3em",
 };
 
-function getSWCLink(baseURL, construct) {
+function getSWCLink(construct) {
   const swc = construct.files.AlignedBodySWC;
   if (swc) {
-    const filePath = `${baseURL}${swc}`;
-    return <a href={filePath}>{construct.publishedName}.swc</a>;
+    return <a href={swc}>{construct.publishedName}.swc</a>;
   }
   return <span>swc file not available</span>;
 }
 
-function getH5JLink(baseUrl, construct) {
+function getH5JLink(construct) {
   const imageStack = construct.files.VisuallyLosslessStack;
   if (imageStack) {
     return (
-      <a href={`${baseUrl}${imageStack}`}>
+      <a href={imageStack}>
         {construct.publishedName}-{construct.slideCode}.h5j
       </a>
     );
@@ -38,26 +36,23 @@ function getH5JLink(baseUrl, construct) {
 
 export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
-  const { appState } = useContext(AppContext);
   const { algorithm } = useParams();
 
-  const h5jBaseUrl = appState.dataConfig?.prefixes?.VisuallyLosslessStack;
-
-  // TODO: if mask is in an EM library, show download for obj file
+  // if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
   const downloadLinks = (
     <>
       <Paragraph>
         <FileImageOutlined style={fileIconStyles} />{" "}
         {isLM
-          ? getSWCLink(appState.dataConfig?.prefixes?.AlignedBodySWC, mask)
-          : getSWCLink(appState.dataConfig?.prefixes?.AlignedBodySWC, selectedMatch.image)}{" "}
+          ? getSWCLink(mask)
+          : getSWCLink(selectedMatch.image)}{" "}
         (EM Skeleton)
       </Paragraph>
       {mask.precomputed ? (
         <Paragraph>
           <FileImageOutlined style={fileIconStyles} />{" "}
-          {isLM ? getH5JLink(h5jBaseUrl, selectedMatch.image) : getH5JLink(h5jBaseUrl, mask)} (LM image stack)
+          {isLM ? getH5JLink(selectedMatch.image) : getH5JLink(mask)} (LM image stack)
         </Paragraph>
       ) : (
         <Text type="danger">
