@@ -6,7 +6,7 @@ const AppContext = React.createContext([{}, () => {}]);
 const initialState = {
   username: null,
   isAdmin: false,
-  searchType: "lines",
+  searchType: "LMImage",
   gridView: true,
   showHelp: false,
   helpTarget: null,

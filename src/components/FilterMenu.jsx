@@ -118,7 +118,7 @@ export default function FilterMenu({
           <Divider orientation="left">Results Filters</Divider>
           <Row>
             <Col xs={24} md={6}>
-              {searchType !== "lm" && (
+              {searchType !== "LMImage" && (
                 <div>
                   <p>Results per line</p>
                   <InputNumber
@@ -192,5 +192,5 @@ FilterMenu.propTypes = {
 };
 
 FilterMenu.defaultProps = {
-  searchType: "lm",
+  searchType: "LMImage",
 };
