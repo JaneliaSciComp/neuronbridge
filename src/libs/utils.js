@@ -26,7 +26,10 @@ export function updateFilesPaths(files, store) {
         return [key, files[key]];
       }
       const fullPath = `${store.prefixes[key]}${files[key]}`;
-      return [key, fullPath];
+      // TODO: The fixedPath needs to be removed, once the files have
+      // been placed on the correct path on S3.
+      const fixedPath = fullPath.replace(/FlyEM_VNC_v0.5/, 'FlyEM_VNC_v0.6');
+      return [key, fixedPath];
     })
   );
   return updated;
