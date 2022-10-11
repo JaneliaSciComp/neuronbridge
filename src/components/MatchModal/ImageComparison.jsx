@@ -300,6 +300,9 @@ export default function ImageComparison(props) {
     );
   });
 
+  if (!inputImageUrl) {
+    return (<p>loading...</p>);
+  }
   /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>
