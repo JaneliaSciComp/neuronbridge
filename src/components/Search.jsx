@@ -6,6 +6,7 @@ import SearchInput from "./SearchInput";
 import SearchResults from "./SearchResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
+import { setResultsFullUrlPaths } from "../libs/utils";
 
 import "./Search.css";
 
@@ -61,7 +62,8 @@ function Search() {
               fr.onload = (evt) => {
                 const text = evt.target.result;
                 const newResults = JSON.parse(text);
-                combined.results.push(...newResults.results);
+                const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
+                combined.results.push(...urlFixedResults);
                 setResults({ ...combined });
                 setIsLoading(false);
               };

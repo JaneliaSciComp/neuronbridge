@@ -40,8 +40,8 @@ export default function Summary(props) {
         isLM={isLM}
         mask={mask}
         match={selectedMatch}
-        matchPath={selectedMatch.image.files.ColorDepthMip}
-        matchThumbnail={selectedMatch.image.files.ColorDepthMipThumbnail}
+        matchPath={selectedMatch.image.files.CDM}
+        matchThumbnail={selectedMatch.image.files.CDMThumbnail}
       >
         <Button
           type="button"

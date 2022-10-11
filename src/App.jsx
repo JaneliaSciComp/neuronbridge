@@ -104,7 +104,7 @@ export default function App() {
 
   useEffect(() => {
     if (isAuthenticated && !appState.dataVersion) {
-      // TODO: convert to fetching the top level "current" text file.
+      // fetches the top level "current" or "next" text file.
       // grab the version number out of it and use that to grab the current
       // config.json file, which replaces paths.json.
       Auth.currentCredentials().then(() => {

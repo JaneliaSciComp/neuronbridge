@@ -12,18 +12,18 @@ import "./ImageComparison.css";
 
 const { Option } = Select;
 
-function createSourceSearchablePath(match, baseURL) {
-  if (match.files.ColorDepthMipInput) {
+function createSourceSearchablePath(match) {
+  if (match.files.CDMInput) {
     // for precomputed searches.
-    return `${baseURL.ColorDepthMipInput}${match.files.ColorDepthMipInput}`;
+    return match.files.CDMInput;
   }
   return "/nopath.png";
 }
 
-function createMatchImagePath(match, prefixes) {
-  if (match?.files?.ColorDepthMipMatch) {
+function createMatchImagePath(match) {
+  if (match?.files?.CDMMatch) {
     // generate the match image path, from values in the match JSON
-    return `${prefixes.ColorDepthMipMatch}${match.files.ColorDepthMipMatch}`;
+    return match.files.CDMMatch;
   }
   return "/nopath.png";
 }
@@ -33,7 +33,6 @@ function getMatchImageOptions(
   match,
   library,
   isLM,
-  prefixes,
 ) {
   if (isPPPM) {
     const pppmOptions = [
@@ -41,35 +40,35 @@ function getMatchImageOptions(
         key: "bestMip",
         desc: "LM - Best Channel CDM",
         imageType: "LM",
-        path: `${prefixes.ColorDepthMipBest}${match.files?.ColorDepthMipBest}`,
+        path: match.files?.CDMBest,
         canMask: false
       },
       {
         key: "display",
         desc: "LM - Best Channel CDM with EM Overlay",
         imageType: "LM",
-        path: `${prefixes.ColorDepthMipSkel}${match.files?.ColorDepthMipSkel}`,
+        path: match.files?.CDMSkel,
         canMask: false
       },
       {
         key: "sampleMIP",
         desc: "LM - Sample All-Channel MIP",
         imageType: "LM",
-        path: `${prefixes.SignalMip}${match.files?.SignalMip}`,
+        path: match.files?.SignalMip,
         canMask: false
       },
       {
         key: "pppmMask",
         desc: "PPPM Mask",
         imageType: "EM",
-        path: `${prefixes.SignalMipMasked}${match.files?.SignalMipMasked}`,
+        path: match.files?.SignalMipMasked,
         canMask: false
       },
       {
         key: "pppmMaskWithEMOverlay",
         desc: "PPPM Mask with EM Overlay",
         imageType: "EM",
-        path: `${prefixes.SignalMipMaskedSkel}${match.files?.SignalMipMaskedSkel}`,
+        path: match.files?.SignalMipMaskedSkel,
         canMask: false
       }
       /* {
@@ -83,7 +82,7 @@ function getMatchImageOptions(
     return pppmOptions;
   }
 
-  const matchImagePath = createMatchImagePath(match, prefixes);
+  const matchImagePath = createMatchImagePath(match);
   const cdmOptions = [
     {
       key: "match",
@@ -98,12 +97,12 @@ function getMatchImageOptions(
       key: "display",
       desc: `${isLM ? "LM - Original Channel CDM" : "EM - Neuron CDM"}`,
       imageType: isLM ? "LM" : "EM",
-      path: `${prefixes.ColorDepthMip}${match.image.files.ColorDepthMip}`,
+      path: match.image.files.CDM,
       canMask: true
     }
   ];
-  if (match.files.ColorDepthMipInput) {
-    const path = createSourceSearchablePath(match, prefixes);
+  if (match.files.CDMInput) {
+    const path = createSourceSearchablePath(match);
     cdmOptions.push({
       key: "segmented",
       desc: `${
@@ -144,14 +143,12 @@ export default function ImageComparison(props) {
 
   useEffect(() => {
     if (mask.identityId) {
-      const unsignedUrl = mask.files.ColorDepthMip;
+      const unsignedUrl = mask.files.CDM;
       signedLink(unsignedUrl).then(result => {
         setInputImageUrl(result);
       });
-    } else if (appState?.dataConfig?.stores) {
-      if (appState.dataConfig.stores[mask.store]) {
-        setInputImageUrl(`${appState.dataConfig.stores[mask.store].prefixes.ColorDepthMip}${mask.files.ColorDepthMip}`);
-      }
+    } else {
+      setInputImageUrl(mask.files.CDM);
     }
   },[appState.dataConfig.stores, mask]);
 
@@ -168,12 +165,6 @@ export default function ImageComparison(props) {
     anatomicalRegion === "vnc" ||
     Boolean(mask?.libraryName?.toLowerCase()?.includes("vnc"));
 
-  let prefixes = {};
-  if (appState?.dataConfig?.stores) {
-    if (appState?.dataConfig?.stores[match.store]) {
-      prefixes = appState?.dataConfig?.stores[match.store].prefixes;
-    }
-  }
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(
@@ -181,7 +172,6 @@ export default function ImageComparison(props) {
     match,
     mask.libraryName,
     isLM,
-    prefixes
   );
 
   // both PPPM and CDM searches have an input image.

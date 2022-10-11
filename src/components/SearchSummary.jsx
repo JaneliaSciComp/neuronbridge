@@ -1,18 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import LineSummary from "./LineSummary";
 import PPPSummary from "./PPPSummary";
 import SkeletonSummary from "./SkeletonSummary";
 import ImageWithModal from "./ImageWithModal";
-import { AppContext } from "../containers/AppContext";
 
 export default function SearchSummary({ searchAlgorithm, input }) {
-  const { appState } = useContext(AppContext);
 
-  const { store } = input;
-
-  const thumbSrc = `${appState?.dataConfig?.stores[store]?.prefixes?.ColorDepthMipThumbnail}${input.files.ColorDepthMipThumbnail}`;
-  const imgSrc = `${appState?.dataConfig?.stores[store]?.prefixes?.ColorDepthMip}${input.files.ColorDepthMip}`
+  const thumbSrc = input.files.CDMThumbnail;
+  const imgSrc = input.files.CDM;
 
   const modalImage = (
     <ImageWithModal

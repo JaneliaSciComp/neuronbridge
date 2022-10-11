@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Row, Col, Space } from "antd";
 import PropTypes from "prop-types";
 import ImageWithModal from "./ImageWithModal";
 import SkeletonMeta from "./SkeletonMeta";
 import config from "../config";
-import { AppContext } from "../containers/AppContext";
 
 export default function SkeletonResult(props) {
-  const { appState } = useContext(AppContext);
   const { metaInfo } = props;
 
   const handleClick = (type) => {
@@ -63,9 +61,8 @@ export default function SkeletonResult(props) {
     ? generatePppmMatchesButton()
     : "";
 
-  const { store } = metaInfo;
-  const thumbSrc = `${appState.dataConfig.stores[store].prefixes.ColorDepthMipThumbnail}${metaInfo?.files?.ColorDepthMipThumbnail}`;
-  const imgSrc = `${appState.dataConfig.stores[store].prefixes.ColorDepthMip}${metaInfo?.files?.ColorDepthMip}`;
+  const thumbSrc = metaInfo?.files?.CDMThumbnail;
+  const imgSrc = metaInfo?.files?.CDM;
 
   return (
     <Row>

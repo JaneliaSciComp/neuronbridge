@@ -65,7 +65,6 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("appState", JSON.stringify({}));
   };
 
-  // TODO: convert the value returned from an [] to an {}.
   return (
     <AppContext.Provider
       value={{ appState, setState, setAppState, setPermanent, resetPermanent }}

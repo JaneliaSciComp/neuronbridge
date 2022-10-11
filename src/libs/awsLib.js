@@ -42,7 +42,7 @@ export async function maskAndSearch(image) {
 // this function will return a signed url. If any other url
 // is provided, it will be returned untouched.
 export function signedPublicLink(url) {
-  const matched = url.match(/^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/);
+  const matched = url && url.match(/^http[s]:\/\/s3\.amazonaws\.com\/([^/]*)\/(.*)/);
   if (matched) {
     const [, bucket, relativePath] = matched;
     // if we aren't skipping the signing, then sign it.

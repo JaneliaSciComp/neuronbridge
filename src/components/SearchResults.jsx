@@ -26,8 +26,8 @@ export default function SearchResults(props) {
           <React.Fragment key={result.id}>
             <LineResult metaInfo={result} key={result.id}>
               <ImageWithModal
-                thumbSrc={result.image.files.ColorDepthMipThumbnail}
-                src={result.image.files.ColorDepthMip}
+                thumbSrc={result.image.files.CDMThumbnail}
+                src={result.image.files.CDM}
                 title={result.publishedName}
               />
             </LineResult>

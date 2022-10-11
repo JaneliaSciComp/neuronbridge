@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Divider, Row, Col, Button } from "antd";
 import ImageWithModal from "./ImageWithModal";
@@ -7,31 +7,23 @@ import SkeletonMeta from "./SkeletonMeta";
 import DownloadSelect from "./MatchSummary/DownloadSelect";
 import GenderIcon from "./MatchSummary/GenderIcon";
 import { useQuery } from "../libs/hooksLib";
-import { AppContext } from "../containers/AppContext";
 
-function getImageSrc(match, prefixes, isPPP, isThumbnail) {
+function getImageSrc(match, isPPP, isThumbnail) {
   if (isPPP) {
     if (isThumbnail) {
-      return `${prefixes?.ColorDepthMipBestThumbnail}${match.files.ColorDepthMipBestThumbnail}`;
+      return match.files.CDMBestThumbnail;
     }
-    return `${prefixes?.ColorDepthMipBest}${match.files.ColorDepthMipBest}`;
+    return match.files.CDMBest;
   }
   if (isThumbnail) {
-    return `${prefixes?.ColorDepthMipThumbnail}${match.image.files.ColorDepthMipThumbnail}`;
+    return match.image.files.CDMThumbnail;
   }
-  return `${prefixes?.ColorDepthMip}${match.image.files.ColorDepthMip}`;
+  return match.image.files.CDM;
 }
 
 export default function MatchSummary(props) {
   const { match, showModal, isLM, gridView } = props;
   const query = useQuery();
-  const { appState } = useContext(AppContext);
-  let prefixes = {};
-  if (appState?.dataConfig?.stores) {
-    if (appState?.dataConfig?.stores[match.store]) {
-      prefixes = appState?.dataConfig?.stores[match.store].prefixes;
-    }
-  }
 
   // set this flag if we are looking at a PPPM result.
   const isPPP = Boolean(match.pppmScore);
@@ -53,8 +45,8 @@ export default function MatchSummary(props) {
           <DownloadSelect id={match.image.id} />
           <GenderIcon gender={match.image.gender} />
           <ImageWithModal
-            thumbSrc={getImageSrc(match, prefixes, isPPP, true)}
-            src={getImageSrc(match, prefixes, isPPP)}
+            thumbSrc={getImageSrc(match, isPPP, true)}
+            src={getImageSrc(match, isPPP)}
             alt={publishedName}
             showModal={showModal}
             vertical={Boolean(match.anatomicalArea.match(/^vnc$/i))}
@@ -96,8 +88,8 @@ export default function MatchSummary(props) {
           md={{ span: 8, order: 1 }}
         >
           <ImageWithModal
-            thumbSrc={getImageSrc(match, prefixes, isPPP, true)}
-            src={getImageSrc(match, prefixes, isPPP)}
+            thumbSrc={getImageSrc(match, isPPP, true)}
+            src={getImageSrc(match, isPPP)}
             alt={publishedName}
             showModal={showModal}
             vertical={match.anatomicalArea.match(/^vnc$/i)}

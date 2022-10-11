@@ -7,6 +7,7 @@ import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
+import { setResultsFullUrlPaths } from "../libs/utils";
 
 const { Title, Paragraph } = Typography;
 
@@ -27,10 +28,6 @@ export default function UnifiedSearch() {
   const { appState } = useContext(AppContext);
 
   useEffect(() => {
-    function fixUrlResults(newResults) {
-      return newResults.results;
-    }
-
     function readMetaData(metaData, combinedResults, setResults) {
       return new Promise((resolve, reject) => {
         // We can't use metaData.Body.text() here as it is not supported in safari
@@ -39,7 +36,7 @@ export default function UnifiedSearch() {
           const text = evt.target.result;
           const newResults = JSON.parse(text);
           // convert stored relative urls into the full path urls.
-          const urlFixedResults = fixUrlResults(newResults);
+          const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
           combinedResults.results.push(...urlFixedResults);
           resolve(setResults({ ...combinedResults }));
         };

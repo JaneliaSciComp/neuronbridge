@@ -7,8 +7,23 @@ import SearchSummary from "./SearchSummary";
 import Matches from "./Matches";
 import { AppContext } from "../containers/AppContext";
 import { MatchesProvider } from "../containers/MatchesContext";
+import { setResultsFullUrlPaths, updateFilesPaths } from "../libs/utils";
 
 import "./MatchesLoader.css";
+
+function fixUrls(matches, stores) {
+  return {
+    ...matches,
+    inputImage: {
+      ...matches.inputImage,
+      files: updateFilesPaths(
+        matches.inputImage.files,
+        stores[matches?.inputImage?.files?.store]
+      ),
+    },
+    results: setResultsFullUrlPaths(matches.results, stores),
+  };
+}
 
 export default function MatchesLoader({ searchAlgorithm }) {
   const [isLoading, setLoading] = useState(false);
@@ -39,7 +54,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
               const fr = new FileReader();
               fr.onload = (evt) => {
                 const json = JSON.parse(evt.target.result);
-                setMatchMeta(json);
+                setMatchMeta(fixUrls(json, appState.dataConfig.stores));
                 setLoading(false);
               };
               fr.readAsText(response.Body);
@@ -62,12 +77,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
     if ("stores" in appState.dataConfig) {
       getMatches();
     }
-  }, [
-    matchId,
-    appState.dataConfig,
-    appState.dataVersion,
-    searchAlgorithm,
-  ]);
+  }, [matchId, appState.dataConfig, appState.dataVersion, searchAlgorithm]);
 
   if (isLoading) {
     return (
@@ -76,7 +86,6 @@ export default function MatchesLoader({ searchAlgorithm }) {
       </div>
     );
   }
-
 
   if (matchMeta) {
     const matchInput = matchMeta.inputImage;
@@ -98,16 +107,25 @@ export default function MatchesLoader({ searchAlgorithm }) {
       <>
         <div className="searchTabs">
           {matchMeta?.inputImage?.files?.CDSResults ? (
-          <Link
-            className={searchAlgorithm === "pppm" ? "" : "activeSearch"}
-          to={`/matches/cds/${matchMeta?.inputImage?.files?.CDSResults.replace(/\.json$/,'')}`}
-          >
-            Color Depth Search Results
-          </Link>) : ""}
+            <Link
+              className={searchAlgorithm === "pppm" ? "" : "activeSearch"}
+              to={`/matches/cds/${matchMeta?.inputImage?.files?.CDSResults.replace(
+                /\.json$/,
+                ""
+              )}`}
+            >
+              Color Depth Search Results
+            </Link>
+          ) : (
+            ""
+          )}
           {matchMeta?.inputImage?.files?.PPPMResults ? (
             <Link
               className={searchAlgorithm === "pppm" ? "activeSearch" : ""}
-            to={`/matches/pppm/${matchMeta?.inputImage?.files?.PPPMResults.replace(/\.json$/,'')}`}
+              to={`/matches/pppm/${matchMeta?.inputImage?.files?.PPPMResults.replace(
+                /\.json$/,
+                ""
+              )}`}
             >
               PatchPerPixMatch Results
             </Link>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Storage, API, graphqlOperation } from "aws-amplify";
 import { Divider, message } from "antd";
@@ -11,7 +11,6 @@ import * as queries from "../graphql/queries";
 import config from "../config";
 import { signedLink } from "../libs/awsLib";
 import { MatchesProvider } from "../containers/MatchesContext";
-import { AppContext } from "../containers/AppContext";
 
 export default function Results({ match }) {
   const searchId = match.params.id;
@@ -19,12 +18,10 @@ export default function Results({ match }) {
   const [searchResults, setSearchResults] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
   const [imageUrls, setImageUrls] = useState(null);
-  const { appState } = useContext(AppContext);
-	const { prefixes } = appState.dataConfig;
 
   useEffect(() => {
-    if (prefixes && searchResults && searchMeta) {
-      const unsignedUrl = searchResults.inputImage.files.ColorDepthMip;
+    if (searchResults && searchMeta) {
+      const unsignedUrl = searchResults.inputImage.files.CDM;
       signedLink(unsignedUrl, searchMeta.identityId).then(result => {
         setImageUrls({
           thumbSrc: result,
@@ -32,7 +29,7 @@ export default function Results({ match }) {
         });
       });
     }
-  }, [prefixes, searchResults, searchMeta]);
+  }, [searchResults, searchMeta]);
 
   useEffect(() => {
     if (searchId) {
