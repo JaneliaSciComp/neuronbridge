@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Storage, API, graphqlOperation } from "aws-amplify";
 import { Divider, message } from "antd";
@@ -11,6 +11,8 @@ import * as queries from "../graphql/queries";
 import config from "../config";
 import { signedLink } from "../libs/awsLib";
 import { MatchesProvider } from "../containers/MatchesContext";
+import { setResultsFullUrlPaths } from "../libs/utils";
+import { AppContext } from "../containers/AppContext";
 
 export default function Results({ match }) {
   const searchId = match.params.id;
@@ -18,6 +20,7 @@ export default function Results({ match }) {
   const [searchResults, setSearchResults] = useState(null);
   const [missingResults, setMissingResults] = useState(false);
   const [imageUrls, setImageUrls] = useState(null);
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
     if (searchResults && searchMeta) {
@@ -56,7 +59,7 @@ export default function Results({ match }) {
   }, [searchId]);
 
   useEffect(() => {
-    if (searchMeta && searchMeta.searchDir) {
+    if (searchMeta && searchMeta.searchDir && appState?.dataConfig?.stores) {
       const resultFile = searchMeta.searchMask.replace(/[^.]*$/, "result");
       const resultsUrl = `${searchMeta.searchDir}/${resultFile}`;
 
@@ -81,7 +84,8 @@ export default function Results({ match }) {
           fr.onload = evt => {
             const text = evt.target.result;
             const newResults = JSON.parse(text);
-            setSearchResults(newResults);
+            const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
+            setSearchResults({...newResults, results: urlFixedResults});
           };
           fr.readAsText(results.Body);
         })
@@ -93,7 +97,7 @@ export default function Results({ match }) {
           }
         });
     }
-  }, [searchMeta]);
+  }, [searchMeta, appState.dataConfig.stores]);
 
   if (missingResults) {
     return <NotFound />;
@@ -117,7 +121,7 @@ export default function Results({ match }) {
           thumbSrc={imageUrls ? imageUrls.thumbSrc : ""}
           src={imageUrls ? imageUrls.src : ""}
           title={searchMeta.upload}
-          vertical={searchMeta.anatomicalRegion.match(/^vnc$/i)}
+          vertical={Boolean(searchMeta.anatomicalRegion.match(/^vnc$/i))}
       />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>
