@@ -32,7 +32,7 @@ describe("Download3D: unit tests", () => {
       >
         <MemoryRouter>
           <Download3D
-            selectedMatch={{ image: { files: { AlignedBodySWC: "foo" } } }}
+            selectedMatch={{ image: { files: { AlignedBodySWC: "http://test.example.com/foo" } } }}
             mask={{}}
             isLM={false}
           />
