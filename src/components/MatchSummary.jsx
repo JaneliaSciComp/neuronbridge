@@ -30,6 +30,8 @@ export default function MatchSummary(props) {
 
   const { publishedName } = match.image;
 
+  const isVertical = match.anatomicalArea ? Boolean(match.anatomicalArea.match(/^vnc$/i)) : false;
+
   if (gridView) {
     let score = ` - Rank: ${match.pppmRank}, Score: ${match.pppmScore}`;
     if (!isPPP) {
@@ -38,6 +40,7 @@ export default function MatchSummary(props) {
           ? `(Matched Pixels: ${match.matchingPixels})`
           : `(Score: ${Math.round(match.normalizedScore)})`;
     }
+
 
     const thumbnails = (
       <>
@@ -49,7 +52,7 @@ export default function MatchSummary(props) {
             src={getImageSrc(match, isPPP)}
             alt={publishedName}
             showModal={showModal}
-            vertical={Boolean(match.anatomicalArea.match(/^vnc$/i))}
+            vertical={isVertical}
           />
         </div>
         <p style={{ paddingLeft: "2em" }}>
@@ -64,7 +67,7 @@ export default function MatchSummary(props) {
         </p>
       </>
     );
-    if (match.anatomicalArea.match(/^vnc$/i)) {
+    if (isVertical) {
       // squeeze a few more images into the row if they are vertical.
       return (
         <Col xs={12} md={8} lg={6} xl={4}>
@@ -92,7 +95,7 @@ export default function MatchSummary(props) {
             src={getImageSrc(match, isPPP)}
             alt={publishedName}
             showModal={showModal}
-            vertical={match.anatomicalArea.match(/^vnc$/i)}
+            vertical={isVertical}
           />
         </Col>
         <Col
