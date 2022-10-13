@@ -36,6 +36,7 @@ const initialState = {
       { label: "Brain", value: "brain" },
       { label: "VNC", value: "vnc", disabled: true }
     ],
+    stores: {},
     disableAlignment: false
   },
   dataVersion: null,

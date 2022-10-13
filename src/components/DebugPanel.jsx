@@ -29,14 +29,21 @@ export default function DebugPanel({ appState, config }) {
     endpoint => endpoint.endpoint
   );
 
-  let pppBucketMatch = true;
+  const storesUrls = Object.entries(dataConfig.stores).map(([, store]) => {
+    const pppmPathFromConfig = store.prefixes?.CDMSkel.split("/");
+    const pppBucketMatch = pppmPathFromConfig ? pppmPathFromConfig.includes(config.PPPM_BUCKET) : false;
 
-  if (dataConfig.prefixes) {
-    const pppmPathFromConfig = dataConfig.prefixes?.CDMSkel.split("/");
-    if (!pppmPathFromConfig.includes(config.PPPM_BUCKET)) {
-      pppBucketMatch = false;
-    }
-  }
+    return (
+      <>
+        <b>{store.label}</b>
+        <ul>
+          <li><b>Imagery Base URL:</b>{store.prefixes.CDM}</li>
+          <li><b>Thumbnail Base URL:</b>{store.prefixes.CDMThumbnail}</li>
+          <li><b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b>{store.prefixes.CDMSkel}</li>
+        </ul>
+      </>
+    );
+  });
 
   return (
     <>
@@ -50,7 +57,7 @@ export default function DebugPanel({ appState, config }) {
               <b>Search Bucket:</b> {config.SEARCH_BUCKET}
             </p>
             <p>
-              <b className={pppBucketMatch ? "" : "noMatch"}> PPPM Bucket:</b>{" "}
+              <b> PPPM Bucket:</b>{" "}
               {config.PPPM_BUCKET}
             </p>
             {searchEndpoints}
@@ -80,15 +87,7 @@ export default function DebugPanel({ appState, config }) {
             title={`s3://${config.s3.BUCKET}/${appState.dataVersion}/config.json`}
             style={{ marginBottom: "1rem" }}
           >
-            <p>
-              <b>Imagery Base URL:</b> {dataConfig?.prefixes?.CDM}
-            </p>
-            <p>
-              <b>Thumbnails Base URL:</b> {dataConfig?.prefixes?.CDMThumbnail}
-            </p>
-            <p>
-              <b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b> {dataConfig?.prefixes?.CDMSkel}
-            </p>
+            {storesUrls}
           </Card>
 
           <Card size="small" title={`${searchEndpointURL[0]}/published_names`}>
