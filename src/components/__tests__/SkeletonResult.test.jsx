@@ -31,6 +31,8 @@ describe("SkeletonResult: unit tests", () => {
               imageURL: "http://example.com",
               files: {
                 CDSResults: "foo",
+                CDMThumbnail: "http://example.com",
+                CDM: "http://example.com"
               },
             }}
           >
@@ -64,6 +66,8 @@ describe("SkeletonResult: unit tests", () => {
               imageURL: "http://example.com",
               files: {
                 PPPMResults: "foo",
+                CDMThumbnail: "http://example.com",
+                CDM: "http://example.com"
               },
             }}
           >
