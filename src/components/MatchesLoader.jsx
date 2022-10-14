@@ -74,7 +74,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
         });
     }
 
-    if ("stores" in appState.dataConfig) {
+    if (appState?.dataConfig?.loaded) {
       getMatches();
     }
   }, [matchId, appState.dataConfig, appState.dataVersion, searchAlgorithm]);

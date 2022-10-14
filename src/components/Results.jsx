@@ -59,7 +59,7 @@ export default function Results({ match }) {
   }, [searchId]);
 
   useEffect(() => {
-    if (searchMeta && searchMeta.searchDir && appState?.dataConfig?.stores) {
+    if (searchMeta && searchMeta.searchDir && appState?.dataConfig?.loaded) {
       const resultFile = searchMeta.searchMask.replace(/[^.]*$/, "result");
       const resultsUrl = `${searchMeta.searchDir}/${resultFile}`;
 
@@ -97,7 +97,7 @@ export default function Results({ match }) {
           }
         });
     }
-  }, [searchMeta, appState.dataConfig.stores]);
+  }, [searchMeta, appState.dataConfig.loaded, appState.dataConfig.stores]);
 
   if (missingResults) {
     return <NotFound />;
