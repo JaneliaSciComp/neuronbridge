@@ -33,7 +33,7 @@ const genderOptions = [
 ];
 
 export default function FilterMenu({
-  searchType,
+  matchesType,
   searchAlgorithm,
   countsByLibrary,
   useGenderFilter,
@@ -118,7 +118,7 @@ export default function FilterMenu({
           <Divider orientation="left">Results Filters</Divider>
           <Row>
             <Col xs={24} md={6}>
-              {searchType !== "LMImage" && (
+              {matchesType === "lm" && (
                 <div>
                   <p>Results per line</p>
                   <InputNumber
@@ -185,12 +185,12 @@ export default function FilterMenu({
 }
 
 FilterMenu.propTypes = {
-  searchType: PropTypes.string,
+  matchesType: PropTypes.string,
   searchAlgorithm: PropTypes.string.isRequired,
   countsByLibrary: PropTypes.object.isRequired,
   useGenderFilter: PropTypes.bool.isRequired,
 };
 
 FilterMenu.defaultProps = {
-  searchType: "LMImage",
+  matchesType: "em",
 };

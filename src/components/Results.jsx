@@ -107,8 +107,6 @@ export default function Results({ match }) {
     return <p>...loading</p>;
   }
 
-  const searchType = searchMeta.searchType === "em2lm" ? "em" : "lm";
-
   // we need information from both of these objects further down
   // the tree, and their attributes don't overlap, so they are being
   // combined here to pass as single object to the Matches component.
@@ -130,7 +128,6 @@ export default function Results({ match }) {
         <Matches
           input={combinedMetaResults}
           matches={searchResults}
-          searchType={searchType}
           searchAlgorithm="cdm"
         />
       </MatchesProvider>

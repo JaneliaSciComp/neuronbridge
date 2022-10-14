@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { CSVLink } from "react-csv";
 
-export default function ResultsExport({ results, searchType }) {
-  const name = searchType === "lines" ? "Body Id" : "Line Name";
+export default function ResultsExport({ results, matchesType }) {
+  const name = matchesType === "lm" ?  "Line Name" : "Body Id";
 
   if (results.length < 1) {
     return <span>CSV Link</span>;
@@ -56,5 +56,5 @@ export default function ResultsExport({ results, searchType }) {
 
 ResultsExport.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
-  searchType: PropTypes.string.isRequired
+  matchesType: PropTypes.string.isRequired
 };

@@ -55,6 +55,12 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
   const isPPP = searchAlgorithm === "pppm";
 
+  // determine if the matches are EM images or LM images. We don't
+  // currently have a search where both types of images can be matched,
+  // so it is safe to assume that if we check the first result and it
+  // is an EM image, then they are all EM images, etc.
+  const matchesType = matches?.results?.find(result => result.image)?.image?.type === "EMImage" ? "em" : "lm";
+
   const { appState, setPermanent } = useContext(AppContext);
 
   if (!appState.dataConfig.loaded) {
@@ -149,7 +155,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
     //     {...}
     //   ]
     //
-    if (input.type !== "LMImage") {
+    if (matchesType === "lm") {
       const byLines = {};
       modifiedMatches.results.forEach((result) => {
         const { publishedName, libraryName } = result.image;
@@ -291,10 +297,10 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
       <Row style={{ paddingBottom: "1em", marginTop: "2em" }}>
         <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
-            {input.type === "LMImage" ? "EM" : "LM"} Matches{" "}
+            {matchesType === "lm" ? "LM" : "EM"} Matches{" "}
             <HelpButton
               target={
-                input.type === "LMImage" ? "MatchesLMtoEM" : "MatchesEMtoLM"
+                matchesType !== "lm" ? "MatchesLMtoEM" : "MatchesEMtoLM"
               }
             />
           </h3>
@@ -307,8 +313,9 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
           <FilterButton />
           <ExportMenu
             results={fullList}
-            searchType={input.type}
+            matchesType={matchesType}
             searchId={isPPP ? input.publishedName : input.id}
+            searchAlgorithm={searchAlgorithm}
             precomputed={precomputed}
           />
           <ClearMatchSelection />
@@ -342,7 +349,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
       <FilterMenuDisplay
         searchAlgorithm={searchAlgorithm}
-        searchType={input.type}
+        matchesType={matchesType}
         countsByLibrary={countsByLibrary}
         useGenderFilter={useGenderFilter}
       />
@@ -362,7 +369,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
       />
 
       <MatchModal
-        isLM={!(input.type === "LMImage")}
+        isLM={matchesType === "lm"}
         searchAlgorithm={searchAlgorithm}
         open={parseInt(query.get("m") || 0, 10)}
         setOpen={setModalOpen}

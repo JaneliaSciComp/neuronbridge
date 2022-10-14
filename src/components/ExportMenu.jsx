@@ -6,7 +6,13 @@ import { useMatches } from "../containers/MatchesContext";
 import ResultsExport from "./ResultsExport";
 import ImageExport from "./ImageExport";
 
-export default function ExportMenu({ results, searchType, searchId, precomputed }) {
+export default function ExportMenu({
+  results,
+  matchesType,
+  searchId,
+  searchAlgorithm,
+  precomputed,
+}) {
   const { state } = useMatches();
   const [isLoading, setLoading] = useState(false);
 
@@ -19,23 +25,23 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
   const selectedResults =
     state.selected.length <= 0
       ? resultsWithPosition
-      : resultsWithPosition.filter(result =>
+      : resultsWithPosition.filter((result) =>
           state.selected.includes(result.image.id)
         );
 
   const menu = (
     <Menu>
       <Menu.Item key="results" disabled={selectedResults.length < 1}>
-        <ResultsExport results={selectedResults} searchType={searchType} />
+        <ResultsExport results={selectedResults} matchesType={matchesType} />
       </Menu.Item>
       <Menu.Item key="image" disabled={selectedResults.length < 1}>
         <ImageExport
-          ids={selectedResults.map(result => result.image.id)}
+          ids={selectedResults.map((result) => result.image.id)}
           isFiltered={state.selected.length >= 1}
           searchId={searchId}
           onChange={setLoading}
           precomputed={precomputed}
-          searchType={searchType}
+          searchAlgorithm={searchAlgorithm}
         />
       </Menu.Item>
     </Menu>
@@ -47,7 +53,7 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
         style={{ backgroundColor: "#008b94" }}
         count={selectedResults.length}
       >
-        <Button type="link" onClick={e => e.preventDefault()}>
+        <Button type="link" onClick={(e) => e.preventDefault()}>
           {isLoading ? (
             <>
               <LoadingOutlined style={{ fontSize: 12 }} spin /> Downloading
@@ -65,7 +71,8 @@ export default function ExportMenu({ results, searchType, searchId, precomputed 
 
 ExportMenu.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
-  searchType: PropTypes.string.isRequired,
+  matchesType: PropTypes.string.isRequired,
   searchId: PropTypes.string.isRequired,
-  precomputed: PropTypes.bool.isRequired
+  searchAlgorithm: PropTypes.string.isRequired,
+  precomputed: PropTypes.bool.isRequired,
 };
