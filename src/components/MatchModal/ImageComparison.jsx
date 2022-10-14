@@ -6,26 +6,18 @@ import { AppContext } from "../../containers/AppContext";
 import ImageSelection from "./ImageSelection";
 import { useQuery } from "../../libs/hooksLib";
 import { CoordsProvider } from "../../containers/MouseCoordsContext";
-import { signedLink } from "../../libs/awsLib";
 
 import "./ImageComparison.css";
 
 const { Option } = Select;
 
 function createSourceSearchablePath(match) {
-  if (match.files.CDMInput) {
-    // for precomputed searches.
-    return match.files.CDMInput;
-  }
-  return "/nopath.png";
+  return match?.files?.CDMInput || "/nopath.png";
 }
 
 function createMatchImagePath(match) {
-  if (match?.files?.CDMMatch) {
-    // generate the match image path, from values in the match JSON
-    return match.files.CDMMatch;
-  }
-  return "/nopath.png";
+  // generate the match image path, from values in the match JSON
+  return match?.files?.CDMMatch || "/nopath.png";
 }
 
 function getMatchImageOptions(
@@ -135,24 +127,10 @@ export default function ImageComparison(props) {
 
   const { appState, setPermanent } = useContext(AppContext);
   const [isCopying, setIsCopying] = useState(false);
-  const [inputImageUrl, setInputImageUrl] = useState(null);
 
   const searchType = match.pppmRank !== undefined ? "pppm" : "cdm";
   const isPPP = searchType === "pppm";
   const defaultComparisons = isPPP ? 4 : 2;
-
-  useEffect(() => {
-    if (mask.identityId) {
-      const unsignedUrl = mask.files.CDM;
-      signedLink(unsignedUrl).then(result => {
-        setInputImageUrl(result);
-      });
-    } else {
-      setInputImageUrl(mask.files.CDM);
-    }
-  },[appState.dataConfig.stores, mask]);
-
-
 
   // Unify the anatomical region properties from pre computed and custom searches.
   // TODO: this step wouldn't be necessary if the keys were the same in both.
@@ -180,7 +158,7 @@ export default function ImageComparison(props) {
     desc: `${isLM ? "EM - Neuron CDM" : "LM - Original Channel CDM"}`,
     imageType: isLM ? "EM" : "LM",
     // TODO: this needs to be signed if the input is an uploaded image.
-    path: inputImageUrl,
+    path: mask.files.CDM,
     canMask: true
   });
 
@@ -300,9 +278,6 @@ export default function ImageComparison(props) {
     );
   });
 
-  if (!inputImageUrl) {
-    return (<p>loading...</p>);
-  }
   /* eslint-disable jsx-a11y/label-has-associated-control */
   return (
     <>

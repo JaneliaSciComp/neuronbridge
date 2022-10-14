@@ -12,7 +12,7 @@ export function alt() {
 // expects an object with a files key,
 // takes that object and replaces all the urls in the files object
 // returns the updated object.
-export function updateFilesPaths(files, store) {
+export function updateFilesPaths(files, store, options={}) {
   // loop over all the keys in the files object and remap them to full urls.
   const updated = Object.fromEntries(
     Object.keys(files).map((key) => {
@@ -25,6 +25,12 @@ export function updateFilesPaths(files, store) {
       if (key.match(/Results$/)) {
         return [key, files[key]];
       }
+      // skips adding the store prefix to the input file for
+      // custom searches as the store prefix is always wrong.
+      // This needs to be fetched from the private search bucket.
+      if (options.custom && key.match(/^CDMInput$/)) {
+        return [key, files[key]];
+      }
       const fullPath = `${store.prefixes[key]}${files[key]}`;
       // TODO: The fixedPath needs to be removed, once the files have
       // been placed on the correct path on S3.
@@ -35,20 +41,20 @@ export function updateFilesPaths(files, store) {
   return updated;
 }
 
-export function setResultsFullUrlPaths(newResults, stores) {
+export function setResultsFullUrlPaths(newResults, stores, options) {
   const updated = newResults.map((result) => {
     const selectedStore =
       stores[result?.files?.store || result?.image?.store || result.store];
 
     const updatedResult = {
       ...result,
-      files: updateFilesPaths(result.files, selectedStore),
+      files: updateFilesPaths(result.files, selectedStore, options),
     };
 
     if (result.image) {
       const updatedImage = {
         ...result.image,
-        files: updateFilesPaths(result.image.files, selectedStore),
+        files: updateFilesPaths(result.image.files, selectedStore, options),
       };
       updatedResult.image = updatedImage;
     }

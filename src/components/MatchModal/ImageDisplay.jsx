@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row } from "antd";
 import MousePosition from "./MousePosition";
 import ImagePlaceholder from "../ImagePlaceholder";
+import { signedLink } from "../../libs/awsLib";
 
 const imageDimensions = {
   vertical: ["900px", "461px"],
@@ -11,6 +12,19 @@ const imageDimensions = {
 
 const ImageDisplay = props => {
   const { src, alt, mirrored, vertical, contextMenu } = props;
+
+  const [ imageUrl, setImageUrl ] = useState(null);
+
+  useEffect(() => {
+    if (!src.match(/^http/)) {
+      signedLink(src).then(result => {
+        setImageUrl(result);
+      });
+    } else {
+      setImageUrl(src);
+    }
+  }, [src]);
+
 
   const placeholderSrc = vertical
     ? "/vnc_placeholder.png"
@@ -27,7 +41,7 @@ const ImageDisplay = props => {
           imageDimensions={imageDimensions}
         />
         <ImagePlaceholder
-          src={src}
+          src={imageUrl}
           alt={alt}
           mirrored={mirrored}
           imageDimensions={

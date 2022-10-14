@@ -84,7 +84,7 @@ export default function Results({ match }) {
           fr.onload = evt => {
             const text = evt.target.result;
             const newResults = JSON.parse(text);
-            const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
+            const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores, { custom: true});
             setSearchResults({...newResults, results: urlFixedResults});
           };
           fr.readAsText(results.Body);
