@@ -32,10 +32,12 @@ const initialState = {
     // }
     // Order is important. The first value in the list will be the default value that
     // the site selects
-    anatomicalRegions: [
-      { label: "Brain", value: "brain" },
-      { label: "VNC", value: "vnc", disabled: true }
-    ],
+    anatomicalAreas: {
+      Brain : {
+        label: "Brain",
+        alignmentSpace: "JRC2018_Unisex_20x_HR"
+      },
+    },
     stores: {},
     disableAlignment: false
   },

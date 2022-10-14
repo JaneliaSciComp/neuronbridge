@@ -11,7 +11,7 @@ import {
   Typography,
   Switch,
   Radio,
-  message
+  message,
 } from "antd";
 import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import { Auth, API, graphqlOperation } from "aws-amplify";
@@ -25,10 +25,13 @@ const { Title } = Typography;
 export default function SearchUploadMeta({
   uploadedFile,
   onSearchSubmit,
-  onCancel
+  onCancel,
 }) {
   const { appState } = useContext(AppContext);
-  const { anatomicalRegions, disableAlignment } = appState.dataConfig;
+  const {
+    anatomicalAreas,
+    disableAlignment,
+  } = appState.dataConfig;
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
@@ -40,9 +43,9 @@ export default function SearchUploadMeta({
     return null;
   }
 
-  const onFinish = values => {
+  const onFinish = (values) => {
     setIsUploading(true);
-    Auth.currentCredentials().then(currentCreds => {
+    Auth.currentCredentials().then((currentCreds) => {
       const searchDetails = {
         step: 0,
         algorithm: values.algorithm,
@@ -52,7 +55,7 @@ export default function SearchUploadMeta({
         upload: uploadedFile.file.name,
         mimeType: values.mimetype,
         simulateMIPGeneration: fakeMips,
-        anatomicalRegion: values.anatomicalregion
+        anatomicalRegion: values.anatomicalregion,
       };
 
       if (!isAligned) {
@@ -73,13 +76,13 @@ export default function SearchUploadMeta({
       API.graphql(
         graphqlOperation(mutations.createSearch, { input: searchDetails })
       )
-        .then(result => {
+        .then((result) => {
           // if aligned already create the generatedMIPS file and go to mask selection page.
           if (isAligned) {
             API.post("SearchAPI", "/create_default_channel", {
               body: {
-                searchId: result.data.createSearch.id
-              }
+                searchId: result.data.createSearch.id,
+              },
             })
               .then(() => {
                 setIsUploading(false);
@@ -100,10 +103,10 @@ export default function SearchUploadMeta({
                 submittedSearches: [
                   {
                     id: result.data.createSearch.id,
-                    searchMask: uploadedFile.file.name
-                  }
-                ]
-              }
+                    searchMask: uploadedFile.file.name,
+                  },
+                ],
+              },
             })
               .then(() => {
                 setIsUploading(false);
@@ -112,11 +115,8 @@ export default function SearchUploadMeta({
               .catch((e) => {
                 deleteSearch({ id: result.data.createSearch.id });
                 setIsUploading(false);
-                if (e?.response?.data?.errorMessage){
-                  message.error(
-                    e.response.data.errorMessage,
-                    8
-                  );
+                if (e?.response?.data?.errorMessage) {
+                  message.error(e.response.data.errorMessage, 8);
                 } else {
                   message.error(
                     "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
@@ -126,24 +126,24 @@ export default function SearchUploadMeta({
               });
           }
         })
-        .catch(e => {
+        .catch((e) => {
           setIsUploading(false);
-          e.errors.forEach(error => {
+          e.errors.forEach((error) => {
             message.error(error.message);
           });
         });
     });
   };
 
-  const onFakeChange = checked => {
+  const onFakeChange = (checked) => {
     setFakeMips(checked);
   };
 
-  const onOverrideChange = checked => {
+  const onOverrideChange = (checked) => {
     setOverride(checked);
   };
 
-  const onAlignedChange = event => {
+  const onAlignedChange = (event) => {
     setIsAligned(event.target.value);
   };
 
@@ -152,13 +152,13 @@ export default function SearchUploadMeta({
     // guess, based on file height and width, if the uploaded file was
     // a VNC image. If it is taller than it is wide, then we can set
     // the anatomical region to vnc by default.
-    anatomicalRegions.filter(
-      region => region.value === "vnc" && !region.disabled
+    Object.entries(anatomicalAreas).filter(
+      (area) => area[0].toLowerCase() === "vnc"
     ).length > 0 &&
     uploadedFile.height &&
     uploadedFile.height > uploadedFile.width
       ? "vnc"
-      : anatomicalRegions[0].value;
+      : Object.entries(anatomicalAreas)[0][0].toLowerCase();
 
   return (
     <div>
@@ -176,7 +176,7 @@ export default function SearchUploadMeta({
           algorithm: "max",
           referenceChannel: "auto",
           mimetype:
-            uploadedFile.file.type || "Couldn't be determined, please select"
+            uploadedFile.file.type || "Couldn't be determined, please select",
         }}
         onFinish={onFinish}
       >
@@ -186,10 +186,14 @@ export default function SearchUploadMeta({
               The uploaded image is :{" "}
             </label>
           </Col>
-          <Col style={{marginBottom: "1em"}}>
+          <Col style={{ marginBottom: "1em" }}>
             <Radio.Group onChange={onAlignedChange} value={isAligned}>
-               <Radio value disabled={disableAlignment}>Aligned Color Depth 2D MIP</Radio>
-               <Radio value={false} disabled={disableAlignment}>Not Aligned confocal 3D stack</Radio>
+              <Radio value disabled={disableAlignment}>
+                Aligned Color Depth 2D MIP
+              </Radio>
+              <Radio value={false} disabled={disableAlignment}>
+                Not Aligned confocal 3D stack
+              </Radio>
             </Radio.Group>
           </Col>
         </Row>
@@ -197,8 +201,8 @@ export default function SearchUploadMeta({
           label="Anatomical Region"
           name="anatomicalregion"
           help={
-            anatomicalRegions.length > 1 &&
-            initialAnatomicalRegion !== anatomicalRegions[0].value ? (
+            Object.keys(anatomicalAreas).length > 1 &&
+            initialAnatomicalRegion !== Object.keys(anatomicalAreas).sort()[0].toLowerCase() ? (
               <p>
                 Based on the dimensions of the image you uploaded we have chosen{" "}
                 {initialAnatomicalRegion} for the anatomical area. If this is
@@ -208,9 +212,12 @@ export default function SearchUploadMeta({
           }
         >
           <Select>
-            {anatomicalRegions.map(region => (
-              <Option key={region.value} value={region.value} disabled={region.disabled}>
-                {region.label}
+            {Object.entries(anatomicalAreas).map((region) => (
+              <Option
+                key={region[0].toLowerCase()}
+                value={region[0].toLowerCase()}
+              >
+                {region[1].label}
               </Option>
             ))}
           </Select>
@@ -261,14 +268,14 @@ export default function SearchUploadMeta({
                 <Form.Item
                   label="Voxel Size (microns)"
                   rules={[
-                    { required: true, message: "Please choose a voxel size!" }
+                    { required: true, message: "Please choose a voxel size!" },
                   ]}
                   style={{ marginBottom: 0 }}
                 >
                   <Form.Item
                     name="voxelxy"
                     rules={[
-                      { required: true, message: "Voxel XY size is required" }
+                      { required: true, message: "Voxel XY size is required" },
                     ]}
                     style={{ display: "inline-block", marginRight: "1em" }}
                   >
@@ -284,7 +291,7 @@ export default function SearchUploadMeta({
                   <Form.Item
                     name="voxelz"
                     rules={[
-                      { required: true, message: "Voxel Z size is required" }
+                      { required: true, message: "Voxel Z size is required" },
                     ]}
                     style={{ display: "inline-block", marginRight: "1em" }}
                   >
@@ -346,8 +353,8 @@ export default function SearchUploadMeta({
                     rules={[
                       {
                         required: true,
-                        message: "Channel count is required"
-                      }
+                        message: "Channel count is required",
+                      },
                     ]}
                   >
                     <Select>
@@ -380,11 +387,11 @@ export default function SearchUploadMeta({
 SearchUploadMeta.propTypes = {
   uploadedFile: PropTypes.object,
   onSearchSubmit: PropTypes.func,
-  onCancel: PropTypes.func
+  onCancel: PropTypes.func,
 };
 
 SearchUploadMeta.defaultProps = {
   uploadedFile: null,
   onSearchSubmit: null,
-  onCancel: null
+  onCancel: null,
 };

@@ -56,13 +56,13 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
     };
   }
 
-  const uploadDimensions = appState.dataConfig.anatomicalRegions
-    .map((region) => {
-      return !region.disabled ? (
-        <p key={region.label}>
-          {region.label}: {config.uploadDimensions[region.value]}
+  const uploadDimensions = Object.entries(appState.dataConfig.anatomicalAreas)
+    .map(([label]) => {
+      return (
+        <p key={label}>
+          {label}: {config.uploadDimensions[label.toLowerCase()]}
         </p>
-      ) : null;
+      );
     })
     .filter((region) => region);
   function onRemove() {
