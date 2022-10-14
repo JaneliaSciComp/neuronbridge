@@ -34,14 +34,14 @@ export default function DebugPanel({ appState, config }) {
     const pppBucketMatch = pppmPathFromConfig ? pppmPathFromConfig.includes(config.PPPM_BUCKET) : false;
 
     return (
-      <>
+      <React.Fragment key={store.label}>
         <b>{store.label}</b>
         <ul>
           <li><b>Imagery Base URL:</b>{store.prefixes.CDM}</li>
           <li><b>Thumbnail Base URL:</b>{store.prefixes.CDMThumbnail}</li>
           <li><b className={pppBucketMatch ? "" : "noMatch"}>PPP Imagery Base URL:</b>{store.prefixes.CDMSkel}</li>
         </ul>
-      </>
+      </React.Fragment>
     );
   });
 
