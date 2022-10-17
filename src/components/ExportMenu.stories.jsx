@@ -6,54 +6,64 @@ import "antd/dist/antd.less";
 
 export default {
   title: "ExportMenu",
-  component: ExportMenu
+  component: ExportMenu,
 };
 
-const Template = args => (
+const Template = (args) => (
   <MatchesProvider>
     <ExportMenu {...args} />
   </MatchesProvider>
 );
 
 const result = {
-  maskImageName:
-    "private/us-east-1:bdf8f247-6f45-4692-ad74-331abf0e1c64/dfed0f50-ac48-11eb-8e55-a1008873a97d/GMR_9B06_AE_01_18-xX00b_C070224_20070414120013978_3_mask.png",
-  imageURL:
-    "https://s3.amazonaws.com/janelia-flylight-color-depth-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R49A09-20190319_61_D4-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.png",
-  thumbnailURL:
-    "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-dev/JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/R49A09-20190319_61_D4-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2.jpg",
-  id: "R49A09-20190319_61_D4-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01",
-  libraryName: "FlyLight_Gen1_MCFO",
-  publishedName: "R49A09",
-  imageName:
-    "JRC2018_Unisex_20x_HR/FlyLight_Gen1_MCFO/searchable_neurons/1398/R49A09-20190319_61_D4-GAL4-m-40x-brain-JRC2018_Unisex_20x_HR-CDM_2-01.tif",
-  slideCode: "20190319_61_D4",
-  objective: "40x",
-  gender: "m",
-  anatomicalArea: "brain",
-  alignmentSpace: "JRC2018_Unisex_20x_HR",
-  channel: "2",
-  matchingPixels: 178,
-  matchingRatio: 0.02218344965104686,
-  gradientAreaGap: -1,
-  normalizedScore: 178
+  mirrored: false,
+  normalizedScore: 2941.8447,
+  matchingPixels: 19,
+  image: {
+    libraryName: "FlyEM_Hemibrain_v1.2.1",
+    alignmentSpace: "JRC2018_Unisex_20x_HR",
+    anatomicalArea: "Brain",
+    gender: "f",
+    id: "2945073144027205643",
+    publishedName: "hemibrain:v1.2.1:2338031784",
+    files: {
+      store: "fl:open_data:brain",
+      CDMThumbnail:
+        "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/2338031784-JRC2018_Unisex_20x_HR-CDM.jpg",
+      AlignedBodySWC:
+        "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/SWC/2338031784.swc",
+      CDM:
+        "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/2338031784-JRC2018_Unisex_20x_HR-CDM.png",
+      PPPMResults: "2941779886043300386.json",
+      CDSResults: "2945073144027205643.json",
+      AlignedBodyOBJ:
+        "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/OBJ/2338031784.obj",
+    },
+    type: "EMImage",
+  },
+  files: {
+    store: "fl:open_data:brain",
+    CDMInput:
+      "JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/pngs/SS39036-20181121_43_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.png",
+    CDMMatch:
+      "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/searchable_neurons/pngs/2338031784-JRC2018_Unisex_20x_HR-CDM.png",
+  },
+  type: "CDSMatch",
 };
 
 export const DownloadSingleImage = Template.bind({});
 
 DownloadSingleImage.args = {
-  results: [
-    result
-  ],
+  results: [result],
   searchType: "skeleton",
-  searchId: "37d4bcad-70db-42ea-9cb8-25ca5842cd08"
+  searchId: "37d4bcad-70db-42ea-9cb8-25ca5842cd08",
 };
 
 export const DownloadThreehundredImages = Template.bind({});
 
 DownloadThreehundredImages.args = {
   searchType: "skeleton",
-  searchId: "37d4bcad-70db-42ea-9cb8-25ca5842cd08"
+  searchId: "37d4bcad-70db-42ea-9cb8-25ca5842cd08",
 };
 
 DownloadThreehundredImages.args.results = new Array(300).fill(result);

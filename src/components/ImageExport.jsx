@@ -72,7 +72,7 @@ export default function ImageExport({
 
   if (ids.length > ZIP_DOWNLOAD_LIMIT) {
     return (
-      <Popover placement="right" content={popContent} title="Download limits">
+      <Popover placement="bottomLeft" content={popContent} title="Download limits">
         {downloadLink}
       </Popover>
     );

@@ -26,7 +26,7 @@ export default function ExportMenu({
     state.selected.length <= 0
       ? resultsWithPosition
       : resultsWithPosition.filter((result) =>
-          state.selected.includes(result.image.id)
+          state.selected.includes(result?.image?.id)
         );
 
   const menu = (
@@ -36,7 +36,7 @@ export default function ExportMenu({
       </Menu.Item>
       <Menu.Item key="image" disabled={selectedResults.length < 1}>
         <ImageExport
-          ids={selectedResults.map((result) => result.image.id)}
+          ids={selectedResults.map((result) => result?.image?.id)}
           isFiltered={state.selected.length >= 1}
           searchId={searchId}
           onChange={setLoading}
