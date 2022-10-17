@@ -20,3 +20,7 @@
   height: auto;
   z-index: 2;
 }
+
+.imageComparison p {
+  word-break: break-all;
+}

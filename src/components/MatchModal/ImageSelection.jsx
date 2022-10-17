@@ -115,8 +115,8 @@ function ImageSelection({
         alt={imageAlt}
         mirrored={mirrored}
         contextMenu={contextMenu}
+        debug={appState.debug}
       />
-      {appState.debug ? <p>{matchImageURL}</p> : ""}
     </>
   );
 }

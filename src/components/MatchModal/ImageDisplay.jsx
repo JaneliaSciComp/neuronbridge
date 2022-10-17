@@ -7,17 +7,17 @@ import { signedLink } from "../../libs/awsLib";
 
 const imageDimensions = {
   vertical: ["900px", "461px"],
-  horizontal: ["566px", "1210px"]
+  horizontal: ["566px", "1210px"],
 };
 
-const ImageDisplay = props => {
-  const { src, alt, mirrored, vertical, contextMenu } = props;
+const ImageDisplay = (props) => {
+  const { src, alt, mirrored, vertical, contextMenu, debug } = props;
 
-  const [ imageUrl, setImageUrl ] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
     if (!src.match(/^http/)) {
-      signedLink(src).then(result => {
+      signedLink(src).then((result) => {
         setImageUrl(result);
       });
     } else {
@@ -25,12 +25,13 @@ const ImageDisplay = props => {
     }
   }, [src]);
 
-
   const placeholderSrc = vertical
     ? "/vnc_placeholder.png"
     : "/brain_placeholder.png";
 
-  const widthRestrict = vertical ? { maxWidth: imageDimensions.vertical[1] } : null;
+  const widthRestrict = vertical
+    ? { maxWidth: imageDimensions.vertical[1] }
+    : null;
 
   return (
     <>
@@ -49,6 +50,7 @@ const ImageDisplay = props => {
           }
           placeholderSrc={placeholderSrc}
         />
+        {debug ? <p>{imageUrl}</p> : ""}
       </Row>
     </>
   );
