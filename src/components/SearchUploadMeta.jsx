@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -22,16 +22,27 @@ import { AppContext } from "../containers/AppContext";
 const { Option } = Select;
 const { Title } = Typography;
 
+function getInitialAnatomicalArea(anatomicalAreas, uploadedFile) {
+    // if VNC is in the list of regions and not disabled, then we can
+    // guess, based on file height and width, if the uploaded file was
+    // a VNC image. If it is taller than it is wide, then we can set
+    // the anatomical region to vnc by default.
+    return Object.entries(anatomicalAreas).filter(
+      (area) => area[0].toLowerCase() === "vnc"
+    ).length > 0 &&
+    uploadedFile.height &&
+    uploadedFile.height > uploadedFile.width
+      ? "vnc"
+      : Object.entries(anatomicalAreas)[0][0].toLowerCase();
+}
+
 export default function SearchUploadMeta({
   uploadedFile,
   onSearchSubmit,
   onCancel,
 }) {
   const { appState } = useContext(AppContext);
-  const {
-    anatomicalAreas,
-    disableAlignment,
-  } = appState.dataConfig;
+  const { anatomicalAreas, disableAlignment } = appState.dataConfig;
   const [isAligned, setIsAligned] = useState(true);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
@@ -39,9 +50,19 @@ export default function SearchUploadMeta({
 
   const history = useHistory();
 
+  const [currentAnatomicalArea, setCurrentAnatomicalArea] = useState("brain");
+
+  useEffect(() => {
+    if (uploadedFile) {
+      setCurrentAnatomicalArea(getInitialAnatomicalArea(anatomicalAreas, uploadedFile));
+    }
+  },[uploadedFile, anatomicalAreas]);
+
   if (!uploadedFile) {
     return null;
   }
+
+  const initialAnatomicalRegion = getInitialAnatomicalArea(anatomicalAreas, uploadedFile);
 
   const onFinish = (values) => {
     setIsUploading(true);
@@ -147,19 +168,6 @@ export default function SearchUploadMeta({
     setIsAligned(event.target.value);
   };
 
-  const initialAnatomicalRegion =
-    // if VNC is in the list of regions and not disabled, then we can
-    // guess, based on file height and width, if the uploaded file was
-    // a VNC image. If it is taller than it is wide, then we can set
-    // the anatomical region to vnc by default.
-    Object.entries(anatomicalAreas).filter(
-      (area) => area[0].toLowerCase() === "vnc"
-    ).length > 0 &&
-    uploadedFile.height &&
-    uploadedFile.height > uploadedFile.width
-      ? "vnc"
-      : Object.entries(anatomicalAreas)[0][0].toLowerCase();
-
   return (
     <div>
       <Title level={3}>
@@ -202,7 +210,10 @@ export default function SearchUploadMeta({
           name="anatomicalregion"
           help={
             Object.keys(anatomicalAreas).length > 1 &&
-            initialAnatomicalRegion !== Object.keys(anatomicalAreas).sort()[0].toLowerCase() ? (
+            initialAnatomicalRegion !==
+              Object.keys(anatomicalAreas)
+                .sort()[0]
+                .toLowerCase() ? (
               <p>
                 Based on the dimensions of the image you uploaded we have chosen{" "}
                 {initialAnatomicalRegion} for the anatomical area. If this is
@@ -211,7 +222,11 @@ export default function SearchUploadMeta({
             ) : null
           }
         >
-          <Select>
+          <Select
+            onChange={(e) => {
+              setCurrentAnatomicalArea(e);
+            }}
+          >
             {Object.entries(anatomicalAreas).map((region) => (
               <Option
                 key={region[0].toLowerCase()}
@@ -247,64 +262,83 @@ export default function SearchUploadMeta({
                 />{" "}
               </Col>
               <Col span={14} style={{ color: "rgba(0, 0, 0, 0.45)" }}>
-                By default we will try to infer voxel size and reference channel
-                from your file. If this doesn&apos;t work, you will need to
-                override the values here.
+                By default we will try to infer{" "}
+                {currentAnatomicalArea !== "vnc" ? "voxel size and" : ""}{" "}
+                reference channel from your file. If this doesn&apos;t work, you
+                will need to override the values here.
               </Col>
             </Row>
 
             {override && (
               <>
-                <Form.Item label="Template Matching Algorithm" name="algorithm">
-                  <Select>
-                    <Option value="max">
-                      Maximum Intensity (Good for clean samples)
-                    </Option>
-                    <Option value="avg">
-                      Median Intensity (Better for noisy samples)
-                    </Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Voxel Size (microns)"
-                  rules={[
-                    { required: true, message: "Please choose a voxel size!" },
-                  ]}
-                  style={{ marginBottom: 0 }}
-                >
-                  <Form.Item
-                    name="voxelxy"
-                    rules={[
-                      { required: true, message: "Voxel XY size is required" },
-                    ]}
-                    style={{ display: "inline-block", marginRight: "1em" }}
-                  >
-                    <Input
-                      addonBefore="XY"
-                      step={0.01}
-                      precision={3}
-                      type="number"
-                      placeholder="0"
-                      min={0}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    name="voxelz"
-                    rules={[
-                      { required: true, message: "Voxel Z size is required" },
-                    ]}
-                    style={{ display: "inline-block", marginRight: "1em" }}
-                  >
-                    <Input
-                      addonBefore="Z"
-                      step={0.01}
-                      precision={3}
-                      type="number"
-                      placeholder="0"
-                      min={0}
-                    />
-                  </Form.Item>
-                </Form.Item>
+                {currentAnatomicalArea !== "vnc" ? (
+                  <>
+                    <Form.Item
+                      label="Template Matching Algorithm"
+                      name="algorithm"
+                    >
+                      <Select>
+                        <Option value="max">
+                          Maximum Intensity (Good for clean samples)
+                        </Option>
+                        <Option value="avg">
+                          Median Intensity (Better for noisy samples)
+                        </Option>
+                      </Select>
+                    </Form.Item>
+                    <Form.Item
+                      label="Voxel Size (microns)"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please choose a voxel size!",
+                        },
+                      ]}
+                      style={{ marginBottom: 0 }}
+                    >
+                      <Form.Item
+                        name="voxelxy"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Voxel XY size is required",
+                          },
+                        ]}
+                        style={{ display: "inline-block", marginRight: "1em" }}
+                      >
+                        <Input
+                          addonBefore="XY"
+                          step={0.01}
+                          precision={3}
+                          type="number"
+                          placeholder="0"
+                          min={0}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        name="voxelz"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Voxel Z size is required",
+                          },
+                        ]}
+                        style={{ display: "inline-block", marginRight: "1em" }}
+                      >
+                        <Input
+                          addonBefore="Z"
+                          step={0.01}
+                          precision={3}
+                          type="number"
+                          placeholder="0"
+                          min={0}
+                        />
+                      </Form.Item>
+                    </Form.Item>
+                  </>
+                ) : (
+                  ""
+                )}
                 <Form.Item
                   label="Reference Channel Index"
                   name="referenceChannel"
