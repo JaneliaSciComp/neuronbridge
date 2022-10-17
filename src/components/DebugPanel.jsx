@@ -30,7 +30,7 @@ export default function DebugPanel({ appState, config }) {
   );
 
   const storesUrls = Object.entries(dataConfig.stores).map(([, store]) => {
-    const pppmPathFromConfig = store.prefixes?.CDMSkel.split("/");
+    const pppmPathFromConfig = store?.prefixes?.CDMSkel && store.prefixes.CDMSkel.split("/");
     const pppBucketMatch = pppmPathFromConfig ? pppmPathFromConfig.includes(config.PPPM_BUCKET) : false;
 
     return (
