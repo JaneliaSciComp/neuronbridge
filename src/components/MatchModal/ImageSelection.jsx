@@ -95,7 +95,7 @@ function ImageSelection({
         <Select
           onChange={handleImageChoice}
           value={selectValue}
-          style={{ width: vertical ? 200 : 300 }}
+          style={{ width: 300, marginRight: "0.5em", marginBottom: "0.5em" }}
           dropdownMatchSelectWidth={false}
         >
           {imageOptions.map((option) => (

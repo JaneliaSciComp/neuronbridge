@@ -11,7 +11,7 @@ export default function ImageActions({contextMenu, children}) {
     <>
     {children}
     <Dropdown overlay={contextMenu}>
-      <Button style={{marginLeft: "0.5em"}}>
+      <Button style={{marginRight: "0.5em", marginBottom: "0.5em"}}>
         <EllipsisOutlined />
       </Button>
     </Dropdown>
