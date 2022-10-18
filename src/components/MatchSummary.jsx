@@ -115,7 +115,7 @@ export default function MatchSummary(props) {
           md={{ span: 6, order: 3 }}
         >
           <Button onClick={showModal} style={{ marginRight: "1em" }}>
-            Select
+            View Match
           </Button>
           <DownloadSelect id={match.image.id} asButton />
         </Col>

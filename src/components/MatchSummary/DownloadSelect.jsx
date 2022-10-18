@@ -23,7 +23,7 @@ export default function DownloadSelect({ id, asButton }) {
         type={checked ? "primary" : "default"}
         ghost={checked}
       >
-        Download {checked ? <CheckOutlined /> : null}
+        Add{checked ? "ed": ""} to Download {checked ? <CheckOutlined /> : null}
       </Button>
     );
   }
