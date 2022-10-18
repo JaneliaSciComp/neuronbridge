@@ -291,6 +291,9 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
     maskImageStack: matches.maskImageStack || null,
   };
 
+  const resultsFile = isPPP ? input.files.PPPMResults : input.files.CDSResults;
+  const searchId = precomputed ? resultsFile : input.id;
+
   return (
     <div>
       <ScrollToTopOnMount/>
@@ -314,7 +317,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
           <ExportMenu
             results={fullList}
             matchesType={matchesType}
-            searchId={isPPP ? input.publishedName : input.id}
+            searchId={searchId}
             searchAlgorithm={searchAlgorithm}
             precomputed={precomputed}
           />
