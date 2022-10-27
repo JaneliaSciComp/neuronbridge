@@ -19,7 +19,7 @@ function getSWCLink(construct) {
   if (swc) {
     return <a href={swc}>{construct.publishedName}.swc</a>;
   }
-  return <span>swc file not available</span>;
+  return <span>SWC file not available</span>;
 }
 
 function getH5JLink(construct) {
@@ -31,7 +31,7 @@ function getH5JLink(construct) {
       </a>
     );
   }
-  return <span>h5j file not available</span>;
+  return <span>H5J file not available</span>;
 }
 
 export default function Download3D(props) {
@@ -88,17 +88,17 @@ export default function Download3D(props) {
         </Col>
         <Col sm={24} md={12}>
           <Title level={3} style={{ textDecoration: "underline" }}>
-            Installing VVD viewer
+            Installing VVD Viewer
           </Title>
           <ol>
             <li>
-              Download the latest release of VVD viewer from{" "}
+              Download the latest release of VVD Viewer from{" "}
               <a href="https://github.com/JaneliaSciComp/VVDViewer/releases">
                 https://github.com/JaneliaSciComp/VVDViewer/releases
               </a>
             </li>
             <li>
-              Usage instructions for VVD viewer can be found{" "}
+              Usage instructions for VVD Viewer can be found{" "}
               <a href="https://github.com/JaneliaSciComp/VVDViewer">here</a>.
             </li>
           </ol>

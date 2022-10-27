@@ -3,11 +3,11 @@
 
 ## Build
 
-The build currently requires Python 2.x. You can create that with Conda as follows:
+The build currently requires Python 2.x. You can create an environment with Conda as follows:
 
 ```bash
-conda create --name py2 python=2.7
-conda activate py2
+conda create --name neuronbridge -c conda-forge python=2.7 nodejs
+conda activate neuronbridge
 ```
 
 Build:

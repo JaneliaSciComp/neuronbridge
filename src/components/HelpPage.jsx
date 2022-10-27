@@ -26,8 +26,7 @@ export default function HelpPage() {
         </Col>
         <Col xs={24} lg={18}>
           <p>
-            A quick tutorial video highlighting different aspects of
-            neuronbridge.
+            Watch a short tutorial video highlighting different aspects of NeuronBridge:
           </p>
           <div className="video">
             <iframe
@@ -51,11 +50,11 @@ export default function HelpPage() {
             for your own research.
           </p>
           <p>
-            View the{" "}
+            You can also{" "}
             <a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md">
-              README on open.quiltdata.com
+              access the data
             </a>{" "}
-            to see how the MIP files are labeled and organized.
+            on AWS S3.
           </p>
           <HelpContents scroll={false} />
           <a className="anchorOffset" id="tools" href="#tools">#tools</a>

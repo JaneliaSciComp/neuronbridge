@@ -36,7 +36,7 @@ export default function About() {
       <Row>
         <Col sm={12}>
           <Title>Source Code</Title>
-          <p><a href="https://github.com/JaneliaSciComp/neuronbridge">Github</a></p>
+          <p>You can find all of the code for this website and the supporting infrastructure in our <a href="https://github.com/JaneliaSciComp/neuronbridge">GitHub repositories</a>.</p>
           <Title>Team</Title>
           <Title level={3}>Scientific Advisors:</Title>
           <ul>
