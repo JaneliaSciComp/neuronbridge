@@ -9,7 +9,8 @@ export default function ImagePlaceholder({
   imageDimensions,
   placeholderSrc,
   style,
-  className
+  className,
+  maxHeight
 }) {
   const [signedSrc, setSignedSrc] = useState();
   const [imageLoaded, setLoaded] = useState(false);
@@ -30,6 +31,10 @@ export default function ImagePlaceholder({
         width: "100%",
         height: "auto"
       };
+
+  if (maxHeight) {
+    updatedStyle.maxHeight = maxHeight;
+  }
 
   useEffect(() => {
     if (src && !loadError) {
@@ -106,11 +111,13 @@ ImagePlaceholder.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   imageDimensions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  mirrored: PropTypes.bool
+  mirrored: PropTypes.bool,
+  maxHeight: PropTypes.string
 };
 
 ImagePlaceholder.defaultProps = {
   mirrored: false,
   style: {},
-  className: ""
+  className: "",
+  maxHeight: null
 };

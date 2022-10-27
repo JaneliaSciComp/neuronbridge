@@ -19,6 +19,7 @@ export default function SearchSummary({ searchAlgorithm, input }) {
         input.anatomicalArea === "VNC" ||
         input.libraryName?.toLowerCase().includes("vnc")
       }
+      maxHeight="350px"
     />
   );
 

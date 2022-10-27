@@ -7,7 +7,7 @@ import { signedPublicLink } from "../libs/awsLib";
 
 
 export default function ImageWithModal(props) {
-  const { thumbSrc, src, title, showModal, vertical } = props;
+  const { thumbSrc, src, title, showModal, vertical, maxHeight } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
@@ -41,6 +41,7 @@ export default function ImageWithModal(props) {
           placeholderSrc={placeholderSrc}
           imageDimensions={imageDimensions}
           className="thumbnail"
+          maxHeight={maxHeight}
         />
       </Button>
     );
@@ -55,6 +56,7 @@ export default function ImageWithModal(props) {
           placeholderSrc={placeholderSrc}
           imageDimensions={imageDimensions}
           className="thumbnail"
+          maxHeight={maxHeight}
         />
       </Button>
       <Modal
@@ -80,10 +82,12 @@ ImageWithModal.propTypes = {
   title: PropTypes.string,
   showModal: PropTypes.func,
   vertical: PropTypes.bool,
+  maxHeight: PropTypes.string
 };
 
 ImageWithModal.defaultProps = {
   title: "Missing",
   showModal: null,
-  vertical: false
+  vertical: false,
+  maxHeight: null
 };

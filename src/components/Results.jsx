@@ -120,6 +120,7 @@ export default function Results({ match }) {
           src={imageUrls ? imageUrls.src : ""}
           title={searchMeta.upload}
           vertical={Boolean(searchMeta.anatomicalRegion.match(/^vnc$/i))}
+          maxHeight="350px"
       />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>
