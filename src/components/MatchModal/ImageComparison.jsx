@@ -105,13 +105,12 @@ function getMatchImageOptions(
       canMask: false
     });
   }
-  /* TODO: uncomment this when the data is ready.
-  if (match.libraryName.match(/gen1.*mcfo/i)) {
+  /* if (match.image.files.Gal4Expression) {
     cdmOptions.push({
       key: "expression",
       desc: "LM - Gen1-GAL4 Expression Pattern",
       imageType: "LM",
-      path: "/expression_pattern.png",
+      path: match.image.files.Gal4Expression,
       canMask: false
     });
   } */
