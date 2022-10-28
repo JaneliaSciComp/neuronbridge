@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Row, Col } from "antd";
-import HelpContents from "./Help/HelpContents";
 import ScrollToTopOnMount from "./ScrollToTopOnMount";
+import HelpContents from "./Help/HelpContents";
 import "./HelpPage.css";
 
 const { Title } = Typography;
@@ -41,7 +41,7 @@ export default function HelpPage() {
               allowFullScreen
             />
           </div>
-          
+
           <HelpContents scroll={false} />
 
           <a className="anchorOffset" id="rawdata" href="#rawdata">#rawdata</a>
@@ -54,7 +54,7 @@ export default function HelpPage() {
             for your own research.
           </p>
 
-          <a className="anchorOffset" id="rawdata" href="#rawdata">#rawdata</a>
+          <a className="anchorOffset" id="programmatic" href="#rawdata">#rawdata</a>
           <Title level={3}>Programmatic API access</Title>
           <p>
             Access the images programmatically{" "}

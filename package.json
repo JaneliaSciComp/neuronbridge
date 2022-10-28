@@ -70,6 +70,7 @@
     "react-responsive-carousel": "^3.1.51",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
+    "react-router-hash-link": "^2.4.3",
     "resolve": "1.12.2",
     "resolve-url-loader": "3.1.2",
     "sass-loader": "8.0.0",

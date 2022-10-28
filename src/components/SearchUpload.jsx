@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Upload, message, Card, Button, Row, Col } from "antd";
-import { Link } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { v1 as uuidv1 } from "uuid";
@@ -82,45 +82,48 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   // Dragger component. This way we can use that to name the upload
   // directory something other than the fc-<uid> name currently used.
 
-  const stackHelp = 
+  const stackHelp = (
     <>
       <h3>Unaligned Image Stack</h3>
       <p>
-        Upload an unaligned confocal stack to have NeuronBridge attempt
-        to alignment for you. 
+        Upload an unaligned confocal stack to have NeuronBridge attempt to
+        alignment for you.
       </p>
       <b style={{ marginTop: "1em" }}>Supported file formats:</b>
       <p>
         Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi with
-        a single sample, and .nd2. The <i>.nrrd</i> format is not supported due 
+        a single sample, and .nd2. The <i>.nrrd</i> format is not supported due
         to its single channel limitation.
       </p>
     </>
+  );
 
-  const cdmHelp = 
+  const cdmHelp = (
     <>
       <h3>Aligned Color Depth MIP</h3>
       <p>
-        Upload an aligned and masked Color Depth MIP to proceed directly to the search.
+        Upload an aligned and masked Color Depth MIP to proceed directly to the
+        search.
       </p>
-      <b style={{ marginTop: "1em" }}>Uploaded CDM images are expected to be aligned as follows:</b>
+      <b style={{ marginTop: "1em" }}>
+        Uploaded CDM images are expected to be aligned as follows:
+      </b>
       {uploadDimensions}
     </>
+  );
 
   const uploadHelp = appState.dataConfig.disableAlignment ? (
-    <p>
-      {cdmHelp}
-    </p>
+    <p>{cdmHelp}</p>
   ) : (
     <>
       <Row gutter={12} align="middle">
-        <Col xs={11} lg={11}>
+        <Col xs={24} lg={11}>
           {stackHelp}
         </Col>
-        <Col xs={2} lg={2}>
+        <Col xs={24} lg={2}>
           <b>OR</b>
         </Col>
-        <Col xs={11} lg={11}>
+        <Col xs={24} lg={11}>
           {cdmHelp}
         </Col>
       </Row>
@@ -130,36 +133,43 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   return (
     <div className="uploader">
       <p>
-        Search NeuronBridge color depth MIP collections with your own data files by uploading them here.{" "}
-        <br />
-        Uploaded data is subject to the <Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link>.
+        Search NeuronBridge color depth MIP collections with your own data files
+        by uploading them here. <br />
+        Uploaded data is subject to the{" "}
+        <Link to="/upload-policy">
+          Uploaded Data Usage and Retention Policy
+        </Link>
+        .
       </p>
       {appState.uploadAccepted && !uploadedFile ? (
         <>
-        <Dragger
-          name={uuidv1()}
-          action=""
-          withCredentials
-          listType="picture"
-          customRequest={customRequest}
-          showUploadList={{ showRemoveIcon: false }}
-        >
-          <p className="ant-upload-drag-icon">
-            <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
-          </p>
-          <p className="ant-upload-text">
-            Upload a file by clicking here or dragging it to this area.
-          </p>
-          {appState.dataConfig.loaded ? uploadHelp : ""}
-        </Dragger>
+          <Dragger
+            name={uuidv1()}
+            action=""
+            withCredentials
+            listType="picture"
+            customRequest={customRequest}
+            showUploadList={{ showRemoveIcon: false }}
+          >
+            <p className="ant-upload-drag-icon">
+              <FontAwesomeIcon icon={faCloudUploadAlt} size="5x" />
+            </p>
+            <p className="ant-upload-text">
+              Upload a file by clicking here or dragging it to this area.
+            </p>
+            {appState.dataConfig.loaded ? uploadHelp : ""}
+          </Dragger>
         </>
       ) : (
         ""
       )}
       {!appState.uploadAccepted ? (
-        <Card title="Please click to accept the following agreement before uploading" >
+        <Card title="Please click to accept the following agreement before uploading">
           <UploadPolicy textOnly />
-          <Button type="primary" onClick={() => setPermanent({ uploadAccepted: true})}>
+          <Button
+            type="primary"
+            onClick={() => setPermanent({ uploadAccepted: true })}
+          >
             Accept
           </Button>
         </Card>
@@ -171,10 +181,17 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         onSearchSubmit={() => handleUpload(null)}
         onCancel={() => onRemove()}
       />
-      <center>  
-          <p>
-            <Link to="/help#upload_alignment">Additional help</Link>
-          </p>
+      <center>
+        <p>
+          <Link
+            to="/help#upload_alignment"
+            scroll={(el) => {
+              el.scrollIntoView(true);
+            }}
+          >
+            Additional help
+          </Link>
+        </p>
       </center>
     </div>
   );
