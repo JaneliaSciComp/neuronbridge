@@ -29,24 +29,6 @@
   <!-- Fathom -->
   <script src="https://cdn.usefathom.com/script.js" data-site="%REACT_APP_ANALYTICS_KEY%" data-spa="auto" defer></script>
   <!-- / Fathom -->
-  <script src="https://apis.google.com/js/platform.js?onload=initGAPI" async defer></script>
-  <meta name="google-signin-client_id"
-    content="571848494296-aaese10flk849dtroc9mug08vr8fqiko.apps.googleusercontent.com">
-  <script>
-    function initGAPI() {
-      // init the Google SDK client
-      const g = window.gapi;
-      g.load("auth2", () => {
-        g.auth2
-          .init({
-            client_id:
-              "571848494296-aaese10flk849dtroc9mug08vr8fqiko.apps.googleusercontent.com",
-            fetch_basic_profile: true,
-            ux_mode: "pop-up"
-          })
-      });
-    }
-  </script>
   <title>NeuronBridge</title>
   <style>
     body {
