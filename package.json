@@ -141,7 +141,7 @@
     "jest-axe": "^3.4.0",
     "jest-environment-jsdom": "^29.0.3",
     "less-loader": "^6.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.7.1",
     "react-is": "^16.13.1",
     "serverless-build-client": "^2.5.0",
     "serverless-deployment-bucket": "^1.5.1",
