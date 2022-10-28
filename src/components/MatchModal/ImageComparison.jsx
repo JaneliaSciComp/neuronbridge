@@ -105,7 +105,7 @@ function getMatchImageOptions(
       canMask: false
     });
   }
-  /* if (match.image.files.Gal4Expression) {
+  if (match.image.files.Gal4Expression) {
     cdmOptions.push({
       key: "expression",
       desc: "LM - Gen1-GAL4 Expression Pattern",
@@ -113,7 +113,7 @@ function getMatchImageOptions(
       path: match.image.files.Gal4Expression,
       canMask: false
     });
-  } */
+  }
   return cdmOptions;
 }
 

@@ -99,7 +99,7 @@ export default {
   // These buckets get skipped, because they are not in our AWS stack and as such,
   // don't allow signed requests. By default these buckets should allow public
   // access
-  skip_signing_buckets: ["janelia-flylight-color-depth"],
+  skip_signing_buckets: ["janelia-flylight-color-depth", "janelia-flylight-imagery"],
   fathomEventKeys: fathomEventKeys[process.env.REACT_APP_LEVEL],
   volumeViewer: VOL_VIEWER
 };

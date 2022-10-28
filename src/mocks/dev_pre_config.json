@@ -29,7 +29,8 @@
         "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth/",
         "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0/metadata/cdsresults/",
         "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-prod/v3.0.0/metadata/pppresults/",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/",
+        "Gal4Expression": "https://s3.amazonaws.com/janelia-flylight-imagery/"
       },
       "customSearch": {
         "alignmentSpace": "JRC2018_Unisex_20x_HR",
@@ -61,7 +62,8 @@
         "AlignedBodyOBJ": "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/",
         "CDSResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3.0.0/metadata/cdsresults/",
         "PPPMResults": "https://s3.amazonaws.com/janelia-neuronbridge-data-devpre/v3.0.0/metadata/pppresults/",
-        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/"
+        "VisuallyLosslessStack": "https://s3.amazonaws.com/janelia-flylight-imagery/",
+        "Gal4Expression": "https://s3.amazonaws.com/janelia-flylight-imagery/"
       },
       "customSearch": {
         "alignmentSpace": "JRC2018_VNC_Unisex_40x_DS",
