@@ -15,12 +15,13 @@ export default function HelpPage() {
           <div>
             <Title>Help</Title>
             <ul>
-              <li><a href="#rawdata">Obtaining the raw data</a></li>
               <li><a href="#search">Searching</a></li>
-              <li><a href="#upload_alignment">Uploading an Alignment</a></li>
-              <li><a href="#search_pipeline">Search Pipeline</a></li>
-              <li><a href="#data_generation">Data Generation Pipeline</a></li>
-              <li><a href="#tools">Other Tools</a></li>
+              <li><a href="#data_generation">Data generation</a></li>
+              <li><a href="#search_pipeline">Precomputed matching</a></li>
+              <li><a href="#upload_alignment">Image alignment</a></li>
+              <li><a href="#rawdata">Downloading the data</a></li>
+              <li><a href="#programmatic">Programmatic API access</a></li>
+              <li><a href="#tools">Third-party tools</a></li>
             </ul>
           </div>
         </Col>
@@ -40,30 +41,40 @@ export default function HelpPage() {
               allowFullScreen
             />
           </div>
+          
+          <HelpContents scroll={false} />
+
           <a className="anchorOffset" id="rawdata" href="#rawdata">#rawdata</a>
-          <Title level={3}>Obtaining the raw data</Title>
+          <Title level={3}>Downloading the data</Title>
           <p>
-            Download the{" "}
+            You can download the{" "}
             <a href="https://www.janelia.org/open-science/color-depth-mip">
               Color-Depth MIPs
             </a>{" "}
             for your own research.
           </p>
+
+          <a className="anchorOffset" id="rawdata" href="#rawdata">#rawdata</a>
+          <Title level={3}>Programmatic API access</Title>
           <p>
-            You can also{" "}
+            Access the images programmatically{" "}
             <a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md">
-              access the data
+              using the S3 API
             </a>{" "}
-            on AWS S3.
+            on AWS Open Data.
+
+            The matches are also available on S3, in a{" "}
+            <a href="https://open.quiltdata.com/b/janelia-neuronbridge-data-prod/tree/">different bucket</a>.
           </p>
-          <HelpContents scroll={false} />
+          <p>
+            You can also use <a href="https://github.com/JaneliaSciComp/neuronbridge-python">Python API</a> to access the matches and images using Python.
+          </p>
+
           <a className="anchorOffset" id="tools" href="#tools">#tools</a>
-          <Title level={3}>
-            Other tools using NeuronBridge
-          </Title>
+          <Title level={3}>Third-party tools</Title>
           <Typography>
             <a href="http://natverse.org/neuronbridger/">neuronbridger</a> - R
-            client utilities for interacting with the NeuronBridge.
+            library for interacting with the NeuronBridge.
           </Typography>
         </Col>
       </Row>

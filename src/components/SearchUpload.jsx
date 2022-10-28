@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Upload, message, Card, Button } from "antd";
+import { Upload, message, Card, Button, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -82,35 +82,58 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   // Dragger component. This way we can use that to name the upload
   // directory something other than the fc-<uid> name currently used.
 
-  const uploadHelp = appState.dataConfig.disableAlignment ? (
-    <p>Upload an aligned and masked Color Depth MIP to perform a search.</p>
-  ) : (
+  const stackHelp = 
     <>
+      <h3>Unaligned Image Stack</h3>
       <p>
-        You can upload an unaligned confocal stack and NeuronBridge will attempt
-        to align it for you.
+        Upload an unaligned confocal stack to have NeuronBridge attempt
+        to alignment for you. 
       </p>
-      <p>
-        {" "}
-        Or use an aligned and masked Color Depth MIP to proceed directly to the
-        search.
-      </p>
-      <b style={{ marginTop: "0.5em" }}>
-        Alignment requires the following file formats:
-      </b>
+      <b style={{ marginTop: "1em" }}>Supported file formats:</b>
       <p>
         Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi with
-        a single sample, and .nd2.
+        a single sample, and .nd2. The <i>.nrrd</i> format is not supported due 
+        to its single channel limitation.
       </p>
+    </>
+
+  const cdmHelp = 
+    <>
+      <h3>Aligned Color Depth MIP</h3>
       <p>
-        The <i>.nrrd</i> format is not supported due to single channel
-        limitations.
+        Upload an aligned and masked Color Depth MIP to proceed directly to the search.
       </p>
+      <b style={{ marginTop: "1em" }}>Uploaded CDM images are expected to be aligned as follows:</b>
+      {uploadDimensions}
+    </>
+
+  const uploadHelp = appState.dataConfig.disableAlignment ? (
+    <p>
+      {cdmHelp}
+    </p>
+  ) : (
+    <>
+      <Row gutter={12} align="middle">
+        <Col xs={11} lg={11}>
+          {stackHelp}
+        </Col>
+        <Col xs={2} lg={2}>
+          <b>OR</b>
+        </Col>
+        <Col xs={11} lg={11}>
+          {cdmHelp}
+        </Col>
+      </Row>
     </>
   );
 
   return (
     <div className="uploader">
+      <p>
+        Search NeuronBridge color depth MIP collections with your own data files by uploading them here.{" "}
+        <br />
+        Uploaded data is subject to the <Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link>.
+      </p>
       {appState.uploadAccepted && !uploadedFile ? (
         <>
         <Dragger
@@ -128,10 +151,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
             Upload a file by clicking here or dragging it to this area.
           </p>
           {appState.dataConfig.loaded ? uploadHelp : ""}
-          <b>Expected Color Depth MIP dimensions:</b>
-          {uploadDimensions}
         </Dragger>
-        <Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link>
         </>
       ) : (
         ""
@@ -151,6 +171,11 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         onSearchSubmit={() => handleUpload(null)}
         onCancel={() => onRemove()}
       />
+      <center>  
+          <p>
+            <Link to="/help#upload_alignment">Additional help</Link>
+          </p>
+      </center>
     </div>
   );
 }

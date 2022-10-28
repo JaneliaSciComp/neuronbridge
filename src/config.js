@@ -93,8 +93,8 @@ export default {
     }
   },
   uploadDimensions: {
-    'brain': '1210 x 566 px',
-    'vnc': '573 x 1119 px'
+    'brain': 'JRC2018_Unisex_20x_HR (1210 x 566 px)',
+    'vnc': 'JRC2018_VNC_Unisex_40x_DS (573 x 1119 px)'
   },
   // These buckets get skipped, because they are not in our AWS stack and as such,
   // don't allow signed requests. By default these buckets should allow public
