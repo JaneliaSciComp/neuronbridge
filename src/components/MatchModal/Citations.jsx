@@ -46,8 +46,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
           </li>
         </ul>
         <p>
-          See also, the <Link to="/about">references section</Link> on our about
-          page
+          For more information, see the <Link to="/about">References section</Link> on the About page.
         </p>
       </Col>
     </Row>

@@ -12,6 +12,14 @@
   animation: colorfade 2s;
 }
 
+.top-space-sm {
+  margin-top: 1em;
+}
+
+.top-space {
+  margin-top: 2em;
+}
+
 .pipelines {
   margin-top: 2em;
 }
