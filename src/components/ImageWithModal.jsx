@@ -60,7 +60,7 @@ export default function ImageWithModal(props) {
         />
       </Button>
       <Modal
-        visible={modalOpen}
+        open={modalOpen}
         onCancel={() => setModalOpen(false)}
         width="80%"
         footer={[

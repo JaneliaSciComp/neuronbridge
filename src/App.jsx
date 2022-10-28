@@ -162,6 +162,21 @@ export default function App() {
 
   const menuLocation = `/${location.pathname.split("/")[1]}`;
 
+  const menuItems = [
+    // clasName: logo
+    {key: "logo", label: <Link to="/"><img src={neuronbridgeLogo} alt="NeuronBridge" /></Link>},
+    {key: "/", label: <Link to="/">Home</Link>},
+
+    isAuthenticated ? {key: "/upload", label: <Link to="/upload">Upload</Link> } : null,
+
+    {key: "/about", label: <Link to="/about">About</Link>},
+    {key: "/help", label: <Link to="/help">Help</Link>},
+
+    !isAuthenticated && !isInternalSite ? {key: "/signup", label: <Link to="/signup">Signup</Link> } : null,
+    !isAuthenticated ? { key: "/login", label: <Link to="/login">Login</Link>} : null,
+    appState.isAdmin ? { key: "/admin", label: <Link to="/admin">Admin</Link>} : null,
+  ];
+
   return (
     <Layout>
       {confetti && appState.debug ? (
@@ -182,42 +197,8 @@ export default function App() {
           theme="dark"
           mode="horizontal"
           style={{ lineHeight: "64px" }}
-        >
-          <Menu.Item key="logo" className="logo">
-            <Link to="/">
-              <img src={neuronbridgeLogo} alt="NeuronBridge" />
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/">
-            <Link to="/">Home</Link>
-          </Menu.Item>
-          {isAuthenticated && (
-            <Menu.Item key="/upload">
-              <Link to="/upload">Upload</Link>
-            </Menu.Item>
-          )}
-          <Menu.Item key="/about">
-            <Link to="/about">About</Link>
-          </Menu.Item>
-          <Menu.Item key="/help">
-            <Link to="/help">Help</Link>
-          </Menu.Item>
-          {!isAuthenticated && !isInternalSite && (
-            <Menu.Item key="/signup">
-              <Link to="/signup">Signup</Link>
-            </Menu.Item>
-          )}
-          {!isAuthenticated && (
-            <Menu.Item key="/login">
-              <Link to="/login">Login</Link>
-            </Menu.Item>
-          )}
-          {appState.isAdmin && (
-            <Menu.Item key="/admin">
-              <Link to="/admin">Admin</Link>
-            </Menu.Item>
-          )}
-        </Menu>
+          items={menuItems}
+        />
         <div className="janeliaLogo">
           <a
             className="projectLogo"

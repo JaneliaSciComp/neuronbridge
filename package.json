@@ -18,7 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "@welldone-software/why-did-you-render": "^6.2.1",
-    "antd": "^4.9.2",
+    "antd": "^4.23.6",
     "aws-amplify": "^3.4.3",
     "aws-sdk": "^2.1056.0",
     "babel-eslint": "10.0.3",

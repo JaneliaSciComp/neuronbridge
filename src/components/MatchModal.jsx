@@ -6,8 +6,6 @@ import Summary from "./MatchModal/Summary";
 import Download3D from "./MatchModal/Download3D";
 import Citations from "./MatchModal/Citations";
 
-const { TabPane } = Tabs;
-
 export default function MatchModal(props) {
   const location = useLocation();
   const { page } = useParams();
@@ -45,18 +43,57 @@ export default function MatchModal(props) {
     return null;
   }
 
-  const summaryLabel = searchAlgorithm === "pppm" ? "PPPM Summary" : "CDM Summary";
+  const summaryLabel =
+    searchAlgorithm === "pppm" ? "PPPM Summary" : "CDM Summary";
 
   const handleTabChange = (key) => {
-    const strippedPath = location.pathname.replace(/(cite|download|summary)$/, "");
+    const strippedPath = location.pathname.replace(
+      /(cite|download|summary)$/,
+      ""
+    );
     const updatedPath = `${strippedPath}/${key}`;
-    location.pathname = updatedPath.replace(/\/\/+/, '/');
+    location.pathname = updatedPath.replace(/\/\/+/, "/");
     history.push(location);
-  }
+  };
+
+  const tabItems = [
+    {
+      key: "summary",
+      label: summaryLabel,
+      children: (
+        <Summary
+          selectedMatch={selectedMatch}
+          mask={mask}
+          isLM={isLM}
+          selected={selected}
+          matchesList={matchesList}
+        />
+      ),
+    },
+    {
+      key: "download",
+      label: "Download 3D Files",
+      children: (
+        <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
+      ),
+    },
+    {
+      key: "cite",
+      label: "Cite this Match",
+      children: (
+        <Citations
+          match={selectedMatch}
+          mask={mask}
+          matchRank={selected}
+          matchesTotal={matchesList.length}
+        />
+      ),
+    },
+  ];
 
   return (
     <Modal
-      visible={Boolean(open)}
+      open={Boolean(open)}
       onCancel={() => setOpen()}
       footer={[
         <Button
@@ -83,30 +120,15 @@ export default function MatchModal(props) {
         </Button>,
         <Button key="back" type="primary" onClick={() => setOpen()}>
           Done
-        </Button>
+        </Button>,
       ]}
       width="90%"
     >
-      <Tabs activeKey={ page|| "summary" } onChange={handleTabChange}>
-        <TabPane tab={summaryLabel} key="summary">
-          <Summary
-            selectedMatch={selectedMatch}
-            mask={mask}
-            isLM={isLM}
-            selected={selected}
-            matchesList={matchesList}
-          />
-        </TabPane>
-        <TabPane tab="Download 3D Files" key="download">
-          <Download3D selectedMatch={selectedMatch} mask={mask} isLM={isLM} />
-        </TabPane>
-        <TabPane tab="Cite this Match" key="cite">
-          <Citations match={selectedMatch} mask={mask}
-            matchRank={selected}
-            matchesTotal={matchesList.length}
-        />
-        </TabPane>
-      </Tabs>
+      <Tabs
+        activeKey={page || "summary"}
+        onChange={handleTabChange}
+        items={tabItems}
+      />
     </Modal>
   );
 }
@@ -117,10 +139,10 @@ MatchModal.propTypes = {
   matchesList: PropTypes.arrayOf(PropTypes.object),
   mask: PropTypes.object,
   isLM: PropTypes.bool.isRequired,
-  searchAlgorithm: PropTypes.string.isRequired
+  searchAlgorithm: PropTypes.string.isRequired,
 };
 
 MatchModal.defaultProps = {
   matchesList: [],
-  mask: {}
+  mask: {},
 };

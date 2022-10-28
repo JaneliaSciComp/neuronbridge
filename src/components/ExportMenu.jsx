@@ -29,12 +29,17 @@ export default function ExportMenu({
           state.selected.includes(result?.image?.id)
         );
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="results" disabled={selectedResults.length < 1}>
+  const items = [
+    {
+      key: "results",
+      label: (
         <ResultsExport results={selectedResults} matchesType={matchesType} />
-      </Menu.Item>
-      <Menu.Item key="image" disabled={selectedResults.length < 1}>
+      ),
+      disabled: Boolean(selectedResults.length < 1),
+    },
+    {
+      key: "image",
+      label: (
         <ImageExport
           ids={selectedResults.map((result) => result?.image?.id)}
           isFiltered={state.selected.length >= 1}
@@ -43,8 +48,13 @@ export default function ExportMenu({
           precomputed={precomputed}
           searchAlgorithm={searchAlgorithm}
         />
-      </Menu.Item>
-    </Menu>
+      ),
+      disabled: Boolean(selectedResults.length < 1),
+    },
+  ];
+
+  const menu = (
+    <Menu items={items} />
   );
 
   return (
