@@ -6,7 +6,7 @@
 The build currently requires Python 2.x. You can create an environment with Conda as follows:
 
 ```bash
-conda create --name neuronbridge -c conda-forge python=2.7 nodejs
+conda create -y --name neuronbridge -c conda-forge python=2.7 nodejs
 conda activate neuronbridge
 ```
 
@@ -16,15 +16,15 @@ Build:
 npm install
 ```
 
+Currently you need to manually edit node_modules/react-dev-utils/webpackHotDevClient.js:62 and change "ws" to "wss".
+
 Start dev server:
 
 ```bash
 npm start
 ```
 
-1. Currently you need to edit node_modules/react-dev-utils/webpackHotDevClient.js:62 and change "ws" to "wss". This will be fixed soon.
-
-2. In order for uploads to work, the default localhost URL cannot be used. Instead, add this to your /etc/hosts:
+In order for uploads to work, the default localhost URL cannot be used. Instead, add this to your /etc/hosts:
 
 ```shell
 127.0.0.1 neuronbridge-dev.janelia.org
