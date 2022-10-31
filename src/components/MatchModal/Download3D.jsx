@@ -19,7 +19,7 @@ function getSWCLink(construct) {
   if (swc) {
     return <a href={swc}>{construct.publishedName}.swc</a>;
   }
-  return <span>SWC file not available</span>;
+  return null;
 }
 
 function getH5JLink(construct) {
@@ -31,36 +31,44 @@ function getH5JLink(construct) {
       </a>
     );
   }
-  return <span>H5J file not available</span>;
+  return null;
 }
 
 export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
   const { algorithm } = useParams();
 
+  // TODO: we need to change the way this works. If the match has either
+  // a AlignedBodySWC or a VisuallyLosslessStack file, then we need to make
+  // it available for download, the same needs to be done for the mask.
+  // If the mask has been uploaded by the user, then we have nothing
+  // to download, so the links for the mask should be replaced with a
+  // warning message.
+  const swcLink = getSWCLink(mask) || getSWCLink(selectedMatch.image);
+  const h5jLink = getH5JLink(selectedMatch.image) || getH5JLink(mask);
+
   // if mask is in an EM library, show download for obj file
   // else show download for h5j file. Do the same for the match
   const downloadLinks = (
     <>
-      <Paragraph>
-        <FileImageOutlined style={fileIconStyles} />{" "}
-        {isLM
-          ? getSWCLink(mask)
-          : getSWCLink(selectedMatch.image)}{" "}
-        (EM Skeleton)
-      </Paragraph>
-      {mask.precomputed ? (
-        <Paragraph>
-          <FileImageOutlined style={fileIconStyles} />{" "}
-          {isLM ? getH5JLink(selectedMatch.image) : getH5JLink(mask)} (LM image stack)
-        </Paragraph>
-      ) : (
+      {!mask.precomputed ? (
         <Text type="danger">
           <FileExclamationOutlined style={fileIconStyles} /> We don&apos;t have
           a 3D representation of your uploaded file. You will need to generate
           one from your original imagery.
         </Text>
+      ) : (
+        ""
       )}
+
+      <Paragraph>
+        <FileImageOutlined style={fileIconStyles} />
+        {swcLink || "SWC file not available"} (EM Skeleton)
+      </Paragraph>
+      <Paragraph>
+        <FileImageOutlined style={fileIconStyles} />{" "}
+        {h5jLink || "H5J file not available"} (LM image stack)
+      </Paragraph>
     </>
   );
 
