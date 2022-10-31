@@ -15,7 +15,7 @@ const fileIconStyles = {
 };
 
 function getSWCLink(construct) {
-  const swc = construct.files.AlignedBodySWC;
+  const swc = construct?.files?.AlignedBodySWC;
   if (swc) {
     return <a href={swc}>{construct.publishedName}.swc</a>;
   }
@@ -23,7 +23,7 @@ function getSWCLink(construct) {
 }
 
 function getH5JLink(construct) {
-  const imageStack = construct.files.VisuallyLosslessStack;
+  const imageStack = construct?.files?.VisuallyLosslessStack;
   if (imageStack) {
     return (
       <a href={imageStack}>
@@ -38,12 +38,11 @@ export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
   const { algorithm } = useParams();
 
-  // TODO: we need to change the way this works. If the match has either
-  // a AlignedBodySWC or a VisuallyLosslessStack file, then we need to make
-  // it available for download, the same needs to be done for the mask.
-  // If the mask has been uploaded by the user, then we have nothing
-  // to download, so the links for the mask should be replaced with a
-  // warning message.
+  // If the match has either an AlignedBodySWC or a VisuallyLosslessStack
+  // file, then we need to make it available for download, the same needs
+  // to be done for the mask. If the mask has been uploaded by the user,
+  // then we have nothing to download, so the links for the mask should
+  // be replaced with a warning message.
   const swcLink = getSWCLink(mask) || getSWCLink(selectedMatch.image);
   const h5jLink = getH5JLink(selectedMatch.image) || getH5JLink(mask);
 
