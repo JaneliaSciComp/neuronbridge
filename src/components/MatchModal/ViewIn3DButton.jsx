@@ -4,37 +4,33 @@ import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/pro-regular-svg-icons";
 import config from "../../config";
-import { AppContext } from "../../containers/AppContext";
 import { signedPublicLink } from "../../libs/awsLib";
 
 function getH5JLink(construct) {
-  const imageStack = construct.imageStack || construct.maskImageStack;
+  const imageStack = construct?.files?.VisuallyLosslessStack;
   return imageStack;
 }
 
-function getSWCLink(baseURL, construct) {
-  const filePath = `${baseURL}/${construct.libraryName}/${construct.publishedName}.swc`;
-  return <a href={filePath}>{construct.publishedName}.swc</a>;
+function getSWCLink(construct) {
+  const filePath = construct?.image?.files?.AlignedBodySWC;
+  return filePath;
 }
 
 export default function ViewIn3DButton({ isLM, match, mask, style }) {
   const [signedSwc, setSignedSwc] = React.useState(null);
-  const { appState } = React.useContext(AppContext);
   const ref = window.location;
-  const h5j = isLM ? getH5JLink(match) : getH5JLink(mask);
+  const h5j = isLM ? getH5JLink(match.image) : getH5JLink(mask);
   const channel = isLM
     ? parseInt(match.channel, 10)
     : parseInt(mask.channel, 10);
   const { mirrored } = match;
 
   React.useEffect(() => {
-    const swc = isLM
-      ? getSWCLink(appState.dataConfig?.constants?.swc, mask)
-      : getSWCLink(appState.dataConfig?.constants?.swc, match);
-    signedPublicLink(swc.props.href).then((signed) => {
+    const swc = isLM ? getSWCLink(mask) : getSWCLink(match);
+    signedPublicLink(swc).then((signed) => {
       setSignedSwc(signed);
     });
-  }, [appState.dataConfig.constants, isLM, mask, match]);
+  }, [isLM, mask, match]);
 
   // must encode the signedSWC, so that it makes it to the volume viewer in the
   // correct state for loading the swc
