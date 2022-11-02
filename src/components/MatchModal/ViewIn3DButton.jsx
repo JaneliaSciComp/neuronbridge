@@ -21,7 +21,7 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
   const ref = window.location;
   const h5j = isLM ? getH5JLink(match.image) : getH5JLink(mask);
   const channel = isLM
-    ? parseInt(match.channel, 10)
+    ? parseInt(match.image.channel, 10)
     : parseInt(mask.channel, 10);
   const { mirrored } = match;
 
