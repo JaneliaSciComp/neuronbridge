@@ -54,15 +54,14 @@ export default function UnifiedSearchResults(props) {
             // sort by line name first
             a.publishedName.localeCompare(b.publishedName, undefined, {
               numeric: true,
-              sensitivity: "base"
+              sensitivity: "base",
             }) ||
             // then descending slide code to get most recent slides first.
             b.slideCode.localeCompare(a.slideCode) ||
             // then channel
             a.channel - b.channel
         )
-        .map(result => {
-
+        .map((result) => {
           const key = `${result.id}_${result.slideCode}_${result.channel}`;
           return (
             <React.Fragment key={key}>
@@ -79,14 +78,29 @@ export default function UnifiedSearchResults(props) {
           );
         }),
       ...skeletonEntries
-        .sort((a, b) =>
-          a.publishedName.localeCompare(b.publishedName, undefined, {
-            numeric: true,
-            sensitivity: "base"
-          })
-        )
-
-        .map(result => {
+        .sort((a, b) => {
+          const [datasetA, versionA, bodyidA] = a.publishedName.split(":");
+          const [datasetB, versionB, bodyidB] = b.publishedName.split(":");
+          return (
+            // First sort by dataset, lowest to highest
+            datasetA.localeCompare(datasetB, undefined, {
+              numeric: true,
+              sensitivity: "base",
+            }) ||
+            // Then by bodyId, lowest to highest
+            bodyidA.localeCompare(bodyidB, undefined, {
+              numeric: true,
+              sensitivity: "base",
+            }) ||
+            // then By version, highest to lowest, so we can see
+            // the most recent version first
+            versionB.localeCompare(versionA, undefined, {
+              numeric: true,
+              sensitivity: "base",
+            })
+          );
+        })
+        .map((result) => {
           const key = `${result.id}_${result.publishedName}`;
           return (
             <React.Fragment key={key}>
@@ -94,7 +108,7 @@ export default function UnifiedSearchResults(props) {
               <Divider dashed />
             </React.Fragment>
           );
-        })
+        }),
     ];
 
     if (resultsList.length < 1) {
@@ -148,5 +162,5 @@ export default function UnifiedSearchResults(props) {
 
 UnifiedSearchResults.propTypes = {
   linesResult: PropTypes.object.isRequired,
-  skeletonsResult: PropTypes.object.isRequired
+  skeletonsResult: PropTypes.object.isRequired,
 };
