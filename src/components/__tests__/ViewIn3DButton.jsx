@@ -69,7 +69,7 @@ describe("View In 3D button: unit tests", () => {
       "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FVT017683%2FVT017683-20200124_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=2&mx=false"
     );
   });
-  it("generates the correct url when rendered for LM2EM", async () => {
+  it("generates disabled button when rendered for LM2EM missing swc", async () => {
     const match = {
       mirrored: false,
       normalizedScore: 22114.502,
@@ -130,10 +130,83 @@ describe("View In 3D button: unit tests", () => {
       maskImageStack: null,
     };
     const { container } = render(
-      <ViewIn3DButton match={match} mask={mask} />
+      <ViewIn3DButton isLM={false} match={match} mask={mask} />
     );
     await wait();
     const link = container.querySelector("a");
-    expect(link.href).toBe("https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FR33C10%2FR33C10-20190816_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=1&mx=false");
+    expect(link.className.split(' ')).toContain('ant-btn-disabled');
+    expect(link.href).toBe(
+      "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FR33C10%2FR33C10-20190816_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=1&mx=false"
+    );
+  });
+  it("generates the correct url when rendered for LM2EM", async () => {
+    const match = {
+      mirrored: false,
+      normalizedScore: 1833.2086,
+      matchingPixels: 20,
+      image: {
+        libraryName: "FlyEM_Hemibrain_v1.2.1",
+        alignmentSpace: "JRC2018_Unisex_20x_HR",
+        anatomicalArea: "Brain",
+        gender: "f",
+        id: "2945073152179933195",
+        publishedName: "hemibrain:v1.2.1:5813023864",
+        files: {
+          store: "fl:open_data:brain",
+          CDMThumbnail:
+            "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/5813023864-JRC2018_Unisex_20x_HR-CDM.jpg",
+          AlignedBodySWC:
+            "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/SWC/5813023864.swc",
+          CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/5813023864-JRC2018_Unisex_20x_HR-CDM.png",
+          PPPMResults: "2941780112141451810.json",
+          CDSResults: "2945073152179933195.json",
+          AlignedBodyOBJ:
+            "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/OBJ/5813023864.obj",
+        },
+        type: "EMImage",
+      },
+      files: {
+        store: "fl:open_data:brain",
+        CDMInput:
+          "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/searchable_neurons/pngs/SS39036-20181121_43_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1-01.png",
+        CDMMatch:
+          "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/searchable_neurons/pngs/5813023864-JRC2018_Unisex_20x_HR-CDM.png",
+      },
+      type: "CDSMatch",
+      anatomicalArea: "Brain",
+      position: 2,
+    };
+    const mask = {
+      libraryName: "FlyLight Split-GAL4 Drivers",
+      alignmentSpace: "JRC2018_Unisex_20x_HR",
+      anatomicalArea: "Brain",
+      gender: "f",
+      slideCode: "20181121_43_C6",
+      objective: "20x",
+      mountingProtocol: "DPX PBS Mounting",
+      channel: 1,
+      id: "2711776325567250443",
+      publishedName: "SS39036",
+      files: {
+        store: "fl:open_data:brain",
+        CDMThumbnail:
+          "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/SS39036-20181121_43_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.jpg",
+        CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth/JRC2018_Unisex_20x_HR/FlyLight_Split-GAL4_Drivers/SS39036-20181121_43_C6-Split_GAL4-f-20x-brain-JRC2018_Unisex_20x_HR-CDM_1.png",
+        CDSResults: "2711776325567250443.json",
+        VisuallyLosslessStack:
+          "https://s3.amazonaws.com/janelia-flylight-imagery/MDN+Downstream+2020/SS39036/SS39036-20181121_43_C6-f-20x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j",
+      },
+      type: "LMImage",
+      precomputed: true,
+      maskImageStack: null,
+    };
+    const { container } = render(
+      <ViewIn3DButton isLM={false} match={match} mask={mask} />
+    );
+    await wait();
+    const link = container.querySelector("a");
+    expect(link.href).toBe(
+      "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FMDN%2BDownstream%2B2020%2FSS39036%2FSS39036-20181121_43_C6-f-20x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j&swc=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-color-depth%2FJRC2018_Unisex_20x_HR%2FFlyEM_Hemibrain_v1.2.1%2FSWC%2F5813023864.swc&ch=1&mx=false"
+    );
   });
 });
