@@ -4,7 +4,7 @@ import { Layout, Menu, message, Row, Col } from "antd";
 import { Auth, Storage } from "aws-amplify";
 import Confetti from "react-confetti";
 import { TwitterOutlined } from "@ant-design/icons";
-import { faEnvelope, faQuestion } from "@fortawesome/pro-regular-svg-icons";
+import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Routes from "./Routes";
@@ -252,10 +252,7 @@ export default function App() {
                 </a>
               </li>
               <li>
-                <a href="https://groups.google.com/g/neuronbridge-support">
-                  <FontAwesomeIcon icon={faQuestion} /> Ask a question on our
-                  help forum.
-                </a>
+                <Link to="/announcements">Announcements Archive</Link>
               </li>
             </ul>
           </Col>
@@ -292,9 +289,6 @@ export default function App() {
             <ul>
               <li>
                 <a href="https://www.hhmi.org/privacy-policy">Privacy Policy</a>
-              </li>
-              <li>
-                <Link to="/announcements">Announcements Archive</Link>
               </li>
               <li>
                 <a href="https://github.com/JaneliaSciComp/neuronbridge">
