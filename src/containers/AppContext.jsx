@@ -11,6 +11,7 @@ const initialState = {
   showHelp: false,
   helpTarget: null,
   showFilterMenu: false,
+  showSearchFilters: true,
   showAlignmentMeta: false,
   imageChoices: {
     pppm: {},
@@ -44,7 +45,8 @@ const initialState = {
   dataVersion: null,
   migrationMessage: true,
   debug: false,
-  closedAnnouncements: []
+  closedAnnouncements: [],
+  excludedAnatomicalAreas: [],
 };
 
 const localState = JSON.parse(localStorage.getItem("appState"));

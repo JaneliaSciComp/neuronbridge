@@ -1,13 +1,20 @@
 import React from "react";
-import { Typography } from "antd";
+import PropTypes from "prop-types";
+import { Typography, Divider } from "antd";
 import HelpButton from "./Help/HelpButton";
 
 const { Title, Paragraph } = Typography;
 
-export default function NoSearch() {
+export default function NoSearch({ filters }) {
   return (
     <div>
-      <Title>Not sure what to search for?</Title>
+      {filters ? (
+        <Paragraph>Your filters may be limiting the results you can see.</Paragraph>
+      ) : (
+        ""
+      )}
+      <Divider />
+      <Title level={3}>Not sure what to search for?</Title>
       <Paragraph>
         You can search for line names on the{" "}
         <a href="http://splitgal4.janelia.org">Split-GAL4</a> or{" "}
@@ -28,3 +35,11 @@ export default function NoSearch() {
     </div>
   );
 }
+
+NoSearch.propTypes = {
+  filters: PropTypes.bool
+};
+
+NoSearch.defaultProps = {
+  filters: false
+};

@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useLocation, useHistory } from "react-router-dom";
-import { Spin, Divider, Typography, Pagination } from "antd";
+import { Spin, Divider, Typography, Pagination, Row, Col } from "antd";
 import ImageWithModal from "./ImageWithModal";
 import LineResult from "./LineResult";
 import SkeletonResult from "./SkeletonResult";
 import NoSearch from "./NoSearch";
+import SearchFilterButton from "./SearchFilterButton";
+import SearchFilterMenu from "./SearchFilterMenu";
 import { useQuery } from "../libs/hooksLib";
 
 const { Title } = Typography;
@@ -47,8 +49,14 @@ export default function UnifiedSearchResults(props) {
     const { results: lineEntries } = linesResult;
     const { results: skeletonEntries } = skeletonsResult;
 
+    const excludedAnatomicalAreas = query.getAll("saa");
+    // filter the results list using applied search filters
+
     const resultsList = [
       ...lineEntries
+        .filter((result) => {
+          return !excludedAnatomicalAreas.includes(result.anatomicalArea);
+        })
         .sort(
           (a, b) =>
             // sort by line name first
@@ -78,6 +86,9 @@ export default function UnifiedSearchResults(props) {
           );
         }),
       ...skeletonEntries
+        .filter((result) => {
+          return !excludedAnatomicalAreas.includes(result.anatomicalArea);
+        })
         .sort((a, b) => {
           const [datasetA, versionA, bodyidA] = a.publishedName.split(":");
           const [datasetB, versionB, bodyidB] = b.publishedName.split(":");
@@ -114,8 +125,15 @@ export default function UnifiedSearchResults(props) {
     if (resultsList.length < 1) {
       return (
         <div className="results">
+          <Row gutter={16} style={{ marginBottom: "1em" }}>
+            <Col span={18}> </Col>
+            <Col span={6} style={{ textAlign: "right" }}>
+              <SearchFilterButton />
+            </Col>
+          </Row>
+          <SearchFilterMenu />
           <Title level={3}>No results found.</Title>
-          <NoSearch />
+          <NoSearch filters={excludedAnatomicalAreas.length > 0} />
         </div>
       );
     }
@@ -127,17 +145,25 @@ export default function UnifiedSearchResults(props) {
 
     return (
       <div className="results">
-        <Pagination
-          current={page}
-          pageSize={matchesPerPage}
-          onShowSizeChange={handleChangePageSize}
-          pageSizeOptions={[10, 30, 50, 100]}
-          onChange={handlePageChange}
-          total={resultsList.length}
-          showTotal={(total, range) =>
-            `Results ${range[0]}-${range[1]} of ${total}`
-          }
-        />
+        <Row gutter={16} style={{ marginBottom: "1em" }}>
+          <Col span={18}>
+            <Pagination
+              current={page}
+              pageSize={matchesPerPage}
+              onShowSizeChange={handleChangePageSize}
+              pageSizeOptions={[10, 30, 50, 100]}
+              onChange={handlePageChange}
+              total={resultsList.length}
+              showTotal={(total, range) =>
+                `Results ${range[0]}-${range[1]} of ${total}`
+              }
+            />
+          </Col>
+          <Col span={6} style={{ textAlign: "right" }}>
+            <SearchFilterButton />
+          </Col>
+        </Row>
+        <SearchFilterMenu />
         {paginatedList}
         <Pagination
           current={page}
