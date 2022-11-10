@@ -1,3 +1,59 @@
+## VERSION 3.0.0 - 2022-XX-XX
+
+#### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v3.0.0)
+
+### What's New
+
+- ### Data model 3.0
+  - see our [data release notes](/releasenotes/DATA)
+- ### Anatomical Area filtering of search results
+  - A new "Filter" button has been added above the right side of the search results list. This button will allow the filtering of different anatomical areas from the results. The filtering will remain as selected even after a reload of the site.
+- ### Gen1-GAL4 expression images  displayed where available.
+  - Any time we have a Gen1-GAL4 expression image available for a match, the image will be added to the match details page as an additional comparison.
+- ### Uploaded Data Usage and Retention Policy
+  - We have added an uploaded data usage and retention policy document to the site that must be read and acknowledged before continued use of the custom search feature.
+- ### Help Page Table of contents
+  - We added a table of contents to quickly get you to the information you are looking for.
+- ### Urls to the matches page have been simplified
+  - The input type is no longer required in the url to access a match. Old urls will redirect to the new format. eg:
+    - /search/skeletons/1077847238/matches/2945073140338782219
+    - /matches/cdm/2945073140338782219
+- ### Fast algorithm switching on matches page
+  - There is now a tab menu at the top of results pages when both CDM and PPPM results are available for an input image. This allows one to quickly switch between the results without having to return to the previous search results page.
+- ### "Cite this match" tab added to individual match modals.
+  - This tab shows references for the input and matching images.
+- ### Github link
+  - View the source code for NeuronBridge by following the link to github in the site footer.
+
+### Bug fixes
+
+- ### Search results sorting for EM results
+  - In order to show the most recent data first, the sorting of the EM search results is done by:
+    + ascending dataset name
+    + ascending bodyid
+    + descending version number
+- ### Mirror/Unmirror Button moved for VNC imagery
+  - The mirror button was causing the vertical VNC images to be out of alignment when the image was mirrored, because the button was too wide to fit on the same row as the image selection drop down. To keep all the images aligned, the mirror buttons have been permanently moved to a second row when the images are narrow and vertical.
+- ### Viewin3D button is disabled if required files are missing
+  - There are some matches that do not have the required h5j or swc files used by our 3D volume viewer. When those cases arise, the Viewin3D will be disabled.
+- ### Button text changes on the list view for matches
+  - When using the list view instead of the grid view for a match set, the buttons have been changed from "Download" to "Add to Download" and from "Select" to "View Match". These new labels better define what the buttons do.
+- ### Removed alignment parameters for VNC uploads
+  - The current alignment algorithm does not allow parameters for VNC images yet.
+- ### Downloads limit pop up is no longer covered by the option menu
+- ### Error message and result
+  - Fixed a case where the search page could show both a result display and an error message after a failed search was followed by a successful one.
+- ### Disabled image export when matches list is empty
+  - The image export link will no longer download an empty file if the matches list is empty.
+- ### Fixed links to match modal tabs
+  - It is now possible to link to the downloadi or citations tab for a match, eg:
+    - https://neuronbridge.janelia.org/matches/cdm/2988247192221823107/download?m=2
+- ### Only display link to CDSResults if they exist.
+  -  Prior to this all lines would show a link to CDS Results, even if there were none to show.
+- ### Changed "View Precomputed Search" buttons to "View Precomputed Matches"
+  - These buttons were found in the meta data for an input image or a match. The would originally link to search results for the name of the line or EM body. Now they link directly to the matches, so one no longer has to search through a list of lines to find the correct one.
+
+
 ## VERSION 2.6.0 - 2022-06-30
 
 #### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v2.6.0)
