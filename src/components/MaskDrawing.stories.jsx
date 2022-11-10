@@ -31,4 +31,3 @@ ImageSigned.args = {
   imgSrc: '/landing_background.png',
 };
 
-

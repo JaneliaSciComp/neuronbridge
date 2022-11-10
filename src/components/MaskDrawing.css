@@ -3,6 +3,7 @@
   position: relative;
   margin-bottom: 1em;
   display: inline;
+  background: #111;
 }
 
 .mdplaceholder img {
