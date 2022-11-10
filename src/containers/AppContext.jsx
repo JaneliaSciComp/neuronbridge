@@ -11,7 +11,7 @@ const initialState = {
   showHelp: false,
   helpTarget: null,
   showFilterMenu: false,
-  showSearchFilters: true,
+  showSearchFilters: false,
   showAlignmentMeta: false,
   imageChoices: {
     pppm: {},
