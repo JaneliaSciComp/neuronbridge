@@ -55,7 +55,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
     return (
       <p>
         <b>Line Name: </b>
-        <span>publishedName</span>
+        <span>{publishedName}</span>
       </p>
     );
   }
