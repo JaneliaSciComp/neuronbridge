@@ -60,7 +60,10 @@ export const StepThree = Template.bind({});
 StepThree.args = {
   search: {
     errorMessage: null,
-    step: 3
+    step: 3,
+    alignmentScore: 1.234,
+    searchDir: "930cb1b0-0d8b-11eb-a9e7-211b7e6bb497",
+    alignmentMovie: "alignmentMovie.mp4"
   }
 };
 

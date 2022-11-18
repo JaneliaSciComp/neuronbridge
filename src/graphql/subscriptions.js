@@ -21,6 +21,8 @@ export const onCreateSearch = /* GraphQL */ `
       updatedOn
       createdOn
       anatomicalRegion
+      alignmentScore
+      alignmentMovie
     }
   }
 `;
@@ -52,6 +54,8 @@ export const onUpdateSearch = /* GraphQL */ `
       updatedOn
       createdOn
       anatomicalRegion
+      alignmentScore
+      alignmentMovie
     }
   }
 `;

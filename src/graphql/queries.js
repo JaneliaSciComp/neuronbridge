@@ -12,6 +12,8 @@ export const getSearch = /* GraphQL */ `
       searchMask
       errorMessage
       alignmentErrorMessage
+      alignmentScore
+      alignmentMovie
       step
       anatomicalRegion
       algorithm
@@ -46,6 +48,8 @@ export const listSearches = /* GraphQL */ `
         searchMask
         errorMessage
         alignmentErrorMessage
+        alignmentScore
+        alignmentMovie
         anatomicalRegion
 				cdsStarted
 				cdsFinished
