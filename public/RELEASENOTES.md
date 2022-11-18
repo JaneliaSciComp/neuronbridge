@@ -8,14 +8,16 @@
   - see our [data release notes](/releasenotes/DATA)
 - ### Anatomical Area filtering of search results
   - A new "Filter" button has been added above the right side of the search results list. This button will allow the filtering of different anatomical areas from the results. The filtering will remain as selected even after a reload of the site.
-- ### Gen1-GAL4 expression images  displayed where available.
+- ### Gen1-GAL4 expression images displayed where available.
   - Any time we have a Gen1-GAL4 expression image available for a match, the image will be added to the match details page as an additional comparison.
+- ### Alignment Score and Quality Check Movie added to custom search results
+  - The alignment score value has been added below the alignment thumbnail. This score can range from -1.0 to +1.0, with the higher value indicating a better alignment. In addition to the score there is also a link to an movie file that shows a "slice view" of the alignment that can be used to do a visual quality check.
 - ### Uploaded Data Usage and Retention Policy
   - We have added an uploaded data usage and retention policy document to the site that must be read and acknowledged before continued use of the custom search feature.
 - ### Help Page Table of contents
   - We added a table of contents to quickly get you to the information you are looking for.
-- ### Urls to the matches page have been simplified
-  - The input type is no longer required in the url to access a match. Old urls will redirect to the new format. eg:
+- ### URLs to the matches page have been simplified
+  - The input type is no longer required in the URL to access a match. Old URLs will redirect to the new format. eg:
     - /search/skeletons/1077847238/matches/2945073140338782219
     - /matches/cdm/2945073140338782219
 - ### Fast algorithm switching on matches page
