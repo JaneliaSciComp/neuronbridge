@@ -69,24 +69,21 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
         </p>
         {attributes.normalizedScore ? (
           <p>
-            <b>Score:</b>
-            <br /> {Math.round(attributes.normalizedScore)}
+            <b>Score:</b> {Math.round(attributes.normalizedScore)}
           </p>
         ) : (
           ""
         )}
         {attributes.matchingPixels ? (
           <p>
-            <b>Matched Pixels:</b>
-            <br /> {Math.round(attributes.matchingPixels)}
+            <b>Matched Pixels:</b> {Math.round(attributes.matchingPixels)}
           </p>
         ) : (
           ""
         )}
         {attributes.pppmScore ? (
           <p>
-            <b>Score:</b>
-            <br /> {Math.round(attributes.pppmScore)}
+            <b>Score:</b> {Math.round(attributes.pppmScore)}
           </p>
         ) : (
           ""
