@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Row, Col, Divider, Button } from "antd";
+import { Row, Col, Button, Card } from "antd";
 import ImageComparison from "./ImageComparison";
 import DownloadZipCheckbox from "./DownloadZipCheckbox";
 import InputMeta from "./InputMeta";
@@ -20,22 +20,29 @@ export default function Summary(props) {
 
   return (
     <>
-      <Row gutter={16}>
+      <Row gutter={[16, 16]} style={{marginBottom: "1rem"}}>
         <Col sm={12}>
-          <InputMeta mask={{image: mask}} isLM={isLM} compact={appState.compactMeta} />
+          <Card hoverable style={{height: "100%"}}>
+            <InputMeta
+              mask={{ image: mask }}
+              isLM={isLM}
+              compact={appState.compactMeta}
+            />
+          </Card>
         </Col>
         <Col sm={12}>
-          <DownloadZipCheckbox matchId={selectedMatch.image.id} />
-          <MatchMeta
-            match={selectedMatch}
-            isLM={isLM}
-            matchesList={matchesList}
-            compact={appState.compactMeta}
-            matchRank={selected}
-          />
+          <Card hoverable style={{height: "100%"}}>
+            <DownloadZipCheckbox matchId={selectedMatch.image.id} />
+            <MatchMeta
+              match={selectedMatch}
+              isLM={isLM}
+              matchesList={matchesList}
+              compact={appState.compactMeta}
+              matchRank={selected}
+            />
+          </Card>
         </Col>
       </Row>
-      <Divider />
       <ImageComparison
         isLM={isLM}
         mask={mask}
