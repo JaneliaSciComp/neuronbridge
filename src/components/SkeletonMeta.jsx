@@ -61,7 +61,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
 
   return (
     <Row>
-      <Col xs={24} lg={12}>
+      <Col xs={24} md={15}>
         <p>
           <b>Body Id:</b>
           <br />
@@ -106,7 +106,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
           <LibraryFormatter type={libraryName} />
         </p>
       </Col>
-      <Col xs={24} lg={12}>
+      <Col xs={24} md={9}>
         <p>
           <b>Gender:</b>
           <br /> {gender === "f" ? "Female" : "Male"}

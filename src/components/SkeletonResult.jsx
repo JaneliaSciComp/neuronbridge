@@ -77,14 +77,18 @@ export default function SkeletonResult(props) {
           }
         />
       </Col>
-      <Col md={9}>
-        <SkeletonMeta attributes={{ image: metaInfo }} fromSearch />
-      </Col>
-      <Col md={5}>
-        <Space direction="vertical">
-          {cdmMatchesButton}
-          {pppmMatchesButton}
-        </Space>
+      <Col md={14}>
+        <Row>
+          <Col sm={{span: 24, order: 2}} lg={{ span: 15, order: 1}}>
+            <SkeletonMeta attributes={{ image: metaInfo }} fromSearch />
+          </Col>
+          <Col sm={{span: 24, order: 1}} lg={{span: 9, order: 2}}>
+            <Space direction="vertical">
+              {cdmMatchesButton}
+              {pppmMatchesButton}
+            </Space>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );
