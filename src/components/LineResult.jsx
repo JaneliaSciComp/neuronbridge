@@ -14,21 +14,24 @@ export default function LineResult(props) {
       ""
     )}`;
     return (
-
-          <Button type="primary" disabled={/matches$/.test(location.pathname)}>
-            <Link to={matchesUrl}>Color Depth Search Results</Link>
-          </Button>
+      <Button type="primary" disabled={/matches$/.test(location.pathname)}>
+        <Link to={matchesUrl}>Color Depth Search Results</Link>
+      </Button>
     );
   }
 
   return (
     <Row>
       <Col md={10}>{children}</Col>
-      <Col md={9}>
-        <LineMeta attributes={{ image: metaInfo }} fromSearch />
-      </Col>
-      <Col md={5}>
-        {metaInfo?.files?.CDSResults ? generateCdmResultsButton() : ""}
+      <Col md={14}>
+        <Row>
+          <Col sm={{span: 24, order: 2}} lg={{ span: 15, order: 1}}>
+            <LineMeta attributes={{ image: metaInfo }} fromSearch />
+          </Col>
+          <Col sm={{span: 24, order: 1}} lg={{span: 9, order: 2}}>
+            {metaInfo?.files?.CDSResults ? generateCdmResultsButton() : ""}
+          </Col>
+        </Row>
       </Col>
     </Row>
   );

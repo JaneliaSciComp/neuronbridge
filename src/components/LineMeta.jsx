@@ -61,7 +61,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
   }
 
   return (
-    <Row>
+    <Row gutter={16}>
       <Col md={24} lg={12}>
         <p>
           <b>Line Name: </b>
