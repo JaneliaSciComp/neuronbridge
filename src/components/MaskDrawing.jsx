@@ -199,7 +199,7 @@ export default function MaskDrawing({
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
-          id="imaskLassoCanvas"
+          id="maskLassoCanvas"
           style={{
             position: "absolute",
             left: 0,
