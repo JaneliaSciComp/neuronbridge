@@ -79,9 +79,10 @@ function Landing(props) {
             </Row>
 
             <Paragraph>
-              We offer fast color depth mask searching, with no segmentation
-              needed (see About page) and precomputed Patch Per Pix Match
-              searches. For NBLAST searching, try{" "}
+              We offer instant results with Color Depth MIP and PatchPerPixMatch
+              search algorithms across Janelia image collections. Or you can
+              upload your own data for a live Color Depth MIP search (see About
+              page). For NBLAST searching, try{" "}
               <a href="https://www.virtualflybrain.org">Virtual Fly Brain</a>.
             </Paragraph>
 
