@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Menu } from "antd";
 import { useHistory } from "react-router-dom";
 import { SearchOutlined, DownloadOutlined } from "@ant-design/icons";
-import { maskAndSearch, toDataURL } from "../../libs/awsLib";
+import { maskAndSearch, toDataURL, signedLink } from "../../libs/awsLib";
 
 export default function ContextMenu({
   setIsCopying,
@@ -13,6 +13,20 @@ export default function ContextMenu({
   anatomicalRegion
 }) {
   const history = useHistory();
+
+  const [downloadSrc, setDownloadSrc] = React.useState();
+
+  React.useEffect(() => {
+    if (!src.match(/^http/)) {
+      signedLink(src).then((result) => {
+        setDownloadSrc(result);
+      });
+    } else {
+      setDownloadSrc(src);
+    }
+
+  },[src]);
+
 
   const handleSearch = async () => {
     setIsCopying(true);
@@ -34,12 +48,12 @@ export default function ContextMenu({
   const handleDownload = async () => {
     // need to get rid of host string / file path and all the query
     // parameters, so the download name is correct.
-    const downloadName = src
+    const downloadName = downloadSrc
       .split("/")
       .pop()
       .split("?")[0];
     const a = document.createElement("a");
-    a.href = await toDataURL(src);
+    a.href = await toDataURL(downloadSrc);
     a.setAttribute("download", downloadName);
     document.body.appendChild(a);
     a.click();
