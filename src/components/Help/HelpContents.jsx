@@ -223,8 +223,8 @@ export default function HelpContents({ scroll }) {
             <p>
               The EM data sets were imaged and reconstructed by the FlyEM
               Project (
-              <a href="https://www.biorxiv.org/content/10.1101/2020.01.21.911859v1">
-                Xu, et al., 2020
+              <a href="https://doi.org/10.7554/eLife.57443">
+                Scheffer, et al., 2020
               </a>
               ). After the imagery was registered to the JRC2018 template, we
               downloaded the reconstructed skeletons as SWC files and

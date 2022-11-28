@@ -28,7 +28,7 @@ export default function References() {
 
       <dt>EM Hemibrain</dt>
       <dd>
-        <a href="https://doi.org/10.1101/2020.01.21.911859">Xu et al., 2020</a>
+        <a href="https://doi.org/10.7554/eLife.57443">Scheffer et al., 2020</a>
       </dd>
 
       <dt>Gen1 GAL4 collections</dt>
