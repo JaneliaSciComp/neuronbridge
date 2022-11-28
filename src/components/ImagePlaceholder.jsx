@@ -10,7 +10,7 @@ export default function ImagePlaceholder({
   placeholderSrc,
   style,
   className,
-  maxHeight
+  maxHeight,
 }) {
   const [signedSrc, setSignedSrc] = useState();
   const [imageLoaded, setLoaded] = useState(false);
@@ -21,15 +21,15 @@ export default function ImagePlaceholder({
         ...style,
         transition: "transform .25s ease-in-out",
         transform: "scaleX(-1)",
-        width: "100%",
-        height: "auto"
+        width: maxHeight ? "auto" : "100%",
+        height: maxHeight ? "100%" : "auto",
       }
     : {
         ...style,
         transition: "transform .25s ease-in-out",
         transform: "scaleX(1)",
-        width: "100%",
-        height: "auto"
+        width: maxHeight ? "auto" : "100%",
+        height: maxHeight ? "100%" : "auto",
       };
 
   if (maxHeight) {
@@ -54,7 +54,7 @@ export default function ImagePlaceholder({
         if (path !== loadedPath) {
           setLoaded(false);
         }
-        signedPublicLink(src).then(signed => {
+        signedPublicLink(src).then((signed) => {
           const img = new Image();
           img.onload = () => {
             setSignedSrc(signed);
@@ -73,9 +73,7 @@ export default function ImagePlaceholder({
   }
 
   if (loadError) {
-    return (
-      <p style={{color: "#f00"}}>Error Loading Image</p>
-    );
+    return <p style={{ color: "#f00" }}>Error Loading Image</p>;
   }
 
   return (
@@ -112,12 +110,12 @@ ImagePlaceholder.propTypes = {
   style: PropTypes.object,
   imageDimensions: PropTypes.arrayOf(PropTypes.string).isRequired,
   mirrored: PropTypes.bool,
-  maxHeight: PropTypes.string
+  maxHeight: PropTypes.string,
 };
 
 ImagePlaceholder.defaultProps = {
   mirrored: false,
   style: {},
   className: "",
-  maxHeight: null
+  maxHeight: null,
 };

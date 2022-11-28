@@ -6,9 +6,13 @@ import SkeletonSummary from "./SkeletonSummary";
 import ImageWithModal from "./ImageWithModal";
 
 export default function SearchSummary({ searchAlgorithm, input }) {
-
   const thumbSrc = input.files.CDMThumbnail;
   const imgSrc = input.files.CDM;
+  const maxHeight =
+    input.anatomicalArea === "VNC" ||
+    input.libraryName?.toLowerCase().includes("vnc")
+      ? "350px"
+      : null;
 
   const modalImage = (
     <ImageWithModal
@@ -19,7 +23,7 @@ export default function SearchSummary({ searchAlgorithm, input }) {
         input.anatomicalArea === "VNC" ||
         input.libraryName?.toLowerCase().includes("vnc")
       }
-      maxHeight="350px"
+      maxHeight={maxHeight}
     />
   );
 
@@ -36,5 +40,5 @@ export default function SearchSummary({ searchAlgorithm, input }) {
 
 SearchSummary.propTypes = {
   input: PropTypes.object.isRequired,
-  searchAlgorithm: PropTypes.string.isRequired
+  searchAlgorithm: PropTypes.string.isRequired,
 };
