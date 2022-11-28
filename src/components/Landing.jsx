@@ -29,7 +29,11 @@ function Landing(props) {
     <>
       {isAuthenticated && <SearchInput />}
       <div className="landing">
-        <Title>{isInternalSite ? "NeuronBridge (pre-release)" : "Welcome to NeuronBridge"}</Title>
+        <Title>
+          {isInternalSite
+            ? "NeuronBridge (pre-release)"
+            : "Welcome to NeuronBridge"}
+        </Title>
         <Row>
           <Col md={12} className="copy">
             {!isAuthenticated && <Paragraph strong>{loginText}</Paragraph>}
@@ -76,7 +80,8 @@ function Landing(props) {
 
             <Paragraph>
               We offer fast color depth mask searching, with no segmentation
-              needed (see About page). For NBLAST searching, try{" "}
+              needed (see About page) and precomputed Patch Per Pix Match
+              searches. For NBLAST searching, try{" "}
               <a href="https://www.virtualflybrain.org">Virtual Fly Brain</a>.
             </Paragraph>
 
@@ -91,7 +96,7 @@ function Landing(props) {
 }
 
 Landing.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default Landing;
