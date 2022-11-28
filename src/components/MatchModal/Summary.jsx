@@ -22,7 +22,7 @@ export default function Summary(props) {
     <>
       <Row gutter={[16, 16]} style={{marginBottom: "1rem"}}>
         <Col sm={12}>
-          <Card hoverable style={{height: "100%"}}>
+          <Card style={{height: "100%"}}>
             <InputMeta
               mask={{ image: mask }}
               isLM={isLM}
@@ -31,7 +31,7 @@ export default function Summary(props) {
           </Card>
         </Col>
         <Col sm={12}>
-          <Card hoverable style={{height: "100%"}}>
+          <Card style={{height: "100%"}}>
             <DownloadZipCheckbox matchId={selectedMatch.image.id} />
             <MatchMeta
               match={selectedMatch}
