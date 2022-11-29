@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { Storage } from "aws-amplify";
 import { Button } from "antd";
+import { ResizableBox } from "react-resizable";
 import { signedLink } from "../libs/awsLib";
 import config from "../config";
 
@@ -96,11 +97,10 @@ export default function MaskDrawing({
   }, [imgSrc, signImage]);
 
   if (!imgSrc) {
-
-    let placeHolderImage = '';
+    let placeHolderImage = "";
 
     if (anatomicalRegion) {
-      if (anatomicalRegion === "vnc"){
+      if (anatomicalRegion === "vnc") {
         placeHolderImage = (
           <img
             src="/maskplaceholdervnc.jpg"
@@ -113,7 +113,7 @@ export default function MaskDrawing({
             src="/maskplaceholder.jpg"
             alt="desaturated color depth mip placeholder"
           />
-        )
+        );
       }
     }
 
@@ -193,31 +193,42 @@ export default function MaskDrawing({
 
   return (
     <div>
-      <div id="maskLassoContainer">
-        <canvas
-          ref={canvasRef}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
-          id="maskLassoCanvas"
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            zIndex: 1,
-            width: imgWidth,
-            height: imgHeight,
-          }}
-          width={imgWidth}
-          height={imgHeight}
-        />
-        <img
-          src={signedImgSrc}
-          alt="uploaded sample"
-          width={imgWidth}
-          height={imgHeight}
-        />
-      </div>
+      <ResizableBox
+        height={imgHeight}
+        width={imgWidth}
+        lockAspectRatio
+        maxConstraints={[imgWidth, imgHeight]}
+        minConstraints={[imgWidth / 10, imgHeight / 10]}
+      >
+        <div id="maskLassoContainer">
+          <canvas
+            ref={canvasRef}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            id="maskLassoCanvas"
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              zIndex: 1,
+              width: anatomicalRegion === "vnc" ? "auto" : imgWidth,
+              height: imgHeight,
+              maxHeight: "100%",
+              maxWidth: "100%",
+            }}
+            width={imgWidth}
+            height={imgHeight}
+          />
+          <img
+            src={signedImgSrc}
+            alt="uploaded sample"
+            style={{ maxHeight: "100%", maxWidth: "100%" }}
+            width={anatomicalRegion === "vnc" ? "auto" : imgWidth}
+            height={imgHeight}
+          />
+        </div>
+      </ResizableBox>
       <Button type="primary" disabled={!maskDrawn} onClick={handleClearMask}>
         Clear Mask
       </Button>
