@@ -291,7 +291,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
     maskImageStack: matches.maskImageStack || null,
   };
 
-  const resultsFile = isPPP ? input.files.PPPMResults : input.files.CDSResults;
+  const resultsFile = isPPP ? input?.files?.PPPMResults : input?.files?.CDSResults;
   const searchId = precomputed ? resultsFile : input.id;
 
   return (

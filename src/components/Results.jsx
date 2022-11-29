@@ -24,7 +24,7 @@ export default function Results({ match }) {
 
   useEffect(() => {
     if (searchResults && searchMeta) {
-      const unsignedUrl = searchResults.inputImage.files.CDM;
+      const unsignedUrl = searchResults.inputImage?.files?.CDM;
       signedLink(unsignedUrl, searchMeta.identityId).then(result => {
         setImageUrls({
           thumbSrc: result,
