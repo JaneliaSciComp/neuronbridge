@@ -4,6 +4,7 @@ import { Divider, Typography, Button, Row, Col, Alert, Popconfirm } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { AppContext } from "../../containers/AppContext";
 import { deleteSearch } from "../../libs/awsLib";
+import { useInterval } from "../../libs/hooksLib";
 import SearchSteps from "./SearchSteps";
 
 const { Text } = Typography;
@@ -43,6 +44,11 @@ ErrorMessage.defaultProps = {
 
 export default function SearchList({ searches }) {
   const { appState } = useContext(AppContext);
+
+  // reload the page every 10 minutes, this makes sure that any broken sockets
+  // get refreshed.
+  useInterval(() => window.location.reload(), 1000 * 60 * 10);
+
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
     .map(search => {
