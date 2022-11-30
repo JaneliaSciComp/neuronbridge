@@ -18,10 +18,20 @@ export default function ColorDepthSearchParameters() {
           <Option value="lm2em">Electron Microscopy Libraries</Option>
         </Select>
       </Form.Item>
-      <Form.Item label="Data Threshold" name="dataThreshold" rules={[]}>
+      <Form.Item
+        extra="Values between 0 - 255. Higher values are more restrictive."
+        label="Data Threshold"
+        name="dataThreshold"
+        rules={[]}
+      >
         <Input step={1} type="number" placeholder="0" min={0} max={255} />
       </Form.Item>
-      <Form.Item label="Mask Threshold" name="maskThreshold" rules={[]}>
+      <Form.Item
+        extra="Values between 0 - 255. Higher values are more restrictive."
+        label="Mask Threshold"
+        name="maskThreshold"
+        rules={[]}
+      >
         <Input step={1} type="number" placeholder="0" min={0} max={255} />
       </Form.Item>
       <Form.Item label="Z Slice Range" name="pixColorFluctuation" rules={[]}>
