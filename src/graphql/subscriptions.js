@@ -23,6 +23,8 @@ export const onCreateSearch = /* GraphQL */ `
       anatomicalRegion
       alignmentScore
       alignmentMovie
+      alignStarted
+      alignFinished
     }
   }
 `;
@@ -56,6 +58,8 @@ export const onUpdateSearch = /* GraphQL */ `
       anatomicalRegion
       alignmentScore
       alignmentMovie
+      alignFinished
+      alignStarted
     }
   }
 `;
