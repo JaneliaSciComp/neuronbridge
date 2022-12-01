@@ -45,9 +45,9 @@ ErrorMessage.defaultProps = {
 export default function SearchList({ searches }) {
   const { appState } = useContext(AppContext);
 
-  // reload the page every 10 minutes, this makes sure that any broken sockets
+  // reload the page every 25 minutes, this makes sure that any broken sockets
   // get refreshed.
-  useInterval(() => window.location.reload(), 1000 * 60 * 10);
+  useInterval(() => window.location.reload(), 1000 * 60 * 25);
 
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))

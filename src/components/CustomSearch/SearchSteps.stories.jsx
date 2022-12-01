@@ -5,10 +5,10 @@ import "antd/dist/antd.less";
 
 export default {
   title: "SearchSteps",
-  component: SearchSteps
+  component: SearchSteps,
 };
 
-const Template = args => <SearchSteps {...args} />;
+const Template = (args) => <SearchSteps {...args} />;
 
 export const StepZero = Template.bind({});
 StepZero.args = {
@@ -27,24 +27,24 @@ StepZero.args = {
     updatedOn: "2020-10-13T19:43:52.489Z",
     upload: "1110173824_TC_18U.png",
     errorMessage: null,
-    step: 0
-  }
+    step: 0,
+  },
 };
 
 export const StepOne = Template.bind({});
 StepOne.args = {
   search: {
     errorMessage: null,
-    step: 1
-  }
+    step: 1,
+  },
 };
 
 export const MaskSelectionStep = Template.bind({});
 MaskSelectionStep.args = {
   search: {
     errorMessage: null,
-    step: 2
-  }
+    step: 2,
+  },
 };
 
 export const LoadingMaskSelectionStep = Template.bind({});
@@ -52,8 +52,8 @@ LoadingMaskSelectionStep.args = {
   search: {
     errorMessage: null,
     searchMask: "1110173824_TC_18U_1_mask.png",
-    step: 2
-  }
+    step: 2,
+  },
 };
 
 export const StepThree = Template.bind({});
@@ -63,8 +63,8 @@ StepThree.args = {
     step: 3,
     alignmentScore: 1.234,
     searchDir: "930cb1b0-0d8b-11eb-a9e7-211b7e6bb497",
-    alignmentMovie: "alignmentMovie.mp4"
-  }
+    alignmentMovie: "alignmentMovie.mp4",
+  },
 };
 
 export const CompleteStep = Template.bind({});
@@ -73,8 +73,8 @@ CompleteStep.args = {
     errorMessage: null,
     cdsFinished: "2020-10-13T19:43:52.348Z",
     nTotalMatches: 9,
-    step: 5
-  }
+    step: 5,
+  },
 };
 
 export const StepTwoErr = Template.bind({});
@@ -101,8 +101,8 @@ StepTwoErr.args = {
     errorMessage: "Alignment job failed",
     owner: "f1b44154-26d1-4f77-a8af-11319eb87177",
     minMatchingPixRatio: 2,
-    alignFinished: "2021-10-19T15:17:16.167Z"
-  }
+    alignFinished: "2021-10-19T15:17:16.167Z",
+  },
 };
 
 export const IncorrectUpload = Template.bind({});
@@ -125,14 +125,63 @@ IncorrectUpload.args = {
     errorMessage: "Alignment job failed",
     owner: "f1b44154-26d1-4f77-a8af-11319eb87177",
     minMatchingPixRatio: 2,
-  }
+  },
 };
-
 
 export const StepOneErr = Template.bind({});
 StepOneErr.args = {
   search: {
     errorMessage: "failed",
-    step: 0
-  }
+    step: 0,
+  },
+};
+
+export const StepOneBeforeAlignmentWithLSM = Template.bind({});
+StepOneBeforeAlignmentWithLSM.args = {
+  search: {
+    id: "dc6d4ca1-7eb5-4592-852d-7302ce9a46e0",
+    upload: "foo.lsm",
+    uploadThumbnail: null,
+    identityId: "us-east-1:dd0c82e0-a58a-4a0d-be4a-c46d43c864b5",
+    searchDir: "3fefb3e0-718b-11ed-9706-7b208de2dd2d",
+    searchMask: null,
+    searchType: null,
+    errorMessage: null,
+    displayableMask: null,
+    nTotalMatches: null,
+    step: 0,
+    updatedOn: "2022-12-01T15:22:04.490Z",
+    createdOn: "2022-12-01T15:22:04.490Z",
+    anatomicalRegion: "brain",
+    alignmentScore: null,
+    alignmentMovie: null,
+    alignStarted: null,
+    alignFinished: null,
+  },
+};
+
+export const StepOneAfterAlignmentWithLSM = Template.bind({});
+StepOneAfterAlignmentWithLSM.args = {
+  search: {
+    id: "dc6d4ca1-7eb5-4592-852d-7302ce9a46e0",
+    upload: "foo.lsm",
+    uploadThumbnail: null,
+    identityId: "us-east-1:dd0c82e0-a58a-4a0d-be4a-c46d43c864b5",
+    searchDir: "3fefb3e0-718b-11ed-9706-7b208de2dd2d",
+    searchType: null,
+    searchMask: null,
+    cdsStarted: null,
+    cdsFinished: null,
+    errorMessage: null,
+    displayableMask: null,
+    nTotalMatches: null,
+    step: 1,
+    updatedOn: "2022-12-01T15:22:07.312Z",
+    createdOn: "2022-12-01T15:22:04.490Z",
+    anatomicalRegion: "brain",
+    alignmentScore: null,
+    alignmentMovie: null,
+    alignFinished: null,
+    alignStarted: "2022-12-01T15:22:07.092Z",
+  },
 };

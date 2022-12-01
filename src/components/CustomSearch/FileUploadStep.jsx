@@ -34,26 +34,41 @@ function determineUploadType(alignStarted, upload) {
   return [fileType, errorMessage];
 }
 
-export default function FileUploadStep({ state, date, alignStarted, upload }) {
+export default function FileUploadStep({
+  state,
+  date,
+  alignStarted,
+  upload,
+  currentStep,
+}) {
   let content = "";
   let typeContent = "";
   const [uploadType, errorMessage] = determineUploadType(alignStarted, upload);
 
-  if (["active", "complete"].includes(state)) {
+  if (["active", "complete", "error"].includes(state)) {
     if (date) {
       typeContent = `File Type: ${uploadType}`;
       content = `Uploaded ${formatRelative(new Date(date), new Date())}`;
     }
   }
 
+  // Need to check that the current step is greater than zero before
+  // displaying an error about upload types as we can't tell if an
+  // alignment has been chosen until after step 1 has started and the
+  // alignStarted value has been populated in the database.
+
   return (
     <>
       <StepTitle state={state} step={1} text="Files Uploaded" />
       <p style={{ marginTop: "1em" }}>{content}</p>
-      <Tooltip title={errorMessage} color="#008b94">
+      <Tooltip title={currentStep > 0 ? errorMessage : null} color="#008b94">
         <p style={{ marginTop: "1em" }}>
-          {errorMessage ? <WarningOutlined style={{"color": "red"}} /> : ""}
-          {" "}{typeContent}
+          {errorMessage && currentStep > 0 ? (
+            <WarningOutlined style={{ color: "red" }} />
+          ) : (
+            ""
+          )}{" "}
+          {typeContent}
         </p>
       </Tooltip>
     </>
@@ -64,5 +79,6 @@ FileUploadStep.propTypes = {
   state: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   upload: PropTypes.string.isRequired,
-  alignStarted: PropTypes.bool.isRequired
+  alignStarted: PropTypes.bool.isRequired,
+  currentStep: PropTypes.number.isRequired,
 };
