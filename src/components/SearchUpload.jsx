@@ -132,10 +132,10 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
 
   return (
     <div className="uploader">
-      <p>
+       {!uploadedFile ? (<p> 
         Search NeuronBridge color depth MIP collections with your own data files
-        by uploading them here. <br />
-        Uploaded data is subject to the{" "}
+         by uploading them here.</p>) : ""}
+        <p>Uploaded data is subject to the{" "}
         <Link to="/upload-policy">
           Uploaded Data Usage and Retention Policy
         </Link>
