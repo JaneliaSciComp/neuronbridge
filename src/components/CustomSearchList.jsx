@@ -3,6 +3,7 @@ import { Spin, Typography, message, Divider } from "antd";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import SearchUpload from "./SearchUpload";
 import SearchList from "./CustomSearch/SearchList";
+import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
@@ -128,6 +129,7 @@ export default function CustomSearchList() {
 
   return (
     <div>
+      <ScrollToTopOnMount />
       <SearchUpload
         uploadedFile={uploadedFile}
         handleUpload={setUploadedFile}
