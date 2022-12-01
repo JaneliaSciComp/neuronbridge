@@ -6,6 +6,7 @@ import SearchList from "./CustomSearch/SearchList";
 import * as queries from "../graphql/queries";
 import * as subscriptions from "../graphql/subscriptions";
 import { logSearchInfo, fetchItemsNextToken } from "../libs/awsLib";
+import { useInterval } from "../libs/hooksLib";
 
 const { Title } = Typography;
 
@@ -26,6 +27,11 @@ export default function CustomSearchList() {
         return searchList;
     }
   }, []);
+
+  // reload the page every 25 minutes, this makes sure that any broken sockets
+  // get refreshed.
+  useInterval(() => window.location.reload(), 1000 * 60 * 25);
+
 
   // initial check on page load.
   useEffect(() => {
