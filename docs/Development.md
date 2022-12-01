@@ -24,6 +24,12 @@ Start dev server:
 npm start
 ```
 
+Start dev server running against the devpre data:
+
+```bash
+npm run start:devpre
+```
+
 In order for uploads to work, the default localhost URL cannot be used. Instead, add this to your /etc/hosts:
 
 ```shell
