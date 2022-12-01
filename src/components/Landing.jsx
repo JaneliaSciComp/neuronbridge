@@ -66,15 +66,18 @@ function Landing(props) {
 
             <Row className="collections">
               <Col span={12}>
-                <a href="https://neuprint.janelia.org/">FlyEM Hemibrain</a>
+                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">
+                  FlyLight Generation 1 MCFO
+                </a>
               </Col>
               <Col span={12}>
                 <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a>
               </Col>
               <Col span={12}>
-                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">
-                  FlyLight Generation 1 MCFO
-                </a>
+                <a href="https://neuprint.janelia.org/">FlyEM Hemibrain</a>
+              </Col>
+              <Col span={12}>
+                <a href="https://neuprint.janelia.org/">FlyEM VNC</a>
               </Col>
             </Row>
 

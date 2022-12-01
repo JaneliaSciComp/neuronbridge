@@ -135,14 +135,15 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
        {!uploadedFile ? (<p> 
         Search NeuronBridge color depth MIP collections with your own data files
          by uploading them here.</p>) : ""}
-        <p>Uploaded data is subject to the{" "}
-        <Link to="/upload-policy">
-          Uploaded Data Usage and Retention Policy
-        </Link>
-        .
-      </p>
       {appState.uploadAccepted && !uploadedFile ? (
         <>
+          <p>
+            Uploaded data is subject to the{" "}
+            <Link to="/upload-policy">
+              Uploaded Data Usage and Retention Policy
+            </Link>
+            .
+          </p>
           <Dragger
             name={uuidv1()}
             action=""
@@ -181,18 +182,22 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         onSearchSubmit={() => handleUpload(null)}
         onCancel={() => onRemove()}
       />
-      <center>
-        <p>
-          <Link
-            to="/help#upload_alignment"
-            scroll={(el) => {
-              el.scrollIntoView(true);
-            }}
-          >
-            Additional help
-          </Link>
-        </p>
-      </center>
+      {!appState.uploadAccepted ? (
+        ""
+      ) : (
+        <center>
+          <p>
+            <Link
+              to="/help#upload_alignment"
+              scroll={(el) => {
+                el.scrollIntoView(true);
+              }}
+            >
+              Additional help
+            </Link>
+          </p>
+        </center>
+      )}
     </div>
   );
 }

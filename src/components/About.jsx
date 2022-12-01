@@ -18,9 +18,6 @@ export default function About() {
       <Paragraph>
         A preprint describing this software in detail is <a href="https://doi.org/10.1101/2022.07.20.500311">available on bioRxiv</a>.
       </Paragraph>
-      <Paragraph>
-        <Link to="/usage">View Usage Terms</Link>
-      </Paragraph>
 
       <Row gutter={20}>
         
@@ -64,7 +61,13 @@ export default function About() {
         </Col>
 
         <Col sm={10}>
-        
+          <Title level={2}>Usage Agreements</Title>
+          <ul>
+            <li><Link to="/usage">Usage Terms</Link></li>
+            <li><Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link></li>
+            <li><a href="https://www.hhmi.org/privacy-policy">HHMI Privacy Policy</a></li>
+          </ul>
+
           <Title level={2}>Release Notes</Title>
           <ul>
             {Object.keys(config.releasenotes).map(name => (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Row, Col } from "antd";
+import { Typography, Row, Col, Divider } from "antd";
 import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import HelpContents from "./Help/HelpContents";
 import "./HelpPage.css";
@@ -15,10 +15,11 @@ export default function HelpPage() {
           <div>
             <Title>Help</Title>
             <ul>
-              <li><a href="#search">Searching</a></li>
+              <li><a href="#search">Line/neuron lookups</a></li>
               <li><a href="#data_generation">Data generation</a></li>
               <li><a href="#search_pipeline">Precomputed matching</a></li>
-              <li><a href="#upload_alignment">Image alignment</a></li>
+              <li><a href="#upload_alignment">Uploaded image alignment</a></li>
+              <li><a href="#upload_search">Uploaded image search</a></li>
               <li><a href="#rawdata">Downloading the data</a></li>
               <li><a href="#programmatic">Programmatic API access</a></li>
               <li><a href="#tools">Third-party tools</a></li>
@@ -44,6 +45,7 @@ export default function HelpPage() {
 
           <HelpContents scroll={false} />
 
+          <Divider />
           <a className="anchorOffset" id="rawdata" href="#rawdata">#rawdata</a>
           <Title level={3}>Downloading the data</Title>
           <p>
@@ -54,6 +56,7 @@ export default function HelpPage() {
             for your own research.
           </p>
 
+          <Divider />
           <a className="anchorOffset" id="programmatic" href="#rawdata">#rawdata</a>
           <Title level={3}>Programmatic API access</Title>
           <p>
@@ -70,6 +73,7 @@ export default function HelpPage() {
             You can also use <a href="https://github.com/JaneliaSciComp/neuronbridge-python">Python API</a> to access the matches and images using Python.
           </p>
 
+          <Divider />
           <a className="anchorOffset" id="tools" href="#tools">#tools</a>
           <Title level={3}>Third-party tools</Title>
           <Typography>

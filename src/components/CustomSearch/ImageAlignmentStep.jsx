@@ -47,7 +47,7 @@ export default function ImageAlignmentStep({ state, search }) {
           alt="Alignment Thumbnail"
         />
         <span style={{ display: "block" }}>
-          Score: {search.alignmentScore || "NA"}
+          Score: {search.alignmentScore || "N/A"}
         </span>
         {movieUrl ? (
           <a href={movieUrl}>

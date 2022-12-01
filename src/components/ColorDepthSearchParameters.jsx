@@ -19,29 +19,37 @@ export default function ColorDepthSearchParameters() {
         </Select>
       </Form.Item>
       <Form.Item
-        extra="Values between 0 - 255. Higher values are more restrictive."
-        label="Data Threshold"
-        name="dataThreshold"
-        rules={[]}
-      >
-        <Input step={1} type="number" placeholder="0" min={0} max={255} />
-      </Form.Item>
-      <Form.Item
-        extra="Values between 0 - 255. Higher values are more restrictive."
+        extra="Values between 0 - 255. Intensity values in the mask image which are below this cutoff are ignored."
         label="Mask Threshold"
         name="maskThreshold"
         rules={[]}
       >
         <Input step={1} type="number" placeholder="0" min={0} max={255} />
       </Form.Item>
-      <Form.Item label="Z Slice Range" name="pixColorFluctuation" rules={[]}>
+      <Form.Item
+        extra="Values between 0 - 255. Intensity values in the CDM libraries which are below this cutoff are ignored."
+        label="Data Threshold"
+        name="dataThreshold"
+        rules={[]}
+      >
+        <Input step={1} type="number" placeholder="0" min={0} max={255} />
+      </Form.Item>
+      <Form.Item 
+        extra="Tolerance for how many Z slices to search for each pixel in the mask"
+        label="Z Slice Range" 
+        name="pixColorFluctuation" 
+        rules={[]}>
         <Select>
           <Option value="1">1</Option>
           <Option value="3">3</Option>
           <Option value="5">5</Option>
         </Select>
       </Form.Item>
-      <Form.Item label="XY Shift" name="xyShift" rules={[]}>
+      <Form.Item 
+        extra="Number of pixels to shift mask in XY plane"
+        label="XY Shift" 
+        name="xyShift" 
+        rules={[]}>
         <Select>
           <Option value={0}>0px</Option>
           <Option value={2}>2px</Option>

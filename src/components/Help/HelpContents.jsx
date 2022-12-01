@@ -31,6 +31,7 @@ export default function HelpContents({ scroll }) {
     MatchesLMtoEM: useRef(),
     SearchInput: useRef(),
     UploadAlignment: useRef(),
+    UploadSearch: useRef(),
   };
 
   // use Effect to scroll to target set in the appState?
@@ -72,7 +73,7 @@ export default function HelpContents({ scroll }) {
       >
         #search
       </a>
-      <Title level={3}>Searching</Title>
+      <Title level={3}>Line/neuron lookups</Title>
       <p>
         The search input bar is the primary interface to this website. It is
         used to locate an EM body id or cell line of interest. By default, the
@@ -330,19 +331,32 @@ export default function HelpContents({ scroll }) {
       >
         #upload_alignment
       </a>
-      <Title level={3}>Image alignment</Title>
+      <Title level={3}>Uploaded image alignment</Title>
       When you upload an unaligned image stack to the NeuronBridge, it is
       automatically registered to a standard color depth search alignment
       template. Currently, these are JRC2018_Unisex_20x_HR (Brain) and
-      JRC2018_VNC_Unisex_40x_DS (VNC) both of which are derived from the
+      JRC2018_VNC_Unisex_40x_DS (VNC) both of which are derived from the{" "}
       <a href="https://www.janelia.org/open-science/jrc-2018-brain-templates">
         JRC 2018 templates
       </a>
-      .<h3 className="top-space-sm">Supported File Formats</h3>
+      .
+      <h3 className="top-space-sm">Supported File Formats</h3>
       <p>
         Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi with
         a single sample, and .nd2. The <i>.nrrd</i> format is not supported due
         to its single channel limitation.
+      </p>
+      <h3 className="top-space-sm">Alignment Verification</h3>
+      <p>
+        The aligner provides an alignment score and a link to a verification movie. 
+        The verification movie allows you to visualize the aligned stack against the template.
+        The alignment score is calculated as a{" "}
+        <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient#For_a_sample">
+          Pearson correlation coefficient
+        </a>
+        .
+        This yields a number between 0 and 1, where higher scores are better. 
+        The maximum score (perfect alignment) is 1, and anything below a 0.7 likely indicates a failure. 
       </p>
       <h3>FAQ: Why did my alignment fail?</h3>
       <dl>
@@ -417,6 +431,27 @@ export default function HelpContents({ scroll }) {
           searching.
         </dd>
       </dl>
+
+      <Divider />
+      <a
+        ref={refLookup.UploadSearch}
+        className="anchorOffset"
+        id="upload_search"
+        href="#upload_search"
+      >
+        #upload_search
+      </a>
+      <Title level={3}>Uploaded image search</Title>
+      <p>
+      Once an uploaded image has been uploaded, an aligned color depth MIP (CDM) is generated for each channel. 
+      You will need to choose one channel (one CDM) and mask it to isolate your neuron of interest. 
+      Submitting the search will begin color depth matching of your mask against the chosen CDM libraries. 
+      </p>
+      <p>
+      Note that the search process is different for uploaded data compared to precomputed matches. Only the initial color depth matching algorithm is used, 
+      and we do not currently run gradient scoring to re-sort the results for uploaded data. Also, a maximum of 400 matching images are returned.
+      </p>
+
     </div>
   );
 }

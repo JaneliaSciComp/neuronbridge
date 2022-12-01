@@ -200,7 +200,7 @@ export default function SearchUploadMeta({
                 Aligned Color Depth 2D MIP
               </Radio>
               <Radio value={false} disabled={disableAlignment}>
-                Not Aligned confocal 3D stack
+                Unaligned confocal 3D stack
               </Radio>
             </Radio.Group>
           </Col>
