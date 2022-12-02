@@ -351,11 +351,11 @@ export default function HelpContents({ scroll }) {
         The aligner provides an alignment score and a link to a verification movie. 
         The verification movie allows you to visualize the aligned stack against the template.
         The alignment score is calculated as a{" "}
-        <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient#For_a_sample">
-          Pearson correlation coefficient
+        <a href="https://martin-thoma.com/zero-mean-normalized-cross-correlation">
+          Zero Mean Normalized Cross-Correlation (ZNCC)
         </a>
         .
-        This yields a number between 0 and 1, where higher scores are better. 
+        This yields a number between -1 and 1, where higher scores are better. 
         The maximum score (perfect alignment) is 1, and anything below a 0.7 likely indicates a failure. 
       </p>
       <h3>FAQ: Why did my alignment fail?</h3>
