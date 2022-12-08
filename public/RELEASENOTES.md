@@ -1,4 +1,4 @@
-## VERSION 3.0.0 - 2022-XX-XX
+## VERSION 3.0.0 - 2022-12-08
 
 #### [Source](https://github.com/JaneliaSciComp/neuronbridge/releases/tag/v3.0.0)
 
