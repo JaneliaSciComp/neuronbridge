@@ -10,7 +10,7 @@ export default function SkeletonResult(props) {
   const { metaInfo } = props;
 
   const handleClick = (type) => {
-    if (config.fathomEventKeys) {
+    if (config.fathomEventKeys && Object.prototype.hasOwnProperty.call(window, 'fathom')) {
       if (config.fathomEventKeys[type]) {
         if (window.fathom) {
           window.fathom.trackGoal(config.fathomEventKeys[type], 0);

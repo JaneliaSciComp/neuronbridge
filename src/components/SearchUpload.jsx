@@ -15,7 +15,7 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 function uploadToS3(upload, handleUpload) {
-  if (config.fathomEventKeys) {
+  if (config.fathomEventKeys && Object.prototype.hasOwnProperty.call(window, 'fathom')) {
     window.fathom.trackGoal(config.fathomEventKeys.imageUpload, 0);
   }
   Auth.currentCredentials().then(() => {

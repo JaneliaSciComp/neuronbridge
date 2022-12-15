@@ -46,7 +46,7 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
   )}&ch=${channel}&mx=${mirrored}`;
 
   const handleClick = () => {
-    if (config.fathomEventKeys) {
+    if (config.fathomEventKeys && Object.prototype.hasOwnProperty.call(window, 'fathom')) {
       if (config.fathomEventKeys.viewIn3D) {
         window.fathom.trackGoal(config.fathomEventKeys.viewIn3D, 0);
       }
