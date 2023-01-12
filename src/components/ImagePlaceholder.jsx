@@ -11,6 +11,7 @@ export default function ImagePlaceholder({
   style,
   className,
   maxHeight,
+  maxWidth,
 }) {
   const [signedSrc, setSignedSrc] = useState();
   const [imageLoaded, setLoaded] = useState(false);
@@ -34,6 +35,9 @@ export default function ImagePlaceholder({
 
   if (maxHeight) {
     updatedStyle.maxHeight = maxHeight;
+  }
+  if (maxWidth) {
+    updatedStyle.maxWidth = maxWidth;
   }
 
   useEffect(() => {
@@ -111,6 +115,7 @@ ImagePlaceholder.propTypes = {
   imageDimensions: PropTypes.arrayOf(PropTypes.string).isRequired,
   mirrored: PropTypes.bool,
   maxHeight: PropTypes.string,
+  maxWidth: PropTypes.string
 };
 
 ImagePlaceholder.defaultProps = {
@@ -118,4 +123,5 @@ ImagePlaceholder.defaultProps = {
   style: {},
   className: "",
   maxHeight: null,
+  maxWidth: null,
 };
