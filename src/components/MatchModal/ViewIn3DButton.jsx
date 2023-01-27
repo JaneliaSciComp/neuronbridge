@@ -47,7 +47,9 @@ export default function ViewIn3DButton({ isLM, match, mask, style }) {
   const handleClick = () => {
     if (config.fathomEventKeys) {
       if (config.fathomEventKeys.viewIn3D) {
-        window.fathom.trackGoal(config.fathomEventKeys.viewIn3D, 0);
+        if (window.fathom) {
+          window.fathom.trackGoal(config.fathomEventKeys.viewIn3D, 0);
+        }
       }
     }
   };
