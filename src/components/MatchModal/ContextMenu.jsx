@@ -17,7 +17,7 @@ export default function ContextMenu({
   const [downloadSrc, setDownloadSrc] = React.useState();
 
   React.useEffect(() => {
-    if (!src.match(/^http/)) {
+    if (src && !src.match(/^http/)) {
       signedLink(src).then((result) => {
         setDownloadSrc(result);
       });
@@ -48,16 +48,18 @@ export default function ContextMenu({
   const handleDownload = async () => {
     // need to get rid of host string / file path and all the query
     // parameters, so the download name is correct.
-    const downloadName = downloadSrc
-      .split("/")
-      .pop()
-      .split("?")[0];
-    const a = document.createElement("a");
-    a.href = await toDataURL(downloadSrc);
-    a.setAttribute("download", downloadName);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    if (downloadSrc) {
+      const downloadName = downloadSrc
+        .split("/")
+        .pop()
+        .split("?")[0];
+      const a = document.createElement("a");
+      a.href = await toDataURL(downloadSrc);
+      a.setAttribute("download", downloadName);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
   };
 
   return (

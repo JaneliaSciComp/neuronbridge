@@ -248,23 +248,20 @@ export default function ImageComparison(props) {
     ? [...Array(imageCount)].map((_, index) => {
         const key = `Image${index}-${match.id}`;
         const chosenImageId = parseInt(urlImageChoices[index] || 0, 10);
-        if (imageOptions[chosenImageId]) {
-          return (
-            <Col key={key} lg={updatedCount <= 1 ? 24 : colWidth}>
-              <ImageSelection
-                vertical={isVertical}
-                imageOptions={imageOptions}
-                meta={match}
-                index={index}
-                setIsCopying={setIsCopying}
-                isCopying={isCopying}
-                chosenImageId={chosenImageId}
-                anatomicalRegion={anatomicalRegion}
-              />
-            </Col>
-          );
-        }
-        return null;
+        return (
+          <Col key={key} lg={updatedCount <= 1 ? 24 : colWidth}>
+            <ImageSelection
+              vertical={isVertical}
+              imageOptions={imageOptions}
+              meta={match}
+              index={index}
+              setIsCopying={setIsCopying}
+              isCopying={isCopying}
+              chosenImageId={chosenImageId}
+              anatomicalRegion={anatomicalRegion}
+            />
+          </Col>
+        );
       })
     : "";
 

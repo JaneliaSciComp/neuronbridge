@@ -53,8 +53,8 @@ export default function ImagePlaceholder({
       // identical, so we can just check that to see if we need to
       // reload the image.
       try {
-        const path = new URL(src).pathname;
-        const loadedPath = imageLoaded ? new URL(imageLoaded).pathname : null;
+        const path = new URL(src, window.location.origin).pathname;
+        const loadedPath = imageLoaded ? new URL(imageLoaded, window.location.origin).pathname : null;
         if (path !== loadedPath) {
           setLoaded(false);
         }

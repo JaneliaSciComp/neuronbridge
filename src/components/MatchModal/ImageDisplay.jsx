@@ -16,7 +16,9 @@ const ImageDisplay = (props) => {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
-    if (!src.match(/^http/)) {
+    if (!src) {
+      setImageUrl('/not_available.gif');
+    } else if (!src.match(/^http/)) {
       signedLink(src).then((result) => {
         setImageUrl(result);
       });

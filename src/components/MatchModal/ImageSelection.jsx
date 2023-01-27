@@ -66,11 +66,11 @@ function ImageSelection({
     history.replace(location);
   };
 
-  const chosenImage = imageOptions[chosenImageId];
+  const chosenImage = imageOptions[chosenImageId] || {};
 
-  const matchImageURL = chosenImage.path;
-  const selectValue = chosenImage.key;
-  const imageAlt = chosenImage.desc;
+  const matchImageURL = chosenImage?.path;
+  const selectValue = chosenImage?.key;
+  const imageAlt = chosenImage?.desc;
   // Only the color depth MIPs can be used in the CDM search,
   // so only those images should show the 'Mask & Search'
   // button.
