@@ -16,7 +16,10 @@ const { Dragger } = Upload;
 
 function uploadToS3(upload, handleUpload) {
   if (config.fathomEventKeys && Object.prototype.hasOwnProperty.call(window, 'fathom')) {
-    window.fathom.trackGoal(config.fathomEventKeys.imageUpload, 0);
+    // make sure the fathom code has been loaded and not blocked by an ad blocker.
+    if (window.fathom) {
+      window.fathom.trackGoal(config.fathomEventKeys.imageUpload, 0);
+    }
   }
   Auth.currentCredentials().then(() => {
     Storage.put(`${upload.filename}/${upload.file.name}`, upload.file, {
