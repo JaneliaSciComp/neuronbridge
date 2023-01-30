@@ -36,6 +36,21 @@ function getInitialAnatomicalArea(anatomicalAreas, uploadedFile) {
       : Object.entries(anatomicalAreas)[0][0].toLowerCase();
 }
 
+function guessIsAligned(uploadedFile) {
+  // if the image is in one of the formats that we only support for 2D,
+  // then assume it is aligned.
+  if (/\.(png|gif|jpe?g|bmp)$/.test(uploadedFile.file.name)) {
+    return true;
+  }
+  // if it is not one of the 2D only formats. Then check the size. If it is smaller
+  // than ~3Mb then assume it is an aligned file.
+  if (uploadedFile?.file?.size < 3_000_000) {
+    return true;
+  }
+  // all other files are assumed to be a 3D stack.
+  return false;
+}
+
 export default function SearchUploadMeta({
   uploadedFile,
   onSearchSubmit,
@@ -43,7 +58,7 @@ export default function SearchUploadMeta({
 }) {
   const { appState } = useContext(AppContext);
   const { anatomicalAreas, disableAlignment } = appState.dataConfig;
-  const [isAligned, setIsAligned] = useState(true);
+  const [isAligned, setIsAligned] = useState(false);
   const [override, setOverride] = useState(false);
   const [fakeMips, setFakeMips] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -55,6 +70,7 @@ export default function SearchUploadMeta({
   useEffect(() => {
     if (uploadedFile) {
       setCurrentAnatomicalArea(getInitialAnatomicalArea(anatomicalAreas, uploadedFile));
+      setIsAligned(guessIsAligned(uploadedFile));
     }
   },[uploadedFile, anatomicalAreas]);
 
