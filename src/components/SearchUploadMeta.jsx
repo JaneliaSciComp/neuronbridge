@@ -109,13 +109,17 @@ export default function SearchUploadMeta({
                 setIsUploading(false);
                 history.push(`/mask-selection/${result.data.createSearch.id}`);
               })
-              .catch(() => {
-                deleteSearch({ id: result.data.createSearch.id });
+              .catch((error) => {
+                // if the error was something other than an unsupported image, delete the search
+                // and move on.
+                if (!(error?.response?.data?.message === "unsupported image")) {
+                  deleteSearch({ id: result.data.createSearch.id });
+                  message.error(
+                    "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                    8
+                  );
+                }
                 setIsUploading(false);
-                message.error(
-                  "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
-                  8
-                );
               });
           } else {
             // else trigger the alignment to start on the backend.
