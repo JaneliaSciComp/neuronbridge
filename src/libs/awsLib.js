@@ -80,7 +80,9 @@ export function signedLink(url, identityId) {
     downloadOptions.customPrefix = { public: `private/${identityId}/` };
   }
 
-  return Storage.get(url, downloadOptions).then(result => result);
+  // decode the incoming URI or it will get double encoded when passed
+  // to Storage.get()
+  return Storage.get(decodeURI(url), downloadOptions).then(result => result);
 }
 
 export function createRelativePPPMImagePath(
