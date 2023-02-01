@@ -90,7 +90,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
       <h3>Unaligned Image Stack</h3>
       <p>
         Upload an unaligned confocal stack to have NeuronBridge attempt to
-        alignment for you.
+        align it for you.
       </p>
       <b style={{ marginTop: "1em" }}>Supported file formats:</b>
       <p>
