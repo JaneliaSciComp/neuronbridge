@@ -112,6 +112,8 @@ export default function Results({ match }) {
   // combined here to pass as single object to the Matches component.
   const combinedMetaResults = {...searchMeta, ...searchResults.inputImage};
 
+  const isVertical = searchMeta.anatomicalRegion ? Boolean(searchMeta.anatomicalRegion.match(/^vnc$/i)) : false;
+
   return (
     <div>
       <CustomInputSummary searchMeta={searchMeta}>
@@ -119,7 +121,7 @@ export default function Results({ match }) {
           thumbSrc={imageUrls ? imageUrls.thumbSrc : ""}
           src={imageUrls ? imageUrls.src : ""}
           title={searchMeta.upload}
-          vertical={Boolean(searchMeta.anatomicalRegion.match(/^vnc$/i))}
+          vertical={isVertical}
           maxHeight="350px"
           maxWidth="100%"
       />
