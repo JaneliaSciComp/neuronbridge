@@ -27,7 +27,9 @@ This repository contains the web client. Other related repositories:
 * [neuronbridge-precompute](https://github.com/JaneliaSciComp/neuronbridge-precompute) - Precompute scripts
 * [neuronbridge-utilities](https://github.com/JaneliaSciComp/neuronbridge-utilities) - Utility scripts
 * [neuronbridge-python](https://github.com/JaneliaSciComp/neuronbridge-python) - Python API
+* [neuronbridge-vol-viewer](https://github.com/JaneliaSciComp/neuronbridge-vol-viewer) - Web-based 3D Volume Viewer
 * [colormipsearch](https://github.com/JaneliaSciComp/colormipsearch) - Color Depth MIP Search Algorithms
+
 
 ## Data Availability
 
