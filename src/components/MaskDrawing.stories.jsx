@@ -1,8 +1,6 @@
 import React from "react";
 import MaskDrawing from "./MaskDrawing";
 
-import "antd/dist/antd.less";
-
 export default {
   title: 'MaskDrawing',
   component: MaskDrawing,

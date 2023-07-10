@@ -1,0 +1,14 @@
+.stepIcon {
+  margin-right: 0.5em;
+}
+.stepIconComplete {
+  background: #008b94;
+}
+
+.stepIconActive {
+  color: #008b94;
+}
+
+.stepIconError {
+  color: #008b94;
+}

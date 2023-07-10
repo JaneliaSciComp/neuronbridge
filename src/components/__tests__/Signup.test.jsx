@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, wait } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { Auth, API } from "aws-amplify";
 import Signup from "../Signup";
@@ -14,7 +14,8 @@ describe("Signup: unit tests", () => {
         <Signup />
       </MemoryRouter>
     );
-    await wait();
-    expect(screen.getByText(/Create your account/i));
+    await waitFor(() => {
+      expect(screen.getByText(/Create your account/i));
+    });
   });
 });

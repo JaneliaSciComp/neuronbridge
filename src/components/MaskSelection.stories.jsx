@@ -1,8 +1,6 @@
 import React from "react";
 import MaskSelection from "./MaskSelection";
 
-import "antd/dist/antd.less";
-
 export default {
   title: 'MaskSelection',
   component: MaskSelection,

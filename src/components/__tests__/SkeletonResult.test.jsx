@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import SkeletonResult from "../SkeletonResult";
 import { AppContext } from "../../containers/AppContext";
@@ -41,8 +41,9 @@ describe("SkeletonResult: unit tests", () => {
         </MemoryRouter>
       </AppContext.Provider>
     );
-    await wait();
-    expect(getByText(/Color Depth Search Results/i));
+    await waitFor(() => {
+      expect(getByText(/Color Depth Search Results/i));
+    });
   });
   it("hides CDM results button when no results are found", async () => {
     const { queryByText, getByText } = render(
@@ -76,8 +77,9 @@ describe("SkeletonResult: unit tests", () => {
         </MemoryRouter>
       </AppContext.Provider>
     );
-    await wait();
-    expect(queryByText(/Color Depth Search Results/i)).toBeNull();
+    await waitFor(() => {
+      expect(queryByText(/Color Depth Search Results/i)).toBeNull();
+    });
     expect(getByText(/PatchPerPixMatch Results/i));
   });
 });

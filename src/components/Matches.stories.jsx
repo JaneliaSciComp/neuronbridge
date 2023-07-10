@@ -3,8 +3,6 @@ import Matches from "./Matches";
 import { MatchesProvider } from "../containers/MatchesContext";
 import { AppContext } from "../containers/AppContext";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "Matches",
   component: Matches,

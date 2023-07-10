@@ -17,7 +17,7 @@ function getSWCLink(construct) {
 }
 
 export default function ViewIn3DButton({ isLM, match, mask, style }) {
-  const [signedSwc, setSignedSwc] = React.useState(null);
+  const [signedSwc, setSignedSwc] = React.useState(undefined);
   const [isDisabled, setDisabled] = React.useState(true);
   const ref = window.location;
   const h5j = isLM ? getH5JLink(match.image) : getH5JLink(mask);

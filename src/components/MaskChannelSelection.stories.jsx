@@ -1,8 +1,6 @@
 import React from "react";
 import MaskChannelSelection from "./MaskChannelSelection";
 
-import "antd/dist/antd.less";
-
 export default {
   title: 'MaskChannelSelection',
   component: MaskChannelSelection,

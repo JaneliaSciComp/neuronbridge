@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Auth, API } from "aws-amplify";
 import { Button, Card, Checkbox, Typography, message } from "antd";
+import PropTypes from "prop-types";
 import { AppContext } from "../containers/AppContext";
 
 const { Title } = Typography;
 
-export default function Account() {
+export default function Account({ skipPrefs }) {
   const [userPrefs, setUserPrefs] = useState({});
   const [loading, setLoading] = useState(true);
   const { resetPermanent } = useContext(AppContext);
@@ -13,20 +14,22 @@ export default function Account() {
   useEffect(() => {
     // load the logged in users attributes and see save the
     // preferences to the state.
-    async function getUserInfo() {
-      Auth.currentCredentials().then(() => {
-        API.get("SearchAPI", "/preferences")
-          .then(preferences => {
-            setUserPrefs(preferences);
-          })
-          .catch(() => {
-            setUserPrefs({});
-          });
-      });
-      setLoading(false);
+    if (!skipPrefs) {
+      async function getUserInfo() {
+        Auth.currentCredentials().then(() => {
+          API.get("SearchAPI", "/preferences")
+            .then(preferences => {
+              setUserPrefs(preferences);
+            })
+            .catch(() => {
+              setUserPrefs({});
+            });
+        });
+        setLoading(false);
+      }
+      getUserInfo();
     }
-    getUserInfo();
-  }, []);
+  }, [skipPrefs]);
 
   const handleNewsLetterChange = async event => {
     setUserPrefs({ ...userPrefs, mailingList: event.target.checked });
@@ -95,3 +98,11 @@ export default function Account() {
     </>
   );
 }
+
+Account.defaultProps = {
+  skipPrefs: false
+};
+
+Account.propTypes = {
+  skipPrefs: PropTypes.bool
+};

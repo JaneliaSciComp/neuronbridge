@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Row, Col, Divider, Switch } from "antd";
 import { useLocation, useHistory } from "react-router-dom";
 import { AppContext } from "../containers/AppContext";
@@ -10,7 +10,7 @@ export default function SearchFilterMenu() {
   const history = useHistory();
   const { appState, setPermanent } = useContext(AppContext);
 
-  const filteredAreas = query.getAll("saa") || [];
+  const filteredAreas = useMemo(() => query.getAll("saa") || [], [query]);
 
   // filteredAreas is first loaded from appState, if present.
   // Then it is overwritten by the url values if there are any present.

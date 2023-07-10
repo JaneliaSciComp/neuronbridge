@@ -38,7 +38,7 @@ const fathomEventKeys = {
 const VOL_VIEWER = process.env.REACT_APP_VOL_VIEWER || "https://neuronbridge-vol-viewer.janelia.org";
 
 
-export default {
+const config = {
   APP_LEVEL: process.env.REACT_APP_LEVEL,
   ZIP_DOWNLOAD_LIMIT: 200,
   UNDER_MAINTENANCE,
@@ -103,3 +103,5 @@ export default {
   fathomEventKeys: fathomEventKeys[process.env.REACT_APP_LEVEL],
   volumeViewer: VOL_VIEWER
 };
+
+export default config;

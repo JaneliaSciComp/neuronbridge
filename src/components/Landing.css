@@ -32,12 +32,12 @@ div.collections div {
 
 @media screen and (min-width: 768px) {
   .landing {
-    background: #000 url("/landing_background.png") no-repeat top right;
+    background: #000 url("./landing_background.png") no-repeat top right;
   }
 }
 
 @media screen and (max-width: 767px) {
   .landing {
-    background: #000 url("/fadded_background.png") no-repeat top right;
+    background: #000 url("./fadded_background.png") no-repeat top right;
   }
 }

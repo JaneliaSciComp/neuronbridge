@@ -2,8 +2,6 @@ import React from "react";
 import ExportMenu from "./ExportMenu";
 import { MatchesProvider } from "../containers/MatchesContext";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "ExportMenu",
   component: ExportMenu,

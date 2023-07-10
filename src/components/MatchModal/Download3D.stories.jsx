@@ -2,8 +2,6 @@ import React from "react";
 import Download3D from "./Download3D";
 import { AppContext } from "../../containers/AppContext";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "Download3D",
   component: Download3D,

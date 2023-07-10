@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Avatar } from "antd";
 import { LoadingOutlined, WarningOutlined } from "@ant-design/icons";
 
-import "./StepTitle.less";
+import "./StepTitle.css";
 
 const stepTitle = {
   marginBottom: '0.5em',

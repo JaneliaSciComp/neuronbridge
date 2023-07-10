@@ -3,8 +3,6 @@ import MatchModal from "./MatchModal";
 import { MatchesProvider } from "../containers/MatchesContext";
 import { AppContext } from "../containers/AppContext";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "MatchModal",
   component: MatchModal,

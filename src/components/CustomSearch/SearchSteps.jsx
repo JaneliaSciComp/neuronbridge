@@ -7,7 +7,7 @@ import FileUploadStep from "./FileUploadStep";
 import ImageAlignmentStep from "./ImageAlignmentStep";
 import ColorDepthSearchStep from "./ColorDepthSearchStep";
 import CompleteStep from "./CompleteStep";
-import "./SearchSteps.less";
+import "./SearchSteps.css";
 
 // const { Step } = Steps;
 

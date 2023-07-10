@@ -2,7 +2,6 @@ extends:
     - "react-app"
     - "airbnb"
     - "prettier"
-    - "prettier/react"
 env:
     browser: true
     node: true
@@ -13,7 +12,7 @@ globals:
     routerHelper: true
     Set: true
 parser:
-    babel-eslint
+   "@babel/eslint-parser"
 plugins:
     - "react"
     - "prettier"

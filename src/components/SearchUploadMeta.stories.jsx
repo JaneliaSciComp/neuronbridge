@@ -2,8 +2,6 @@ import React from "react";
 import SearchUploadMeta from "./SearchUploadMeta";
 import { AppContext } from "../containers/AppContext";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "SearchUploadMeta",
   component: SearchUploadMeta,

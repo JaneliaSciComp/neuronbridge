@@ -1,8 +1,6 @@
 import React from "react";
 import FilterMenu from "./FilterMenu";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "FilterMenu",
   component: FilterMenu

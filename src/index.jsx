@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from 'react-dom/client';
 import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import Amplify from "aws-amplify";
-import { transitions, positions, Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+import { Amplify } from "aws-amplify";
 import { CookiesProvider } from 'react-cookie';
+import { ConfigProvider } from 'antd';
 
 import config from "./config";
 import App from "./App";
@@ -52,28 +51,20 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-const alertOptions = {
-  // you can also just use 'bottom center'
-  position: positions.BOTTOM_CENTER,
-  timeout: 3000,
-  offset: "20px",
-  // you can also just use 'scale'
-  transition: transitions.FADE
-};
-/* eslint-disable react/jsx-props-no-spreading */
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <Router>
-    <AlertProvider template={AlertTemplate} {...alertOptions}>
-      <AppProvider>
-        <CookiesProvider>
+    <AppProvider>
+      <CookiesProvider>
+        <ConfigProvider theme={{ token: { colorPrimary: '#008b94', colorLink: '#008b94', colorPrimaryTextHover: "#008b94", colorPrimaryHover: "#008b94", colorLinkHover: "#ff746b"   } }}>
           <App />
-        </CookiesProvider>
-      </AppProvider>
-    </AlertProvider>
-  </Router>,
-  document.getElementById("root")
+        </ConfigProvider>
+      </CookiesProvider>
+    </AppProvider>
+  </Router>
 );
-/* eslint-enable react/jsx-props-no-spreading */
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,8 +1,6 @@
 import React from "react";
 import AlignmentMeta from "./AlignmentMeta";
 
-import "antd/dist/antd.less";
-
 export default {
   title: 'AlignmentMeta',
   component: AlignmentMeta,

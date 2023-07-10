@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import ViewIn3DButton from "../MatchModal/ViewIn3DButton";
 
 describe("View In 3D button: unit tests", () => {
@@ -63,11 +63,12 @@ describe("View In 3D button: unit tests", () => {
     const { container } = render(
       <ViewIn3DButton isLM match={match} mask={mask} />
     );
-    await wait();
-    const link = container.querySelector("a");
-    expect(link.href).toBe(
-      "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FVT017683%2FVT017683-20200124_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=2&mx=false"
-    );
+    await waitFor(() => {
+      const link = container.querySelector("a");
+      expect(link.href).toBe(
+        "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FVT017683%2FVT017683-20200124_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=2&mx=false"
+      );
+    });
   });
   it("generates disabled button when rendered for LM2EM missing swc", async () => {
     const match = {
@@ -132,9 +133,11 @@ describe("View In 3D button: unit tests", () => {
     const { container } = render(
       <ViewIn3DButton isLM={false} match={match} mask={mask} />
     );
-    await wait();
+    await waitFor(() => {
+      const link = container.querySelector("a");
+      expect(link.className.split(' ')).toContain('ant-btn-disabled');
+    });
     const link = container.querySelector("a");
-    expect(link.className.split(' ')).toContain('ant-btn-disabled');
     expect(link.href).toBe(
       "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FGen1%2BMCFO%2FR33C10%2FR33C10-20190816_62_G3-m-40x-vnc-GAL4-JRC2018_VNC_Unisex-aligned_stack.h5j&swc=undefined&ch=1&mx=false"
     );
@@ -203,10 +206,11 @@ describe("View In 3D button: unit tests", () => {
     const { container } = render(
       <ViewIn3DButton isLM={false} match={match} mask={mask} />
     );
-    await wait();
-    const link = container.querySelector("a");
-    expect(link.href).toBe(
-      "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FMDN%2BDownstream%2B2020%2FSS39036%2FSS39036-20181121_43_C6-f-20x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j&swc=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-color-depth%2FJRC2018_Unisex_20x_HR%2FFlyEM_Hemibrain_v1.2.1%2FSWC%2F5813023864.swc&ch=1&mx=false"
-    );
+    await waitFor(() => {
+      const link = container.querySelector("a");
+      expect(link.href).toBe(
+        "https://neuronbridge-vol-viewer.janelia.org/?ref=http%3A%2F%2Flocalhost%2F&h5j=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-imagery%2FMDN%2BDownstream%2B2020%2FSS39036%2FSS39036-20181121_43_C6-f-20x-brain-Split_GAL4-JRC2018_Unisex_20x_HR-aligned_stack.h5j&swc=https%3A%2F%2Fs3.amazonaws.com%2Fjanelia-flylight-color-depth%2FJRC2018_Unisex_20x_HR%2FFlyEM_Hemibrain_v1.2.1%2FSWC%2F5813023864.swc&ch=1&mx=false"
+      );
+    });
   });
 });

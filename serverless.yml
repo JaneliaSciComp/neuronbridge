@@ -4,7 +4,6 @@ useDotenv: true
 
 plugins:
   - serverless-finch
-  - serverless-plugin-package-json
   - serverless-deployment-bucket
   - serverless-build-client
   - serverless-export-env
@@ -12,10 +11,10 @@ plugins:
 custom:
   stage: ${opt:stage, self:provider.stage}
   region : ${opt:region, self:provider.region}
-  version : $npm_package_version
   export-env:
     filename: .env
     overwrite: true
+    enbleOffline: true
   buildClient:
     packager: npm
     command: run build
@@ -39,12 +38,12 @@ provider:
     blockPublicAccess: true
   tags:
     PROJECT: NeuronBridge
-    VERSION: ${self:custom.version}
+    VERSION: ${file(./package.json):version}
     DEVELOPER: ${env:USER}
   environment:
     REACT_APP_LEVEL: ${self:custom.stage}
     # REACT_APP_DATA_TARGET: dev
-    REACT_APP_VERSION: ${self:custom.version}
+    REACT_APP_VERSION: ${file(./package.json):version}
     REACT_APP_IDENTITY_POOL_ID: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.IdentityPoolId}
     REACT_APP_USERPOOL_ID: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.UserPoolId}
     REACT_APP_USERPOOL_CLIENT_ID: ${cf:janelia-neuronbridge-cds-${self:custom.stage}.UserPoolClientId}

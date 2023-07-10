@@ -29,7 +29,13 @@ export default function Announcements() {
         .catch(() => {
           setAnnouncements([]);
         });
+    })
+    .catch((error) => {
+      if (!error.match(/mandatory signin enabled/)) {
+        console.log(error);
+      }
     });
+
   }
 
   // update the announcements every hour

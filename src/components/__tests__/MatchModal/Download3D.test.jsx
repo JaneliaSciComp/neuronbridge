@@ -1,5 +1,5 @@
 import React from "react";
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import Download3D from "../../MatchModal/Download3D";
 import { AppContext, AppProvider } from "../../../containers/AppContext";
@@ -39,7 +39,8 @@ describe("Download3D: unit tests", () => {
         </MemoryRouter>
       </AppContext.Provider>
     );
-    await wait();
-    expect(getByRole("link", { name: ".swc" })).toHaveAttribute("href", "http://test.example.com/foo");
+    await waitFor(() => {
+      expect(getByRole("link", { name: ".swc" })).toHaveAttribute("href", "http://test.example.com/foo");
+    });
   });
 });

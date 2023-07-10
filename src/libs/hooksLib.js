@@ -71,7 +71,7 @@ export function useDebounce(value, delay) {
 
 // code taken from https://github.com/vmarchesin/react-konami-code
 const KONAMI_CODE = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-export function useKonami(action: () => void, { code = KONAMI_CODE } = {}) {
+export function useKonami(action, { code = KONAMI_CODE } = {}) {
   const [input, setInput] = useState([]);
 
   const onKeyUp = useCallback(
@@ -83,7 +83,9 @@ export function useKonami(action: () => void, { code = KONAMI_CODE } = {}) {
       setInput(newInput);
 
       if (newInput.join("").includes(code.join(""))) {
-        action();
+        if (action) {
+          action();
+        }
       }
     },
     [input, setInput, code, action]

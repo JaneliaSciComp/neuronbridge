@@ -22,7 +22,6 @@ import DebugPanel from "./components/DebugPanel";
 import Announcements from "./components/Announcements";
 import { useKonami } from "./libs/hooksLib";
 import { dataVersionFile } from "./libs/utils";
-import "antd/dist/antd.less";
 import "./App.css";
 
 const { Header, Content, Footer } = Layout;
@@ -164,7 +163,7 @@ export default function App() {
 
   const menuItems = [
     // clasName: logo
-    {key: "logo", label: <Link to="/"><img src={neuronbridgeLogo} alt="NeuronBridge" /></Link>},
+    {key: "logo", label: <Link to="/" className="nbLogo"><img src={neuronbridgeLogo} alt="NeuronBridge" /></Link>},
     {key: "/", label: <Link to="/">Home</Link>},
 
     isAuthenticated ? {key: "/upload", label: <Link to="/upload">Upload</Link> } : null,

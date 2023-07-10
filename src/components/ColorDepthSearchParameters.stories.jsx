@@ -1,8 +1,6 @@
 import React from "react";
 import ColorDepthSearchParameters from "./ColorDepthSearchParameters";
 
-import "antd/dist/antd.less";
-
 export default {
   title: 'ColorDepthSearchParameters',
   component: ColorDepthSearchParameters,

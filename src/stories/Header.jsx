@@ -6,7 +6,7 @@ import './header.css';
 
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <header>
-    <div className="wrapper">
+    <div className="storybook-header">
       <div>
         <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <g fill="none" fillRule="evenodd">
@@ -28,7 +28,12 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
       </div>
       <div>
         {user ? (
-          <Button size="small" onClick={onLogout} label="Log out" />
+          <>
+            <span className="welcome">
+              Welcome, <b>{user.name}</b>!
+            </span>
+            <Button size="small" onClick={onLogout} label="Log out" />
+          </>
         ) : (
           <>
             <Button size="small" onClick={onLogin} label="Log in" />
@@ -41,7 +46,9 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
 );
 
 Header.propTypes = {
-  user: PropTypes.shape({}),
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
   onCreateAccount: PropTypes.func.isRequired,

@@ -1,8 +1,6 @@
 import React from "react";
 import SearchSteps from "./SearchSteps";
 
-import "antd/dist/antd.less";
-
 export default {
   title: "SearchSteps",
   component: SearchSteps,

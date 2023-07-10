@@ -16,6 +16,11 @@ export default function DebugPanel({ appState, config }) {
       }).then(data => {
         setPublishedNames(data.version);
       });
+    })
+    .catch((error) => {
+      if (!error.match(/mandatory signin enabled/)) {
+        console.log(error);
+      }
     });
   }, [publishedNames]);
 
