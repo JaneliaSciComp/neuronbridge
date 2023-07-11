@@ -6,7 +6,7 @@ export default {
   component: AlignmentMeta,
 };
 
-const Template = (args) => <AlignmentMeta {...args} />;
+function Template(args) { return  <AlignmentMeta {...args} />; }
 
 export const ModifiedParameters = Template.bind({});
 

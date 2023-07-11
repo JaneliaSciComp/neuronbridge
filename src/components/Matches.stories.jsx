@@ -8,8 +8,10 @@ export default {
   component: Matches,
 };
 
-const Template = (args) => (
+function Template(args){ 
+  return (
     <AppContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         appState: {
           gridView: true,
@@ -24,7 +26,8 @@ const Template = (args) => (
         <Matches {...args} />
       </MatchesProvider>
     </AppContext.Provider>
-);
+  );
+}
 
 export const FirstStory = Template.bind({});
 

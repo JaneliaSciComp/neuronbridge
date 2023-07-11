@@ -6,7 +6,7 @@ export default {
   component: SearchSteps,
 };
 
-const Template = (args) => <SearchSteps {...args} />;
+function Template (args) { return <SearchSteps {...args} />; }
 
 export const StepZero = Template.bind({});
 StepZero.args = {

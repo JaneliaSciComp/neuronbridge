@@ -8,30 +8,33 @@ export default {
   component: MatchModal,
 };
 
-const Template = (args) => (
-  <AppContext.Provider
-    value={{
-      appState: {
-        compactMeta: false,
-        comparisonCount: {
-          pppm: 2,
-          cdm: 2,
+function Template (args) {
+  return (
+    <AppContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        appState: {
+          compactMeta: false,
+          comparisonCount: {
+            pppm: 2,
+            cdm: 2,
+          },
+          imageChoices: {
+            pppm: {},
+            cdm: {}
+          },
+          dataConfig: {
+            loaded: true,
+          },
         },
-        imageChoices: {
-          pppm: {},
-          cdm: {}
-        },
-        dataConfig: {
-          loaded: true,
-        },
-      },
-    }}
-  >
-    <MatchesProvider>
-      <MatchModal {...args} />
-    </MatchesProvider>
-  </AppContext.Provider>
-);
+      }}
+    >
+      <MatchesProvider>
+        <MatchModal {...args} />
+      </MatchesProvider>
+    </AppContext.Provider>
+  );
+}
 
 export const FirstStory = Template.bind({});
 

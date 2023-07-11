@@ -6,7 +6,7 @@ export default {
   component: MaskDrawing,
 };
 
-const Template = (args) => <MaskDrawing {...args} />;
+function Template(args){ return <MaskDrawing {...args} />; }
 
 export const ImageSelected = Template.bind({});
 

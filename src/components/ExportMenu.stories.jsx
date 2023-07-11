@@ -7,11 +7,13 @@ export default {
   component: ExportMenu,
 };
 
-const Template = (args) => (
-  <MatchesProvider>
-    <ExportMenu {...args} />
-  </MatchesProvider>
-);
+function Template (args) {
+  return (
+    <MatchesProvider>
+      <ExportMenu {...args} />
+    </MatchesProvider>
+  );
+}
 
 const result = {
   mirrored: false,

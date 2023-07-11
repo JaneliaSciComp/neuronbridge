@@ -6,7 +6,7 @@ export default {
   component: MaskSelection,
 };
 
-const Template = (args) => <MaskSelection {...args} />;
+function Template(args){ return  <MaskSelection {...args} />; }
 
 export const FirstStory = Template.bind({});
 

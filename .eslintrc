@@ -22,3 +22,5 @@ rules:
         - forbid:
             - 'any'
             - 'array'
+    "react/jsx-props-no-spreading":
+      - "off"

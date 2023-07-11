@@ -6,7 +6,7 @@ export default {
   component: MaskChannelSelection,
 };
 
-const Template = (args) => <MaskChannelSelection {...args} />;
+function Template (args) { return <MaskChannelSelection {...args} />; }
 
 export const FirstStory = Template.bind({});
 

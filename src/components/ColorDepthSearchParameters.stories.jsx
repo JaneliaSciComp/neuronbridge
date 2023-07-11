@@ -6,7 +6,7 @@ export default {
   component: ColorDepthSearchParameters,
 };
 
-const Template = (args) => <ColorDepthSearchParameters {...args} />;
+function Template(args) { return <ColorDepthSearchParameters {...args} />; }
 
 export const FirstStory = Template.bind({});
 

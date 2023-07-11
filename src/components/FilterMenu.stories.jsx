@@ -6,7 +6,7 @@ export default {
   component: FilterMenu
 };
 
-const Template = args => <FilterMenu {...args} />;
+function Template(args) { return <FilterMenu {...args} />; }
 
 export const LMMatches = Template.bind({});
 
