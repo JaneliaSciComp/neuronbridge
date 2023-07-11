@@ -42,7 +42,7 @@ function uploadToS3(upload, handleUpload) {
 
 export default function SearchUpload({ uploadedFile, handleUpload }) {
   const { appState, setPermanent } = useContext(AppContext);
-  function customRequest(upload) {
+  const customRequest = (upload) => {
     // get the image dimensions for use later when checking if the image looks
     // like a VNC or brain image.
     const img = new Image();
@@ -60,13 +60,11 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   }
 
   const uploadDimensions = Object.entries(appState.dataConfig.anatomicalAreas)
-    .map(([label]) => {
-      return (
-        <p key={label}>
-          {label}: {config.uploadDimensions[label.toLowerCase()]}
-        </p>
-      );
-    })
+    .map(([label]) => (
+      <p key={label}>
+        {label}: {config.uploadDimensions[label.toLowerCase()]}
+      </p>
+    ))
     .filter((region) => region);
   function onRemove() {
     Auth.currentCredentials().then(() => {
@@ -118,19 +116,17 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   const uploadHelp = appState.dataConfig.disableAlignment ? (
     <p>{cdmHelp}</p>
   ) : (
-    <>
-      <Row gutter={12} align="middle">
-        <Col xs={24} lg={11}>
-          {stackHelp}
-        </Col>
-        <Col xs={24} lg={2}>
-          <b>OR</b>
-        </Col>
-        <Col xs={24} lg={11}>
-          {cdmHelp}
-        </Col>
-      </Row>
-    </>
+    <Row gutter={12} align="middle">
+      <Col xs={24} lg={11}>
+        {stackHelp}
+      </Col>
+      <Col xs={24} lg={2}>
+        <b>OR</b>
+      </Col>
+      <Col xs={24} lg={11}>
+        {cdmHelp}
+      </Col>
+    </Row>
   );
 
   return (

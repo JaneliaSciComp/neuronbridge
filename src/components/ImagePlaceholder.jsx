@@ -80,30 +80,29 @@ export default function ImagePlaceholder({
     return <p style={{ color: "#f00" }}>Error Loading Image</p>;
   }
 
+  if (imageLoaded) {
+    return (
+      <img
+        src={signedSrc}
+        style={updatedStyle}
+        alt={alt}
+        onLoad={() => handleLoaded(src)}
+        height={imageDimensions[0]}
+        width={imageDimensions[1]}
+        className={className}
+      />
+    );
+  }
   return (
-    <>
-      {imageLoaded ? (
-        <img
-          src={signedSrc}
-          style={updatedStyle}
-          alt={alt}
-          onLoad={() => handleLoaded(src)}
-          height={imageDimensions[0]}
-          width={imageDimensions[1]}
-          className={className}
-        />
-      ) : (
-        <img
-          src={placeholderSrc}
-          style={updatedStyle}
-          alt="placeholder"
-          height={imageDimensions[0]}
-          width={imageDimensions[1]}
-          className={className}
-        />
-      )}
-    </>
-  );
+    <img
+      src={placeholderSrc}
+      style={updatedStyle}
+      alt="placeholder"
+      height={imageDimensions[0]}
+      width={imageDimensions[1]}
+      className={className}
+    />
+  )
 }
 
 ImagePlaceholder.propTypes = {

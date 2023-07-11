@@ -36,16 +36,14 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
     }
   }
 
-  const precomputedLinks = matchUrls.map((match) => {
-    return (
+  const precomputedLinks = matchUrls.map((match) => (
       <React.Fragment key={match.url}>
         <Link key={match.url} to={match.url}>
           View Precomputed {match.type} Matches
         </Link>
         <br />
       </React.Fragment>
-    );
-  });
+    ));
 
 
   const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;

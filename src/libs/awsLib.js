@@ -179,12 +179,8 @@ export async function toDataURL(url, opts = {}) {
           }
         };
   const objectUrl = await fetch(signed, options)
-    .then(response => {
-      return response.blob();
-    })
-    .then(blob => {
-      return URL.createObjectURL(blob);
-    })
+    .then(response => response.blob())
+    .then(blob => URL.createObjectURL(blob))
     .catch(e => {
       console.log(e);
     });

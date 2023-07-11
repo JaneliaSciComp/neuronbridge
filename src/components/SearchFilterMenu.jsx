@@ -58,18 +58,16 @@ export default function SearchFilterMenu() {
 
   const anatomicalAreaSwitches = Object.entries(
     appState.dataConfig.anatomicalAreas
-  ).map(([key, value]) => {
-    return (
-      <p key={key}>
-        {" "}
-        <Switch
-          checked={!filteredAreas.includes(key)}
-          onChange={(checked) => handleAnatomicalAreaToggle(checked, key)}
-        />{" "}
-        {value.label}{" "}
-      </p>
-    );
-  });
+  ).map(([key, value]) => (
+    <p key={key}>
+      {" "}
+      <Switch
+        checked={!filteredAreas.includes(key)}
+        onChange={(checked) => handleAnatomicalAreaToggle(checked, key)}
+      />{" "}
+      {value.label}{" "}
+    </p>
+  ));
   if (!appState.showSearchFilters) {
     return null;
   }

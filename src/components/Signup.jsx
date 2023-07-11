@@ -29,7 +29,7 @@ export default function Signup() {
   const { appState, setAppState } = useContext(AppContext);
   const history = useHistory();
 
-  async function handleSubmit(values) {
+  const handleSubmit = async (values) => {
     setIsLoading(true);
 
     if (!acceptedTerms) {
@@ -52,11 +52,11 @@ export default function Signup() {
     }
   }
 
-  function handleAcceptedTerms(event) {
+  const handleAcceptedTerms = (event) => {
     setAcceptedTerms(event.target.checked);
   }
 
-  async function handleConfirmationSubmit(values) {
+  const handleConfirmationSubmit = async (values) => {
     setIsLoading(true);
 
     try {

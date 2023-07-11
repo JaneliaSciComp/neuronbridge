@@ -42,7 +42,7 @@ export default function FilterMenu({
   const location = useLocation();
   const history = useHistory();
 
-  function handleResultsPerLine(count) {
+  const handleResultsPerLine = (count) => {
     query.set("rpl", count);
     location.search = query.toString();
     history.push(location);
@@ -72,19 +72,19 @@ export default function FilterMenu({
     }
   }
 
-  function onSortChange(event) {
+  const onSortChange = (event) => {
     query.set("fisort", event.target.value);
     location.search = query.toString();
     history.push(location);
   }
 
-  function handleIdFilter(event) {
+  const handleIdFilter = (event) => {
     query.set("id", event.target.value);
     location.search = query.toString();
     history.push(location);
   }
 
-  function handleGenderFilter(checkedValues) {
+  const handleGenderFilter = (checkedValues) => {
     query.set("gr", checkedValues.join(""));
     location.search = query.toString();
     history.push(location);
@@ -98,17 +98,15 @@ export default function FilterMenu({
   }
 
   const libraryFilterSwitches = Object.entries(countsByLibrary).map(
-    ([library, count]) => {
-      return (
-        <p key={library}>
-          <Switch
-            checked={!filteredLibs.includes(library)}
-            onChange={(checked) => handleLibraryToggle(checked, library)}
-          />{" "}
-          <LibraryFormatter type={library} /> ({count})
-        </p>
-      );
-    }
+    ([library, count]) => (
+      <p key={library}>
+        <Switch
+          checked={!filteredLibs.includes(library)}
+          onChange={(checked) => handleLibraryToggle(checked, library)}
+        />{" "}
+        <LibraryFormatter type={library} /> ({count})
+      </p>
+    )
   );
 
   return (

@@ -110,13 +110,11 @@ export default function UnifiedSearch() {
                 if (match.keyType === "publishingName") {
                   const byLineUrl = `${appState.dataVersion}/metadata/by_line/${match.name}.json`;
                   return Storage.get(byLineUrl, storageOptions)
-                    .then((metaData) => {
-                      return readMetaData(
-                        metaData,
-                        lineCombined,
-                        setByLineResults
-                      );
-                    })
+                    .then((metaData) => readMetaData(
+                      metaData,
+                      lineCombined,
+                      setByLineResults
+                    ))
                     .catch((error) => {
                       if (error === "No credentials") {
                         // Log me out and prompt me to login again.
@@ -128,13 +126,11 @@ export default function UnifiedSearch() {
                 if (match.keyType === "bodyID") {
                   const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${match.name}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
-                    .then((metaData) => {
-                      return readMetaData(
-                        metaData,
-                        bodyCombined,
-                        setByBodyResults
-                      );
-                    })
+                    .then((metaData) => readMetaData(
+                      metaData,
+                      bodyCombined,
+                      setByBodyResults
+                    ))
                     .catch((error) => {
                       if (error === "No credentials") {
                         // Log me out and prompt me to login again.
@@ -151,13 +147,11 @@ export default function UnifiedSearch() {
                     const [bodyID] = Object.entries(body)[0];
                     const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                     return Storage.get(byBodyUrl, storageOptions)
-                      .then((metaData) => {
-                        return readMetaData(
-                          metaData,
-                          bodyCombined,
-                          setByBodyResults
-                        );
-                      })
+                      .then((metaData) => readMetaData(
+                        metaData,
+                        bodyCombined,
+                        setByBodyResults
+                      ))
                       .catch((error) => {
                         if (error === "No credentials") {
                           // Log me out and prompt me to login again.

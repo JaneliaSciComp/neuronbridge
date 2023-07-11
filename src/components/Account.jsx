@@ -14,19 +14,20 @@ export default function Account({ skipPrefs }) {
   useEffect(() => {
     // load the logged in users attributes and see save the
     // preferences to the state.
+    async function getUserInfo() {
+      Auth.currentCredentials().then(() => {
+        API.get("SearchAPI", "/preferences")
+          .then(preferences => {
+            setUserPrefs(preferences);
+          })
+          .catch(() => {
+            setUserPrefs({});
+          });
+      });
+      setLoading(false);
+    }
+
     if (!skipPrefs) {
-      async function getUserInfo() {
-        Auth.currentCredentials().then(() => {
-          API.get("SearchAPI", "/preferences")
-            .then(preferences => {
-              setUserPrefs(preferences);
-            })
-            .catch(() => {
-              setUserPrefs({});
-            });
-        });
-        setLoading(false);
-      }
       getUserInfo();
     }
   }, [skipPrefs]);
@@ -50,7 +51,7 @@ export default function Account({ skipPrefs }) {
     });
   };
 
-  function handleReset() {
+  const handleReset = () => {
     resetPermanent();
     window.location.reload();
   }

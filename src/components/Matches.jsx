@@ -24,13 +24,13 @@ import "./Matches.css";
 function correctPPPRank(matches) {
   const fixed = matches.results
     .sort((a, b) => a.pppmRank - b.pppmRank)
-    .map((result, index) => {
-      return {
+    .map((result, index) => (
+      {
         ...result,
         pppmRank: index + 1,
         pppmRankOrig: result.pppmRank,
-      };
-    });
+      }
+    ));
 
   return { ...matches, results: fixed };
 }
@@ -79,20 +79,20 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
     return b.normalizedScore - a.normalizedScore;
   }
 
-  function handlePageChange(newPage) {
+  const handlePageChange = (newPage) => {
     query.set("page", newPage);
     location.search = query.toString();
     history.push(location);
   }
 
-  function handleChangePageSize(current, size) {
+  const handleChangePageSize = (current, size) => {
     query.set("pc", size);
     query.set("page", 1);
     location.search = query.toString();
     history.push(location);
   }
 
-  function setModalOpen(index) {
+  const setModalOpen = (index) => {
     if (index) {
       query.set("m", index);
     } else {
@@ -233,14 +233,14 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
     // id or name filter - case insensitive
     fullList = fullList
-      .map((result) => {
-        return {
+      .map((result) => (
+        {
           ...result,
           // add the anatomical Area for code later down the tree to use
           // for determining image widths and heights.
           anatomicalArea: result.image.anatomicalArea || input.anatomicalArea,
-        };
-      })
+        }
+      ))
 
       .filter((result) =>
         result?.image?.publishedName?.toLowerCase().includes(filterString.toLowerCase())

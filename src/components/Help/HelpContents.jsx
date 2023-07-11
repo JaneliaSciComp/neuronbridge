@@ -57,7 +57,7 @@ export default function HelpContents({ scroll }) {
     }
   }, [appState.helpTarget, refLookup, scroll]);
 
-  function handleResultsPerLine(count) {
+  const handleResultsPerLine = (count) => {
     query.set("rpl", count);
     location.search = query.toString();
     history.push(location);

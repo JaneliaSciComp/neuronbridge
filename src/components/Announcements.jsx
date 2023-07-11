@@ -68,10 +68,10 @@ export default function Announcements() {
     })
     .sort((a, b) => {
       // sort messages so newest are at the top.
-      return (
+      const sorted =
         new Date(parseInt(b.startTime, 10)) -
         new Date(parseInt(a.startTime, 10))
-      );
+      return sorted;
     })
     .map(ann => {
       const message = ann.stamp

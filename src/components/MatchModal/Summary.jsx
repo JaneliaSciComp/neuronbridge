@@ -14,7 +14,7 @@ export default function Summary(props) {
   const { algorithm } = useParams();
   const { appState, setPermanent } = useContext(AppContext);
 
-  function handleDetailsToggle() {
+  const handleDetailsToggle = () => {
     setPermanent({ compactMeta: !appState.compactMeta });
   }
 

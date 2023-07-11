@@ -13,7 +13,7 @@ export default function FilterButton() {
 
   const { appState, setAppState } = useContext(AppContext);
 
-  function handleFilterMenuVisability() {
+  const handleFilterMenuVisability = () => {
     setAppState({ ...appState, showFilterMenu: !appState.showFilterMenu });
   }
 

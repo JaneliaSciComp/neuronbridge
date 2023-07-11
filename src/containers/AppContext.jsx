@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 const AppContext = React.createContext([{}, () => {}]);
@@ -53,26 +53,36 @@ const localState = JSON.parse(localStorage.getItem("appState"));
 
 const combinedState = { ...initialState, ...localState };
 
-const AppProvider = ({ children }) => {
+function AppProvider({ children }) {
   const [appState, setAppState] = useState(combinedState);
 
-  const setState = payload => {
-    setAppState({ ...appState, ...payload });
-  };
 
-  const setPermanent = action => {
-    const updatedState = { ...localState, ...action };
-    localStorage.setItem("appState", JSON.stringify(updatedState));
-    setAppState({ ...appState, ...action });
-  };
+  const value = useMemo(() => {
+    const setState = payload => {
+      setAppState({ ...appState, ...payload });
+    };
 
-  const resetPermanent = () => {
-    localStorage.setItem("appState", JSON.stringify({}));
-  };
+    const setPermanent = action => {
+      const updatedState = { ...localState, ...action };
+      localStorage.setItem("appState", JSON.stringify(updatedState));
+      setAppState({ ...appState, ...action });
+    };
 
+    const resetPermanent = () => {
+      localStorage.setItem("appState", JSON.stringify({}));
+    };
+
+    return {
+    appState,
+    setState,
+    setAppState,
+    setPermanent,
+    resetPermanent
+    }}
+    ,[appState, setAppState]);
   return (
     <AppContext.Provider
-      value={{ appState, setState, setAppState, setPermanent, resetPermanent }}
+      value={value}
     >
       {children}
     </AppContext.Provider>

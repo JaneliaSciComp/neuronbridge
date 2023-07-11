@@ -28,7 +28,7 @@ export default function MaskSelectionStep({ search, state }) {
     }
   }, [search.searchMask, search.searchDir]);
 
-  function copyAlignment() {
+  const copyAlignment = () => {
     setIsCopying(true);
     API.post("SearchAPI", "/copy_alignment", {
       body: {

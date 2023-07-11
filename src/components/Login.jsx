@@ -19,7 +19,7 @@ export default function Login() {
   const [passwordUpdate, setPasswordUpdate] = useState(false);
   const { appState, setAppState } = useContext(AppContext);
 
-  async function handleSubmit(values) {
+  const handleSubmit = async (values) => {
     setIsLoading(true);
 
     try {

@@ -10,7 +10,7 @@ export default function SearchFilterButton() {
   const query = useQuery();
   const { appState, setAppState } = useContext(AppContext);
 
-  function handleFilterMenuVisability() {
+  const handleFilterMenuVisability = () => {
     setAppState({
       ...appState,
       showSearchFilters: !appState.showSearchFilters,

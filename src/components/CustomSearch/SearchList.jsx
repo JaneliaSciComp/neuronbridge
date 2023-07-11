@@ -46,47 +46,45 @@ export default function SearchList({ searches }) {
 
   const searchesInProgress = searches
     .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn))
-    .map(search => {
-      return (
-        <div key={search.id}>
-          <Row>
-            <Col span={23}>
-              <Text strong> &raquo; {search.upload}</Text>{" "}
-              <Text type="secondary">{appState.debug ? search.id : null}</Text>
-            </Col>
-            <Col span={1}>
-              <Popconfirm
-                title="Are you sure you want to delete this search?"
-                onConfirm={() => deleteSearch(search)}
-                okText="Yes"
-                cancelText="No"
-                placement="topRight"
-              >
-                <Button
-                  danger
-                  size="small"
-                  shape="circle"
-                  icon={<CloseOutlined />}
-                />
-              </Popconfirm>
-            </Col>
-          </Row>
-          <Row>
-            <Col span={24} style={{ marginTop: "1em" }}>
-              <SearchSteps search={search} />
-              {search.errorMessage || search.alignmentErrorMessage ? (
-                <ErrorMessage
-                  error={search.alignmentErrorMessage || search.errorMessage}
-                />
-              ) : (
-                <AlignmentWarning step={search.step} />
-              )}
-            </Col>
-          </Row>
-          <Divider style={{ margin: "0.2em 0 1em 0" }} />
-        </div>
-      );
-    });
+    .map(search => (
+      <div key={search.id}>
+        <Row>
+          <Col span={23}>
+            <Text strong> &raquo; {search.upload}</Text>{" "}
+            <Text type="secondary">{appState.debug ? search.id : null}</Text>
+          </Col>
+          <Col span={1}>
+            <Popconfirm
+              title="Are you sure you want to delete this search?"
+              onConfirm={() => deleteSearch(search)}
+              okText="Yes"
+              cancelText="No"
+              placement="topRight"
+            >
+              <Button
+                danger
+                size="small"
+                shape="circle"
+                icon={<CloseOutlined />}
+              />
+            </Popconfirm>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24} style={{ marginTop: "1em" }}>
+            <SearchSteps search={search} />
+            {search.errorMessage || search.alignmentErrorMessage ? (
+              <ErrorMessage
+                error={search.alignmentErrorMessage || search.errorMessage}
+              />
+            ) : (
+              <AlignmentWarning step={search.step} />
+            )}
+          </Col>
+        </Row>
+        <Divider style={{ margin: "0.2em 0 1em 0" }} />
+      </div>
+    ));
 
   if (searchesInProgress.length === 0) {
     return (

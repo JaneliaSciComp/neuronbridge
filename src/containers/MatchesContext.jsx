@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
 const MatchesContext = React.createContext();
@@ -24,7 +24,7 @@ function matchesReducer(state, action) {
 
 function MatchesProvider({ children }) {
   const [state, dispatch] = React.useReducer(matchesReducer, { selected: [] });
-  const value = { state, dispatch };
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <MatchesContext.Provider value={value}>{children}</MatchesContext.Provider>
   );

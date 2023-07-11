@@ -7,7 +7,7 @@ import { AppContext } from "../../containers/AppContext";
 export default function HelpDrawer({ children }) {
   const { appState, setAppState } = useContext(AppContext);
 
-  function handleClose() {
+  const handleClose = () => {
     setAppState({ ...appState, showHelp: false });
   }
 

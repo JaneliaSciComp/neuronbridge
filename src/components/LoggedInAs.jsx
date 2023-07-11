@@ -17,7 +17,7 @@ export default function LoggedInAs(props) {
     return null;
   }
 
-  async function handleLogout() {
+  const  handleLogout = async () => {
     await Auth.signOut();
     // userHasAuthenticated(false);
     setAppState({ ...appState, username: null });

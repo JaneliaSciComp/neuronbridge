@@ -18,7 +18,7 @@ export default function ResetPassword() {
   });
 
   // stage 2 trigger confirmation code email
-  async function handleEmailForm(values) {
+  const handleEmailForm = async (values) => {
     setState({ ...state, sendingCode: true });
     try {
       await Auth.forgotPassword(values.email);
@@ -65,7 +65,7 @@ export default function ResetPassword() {
     );
   }
 
-  async function handleConfirmForm(values) {
+  const handleConfirmForm = async (values) => {
     setState({ ...state, confirming: true });
     try {
       await Auth.forgotPasswordSubmit(

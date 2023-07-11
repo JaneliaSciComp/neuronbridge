@@ -6,7 +6,7 @@ import { AppContext } from "../../containers/AppContext";
 export default function HelpButton({target, text}) {
   const { appState, setAppState } = useContext(AppContext);
 
-  function handleHelp() {
+  const handleHelp = () => {
     setAppState({ ...appState, showHelp: true, helpTarget: target });
   }
 

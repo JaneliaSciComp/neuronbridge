@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
 const MouseCoordsContext = React.createContext();
@@ -21,7 +21,7 @@ function CoordsProvider({ children }) {
   const [state, dispatch] = React.useReducer(coordsReducer, {
     position: [0, 0]
   });
-  const value = { state, dispatch };
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
     <MouseCoordsContext.Provider value={value}>
       {children}

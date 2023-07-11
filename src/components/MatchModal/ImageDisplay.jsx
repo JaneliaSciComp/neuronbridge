@@ -10,7 +10,7 @@ const imageDimensions = {
   horizontal: ["566px", "1210px"],
 };
 
-const ImageDisplay = (props) => {
+function ImageDisplay(props) {
   const { src, alt, mirrored, vertical, contextMenu, debug } = props;
 
   const [imageUrl, setImageUrl] = useState(null);
@@ -36,25 +36,23 @@ const ImageDisplay = (props) => {
     : null;
 
   return (
-    <>
-      <Row className="imageComparison" style={widthRestrict}>
-        <MousePosition
-          vertical={vertical}
-          contextMenu={contextMenu}
-          imageDimensions={imageDimensions}
-        />
-        <ImagePlaceholder
-          src={imageUrl}
-          alt={alt}
-          mirrored={mirrored}
-          imageDimensions={
-            vertical ? imageDimensions.vertical : imageDimensions.horizontal
-          }
-          placeholderSrc={placeholderSrc}
-        />
-        {debug ? <p>{imageUrl}</p> : ""}
-      </Row>
-    </>
+    <Row className="imageComparison" style={widthRestrict}>
+      <MousePosition
+        vertical={vertical}
+        contextMenu={contextMenu}
+        imageDimensions={imageDimensions}
+      />
+      <ImagePlaceholder
+        src={imageUrl}
+        alt={alt}
+        mirrored={mirrored}
+        imageDimensions={
+          vertical ? imageDimensions.vertical : imageDimensions.horizontal
+        }
+        placeholderSrc={placeholderSrc}
+      />
+      {debug ? <p>{imageUrl}</p> : ""}
+    </Row>
   );
 };
 

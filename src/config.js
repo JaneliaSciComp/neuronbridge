@@ -66,10 +66,9 @@ const config = {
         name: "SearchAPI",
         endpoint: SEARCH_ENDPOINT,
         custom_header: async () => {
+          const token = `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`;
           return {
-            Authorization: `Bearer ${(await Auth.currentSession())
-              .getAccessToken()
-              .getJwtToken()}`
+            Authorization: token
           };
         }
       }

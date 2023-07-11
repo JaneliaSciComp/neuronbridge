@@ -54,9 +54,7 @@ export default function UnifiedSearchResults(props) {
 
     const resultsList = [
       ...lineEntries
-        .filter((result) => {
-          return !excludedAnatomicalAreas.includes(result.anatomicalArea);
-        })
+        .filter((result) => !excludedAnatomicalAreas.includes(result.anatomicalArea))
         .sort(
           (a, b) =>
             // sort by line name first
@@ -86,9 +84,7 @@ export default function UnifiedSearchResults(props) {
           );
         }),
       ...skeletonEntries
-        .filter((result) => {
-          return !excludedAnatomicalAreas.includes(result.anatomicalArea);
-        })
+        .filter((result) => !excludedAnatomicalAreas.includes(result.anatomicalArea))
         .sort((a, b) => {
           const [datasetA, versionA, bodyidA] = a.publishedName.split(":");
           const [datasetB, versionB, bodyidB] = b.publishedName.split(":");
@@ -150,9 +146,9 @@ export default function UnifiedSearchResults(props) {
             <Pagination
               current={page}
               pageSize={matchesPerPage}
-              onShowSizeChange={handleChangePageSize}
+              onShowSizeChange={(current, pageSize) => handleChangePageSize(current, pageSize)}
               pageSizeOptions={[10, 30, 50, 100]}
-              onChange={handlePageChange}
+              onChange={(newPage) => handlePageChange(newPage)}
               total={resultsList.length}
               showTotal={(total, range) =>
                 `Results ${range[0]}-${range[1]} of ${total}`
@@ -168,9 +164,9 @@ export default function UnifiedSearchResults(props) {
         <Pagination
           current={page}
           pageSize={matchesPerPage}
-          onShowSizeChange={handleChangePageSize}
+          onShowSizeChange={(current, pageSize) => handleChangePageSize(current, pageSize)}
           pageSizeOptions={[10, 30, 50, 100]}
-          onChange={handlePageChange}
+          onChange={(newPage) => handlePageChange(newPage)}
           total={resultsList.length}
           showTotal={(total, range) =>
             `Results ${range[0]}-${range[1]} of ${total}`

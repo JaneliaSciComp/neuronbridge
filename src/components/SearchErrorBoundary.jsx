@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 
 import UnifiedSearch from "./UnifiedSearch";
 import Search from "./Search";

@@ -5,7 +5,7 @@ import { useMatches } from "../containers/MatchesContext";
 export default function ClearMatchSelection() {
   const { state, dispatch } = useMatches();
 
-  function handleClearAll() {
+  const handleClearAll = () => {
     dispatch({ type: "clear" });
   }
 

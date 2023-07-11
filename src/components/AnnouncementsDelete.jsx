@@ -5,7 +5,7 @@ import { Auth, API } from "aws-amplify";
 
 export default function AnnouncementsDelete({id}) {
 
-  function handleConfirm() {
+  const handleConfirm = () => {
     Auth.currentCredentials().then(() => {
       API.del("SearchAPI", `/announcements/${id}`, {})
         .then(() => {

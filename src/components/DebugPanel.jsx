@@ -51,58 +51,56 @@ export default function DebugPanel({ appState, config }) {
   });
 
   return (
-    <>
-      <Row gutter={[16, 16]} style={{ marginBottom: "1rem" }}>
-        <Col span={12} style={{ textAlign: "left" }}>
-          <Card size="small" title="Set during website code build">
-            <p>
-              <b>Data Bucket:</b> {config.s3.BUCKET}
-            </p>
-            <p>
-              <b>Search Bucket:</b> {config.SEARCH_BUCKET}
-            </p>
-            <p>
-              <b> PPPM Bucket:</b>{" "}
-              {config.PPPM_BUCKET}
-            </p>
-            {searchEndpoints}
-            <p>
-              <b>GraphQL:</b> {config.appsync.graphqlEndpoint}
-            </p>
-            <p>
-              <b>App Level:</b> {config.APP_LEVEL}
-            </p>
-            <p>
-              <b>NODE_ENV:</b> {process.env.NODE_ENV}
-            </p>
-          </Card>
-        </Col>
-        <Col span={12} style={{ textAlign: "left" }}>
-          <Card
-            size="small"
-            title={`s3://${config.s3.BUCKET}/${dataVersionFile()}`}
-            style={{ marginBottom: "1rem" }}
-          >
-            <p>
-              <b>Data version:</b> {appState.dataVersion}
-            </p>
-          </Card>
-          <Card
-            size="small"
-            title={`s3://${config.s3.BUCKET}/${appState.dataVersion}/config.json`}
-            style={{ marginBottom: "1rem" }}
-          >
-            {storesUrls}
-          </Card>
+    <Row gutter={[16, 16]} style={{ marginBottom: "1rem" }}>
+      <Col span={12} style={{ textAlign: "left" }}>
+        <Card size="small" title="Set during website code build">
+          <p>
+            <b>Data Bucket:</b> {config.s3.BUCKET}
+          </p>
+          <p>
+            <b>Search Bucket:</b> {config.SEARCH_BUCKET}
+          </p>
+          <p>
+            <b> PPPM Bucket:</b>{" "}
+            {config.PPPM_BUCKET}
+          </p>
+          {searchEndpoints}
+          <p>
+            <b>GraphQL:</b> {config.appsync.graphqlEndpoint}
+          </p>
+          <p>
+            <b>App Level:</b> {config.APP_LEVEL}
+          </p>
+          <p>
+            <b>NODE_ENV:</b> {process.env.NODE_ENV}
+          </p>
+        </Card>
+      </Col>
+      <Col span={12} style={{ textAlign: "left" }}>
+        <Card
+          size="small"
+          title={`s3://${config.s3.BUCKET}/${dataVersionFile()}`}
+          style={{ marginBottom: "1rem" }}
+        >
+          <p>
+            <b>Data version:</b> {appState.dataVersion}
+          </p>
+        </Card>
+        <Card
+          size="small"
+          title={`s3://${config.s3.BUCKET}/${appState.dataVersion}/config.json`}
+          style={{ marginBottom: "1rem" }}
+        >
+          {storesUrls}
+        </Card>
 
-          <Card size="small" title={`${searchEndpointURL[0]}/published_names`}>
-            <p>
-              <b>Published Names table:</b> {publishedNames}
-            </p>
-          </Card>
-        </Col>
-      </Row>
-    </>
+        <Card size="small" title={`${searchEndpointURL[0]}/published_names`}>
+          <p>
+            <b>Published Names table:</b> {publishedNames}
+          </p>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

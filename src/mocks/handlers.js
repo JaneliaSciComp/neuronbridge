@@ -29,9 +29,7 @@ export const handlers = [
 
   rest.get(
 		"https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
-    (req, res, ctx) => {
-      return res(ctx.status(200), ctx.json(devPreConfig));
-    }
+    (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig))
   ),
   /*
    rest.get(

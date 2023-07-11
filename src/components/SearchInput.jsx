@@ -33,9 +33,7 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
           queryStringParameters: { q: debouncedSearch, f: "start" }
         })
           .then(items => {
-            const newOptions = items.names.map(item => {
-              return { value: item.name, label: item.name };
-            });
+            const newOptions = items.names.map(item => ({ value: item.name, label: item.name }));
             setOptions(newOptions);
           })
           .catch(() => {

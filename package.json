@@ -3,6 +3,7 @@
   "version": "3.0.8",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@babel/eslint-parser": "^7.22.7",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/pro-regular-svg-icons": "^6.4.0",
@@ -15,6 +16,7 @@
     "aws-amplify": "^5.3.3",
     "cypress": "^12.17.0",
     "date-fns": "^2.30.0",
+    "deep-equal": "^2.2.2",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -39,7 +41,14 @@
     "serverless-finch": "^4.0.3",
     "source-map-explorer": "^2.5.3",
     "storybook": "^7.0.26",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
+  },
+  "overrides-comments": {
+    "react-refresh": "I added the react-refresh override so that we wouldn't get a bug that was present with the older versions. See https://github.com/facebook/create-react-app/issues/11810 "
+  },
+  "overrides": {
+    "react-refresh": "0.14.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

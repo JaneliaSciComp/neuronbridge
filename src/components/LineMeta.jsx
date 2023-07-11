@@ -40,16 +40,15 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
     }
   }
 
-  const precomputedLinks = matchUrls.map((match) => {
-    return (
-      <React.Fragment key={match.url}>
+  const precomputedLinks = matchUrls.map((match) => (
+    <React.Fragment key={match.url}>
         <Link to={match.url}>
           View Precomputed {match.type} Matches
         </Link>
         <br />
       </React.Fragment>
-    );
-  });
+    )
+  );
 
   if (compact) {
     return (
