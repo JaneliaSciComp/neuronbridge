@@ -137,7 +137,7 @@ export default function FilterMenu({
           <Divider orientation="left">Filter by:</Divider>
           <Row gutter={16}>
             <Col xs={24} md={12}>
-              <p>Match id or Name</p>
+              <p>Matched &quot;Body id&quot; or &quot;Line Name&quot;</p>
               <Input
                 placeholder="id or name string"
                 onChange={handleIdFilter}

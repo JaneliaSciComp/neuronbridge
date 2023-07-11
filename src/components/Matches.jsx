@@ -111,6 +111,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
   const resultsPerLine = parseInt(query.get("rpl"), 10) || 1;
   const filterString = query.get("id") || "";
+  const regexFilter = new RegExp(filterString, 'i');
   const excludedLibs = query.getAll("xlib");
 
   let genders = ["m", "f"];
@@ -243,7 +244,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
       ))
 
       .filter((result) =>
-        result?.image?.publishedName?.toLowerCase().includes(filterString.toLowerCase())
+        result?.image?.publishedName?.toLowerCase().match(regexFilter)
       );
 
     pageinatedList = fullList.slice(
