@@ -74,10 +74,10 @@ function Landing(props) {
                 <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a>
               </Col>
               <Col span={12}>
-                <a href="https://neuprint.janelia.org/">FlyEM Hemibrain</a>
+                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons">FlyEM Hemibrain</a>
               </Col>
               <Col span={12}>
-                <a href="https://neuprint.janelia.org/">FlyEM VNC</a>
+                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons">FlyEM MANC</a>
               </Col>
             </Row>
 
