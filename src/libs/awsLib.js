@@ -9,12 +9,13 @@ export async function deleteSearch(search) {
 
   const options = {
     level: "private",
+    pageSize: "ALL",
     bucket: config.SEARCH_BUCKET
   };
 
   // remove all the files for this search
   const filesList = await Storage.list(`${search.searchDir}`, options);
-  filesList.forEach(file => {
+  filesList.results.forEach(file => {
     Storage.remove(file.key, options);
   });
 }

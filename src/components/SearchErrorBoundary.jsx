@@ -4,7 +4,6 @@ import { message } from "antd";
 import { withRouter } from "react-router-dom";
 
 import UnifiedSearch from "./UnifiedSearch";
-import Search from "./Search";
 
 class SearchErrorBoundary extends React.Component {
   constructor(props) {
@@ -38,7 +37,7 @@ class SearchErrorBoundary extends React.Component {
     const { hasError } = this.state;
     if (hasError) {
       // You can render any custom fallback UI
-      return <Search />;
+      return <UnifiedSearch />;
     }
 
     return <UnifiedSearch />;

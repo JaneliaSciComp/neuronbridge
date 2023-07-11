@@ -42,6 +42,7 @@ function Search() {
           public: "",
         },
         level: "public",
+        pageSize: "ALL",
         download: true,
       };
 
@@ -50,7 +51,7 @@ function Search() {
       const metadataUrl = `${appState.dataVersion}/metadata/${s3group}/${searchTerm}`;
 
       Storage.list(metadataUrl, storageOptions)
-        .then((results) => {
+        .then(({ results }) => {
           if (results.length === 0) {
             throw Error("No results found.");
           }

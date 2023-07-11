@@ -19,11 +19,12 @@ export default function MaskChannelSelection({ searchDir, channel, onChange }) {
       const channelsUrl = `${searchDir}/generatedMIPS`;
       const options = {
         level: "private",
+        pageSize: 'ALL',
         bucket: config.SEARCH_BUCKET
       };
       const channelsList = await Storage.list(channelsUrl, options);
 
-      channelsList.forEach(original => {
+      channelsList.results.forEach(original => {
         // get signed urls for each one
         signedLink(original.key).then(signed => {
           // figure out channel number from file name
