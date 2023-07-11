@@ -163,7 +163,6 @@ export default function App() {
 
   const menuItems = [
     // clasName: logo
-    {key: "logo", label: <Link to="/" className="nbLogo"><img src={neuronbridgeLogo} alt="NeuronBridge" /></Link>},
     {key: "/", label: <Link to="/">Home</Link>},
 
     isAuthenticated ? {key: "/upload", label: <Link to="/upload">Upload</Link> } : null,
@@ -175,6 +174,21 @@ export default function App() {
     !isAuthenticated ? { key: "/login", label: <Link to="/login">Login</Link>} : null,
     appState.isAdmin ? { key: "/admin", label: <Link to="/admin">Admin</Link>} : null,
   ];
+
+
+  const headerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    color: '#fff',
+    height: 64,
+    paddingInline: 50,
+    lineHeight: '64px',
+    backgroundColor: '#000b0c',
+    position: "fixed",
+    zIndex: 50,
+    width: "100%"
+  };
 
   return (
     <Layout>
@@ -188,7 +202,12 @@ export default function App() {
       ) : (
         ""
       )}
-      <Header style={{ position: "fixed", zIndex: 50, width: "100%" }}>
+      <Header style={headerStyle}>
+        <div className="siteLogo">
+          <Link to="/">
+            <img src={neuronbridgeLogo} alt="NeuronBridge" />
+          </Link>
+        </div>
         <Menu
           defaultSelectedKeys={["/"]}
           selectedKeys={[menuLocation]}

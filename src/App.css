@@ -20,20 +20,6 @@ body {
   color: #1890ff;
 }
 
-.nav-menu p {
-  padding: 0;
-  margin: 0;
-}
-
-.nav-menu .ant-menu-title-content a {
-  position: relative;
-  top: 13px;
-}
-
-ul.nav-menu {
-  line-height: 38px !important;
-}
-
 @media screen and (max-width: 750px) {
   .janeliaLogo {
     display:none;
@@ -52,8 +38,10 @@ ul.nav-menu {
   }
 }
 
-.nbLogo {
-  top: 8px !important;
+.siteLogo {
+  position:relative;
+  top: 14px;
+  margin-right: 1em;
 }
 
 .janeliaLogo {
