@@ -3,6 +3,17 @@ import { render } from "@testing-library/react";
 import ExternalLink from "../ExternalLink";
 
 describe("ExternalLink: unit tests", () => {
+  const OLD_ENV = process.env;
+
+  beforeEach(() => {
+    jest.resetModules() // Most important - it clears the cache
+    process.env = { ...OLD_ENV, REACT_APP_LEVEL: 'prod' }; // Make a copy
+  });
+
+  afterEach(() => {
+    process.env = OLD_ENV; // Restore old environment
+  });
+
   it("formats MCFO links correctly", () => {
     const { getByText, rerender } = render(<ExternalLink id="foo" library="FlyEM Gen1 MCFO"/>);
     expect(getByText("FlyLight Gen1 MCFO")).toHaveAttribute(
@@ -94,7 +105,26 @@ describe("ExternalLink: unit tests", () => {
     );
   });
 
+  it("formats EM links on the pre site with dataset and version in the publishedName correctly", () => {
+    process.env.REACT_APP_LEVEL = 'pre';
+    const { getByText } = render(
+      <ExternalLink id="manc:v1.0:foo" isLM={false} library="FlyEM_MANC_V1.0" />
+    );
+    expect(getByText("NeuPrint")).toHaveAttribute(
+      "href",
+      "https://neuprint-pre.janelia.org/view?dataset=vnc&bodyid=foo"
+    );
+  });
 
+  it("formats EM links on the prod site with dataset and version in the publishedName correctly", () => {
+    const { getByText } = render(
+      <ExternalLink id="manc:v1.0:foo" isLM={false} library="FlyEM_MANC_V1.0" />
+    );
+    expect(getByText("NeuPrint")).toHaveAttribute(
+      "href",
+      "https://neuprint.janelia.org/view?dataset=manc:v1.0&bodyid=foo"
+    );
+  });
 
   it("formats VFB links correctly", () => {
     const { getByText } = render(

@@ -8,10 +8,6 @@ const lmUrl =
 const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
-const emUrl =
-  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)
-  ? "https://neuprint-pre.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>"
-    : "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
 
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
@@ -51,6 +47,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     );
   }
 
+  // is an EM library
   let dataset = library
     .replace(/flyem_/i, "")
     .toLowerCase()
@@ -59,9 +56,19 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
 
   // TODO: fix the pre-release site dataset since it shouldn't be missing the
   // version number, but the pre-release site doesn't have a version number.
+  // Also, the pre-release data on neuprint was called vnc and not manc, so the
+  // dataset name needs to be converted as well.
   if (process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)) {
     dataset = dataset.split(':').shift();
+    if (dataset === 'manc') {
+      dataset = 'vnc';
+    }
   }
+
+  const emUrl =
+  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/)
+  ? "https://neuprint-pre.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>"
+    : "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
 
   const finalEMUrl = emUrl
     .replace(/<NAME>/, id.split(':').slice(-1))
