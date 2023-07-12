@@ -38,6 +38,10 @@ body {
   }
 }
 
+.nav-menu {
+  width: 100%;
+}
+
 .siteLogo {
   position:relative;
   top: 14px;
