@@ -68,7 +68,7 @@ export default function UnifiedSearchResults(props) {
             a.channel - b.channel
         )
         .map((result) => {
-          const key = `${result.id}_${result.slideCode}_${result.channel}_${result.anatomicalArea}`;
+          const key = `${result.id}_${result.slideCode}_${result.channel}_${result.anatomicalArea}_${result.objective}`;
           return (
             <React.Fragment key={key}>
               <LineResult metaInfo={result} key={result.id}>
