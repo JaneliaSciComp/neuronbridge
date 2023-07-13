@@ -48,8 +48,8 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   };
 
   const exampleIds = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/i)
-    ? ["R33C10", "SS39036", "15758", "13319", "12288", "M_vPNml55", "*adt*"]
-    : ["MB543B", "LH173", "1077847238", "1537331894", "M_vPNml55", "*adt*"];
+    ? ["VT002996","R33C10","1537331894","1077847238","12191","AN09B008","*adt*"]
+    : ["VT002996","R33C10","1537331894","1077847238","12191","AN09B008","*adt*"];
 
   const exampleLinks = exampleIds.map((id, i) => {
     const url = `/search?q=${id}`;
