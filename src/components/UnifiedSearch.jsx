@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
 import { message, Typography } from "antd";
 
@@ -15,6 +15,14 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+function splitOnLastOccurrence(str, substring) {
+  const arr = str.split(substring);
+  const after = arr.pop();
+  const before = arr.join(substring);
+
+  return [before, after];
+}
+
 export default function UnifiedSearch() {
   const query = useQuery();
   const searchTerm = query.get("q");
@@ -25,7 +33,17 @@ export default function UnifiedSearch() {
   const [lineLoading, setLineLoading] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
+  const [foundItems, setFoundItems] = useState(0);
   const { appState } = useContext(AppContext);
+
+  // strip out the dataset from the body id if present and run the
+  // search with just the body id, eg: manc:v1.0:26362 -> 26362
+  // Then filter out results that don't match a bodyid that
+  // includes the dataset when the results are returned.
+  const [searchDataset, searchBodyIdOrName] = splitOnLastOccurrence(
+    searchTerm,
+    ":",
+  );
 
   useEffect(() => {
     function readMetaData(metaData, combinedResults, setResults) {
@@ -36,7 +54,10 @@ export default function UnifiedSearch() {
           const text = evt.target.result;
           const newResults = JSON.parse(text);
           // convert stored relative urls into the full path urls.
-          const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
+          const urlFixedResults = setResultsFullUrlPaths(
+            newResults.results,
+            appState.dataConfig.stores,
+          );
           combinedResults.results.push(...urlFixedResults);
           resolve(setResults({ ...combinedResults }));
         };
@@ -45,6 +66,7 @@ export default function UnifiedSearch() {
       });
     }
 
+    const searchRegex = new RegExp(searchTerm.replace("*", ""), "i");
     if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
@@ -90,7 +112,7 @@ export default function UnifiedSearch() {
       Auth.currentCredentials().then(() => {
         setLoadError(false);
         API.get("SearchAPI", "/published_names", {
-          queryStringParameters: { q: searchTerm },
+          queryStringParameters: { q: searchBodyIdOrName },
         })
           .then((items) => {
             const lineCombined = { results: [] };
@@ -110,11 +132,9 @@ export default function UnifiedSearch() {
                 if (match.keyType === "publishingName") {
                   const byLineUrl = `${appState.dataVersion}/metadata/by_line/${match.name}.json`;
                   return Storage.get(byLineUrl, storageOptions)
-                    .then((metaData) => readMetaData(
-                      metaData,
-                      lineCombined,
-                      setByLineResults
-                    ))
+                    .then((metaData) =>
+                      readMetaData(metaData, lineCombined, setByLineResults),
+                    )
                     .catch((error) => {
                       if (error === "No credentials") {
                         // Log me out and prompt me to login again.
@@ -126,11 +146,9 @@ export default function UnifiedSearch() {
                 if (match.keyType === "bodyID") {
                   const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${match.name}.json`;
                   return Storage.get(byBodyUrl, storageOptions)
-                    .then((metaData) => readMetaData(
-                      metaData,
-                      bodyCombined,
-                      setByBodyResults
-                    ))
+                    .then((metaData) =>
+                      readMetaData(metaData, bodyCombined, setByBodyResults),
+                    )
                     .catch((error) => {
                       if (error === "No credentials") {
                         // Log me out and prompt me to login again.
@@ -147,11 +165,9 @@ export default function UnifiedSearch() {
                     const [bodyID] = Object.entries(body)[0];
                     const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                     return Storage.get(byBodyUrl, storageOptions)
-                      .then((metaData) => readMetaData(
-                        metaData,
-                        bodyCombined,
-                        setByBodyResults
-                      ))
+                      .then((metaData) =>
+                        readMetaData(metaData, bodyCombined, setByBodyResults),
+                      )
                       .catch((error) => {
                         if (error === "No credentials") {
                           // Log me out and prompt me to login again.
@@ -172,11 +188,20 @@ export default function UnifiedSearch() {
             allPromisses.then(() => {
               // remove duplicates from the combined results. This can happen if we are
               // loading data from a partial neurontype string, eg: WED01
+              setFoundItems(bodyCombined.results.length);
               if (bodyCombined.results.length > 1) {
                 const ids = bodyCombined.results.map((result) => result.id);
                 bodyCombined.results = bodyCombined.results.filter(
-                  ({ id }, index) => !ids.includes(id, index + 1)
+                  ({ id }, index) => !ids.includes(id, index + 1),
                 );
+                // filter out items that don't match the original serachTerm if a
+                // dataset was used.
+                if (searchDataset && searchDataset.length > 0) {
+                  bodyCombined.results = bodyCombined.results.filter((item) =>
+                    item.publishedName.match(searchRegex),
+                  );
+                }
+
                 setByBodyResults(bodyCombined);
               }
 
@@ -194,7 +219,14 @@ export default function UnifiedSearch() {
           .catch((e) => setLoadError(e));
       });
     }
-  }, [searchTerm, loadedTerm, appState.dataConfig, appState.dataVersion]);
+  }, [
+    searchTerm,
+    loadedTerm,
+    appState.dataConfig,
+    appState.dataVersion,
+    searchBodyIdOrName,
+    searchDataset,
+  ]);
 
   const searchError = (
     <div>
@@ -218,11 +250,27 @@ export default function UnifiedSearch() {
       {(lineLoading || bodyLoading) && !loadError ? <p>loading...</p> : ""}
       {loadError ? searchError : ""}
       {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
-        <UnifiedSearchResults
-          searchTerm={searchTerm}
-          linesResult={byLineResult}
-          skeletonsResult={byBodyResult}
-        />
+        <>
+          <UnifiedSearchResults
+            searchTerm={searchTerm}
+            linesResult={byLineResult}
+            skeletonsResult={byBodyResult}
+          />
+          {foundItems > byBodyResult.results.length ? (
+            <p>
+              <b>
+                There are additional matches for your search term in different datasets. To view them
+                search for &lsquo;
+                <Link to={`/search?q=${searchBodyIdOrName}`}>
+                  {searchBodyIdOrName}
+                </Link>
+                &rsquo;
+              </b>
+            </p>
+          ) : (
+            ""
+          )}
+        </>
       ) : (
         ""
       )}
