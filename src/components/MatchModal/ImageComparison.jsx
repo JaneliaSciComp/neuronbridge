@@ -117,6 +117,29 @@ function getMatchImageOptions(
   return cdmOptions;
 }
 
+function determineDefaultComparisonCount(isPPP, isVertical) {
+  if (isPPP) {
+    return 4;
+  }
+  if (isVertical) {
+    return 3;
+  }
+  return 2;
+}
+
+function getQueryParameterLabel(isPPP, isVertical) {
+  if (isPPP) {
+    if (isVertical) {
+      return 'cipv';
+    }
+    return 'ciph';
+  }
+  if (isVertical) {
+    return 'cicv';
+  }
+  return 'cich';
+}
+
 export default function ImageComparison(props) {
   const { mask, match, isLM, children } = props;
 
@@ -129,7 +152,6 @@ export default function ImageComparison(props) {
 
   const searchType = match.pppmRank !== undefined ? "pppm" : "cdm";
   const isPPP = searchType === "pppm";
-  const defaultComparisons = isPPP ? 4 : 2;
 
   // Unify the anatomical region properties from pre computed and custom searches.
   // TODO: this step wouldn't be necessary if the keys were the same in both.
@@ -142,6 +164,8 @@ export default function ImageComparison(props) {
     anatomicalRegion === "vnc" ||
     Boolean(mask?.libraryName?.toLowerCase()?.includes("vnc"));
 
+  const defaultComparisons = determineDefaultComparisonCount(isPPP, isVertical);
+  const queryParameterLabel = getQueryParameterLabel(isPPP, isVertical);
   // There are two sets of options. One set for PPPM and another for CDM
   // look at the match to see if it is a PPPM result or CDM and apply accordingly?
   const imageOptions = getMatchImageOptions(
@@ -166,25 +190,25 @@ export default function ImageComparison(props) {
   // default values.
   const storedCounts = appState.comparisonCount;
 
-  const urlImageCount = parseInt(query.get("ci"), 10);
+  const urlImageCount = parseInt(query.get(queryParameterLabel), 10);
 
-  const updatedCount = urlImageCount || storedCounts[searchType] || defaultComparisons;
+  const updatedCount = urlImageCount || storedCounts[queryParameterLabel] || defaultComparisons;
 
   if (Number.isNaN(urlImageCount)) {
-    query.set("ci", updatedCount);
+    query.set(queryParameterLabel, updatedCount);
     location.search = query.toString();
     history.replace(location);
   }
 
   function setCompCount(count) {
     // update localStorage
-    storedCounts[searchType] = count;
+    storedCounts[queryParameterLabel] = count;
     setPermanent({
       comparisonCount: storedCounts
     });
     if (count > 0) {
       // update the url
-      query.set("ci", count);
+      query.set(queryParameterLabel, count);
       location.search = query.toString();
       history.replace(location);
     }
