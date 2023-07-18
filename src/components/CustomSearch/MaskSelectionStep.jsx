@@ -7,8 +7,6 @@ import { signedLink } from "../../libs/awsLib";
 import StepTitle from "./StepTitle";
 
 const linkStyle = {
-  color: "#fff",
-  marginTop: "0.5em",
   width: "150px"
 };
 
@@ -44,11 +42,11 @@ export default function MaskSelectionStep({ search, state }) {
 
   const maskSelectionURL = `/mask-selection/${search.id}`;
   let content;
-  if (state === "active" && !search.searchMask) {
+  if (state === "active") {
     content = (
       <Link
         to={maskSelectionURL}
-        className="ant-btn ant-btn-primary"
+        className="ant-btn css-dev-only-do-not-override-1xqlast ant-btn-primary"
         style={linkStyle}
       >
         select mask region

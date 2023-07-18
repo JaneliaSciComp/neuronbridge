@@ -22,7 +22,7 @@ export default function CompleteStep({ state, matches, resultsUrl }) {
         </Link>
         <Link
           to={resultsUrl}
-          className="ant-btn"
+          className="ant-btn css-dev-only-do-not-override-1xqlast ant-btn-primary"
           style={{ width: "150px", marginTop: "0.5em" }}
         >
           View
