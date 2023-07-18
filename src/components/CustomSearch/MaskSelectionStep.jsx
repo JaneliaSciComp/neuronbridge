@@ -44,13 +44,14 @@ export default function MaskSelectionStep({ search, state }) {
   let content;
   if (state === "active") {
     content = (
-      <Link
-        to={maskSelectionURL}
-        className="ant-btn css-dev-only-do-not-override-1xqlast ant-btn-primary"
-        style={linkStyle}
-      >
-        select mask region
+      <Button type="primary">
+        <Link
+          to={maskSelectionURL}
+          style={linkStyle}
+        >
+          select mask region
       </Link>
+    </Button>
     );
   } else if (state === "complete") {
     const imgClass =

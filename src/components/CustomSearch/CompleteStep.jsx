@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Button } from "antd";
 import StepTitle from "./StepTitle";
 
 export default function CompleteStep({ state, matches, resultsUrl }) {
@@ -20,13 +21,11 @@ export default function CompleteStep({ state, matches, resultsUrl }) {
         >
           {matches} matches found
         </Link>
-        <Link
-          to={resultsUrl}
-          className="ant-btn css-dev-only-do-not-override-1xqlast ant-btn-primary"
-          style={{ width: "150px", marginTop: "0.5em" }}
-        >
-          View
-        </Link>
+        <Button type="primary" style={{ width: "150px", marginTop: "0.5em" }}>
+          <Link to={resultsUrl} >
+            View
+          </Link>
+        </Button>
       </>
     );
   }
