@@ -56,7 +56,7 @@
     "start:devpre": "sls export-env --stage devpre && REACT_APP_NO_OKTA=true REACT_APP_LEVEL=devpre HTTPS=true SSL_CRT_FILE=./cert/server.cert SSL_KEY_FILE=./cert/server.key react-scripts start",
     "deploy:dev": "npm run test && REACT_APP_LEVEL=dev sls client build && sls client deploy --no-confirm --stage dev",
     "deploy:val": "npm run test && REACT_APP_LEVEL=val REACT_APP_DATA_TARGET=prod sls client build --stage val && sls client deploy --no-confirm --stage val",
-    "deploy:prod": "npm run test && REACT_APP_ANALYTICS_KEY=MIHSEMHS REACT_APP_LEVEL=prod sls client build --stage prod && sls client deploy --no-comfirm --stage prod",
+    "deploy:prod": "npm run test && REACT_APP_ANALYTICS_KEY=MIHSEMHS REACT_APP_LEVEL=prod sls client build --stage prod && sls client deploy --no-confirm --stage prod",
     "deploy:devpre": "npm run test && REACT_APP_LEVEL=devpre REACT_APP_NO_OKTA=true sls client build --stage devpre && sls client deploy --no-confirm --stage devpre",
     "deploy:prodpre": "npm run test && REACT_APP_ANALYTICS_KEY=ERAVKYRB REACT_APP_LEVEL=prodpre sls client build --stage prodpre && sls client deploy --no-confirm --stage prodpre",
     "build": "react-scripts build",
