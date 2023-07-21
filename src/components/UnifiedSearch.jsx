@@ -66,7 +66,12 @@ export default function UnifiedSearch() {
       });
     }
 
-    const searchRegex = new RegExp(searchTerm.replace("*", ""), "i");
+    // We want to be able to support links from neuprint, that are for datasets
+    // not in neuronbridge. In order to do that without having to resort to
+    // hard coding a dataset version translation table into one or the other
+    // site, we can use dataset wildcards, eg: 'hemibrain:*' to search for all
+    // versions of hemibrain.
+    const searchRegex = new RegExp(searchTerm.replace("*", ".*"), "i");
     if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
