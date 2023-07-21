@@ -189,7 +189,7 @@ export default function UnifiedSearch() {
               // remove duplicates from the combined results. This can happen if we are
               // loading data from a partial neurontype string, eg: WED01
               setFoundItems(bodyCombined.results.length);
-              if (bodyCombined.results.length > 1) {
+              if (bodyCombined.results.length > 0) {
                 const ids = bodyCombined.results.map((result) => result.id);
                 bodyCombined.results = bodyCombined.results.filter(
                   ({ id }, index) => !ids.includes(id, index + 1),
