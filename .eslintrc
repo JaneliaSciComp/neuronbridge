@@ -17,10 +17,14 @@ plugins:
     - "react"
     - "prettier"
 rules:
+    "no-console":
+      - "off"
     "react/forbid-prop-types":
         - 1
         - forbid:
             - 'any'
             - 'array'
     "react/jsx-props-no-spreading":
+      - "off"
+    "react-hooks/exhaustive-deps":
       - "off"
