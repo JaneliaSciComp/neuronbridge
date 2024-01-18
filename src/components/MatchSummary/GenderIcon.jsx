@@ -9,7 +9,7 @@ export default function GenderIcon({ gender }) {
     <div
       style={{
         position: "absolute",
-        bottom: "5px",
+        bottom: "12px",
         left: gender === "f" ? "22px" : "20px",
         zIndex: 2,
         color: "#fff",
