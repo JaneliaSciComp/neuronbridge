@@ -39,11 +39,18 @@ export default function MatchReferences({ library, publishedName }) {
 
   return (
     <ul>
-      {publication.doi.map((entry) => (
+      {publication.doi.map((entry) => {
+        if (entry.link) {
+        return (
         <li key={entry.citation}>
           <a href={entry.link}>{entry.citation}</a>
-        </li>
-      ))}
+        </li>);
+        }
+        return (
+        <li key={entry.citation}>
+          {entry.citation}
+        </li>);
+      })}
     </ul>
   );
 }
