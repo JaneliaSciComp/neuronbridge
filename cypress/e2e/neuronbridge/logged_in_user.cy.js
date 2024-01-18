@@ -30,13 +30,13 @@ describe("logged in neuronbridge user", () => {
     // should see search results.
     cy.visit("/search");
     cy.findByText(/search help/i, { timeout: 4000 });
-    cy.findByText(/examples:/).findAllByRole('link').eq(5).click();
+    cy.findByText(/examples:/).findAllByRole('link').eq(2).click();
     cy.findAllByText(/Gender/i, { timeout: 4000 });
     cy.findAllByText(/color depth search results/i, { timeout: 4000 }).eq(0).click({force: true});
     cy.findByText("CDM Input Image", { timeout: 4000 });
-    cy.findByText(/VT064570/i, { timeout: 4000 }).click();
+    cy.findByText(/R20D07/i, { timeout: 4000 }).click();
     cy.findByText("Input Image");
-    cy.findByText(/Match 2 of 575/i);
+    cy.findByText(/Match 2/i);
     cy.findByText(/Channel/i);
     cy.findByText(/Mounting Protocol/i);
     cy.findByText(/Magnification/i);

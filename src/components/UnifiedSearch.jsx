@@ -25,7 +25,7 @@ function splitOnLastOccurrence(str, substring) {
 
 export default function UnifiedSearch() {
   const query = useQuery();
-  const searchTerm = query.get("q");
+  const searchTerm = query.get("q") || "";
 
   const [byLineResult, setByLineResults] = useState(null);
   const [byBodyResult, setByBodyResults] = useState(null);
