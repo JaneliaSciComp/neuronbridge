@@ -51,7 +51,7 @@ export default function CompleteSearchSummary({ search }) {
 
   const searchType = search.searchType === "em2lm" ? "LM" : "EM";
 
-  function copyAlignment() {
+  const copyAlignment = () => {
     setIsCopying(true);
     API.post("SearchAPI", "/copy_alignment", {
       body: {
@@ -65,13 +65,11 @@ export default function CompleteSearchSummary({ search }) {
   }
 
   const searchMessage = search.errorMessage ? (
-    <>
-      <span style={{ color: "red" }}>
-        <WarningOutlined style={{ color: "#f00", fontSize: "1.5em" }} /> Search
-        failed. <br />
-        Please try again.
-      </span>
-    </>
+    <span style={{ color: "red" }}>
+      <WarningOutlined style={{ color: "#f00", fontSize: "1.5em" }} /> Search
+      failed. <br />
+      Please try again.
+    </span>
   ) : (
     <Link to={searchLink} disabled={Boolean(search.errorMessage)}>
       {search.nTotalMatches} {searchType} matches

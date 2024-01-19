@@ -27,6 +27,13 @@ export default function MaskSelectionStep({ search, state }) {
   }, [search.searchMask, search.searchDir]);
 
   const copyAlignment = () => {
+    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+      // make sure the fathom code has been loaded and not blocked by an ad blocker.
+      if (window.fathom) {
+        window.fathom.trackGoal('Re-select mask', 0);
+      }
+    }
+
     setIsCopying(true);
     API.post("SearchAPI", "/copy_alignment", {
       body: {

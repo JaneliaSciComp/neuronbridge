@@ -32,6 +32,16 @@ export default function ImageAlignmentStep({ state, search }) {
     }
   }, [search.searchDir, search.uploadThumbnail]);
 
+  const handleQualityCheck = () => {
+    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+      // make sure the fathom code has been loaded and not blocked by an ad blocker.
+      if (window.fathom) {
+        window.fathom.trackGoal('View Alignment Quality check', 0);
+      }
+    }
+  };
+
+
   let content = "";
   if (["complete"].includes(state)) {
     const imgClass =
@@ -50,7 +60,7 @@ export default function ImageAlignmentStep({ state, search }) {
           Score: {search.alignmentScore || "N/A"}
         </span>
         {movieUrl ? (
-          <a href={movieUrl}>
+          <a href={movieUrl} onClick={handleQualityCheck}>
            <FontAwesomeIcon size="lg" icon={faFileVideo} /> Alignment Quality Check
           </a>
         ) : (

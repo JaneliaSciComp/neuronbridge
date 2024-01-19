@@ -6,6 +6,16 @@ import StepTitle from "./StepTitle";
 
 export default function CompleteStep({ state, matches, resultsUrl }) {
   let content = "";
+
+  const handleView = () => {
+    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+    // make sure the fathom code has been loaded and not blocked by an ad blocker.
+      if (window.fathom) {
+        window.fathom.trackGoal('view complete results', 0);
+      }
+    }
+  };
+
   if (["complete"].includes(state)) {
     content = (
       <>
@@ -21,7 +31,7 @@ export default function CompleteStep({ state, matches, resultsUrl }) {
         >
           {matches} matches found
         </Link>
-        <Button type="primary" style={{ width: "150px", marginTop: "0.5em" }}>
+      <Button type="primary" style={{ width: "150px", marginTop: "0.5em" }} onClick={handleView}>
           <Link to={resultsUrl} >
             View
           </Link>
