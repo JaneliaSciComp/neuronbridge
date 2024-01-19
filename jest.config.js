@@ -12,6 +12,9 @@ module.exports = {
   "setupFilesAfterEnv": [
     "<rootDir>/src/setupTests.js"
   ],
+  "moduleNameMapper": {
+    '^axios$': require.resolve('axios'),
+  },
   "transform": {
     "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
