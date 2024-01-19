@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import MatchModal from "./MatchModal";
 import { MatchesProvider } from "../containers/MatchesContext";
 import { AppContext } from "../containers/AppContext";
@@ -8,31 +9,33 @@ export default {
   component: MatchModal,
 };
 
-function Template (args) {
+function Template(args) {
   return (
-    <AppContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        appState: {
-          compactMeta: false,
-          comparisonCount: {
-            pppm: 2,
-            cdm: 2,
+    <MemoryRouter>
+      <AppContext.Provider
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
+        value={{
+          appState: {
+            compactMeta: false,
+            comparisonCount: {
+              pppm: 2,
+              cdm: 2,
+            },
+            imageChoices: {
+              pppm: {},
+              cdm: {},
+            },
+            dataConfig: {
+              loaded: true,
+            },
           },
-          imageChoices: {
-            pppm: {},
-            cdm: {}
-          },
-          dataConfig: {
-            loaded: true,
-          },
-        },
-      }}
-    >
-      <MatchesProvider>
-        <MatchModal {...args} />
-      </MatchesProvider>
-    </AppContext.Provider>
+        }}
+      >
+        <MatchesProvider>
+          <MatchModal {...args} />
+        </MatchesProvider>
+      </AppContext.Provider>
+    </MemoryRouter>
   );
 }
 
@@ -56,8 +59,7 @@ FirstStory.args = {
     files: {
       CDMThumbnail:
         "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
-      CDM:
-        "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
+      CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
       CDSResults: "2988247185125302403.json",
       store: "fl:pre_release:vnc",
     },
@@ -84,8 +86,7 @@ FirstStory.args = {
         files: {
           CDMThumbnail:
             "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.jpg",
-          CDM:
-            "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.png",
+          CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.png",
           CDSResults: "2711773553484627979.json",
           Gal4Expression:
             "undefinedGen1/CDM/VT063303/VT063303-sample_002901-f-20x-ventral_nerve_cord-JRC2018_VNC_Unisex_40x_DS-CDM_1.png",

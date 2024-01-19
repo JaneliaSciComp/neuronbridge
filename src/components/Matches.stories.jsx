@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import Matches from "./Matches";
 import { MatchesProvider } from "../containers/MatchesContext";
 import { AppContext } from "../containers/AppContext";
@@ -8,24 +9,26 @@ export default {
   component: Matches,
 };
 
-function Template(args){ 
+function Template(args) {
   return (
-    <AppContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        appState: {
-          gridView: true,
-          showFilterMenu: true,
-          dataConfig: {
-            loaded: true,
+    <MemoryRouter>
+      <AppContext.Provider
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
+        value={{
+          appState: {
+            gridView: true,
+            showFilterMenu: true,
+            dataConfig: {
+              loaded: true,
+            },
           },
-        },
-      }}
-    >
-      <MatchesProvider>
-        <Matches {...args} />
-      </MatchesProvider>
-    </AppContext.Provider>
+        }}
+      >
+        <MatchesProvider>
+          <Matches {...args} />
+        </MatchesProvider>
+      </AppContext.Provider>
+    </MemoryRouter>
   );
 }
 
@@ -45,8 +48,7 @@ FirstStory.args = {
     files: {
       CDMThumbnail:
         "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
-      CDM:
-        "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
+      CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
       CDSResults: "2988247185125302403.json",
       store: "fl:pre_release:vnc",
     },
@@ -65,8 +67,7 @@ FirstStory.args = {
       files: {
         CDMThumbnail:
           "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.jpg",
-        CDM:
-          "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
+        CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyEM_VNC_v0.6/12288-JRC2018_VNC_Unisex_40x_DS-CDM.png",
         CDSResults: "2988247185125302403.json",
         store: "fl:pre_release:vnc",
       },
@@ -92,8 +93,7 @@ FirstStory.args = {
           files: {
             CDMThumbnail:
               "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.jpg",
-            CDM:
-              "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.png",
+            CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT063303-20170929_61_G2-GAL4-f-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_3.png",
             CDSResults: "2711773553484627979.json",
             Gal4Expression:
               "undefinedGen1/CDM/VT063303/VT063303-sample_002901-f-20x-ventral_nerve_cord-JRC2018_VNC_Unisex_40x_DS-CDM_1.png",
@@ -130,8 +130,7 @@ FirstStory.args = {
           files: {
             CDMThumbnail:
               "https://s3.amazonaws.com/janelia-flylight-color-depth-thumbnails-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT042475-20170922_63_H2-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2.jpg",
-            CDM:
-              "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT042475-20170922_63_H2-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2.png",
+            CDM: "https://s3.amazonaws.com/janelia-flylight-color-depth-devpre/JRC2018_VNC_Unisex_40x_DS/FlyLight_Gen1_MCFO/VT042475-20170922_63_H2-GAL4-m-40x-vnc-JRC2018_VNC_Unisex_40x_DS-CDM_2.png",
             CDSResults: "2711773506487451659.json",
             Gal4Expression:
               "undefinedGen1/CDM/VT042475/VT042475-sample_006435-f-20x-ventral_nerve_cord-JRC2018_VNC_Unisex_40x_DS-CDM_1.png",

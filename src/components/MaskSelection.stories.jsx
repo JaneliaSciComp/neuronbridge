@@ -1,21 +1,28 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import MaskSelection from "./MaskSelection";
 
 export default {
-  title: 'MaskSelection',
+  title: "MaskSelection",
   component: MaskSelection,
 };
 
-function Template(args){ return  <MaskSelection {...args} />; }
+function Template(args) {
+  return (
+    <MemoryRouter>
+      <MaskSelection {...args} />
+    </MemoryRouter>
+  );
+}
 
 export const FirstStory = Template.bind({});
 
 FirstStory.args = {
   match: {
     params: {
-      id: 12345
-    }
+      id: 12345,
+    },
   },
   history: {},
-  location: {}
+  location: {},
 };

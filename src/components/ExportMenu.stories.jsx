@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import ExportMenu from "./ExportMenu";
 import { MatchesProvider } from "../containers/MatchesContext";
 
@@ -7,11 +8,13 @@ export default {
   component: ExportMenu,
 };
 
-function Template (args) {
+function Template(args) {
   return (
-    <MatchesProvider>
-      <ExportMenu {...args} />
-    </MatchesProvider>
+    <MemoryRouter>
+      <MatchesProvider>
+        <ExportMenu {...args} />
+      </MatchesProvider>
+    </MemoryRouter>
   );
 }
 
@@ -32,8 +35,7 @@ const result = {
         "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/2338031784-JRC2018_Unisex_20x_HR-CDM.jpg",
       AlignedBodySWC:
         "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/SWC/2338031784.swc",
-      CDM:
-        "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/2338031784-JRC2018_Unisex_20x_HR-CDM.png",
+      CDM: "JRC2018_Unisex_20x_HR/FlyEM_Hemibrain_v1.2.1/2338031784-JRC2018_Unisex_20x_HR-CDM.png",
       PPPMResults: "2941779886043300386.json",
       CDSResults: "2945073144027205643.json",
       AlignedBodyOBJ:

@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import SearchSteps from "./SearchSteps";
 
 export default {
@@ -6,7 +7,13 @@ export default {
   component: SearchSteps,
 };
 
-function Template (args) { return <SearchSteps {...args} />; }
+function Template(args) {
+  return (
+    <MemoryRouter>
+      <SearchSteps {...args} />
+    </MemoryRouter>
+  );
+}
 
 export const StepZero = Template.bind({});
 StepZero.args = {

@@ -1,4 +1,5 @@
 import React from "react";
+import { MemoryRouter } from "react-router";
 import Download3D from "./Download3D";
 import { AppContext } from "../../containers/AppContext";
 
@@ -9,27 +10,29 @@ export default {
 
 function Template(args){
   return (
-    <AppContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        appState: {
-          dataConfig: {
-            anatomicalAreas: {
-              Brain: {
-                label: "Brain",
-                alignmentSpace: "JRC2018_Unisex_20x_HR",
-              },
-              VNC: {
-                label: "VNC",
-                alignmentSpace: "JRC2018_Unisex_20x_HR",
+    <MemoryRouter>
+      <AppContext.Provider
+        // eslint-disable-next-line react/jsx-no-constructed-context-values
+        value={{
+          appState: {
+            dataConfig: {
+              anatomicalAreas: {
+                Brain: {
+                  label: "Brain",
+                  alignmentSpace: "JRC2018_Unisex_20x_HR",
+                },
+                VNC: {
+                  label: "VNC",
+                  alignmentSpace: "JRC2018_Unisex_20x_HR",
+                },
               },
             },
           },
-        },
-      }}
-    >
-      <Download3D {...args} />;
-    </AppContext.Provider>
+        }}
+      >
+        <Download3D {...args} />;
+      </AppContext.Provider>
+    </MemoryRouter>
   );
 }
 
