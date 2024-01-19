@@ -42,7 +42,7 @@
     "serverless-finch": "^4.0.3",
     "source-map-explorer": "^2.5.3",
     "storybook": "^7.0.26",
-    "uuid": "^9.0.0",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "overrides-comments": {
