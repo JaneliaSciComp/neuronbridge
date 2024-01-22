@@ -39,6 +39,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
   const query = useQuery();
   const location = useLocation();
   const history = useHistory();
+  const { appState, setPermanent } = useContext(AppContext);
 
   // get the current page number for the results, but prevent page
   // numbers below 0. Can't set the max value here, but if the user
@@ -61,7 +62,19 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
   // is an EM image, then they are all EM images, etc.
   const matchesType = matches?.results?.find(result => result.image)?.image?.type === "EMImage" ? "em" : "lm";
 
-  const { appState, setPermanent } = useContext(AppContext);
+  // redirect and remove page selection if it is going to show a
+  // blank page, because the results list is not long enough.
+
+  const requiredResultCount = (page * matchesPerPage) - (matchesPerPage - 1);
+
+  if (matches?.results?.length < requiredResultCount) {
+    query.delete('page');
+    location.search = query.toString();
+    history.replace(location);
+    return null;
+  }
+
+
 
   if (!appState.dataConfig.loaded) {
     return <p>Loading...</p>;

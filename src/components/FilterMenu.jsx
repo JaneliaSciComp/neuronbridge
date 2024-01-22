@@ -44,6 +44,7 @@ export default function FilterMenu({
 
   const handleResultsPerLine = (count) => {
     query.set("rpl", count);
+    query.delete("page");
     location.search = query.toString();
     history.push(location);
   }
@@ -74,18 +75,21 @@ export default function FilterMenu({
 
   const onSortChange = (event) => {
     query.set("fisort", event.target.value);
+    query.delete("page");
     location.search = query.toString();
     history.push(location);
   }
 
   const handleIdFilter = (event) => {
     query.set("id", event.target.value);
+    query.delete("page");
     location.search = query.toString();
     history.push(location);
   }
 
   const handleGenderFilter = (checkedValues) => {
     query.set("gr", checkedValues.join(""));
+    query.delete("page");
     location.search = query.toString();
     history.push(location);
   }
