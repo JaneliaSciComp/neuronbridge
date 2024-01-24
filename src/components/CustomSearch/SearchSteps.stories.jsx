@@ -190,3 +190,14 @@ StepOneAfterAlignmentWithLSM.args = {
     alignStarted: "2022-12-01T15:22:07.092Z",
   },
 };
+
+export const CompleteStepWithErrors = Template.bind({});
+CompleteStepWithErrors.args = {
+  search: {
+    errorMessage: "It went badly, like really badly, there was a lot of smoke and some of the servers will never recover. I don't think they are going to bring the data center back online for months",
+    nTotalMatches: 0,
+    step: 4,
+  },
+};
+
+

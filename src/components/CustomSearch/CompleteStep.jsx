@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { Button } from "antd";
+import { Button, Typography } from "antd";
 import StepTitle from "./StepTitle";
 
-export default function CompleteStep({ state, matches, resultsUrl }) {
+const { Text } = Typography;
+
+export default function CompleteStep({ state, matches, resultsUrl, errorMessage }) {
   let content = "";
 
   const handleView = () => {
@@ -38,6 +40,10 @@ export default function CompleteStep({ state, matches, resultsUrl }) {
         </Button>
       </>
     );
+  } else if (state === "error") {
+    content = (
+      <Text type="danger">{errorMessage}</Text>
+    );
   }
 
   return (
@@ -51,9 +57,11 @@ export default function CompleteStep({ state, matches, resultsUrl }) {
 CompleteStep.propTypes = {
   state: PropTypes.string.isRequired,
   matches: PropTypes.number,
-  resultsUrl: PropTypes.string.isRequired
+  resultsUrl: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string
 };
 
 CompleteStep.defaultProps = {
-  matches: 0
+  matches: 0,
+  errorMessage: ""
 };

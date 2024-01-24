@@ -9,16 +9,6 @@ import ColorDepthSearchStep from "./ColorDepthSearchStep";
 import CompleteStep from "./CompleteStep";
 import "./SearchSteps.css";
 
-// const { Step } = Steps;
-
-/* const steps = [
-  "Files Uploaded",
-  "Image Alignment",
-  "Mask Selection",
-  "Color Depth Search",
-  "Complete"
-]; */
-
 function stepState(step, current, error) {
   if (step === current && error) {
     return "error";
@@ -46,9 +36,6 @@ export default function SearchSteps({ search }) {
 
   return (
     <div className="searchSteps">
-      {/* <Steps size="small" current={currentStep} status={status}>
-        {formattedSteps}
-      </Steps> */}
       <Row>
         <Col xs={5}>
           <FileUploadStep
@@ -87,6 +74,7 @@ export default function SearchSteps({ search }) {
             resultsUrl={searchLink}
             matches={search.nTotalMatches}
             state={stepState(4, currentStep, errorMessage)}
+            errorMessage={errorMessage}
           />
         </Col>
       </Row>
