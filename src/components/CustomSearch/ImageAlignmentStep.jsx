@@ -41,6 +41,14 @@ export default function ImageAlignmentStep({ state, search }) {
     }
   };
 
+  const handleHelpClick = () => {
+    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+      // make sure the fathom code has been loaded and not blocked by an ad blocker.
+      if (window.fathom) {
+        window.fathom.trackGoal('Alignment Help Link', 0);
+      }
+    }
+  };
 
   let content = "";
   if (["complete"].includes(state)) {
@@ -70,7 +78,7 @@ export default function ImageAlignmentStep({ state, search }) {
     );
   } else if (search.alignmentErrorMessage || search.errorMessage) {
     content = (
-      <HelpButton target="UploadAlignment" text="Image alignment help" />
+      <HelpButton target="UploadAlignment" text="Image alignment help" onClick={handleHelpClick} />
     );
   }
 

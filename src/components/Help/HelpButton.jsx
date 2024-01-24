@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import { Button } from "antd";
 import { AppContext } from "../../containers/AppContext";
 
-export default function HelpButton({target, text}) {
+export default function HelpButton({target, text, onClick}) {
   const { appState, setAppState } = useContext(AppContext);
 
   const handleHelp = () => {
+    if (onClick) {
+      onClick();
+    }
     setAppState({ ...appState, showHelp: true, helpTarget: target });
   }
 
@@ -28,9 +31,11 @@ export default function HelpButton({target, text}) {
 
 HelpButton.propTypes = {
   target: PropTypes.string.isRequired,
-  text: PropTypes.string
+  text: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 HelpButton.defaultProps = {
-  text: null
+  text: null,
+  onClick: null
 };
