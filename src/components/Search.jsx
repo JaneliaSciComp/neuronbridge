@@ -25,12 +25,22 @@ function Search() {
         return;
       }
       if (searchTerm.length < 3) {
-        message.error("Searches must have a minimum of 3 characters.");
+        message.error({
+          duration: 0,
+          content: "Searches must have a minimum of 3 characters.",
+          key: "searchminimum",
+          onClick: () => message.destroy("searchminimum"),
+        });
         setResults({ error: "Searches must have a minimum of 3 characters." });
         return;
       }
       if (searchTerm.match(/\*(\*|\.)\*/)) {
-        message.error("Ha ha, nice try");
+        message.error({
+          duration: 0,
+          content: "Ha ha, nice try",
+          key: "nicetry",
+          onClick: () => message.destroy("nicetry"),
+        });
         setResults({ error: "Ha ha, nice try" });
         return;
       }
@@ -63,7 +73,10 @@ function Search() {
               fr.onload = (evt) => {
                 const text = evt.target.result;
                 const newResults = JSON.parse(text);
-                const urlFixedResults = setResultsFullUrlPaths(newResults.results, appState.dataConfig.stores);
+                const urlFixedResults = setResultsFullUrlPaths(
+                  newResults.results,
+                  appState.dataConfig.stores,
+                );
                 combined.results.push(...urlFixedResults);
                 setResults({ ...combined });
                 setIsLoading(false);

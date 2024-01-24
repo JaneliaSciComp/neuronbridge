@@ -66,7 +66,12 @@ export default function CustomSearchList() {
         },
         error: e => {
           e.error.errors.forEach(error => {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "customsearcherror",
+              onClick: () => message.destroy("customsearcherror"),
+            });
           });
         }
       });
@@ -92,7 +97,12 @@ export default function CustomSearchList() {
         },
         error: e => {
           e.error.errors.forEach(error => {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "customsearcherror",
+              onClick: () => message.destroy("customsearcherror"),
+            });
           });
         }
       });
@@ -118,7 +128,12 @@ export default function CustomSearchList() {
         },
         error: e => {
           e.error.errors.forEach(error => {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "customsearcherror",
+              onClick: () => message.destroy("customsearcherror"),
+            });
           });
         }
       });

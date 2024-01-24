@@ -52,7 +52,12 @@ export default function Results({ match }) {
           if (error.response && error.response.status === 404) {
             setMissingResults(true);
           } else {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "resultloaderror",
+              onClick: () => message.destroy("resultloaderror"),
+            });
           }
         });
     }
@@ -93,7 +98,12 @@ export default function Results({ match }) {
           if (error.response.status === 404) {
             setSearchResults({ results: [] });
           } else {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "storageloaderror",
+              onClick: () => message.destroy("storageloaderror"),
+            });
           }
         });
     }

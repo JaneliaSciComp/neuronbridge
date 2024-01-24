@@ -79,7 +79,13 @@ export default function UnifiedSearch() {
       // don't let people search with strings shorter than 3 characters.
       // This returns too many results.
       if (searchTerm.length < 3) {
-        message.error("Searches must have a minimum of 3 characters.");
+        message.error({
+          duration: 0,
+          content: "Searches must have a minimum of 3 characters.",
+          key: "searchminimum",
+          onClick: () => message.destroy("searchminimum"),
+        });
+
         setByLineResults({
           error: "Searches must have a minimum of 3 characters.",
           results: [],

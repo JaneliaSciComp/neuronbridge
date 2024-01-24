@@ -92,7 +92,7 @@ export default function App() {
         }
       } catch (e) {
         if (!/not authenticated/.test(e)) {
-          message.error("Loading error:", e);
+          message.error({ duration: 0, content: `Loading error: ${e}`, key: 'AppError', onClick: () => message.destroy('AppError') });
         }
       }
 

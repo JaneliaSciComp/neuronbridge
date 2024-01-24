@@ -15,7 +15,10 @@ import "./SearchUpload.css";
 const { Dragger } = Upload;
 
 function uploadToS3(upload, handleUpload) {
-  if (config.fathomEventKeys && Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+  if (
+    config.fathomEventKeys &&
+    Object.prototype.hasOwnProperty.call(window, "fathom")
+  ) {
     // make sure the fathom code has been loaded and not blocked by an ad blocker.
     if (window.fathom) {
       window.fathom.trackGoal(config.fathomEventKeys.imageUpload, 0);
@@ -57,7 +60,7 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
     img.onerror = () => {
       uploadToS3(upload, handleUpload);
     };
-  }
+  };
 
   const uploadDimensions = Object.entries(appState.dataConfig.anatomicalAreas)
     .map(([label]) => (
@@ -75,7 +78,14 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
         .then(() => {
           handleUpload(null);
         })
-        .catch((e) => message.error(e));
+        .catch((e) =>
+          message.error({
+            duration: 0,
+            content: e,
+            key: "uploaderror",
+            onClick: () => message.destroy("uploaderror"),
+          }),
+        );
     });
   }
 
@@ -87,8 +97,8 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
     <>
       <h3>Unaligned Image Stack</h3>
       <p>
-        Upload an unaligned confocal stack to have NeuronBridge attempt to
-        align it for you.
+        Upload an unaligned confocal stack to have NeuronBridge attempt to align
+        it for you.
       </p>
       <b style={{ marginTop: "1em" }}>Supported file formats:</b>
       <p>
@@ -131,9 +141,14 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
 
   return (
     <div className="uploader">
-       {!uploadedFile ? (<p> 
-        Search NeuronBridge color depth MIP collections with your own data files
-         by uploading them here.</p>) : ""}
+      {!uploadedFile ? (
+        <p>
+          Search NeuronBridge color depth MIP collections with your own data
+          files by uploading them here.
+        </p>
+      ) : (
+        ""
+      )}
       {appState.uploadAccepted && !uploadedFile ? (
         <>
           <p>

@@ -130,10 +130,12 @@ export default function SearchUploadMeta({
                 // and move on.
                 if (!(error?.response?.data?.message === "unsupported image")) {
                   deleteSearch({ id: result.data.createSearch.id });
-                  message.error(
-                    "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
-                    8
-                  );
+                  message.error({
+                    duration: 0,
+                    content: "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                    key: "searchgenericerror",
+                    onClick: () => message.destroy("searchgenericerror"),
+                  });
                 }
                 setIsUploading(false);
               });
@@ -157,12 +159,19 @@ export default function SearchUploadMeta({
                 deleteSearch({ id: result.data.createSearch.id });
                 setIsUploading(false);
                 if (e?.response?.data?.errorMessage) {
-                  message.error(e.response.data.errorMessage, 8);
+                  message.error({
+                    duration: 0,
+                    content: e.response.data.errorMessage,
+                    key: "searchDataError",
+                    onClick: () => message.destroy("searchDataError"),
+                  });
                 } else {
-                  message.error(
-                    "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
-                    8
-                  );
+                  message.error({
+                    duration: 0,
+                    content: "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                    key: "searchservice",
+                    onClick: () => message.destroy("searchservice"),
+                  });
                 }
               });
           }
@@ -170,7 +179,12 @@ export default function SearchUploadMeta({
         .catch((e) => {
           setIsUploading(false);
           e.errors.forEach((error) => {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "searchservicegeneric",
+              onClick: () => message.destroy("searchservicegeneric"),
+            });
           });
         });
     });

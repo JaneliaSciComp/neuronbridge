@@ -18,7 +18,7 @@ function fixUrls(matches, stores) {
       ...matches.inputImage,
       files: updateFilesPaths(
         matches.inputImage.files,
-        stores[matches?.inputImage?.files?.store]
+        stores[matches?.inputImage?.files?.store],
       ),
     },
     results: setResultsFullUrlPaths(matches.results, stores),
@@ -61,15 +61,30 @@ export default function MatchesLoader({ searchAlgorithm }) {
             })
             .catch((e) => {
               if (e.response.status === 404) {
-                message.error("No results were found for the provided ID.");
+                message.error({
+                  duration: 0,
+                  content: "No results were found for the provided ID.",
+                  key: "matchnotfound",
+                  onClick: () => message.destroy("matchnotfound"),
+                });
               } else {
-                message.error("Unable to load matches from the server");
+                message.error({
+                  duration: 0,
+                  content: "Unable to load matches from the server",
+                  key: "matchloaderror",
+                  onClick: () => message.destroy("matchloaderror"),
+                });
               }
               setLoading(false);
             });
         })
         .catch(() => {
-          message.error("Unable to load matches from the server");
+          message.error({
+            duration: 0,
+            content: "Unable to load matches from the server",
+            key: "matchgenericerror",
+            onClick: () => message.destroy("matchgenericerror"),
+          });
           setLoading(false);
         });
     }
@@ -111,7 +126,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
               className={searchAlgorithm === "pppm" ? "" : "activeSearch"}
               to={`/matches/cds/${matchMeta?.inputImage?.files?.CDSResults.replace(
                 /\.json$/,
-                ""
+                "",
               )}`}
             >
               Color Depth Search Results
@@ -124,7 +139,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
               className={searchAlgorithm === "pppm" ? "activeSearch" : ""}
               to={`/matches/pppm/${matchMeta?.inputImage?.files?.PPPMResults.replace(
                 /\.json$/,
-                ""
+                "",
               )}`}
             >
               PatchPerPixMatch Results

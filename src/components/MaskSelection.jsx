@@ -43,7 +43,12 @@ export default function MaskSelection({ match }) {
           if (error.response && error.response.status === 404) {
             setMissingResults(true);
           } else {
-            message.error(error.message);
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "maskloaderror",
+              onClick: () => message.destroy("maskloaderror"),
+            });
           }
         });
     }
@@ -74,7 +79,12 @@ export default function MaskSelection({ match }) {
 
   const handleSubmit = async searchFormData => {
     if (!channelImgSrc) {
-      message.info("Please select a channel to use as the search input");
+      message.info({
+        duration: 0,
+        content: "Please select a channel to use as the search input",
+        key: "channelselect",
+        onClick: () => message.destroy("channelselect"),
+      });
       return;
     }
 
@@ -121,7 +131,12 @@ export default function MaskSelection({ match }) {
         });
       })
       .catch(error => {
-        message.error(error.message);
+        message.error({
+          duration: 0,
+          content: error.message,
+          key: "masksubmiterror",
+          onClick: () => message.destroy("masksubmiterror"),
+        });
         setSubmitting(false);
       });
   };
