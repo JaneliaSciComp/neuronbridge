@@ -3,8 +3,8 @@
 }
 
 .completeThumbnail {
-  width: 150px;
-  height: auto;
+  width: 150px !important;
+  height: auto !important;
 }
 
 .verticalThumbnail {

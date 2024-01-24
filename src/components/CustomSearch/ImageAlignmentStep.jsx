@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Skeleton } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileVideo } from "@fortawesome/pro-regular-svg-icons";
 import { signedLink } from "../../libs/awsLib";
@@ -33,19 +34,19 @@ export default function ImageAlignmentStep({ state, search }) {
   }, [search.searchDir, search.uploadThumbnail]);
 
   const handleQualityCheck = () => {
-    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+    if (Object.prototype.hasOwnProperty.call(window, "fathom")) {
       // make sure the fathom code has been loaded and not blocked by an ad blocker.
       if (window.fathom) {
-        window.fathom.trackGoal('View Alignment Quality check', 0);
+        window.fathom.trackGoal("View Alignment Quality check", 0);
       }
     }
   };
 
   const handleHelpClick = () => {
-    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+    if (Object.prototype.hasOwnProperty.call(window, "fathom")) {
       // make sure the fathom code has been loaded and not blocked by an ad blocker.
       if (window.fathom) {
-        window.fathom.trackGoal('Alignment Help Link', 0);
+        window.fathom.trackGoal("Alignment Help Link", 0);
       }
     }
   };
@@ -59,17 +60,22 @@ export default function ImageAlignmentStep({ state, search }) {
 
     content = (
       <>
-        <img
-          className={imgClass}
-          src={thumbnailUrl}
-          alt="Alignment Thumbnail"
-        />
+        {thumbnailUrl ? (
+          <img
+            className={imgClass}
+            src={thumbnailUrl}
+            alt="Alignment Thumbnail"
+          />
+        ) : (
+          <Skeleton.Image className={imgClass}/>
+        )}
         <span style={{ display: "block" }}>
           Score: {search.alignmentScore || "N/A"}
         </span>
         {movieUrl ? (
           <a href={movieUrl} onClick={handleQualityCheck}>
-           <FontAwesomeIcon size="lg" icon={faFileVideo} /> Alignment Quality Check
+            <FontAwesomeIcon size="lg" icon={faFileVideo} /> Alignment Quality
+            Check
           </a>
         ) : (
           ""
@@ -78,7 +84,11 @@ export default function ImageAlignmentStep({ state, search }) {
     );
   } else if (search.alignmentErrorMessage || search.errorMessage) {
     content = (
-      <HelpButton target="UploadAlignment" text="Image alignment help" onClick={handleHelpClick} />
+      <HelpButton
+        target="UploadAlignment"
+        text="Image alignment help"
+        onClick={handleHelpClick}
+      />
     );
   }
 
