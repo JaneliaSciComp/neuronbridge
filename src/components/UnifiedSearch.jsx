@@ -66,13 +66,7 @@ export default function UnifiedSearch() {
       });
     }
 
-    // We want to be able to support links from neuprint, that are for datasets
-    // not in neuronbridge. In order to do that without having to resort to
-    // hard coding a dataset version translation table into one or the other
-    // site, we can use dataset wildcards, eg: 'hemibrain:*' to search for all
-    // versions of hemibrain.
-    const searchRegex = new RegExp(searchTerm.replace("*", ".*"), "i");
-    if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
+     if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);
@@ -97,11 +91,23 @@ export default function UnifiedSearch() {
         return;
       }
       if (searchTerm.match(/\*(\*|\.)\*/)) {
-        message.error("Ha ha, nice try");
+        message.error({
+          duration: 0,
+          content: "Ha ha, nice try",
+          key: "nicetry",
+          onClick: () => message.destroy("nicetry"),
+        });
         setByLineResults({ error: "Ha ha, nice try", results: [] });
         setByBodyResults({ error: "Ha ha, nice try", results: [] });
         return;
       }
+
+      // We want to be able to support links from neuprint, that are for datasets
+      // not in neuronbridge. In order to do that without having to resort to
+      // hard coding a dataset version translation table into one or the other
+      // site, we can use dataset wildcards, eg: 'hemibrain:*' to search for all
+      // versions of hemibrain.
+      const searchRegex = new RegExp(searchTerm.replace("*", ".*"), "i");
 
       setLineLoading(true);
       setBodyLoading(true);
