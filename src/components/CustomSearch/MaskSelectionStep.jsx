@@ -7,7 +7,7 @@ import { signedLink } from "../../libs/awsLib";
 import StepTitle from "./StepTitle";
 
 const linkStyle = {
-  width: "150px"
+  width: "150px",
 };
 
 export default function MaskSelectionStep({ search, state }) {
@@ -18,7 +18,7 @@ export default function MaskSelectionStep({ search, state }) {
   useEffect(() => {
     if (search.searchMask) {
       const uploadUrl = `${search.searchDir}/${search.searchMask}`;
-      signedLink(uploadUrl).then(result => {
+      signedLink(uploadUrl).then((result) => {
         setMaskUrl(result);
       });
     } else {
@@ -27,42 +27,49 @@ export default function MaskSelectionStep({ search, state }) {
   }, [search.searchMask, search.searchDir]);
 
   const copyAlignment = () => {
-    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
+    if (Object.prototype.hasOwnProperty.call(window, "fathom")) {
       // make sure the fathom code has been loaded and not blocked by an ad blocker.
       if (window.fathom) {
-        window.fathom.trackGoal('Re-select mask', 0);
+        window.fathom.trackGoal("Re-select mask", 0);
       }
     }
 
     setIsCopying(true);
     API.post("SearchAPI", "/copy_alignment", {
       body: {
-        searchId: search.id
-      }
+        searchId: search.id,
+      },
     })
-      .then(response => {
+      .then((response) => {
         setIsCopying(false);
         history.push(`/mask-selection/${response.newSearchMeta.id}`);
       })
       .catch(() => setIsCopying(false));
-  }
+  };
+
+  const selectMask = () => {
+    if (Object.prototype.hasOwnProperty.call(window, "fathom")) {
+      // make sure the fathom code has been loaded and not blocked by an ad blocker.
+      if (window.fathom) {
+        window.fathom.trackGoal("Select mask", 0);
+      }
+    }
+  };
+
 
   const maskSelectionURL = `/mask-selection/${search.id}`;
   let content;
   if (state === "active") {
     content = (
-      <Button type="primary">
-        <Link
-          to={maskSelectionURL}
-          style={linkStyle}
-        >
+      <Button type="primary" onClick={selectMask}>
+        <Link to={maskSelectionURL} style={linkStyle}>
           select mask region
-      </Link>
-    </Button>
+        </Link>
+      </Button>
     );
   } else if (state === "complete") {
     const imgClass =
-      (search.anatomicalRegion && search.anatomicalRegion === "vnc")
+      search.anatomicalRegion && search.anatomicalRegion === "vnc"
         ? "verticalThumbnail"
         : "completeThumbnail";
     content = (
@@ -97,5 +104,5 @@ export default function MaskSelectionStep({ search, state }) {
 
 MaskSelectionStep.propTypes = {
   search: PropTypes.object.isRequired,
-  state: PropTypes.string.isRequired
+  state: PropTypes.string.isRequired,
 };
