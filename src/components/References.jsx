@@ -135,6 +135,39 @@ export default function References() {
       <dd>
         <a href='https://doi.org/10.1016/j.cub.2022.06.019'>Baker et al., 2022</a>
       </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2023.06.07.544074'>Cheong et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2023.06.07.543976'>Cheong et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2023.05.31.542897'>Ehrhardt et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.7554/eLife.90523'>Rubin & Aso, 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.25378/janelia.23726103'>Minegishi, Ryo et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1038/s41586-023-06271-6'>Vijayan et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1016/j.cub.2023.08.020'>Yoo et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2023.06.21.546024'>Isaacson et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.7554/eLife.81248'>Lillvis et al., 2022</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2023.08.30.555537'>Lillvis et al., 2023</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2024.01.09.574419'>Meissner et al., 2024</a>
+      </dd>
 
     </dl>
   );
