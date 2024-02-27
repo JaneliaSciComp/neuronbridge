@@ -136,7 +136,7 @@ export default function References() {
         <a href='https://doi.org/10.1016/j.cub.2022.06.019'>Baker et al., 2022</a>
       </dd>
       <dd>
-        <a href='https://doi.org/10.1101/2023.06.07.544074'>Cheong et al., 2023</a>
+        <a href='https://doi.org/10.1016/j.cub.2024.01.071'>Cheong et al., 2023</a>
       </dd>
       <dd>
         <a href='https://doi.org/10.1101/2023.06.07.543976'>Cheong et al., 2023</a>
