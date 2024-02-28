@@ -57,6 +57,7 @@ export default function FilterMenu({
       if (!libs.includes(library)) {
         // update the URL.
         query.append("xlib", library);
+        query.delete("page");
         location.search = query.toString();
         history.push(location);
       }
@@ -66,6 +67,7 @@ export default function FilterMenu({
       libs.forEach((lib) => {
         if (lib !== library) {
           query.append("xlib", lib);
+          query.delete("page");
         }
       });
       location.search = query.toString();

@@ -36,6 +36,7 @@ export default function SearchFilterMenu() {
           });
         }
         query.append("saa", area);
+        query.delete("page");
         location.search = query.toString();
         history.replace(location);
       }
@@ -51,6 +52,7 @@ export default function SearchFilterMenu() {
           query.append("saa", existing);
         }
       });
+      query.delete("page");
       location.search = query.toString();
       history.replace(location);
     }

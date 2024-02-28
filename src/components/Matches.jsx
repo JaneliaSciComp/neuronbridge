@@ -67,7 +67,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
   const requiredResultCount = (page * matchesPerPage) - (matchesPerPage - 1);
 
-  if (matches?.results?.length < requiredResultCount) {
+  if (matches?.results?.length > 0 && matches?.results?.length < requiredResultCount) {
     query.delete('page');
     location.search = query.toString();
     history.replace(location);
