@@ -152,7 +152,7 @@ export default function FilterMenu({
             </Col>
             {useGenderFilter ? (
               <Col xs={24} md={6}>
-                <p>Gender</p>
+                <p>Sex</p>
                 <Checkbox.Group
                   options={genderOptions}
                   value={genderValue}

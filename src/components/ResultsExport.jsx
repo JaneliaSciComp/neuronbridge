@@ -23,7 +23,7 @@ export default function ResultsExport({ results, matchesType }) {
     { label: "Channel", key: "image.channel" },
     { label: "Magnification", key: "image.objective" },
     { label: "Slide Code", key: "image.slideCode" },
-    { label: "Gender", key: "image.gender" },
+    { label: "Sex", key: "image.gender" },
     { label: "Alignment Space", key: "image.alignmentSpace" },
     { label: "Mounting Protocol", key: "image.mountingProtocol" },
     { label: "Anatomical Area", key: "image.anatomicalArea" },

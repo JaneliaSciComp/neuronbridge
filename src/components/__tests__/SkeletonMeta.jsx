@@ -18,6 +18,6 @@ describe("SkeletonMeta: unit tests", () => {
         />
       </MemoryRouter>
     );
-    expect(getByText(/Gender/i).closest('p').innerHTML.match(/Female/)).not.toBe(null);
+    expect(getByText(/Sex/i).closest('p').innerHTML.match(/Female/)).not.toBe(null);
   });
 });

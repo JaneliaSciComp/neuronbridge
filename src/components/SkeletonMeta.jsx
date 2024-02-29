@@ -106,7 +106,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
       </Col>
       <Col xs={24} md={9}>
         <p>
-          <b>Gender:</b>
+          <b>Sex:</b>
           <br /> {gender === "f" ? "Female" : "Male"}
         </p>
         <p>

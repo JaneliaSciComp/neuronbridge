@@ -109,7 +109,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
           <LibraryFormatter type={libraryName} />
         </p>
         <p>
-          <b>Gender:</b> {gender === "f" ? "Female" : "Male"}
+          <b>Sex:</b> {gender === "f" ? "Female" : "Male"}
         </p>
       </Col>
       <Col md={24} lg={12}>
