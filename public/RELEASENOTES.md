@@ -1,8 +1,11 @@
-## VERSION 3.1.0
+## VERSION 3.1.0 
 
 ### Bug fixes
 
 - ### Standardized various terminology like "neuron ID" and "driver line" across the site
+- ### Error message persistence has been increased
+- ### Fixed links to neuprint from the home page
+- ### various site stability issues
 
 ## VERSION 3.0.0 - 2022-12-08
 
@@ -89,7 +92,7 @@
 
 - ### Fixed links to match modal tabs
 
-  - It is now possible to link to the downloadi or citations tab for a match, eg:
+  - It is now possible to link to the download or citations tab for a match, eg:
     - <https://neuronbridge.janelia.org/matches/cdm/2988247192221823107/download?m=2>
 
 - ### Only display link to CDSResults if they exist
