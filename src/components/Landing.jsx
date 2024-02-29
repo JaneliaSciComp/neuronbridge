@@ -53,13 +53,13 @@ function Landing(props) {
 
             {!isAuthenticated && (
               <Paragraph>
-                Please login above if you already know your EM body ID or GAL4
+                Please login above if you already know your EM neuron ID or GAL4
                 line name, or browse our image collections at:
               </Paragraph>
             )}
             {isAuthenticated && (
               <Paragraph>
-                Start your search above if you already know your EM body ID or
+                Start your search above if you already know your EM neuron ID or
                 GAL4 line name, or browse our image collections at:
               </Paragraph>
             )}
