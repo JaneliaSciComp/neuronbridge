@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { CSVLink } from "react-csv";
 
 export default function ResultsExport({ results, matchesType }) {
-  const name = matchesType === "lm" ?  "Line Name" : "Body Id";
+  const name = matchesType === "lm" ?  "Line Name" : "Neuron ID";
 
   if (results.length < 1) {
     return <span>CSV Link</span>;

@@ -51,7 +51,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
   if (compact) {
     return (
       <p>
-        <b>Body Id:</b>
+        <b>Neuron ID:</b>
         <span>{publishedName}</span>
       </p>
     );
@@ -61,7 +61,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
     <Row>
       <Col xs={24} md={15}>
         <p>
-          <b>Body Id:</b>
+          <b>Neuron ID:</b>
           <br />
           <span>{publishedName}</span>
         </p>

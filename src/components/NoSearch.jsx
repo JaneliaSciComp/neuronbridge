@@ -24,7 +24,7 @@ export default function NoSearch({ filters }) {
         websites.
       </Paragraph>
       <Paragraph>
-        Explore body ids on the{" "}
+        Explore neurons on the{" "}
         <a href="https://neuprint.janelia.org">neuPrint</a> website.
       </Paragraph>
       <Title level={3}>Search Help</Title>

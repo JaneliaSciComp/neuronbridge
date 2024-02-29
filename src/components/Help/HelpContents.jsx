@@ -76,7 +76,7 @@ export default function HelpContents({ scroll }) {
       <Title level={3}>Line/neuron lookups</Title>
       <p>
         The search input bar is the primary interface to this website. It is
-        used to locate an EM body id or cell line of interest. By default, the
+        used to locate an EM neuron ID or cell line of interest. By default, the
         search looks for an exact match to the input string, and you can add
         wildcards for a wider search. For example, if you were looking for the
         cell line LH173, searching for &ldquo;LH173&rdquo; would find exactly
