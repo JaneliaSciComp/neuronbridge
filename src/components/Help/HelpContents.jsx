@@ -76,11 +76,11 @@ export default function HelpContents({ scroll }) {
       <Title level={3}>Line/neuron lookups</Title>
       <p>
         The search input bar is the primary interface to this website. It is
-        used to locate an EM neuron ID or cell line of interest. By default, the
+        used to locate an EM neuron ID or driver line of interest. By default, the
         search looks for an exact match to the input string, and you can add
         wildcards for a wider search. For example, if you were looking for the
-        cell line LH173, searching for &ldquo;LH173&rdquo; would find exactly
-        one result for that cell line:
+        driver line LH173, searching for &ldquo;LH173&rdquo; would find exactly
+        one result for that line:
       </p>
       <Row>
         <Col lg={12}>
@@ -93,7 +93,7 @@ export default function HelpContents({ scroll }) {
         </Col>
       </Row>
       <p>
-        If you were interested in all the cell lines from our 2014 mushroom body
+        If you were interested in all the driver lines from our 2014 mushroom body
         paper, then you could search with a wild card like this:
       </p>
       <Row>
@@ -136,7 +136,7 @@ export default function HelpContents({ scroll }) {
       <h3 ref={refLookup.MatchesEMtoLM}>LM Matches</h3>
       <p>
         The matches for light microscopy (LM) images show a grid of images
-        related to a cell line from one of our <Link to="/about">papers</Link>.
+        related to a driver line from one of our <Link to="/about">papers</Link>.
         They are sorted from highest to lowest scoring, but all matching images
         for a line are sorted together with the highest scoring image in that
         line. By default, we display a single image per line, but this can be
