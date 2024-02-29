@@ -55,7 +55,7 @@ export default function MatchSummary(props) {
             vertical={isVertical}
           />
         </div>
-        <p style={{ margin: "0px", paddingLeft: "2em", paddingBottom: "1.5em" }}>
+        <p style={{ margin: "-10px 0 0 0", paddingLeft: "1em", paddingBottom: "2em" }}>
           <Button
             type="link"
             onClick={showModal}
