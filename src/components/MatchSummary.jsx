@@ -55,11 +55,11 @@ export default function MatchSummary(props) {
             vertical={isVertical}
           />
         </div>
-        <p style={{ paddingLeft: "2em" }}>
+        <p style={{ margin: "0px", paddingLeft: "2em", paddingBottom: "1.5em" }}>
           <Button
             type="link"
             onClick={showModal}
-            style={{ padding: "0.1em", margin: "none" }}
+            style={{ margin: "none", padding: "0.1em"  }}
           >
             {publishedName}
           </Button>
