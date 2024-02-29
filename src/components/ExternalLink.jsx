@@ -25,7 +25,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
       <>
         <a href={extUrl.replace(/<NAME>/, id)}>
           {extName}{" "}
-          <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
+          <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
         </a>
         {process.env.REACT_APP_LEVEL &&
         process.env.REACT_APP_LEVEL.match(/pre$/) ? (
@@ -38,7 +38,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
               <FontAwesomeIcon
                 icon={faExternalLink}
                 size="xs"
-                transform="up-10"
+                transform="up-2"
               />
             </a>
           </>
@@ -77,7 +77,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     <>
       <a href={finalEMUrl}>
         NeuPrint{" "}
-        <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-10" />
+        <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
       </a>
       {process.env.REACT_APP_LEVEL &&
       process.env.REACT_APP_LEVEL.match(/pre$/) ? (
@@ -90,7 +90,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
             <FontAwesomeIcon
               icon={faExternalLink}
               size="xs"
-              transform="up-10"
+              transform="up-2"
             />
           </a>
         </>
