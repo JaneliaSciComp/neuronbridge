@@ -14,10 +14,6 @@ NeuronBridge is a web-based service for neuron matching and searching in _Drosop
 Visit the service here:
 
 [![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Site&color=008B94)](https://neuronbridge.janelia.org/)
-[![Janelia's pre-release instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Pre-release%20Site&color=84297E)](https://neuronbridge-pre.janelia.org/)
-
-> **Note**<br>
-> The pre-release site is only accessible on Janelia's internal network
 
 ## Source Code
 
