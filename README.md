@@ -11,8 +11,6 @@
 
 NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. The software is described in [this paper](https://doi.org/10.1186/s12859-024-05732-7).
 
-Visit the service here:
-
 [![Janelia's production instance of NeuronBridge](https://img.shields.io/static/v1?style=for-the-badge&logo=&label=&message=View%20Production%20Site&color=008B94)](https://neuronbridge.janelia.org/)
 
 ## Source Code
