@@ -16,7 +16,8 @@ export default function About() {
         quick to look up by identifier. You can also upload your own data and match it against these public data sets. 
       </Paragraph>
       <Paragraph>
-        A preprint describing this software in detail is <a href="https://doi.org/10.1101/2022.07.20.500311">available on bioRxiv</a>.
+        More information about the software infrastructure is available in our <a href="https://doi.org/10.1186/s12859-024-05732-7">published paper</a> and {" "}
+        <a href="https://aws.amazon.com/blogs/architecture/scaling-neuroscience-research-on-aws/">AWS blog post</a>.
       </Paragraph>
 
       <Row gutter={20}>

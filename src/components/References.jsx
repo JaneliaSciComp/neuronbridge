@@ -7,7 +7,7 @@ export default function References() {
 
       <dt>NeuronBridge</dt>
       <dd>
-        <a href="https://doi.org/10.1101/2022.07.20.500311">Clements et al., 2022</a>
+        <a href="https://doi.org/10.1186/s12859-024-05732-7">Clements et al., 2024</a>
       </dd>
 
       <dt>Neuron matching algorithms</dt>
@@ -36,13 +36,13 @@ export default function References() {
         <a href="https://dx.doi.org/10.1016/j.celrep.2012.09.011">Jenett et al., 2012; for Janelia Gen1 GAL4</a>
       </dd>
       <dd>
-        <a href="https://doi.org/10.1101/198648"> Tirian and Dickson, 2017; for VT Gen1 GAL4</a>
+        <a href="https://doi.org/10.1101/198648">Tirian and Dickson, 2017; for VT Gen1 GAL4</a>
       </dd>
       <dd>
         <a href="https://doi.org/10.1534/genetics.118.300682"> Dionne et al., 2018; for Janelia hemidrivers</a>
       </dd>
       <dd>
-        <a href="https://doi.org/10.1101/198648"> Tirian and Dickson, 2017; for VT hemidrivers</a>
+        <a href="https://doi.org/10.1101/198648">Tirian and Dickson, 2017; for VT hemidrivers</a>
       </dd>
 
       <dt>EM-LM unification template</dt>

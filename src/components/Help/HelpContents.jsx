@@ -203,9 +203,9 @@ export default function HelpContents({ scroll }) {
               data currently in NeuronBridge.
             </p>
             <p>
-              A preprint including more details is{" "}
-              <a href="https://doi.org/10.1101/2022.07.20.500311">
-                available on bioRxiv
+              More details are available in the {" "}
+              <a href="https://doi.org/10.1186/s12859-024-05732-7">
+                NeuronBridge paper
               </a>
               .
             </p>
