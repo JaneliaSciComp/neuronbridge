@@ -9,7 +9,7 @@
   <img src="assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
 </p>
 
-NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. A preprint descibing the service is [available on bioRxiv](https://doi.org/10.1101/2022.07.20.500311). 
+NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. The software is described in [this paper](https://doi.org/10.1186/s12859-024-05732-7).
 
 Visit the service here:
 
