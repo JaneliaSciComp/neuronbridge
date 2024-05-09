@@ -6,7 +6,7 @@
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
 <p align="center">
-  <img src="assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
+  <img src="https://github.com/JaneliaSciComp/neuronbridge/blob/master/assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
 </p>
 
 NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. The software is described in [this paper](https://doi.org/10.1186/s12859-024-05732-7).
@@ -43,7 +43,7 @@ Read the [Developer's Guide](docs/Development.md) for more information about dev
 
 ## License
 
-All code related to NeuronBridge is made available under the [3-Clause BSD License](LICENSE.md). 
+All code related to NeuronBridge is made available under the [3-Clause BSD License](LICENSE.md).
 
 All data served by the application is made available under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 
