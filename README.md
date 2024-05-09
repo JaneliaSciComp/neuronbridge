@@ -6,7 +6,7 @@
 [![Follow on Twitter](http://img.shields.io/badge/twitter-%40NeuronBridge-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/NeuronBridge)
 
 <p align="center" style="background:white">
-  <img src="https://github.com/JaneliaSciComp/neuronbridge/blob/master/assets/neuronbridge_logo_light.png" alt="NeuronBridge logo"/>
+  <img src="https://github.com/JaneliaSciComp/neuronbridge/blob/master/assets/neuronbridge_logo_light_white_background.gif" alt="NeuronBridge logo"/>
 </p>
 
 NeuronBridge is a web-based service for neuron matching and searching in _Drosophila melanogaster_. It indexes large data sets of LM and EM imagery to enable finding similar neurons across modalities and data sets. The software is described in [this paper](https://doi.org/10.1186/s12859-024-05732-7).
