@@ -60,7 +60,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
               fr.readAsText(response.Body);
             })
             .catch((e) => {
-              if (e.response.status === 404) {
+              if (e.response && e.response.status === 404) {
                 message.error({
                   duration: 0,
                   content: "No results were found for the provided ID.",
