@@ -107,14 +107,16 @@ export default function App() {
       // grab the version number out of it and use that to grab the current
       // config.json file, which replaces paths.json.
       Auth.currentCredentials().then(() => {
-        Storage.get(dataVersionFile(), storageOptions).then((result) => {
-          const fr = new FileReader();
-          fr.onload = (evt) => {
-            const dataVersion = evt.target.result.trim();
-            setState({ dataVersion });
-          };
-          fr.readAsText(result.Body);
-        });
+          Storage.get(dataVersionFile(), storageOptions).then((result) => {
+            const fr = new FileReader();
+            fr.onload = (evt) => {
+              const dataVersion = evt.target.result.trim();
+              setState({ dataVersion });
+            };
+            fr.readAsText(result.Body);
+          }).catch((e) => {
+            message.error({ duration: 0, content: `Loading data version file resulted in an error: ${e}`, key: 'AppError', onClick: () => message.destroy('AppError') });
+          });
       });
     }
   }, [isAuthenticated, setState, appState.dataVersion]);
