@@ -51,8 +51,8 @@ export const listSearches = /* GraphQL */ `
         alignmentScore
         alignmentMovie
         anatomicalRegion
-				cdsStarted
-				cdsFinished
+        cdsStarted
+        cdsFinished
         step
         displayableMask
         nTotalMatches
@@ -63,6 +63,45 @@ export const listSearches = /* GraphQL */ `
         alignFinished
         alignStarted
         anatomicalRegion
+      }
+      nextToken
+    }
+  }
+`;
+
+export const listItemsByOwner = `
+  query ListItemsByOwner(
+    $identityId: ID!,
+    $limit: Int,
+    $nextToken: String,
+    $sortDirection: String
+  ) {
+    listItemsByOwner(identityId: $identityId, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+      items {
+        id
+        owner
+        identityId
+        upload
+        searchDir
+        searchMask
+        errorMessage
+        alignmentErrorMessage
+        alignmentScore
+        alignmentMovie
+        anatomicalRegion
+        cdsStarted
+        cdsFinished
+        step
+        displayableMask
+        nTotalMatches
+        searchType
+        uploadThumbnail
+        updatedOn
+        createdOn
+        alignFinished
+        alignStarted
+        anatomicalRegion
+
       }
       nextToken
     }

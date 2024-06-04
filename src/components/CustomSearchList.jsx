@@ -37,9 +37,12 @@ export default function CustomSearchList() {
   // initial check on page load.
   useEffect(() => {
     async function fetchSearches() {
+      const creds = await Auth.currentCredentials();
+
       const items = await fetchItemsNextToken({
-        query: queries.listSearches,
-        variables: { limit: 50 }
+        query: queries.listItemsByOwner,
+        variables: { limit: 30, identityId: creds.identityId, sortDirection: "DESC"},
+        limit: 100
       });
       items.forEach(search => logSearchInfo(search));
       dispatch({ type: "init", value: items });
@@ -150,7 +153,7 @@ export default function CustomSearchList() {
         handleUpload={setUploadedFile}
       />
       <Divider dashed />
-      <Title level={3}>Your Searches</Title>
+      <Title level={3}>Your Searches ({searches.length})</Title>
       {isLoading ? <Spin size="large" /> : <SearchList searches={searches} />}
     </div>
   );

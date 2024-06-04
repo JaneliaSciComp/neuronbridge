@@ -1,4 +1,4 @@
-﻿schema {
+schema {
   query: Query
   mutation: Mutation
   subscription: Subscription
@@ -11,12 +11,20 @@ type Mutation {
 }
 
 type Query {
-  getSearch(id: ID!): Search @aws_cognito_user_pools @aws_iam
+  getSearch(id: ID!): Search @aws_auth(cognito_groups : ["neuronbridge-admins"]) @aws_cognito_user_pools @aws_iam
+  listAllSearches(filter: TableSearchFilterInput, limit: Int, nextToken: String): SearchConnection @aws_auth(cognito_groups : ["neuronbridge-admins"]) @aws_cognito_user_pools @aws_iam
+  listItemsByOwner(identityId: ID!, limit: Int, nextToken: String, sortDirection: String): SearchConnection @aws_cognito_user_pools @aws_iam
   listSearches(filter: TableSearchFilterInput, limit: Int, nextToken: String): SearchConnection @aws_cognito_user_pools @aws_iam
 }
 
 type Search @aws_cognito_user_pools @aws_iam {
   algorithm: Algorithm
+  alignFinished: AWSDateTime
+  alignStarted: AWSDateTime
+  alignmentErrorMessage: String
+  alignmentMovie: String
+  alignmentScore: String
+  alignmentSize: Int
   anatomicalRegion: String
   cdsFinished: AWSDateTime
   cdsStarted: AWSDateTime
@@ -25,24 +33,39 @@ type Search @aws_cognito_user_pools @aws_iam {
   computedMIPs: [String]
   createdOn: AWSDateTime
   dataThreshold: Int
+  displayableMask: String
+  errorMessage: String
   id: ID!
   identityId: String!
   maskThreshold: Int
+  maxResultsPerMask: Int
   mimeType: String
   minMatchingPixRatio: Int
   mirrorMask: Boolean
   nBatches: Int
+  nTotalMatches: Int
   owner: String
   pixColorFluctuation: Float
+  referenceChannel: String
   searchDir: String!
   searchMask: String
   searchType: SearchType
+  simulateMIPGeneration: Boolean
+  #  step specifies the search phase:
+  #    0 image uploaded
+  #    1 alignment in progress
+  #    2 alignment complete
+  #    3 search in progress
+  #    4 search complete
   step: Int
   updatedOn: AWSDateTime
+  #  upload is the filename or key of the uploaded image
   upload: String!
-  voxelX: Int
-  voxelY: Int
-  voxelZ: Int
+  uploadThumbnail: String
+  userDefinedImageParams: Boolean
+  voxelX: Float
+  voxelY: Float
+  voxelZ: Float
   xyShift: Int
 }
 
@@ -52,9 +75,9 @@ type SearchConnection @aws_cognito_user_pools @aws_iam {
 }
 
 type Subscription {
-  onCreateSearch(createdOn: String, id: ID, step: Int): Search @aws_subscribe(mutations : ["createSearch"])
-  onDeleteSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["deleteSearch"])
-  onUpdateSearch(id: ID, step: Int): Search @aws_subscribe(mutations : ["updateSearch"])
+  onCreateSearch(createdOn: String, id: ID, identityId: String, step: Int): Search @aws_subscribe(mutations : ["createSearch"])
+  onDeleteSearch(id: ID, identityId: String, step: Int): Search @aws_subscribe(mutations : ["deleteSearch"])
+  onUpdateSearch(id: ID, identityId: String, step: Int): Search @aws_subscribe(mutations : ["updateSearch"])
 }
 
 enum Algorithm {
@@ -68,23 +91,30 @@ enum SearchType {
 }
 
 input CreateSearchInput {
-  algorithm: Algorithm!
+  algorithm: Algorithm
   anatomicalRegion: String
   channel: Int
   dataThreshold: Int
   identityId: String!
   maskThreshold: Int
+  maxResultsPerMask: Int
   mimeType: String
   minMatchingPixRatio: Int
   mirrorMask: Boolean
+  owner: String
   pixColorFluctuation: Float
+  referenceChannel: String
   searchDir: String!
-  searchType: SearchType!
+  searchMask: String
+  searchType: SearchType
+  simulateMIPGeneration: Boolean
   step: Int!
   upload: String!
-  voxelX: Int
-  voxelY: Int
-  voxelZ: Int
+  uploadThumbnail: String
+  userDefinedImageParams: Boolean
+  voxelX: Float
+  voxelY: Float
+  voxelZ: Float
   xyShift: Int
 }
 
@@ -146,12 +176,16 @@ input TableIntFilterInput {
 
 input TableSearchFilterInput {
   algorithm: TableStringFilterInput
+  alignmentErrorMessage: TableStringFilterInput
   cdsFinished: TableDateFilterInput
   cdsStarted: TableDateFilterInput
   createdOn: TableDateFilterInput
+  errorMessage: TableStringFilterInput
   id: TableIDFilterInput
+  identityId: TableStringFilterInput
+  owner: TableStringFilterInput
   searchType: TableStringFilterInput
-  step: TableStringFilterInput
+  step: TableIntFilterInput
   updatedOn: TableDateFilterInput
 }
 
@@ -169,12 +203,32 @@ input TableStringFilterInput {
 }
 
 input UpdateSearchInput {
+  alignFinished: AWSDateTime
+  alignStarted: AWSDateTime
+  alignmentErrorMessage: String
+  alignmentMovie: String
+  alignmentScore: String
+  alignmentSize: Int
+  anatomicalRegion: String
   cdsFinished: AWSDateTime
   cdsStarted: AWSDateTime
   completedBatches: Int
   computedMIPs: [String]
+  dataThreshold: Int
+  displayableMask: String
+  errorMessage: String
   id: ID!
+  maskThreshold: Int
+  maxResultsPerMask: Int
+  minMatchingPixRatio: Int
+  mirrorMask: Boolean
   nBatches: Int
+  nTotalMatches: Int
+  owner: String
+  pixColorFluctuation: Float
   searchMask: String
+  searchType: SearchType
   step: Int
+  uploadThumbnail: String
+  xyShift: Int
 }

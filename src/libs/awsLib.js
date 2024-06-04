@@ -135,21 +135,25 @@ export async function fetchItemsNextToken({
   query,
   variables,
   items = [],
-  callback = undefined
+  limit
 }) {
   const { data } = await API.graphql(graphqlOperation(query, variables));
   const key = Object.keys(data).find(k => k.includes("list"));
   const res = data[key]; // res = { items: [], nextToken: '' }
 
   items.push(...res.items);
-  if (callback) {
-    callback(res.items);
+
+  // if there are enough items to fulfill the limit, then trim the items
+  // to the limit and return.
+  if (items.length >= limit) {
+    return items;
   }
+
   if (!res.nextToken) return items;
 
   // eslint-disable-next-line no-param-reassign
   variables.nextToken = res.nextToken;
-  return fetchItemsNextToken({ query, variables, items, callback });
+  return fetchItemsNextToken({ query, variables, items, limit });
 }
 
 export async function toDataURL(url, opts = {}) {
