@@ -1,4 +1,12 @@
-## VERSION 3.1.0 
+## VERSION 3.2.0 - 2024-06-05
+
+### Bug fixes
+
+- ### Limits custom search results list to 20 items and adds a "Show More" button to see the older searches. This aims to improve page load times for the majority of people that only want to see the most recent search results.
+
+
+
+## VERSION 3.1.0 - 2024-03-11
 
 ### Bug fixes
 
