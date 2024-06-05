@@ -41,7 +41,7 @@ ErrorMessage.defaultProps = {
   error: null
 };
 
-export default function SearchList({ searches }) {
+export default function SearchList({ searches, showMore, showMoreHandler }) {
   const { appState } = useContext(AppContext);
 
   const searchesInProgress = searches
@@ -97,9 +97,16 @@ export default function SearchList({ searches }) {
     );
   }
 
-  return <div>{searchesInProgress}</div>;
+  return(
+    <div>
+    {searchesInProgress}
+      {showMore ? <Button onClick={() => showMoreHandler()}>Show more</Button> : ""}
+    </div>
+  );
 }
 
 SearchList.propTypes = {
-  searches: PropTypes.arrayOf(PropTypes.object).isRequired
+  searches: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showMore: PropTypes.bool.isRequired,
+  showMoreHandler: PropTypes.func.isRequired,
 };

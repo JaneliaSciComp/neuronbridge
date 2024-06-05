@@ -14,6 +14,7 @@ const { Title } = Typography;
 export default function CustomSearchList() {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [nextToken, setNextToken] = useState(null);
   const [searches, dispatch] = useReducer((searchList, { type, value }) => {
     switch (type) {
       case "init":
@@ -39,11 +40,12 @@ export default function CustomSearchList() {
     async function fetchSearches() {
       const creds = await Auth.currentCredentials();
 
-      const items = await fetchItemsNextToken({
+      const [items, token] = await fetchItemsNextToken({
         query: queries.listItemsByOwner,
-        variables: { limit: 30, identityId: creds.identityId, sortDirection: "DESC"},
-        limit: 100
+        variables: { limit: 20, identityId: creds.identityId, sortDirection: "DESC"},
+        limit: 20
       });
+      setNextToken(token);
       items.forEach(search => logSearchInfo(search));
       dispatch({ type: "init", value: items });
       setLoading(false);
@@ -145,6 +147,19 @@ export default function CustomSearchList() {
     });
   }, []);
 
+  const showMoreHandler = async () => {
+    const creds = await Auth.currentCredentials();
+
+    const [items, token] = await fetchItemsNextToken({
+      query: queries.listItemsByOwner,
+      variables: { limit: 20, identityId: creds.identityId, sortDirection: "DESC", nextToken},
+      limit: 20
+    });
+    setNextToken(token);
+    items.forEach(search => dispatch({ type: "add", value: search}));
+    setLoading(false);
+  }
+
   return (
     <div>
       <ScrollToTopOnMount />
@@ -153,8 +168,8 @@ export default function CustomSearchList() {
         handleUpload={setUploadedFile}
       />
       <Divider dashed />
-      <Title level={3}>Your Searches ({searches.length})</Title>
-      {isLoading ? <Spin size="large" /> : <SearchList searches={searches} />}
+      <Title level={3}>Your Searches ({searches.length}{nextToken ? '+' : null})</Title>
+      {isLoading ? <Spin size="large" /> : <SearchList searches={searches} showMore={Boolean(nextToken)}  showMoreHandler={showMoreHandler}/>}
     </div>
   );
 }

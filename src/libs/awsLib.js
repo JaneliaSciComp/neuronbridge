@@ -146,10 +146,10 @@ export async function fetchItemsNextToken({
   // if there are enough items to fulfill the limit, then trim the items
   // to the limit and return.
   if (items.length >= limit) {
-    return items;
+    return [items, res.nextToken];
   }
 
-  if (!res.nextToken) return items;
+  if (!res.nextToken) return [items, null];
 
   // eslint-disable-next-line no-param-reassign
   variables.nextToken = res.nextToken;
