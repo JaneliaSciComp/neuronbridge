@@ -20,14 +20,12 @@ export default function ImagePlaceholder({
   const updatedStyle = mirrored
     ? {
         ...style,
-        transition: "transform .25s ease-in-out",
         transform: "scaleX(-1)",
         width: maxHeight ? "auto" : "100%",
         height: maxHeight ? "100%" : "auto",
       }
     : {
         ...style,
-        transition: "transform .25s ease-in-out",
         transform: "scaleX(1)",
         width: maxHeight ? "auto" : "100%",
         height: maxHeight ? "100%" : "auto",
