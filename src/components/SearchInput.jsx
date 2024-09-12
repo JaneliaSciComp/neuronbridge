@@ -23,7 +23,8 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
   }, [searchTerm, setSearch]);
 
   const handleSearch = value => {
-    history.push(`/search?q=${value}`);
+
+    history.push(`/search?q=${value.trim()}`);
   };
 
   useEffect(() => {
