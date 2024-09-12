@@ -6,47 +6,69 @@ import { Link } from "react-router-dom";
 import LibraryFormatter from "./LibraryFormatter";
 import ExternalLink from "./ExternalLink";
 
+function NeuronTypeOrAnnotation({ attributes }) {
+  const { neuronType, neuronInstance, annotations } = attributes.image;
+
+  if (!neuronType && !neuronInstance && annotations) {
+    return (
+      <p>
+        <b>Annotations: </b>
+        <br /> {annotations.join(', ')}
+      </p>
+    );
+  }
+
+  const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
+  return (
+    <p>
+      <b>Neuron Type / Instance: </b>
+      <br /> {neuronTypeAndInstance}
+    </p>
+  );
+}
+
+NeuronTypeOrAnnotation.propTypes = {
+  attributes: PropTypes.shape({
+    image: PropTypes.shape({
+      annotations: PropTypes.arrayOf(PropTypes.string),
+      neuronType: PropTypes.string,
+      neuronInstance: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};
+
 export default function SkeletonMeta({ attributes, compact, fromSearch }) {
   if (!attributes.image) {
     return <span style={{ color: "red" }}>attribute.image missing</span>;
   }
 
-  const {
-    publishedName,
-    libraryName,
-    neuronType,
-    neuronInstance,
-    gender,
-  } = attributes.image;
+  const { publishedName, libraryName, gender } = attributes.image;
 
   const matchUrls = [];
 
   if (attributes?.image?.files?.PPPMResults) {
     const matchId = attributes?.image?.files?.PPPMResults;
-    if ( matchId ) {
-      const matchUrl = `/matches/pppm/${matchId.replace(/\.json$/,'')}`;
-      matchUrls.push({ type: "PPPM", url: matchUrl});
+    if (matchId) {
+      const matchUrl = `/matches/pppm/${matchId.replace(/\.json$/, "")}`;
+      matchUrls.push({ type: "PPPM", url: matchUrl });
     }
   }
   if (attributes?.image?.files?.CDSResults) {
     const matchId = attributes?.image?.files?.CDSResults;
-    if ( matchId ) {
-      const matchUrl = `/matches/cdm/${matchId.replace(/\.json$/,'')}`;
-      matchUrls.push({ type: "CDM", url:  matchUrl});
+    if (matchId) {
+      const matchUrl = `/matches/cdm/${matchId.replace(/\.json$/, "")}`;
+      matchUrls.push({ type: "CDM", url: matchUrl });
     }
   }
 
   const precomputedLinks = matchUrls.map((match) => (
-      <React.Fragment key={match.url}>
-        <Link key={match.url} to={match.url}>
-          View Precomputed {match.type} Matches
-        </Link>
-        <br />
-      </React.Fragment>
-    ));
-
-
-  const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
+    <React.Fragment key={match.url}>
+      <Link key={match.url} to={match.url}>
+        View Precomputed {match.type} Matches
+      </Link>
+      <br />
+    </React.Fragment>
+  ));
 
   if (compact) {
     return (
@@ -94,10 +116,7 @@ export default function SkeletonMeta({ attributes, compact, fromSearch }) {
         ) : (
           ""
         )}
-        <p>
-          <b>Neuron Type / Instance: </b>
-          <br /> {neuronTypeAndInstance}
-        </p>
+        <NeuronTypeOrAnnotation attributes={attributes} />
         <p>
           <b>Library: </b>
           <br />
@@ -128,6 +147,7 @@ SkeletonMeta.propTypes = {
       libraryName: PropTypes.string,
       publishedName: PropTypes.string,
       alignmentSpace: PropTypes.string,
+      annotations: PropTypes.arrayOf(PropTypes.string),
       gender: PropTypes.oneOf(["m", "f"]),
       neuronType: PropTypes.string,
       neuronInstance: PropTypes.string,
@@ -147,5 +167,5 @@ SkeletonMeta.propTypes = {
 
 SkeletonMeta.defaultProps = {
   compact: false,
-  fromSearch: false
+  fromSearch: false,
 };
