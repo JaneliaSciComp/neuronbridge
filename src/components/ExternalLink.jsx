@@ -113,18 +113,17 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
 
   return (
     <>
+      { !library.match(/flywire_fafb/i) ? (
+        <>
       <a href={finalEMUrl}>
         NeuPrint{" "}
         <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
-      </a>
+        </a><br /></>) : ""}
       {process.env.REACT_APP_LEVEL &&
       process.env.REACT_APP_LEVEL.match(/pre$/) ? (
         ""
       ) : (
-        <>
-          <br />
-          {secondaryLink}
-        </>
+        secondaryLink
       )}
     </>
   );
