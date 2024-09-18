@@ -50,6 +50,12 @@ export default function References() {
         <a href="https://doi.org/10.1371/journal.pone.0236495">Bogovic et al., 2020</a>
       </dd>
 
+      <dt>FlyWire</dt>
+      <dd>
+        <a href="https://doi.org/10.1101/2023.06.27.546656">Dorkenwald et al., 2023</a>
+        <a href="https://doi.org/10.1101/2023.06.27.546055">Schlegel et al., 2023</a>
+      </dd>
+
       <dt>Split-GAL4 Lines</dt>
       <dd>
         <a href="https://doi.org/10.1016/j.neuron.2013.05.024">Tuthill et al., 2013</a>
