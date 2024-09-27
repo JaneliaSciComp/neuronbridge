@@ -195,6 +195,7 @@ export const CompleteStepWithErrors = Template.bind({});
 CompleteStepWithErrors.args = {
   search: {
     errorMessage: "It went badly, like really badly, there was a lot of smoke and some of the servers will never recover. I don't think they are going to bring the data center back online for months",
+    state: "complete",
     nTotalMatches: 0,
     step: 4,
   },

@@ -10,7 +10,7 @@ import CompleteStep from "./CompleteStep";
 import "./SearchSteps.css";
 
 function stepState(step, current, error) {
-  if (step === current && error) {
+  if (step >= current && error) {
     return "error";
   }
   if (step === current) {
