@@ -34,22 +34,24 @@ export default function ColorDepthSearchParameters() {
       >
         <Input step={1} type="number" placeholder="0" min={0} max={255} />
       </Form.Item>
-      <Form.Item 
+      <Form.Item
         extra="Tolerance for how many Z slices to search for each pixel in the mask"
-        label="Z Slice Range" 
-        name="pixColorFluctuation" 
-        rules={[]}>
+        label="Z Slice Range"
+        name="pixColorFluctuation"
+        rules={[]}
+      >
         <Select>
           <Option value="1">1</Option>
           <Option value="3">3</Option>
           <Option value="5">5</Option>
         </Select>
       </Form.Item>
-      <Form.Item 
+      <Form.Item
         extra="Number of pixels to shift mask in XY plane"
-        label="XY Shift" 
-        name="xyShift" 
-        rules={[]}>
+        label="XY Shift"
+        name="xyShift"
+        rules={[]}
+      >
         <Select>
           <Option value={0}>0px</Option>
           <Option value={2}>2px</Option>

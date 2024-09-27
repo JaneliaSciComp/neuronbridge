@@ -29,6 +29,11 @@ export const getSearch = /* GraphQL */ `
       referenceChannel
       alignStarted
       alignFinished
+      xyShift
+      maskThreshold
+      dataThreshold
+      mirrorMask
+      pixColorFluctuation
     }
   }
 `;

@@ -163,21 +163,22 @@ export default function MaskSelection({ match }) {
         <Paragraph>{dividerMessage}</Paragraph>
       <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} anatomicalRegion={anatomicalRegion} />
       <Divider />
+      {searchMeta ? (
       <Form
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         name="basic"
         initialValues={{
-          searchType: "lm2em",
-          dataThreshold: 100,
-          maskThreshold: 100,
-          xyShift: 2,
-          pixColorFluctuation: 1,
-          mirrorMask: true
+          searchType: searchMeta.searchType || "lm2em",
+          dataThreshold: searchMeta.dataThreshold || 100,
+          maskThreshold: searchMeta.maskThreshold || 100,
+          xyShift: searchMeta.xyShift || 0,
+          pixColorFluctuation: searchMeta.pixColorFluctuation || 0,
+          mirrorMask: searchMeta.mirrorMask || true,
         }}
         onFinish={handleSubmit}
       >
-        <ColorDepthSearchParameters />
+        <ColorDepthSearchParameters values={searchMeta || {}}/>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" loading={submitting}>
             Submit
@@ -190,7 +191,7 @@ export default function MaskSelection({ match }) {
             Cancel
           </Button>
         </Form.Item>
-      </Form>
+      </Form>) : null}
     </div>
   );
 }
