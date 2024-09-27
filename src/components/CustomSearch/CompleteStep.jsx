@@ -18,7 +18,12 @@ export default function CompleteStep({ state, matches, resultsUrl, errorMessage 
     }
   };
 
-  if (["complete"].includes(state)) {
+  if (state === "error" || (errorMessage && !matches)) {
+    content = (
+      <Text type="danger">{errorMessage}</Text>
+    );
+  }
+  else if (["complete"].includes(state)) {
     content = (
       <>
         <Link
@@ -39,10 +44,6 @@ export default function CompleteStep({ state, matches, resultsUrl, errorMessage 
           </Link>
         </Button>
       </>
-    );
-  } else if (state === "error") {
-    content = (
-      <Text type="danger">{errorMessage}</Text>
     );
   }
 
