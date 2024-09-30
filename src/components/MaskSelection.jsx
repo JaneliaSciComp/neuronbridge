@@ -26,10 +26,10 @@ export default function MaskSelection({ match }) {
   useEffect(() => {
     if (searchId) {
       const query = graphqlOperation(queries.getSearch, {
-        id: searchId
+        id: searchId,
       });
       API.graphql(query)
-        .then(results => {
+        .then((results) => {
           const currentMeta = results.data.getSearch;
           // TODO: we should be using the mask image and not the upload for this
           // When masks are ready this needs to be changed over.
@@ -39,7 +39,7 @@ export default function MaskSelection({ match }) {
             setSearchMeta(currentMeta);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response && error.response.status === 404) {
             setMissingResults(true);
           } else {
@@ -69,7 +69,7 @@ export default function MaskSelection({ match }) {
     return <NotFound />;
   }
 
-  const handleMaskChange = maskImageData => {
+  const handleMaskChange = (maskImageData) => {
     setMaskedImage(maskImageData);
   };
 
@@ -77,7 +77,7 @@ export default function MaskSelection({ match }) {
     history.replace("/upload");
   };
 
-  const handleSubmit = async searchFormData => {
+  const handleSubmit = async (searchFormData) => {
     if (!channelImgSrc) {
       message.info({
         duration: 0,
@@ -104,14 +104,14 @@ export default function MaskSelection({ match }) {
           await Storage.put(maskPath, maskedImage, {
             contentType: maskedImage.type,
             level: "private",
-            bucket: config.SEARCH_BUCKET
+            bucket: config.SEARCH_BUCKET,
           });
         }
 
         const maskDetails = { searchMask: maskName, id: searchMeta.id };
         const searchParams = { ...searchFormData, ...maskDetails };
         API.graphql(
-          graphqlOperation(mutations.updateSearch, { input: searchParams })
+          graphqlOperation(mutations.updateSearch, { input: searchParams }),
         ).then(() => {
           // kick off the search
           API.post("SearchAPI", "/searches", {
@@ -119,10 +119,10 @@ export default function MaskSelection({ match }) {
               submittedSearches: [
                 {
                   id: searchMeta.id,
-                  searchMask: maskName
-                }
-              ]
-            }
+                  searchMask: maskName,
+                },
+              ],
+            },
           }).then(() => {
             // redirect back to search progress page.
             setSubmitting(false);
@@ -130,7 +130,7 @@ export default function MaskSelection({ match }) {
           });
         });
       })
-      .catch(error => {
+      .catch((error) => {
         message.error({
           duration: 0,
           content: error.message,
@@ -149,6 +149,23 @@ export default function MaskSelection({ match }) {
 
   const anatomicalRegion = searchMeta ? searchMeta.anatomicalRegion : undefined;
 
+  // When we encounter an old search that uses the old searchType values, we need to
+  // convert them to the new collection names, so that they can be used with the new
+  // search API.
+  if (searchMeta && searchMeta.searchType) {
+    if (searchMeta.searchType === "lm2em") {
+      if (searchMeta.anatomicalRegion === "vnc") {
+        searchMeta.searchType = "FlyEM_MANC_v1.0";
+      } else {
+        searchMeta.searchType = "FlyEM_Hemibrain_v1.2.1";
+      }
+    } else if (searchMeta.searchType === "em2lm") {
+      searchMeta.searchType = "FlyLight_Gen1_MCFO";
+    }
+  }
+
+  console.log(searchMeta);
+
   return (
     <div>
       <Title component="h2">Mask selection</Title>
@@ -159,43 +176,48 @@ export default function MaskSelection({ match }) {
           onChange={handleChannelSelect}
         />
       ) : null}
-        <Divider orientation="left"/>
-        <Paragraph>{dividerMessage}</Paragraph>
-      <MaskDrawing imgSrc={channelImgSrc} onMaskChange={handleMaskChange} anatomicalRegion={anatomicalRegion} />
+      <Divider orientation="left" />
+      <Paragraph>{dividerMessage}</Paragraph>
+      <MaskDrawing
+        imgSrc={channelImgSrc}
+        onMaskChange={handleMaskChange}
+        anatomicalRegion={anatomicalRegion}
+      />
       <Divider />
       {searchMeta ? (
-      <Form
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        name="basic"
-        initialValues={{
-          searchType: searchMeta.searchType || "lm2em",
-          dataThreshold: searchMeta.dataThreshold || 100,
-          maskThreshold: searchMeta.maskThreshold || 100,
-          xyShift: searchMeta.xyShift || 0,
-          pixColorFluctuation: searchMeta.pixColorFluctuation || 0,
-          mirrorMask: searchMeta.mirrorMask || true,
-        }}
-        onFinish={handleSubmit}
-      >
-        <ColorDepthSearchParameters values={searchMeta || {}}/>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" loading={submitting}>
-            Submit
-          </Button>
-          <Button
-            type="default"
-            onClick={handleCancel}
-            style={{ marginLeft: "1em" }}
-          >
-            Cancel
-          </Button>
-        </Form.Item>
-      </Form>) : null}
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          name="basic"
+          initialValues={{
+            searchType: searchMeta.searchType || "FlyLight_Gen1_MCFO",
+            dataThreshold: searchMeta.dataThreshold || 100,
+            maskThreshold: searchMeta.maskThreshold || 100,
+            xyShift: searchMeta.xyShift || 0,
+            pixColorFluctuation: searchMeta.pixColorFluctuation || 0,
+            mirrorMask: searchMeta.mirrorMask || true,
+          }}
+          onFinish={handleSubmit}
+        >
+          <ColorDepthSearchParameters searchMeta={searchMeta} />
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit" loading={submitting}>
+              Submit
+            </Button>
+            <Button
+              type="default"
+              onClick={handleCancel}
+              style={{ marginLeft: "1em" }}
+            >
+              Cancel
+            </Button>
+          </Form.Item>
+        </Form>
+      ) : null}
     </div>
   );
 }
 
 MaskSelection.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
 };
