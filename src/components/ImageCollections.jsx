@@ -23,7 +23,6 @@ export default function ImageCollections() {
         customSearch.emLibraries.forEach((emLibrary) => {
           tableData.push({
             collection: libraryFormatter(emLibrary.name),
-            citation: emLibrary.name,
             area: storeData.anatomicalArea,
             count: emLibrary.count,
           });
@@ -31,7 +30,6 @@ export default function ImageCollections() {
         customSearch.lmLibraries.forEach((lmLibrary) => {
           tableData.push({
             collection: libraryFormatter(lmLibrary.name),
-            citation: lmLibrary.name,
             area: storeData.anatomicalArea,
             count: lmLibrary.count,
           });
@@ -54,19 +52,18 @@ export default function ImageCollections() {
         }),
     },
     {
-      title: "Citation",
-      dataIndex: "citation",
-      key: "citation",
-      sorter: (a, b) => a.citation - b.citation,
-    },
-    {
       title: "Annatomical Area",
       dataIndex: "area",
       key: "area",
-      sorter: (a, b) => a.area - b.area,
+      sorter: (a, b) =>
+        a.area.localeCompare(b.area, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        }),
+
     },
     {
-      title: "Count",
+      title: "Searched Image Count",
       dataIndex: "count",
       key: "count",
       sorter: (a, b) => a.count - b.count,
@@ -87,7 +84,6 @@ export default function ImageCollections() {
           return (
               <Table.Summary.Row>
                 <Table.Summary.Cell>Total</Table.Summary.Cell>
-                <Table.Summary.Cell />
                 <Table.Summary.Cell />
                 <Table.Summary.Cell>{total}</Table.Summary.Cell>
               </Table.Summary.Row>
