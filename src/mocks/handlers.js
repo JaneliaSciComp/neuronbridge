@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import publishedNames12288 from "./published_names_12288.json";
 import devPreConfig from "./dev_pre_config.json";
+import refsJSON from "./refs.json";
 /*
 import metadata1537331894 from "./1537331894_metadata.json";
 import LH173metadata from "./LH173_metadata.json";
@@ -31,6 +32,11 @@ export const handlers = [
 		"https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
     (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig))
   ),
+  rest.get(
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v3_3_1/refs.json",
+    (req, res, ctx) => res(ctx.status(200), ctx.json(refsJSON))
+  ),
+
   /*
    rest.get(
     "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/metadata/by_body/12288.json",
