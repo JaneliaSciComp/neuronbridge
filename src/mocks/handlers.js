@@ -33,7 +33,7 @@ export const handlers = [
     (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig))
   ),
   rest.get(
-    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v3_3_1/refs.json",
+    "https://janelia-neuronbridge-data-dev.s3.us-east-1.amazonaws.com/v3_3_2/refs.json",
     (req, res, ctx) => res(ctx.status(200), ctx.json(refsJSON))
   ),
 
