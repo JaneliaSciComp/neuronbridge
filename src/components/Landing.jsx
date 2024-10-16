@@ -47,44 +47,42 @@ function Landing(props) {
               </a>{" "}
               and <a href="https://www.janelia.org/project-team/flyem">FlyEM</a>{" "}
               projects at{" "}
-              <a href="https://www.janelia.org">Janelia Research Campus</a>. You
-              can find similar neurons based on shape regardless of data set.
+              <a href="https://www.janelia.org">Janelia Research Campus</a>, as well
+              as other public connectomic data sets. 
+              You can find similar neurons based on shape regardless of data set.
             </Paragraph>
 
             {!isAuthenticated && (
               <Paragraph>
-                Please login above if you already know your EM neuron ID or GAL4
-                line name, or browse our image collections at:
+                Please login above if you already know your neuron ID or driver
+                line name, or start by browsing the included data collections:
               </Paragraph>
             )}
             {isAuthenticated && (
               <Paragraph>
-                Start your search above if you already know your EM neuron ID or
-                GAL4 line name, or browse our image collections at:
+                Begin your search above if you already know your neuron ID or
+                driver line name, or start by browsing the included data collections:
               </Paragraph>
             )}
 
             <Row className="collections">
               <Col span={12}>
-                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">
-                  FlyLight Generation 1 MCFO
-                </a>
+                <b>Light Microscopy</b><br/>
+                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">FlyLight Generation 1 MCFO</a><br/>
+                <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a><br/>
               </Col>
               <Col span={12}>
-                <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a>
-              </Col>
-              <Col span={12}>
-                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons">FlyEM Hemibrain</a>
-              </Col>
-              <Col span={12}>
-                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons">FlyEM MANC</a>
+                <b>Electron Microscopy</b><br/>
+                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons">FlyEM Hemibrain</a><br/>
+                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons">FlyEM MANC</a><br/>
+                <a href="https://codex.flywire.ai">FlyWire Brain</a><br/>
               </Col>
             </Row>
 
             <Paragraph>
               We offer instant results with Color Depth MIP and PatchPerPixMatch
-              search algorithms across Janelia image collections. Or you can
-              upload your own data for a live Color Depth MIP search (see About
+              search algorithms across image collections. You can also
+              upload your own image to run a custom Color Depth MIP search (see About
               page). For NBLAST searching, try{" "}
               <a href="https://www.virtualflybrain.org">Virtual Fly Brain</a>.
             </Paragraph>
