@@ -83,7 +83,7 @@ export default function Download3D(props) {
       )}
       <h3>
         For a 3D comparison with more features, use the{" "}
-        <a href="https://github.com/JaneliaSciComp/VVDViewer">VVD viewer </a>
+        <a href="https://github.com/JaneliaSciComp/VVDViewer">VVDViewer </a>
         desktop application.
       </h3>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -95,18 +95,18 @@ export default function Download3D(props) {
         </Col>
         <Col sm={24} md={12}>
           <Title level={3} style={{ textDecoration: "underline" }}>
-            Installing VVD Viewer
+            Installing VVDViewer
           </Title>
           <ol>
             <li>
-              Download the latest release of VVD Viewer from{" "}
+              Download the latest release of VVDViewer from{" "}
               <a href="https://github.com/JaneliaSciComp/VVDViewer/releases">
                 https://github.com/JaneliaSciComp/VVDViewer/releases
               </a>
             </li>
             <li>
-              Usage instructions for VVD Viewer can be found{" "}
-              <a href="https://github.com/JaneliaSciComp/VVDViewer">here</a>.
+              Usage instructions for VVDViewer can be found{" "}
+              <a href="https://github.com/JaneliaSciComp/VVDViewer/wiki">here</a>.
             </li>
           </ol>
         </Col>
