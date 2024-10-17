@@ -79,10 +79,10 @@ export default function SkeletonResult(props) {
       </Col>
       <Col md={14}>
         <Row>
-          <Col sm={{span: 24, order: 2}} lg={{ span: 15, order: 1}}>
+          <Col lg={{span: 24, order: 2}} xl={{ span: 15, order: 1}}>
             <SkeletonMeta attributes={{ image: metaInfo }} fromSearch />
           </Col>
-          <Col sm={{span: 24, order: 1}} lg={{span: 9, order: 2}}>
+          <Col lg={{span: 24, order: 1}} xl={{span: 9, order: 2}}>
             <Space direction="vertical">
               {cdmMatchesButton}
               {pppmMatchesButton}
