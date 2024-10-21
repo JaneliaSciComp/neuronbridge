@@ -211,9 +211,20 @@ export default function UnifiedSearch() {
                 bodyCombined.results = bodyCombined.results.filter(
                   ({ id }, index) => !ids.includes(id, index + 1),
                 );
-                // filter out items that don't match the original serachTerm if a
-                // dataset was used.
-                if (searchDataset && searchDataset.length > 0) {
+                // This filter ignores versions of the dataset if the searchDataset doesn't
+                // have a colon in it. A missing colon means it does not require a match to
+                // the dataset version, so the version is removed from the publishedName
+                // in the match and then checked against the search term.
+                if (searchDataset && searchDataset.length > 0 && !searchDataset.includes(":")) {
+                  bodyCombined.results = bodyCombined.results.filter((item) => {
+                    const [dataset, version, bodyid] = item.publishedName.split(":");
+                    const noVersion = `${dataset}:${bodyid}`;
+                    console.log(dataset, version, bodyid);
+                    return noVersion.match(searchRegex);
+                  });
+                // filter out items that don't match the original searchTerm if a
+                // dataset and version was used.
+                } else if (searchDataset && searchDataset.length > 0) {
                   bodyCombined.results = bodyCombined.results.filter((item) =>
                     item.publishedName.match(searchRegex),
                   );
