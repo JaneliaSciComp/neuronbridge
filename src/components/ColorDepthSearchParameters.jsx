@@ -26,14 +26,14 @@ export default function ColorDepthSearchParameters({ searchMeta }) {
     lmLibraries.forEach((library) => {
       collections.push(
         <Option key={library.name} value={library.name}>
-          {library.name} ({library.count})
+          {library.name.replace(/_/g,' ')} ({library.count})
         </Option>,
       );
     });
     emLibraries.forEach((library) => {
       collections.push(
         <Option key={library.name} value={library.name}>
-          {library.name} ({library.count})
+          {library.name.replace(/_/g, ' ')} ({library.count})
         </Option>,
       );
     });
