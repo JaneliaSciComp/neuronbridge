@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const lmUrl =
   "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=<NAME>";
+const lmrawUrl =
+  "https://flylight-raw.janelia.org/cgi-bin/view_raw_imagery.cgi?slidecode=<NAME>"
 const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
@@ -54,6 +56,9 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     if (library.match(/gen1.*mcfo/i)) {
       extUrl = mcfoUrl;
       extName = "FlyLight Gen1 MCFO";
+    } else if (library.match(/Omnibus Broad/i)) {
+      extUrl = lmrawUrl;
+      extName = "FlyLight Raw Collection";
     }
 
     return (

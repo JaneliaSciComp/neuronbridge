@@ -55,6 +55,12 @@ describe("ExternalLink: unit tests", () => {
       "http://splitgal4.janelia.org/cgi-bin/view_splitgal4_imagery.cgi?slidecode=foo"
     );
 
+    rerender(<ExternalLink id="foo" library="FlyLight Split-GAL4 Omnibus Broad" />);
+    expect(getByText("FlyLight Raw Collection")).toHaveAttribute(
+      "href",
+      "https://flylight-raw.janelia.org/cgi-bin/view_raw_imagery.cgi?slidecode=foo"
+    );
+
     rerender(<ExternalLink id="foo" library="FlyLight Split-GAL4" />);
     expect(getByText("FlyLight Split-GAL4")).toHaveAttribute(
       "href",
