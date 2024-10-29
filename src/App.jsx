@@ -19,6 +19,7 @@ import HelpDrawer from "./components/Help/HelpDrawer";
 import HelpContents from "./components/Help/HelpContents";
 import MaintenanceBanner from "./components/MaintenanceBanner";
 import DebugPanel from "./components/DebugPanel";
+import DevSiteBanner from "./components/DevSiteBanner";
 import Announcements from "./components/Announcements";
 import { useKonami } from "./libs/hooksLib";
 import { dataVersionFile } from "./libs/utils";
@@ -27,6 +28,8 @@ import "./App.css";
 const { Header, Content, Footer } = Layout;
 const isInternalSite =
   process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
+
+const isDevSite = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/dev$/);
 
 // Storage options used to load current.txt and config.json
 const storageOptions = {
@@ -237,7 +240,8 @@ export default function App() {
           </a>
         </div>
       </Header>
-      <Content className="site-layout" style={{ marginTop: 86 }}>
+        { isDevSite ? <DevSiteBanner /> : null }
+      <Content className="site-layout" style={{ marginTop: isDevSite ? 96 : 86 }}>
         <div className="site-layout-background">
           <Announcements source={config.announcements} />
           {config.UNDER_MAINTENANCE ? <MaintenanceBanner /> : ""}

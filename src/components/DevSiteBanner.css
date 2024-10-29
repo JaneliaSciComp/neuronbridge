@@ -1,0 +1,23 @@
+.devsite-banner {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  top: 63px;
+  color: #555;
+  z-index: 1000;
+  width: 100%;
+  background-image: linear-gradient(45deg, #e3ebb9 25%, #f5baa6 25%, #f5baa6 50%, #e3ebb9 50%, #e3ebb9 75%, #f5baa6 75%, #f5baa6 100%);
+  background-size: 56.57px 56.57px;
+}
+
+.devsite-banner p {
+  text-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.7);
+}
