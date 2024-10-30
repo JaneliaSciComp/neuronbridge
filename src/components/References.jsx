@@ -169,6 +169,11 @@ export default function References() {
         <a href='https://doi.org/10.1101/2024.01.09.574419'>Meissner et al., 2024</a>
       </dd>
 
+      <dt>Raw (uncurated) Split-GAL4 Lines</dt>
+      <dd>
+        <a href="https://doi.org/10.1101/2024.01.09.574419">Meissner et al., 2024</a>
+      </dd>
+
       <dt>FlyWire</dt>
       <dd>
         <a href="https://doi.org/10.1101/2023.06.27.546656">Dorkenwald et al., 2023</a>
