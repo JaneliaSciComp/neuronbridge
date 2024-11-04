@@ -169,7 +169,10 @@ export default function CustomSearchList() {
       />
       <Divider dashed />
       <Title level={3}>Your Searches ({searches.length}{nextToken ? '+' : null})</Title>
-      {isLoading ? <Spin size="large" /> : <SearchList searches={searches} showMore={Boolean(nextToken)}  showMoreHandler={showMoreHandler}/>}
+      {isLoading ? (
+        <div>
+          <Spin size="large" /> Loading...
+        </div>) : <SearchList searches={searches} showMore={Boolean(nextToken)}  showMoreHandler={showMoreHandler}/>}
     </div>
   );
 }

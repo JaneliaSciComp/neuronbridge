@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Storage, API, graphqlOperation } from "aws-amplify";
-import { Divider, message } from "antd";
+import { Spin, Divider, message } from "antd";
 import Matches from "./Matches";
 import CustomInputSummary from "./CustomInputSummary";
 import ImageWithModal from "./ImageWithModal";
@@ -114,7 +114,10 @@ export default function Results({ match }) {
   }
 
   if (!searchMeta || !searchResults) {
-    return <p>...loading</p>;
+    return (
+      <div>
+        <Spin tip="Loading..." size="large" />...loading
+      </div>);
   }
 
   // we need information from both of these objects further down

@@ -54,7 +54,7 @@ export default function SearchResults(props) {
   }
   return (
     <div className="results">
-      <Spin tip="Loading..." size="large" />
+      <Spin tip="Loading..." size="large" /> Loading...
     </div>
   );
 }

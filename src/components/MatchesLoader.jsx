@@ -26,7 +26,7 @@ function fixUrls(matches, stores) {
 }
 
 export default function MatchesLoader({ searchAlgorithm }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [matchMeta, setMatchMeta] = useState(null);
   const { appState } = useContext(AppContext);
   const { matchId } = useParams();
@@ -97,7 +97,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
   if (isLoading) {
     return (
       <div className="searchLoader">
-        <Spin size="large" />
+        <Spin size="large" tip="Loading..." /> Loading...
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Spin } from "antd";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 // cant lazy load this as it breaks the AWS APIs
@@ -74,7 +75,7 @@ export default function Routes({ appProps }) {
     config.UNDER_MAINTENANCE && !appProps.isAdmin
   );
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense fallback={<div><Spin tip="loading..." size="large" />Loading...</div>}>
       <Switch>
         <Route path="/" exact>
           <Landing isAuthenticated={appProps.isAuthenticated} />

@@ -177,7 +177,7 @@ export default function UnifiedSearchResults(props) {
   }
   return (
     <div className="results">
-      <Spin tip="Loading..." size="large" />
+      <Spin tip="Loading..." size="large" /> Loading...
     </div>
   );
 }

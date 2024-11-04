@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Auth, API } from "aws-amplify";
+import { Spin } from "antd";
 
 export default function MatchReferences({ library, publishedName }) {
   const [publication, setPublication] = useState();
@@ -24,7 +25,7 @@ export default function MatchReferences({ library, publishedName }) {
   if (!publication) {
     return (
       <ul>
-        <li>loading...</li>
+        <li><Spin tip="Loading..." size="large" /> Loading...</li>
       </ul>
     );
   }

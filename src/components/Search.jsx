@@ -102,7 +102,7 @@ function Search() {
       {!searchTerm && !searchResult && <NoSearch searchType={searchType} />}
       {isLoading && (
         <div className="searchLoader">
-          <Spin size="large" />
+          <Spin size="large" /> Loading...
         </div>
       )}
       {!isLoading && searchResult && searchType && (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
-import { message, Typography } from "antd";
+import { Spin,  message, Typography } from "antd";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
@@ -275,7 +275,10 @@ export default function UnifiedSearch() {
     <div>
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm ? <NoSearch /> : ""}
-      {(lineLoading || bodyLoading) && !loadError ? <p>loading...</p> : ""}
+      {(lineLoading || bodyLoading) && !loadError ? (
+        <div>
+          <Spin tip="Loading..." size="large" /> Loading...
+        </div>) : ""}
       {loadError ? searchError : ""}
       {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
         <>
