@@ -137,6 +137,7 @@ export default function Results({ match }) {
           vertical={isVertical}
           maxHeight="350px"
           maxWidth="100%"
+          fixAspectRatio
       />
         <AlignmentMeta metadata={searchMeta}/>
       </CustomInputSummary>

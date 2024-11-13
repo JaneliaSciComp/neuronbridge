@@ -7,7 +7,7 @@ import { signedPublicLink } from "../libs/awsLib";
 
 
 export default function ImageWithModal(props) {
-  const { thumbSrc, src, title, showModal, vertical, maxHeight, maxWidth } = props;
+  const { thumbSrc, src, title, showModal, vertical, maxHeight, maxWidth, fixAspectRatio } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [signedSrc, setSignedSrc] = useState();
   const [signedThumbnailSrc, setSignedThumbnailSrc] = useState();
@@ -43,6 +43,7 @@ export default function ImageWithModal(props) {
           className="thumbnail"
           maxHeight={maxHeight}
           maxWidth={maxWidth}
+          fixAspectRatio={fixAspectRatio}
         />
       </Button>
     );
@@ -59,6 +60,7 @@ export default function ImageWithModal(props) {
           className="thumbnail"
           maxHeight={maxHeight}
           maxWidth={maxWidth}
+          fixAspectRatio={fixAspectRatio}
         />
       </Button>
       <Modal
@@ -85,7 +87,8 @@ ImageWithModal.propTypes = {
   showModal: PropTypes.func,
   vertical: PropTypes.bool,
   maxHeight: PropTypes.string,
-  maxWidth: PropTypes.string
+  maxWidth: PropTypes.string,
+  fixAspectRatio: PropTypes.bool
 };
 
 ImageWithModal.defaultProps = {
@@ -93,5 +96,6 @@ ImageWithModal.defaultProps = {
   showModal: null,
   vertical: false,
   maxHeight: null,
-  maxWidth: null
+  maxWidth: null,
+  fixAspectRatio: false
 };

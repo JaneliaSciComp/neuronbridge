@@ -12,6 +12,7 @@ export default function ImagePlaceholder({
   className,
   maxHeight,
   maxWidth,
+  fixAspectRatio
 }) {
   const [signedSrc, setSignedSrc] = useState();
   const [imageLoaded, setLoaded] = useState(false);
@@ -21,15 +22,19 @@ export default function ImagePlaceholder({
     ? {
         ...style,
         transform: "scaleX(-1)",
-        width: maxHeight ? "auto" : "100%",
-        height: maxHeight ? "100%" : "auto",
       }
     : {
         ...style,
         transform: "scaleX(1)",
-        width: maxHeight ? "auto" : "100%",
-        height: maxHeight ? "100%" : "auto",
       };
+
+  updatedStyle.width = "100%";
+
+  if (fixAspectRatio && imageDimensions[0] > imageDimensions[1]) {
+    updatedStyle.width = "auto";
+  }
+
+  updatedStyle.height = "100%"
 
   if (maxHeight) {
     updatedStyle.maxHeight = maxHeight;
@@ -112,7 +117,8 @@ ImagePlaceholder.propTypes = {
   imageDimensions: PropTypes.arrayOf(PropTypes.string).isRequired,
   mirrored: PropTypes.bool,
   maxHeight: PropTypes.string,
-  maxWidth: PropTypes.string
+  maxWidth: PropTypes.string,
+  fixAspectRatio: PropTypes.bool
 };
 
 ImagePlaceholder.defaultProps = {
@@ -121,4 +127,5 @@ ImagePlaceholder.defaultProps = {
   className: "",
   maxHeight: null,
   maxWidth: null,
+  fixAspectRatio: false
 };

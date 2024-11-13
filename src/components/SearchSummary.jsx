@@ -24,6 +24,7 @@ export default function SearchSummary({ searchAlgorithm, input }) {
         input.libraryName?.toLowerCase().includes("vnc")
       }
       maxHeight={maxHeight}
+      fixAspectRatio
     />
   );
 
