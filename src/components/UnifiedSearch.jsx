@@ -5,6 +5,7 @@ import { Spin,  message, Typography } from "antd";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
+import CuratedResults from "./CuratedResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
 import { setResultsFullUrlPaths } from "../libs/utils";
@@ -280,6 +281,7 @@ export default function UnifiedSearch() {
           <Spin tip="Loading..." size="large" /> Loading...
         </div>) : ""}
       {loadError ? searchError : ""}
+      {searchTerm ? <CuratedResults searchTerm={searchTerm} /> : ""}
       {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
         <>
           <UnifiedSearchResults
