@@ -10,10 +10,11 @@ const lmrawUrl =
 const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
+const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
+  const flyWireUrl =
+    "https://codex.flywire.ai/app/cell_details?data_version=<VERSION>&root_id=<ID>";
 
 function VFBLink({ name }) {
-  const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
-
   return (
     <a href={vfbUrl.replace(/<NAME>/, name)}>
       Virtual Fly Brain{" "}
@@ -28,9 +29,6 @@ VFBLink.propTypes = {
 
 function FlyWireLink({ tag }) {
   const [, version, id] = tag.split(":");
-
-  const flyWireUrl =
-    "https://codex.flywire.ai/app/cell_details?data_version=<VERSION>&root_id=<ID>";
 
   return (
     <a
@@ -111,7 +109,11 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     .replace(/<DATASET>/, dataset);
 
   const secondaryLink = library.match(/flywire_fafb/i) ? (
+    <>
     <FlyWireLink tag={id} />
+    <br/>
+    <VFBLink name={id} />
+    </>
   ) : (
     <VFBLink name={id} />
   );
