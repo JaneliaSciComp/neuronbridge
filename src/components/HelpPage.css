@@ -12,9 +12,4 @@
   }
 }
 
-.anchorOffset {
-  display: block;
-  position: relative;
-  top: -80px;
-  visibility: hidden;
-}
+

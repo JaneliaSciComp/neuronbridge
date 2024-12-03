@@ -79,7 +79,7 @@ export default function CuratedResults({ searchTerm }) {
   return (
     <Card
       title="Curated Results"
-      extra={<HelpButton target="SearchInput" />}
+      extra={<HelpButton target="CuratedResults" />}
       style={{ marginBottom: "2em", position: "relative" }}
     >
       <FontAwesomeIcon
