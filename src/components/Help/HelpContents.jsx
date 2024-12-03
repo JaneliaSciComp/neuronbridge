@@ -32,29 +32,24 @@ export default function HelpContents({ scroll }) {
     SearchInput: useRef(),
     UploadAlignment: useRef(),
     UploadSearch: useRef(),
+    CuratedResults: useRef(),
   };
 
   // use Effect to scroll to target set in the appState?
   useEffect(() => {
     if (scroll) {
-      if (refLookup[appState.helpTarget]) {
-        if (refLookup[appState.helpTarget].current) {
-          helpContentRef.current.parentElement.scrollTop =
-            refLookup[appState.helpTarget].current.offsetTop - 60;
-          refLookup[appState.helpTarget].current.classList.add("highlighted");
-          window.setTimeout(() => {
-            if (
-              refLookup[appState.helpTarget] &&
-              refLookup[appState.helpTarget].current
-            ) {
-              refLookup[appState.helpTarget].current.classList.remove(
-                "highlighted"
-              );
-            }
-          }, 3000);
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          refLookup[appState.helpTarget].current.scrollIntoView({ behavior: "instant" });
+          observer.disconnect();
         }
+      });
+      observer.observe(helpContentRef.current);
+      return () => {
+        observer.disconnect();
       }
     }
+    return () => {};
   }, [appState.helpTarget, refLookup, scroll]);
 
   const handleResultsPerLine = (count) => {
@@ -322,6 +317,22 @@ export default function HelpContents({ scroll }) {
           </a>
         </p>
       </div>
+      <Divider />
+      <a
+        ref={refLookup.CuratedResults}
+        className="anchorOffset"
+        id="curated_results"
+        href="#curated_results"
+      >
+        #curated_results
+      </a>
+      <Title level={3}>Curated Results</Title>
+      <p>
+        Curated results show detailed information about... 
+      </p>
+
+
+
       <Divider />
       <a
         ref={refLookup.UploadAlignment}

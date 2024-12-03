@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
-import { Spin,  message, Typography } from "antd";
+import { Spin, message, Typography } from "antd";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
@@ -67,7 +67,7 @@ export default function UnifiedSearch() {
       });
     }
 
-     if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
+    if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);
@@ -216,15 +216,20 @@ export default function UnifiedSearch() {
                 // have a colon in it. A missing colon means it does not require a match to
                 // the dataset version, so the version is removed from the publishedName
                 // in the match and then checked against the search term.
-                if (searchDataset && searchDataset.length > 0 && !searchDataset.includes(":")) {
+                if (
+                  searchDataset &&
+                  searchDataset.length > 0 &&
+                  !searchDataset.includes(":")
+                ) {
                   bodyCombined.results = bodyCombined.results.filter((item) => {
-                    const [dataset, version, bodyid] = item.publishedName.split(":");
+                    const [dataset, version, bodyid] =
+                      item.publishedName.split(":");
                     const noVersion = `${dataset}:${bodyid}`;
                     console.log(dataset, version, bodyid);
                     return noVersion.match(searchRegex);
                   });
-                // filter out items that don't match the original searchTerm if a
-                // dataset and version was used.
+                  // filter out items that don't match the original searchTerm if a
+                  // dataset and version was used.
                 } else if (searchDataset && searchDataset.length > 0) {
                   bodyCombined.results = bodyCombined.results.filter((item) =>
                     item.publishedName.match(searchRegex),
@@ -276,12 +281,23 @@ export default function UnifiedSearch() {
     <div>
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm ? <NoSearch /> : ""}
+      {searchTerm ? (
+        <>
+          <CuratedResults searchTerm={searchTerm} />
+          <h2 className="antd-card-head-title">Computed Image Matches</h2>
+        </>
+      ) : (
+        ""
+      )}
       {(lineLoading || bodyLoading) && !loadError ? (
         <div>
           <Spin tip="Loading..." size="large" /> Loading...
-        </div>) : ""}
+        </div>
+      ) : (
+        ""
+      )}
       {loadError ? searchError : ""}
-      {searchTerm ? <CuratedResults searchTerm={searchTerm} /> : ""}
+
       {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
         <>
           <UnifiedSearchResults
@@ -292,8 +308,8 @@ export default function UnifiedSearch() {
           {foundItems > byBodyResult.results.length ? (
             <p>
               <b>
-                There are additional matches for your search term in different datasets. To view them
-                search for &lsquo;
+                There are additional matches for your search term in different
+                datasets. To view them search for &lsquo;
                 <Link to={`/search?q=${searchBodyIdOrName}`}>
                   {searchBodyIdOrName}
                 </Link>
