@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Card, Table } from "antd";
+import { Card, Table, Typography } from "antd";
+import { Auth, API } from "aws-amplify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/pro-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import HelpButton from "./Help/HelpButton";
 
+const { Paragraph } = Typography;
+
 const columns = [
   {
     title: "Line Name",
     dataIndex: "name",
     key: "name",
+    render: (name) => <Link to={`/search?q=${name}`}>{name}</Link>,
   },
   {
     title: "Confidence",
@@ -31,35 +35,57 @@ const columns = [
   },
 ];
 
+function filterAndSortCuratedMatches(matches) {
+  // strip duplicates if cellType and name are the same
+  const deduped = matches.filter(
+    (v, i, a) =>
+      a.findIndex((t) => t.cellType === v.cellType && t.name === v.name) ===
+      i,
+  );
+  // sort by name and then confidence, where confident comes before candidate.
+  deduped.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.confidence === "confident" && b.confidence === "candidate") {
+      return -1;
+    }
+    if (a.confidence === "candidate" && b.confidence === "confident") {
+      return 1;
+    }
+    return 0;
+  });
+  return deduped;
+}
+
 export default function CuratedResults({ searchTerm }) {
   const [results, setResults] = useState([]);
+  const [loadError, setLoadError] = useState(false);
 
   // use the searchTerm to fetch curated results from DynamoDB?
   useEffect(() => {
-    // fetch results from DynamoDB
-    setResults([
-      {
-        key: "1",
-        name: "MB018B",
-        confidence: "candidate",
-        anatomicalRegion: "Brain",
-        cellType: "KCg-d",
-      },
-      {
-        key: "2",
-        name: "MB018B",
-        confidence: "candiate",
-        anatomicalRegion: "Brain",
-        cellType: "KCg-m",
-      },
-      {
-        key: "3",
-        name: "MB018B",
-        confidence: "confident",
-        anatomicalRegion: "Brain",
-        cellType: "MBON13",
-      },
-    ]);
+    if (searchTerm !== "") {
+      Auth.currentCredentials().then(() => {
+        setLoadError(false);
+        API.get("SearchAPI", "/curated_matches", {
+          queryStringParameters: {
+            search_term: searchTerm,
+          },
+        })
+          .then((response) => {
+            if (response.curated_matches.length > 0) {
+              const sorted = filterAndSortCuratedMatches(response.curated_matches);
+              setResults(sorted);
+            }
+          })
+          .catch((error) => {
+            setLoadError(error);
+          });
+      });
+    }
   }, [searchTerm]);
 
   // if we found anything, then display it in a table above the rest of the results.
@@ -76,9 +102,31 @@ export default function CuratedResults({ searchTerm }) {
     return null;
   }
 
+  if (loadError) {
+    return (
+      <Card
+        title="Curated Matches"
+        extra={<HelpButton target="CuratedResults" />}
+        style={{ marginBottom: "2em" }}
+      >
+        <Paragraph type="danger">
+          There was a problem retrieving the curated matches.
+        </Paragraph>
+        <Paragraph>Reloading the page may resolve the issue.</Paragraph>
+        <Paragraph>
+          If this problem persists, please contact us at{" "}
+          <a href="mailto:neuronbridge@janelia.hhmi.org">
+            neuronbridge@janelia.hhmi.org
+          </a>
+          .
+        </Paragraph>
+      </Card>
+    );
+  }
+
   return (
     <Card
-      title="Curated Results"
+      title="Curated Matches"
       extra={<HelpButton target="CuratedResults" />}
       style={{ marginBottom: "2em", position: "relative" }}
     >
