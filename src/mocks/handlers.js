@@ -17,19 +17,74 @@ import results2988247185125302403 from "./2988247185125302403.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
-   rest.get(
+  rest.get(
     "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names",
     (req, res, ctx) => {
-      if (req.url.searchParams.get('q') === '12288') {
+      if (req.url.searchParams.get("q") === "12288") {
         return res(ctx.status(200), ctx.json(publishedNames12288));
       }
       return req.passthrough();
-    }
+    },
   ),
 
   rest.get(
-		"https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
-    (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig))
+    "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
+    (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig)),
+  ),
+  rest.get(
+    "https://cmcg8hqwd1.execute-api.us-east-1.amazonaws.com/curated_matches",
+    (req, res, ctx) => {
+      console.log(req.url.searchParams.get("q"));
+      return res(
+        ctx.status(200),
+        ctx.json({
+          curated_matches: [
+            {
+              search_term: "MB018B",
+              name: "MB018B",
+              confidence: "candidate",
+              anatomicalRegion: "Brain",
+              cellType: "KCg-d",
+            },
+            {
+              search_term: "MB018B",
+              name: "MB018B",
+              confidence: "candidate",
+              anatomicalRegion: "Brain",
+              cellType: "KCg-m",
+            },
+            {
+              search_term: "KCg-m",
+              name: "MB018B",
+              confidence: "candidate",
+              anatomicalRegion: "Brain",
+              cellType: "KCg-m",
+            },
+            {
+              search_term: "MB018B",
+              name: "MB018B",
+              confidence: "confident",
+              anatomicalRegion: "Brain",
+              cellType: "MBON13",
+            },
+            {
+              search_term: "KCg-F",
+              name: "MB016G",
+              confidence: "candidate",
+              anatomicalRegion: "VNC",
+              cellType: "KCg-F",
+            },
+            {
+              search_term: "MB017C",
+              name: "MB017C",
+              confidence: "confident",
+              anatomicalRegion: "Brain",
+              cellType: "KCg-F",
+            },
+          ],
+        }),
+      );
+    },
   ),
   /*
    rest.get(
