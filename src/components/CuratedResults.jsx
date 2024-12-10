@@ -36,24 +36,45 @@ const columns = [
 ];
 
 function filterAndSortCuratedMatches(matches) {
+  // expand the matches.
+  const expanded = matches.flatMap((match) => {
+    if (match.itemType === "line_name") {
+      return match.matches.map((m) => ({
+        name: match.name,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        cellType: m.cell_type,
+      }));
+    }
+    if (match.itemType === "cell_type") {
+      return match.matches.map((m) => ({
+        name: m.line,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        cellType: match.name,
+      }));
+    }
+    return [];
+  });
+
   // strip duplicates if cellType and name are the same
-  const deduped = matches.filter(
+  const deduped = expanded.filter(
     (v, i, a) =>
-      a.findIndex((t) => t.cellType === v.cellType && t.name === v.name) ===
-      i,
+      a.findIndex((t) => t.cellType === v.cellType && t.name === v.name) === i,
   );
   // sort by name and then confidence, where confident comes before candidate.
   deduped.sort((a, b) => {
+    if (a.confidence === "Confident" && b.confidence === "Candidate") {
+      return -1;
+    }
+    if (a.confidence === "Candidate" && b.confidence === "Confident") {
+      return 1;
+    }
+
     if (a.name < b.name) {
       return -1;
     }
     if (a.name > b.name) {
-      return 1;
-    }
-    if (a.confidence === "confident" && b.confidence === "candidate") {
-      return -1;
-    }
-    if (a.confidence === "candidate" && b.confidence === "confident") {
       return 1;
     }
     return 0;
@@ -72,12 +93,12 @@ export default function CuratedResults({ searchTerm }) {
         setLoadError(false);
         API.get("SearchAPI", "/curated_matches", {
           queryStringParameters: {
-            search_term: searchTerm,
+            q: searchTerm,
           },
         })
           .then((response) => {
-            if (response.curated_matches.length > 0) {
-              const sorted = filterAndSortCuratedMatches(response.curated_matches);
+            if (response.matches.length > 0) {
+              const sorted = filterAndSortCuratedMatches(response.matches);
               setResults(sorted);
             }
           })
@@ -118,7 +139,7 @@ export default function CuratedResults({ searchTerm }) {
           <a href="mailto:neuronbridge@janelia.hhmi.org">
             neuronbridge@janelia.hhmi.org
           </a>
-          .
+          . Please provide the search term used and any other relevant details.
         </Paragraph>
       </Card>
     );
