@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import publishedNames12288 from "./published_names_12288.json";
-import devPreConfig from "./dev_pre_config.json";
 /*
+import devPreConfig from "./dev_pre_config.json";
 import metadata1537331894 from "./1537331894_metadata.json";
 import LH173metadata from "./LH173_metadata.json";
 import R16F12metadata from "./R16F12_metadata.json";
@@ -27,65 +27,67 @@ export const handlers = [
     },
   ),
 
-  rest.get(
+  /* rest.get(
     "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/config.json",
     (req, res, ctx) => res(ctx.status(200), ctx.json(devPreConfig)),
   ),
   rest.get(
     "https://cmcg8hqwd1.execute-api.us-east-1.amazonaws.com/curated_matches",
     (req, res, ctx) => {
-      console.log(req.url.searchParams.get("q"));
-      return res(
-        ctx.status(200),
-        ctx.json({
-          curated_matches: [
-            {
-              search_term: "MB018B",
-              name: "MB018B",
-              confidence: "candidate",
-              anatomicalRegion: "Brain",
-              cellType: "KCg-d",
-            },
-            {
-              search_term: "MB018B",
-              name: "MB018B",
-              confidence: "candidate",
-              anatomicalRegion: "Brain",
-              cellType: "KCg-m",
-            },
-            {
-              search_term: "KCg-m",
-              name: "MB018B",
-              confidence: "candidate",
-              anatomicalRegion: "Brain",
-              cellType: "KCg-m",
-            },
-            {
-              search_term: "MB018B",
-              name: "MB018B",
-              confidence: "confident",
-              anatomicalRegion: "Brain",
-              cellType: "MBON13",
-            },
-            {
-              search_term: "KCg-F",
-              name: "MB016G",
-              confidence: "candidate",
-              anatomicalRegion: "VNC",
-              cellType: "KCg-F",
-            },
-            {
-              search_term: "MB017C",
-              name: "MB017C",
-              confidence: "confident",
-              anatomicalRegion: "Brain",
-              cellType: "KCg-F",
-            },
-          ],
-        }),
-      );
+      if (req.url.searchParams.get("search_term") === "MB018B") {
+        return res(
+          ctx.status(200),
+          ctx.json({
+            matches: [
+              {
+                search_term: "MB018B",
+                name: "MB018B",
+                confidence: "candidate",
+                anatomicalRegion: "Brain",
+                cellType: "KCg-d",
+              },
+              {
+                search_term: "MB018B",
+                name: "MB018B",
+                confidence: "candidate",
+                anatomicalRegion: "Brain",
+                cellType: "KCg-m",
+              },
+              {
+                search_term: "KCg-m",
+                name: "MB018B",
+                confidence: "candidate",
+                anatomicalRegion: "Brain",
+                cellType: "KCg-m",
+              },
+              {
+                search_term: "MB018B",
+                name: "MB018B",
+                confidence: "confident",
+                anatomicalRegion: "Brain",
+                cellType: "MBON13",
+              },
+              {
+                search_term: "KCg-F",
+                name: "MB016G",
+                confidence: "candidate",
+                anatomicalRegion: "VNC",
+                cellType: "KCg-F",
+              },
+              {
+                search_term: "MB017C",
+                name: "MB017C",
+                confidence: "confident",
+                anatomicalRegion: "Brain",
+                cellType: "KCg-F",
+              },
+            ],
+          }),
+        );
+      }
+      return req.passthrough()
     },
-  ),
+  ), */
   /*
    rest.get(
     "https://janelia-neuronbridge-data-devpre.s3.us-east-1.amazonaws.com/v3_0_0/metadata/by_body/12288.json",
