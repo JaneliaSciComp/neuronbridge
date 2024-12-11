@@ -39,6 +39,8 @@ export default function CuratedResults({ results, loadError }) {
 
   let pagination = {
     position: ['topLeft'],
+    pageSizeOptions: ['5', '10', '15', '20'],
+    defaultPageSize: 5,
     showSizeChanger: true,
     showQuickJumper: true,
     showTotal: (total) => `Total ${total} items`,
