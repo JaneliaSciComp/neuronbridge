@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
-import { Spin, message, Typography } from "antd";
+import { Collapse, Spin, message, Typography } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/pro-solid-svg-icons";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
 import CuratedResults from "./CuratedResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
+import HelpButton from "./Help/HelpButton";
 import { setResultsFullUrlPaths } from "../libs/utils";
 
 const { Title, Paragraph } = Typography;
@@ -24,6 +27,53 @@ function splitOnLastOccurrence(str, substring) {
   return [before, after];
 }
 
+function filterAndSortCuratedMatches(matches) {
+  // expand the matches.
+  const expanded = matches.flatMap((match) => {
+    if (match.itemType === "line_name") {
+      return match.matches.map((m) => ({
+        name: match.name,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        cellType: m.cell_type,
+      }));
+    }
+    if (match.itemType === "cell_type") {
+      return match.matches.map((m) => ({
+        name: m.line,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        cellType: match.name,
+      }));
+    }
+    return [];
+  });
+
+  // strip duplicates if cellType and name are the same
+  const deduped = expanded.filter(
+    (v, i, a) =>
+      a.findIndex((t) => t.cellType === v.cellType && t.name === v.name) === i,
+  );
+  // sort by name and then confidence, where confident comes before candidate.
+  deduped.sort((a, b) => {
+    if (a.confidence === "Confident" && b.confidence === "Candidate") {
+      return -1;
+    }
+    if (a.confidence === "Candidate" && b.confidence === "Confident") {
+      return 1;
+    }
+
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  return deduped;
+}
+
 export default function UnifiedSearch() {
   const query = useQuery();
   const searchTerm = query.get("q") || "";
@@ -35,6 +85,10 @@ export default function UnifiedSearch() {
   const [loadError, setLoadError] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
   const [foundItems, setFoundItems] = useState(0);
+
+  const [curatedResults, setCuratedResults] = useState([]);
+  const [curatedError, setCuratedError] = useState(false);
+
   const { appState } = useContext(AppContext);
 
   // strip out the dataset from the body id if present and run the
@@ -46,6 +100,7 @@ export default function UnifiedSearch() {
     ":",
   );
 
+  // load the computed matches
   useEffect(() => {
     function readMetaData(metaData, combinedResults, setResults) {
       return new Promise((resolve, reject) => {
@@ -262,6 +317,29 @@ export default function UnifiedSearch() {
     searchDataset,
   ]);
 
+  useEffect(() => {
+    if (searchTerm !== "") {
+      setCuratedResults([]);
+      Auth.currentCredentials().then(() => {
+        setCuratedError(false);
+        API.get("SearchAPI", "/curated_matches", {
+          queryStringParameters: {
+            q: searchTerm,
+          },
+        })
+          .then((response) => {
+            if (response.matches.length > 0) {
+              const sorted = filterAndSortCuratedMatches(response.matches);
+              setCuratedResults(sorted);
+            }
+          })
+          .catch((error) => {
+            setCuratedError(error);
+          });
+      });
+    }
+  }, [searchTerm]);
+
   const searchError = (
     <div>
       <Title>System Error</Title>
@@ -277,51 +355,89 @@ export default function UnifiedSearch() {
     </div>
   );
 
+  let computedMatches = null;
+
+  if (loadError) {
+    computedMatches = searchError;
+  } else if (byLineResult && byBodyResult && !lineLoading && !bodyLoading) {
+    computedMatches = (
+      <>
+        <UnifiedSearchResults
+          searchTerm={searchTerm}
+          linesResult={byLineResult}
+          skeletonsResult={byBodyResult}
+        />
+        {foundItems > byBodyResult.results.length ? (
+          <p>
+            <b>
+              There are additional matches for your search term in different
+              datasets. To view them search for &lsquo;
+              <Link to={`/search?q=${searchBodyIdOrName}`}>
+                {searchBodyIdOrName}
+              </Link>
+              &rsquo;
+            </b>
+          </p>
+        ) : (
+          ""
+        )}
+      </>
+    );
+  } else if (lineLoading || (bodyLoading && !loadError)) {
+    computedMatches = (
+      <div>
+        <Spin tip="Loading..." size="large" /> Loading...
+      </div>
+    );
+  }
+
+  const curatedMatches = searchTerm ? (
+    <CuratedResults results={curatedResults} loadError={curatedError} />
+  ) : null;
+
+  const items = [
+    {
+      key: "2",
+      label: "Computed Image Matches",
+      children: computedMatches,
+    },
+  ];
+
+  if (curatedResults.length > 0) {
+    items.unshift({
+      key: "1",
+      label: "Curated Matches",
+      children: curatedMatches,
+      extra: (
+        <HelpButton
+          target="CuratedResults"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        />
+      ),
+    });
+  }
+
   return (
     <div>
       <SearchInput searchTerm={searchTerm} />
-      {!searchTerm ? <NoSearch /> : ""}
-      {searchTerm ? (
-        <>
-          <CuratedResults searchTerm={searchTerm} />
-          <h2 className="antd-card-head-title">Computed Image Matches</h2>
-        </>
+      {!searchTerm ? (
+        <NoSearch />
       ) : (
-        ""
-      )}
-      {(lineLoading || bodyLoading) && !loadError ? (
-        <div>
-          <Spin tip="Loading..." size="large" /> Loading...
+        <div style={{'position':'relative'}}>
+          { curatedResults.length > 0 ? (<FontAwesomeIcon
+            icon={faBookmark}
+            style={{
+              position: "absolute",
+              top: "-3px",
+              left: "5px",
+              color: "#f00",
+              fontSize: "1.5em",
+            }}
+          />): null}
+          <Collapse items={items} defaultActiveKey={["1", "2"]} />
         </div>
-      ) : (
-        ""
-      )}
-      {loadError ? searchError : ""}
-
-      {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
-        <>
-          <UnifiedSearchResults
-            searchTerm={searchTerm}
-            linesResult={byLineResult}
-            skeletonsResult={byBodyResult}
-          />
-          {foundItems > byBodyResult.results.length ? (
-            <p>
-              <b>
-                There are additional matches for your search term in different
-                datasets. To view them search for &lsquo;
-                <Link to={`/search?q=${searchBodyIdOrName}`}>
-                  {searchBodyIdOrName}
-                </Link>
-                &rsquo;
-              </b>
-            </p>
-          ) : (
-            ""
-          )}
-        </>
-      ) : (
-        ""
       )}
     </div>
   );
