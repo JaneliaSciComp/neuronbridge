@@ -37,6 +37,17 @@ export default function CuratedResults({ results, loadError }) {
     return null;
   }
 
+  let pagination = {
+    position: ['topLeft'],
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: (total) => `Total ${total} items`,
+  };
+
+  if (results.length < 6) {
+    pagination = false;
+  } 
+
   if (loadError) {
     return (
       <Card
@@ -59,7 +70,7 @@ export default function CuratedResults({ results, loadError }) {
     );
   }
 
-  return <Table columns={columns} dataSource={results} pagination={false} />;
+  return <Table columns={columns} dataSource={results} pagination={pagination} />;
 }
 
 CuratedResults.propTypes = {
