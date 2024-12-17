@@ -395,13 +395,7 @@ export default function UnifiedSearch() {
     <CuratedResults results={curatedResults} loadError={curatedError} />
   ) : null;
 
-  const items = [
-    {
-      key: "2",
-      label: "Computed Image Matches",
-      children: computedMatches,
-    },
-  ];
+  const items = [];
 
   if (curatedResults.length > 0) {
     items.unshift({
@@ -420,23 +414,29 @@ export default function UnifiedSearch() {
   }
 
   return (
-    <div style={{"margin": "auto", "maxWidth": "1400px"}}>
+    <div style={{ margin: "auto", maxWidth: "1400px" }}>
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm ? (
         <NoSearch />
       ) : (
-        <div style={{'position':'relative'}}>
-          { curatedResults.length > 0 ? (<FontAwesomeIcon
-            icon={faBookmark}
-            style={{
-              position: "absolute",
-              top: "-3px",
-              left: "5px",
-              color: "#f00",
-              fontSize: "1.5em",
-            }}
-          />): null}
-          <Collapse items={items} defaultActiveKey={["1", "2"]} />
+        <div style={{ position: "relative" }}>
+          {curatedResults.length > 0 ? (
+            <FontAwesomeIcon
+              icon={faBookmark}
+              style={{
+                position: "absolute",
+                top: "-3px",
+                left: "5px",
+                color: "#f00",
+                fontSize: "1.5em",
+              }}
+            />
+          ) : null}
+          {curatedResults.length > 0 ? (
+            <Collapse items={items} defaultActiveKey={["1", "2"]} />
+          ) : null}
+          <br />
+          {computedMatches}
         </div>
       )}
     </div>
