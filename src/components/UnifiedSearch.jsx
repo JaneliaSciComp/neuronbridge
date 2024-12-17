@@ -431,7 +431,7 @@ export default function UnifiedSearch() {
   }
 
   return (
-    <div>
+    <div style={{"margin": "auto", "maxWidth": "1400px"}}>
       <SearchInput searchTerm={searchTerm} />
       {!searchTerm ? (
         <NoSearch />
