@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import { Card, Table, Typography } from "antd";
+import { Table, Typography } from "antd";
 import { Link } from "react-router-dom";
-
-import HelpButton from "./Help/HelpButton";
 
 const { Paragraph } = Typography;
 
@@ -52,11 +50,7 @@ export default function CuratedResults({ results, loadError }) {
 
   if (loadError) {
     return (
-      <Card
-        title="Curated Matches"
-        extra={<HelpButton target="CuratedResults" />}
-        style={{ marginBottom: "2em" }}
-      >
+      <>
         <Paragraph type="danger">
           There was a problem retrieving the curated matches.
         </Paragraph>
@@ -68,7 +62,7 @@ export default function CuratedResults({ results, loadError }) {
           </a>
           . Please provide the search term used and any other relevant details.
         </Paragraph>
-      </Card>
+      </>
     );
   }
 
