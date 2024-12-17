@@ -18,11 +18,22 @@ function NeuronTypeOrAnnotation({ attributes }) {
     );
   }
 
-  const neuronTypeAndInstance = `${neuronType || "-"} / ${neuronInstance || "-"}`;
+  const typeLink = neuronType ? (
+    <Link to={`/search?q=${neuronType}`}>{neuronType}</Link>
+  ) : (
+    "-"
+  );
+
+  const instanceLink = neuronInstance ? (
+    <Link to={`/search?q=${neuronInstance}`}>{neuronInstance}</Link>
+  ) : (
+    "-"
+  );
+
   return (
     <p>
       <b>Neuron Type / Instance: </b>
-      <br /> {neuronTypeAndInstance}
+      <br /> {typeLink} / {instanceLink}
     </p>
   );
 }
