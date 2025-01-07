@@ -77,9 +77,9 @@ export default function SearchInput({ searchTerm, examples, uploads, help }) {
           >
             <Search
               placeholder="Search with a line name, neuron ID, or neuron name."
-              enterButton="Search"
+              enterButton="Query"
               onSearch={handleSearch}
-              aria-label="Search"
+              aria-label="Query"
               size="large"
               onPressEnter={e => {
                 if (!dropDownOpen) {
