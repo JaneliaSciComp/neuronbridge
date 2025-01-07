@@ -41,17 +41,16 @@ export default function CuratedResults({ results, loadError }) {
   }
 
   let pagination = {
-    position: ['topLeft'],
-    pageSizeOptions: ['2', '5', '10', '15', '20'],
+    position: ["topLeft"],
+    pageSizeOptions: ["2", "5", "10", "15", "20"],
     defaultPageSize: 2,
     showSizeChanger: true,
-    showQuickJumper: true,
-    showTotal: (total) => `Total ${total} items`,
+    showQuickJumper: true
   };
 
-  if (results.length < 6) {
+  if (results.length < 3) {
     pagination = false;
-  } 
+  }
 
   if (loadError) {
     return (
@@ -71,10 +70,12 @@ export default function CuratedResults({ results, loadError }) {
     );
   }
 
-  return <Table columns={columns} dataSource={results} pagination={pagination} />;
+  return (
+    <Table columns={columns} dataSource={results} pagination={pagination} />
+  );
 }
 
 CuratedResults.propTypes = {
-  results: PropTypes.array.isRequired,
+  results: PropTypes.arrayOf(PropTypes.object).isRequired,
   loadError: PropTypes.bool.isRequired,
 };
