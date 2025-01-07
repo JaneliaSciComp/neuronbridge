@@ -22,6 +22,11 @@ const columns = [
     key: "anatomicalRegion",
   },
   {
+    title: "Source",
+    dataIndex: "source",
+    key: "source",
+  },
+  {
     title: "Cell Type",
     dataIndex: "cellType",
     key: "cellType",
