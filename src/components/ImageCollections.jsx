@@ -22,7 +22,7 @@ export default function ImageCollections() {
 
     function getReferences() {
       setLoading(true);
-      const refsPath = `${appState.dataVersion}/refs.json`;
+      const refsPath = `${appState.dataVersion}/references.json`;
 
       Auth.currentCredentials()
         .then(() => {
@@ -85,9 +85,15 @@ export default function ImageCollections() {
 
         ["emLibraries", "lmLibraries"].forEach((libraryType) => {
           customSearch[libraryType].forEach((library) => {
-            refs.stores[store].customSearch[libraryType][
-              library.name
-            ].releases.forEach((release) => {
+            const libraryTypeCollection =
+              refs.stores[store].customSearch[libraryType];
+            const libraryCollection = libraryTypeCollection.filter(
+              (lib) => lib.name === library.name,
+            )[0];
+            if (!libraryCollection) {
+              return;
+            }
+            libraryCollection.releases.forEach((release) => {
               const [releaseName, releaseData] = Object.entries(release)[0];
               tableData.push({
                 collection: libraryFormatter(library.name),
@@ -140,18 +146,28 @@ export default function ImageCollections() {
       title: "DOIs",
       dataIndex: "dois",
       key: "dois",
-      render: (dois) => (
-        <ul>
-          {dois.map((doi) => {
-            const [id, refName] = Object.entries(doi)[0];
-            return (
-              <li key={id}>
-                <a href={`https://doi.org/${id}`}>{refName}</a>
-              </li>
-            );
-          })}
-        </ul>
-      ),
+      render: (dois) => {
+        // convert dois to list
+        const doisList = [];
+        Object.entries(dois).forEach(([id, refName]) => {
+          doisList.push({ id, refName });
+        });
+
+        doisList.sort((a, b) => a.refName.localeCompare(b.refName));
+
+        return (
+          <ul>
+            {doisList.map((doi) => {
+              const {id, refName} = doi;
+              return (
+                <li key={id}>
+                  <a href={`https://doi.org/${id}`}>{refName}</a>
+                </li>
+              );
+            })}
+          </ul>
+        );
+      },
     },
     {
       title: "Searched Image Count",
