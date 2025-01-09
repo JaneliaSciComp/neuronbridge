@@ -13,6 +13,7 @@ export const createSearch = /* GraphQL */ `
       searchDir
       searchMask
       searchType
+      searchLibrary
       step
       createdOn
       updatedOn
@@ -42,6 +43,7 @@ export const updateSearch = /* GraphQL */ `
       uploadThumbnail
       searchDir
       searchType
+      searchLibrary
       searchMask
       createdOn
       updatedOn
