@@ -27,14 +27,8 @@ const HelpPage = React.lazy(() =>
 const Signup = React.lazy(() =>
   import(/* webpackChunkName: 'signup' */ "./components/Signup")
 );
-const Search = React.lazy(() =>
-  import(/* webpackChunkName: 'search' */ "./components/Search")
-);
 const SearchMatches = React.lazy(() =>
   import(/* webpackChunkName: 'search-matches' */ "./components/SearchMatches")
-);
-const SearchRedirect = React.lazy(() =>
-  import(/* webpackChunkName: 'search-redirect' */ "./components/SearchRedirect")
 );
 const Results = React.lazy(() =>
   import(/* webpackChunkName: 'results' */ "./components/Results")
@@ -113,16 +107,6 @@ export default function Routes({ appProps }) {
         <AuthenticatedRoute
         path="/matches/:algorithm?/:matchId?/:page?"
           component={showMaintenancePage ? Maintenance : SearchMatches}
-          appProps={appProps}
-        />
-        <AuthenticatedRoute
-          path="/search/:searchType?/:searchTerm?/matches/:matchId/:page?"
-          component={showMaintenancePage ? Maintenance : SearchRedirect}
-          appProps={appProps}
-        />
-        <AuthenticatedRoute
-          path="/search/:searchType?/:searchTerm?"
-          component={showMaintenancePage ? Maintenance : Search}
           appProps={appProps}
         />
         <AuthenticatedRoute
