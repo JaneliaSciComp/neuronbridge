@@ -7,7 +7,7 @@ describe("ColorDepthSearchParameters: unit tests", () => {
   it("renders", () => {
     const { getByText } = render(
       <Form>
-        <ColorDepthSearchParameters />
+        <ColorDepthSearchParameters searchMeta={{anatomicalRegion: 'Brain'}} />
       </Form>
     );
     expect(getByText(/Set the search parameters/i));
