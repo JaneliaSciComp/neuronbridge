@@ -12,42 +12,47 @@ export default function ColorDepthSearchParameters({ searchMeta }) {
   const { appState } = useContext(AppContext);
 
   const collections = [];
+  const stores = appState?.dataConfig?.stores;
 
-  Object.values(appState.dataConfig.stores).forEach((store) => {
-    // if the value in the anatomical area does not match to a case
-    // insensitive substring of the store anatomical area, then skip it.
-    if (
-      searchMeta.anatomicalRegion.toLowerCase() !==
-      store.anatomicalArea.toLowerCase()
-    ) {
-      return;
-    }
-    const { lmLibraries, emLibraries } = store.customSearch;
-    lmLibraries.forEach((library) => {
-      collections.push(
-        <Option key={library.name} value={library.name}>
-          {library.name.replace(/_/g,' ')} ({library.count})
-        </Option>,
-      );
+  if (stores) {
+    Object.values(appState?.dataConfig?.stores).forEach((store) => {
+      // if the value in the anatomical area does not match to a case
+      // insensitive substring of the store anatomical area, then skip it.
+      if (
+        searchMeta.anatomicalRegion.toLowerCase() !==
+        store.anatomicalArea.toLowerCase()
+      ) {
+        return;
+      }
+      const { lmLibraries, emLibraries } = store.customSearch;
+      lmLibraries.forEach((library) => {
+        collections.push(
+          <Option key={library.name} value={library.name}>
+            {library.name.replace(/_/g, " ")} ({library.count})
+          </Option>,
+        );
+      });
+      emLibraries.forEach((library) => {
+        collections.push(
+          <Option key={library.name} value={library.name}>
+            {library.name.replace(/_/g, " ")} ({library.count})
+          </Option>,
+        );
+      });
     });
-    emLibraries.forEach((library) => {
-      collections.push(
-        <Option key={library.name} value={library.name}>
-          {library.name.replace(/_/g, ' ')} ({library.count})
-        </Option>,
-      );
-    });
-  });
+  }
 
   return (
     <div>
       <Title level={3}>Set the search parameters</Title>
       <Form.Item
         label="Target Image Collection"
-        name="searchType"
-        rules={[{ required: true, message: "Please choose a search type!" }]}
+        name="searchLibrary"
+        rules={[{ required: true, message: "Please choose a target image collection" }]}
       >
-        <Select>{collections}</Select>
+        <Select mode="multiple" allowClear>
+          {collections}
+        </Select>
       </Form.Item>
       <Form.Item
         extra="Values between 0 - 255. Intensity values in the mask image which are below this cutoff are ignored."

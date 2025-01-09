@@ -18,6 +18,7 @@ export const getSearch = /* GraphQL */ `
       anatomicalRegion
       algorithm
       searchType
+      searchLibrary
       displayableMask
       uploadThumbnail
       nTotalMatches
@@ -62,6 +63,7 @@ export const listSearches = /* GraphQL */ `
         displayableMask
         nTotalMatches
         searchType
+        searchLibrary
         uploadThumbnail
         updatedOn
         createdOn
@@ -100,6 +102,7 @@ export const listItemsByOwner = `
         displayableMask
         nTotalMatches
         searchType
+        searchLibrary
         uploadThumbnail
         updatedOn
         createdOn
