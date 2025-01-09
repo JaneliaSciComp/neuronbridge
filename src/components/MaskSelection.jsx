@@ -127,6 +127,14 @@ export default function MaskSelection({ match }) {
             // redirect back to search progress page.
             setSubmitting(false);
             history.push("/upload");
+          }).catch((error) => {
+            message.error({
+              duration: 0,
+              content: error.message,
+              key: "searchsubmiterror",
+              onClick: () => message.destroy("searchsubmiterror"),
+            });
+            setSubmitting(false);
           });
         });
       })
