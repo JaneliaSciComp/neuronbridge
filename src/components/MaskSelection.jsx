@@ -135,6 +135,7 @@ export default function MaskSelection({ match }) {
               onClick: () => message.destroy("searchsubmiterror"),
             });
             setSubmitting(false);
+            history.push("/upload");
           });
         });
       })
