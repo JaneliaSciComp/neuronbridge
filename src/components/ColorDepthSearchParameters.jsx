@@ -73,6 +73,7 @@ export default function ColorDepthSearchParameters({ searchMeta }) {
       >
         <Select>
           <Option value="1">1</Option>
+          <Option value="2">2</Option>
           <Option value="3">3</Option>
           <Option value="5">5</Option>
         </Select>
