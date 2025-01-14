@@ -33,7 +33,7 @@ const genderOptions = [
 ];
 
 export default function FilterMenu({
-  matchesType,
+  showLineNameFilter = false,
   searchAlgorithm,
   countsByLibrary,
   useGenderFilter,
@@ -115,6 +115,9 @@ export default function FilterMenu({
     )
   );
 
+  // TODO: if any of the matches are lm maches, show the results per line
+  // input box.
+
   return (
     <div>
       <Row>
@@ -122,7 +125,7 @@ export default function FilterMenu({
           <Divider orientation="left">Results Filters</Divider>
           <Row>
             <Col xs={24} md={6}>
-              {matchesType === "lm" && (
+              {showLineNameFilter ? (
                 <div>
                   <p>Results per line</p>
                   <InputNumber
@@ -133,7 +136,7 @@ export default function FilterMenu({
                     onChange={handleResultsPerLine}
                   />
                 </div>
-              )}
+              ) : ""}
             </Col>
             <Col xs={24} md={12}>
               <p>Show results from libraries:</p>
@@ -189,12 +192,8 @@ export default function FilterMenu({
 }
 
 FilterMenu.propTypes = {
-  matchesType: PropTypes.string,
+  showLineNameFilter: PropTypes.bool,
   searchAlgorithm: PropTypes.string.isRequired,
   countsByLibrary: PropTypes.object.isRequired,
   useGenderFilter: PropTypes.bool.isRequired,
-};
-
-FilterMenu.defaultProps = {
-  matchesType: "em",
 };
