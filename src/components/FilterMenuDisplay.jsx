@@ -4,7 +4,7 @@ import FilterMenu from "./FilterMenu";
 import { AppContext } from "../containers/AppContext";
 
 export default function FilterMenuDisplay({
-  matchesType,
+  showLineNameFilter=false,
   searchAlgorithm,
   countsByLibrary,
   useGenderFilter,
@@ -17,7 +17,7 @@ export default function FilterMenuDisplay({
   return (
     <FilterMenu
       searchAlgorithm={searchAlgorithm}
-      matchesType={matchesType}
+      showLineNameFilter={showLineNameFilter}
       countsByLibrary={countsByLibrary}
       useGenderFilter={useGenderFilter}
     />
@@ -25,7 +25,7 @@ export default function FilterMenuDisplay({
 }
 
 FilterMenuDisplay.propTypes = {
-  matchesType: PropTypes.string.isRequired,
+  showLineNameFilter: PropTypes.bool,
   countsByLibrary: PropTypes.object.isRequired,
   useGenderFilter: PropTypes.bool.isRequired,
   searchAlgorithm: PropTypes.string.isRequired,

@@ -1,6 +1,5 @@
 extends:
     - "react-app"
-    - "airbnb"
     - "prettier"
 env:
     browser: true

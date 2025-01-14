@@ -35,6 +35,25 @@ function correctPPPRank(matches) {
   return { ...matches, results: fixed };
 }
 
+// determine if the matches are EM images or LM images or "mixed".
+function determineMatchesType(matches) {
+  const hasEM = matches.some(item => item.image.type === "EMImage");
+  const hasLM = matches.some(item => item.image.type === "LMImage");
+
+  if (hasEM && hasLM) {
+    return "mixed";
+  }
+  if (hasEM) {
+    return "em";
+  }
+  if (hasLM) {
+    return "lm";
+  }
+  return "mixed";
+}
+
+
+
 export default function Matches({ input, searchAlgorithm, matches, precomputed }) {
   const query = useQuery();
   const location = useLocation();
@@ -56,11 +75,12 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
   const isPPP = searchAlgorithm === "pppm";
 
-  // determine if the matches are EM images or LM images. We don't
-  // currently have a search where both types of images can be matched,
-  // so it is safe to assume that if we check the first result and it
-  // is an EM image, then they are all EM images, etc.
-  const matchesType = matches?.results?.find(result => result.image)?.image?.type === "EMImage" ? "em" : "lm";
+  const matchesType = determineMatchesType(matches.results);
+
+  // determine if the line name filter should be shown by checking if any
+  // of the results are an LM image. If they are, then the line name filter
+  // should be shown.
+  const showLineNameFilter = matches?.results?.some(result => result.image.type === "LMImage");
 
   // redirect and remove page selection if it is going to show a
   // blank page, because the results list is not long enough.
@@ -169,7 +189,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
     //     {...}
     //   ]
     //
-    if (matchesType === "lm") {
+    if (matchesType === "lm" || matchesType === "mixed") {
       const byLines = {};
       modifiedMatches.results.forEach((result) => {
         const { publishedName, libraryName } = result.image;
@@ -308,13 +328,21 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
   const resultsFile = isPPP ? input?.files?.PPPMResults : input?.files?.CDSResults;
   const searchId = precomputed ? resultsFile : input.id;
 
+  let matchTitle = "LM/EM Matches";
+  if (matchesType === "lm") {
+    matchTitle = "LM Matches";
+  } else if (matchesType === "em") {
+    matchTitle = "EM Matches";
+  }
+
+
   return (
     <div>
       <ScrollToTopOnMount/>
       <Row style={{ paddingBottom: "1em", marginTop: "2em" }}>
         <Col xs={{ span: 12, order: 1 }} sm={{ span: 4, order: 1 }}>
           <h3>
-            {matchesType === "lm" ? "LM" : "EM"} Matches{" "}
+            {matchTitle}{" "}
             <HelpButton
               target={
                 matchesType !== "lm" ? "MatchesLMtoEM" : "MatchesEMtoLM"
@@ -366,7 +394,7 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
 
       <FilterMenuDisplay
         searchAlgorithm={searchAlgorithm}
-        matchesType={matchesType}
+        showLineNameFilter={showLineNameFilter}
         countsByLibrary={countsByLibrary}
         useGenderFilter={useGenderFilter}
       />
@@ -386,7 +414,6 @@ export default function Matches({ input, searchAlgorithm, matches, precomputed }
       />
 
       <MatchModal
-        isLM={matchesType === "lm"}
         searchAlgorithm={searchAlgorithm}
         open={parseInt(query.get("m") || 0, 10)}
         setOpen={setModalOpen}
