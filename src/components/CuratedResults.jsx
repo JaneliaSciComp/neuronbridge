@@ -27,7 +27,7 @@ const columns = [
     key: "source",
   },
   {
-    title: "Cell Type",
+    title: "Cell Type / Neuron ID",
     dataIndex: "cellType",
     key: "cellType",
     render: (cellType) => <Link to={`/search?q=${cellType}`}>{cellType}</Link>,
