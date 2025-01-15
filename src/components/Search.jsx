@@ -24,14 +24,14 @@ function Search() {
       if (!searchTerm) {
         return;
       }
-      if (searchTerm.length < 3) {
+      if (searchTerm.length < 2) {
         message.error({
           duration: 0,
-          content: "Searches must have a minimum of 3 characters.",
+          content: "Searches must have a minimum of 2 characters.",
           key: "searchminimum",
           onClick: () => message.destroy("searchminimum"),
         });
-        setResults({ error: "Searches must have a minimum of 3 characters." });
+        setResults({ error: "Searches must have a minimum of 2 characters." });
         return;
       }
       if (searchTerm.match(/\*(\*|\.)\*/)) {
