@@ -156,24 +156,25 @@ export default function UnifiedSearch() {
 
       // don't let people search with strings shorter than 3 characters.
       // This returns too many results.
-      if (searchTerm.length < 3) {
+      if (searchTerm.length < 2) {
         message.error({
           duration: 0,
-          content: "Searches must have a minimum of 3 characters.",
+          content: "Searches must have a minimum of 2 characters.",
           key: "searchminimum",
           onClick: () => message.destroy("searchminimum"),
         });
 
         setByLineResults({
-          error: "Searches must have a minimum of 3 characters.",
+          error: "Searches must have a minimum of 2 characters.",
           results: [],
         });
         setByBodyResults({
-          error: "Searches must have a minimum of 3 characters.",
+          error: "Searches must have a minimum of 2 characters.",
           results: [],
         });
         return;
       }
+
       if (searchTerm.match(/\*(\*|\.)\*/)) {
         message.error({
           duration: 0,
@@ -327,7 +328,17 @@ export default function UnifiedSearch() {
               setBodyLoading(false);
             });
           })
-          .catch((e) => setLoadError(e));
+          .catch((e) => {
+            message.error({
+              duration: 0,
+              content: e?.response?.data?.error || "There was a problem contacting the search service.",
+              key: "curated_error",
+              onClick: () => message.destroy("curated_error"),
+            });
+
+
+            setLoadError(true);
+          });
       });
     }
   }, [
@@ -357,6 +368,13 @@ export default function UnifiedSearch() {
           })
           .catch((error) => {
             setCuratedError(error);
+            message.error({
+              duration: 0,
+              content: error?.response?.data?.error || "There was a problem contacting the search service.",
+              key: "curated_error",
+              onClick: () => message.destroy("curated_error"),
+            });
+
           });
       });
     }
