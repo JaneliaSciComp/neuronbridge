@@ -31,12 +31,16 @@ function filterAndSortCuratedMatches(matches) {
   // expand the matches.
   const expanded = matches.flatMap((match) => {
     if (match.itemType === "line_name") {
-      return match.matches.map((m) => ({
-        name: match.name,
-        confidence: m.annotation,
-        anatomicalRegion: m.region,
-        cellType: m.cell_type,
-      }));
+      return match.matches.map((m) => {
+        const cellType = m.cell_type || `${m.dataset}:${m.body_id}`;
+        return {
+          name: match.name,
+          confidence: m.annotation,
+          anatomicalRegion: m.region,
+          cellType,
+          source: m.annotator,
+        };
+      });
     }
     if (match.itemType === "cell_type") {
       return match.matches.map((m) => ({
@@ -44,15 +48,33 @@ function filterAndSortCuratedMatches(matches) {
         confidence: m.annotation,
         anatomicalRegion: m.region,
         cellType: match.name,
+        source: m.annotator,
+      }));
+    }
+    if (match.itemType === "body_id") {
+      return match.matches.map((m) => ({
+        name: m.line,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        cellType:`${m.dataset}:${match.name}`,
+        source: m.annotator,
       }));
     }
     return [];
   });
 
-  // strip duplicates if cellType and name are the same
+  // strip duplicates if deep comparison is the same.
   const deduped = expanded.filter(
-    (v, i, a) =>
-      a.findIndex((t) => t.cellType === v.cellType && t.name === v.name) === i,
+    (value, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.name === value.name &&
+          t.confidence === value.confidence &&
+          t.anatomicalRegion === value.anatomicalRegion &&
+          t.cellType === value.cellType &&
+          t.source === value.source,
+      ),
   );
   // sort by name and then confidence, where confident comes before candidate.
   deduped.sort((a, b) => {
