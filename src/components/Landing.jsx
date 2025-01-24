@@ -61,7 +61,7 @@ function Landing(props) {
             {isAuthenticated && (
               <Paragraph>
                 Begin your search above if you already know your neuron ID or
-                driver line name, or start by browsing the included data collections:
+                driver line name, or start by browsing the included <Link to="/collections">data collections</Link>:
               </Paragraph>
             )}
 
