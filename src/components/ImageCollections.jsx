@@ -123,7 +123,7 @@ export default function ImageCollections() {
         }),
     },
     {
-      title: "Annatomical Area",
+      title: "Anatomical Area",
       dataIndex: "area",
       key: "area",
       sorter: (a, b) =>
