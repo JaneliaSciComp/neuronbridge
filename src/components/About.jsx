@@ -62,7 +62,7 @@ export default function About() {
         </Col>
 
         <Col sm={10}>
-          <Title level={2}>Image Colletions</Title>
+          <Title level={2}>Image Collections</Title>
           <Paragraph>Please see the <Link to="/collections">Image Collections</Link> page for a list of all the image collections available in NeuronBridge.
           </Paragraph>
           <Title level={2}>Usage Agreements</Title>
