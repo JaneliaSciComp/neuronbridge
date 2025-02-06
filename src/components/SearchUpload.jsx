@@ -39,7 +39,10 @@ function uploadToS3(upload, handleUpload) {
         handleUpload(upload);
         upload.onSuccess(result);
       })
-      .catch((e) => upload.onError(e));
+      .catch((e) => {
+        console.error(e)
+        upload.onError(e)
+      });
   });
 }
 
