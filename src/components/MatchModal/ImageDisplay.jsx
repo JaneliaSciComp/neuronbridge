@@ -35,6 +35,10 @@ function ImageDisplay(props) {
     ? { maxWidth: imageDimensions.vertical[1] }
     : null;
 
+  /* always set the mirrored prop to false if src is not available, so that
+     the message text is displayed correctly */
+  const isMirrored = src ? mirrored : false;
+
   return (
     <Row className="imageComparison" style={widthRestrict}>
       <MousePosition
@@ -45,7 +49,7 @@ function ImageDisplay(props) {
       <ImagePlaceholder
         src={imageUrl}
         alt={alt}
-        mirrored={mirrored}
+        mirrored={isMirrored}
         imageDimensions={
           vertical ? imageDimensions.vertical : imageDimensions.horizontal
         }
