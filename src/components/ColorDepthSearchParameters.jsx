@@ -47,7 +47,7 @@ export default function ColorDepthSearchParameters({ searchMeta }) {
       <Title level={3}>Set the search parameters</Title>
       <Form.Item
         label="Target Image Collection"
-        name="searchLibrary"
+        name="selectedLibraries"
         rules={[{ required: true, message: "Please choose a target image collection" }]}
       >
         <Select mode="multiple" allowClear>

@@ -14,7 +14,7 @@ export const onCreateSearch = /* GraphQL */ `
       searchDir
       searchMask
       searchType
-      searchLibrary
+      selectedLibraries
       errorMessage
       displayableMask
       nTotalMatches
@@ -47,7 +47,7 @@ export const onUpdateSearch = /* GraphQL */ `
       identityId
       searchDir
       searchType
-      searchLibrary
+      selectedLibraries
       searchMask
 			cdsStarted
 			cdsFinished
