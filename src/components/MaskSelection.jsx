@@ -199,7 +199,7 @@ export default function MaskSelection({ match }) {
           wrapperCol={{ span: 16 }}
           name="basic"
           initialValues={{
-            searchLibrary: searchMeta.searchType || "FlyLight_Gen1_MCFO",
+            selectedLibraries: searchMeta.searchType || "FlyLight_Gen1_MCFO",
             dataThreshold: searchMeta.dataThreshold || 100,
             maskThreshold: searchMeta.maskThreshold || 100,
             xyShift: searchMeta.xyShift || 0,

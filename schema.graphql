@@ -50,7 +50,7 @@ type Search @aws_cognito_user_pools @aws_iam {
   searchDir: String!
   searchMask: String
   searchType: SearchType
-  searchLibrary: [String]
+  selectedLibraries: [String]
   simulateMIPGeneration: Boolean
   #  step specifies the search phase:
   #    0 image uploaded
@@ -108,7 +108,7 @@ input CreateSearchInput {
   searchDir: String!
   searchMask: String
   searchType: SearchType
-  searchLibrary: [String]
+  selectedLibraries: [String]
   simulateMIPGeneration: Boolean
   step: Int!
   upload: String!
@@ -230,7 +230,7 @@ input UpdateSearchInput {
   pixColorFluctuation: Float
   searchMask: String
   searchType: SearchType
-  searchLibrary: [String]
+  selectedLibraries: [String]
   step: Int
   uploadThumbnail: String
   xyShift: Int
