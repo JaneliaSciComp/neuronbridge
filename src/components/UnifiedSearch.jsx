@@ -37,7 +37,8 @@ function filterAndSortCuratedMatches(matches) {
           name: match.name,
           confidence: m.annotation,
           anatomicalRegion: m.region,
-          cellType,
+          matched: cellType,
+          type: "line_name",
           source: m.annotator,
         };
       });
@@ -47,7 +48,8 @@ function filterAndSortCuratedMatches(matches) {
         name: m.line,
         confidence: m.annotation,
         anatomicalRegion: m.region,
-        cellType: match.name,
+        matched: match.name,
+        type: "cell_type",
         source: m.annotator,
       }));
     }
@@ -56,7 +58,8 @@ function filterAndSortCuratedMatches(matches) {
         name: m.line,
         confidence: m.annotation,
         anatomicalRegion: m.region,
-        cellType:`${m.dataset}:${match.name}`,
+        matched:`${m.dataset}:${match.name}`,
+        type: "body_id",
         source: m.annotator,
       }));
     }
