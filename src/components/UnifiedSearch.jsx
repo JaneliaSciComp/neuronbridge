@@ -32,13 +32,15 @@ function filterAndSortCuratedMatches(matches) {
   const expanded = matches.flatMap((match) => {
     if (match.itemType === "line_name") {
       return match.matches.map((m) => {
-        const cellType = m.cell_type || `${m.dataset}:${m.body_id}`;
+        const matched = m.cell_type || `${m.dataset}:${m.body_id}`;
+        const addWildard = m.cell_type ? "*" : "";
         return {
           name: match.name,
           confidence: m.annotation,
           anatomicalRegion: m.region,
-          matched: cellType,
+          matched,
           type: "line_name",
+          addWildard,
           source: m.annotator,
         };
       });
@@ -50,6 +52,7 @@ function filterAndSortCuratedMatches(matches) {
         anatomicalRegion: m.region,
         matched: match.name,
         type: "cell_type",
+        addWildard: "*",
         source: m.annotator,
       }));
     }
@@ -60,6 +63,7 @@ function filterAndSortCuratedMatches(matches) {
         anatomicalRegion: m.region,
         matched:`${m.dataset}:${match.name}`,
         type: "body_id",
+        addWildard: "",
         source: m.annotator,
       }));
     }
