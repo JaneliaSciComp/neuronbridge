@@ -30,14 +30,9 @@ const columns = [
     title: "Cell Type / Neuron ID",
     dataIndex: "matched",
     key: "matched",
-    render: (matched, row) => {
-      // if the match is a cell type, then we add a wildcard to the search
-      // to get all the sub cell types.
-      if (row.type === 'cell_type') {
-        return <Link to={`/search?q=${matched}*`}>{matched}</Link>;
-      }
-      return <Link to={`/search?q=${matched}`}>{matched}</Link>;
-    }
+    // if the match is a cell type, then we add a wildcard to the search
+    // to get all the sub cell types.
+    render: (matched, row) => <Link to={`/search?q=${matched}${row.addWildard}`}>{matched}</Link>,
   },
 ];
 
