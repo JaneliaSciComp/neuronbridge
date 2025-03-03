@@ -214,6 +214,8 @@ export default function UnifiedSearch() {
 
       Auth.currentCredentials().then(() => {
         setLoadError(false);
+
+
         API.get("SearchAPI", "/published_names", {
           queryStringParameters: { q: searchBodyIdOrName },
         })
@@ -221,6 +223,8 @@ export default function UnifiedSearch() {
             const lineCombined = { results: [] };
             const bodyCombined = { results: [] };
             const publishedNames = new Set();
+
+            const seenIds = new Set();
 
             const allItems = items.names
               .sort((a, b) => {
@@ -267,7 +271,14 @@ export default function UnifiedSearch() {
                 ) {
                   return match.bodyIDs.map((body) => {
                     publishedNames.add(body);
-                    const bodyID = body.split(":").at(-1);
+                    const [bodyID] = Object.entries(body)[0];
+                    // skip if we have already seen this bodyID in one of the other
+                    // matches. This happens when we use wildcard searches that return
+                    // results for both the neuron type and the neuron instance. eg: LHPD2c7*
+                    if (seenIds.has(bodyID)) {
+                      return Promise.resolve();
+                    }
+                    seenIds.add(bodyID);
                     const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                     return Storage.get(byBodyUrl, storageOptions)
                       .then((metaData) =>
@@ -291,6 +302,10 @@ export default function UnifiedSearch() {
 
             // once all the items have loaded, we can clean up.
             allPromisses.then(() => {
+              // Set the foundItems count to the total number of items found
+              // in the search results. This is used to determine if we need to
+              // show the 'additional matches' message.
+              setFoundItems(bodyCombined.results.length);
               // remove duplicates from the combined results. This can happen if we are
               // loading data from a partial neurontype string, eg: WED01
               if (bodyCombined.results.length > 0) {
@@ -319,13 +334,14 @@ export default function UnifiedSearch() {
                   !searchDataset.includes(":")
                 ) {
                   bodyCombined.results = bodyCombined.results.filter((item) => {
-                    const [dataset, version, bodyid] =
-                      item.publishedName.split(":");
+                    const [dataset, , bodyid] = item.publishedName.split(":");
                     const noVersion = `${dataset}:${bodyid}`;
                     return noVersion.match(searchRegex);
                   });
                   // filter out items that don't match the original searchTerm if a
-                  // dataset and version was used.
+                  // dataset and version was used. For example, if the search term
+                  // was 'manc:v1.2.1:12191' then we want to filter out any results
+                  // that don't match the full search term, such as 'manc:v1.0:12191'
                 } else if (searchDataset && searchDataset.length > 0) {
                   bodyCombined.results = bodyCombined.results.filter((item) =>
                     item.publishedName.match(searchRegex),
