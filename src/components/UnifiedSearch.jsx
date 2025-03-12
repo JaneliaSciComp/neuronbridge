@@ -461,7 +461,7 @@ export default function UnifiedSearch() {
   if (curatedResults.length > 0) {
     items.unshift({
       key: "1",
-      label: `Curated Matches of Split-GAL4 Lines to Cell Types (${curatedResults.length} items)`,
+      label: <p>Curated Matches of Split-GAL4 Lines to Cell Types <b>({curatedResults.length} items)</b></p>,
       children: curatedMatches,
       extra: (
         <HelpButton
