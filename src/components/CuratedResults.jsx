@@ -43,7 +43,7 @@ export default function CuratedResults({ results, loadError }) {
   }
 
   let pagination = {
-    position: ["topLeft"],
+    position: ["bottomLeft"],
     pageSizeOptions: ["2", "5", "10", "15", "20"],
     defaultPageSize: 2,
     showSizeChanger: true,
