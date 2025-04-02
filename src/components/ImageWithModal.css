@@ -11,6 +11,10 @@ button.modalButton {
   height: inherit;
 }
 
+button.modalZoom {
+  cursor: zoom-in;
+}
+
 button.modalButton:hover {
   background-color: transparent;
 }

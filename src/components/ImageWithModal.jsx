@@ -51,7 +51,7 @@ export default function ImageWithModal(props) {
 
   return (
     <>
-      <Button className="modalButton" onClick={() => setModalOpen(true)}>
+      <Button className="modalButton modalZoom" onClick={() => setModalOpen(true)}>
         <ImagePlaceholder
           src={signedThumbnailSrc}
           alt={title}
