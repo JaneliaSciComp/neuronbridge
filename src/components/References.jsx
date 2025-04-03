@@ -188,7 +188,7 @@ export default function References() {
 
       <dt>Raw (uncurated) Split-GAL4 Lines</dt>
       <dd>
-        <a href="https://doi.org/10.1101/2024.01.09.574419" target="_blank" rel="noopener noreferrer">Meissner et al., 2024 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
+        <a href="https://doi.org/10.7554/elife.98405.3" target="_blank" rel="noopener noreferrer">Meissner et al., 2025 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
       </dd>
 
       <dt>FlyWire</dt>
