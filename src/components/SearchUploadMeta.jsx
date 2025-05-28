@@ -132,7 +132,7 @@ export default function SearchUploadMeta({
                   deleteSearch({ id: result.data.createSearch.id });
                   message.error({
                     duration: 0,
-                    content: "There was a problem contacting the search service. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
+                    content: "There was a problem creating a default channel. Please wait and try again. If the problem persists, please contact us via the link at the bottom of the page.",
                     key: "searchgenericerror",
                     onClick: () => message.destroy("searchgenericerror"),
                   });
