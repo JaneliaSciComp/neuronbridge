@@ -168,6 +168,21 @@ export default function References() {
       <dd>
         <a href='https://doi.org/10.1101/2024.01.09.574419'>Meissner et al., 2024</a>
       </dd>
+      <dd>
+        <a href='https://doi.org/10.1038/s41586-024-08255-6'>Schretter et al., 2024</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1038/s41586-024-07222-5'>Gorko et al., 2024</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2024.04.16.589741'>Nern et al., 2024</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2024.10.21.619448'>Wolff et al., 2024</a>
+      </dd>
+      <dd>
+        <a href='https://doi.org/10.1101/2025.02.22.639679'>Zung et al., 2025</a>
+      </dd>
 
       <dt>Raw (uncurated) Split-GAL4 Lines</dt>
       <dd>
