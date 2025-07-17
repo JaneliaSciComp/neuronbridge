@@ -77,7 +77,7 @@ export default function ImageCollections() {
 
   const tableData = [];
 
-  if (appState.dataConfig.stores) {
+  if (appState.dataConfig.stores && refs) {
     Object.keys(appState.dataConfig.stores).forEach((store) => {
       const storeData = appState.dataConfig.stores[store];
       if (storeData.customSearch) {
