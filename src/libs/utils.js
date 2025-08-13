@@ -8,6 +8,18 @@ export function alt() {
   return true;
 }
 
+export function libraryFormatter(library) {
+  if (!library) {
+    return '';
+  }
+  return library
+    .replace(/_/g, " ")
+    .replace(/split-?gal4/i, "Split-GAL4")
+    .replace(/flylight/i, "FlyLight")
+    .replace(/flyem/i, "FlyEM")
+    .replace(/\bmcfo\b/i, "MCFO");
+}
+
 // new function,
 // expects an object with a files key,
 // takes that object and replaces all the urls in the files object
