@@ -155,7 +155,14 @@ export default function ImageCollections() {
           doisList.push({ id, refName });
         });
 
-        doisList.sort((a, b) => a.refName.localeCompare(b.refName));
+        // Sort DOIs by publication year (newest first)
+        // Extract the 4-digit year from the end of each reference name
+        doisList.sort((a, b) => {
+          const yearA = parseInt(a.refName.slice(-4), 10);
+          const yearB = parseInt(b.refName.slice(-4), 10);
+          // Sort in descending order (yearB - yearA)
+          return yearB - yearA;
+        });
 
         return doisList.map((doi, index) => {
           const { id, refName } = doi;
