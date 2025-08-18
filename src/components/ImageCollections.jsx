@@ -95,13 +95,15 @@ export default function ImageCollections() {
             }
             libraryCollection.releases.forEach((release) => {
               const [releaseName, releaseData] = Object.entries(release)[0];
-              tableData.push({
-                collection: libraryFormatter(library.name),
-                area: storeData.anatomicalArea,
-                count: releaseData.count,
-                release: releaseName,
-                dois: releaseData.dois,
-              });
+              if (releaseData.count > 0) {
+                tableData.push({
+                  collection: libraryFormatter(library.name),
+                  area: storeData.anatomicalArea,
+                  count: releaseData.count,
+                  release: releaseName,
+                  dois: releaseData.dois,
+                });
+              }
             });
           });
         });
