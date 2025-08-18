@@ -158,7 +158,7 @@ export default function ImageCollections() {
         return (
           <ul>
             {doisList.map((doi) => {
-              const {id, refName} = doi;
+              const { id, refName } = doi;
               return (
                 <li key={id}>
                   <a href={`https://doi.org/${id}`}>{refName}</a>
@@ -183,7 +183,8 @@ export default function ImageCollections() {
     <div>
       <Title>Image Collections</Title>
       <Paragraph>
-        Each image collection is a set of images grouped together based on one
+        NeuronBridge provides curated image collections with precomputed matches
+        and tools for custom search. Each collection groups images linked to one
         or more publications.
       </Paragraph>
       <Table
