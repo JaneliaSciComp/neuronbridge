@@ -143,7 +143,11 @@ export default function Routes({ appProps }) {
         <Route path="/upload-policy" component={UploadPolicy} />
         <Route path="/help" component={HelpPage} />
         <Route path="/announcements" component={AnnouncementsArchive} />
-        <Route path="/collections" component={ImageCollections} />
+        <AuthenticatedRoute
+          path="/collections"
+          component={showMaintenancePage ? Maintenance : ImageCollections}
+          appProps={appProps}
+        />
         {/* Finally, catch all unmatched routes */}
         <Route component={NotFound} />
       </Switch>

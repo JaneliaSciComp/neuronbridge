@@ -170,6 +170,8 @@ export default function App() {
     // clasName: logo
     {key: "/", label: <Link to="/">Home</Link>},
 
+    isAuthenticated ? {key: "/collections", label: <Link to="/collections">Data</Link>} : null,
+
     isAuthenticated ? {key: "/upload", label: <Link to="/upload">Upload</Link> } : null,
 
     {key: "/about", label: <Link to="/about">About</Link>},
