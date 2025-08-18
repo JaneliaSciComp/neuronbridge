@@ -170,7 +170,7 @@ export default function ImageCollections() {
       },
     },
     {
-      title: "Searched Image Count",
+      title: "Searchable Image Count",
       dataIndex: "count",
       key: "count",
       render: (count) => count.toLocaleString(),
