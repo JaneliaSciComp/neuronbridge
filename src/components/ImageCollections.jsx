@@ -155,18 +155,15 @@ export default function ImageCollections() {
 
         doisList.sort((a, b) => a.refName.localeCompare(b.refName));
 
-        return (
-          <ul>
-            {doisList.map((doi) => {
-              const { id, refName } = doi;
-              return (
-                <li key={id}>
-                  <a href={`https://doi.org/${id}`}>{refName}</a>
-                </li>
-              );
-            })}
-          </ul>
-        );
+        return doisList.map((doi, index) => {
+          const { id, refName } = doi;
+          return (
+            <span key={id}>
+              <a href={`https://doi.org/${id}`}>{refName}</a>
+              {index < doisList.length - 1 ? ', ' : ''}
+            </span>
+          );
+        });
       },
     },
     {
