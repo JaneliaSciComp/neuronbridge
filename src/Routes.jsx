@@ -72,7 +72,7 @@ export default function Routes({ appProps }) {
     config.UNDER_MAINTENANCE && !appProps.isAdmin
   );
   return (
-    <Suspense fallback={<div><Spin tip="loading..." size="large" />Loading...</div>}>
+    <Suspense fallback={<div><Spin size="large" />Loading...</div>}>
       <Switch>
         <Route path="/" exact>
           <Landing isAuthenticated={appProps.isAuthenticated} />

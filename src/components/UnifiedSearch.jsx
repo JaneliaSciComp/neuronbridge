@@ -277,7 +277,7 @@ export default function UnifiedSearch() {
       {!searchTerm ? <NoSearch /> : ""}
       {(lineLoading || bodyLoading) && !loadError ? (
         <div>
-          <Spin tip="Loading..." size="large" /> Loading...
+          <Spin size="large" /> Loading...
         </div>) : ""}
       {loadError ? searchError : ""}
       {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
