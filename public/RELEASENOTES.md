@@ -1,3 +1,32 @@
+## VERSION 3.3.1 - 2024-09-22
+
+### Major Features
+
+  - New Image Collections Page: Added comprehensive list of image collections with DOI references and publication metadata
+
+  [View Image Collections](https://neuronbridge.janelia.org/collections)
+  - Enhanced Custom Search Capabilities:
+    - Added Target Image Collection selection.
+      - Selection of a collection or multiple collections to search against allows for more targeted searches.
+
+### UI/UX Improvements
+
+  - Added zoom icons to images that show larger image modal
+  - Added spinners to all loading placeholders
+  - Improved Safari image aspect ratio rendering
+
+### Bug Fixes & Improvements
+
+  - Publications are now sorted by publication date instead of author name
+  - Enhanced MaskSelection component with better error handling and redirect functionality
+  - Added '2' to Z Slice Range options of the custom search form.
+
+### External Integrations
+
+  - Added VFB (Virtual Fly Brain) links for flywire_fafb neurons
+  - Updated external links for Omnibus Broad
+
+
 ## VERSION 3.2.0 - 2024-06-05
 
 ### Bug fixes
