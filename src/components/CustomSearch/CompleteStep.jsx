@@ -6,24 +6,26 @@ import StepTitle from "./StepTitle";
 
 const { Text } = Typography;
 
-export default function CompleteStep({ state, matches, resultsUrl, errorMessage }) {
+export default function CompleteStep({
+  state,
+  matches,
+  resultsUrl,
+  errorMessage,
+}) {
   let content = "";
 
   const handleView = () => {
-    if (Object.prototype.hasOwnProperty.call(window, 'fathom')) {
-    // make sure the fathom code has been loaded and not blocked by an ad blocker.
+    if (Object.prototype.hasOwnProperty.call(window, "fathom")) {
+      // make sure the fathom code has been loaded and not blocked by an ad blocker.
       if (window.fathom) {
-        window.fathom.trackGoal('view complete results', 0);
+        window.fathom.trackGoal("view complete results", 0);
       }
     }
   };
 
   if (state === "error" || (errorMessage && !matches)) {
-    content = (
-      <Text type="danger">{errorMessage}</Text>
-    );
-  }
-  else if (["complete"].includes(state)) {
+    content = <Text type="danger">{errorMessage}</Text>;
+  } else if (["complete"].includes(state)) {
     content = (
       <>
         <Link
@@ -33,16 +35,24 @@ export default function CompleteStep({ state, matches, resultsUrl, errorMessage 
             textWrap: "none",
             width: "100%",
             overflow: "hidden",
-            textOverflow: "ellipsis"
+            textOverflow: "ellipsis",
           }}
         >
           {matches} matches found
         </Link>
-      <Button type="primary" style={{ width: "150px", marginTop: "0.5em" }} onClick={handleView}>
-          <Link to={resultsUrl} >
+        <Link
+          to={resultsUrl}
+          className="ant-btn ant-btn-primary"
+          onClick={handleView}
+        >
+          <Button
+            type="primary"
+            style={{ width: "150px" }}
+            onClick={handleView}
+          >
             View
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </>
     );
   }
@@ -59,10 +69,10 @@ CompleteStep.propTypes = {
   state: PropTypes.string.isRequired,
   matches: PropTypes.number,
   resultsUrl: PropTypes.string.isRequired,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
 };
 
 CompleteStep.defaultProps = {
   matches: 0,
-  errorMessage: ""
+  errorMessage: "",
 };
