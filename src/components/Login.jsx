@@ -8,11 +8,10 @@ import { AppContext } from "../containers/AppContext";
 import LoaderButton from "./LoaderButton";
 import GoogleLogin from "./GoogleLogin";
 import OktaLogin from "./OktaLogin";
+import { isInternalSite } from "../libs/utils";
 
 import "./Login.css";
 
-const isInternalSite =
-  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +70,7 @@ export default function Login() {
           By logging into this application you agree to the{" "}
           <Link to="/usage">Usage Terms</Link>
         </p>
-        {!isInternalSite || process.env.REACT_APP_NO_OKTA ? (
+        {!isInternalSite() || process.env.REACT_APP_NO_OKTA ? (
           <>
             <GoogleLogin userHasAuthenticated={userHasAuthenticated} />
             <Divider>or</Divider>

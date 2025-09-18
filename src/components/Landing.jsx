@@ -4,17 +4,16 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography, Col, Row } from "antd";
 import SearchInput from "./SearchInput";
+import { isInternalSite } from "../libs/utils";
 import "./Landing.css";
 
 const { Title, Paragraph } = Typography;
 
-const isInternalSite =
-  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
 function Landing(props) {
   const { isAuthenticated } = props;
 
-  const loginText = isInternalSite ? (
+  const loginText = isInternalSite() ? (
     <>
       Please <Link to="/login">login with Okta</Link> to start searching.
     </>
@@ -30,7 +29,7 @@ function Landing(props) {
       {isAuthenticated && <SearchInput />}
       <div className="landing">
         <Title>
-          {isInternalSite
+          {isInternalSite()
             ? "NeuronBridge (pre-release)"
             : "Welcome to NeuronBridge"}
         </Title>

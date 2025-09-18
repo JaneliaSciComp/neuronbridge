@@ -22,12 +22,10 @@ import DebugPanel from "./components/DebugPanel";
 import DevSiteBanner from "./components/DevSiteBanner";
 import Announcements from "./components/Announcements";
 import { useKonami } from "./libs/hooksLib";
-import { dataVersionFile } from "./libs/utils";
+import { dataVersionFile, isInternalSite } from "./libs/utils";
 import "./App.css";
 
 const { Header, Content, Footer } = Layout;
-const isInternalSite =
-  process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
 
 const isDevSite = process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/dev$/);
 
@@ -177,7 +175,7 @@ export default function App() {
     {key: "/about", label: <Link to="/about">About</Link>},
     {key: "/help", label: <Link to="/help">Help</Link>},
 
-    !isAuthenticated && !isInternalSite ? {key: "/signup", label: <Link to="/signup">Signup</Link> } : null,
+    !isAuthenticated && !isInternalSite() ? {key: "/signup", label: <Link to="/signup">Signup</Link> } : null,
     !isAuthenticated ? { key: "/login", label: <Link to="/login">Login</Link>} : null,
     appState.isAdmin ? { key: "/admin", label: <Link to="/admin">Admin</Link>} : null,
   ];
