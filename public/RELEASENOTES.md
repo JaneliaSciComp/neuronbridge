@@ -2,30 +2,42 @@
 
 ### Major Features
 
-  - New Image Collections Page: Added comprehensive list of image collections with DOI references and publication metadata
+  - **New Image Collections Page**: A comprehensive resource displaying all available image collections with detailed metadata and publication references
+    - Features sortable tables with publication dates, DOI information, and direct links to external resources
+    - Displays image counts and collection statistics for each dataset
+    - Includes references for new Split-GAL4 releases and updated dataset versions
+    - Provides easy navigation to specific collections for targeted research
+    - [View Image Collections](/collections)
 
-  [View Image Collections](https://neuronbridge.janelia.org/collections)
-  - Enhanced Custom Search Capabilities:
-    - Added Target Image Collection selection.
-      - Selection of a collection or multiple collections to search against allows for more targeted searches.
+  - **Enhanced Custom Search Capabilities**: Significant improvements to search functionality and user targeting
+    - **Target Image Collection Selection**: It is now possible to select specific collections or multiple collections to search against, enabling more precise and focused searches
+    - **Improved Search Flexibility**: Searches can now be performed without requiring a specific dataset version, making the search process more user-friendly
 
 ### UI/UX Improvements
 
-  - Added zoom icons to images that show larger image modal
-  - Added spinners to all loading placeholders
-  - Improved Safari image aspect ratio rendering
+  - **Enhanced Image Interaction**: Added intuitive zoom icons to images that support larger image modal views, making it clearer to users which images can be expanded for detailed examination
+  - **Cross-Browser Compatibility**: Implemented Safari-specific fixes for image aspect ratio rendering, ensuring consistent image display across all major browsers
 
 ### Bug Fixes & Improvements
 
-  - Publications are now sorted by publication date instead of author name
-  - Enhanced MaskSelection component with better error handling and redirect functionality
-  - Added '2' to Z Slice Range options of the custom search form.
+  - **Data Display & Organization**:
+    - Publications are now sorted by publication date instead of author name, providing chronological organization of research
+
+  - **Search & Navigation Enhancements**:
+    - Enhanced MaskSelection component with comprehensive error handling and automatic redirect functionality to the uploads page on failure
+    - Added '2' to Z Slice Range options in the custom search form, expanding user flexibility in search parameters
+
+  - **Content & Metadata Improvements**:
+    - Fixed various typographical errors throughout the interface
 
 ### External Integrations
 
-  - Added VFB (Virtual Fly Brain) links for flywire_fafb neurons
-  - Updated external links for Omnibus Broad
+  - **Enhanced Neuroinformatics Connectivity**:
+    - Added VFB (Virtual Fly Brain) links for flywire_fafb neurons, providing seamless integration with the Virtual Fly Brain database for expanded research capabilities
+    - Updated external links for Omnibus Broad, ensuring accurate connections to external data repositories
+    - Added Raw DOI references for improved citation and data tracking
 
+---
 
 ## VERSION 3.2.0 - 2024-06-05
 
