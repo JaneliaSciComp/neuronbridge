@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Spin } from "antd";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
@@ -8,6 +8,7 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import SearchErrorBoundary from "./components/SearchErrorBoundary";
 import Landing from "./components/Landing";
 import config from "./config";
+import { isInternalSite } from "./libs/utils";
 
 const ReleaseNotes = React.lazy(() =>
   import(/* webpackChunkName: 'rel-notes' */ "./components/ReleaseNotes")
@@ -67,12 +68,16 @@ const ImageCollections = React.lazy(() =>
   import(/* webpackChunkName: 'image-collection' */ "./components/ImageCollections")
 );
 
+
 export default function Routes({ appProps }) {
   const showMaintenancePage = Boolean(
     config.UNDER_MAINTENANCE && !appProps.isAdmin
   );
+
+  // Check if OKTA is enabled (same logic as Login.jsx)
+  const isOktaEnabled = isInternalSite() && !process.env.REACT_APP_NO_OKTA;
   return (
-    <Suspense fallback={<div><Spin tip="loading..." size="large" />Loading...</div>}>
+    <Suspense fallback={<div><Spin size="large" />Loading...</div>}>
       <Switch>
         <Route path="/" exact>
           <Landing isAuthenticated={appProps.isAuthenticated} />
@@ -86,7 +91,7 @@ export default function Routes({ appProps }) {
         <UnauthenticatedRoute
           path="/signup"
           exact
-          component={showMaintenancePage ? Maintenance : Signup}
+          component={showMaintenancePage ? Maintenance : (isOktaEnabled ? () => <Redirect to="/login" /> : Signup)}
           appProps={appProps}
         />
         <UnauthenticatedRoute
@@ -143,7 +148,11 @@ export default function Routes({ appProps }) {
         <Route path="/upload-policy" component={UploadPolicy} />
         <Route path="/help" component={HelpPage} />
         <Route path="/announcements" component={AnnouncementsArchive} />
-        <Route path="/collections" component={ImageCollections} />
+        <AuthenticatedRoute
+          path="/collections"
+          component={showMaintenancePage ? Maintenance : ImageCollections}
+          appProps={appProps}
+        />
         {/* Finally, catch all unmatched routes */}
         <Route component={NotFound} />
       </Switch>

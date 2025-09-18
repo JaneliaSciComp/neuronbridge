@@ -116,7 +116,7 @@ export default function Results({ match }) {
   if (!searchMeta || !searchResults) {
     return (
       <div>
-        <Spin tip="Loading..." size="large" />...loading
+        <Spin size="large" />...loading
       </div>);
   }
 

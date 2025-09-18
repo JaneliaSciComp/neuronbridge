@@ -95,13 +95,15 @@ export default function ImageCollections() {
             }
             libraryCollection.releases.forEach((release) => {
               const [releaseName, releaseData] = Object.entries(release)[0];
-              tableData.push({
-                collection: libraryFormatter(library.name),
-                area: storeData.anatomicalArea,
-                count: releaseData.count,
-                release: releaseName,
-                dois: releaseData.dois,
-              });
+              if (releaseData.count > 0) {
+                tableData.push({
+                  collection: libraryFormatter(library.name),
+                  area: storeData.anatomicalArea,
+                  count: releaseData.count,
+                  release: releaseName,
+                  dois: releaseData.dois,
+                });
+              }
             });
           });
         });
@@ -153,24 +155,28 @@ export default function ImageCollections() {
           doisList.push({ id, refName });
         });
 
-        doisList.sort((a, b) => a.refName.localeCompare(b.refName));
+        // Sort DOIs by publication year (newest first)
+        // Extract the 4-digit year from the end of each reference name
+        doisList.sort((a, b) => {
+          const yearA = parseInt(a.refName.slice(-4), 10);
+          const yearB = parseInt(b.refName.slice(-4), 10);
+          // Sort in descending order (yearB - yearA)
+          return yearB - yearA;
+        });
 
-        return (
-          <ul>
-            {doisList.map((doi) => {
-              const {id, refName} = doi;
-              return (
-                <li key={id}>
-                  <a href={`https://doi.org/${id}`}>{refName}</a>
-                </li>
-              );
-            })}
-          </ul>
-        );
+        return doisList.map((doi, index) => {
+          const { id, refName } = doi;
+          return (
+            <span key={id}>
+              <a href={`https://doi.org/${id}`}>{refName}</a>
+              {index < doisList.length - 1 ? ', ' : ''}
+            </span>
+          );
+        });
       },
     },
     {
-      title: "Searched Image Count",
+      title: "Searchable Image Count",
       dataIndex: "count",
       key: "count",
       render: (count) => count.toLocaleString(),
@@ -183,7 +189,8 @@ export default function ImageCollections() {
     <div>
       <Title>Image Collections</Title>
       <Paragraph>
-        Each image collection is a set of images grouped together based on one
+        NeuronBridge provides curated image collections with precomputed matches
+        and tools for custom search. Each collection groups images linked to one
         or more publications.
       </Paragraph>
       <Table

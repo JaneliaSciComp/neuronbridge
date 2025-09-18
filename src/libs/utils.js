@@ -4,6 +4,10 @@ export function dataVersionFile() {
     : "next.txt";
 }
 
+export function isInternalSite() {
+  return process.env.REACT_APP_LEVEL && process.env.REACT_APP_LEVEL.match(/pre$/);
+}
+
 export function alt() {
   return true;
 }

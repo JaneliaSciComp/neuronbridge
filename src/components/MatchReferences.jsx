@@ -25,7 +25,7 @@ export default function MatchReferences({ library, publishedName }) {
   if (!publication) {
     return (
       <ul>
-        <li><Spin tip="Loading..." size="large" /> Loading...</li>
+        <li><Spin size="large" /> Loading...</li>
       </ul>
     );
   }

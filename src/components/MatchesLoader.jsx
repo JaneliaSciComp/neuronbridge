@@ -97,7 +97,7 @@ export default function MatchesLoader({ searchAlgorithm }) {
   if (isLoading) {
     return (
       <div className="searchLoader">
-        <Spin size="large" tip="Loading..." /> Loading...
+        <Spin size="large" /> Loading...
       </div>
     );
   }
