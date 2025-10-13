@@ -197,6 +197,11 @@ export default function References() {
         <a href="https://doi.org/10.1101/2023.06.27.546055">Schlegel et al., 2023</a>
       </dd>
 
+      <dt>Male CNS</dt>
+      <dd>
+        <a href="https://doi.org/10.1101/2025.10.09.680999">Berg et al., 2025</a>
+      </dd>
+
     </dl>
   );
 }
