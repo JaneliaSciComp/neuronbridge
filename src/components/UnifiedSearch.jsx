@@ -134,6 +134,7 @@ export default function UnifiedSearch() {
           .then((items) => {
             const lineCombined = { results: [] };
             const bodyCombined = { results: [] };
+            const publishedNames = new Set();
 
             const allItems = items.names
               .sort((a, b) => {
@@ -179,7 +180,8 @@ export default function UnifiedSearch() {
                   match.keyType === "neuronType"
                 ) {
                   return match.bodyIDs.map((body) => {
-                    const [bodyID] = Object.entries(body)[0];
+                    publishedNames.add(body);
+                    const bodyID = body.split(":").at(-1);
                     const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                     return Storage.get(byBodyUrl, storageOptions)
                       .then((metaData) =>
@@ -205,21 +207,30 @@ export default function UnifiedSearch() {
             allPromisses.then(() => {
               // remove duplicates from the combined results. This can happen if we are
               // loading data from a partial neurontype string, eg: WED01
-              setFoundItems(bodyCombined.results.length);
               if (bodyCombined.results.length > 0) {
+                // filter out duplicates
                 const ids = bodyCombined.results.map((result) => result.id);
                 bodyCombined.results = bodyCombined.results.filter(
                   ({ id }, index) => !ids.includes(id, index + 1),
                 );
+
+                // filter out items that are not in the publishedNames set.
+                if (publishedNames.size > 0) {
+                  bodyCombined.results = bodyCombined.results.filter((item) => {
+                    const [dataset, , bodyid] = item.publishedName.split(":");
+                    return publishedNames.has(item.publishedName) ||
+                      publishedNames.has(`${dataset}:${bodyid}`);
+                  });
+                }
+                setFoundItems(bodyCombined.results.length);
                 // This filter ignores versions of the dataset if the searchDataset doesn't
                 // have a colon in it. A missing colon means it does not require a match to
                 // the dataset version, so the version is removed from the publishedName
                 // in the match and then checked against the search term.
                 if (searchDataset && searchDataset.length > 0 && !searchDataset.includes(":")) {
                   bodyCombined.results = bodyCombined.results.filter((item) => {
-                    const [dataset, version, bodyid] = item.publishedName.split(":");
+                    const [dataset, ,bodyid] = item.publishedName.split(":");
                     const noVersion = `${dataset}:${bodyid}`;
-                    console.log(dataset, version, bodyid);
                     return noVersion.match(searchRegex);
                   });
                 // filter out items that don't match the original searchTerm if a
