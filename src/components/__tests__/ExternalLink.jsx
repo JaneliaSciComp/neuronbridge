@@ -101,7 +101,7 @@ describe("ExternalLink: unit tests", () => {
     );
     expect(getByText("NeuPrint")).toHaveAttribute(
       "href",
-      "https://neuprint.janelia.org/view?dataset=flylight_splitgal4_drivers&bodyid=foo"
+      "https://neuprint.janelia.org/view?dataset=bar_set:v1.0&bodyid=foo"
     );
 
     rerender(<ExternalLink id="foo" isLM={false} library="FlyLight Split-GAL4 Drivers" />);

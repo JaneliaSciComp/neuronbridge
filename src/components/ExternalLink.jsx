@@ -78,14 +78,29 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     );
   }
 
-  // is an EM library
-  let dataset = library
-    .replace(/flyem_/i, "")
-    .toLowerCase()
-    .replace("_v", ":v")
-    .replace(/\s+/g, "_");
+  // This is an EM library, so process with alternative logic
 
-  // TODO: fix the pre-release site dataset since it shouldn't be missing the
+  // The ids are in the format of library:vX:idnumber, eg: male-cns:v0.9:17253
+  // We need to extract the dataset from the bodyId to construct the neuprint link
+  // eg: id = male-cns:v0.9:17253 -> dataset = male-cns:v0.9 ; bodyId = 17253
+  // This can be accomplished by splitting on the second colon and using the first part as
+  // the dataset and the last part as the bodyId
+  let dataset;
+  let bodyId;
+
+  const match = id.match(/^([^:]*:[^:]*):(.*)$/);
+  if (!match) { // Fallback if the id doesn't match the expected fully qualified id format
+    dataset = library
+      .replace(/flyem_/i, "")
+      .toLowerCase()
+      .replace("_v", ":v")
+      .replace(/\s+/g, "_");
+    bodyId = id.split(":").pop();
+  } else {
+    [, dataset, bodyId] = match;
+  }
+
+   // TODO: fix the pre-release site dataset since it shouldn't be missing the
   // version number, but the pre-release site doesn't have a version number.
   // Also, the pre-release data on neuprint was called vnc and not manc, so the
   // dataset name needs to be converted as well.
@@ -105,7 +120,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
       : "https://neuprint.janelia.org/view?dataset=<DATASET>&bodyid=<NAME>";
 
   const finalEMUrl = emUrl
-    .replace(/<NAME>/, id.split(":").slice(-1))
+    .replace(/<NAME>/, bodyId)
     .replace(/<DATASET>/, dataset);
 
   const secondaryLink = library.match(/flywire_fafb/i) ? (
