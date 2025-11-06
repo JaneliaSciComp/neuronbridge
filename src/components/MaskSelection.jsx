@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
@@ -10,8 +10,26 @@ import ColorDepthSearchParameters from "./ColorDepthSearchParameters";
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import config from "../config";
+import { AppContext } from "../containers/AppContext";
 
 const { Title, Paragraph } = Typography;
+
+// Get the default search library from stores based on anatomical region
+function getDefaultLibrary(stores, anatomicalRegion) {
+  let defaultLibrary = undefined;
+  if (stores && anatomicalRegion) {
+    const matchingStore = Object.values(stores).find(
+      (store) =>
+        anatomicalRegion.toLowerCase() ===
+        store.anatomicalArea.toLowerCase()
+    );
+    if (matchingStore?.customSearch?.defaultSearchLibrary) {
+      defaultLibrary = matchingStore.customSearch.defaultSearchLibrary;
+    }
+  }
+  return defaultLibrary;
+}
+
 
 export default function MaskSelection({ match }) {
   const searchId = match.params.id;
@@ -22,6 +40,7 @@ export default function MaskSelection({ match }) {
   const [channelImgSrc, setChannelImgSrc] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const history = useHistory();
+  const { appState } = useContext(AppContext);
 
   useEffect(() => {
     if (searchId) {
@@ -173,8 +192,6 @@ export default function MaskSelection({ match }) {
     }
   }
 
-  console.log(searchMeta);
-
   return (
     <div>
       <Title component="h2">Mask selection</Title>
@@ -193,13 +210,13 @@ export default function MaskSelection({ match }) {
         anatomicalRegion={anatomicalRegion}
       />
       <Divider />
-      {searchMeta ? (
+      {searchMeta && appState?.dataConfig?.stores && Object.keys(appState.dataConfig.stores).length > 0 ? (
         <Form
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           name="basic"
           initialValues={{
-            selectedLibraries: searchMeta.searchType || "FlyLight_Gen1_MCFO",
+            selectedLibraries: searchMeta.searchType || getDefaultLibrary(appState?.dataConfig?.stores, searchMeta.anatomicalRegion) || undefined,
             dataThreshold: searchMeta.dataThreshold || 100,
             maskThreshold: searchMeta.maskThreshold || 100,
             xyShift: searchMeta.xyShift || 0,
