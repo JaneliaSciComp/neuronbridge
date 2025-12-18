@@ -28,7 +28,10 @@ export default function ImageCollections() {
 
       Auth.currentCredentials()
         .then(() => {
-          Storage.get(refsPath, storageOptions)
+          Storage.get(refsPath, {
+            ...storageOptions,
+            cacheControl: 'no-cache, no-store, must-revalidate',
+          })
             .then((response) => {
               const fr = new FileReader();
               fr.onload = (evt) => {
