@@ -40,7 +40,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         <h3>Cite NeuronBridge</h3>
         <ul>
           <li>
-            <a href="https://doi.org/10.1186/s12859-024-05732-7">
+            <a href="https://doi.org/10.1186/s12859-024-05732-7" target="_blank" rel="noopener noreferrer">
               Clements et al., 2024
             </a>
           </li>

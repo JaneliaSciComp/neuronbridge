@@ -168,7 +168,7 @@ export default function ImageCollections() {
           const { id, refName } = doi;
           return (
             <span key={id}>
-              <a href={`https://doi.org/${id}`}>{refName}</a>
+              <a href={`https://doi.org/${id}`} target="_blank" rel="noopener noreferrer">{refName}</a>
               {index < doisList.length - 1 ? ', ' : ''}
             </span>
           );

@@ -16,7 +16,7 @@ const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
 
 function VFBLink({ name }) {
   return (
-    <a href={vfbUrl.replace(/<NAME>/, name)}>
+    <a href={vfbUrl.replace(/<NAME>/, name)} target="_blank" rel="noopener noreferrer">
       Virtual Fly Brain{" "}
       <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
     </a>
@@ -35,6 +35,8 @@ function FlyWireLink({ tag }) {
       href={flyWireUrl
         .replace(/<ID>/, id)
         .replace(/<VERSION>/, version.replace(/^v/, ""))}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       FlyWire{" "}
       <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
@@ -61,7 +63,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
 
     return (
       <>
-        <a href={extUrl.replace(/<NAME>/, id)}>
+        <a href={extUrl.replace(/<NAME>/, id)} target="_blank" rel="noopener noreferrer">
           {extName}{" "}
           <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
         </a>
@@ -137,7 +139,7 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     <>
       { !library.match(/flywire_fafb/i) ? (
         <>
-      <a href={finalEMUrl}>
+      <a href={finalEMUrl} target="_blank" rel="noopener noreferrer">
         NeuPrint{" "}
         <FontAwesomeIcon icon={faExternalLink} size="xs" transform="up-2" />
         </a><br /></>) : ""}

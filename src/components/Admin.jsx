@@ -34,7 +34,7 @@ export default function Admin() {
   return (
     <>
       <h2>Admin Page</h2>
-      <a href="https://janelia-neuronbridge-admin-prod.s3.amazonaws.com/index.html">
+      <a href="https://janelia-neuronbridge-admin-prod.s3.amazonaws.com/index.html" target="_blank" rel="noopener noreferrer">
         Custom search admin site
       </a>
       <p>Bearer token:</p>

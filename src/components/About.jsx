@@ -16,8 +16,8 @@ export default function About() {
         quick to look up by identifier. You can also upload your own data and match it against these public data sets. 
       </Paragraph>
       <Paragraph>
-        More information about the software infrastructure is available in our <a href="https://doi.org/10.1186/s12859-024-05732-7">published paper</a> and {" "}
-        <a href="https://aws.amazon.com/blogs/architecture/scaling-neuroscience-research-on-aws/">AWS blog post</a>.
+        More information about the software infrastructure is available in our <a href="https://doi.org/10.1186/s12859-024-05732-7" target="_blank" rel="noopener noreferrer">published paper</a> and {" "}
+        <a href="https://aws.amazon.com/blogs/architecture/scaling-neuroscience-research-on-aws/" target="_blank" rel="noopener noreferrer">AWS blog post</a>.
       </Paragraph>
 
       <Row gutter={20}>
@@ -69,7 +69,7 @@ export default function About() {
           <ul>
             <li><Link to="/usage">Usage Terms</Link></li>
             <li><Link to="/upload-policy">Uploaded Data Usage and Retention Policy</Link></li>
-            <li><a href="https://www.hhmi.org/privacy-policy">HHMI Privacy Policy</a></li>
+            <li><a href="https://www.hhmi.org/privacy-policy" target="_blank" rel="noopener noreferrer">HHMI Privacy Policy</a></li>
           </ul>
 
           <Title level={2}>Release Notes</Title>
@@ -86,13 +86,13 @@ export default function About() {
           <Title level={2}>Site Feedback Survey</Title>
           <Paragraph>
             Please take a moment to fill out our{" "}
-            <a href="https://forms.gle/tJa6GAwEjs7fykhG7">site feedback survey</a>.
+            <a href="https://forms.gle/tJa6GAwEjs7fykhG7" target="_blank" rel="noopener noreferrer">site feedback survey</a>.
           </Paragraph>
 
           <Title level={2}>Source Code</Title>
           <Paragraph>
             You can find all of the code for this website and the supporting infrastructure in our{" "}
-            <a href="https://github.com/JaneliaSciComp/neuronbridge">GitHub repositories</a>.
+            <a href="https://github.com/JaneliaSciComp/neuronbridge" target="_blank" rel="noopener noreferrer">GitHub repositories</a>.
           </Paragraph>
 
         </Col>

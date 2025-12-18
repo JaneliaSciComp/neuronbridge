@@ -14,7 +14,7 @@ export default function DevSiteBanner() {
     <div className="devsite-banner">
       <p>
         This is the development server. For the public release, please go to{" "}
-        <a href="https://neuronbridge.janelia.org">prod</a> | {" "}
+        <a href="https://neuronbridge.janelia.org" target="_blank" rel="noopener noreferrer">prod</a> | {" "}
         { appState.isAdmin ? (
         <Switch
           checked={appState.debug}

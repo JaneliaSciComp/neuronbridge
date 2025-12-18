@@ -179,7 +179,7 @@ export default function HelpContents({ scroll }) {
               Raw light microscopy (LM) data collected by FlyLight is
               transformed in several ways prior to matching using color depth
               MIP search (
-              <a href="https://doi.org/10.1101/318006">Otsuna et al., 2018</a>).
+              <a href="https://doi.org/10.1101/318006" target="_blank" rel="noopener noreferrer">Otsuna et al., 2018</a>).
               To improve matches for denser MCFO data, the color depth MIP
               approach was extended in several ways (Otsuna, et al., in
               preparation). The data generation pipeline for LM images is shown
@@ -188,7 +188,7 @@ export default function HelpContents({ scroll }) {
             <p>
               After images are aligned to a common template, we used direction
               selective local thresholding (DSLT;{" "}
-              <a href="https://doi.org/10.1111/tpj.12738">
+              <a href="https://doi.org/10.1111/tpj.12738" target="_blank" rel="noopener noreferrer">
                 Kawase, et al., 2015
               </a>
               ) to generate a 3D segmentation and create a separate color depth
@@ -204,7 +204,7 @@ export default function HelpContents({ scroll }) {
             </p>
             <p>
               More details are available in the {" "}
-              <a href="https://doi.org/10.1186/s12859-024-05732-7">
+              <a href="https://doi.org/10.1186/s12859-024-05732-7" target="_blank" rel="noopener noreferrer">
                 NeuronBridge paper
               </a>
               .
@@ -224,7 +224,7 @@ export default function HelpContents({ scroll }) {
             <p>
               The EM data sets were imaged and reconstructed by the FlyEM
               Project (
-              <a href="https://doi.org/10.7554/eLife.57443">
+              <a href="https://doi.org/10.7554/eLife.57443" target="_blank" rel="noopener noreferrer">
                 Scheffer, et al., 2020
               </a>
               ). After the imagery was registered to the JRC2018 template, we
@@ -336,7 +336,7 @@ export default function HelpContents({ scroll }) {
       automatically registered to a standard color depth search alignment
       template. Currently, these are JRC2018_Unisex_20x_HR (Brain) and
       JRC2018_VNC_Unisex_40x_DS (VNC) both of which are derived from the{" "}
-      <a href="https://www.janelia.org/open-science/jrc-2018-brain-templates">
+      <a href="https://www.janelia.org/open-science/jrc-2018-brain-templates" target="_blank" rel="noopener noreferrer">
         JRC 2018 templates
       </a>
       .
@@ -351,7 +351,7 @@ export default function HelpContents({ scroll }) {
         The aligner provides an alignment score and a link to a verification movie. 
         The verification movie allows you to visualize the aligned stack against the template.
         The alignment score is calculated as a{" "}
-        <a href="https://martin-thoma.com/zero-mean-normalized-cross-correlation">
+        <a href="https://martin-thoma.com/zero-mean-normalized-cross-correlation" target="_blank" rel="noopener noreferrer">
           Zero Mean Normalized Cross-Correlation (ZNCC)
         </a>
         .
@@ -424,7 +424,7 @@ export default function HelpContents({ scroll }) {
           This is unrecoverable in our system. You will need to use an
           alternative method to register your data. Once you have an aligned
           image stack, use the{" "}
-          <a href="https://github.com/JaneliaSciComp/ColorMIP_Mask_Search">
+          <a href="https://github.com/JaneliaSciComp/ColorMIP_Mask_Search" target="_blank" rel="noopener noreferrer">
             Color MIP Mask Search Fiji plugin
           </a>{" "}
           to generate the aligned color depth MIPs and upload those for custom

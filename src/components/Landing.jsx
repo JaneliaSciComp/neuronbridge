@@ -41,13 +41,13 @@ function Landing(props) {
             <Paragraph>
               Search light and electron microscopy data sets of the Drosophila
               nervous system provided by the{" "}
-              <a href="https://www.janelia.org/project-team/flylight">
+              <a href="https://www.janelia.org/project-team/flylight" target="_blank" rel="noopener noreferrer">
                 FlyLight
               </a>{" "}
-              and <a href="https://www.janelia.org/project-team/flyem">FlyEM</a>{" "}
+              and <a href="https://www.janelia.org/project-team/flyem" target="_blank" rel="noopener noreferrer">FlyEM</a>{" "}
               projects at{" "}
-              <a href="https://www.janelia.org">Janelia Research Campus</a>, as well
-              as other public connectomic data sets. 
+              <a href="https://www.janelia.org" target="_blank" rel="noopener noreferrer">Janelia Research Campus</a>, as well
+              as other public connectomic data sets.
               You can find similar neurons based on shape regardless of data set.
             </Paragraph>
 
@@ -67,16 +67,16 @@ function Landing(props) {
             <Row className="collections">
               <Col span={12}>
                 <b>Light Microscopy</b><br/>
-                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi">FlyLight Generation 1 MCFO</a><br/>
-                <a href="http://splitgal4.janelia.org">FlyLight Split-GAL4</a><br/>
-                <a href="https://flylight-raw.janelia.org/cgi-bin/raw.cgi">FlyLight Split-GAL4 Omnibus Broad</a><br/>
+                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi" target="_blank" rel="noopener noreferrer">FlyLight Generation 1 MCFO</a><br/>
+                <a href="http://splitgal4.janelia.org" target="_blank" rel="noopener noreferrer">FlyLight Split-GAL4</a><br/>
+                <a href="https://flylight-raw.janelia.org/cgi-bin/raw.cgi" target="_blank" rel="noopener noreferrer">FlyLight Split-GAL4 Omnibus Broad</a><br/>
               </Col>
               <Col span={12}>
                 <b>Electron Microscopy</b><br/>
-                <a href="https://neuprint.janelia.org/?dataset=male-cns:v0.9&qt=findneurons"> FlyEM Male CNS</a><br/>
-                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons">FlyEM Hemibrain</a><br/>
-                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons">FlyEM MANC</a><br/>
-                <a href="https://codex.flywire.ai">FlyWire Brain</a><br/>
+                <a href="https://neuprint.janelia.org/?dataset=male-cns:v0.9&qt=findneurons" target="_blank" rel="noopener noreferrer"> FlyEM Male CNS</a><br/>
+                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM Hemibrain</a><br/>
+                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM MANC</a><br/>
+                <a href="https://codex.flywire.ai" target="_blank" rel="noopener noreferrer">FlyWire Brain</a><br/>
               </Col>
             </Row>
 
@@ -85,7 +85,7 @@ function Landing(props) {
               search algorithms across image collections. You can also
               upload your own image to run a custom Color Depth MIP search (see About
               page). For NBLAST searching, try{" "}
-              <a href="https://www.virtualflybrain.org">Virtual Fly Brain</a>.
+              <a href="https://www.virtualflybrain.org" target="_blank" rel="noopener noreferrer">Virtual Fly Brain</a>.
             </Paragraph>
 
             <Paragraph>
