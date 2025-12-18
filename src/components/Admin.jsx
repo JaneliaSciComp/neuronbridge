@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Auth } from "aws-amplify";
 import { Switch } from "antd";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../containers/AppContext";
 import AnnouncementsCreate from "./AnnouncementsCreate";
 
@@ -35,7 +37,7 @@ export default function Admin() {
     <>
       <h2>Admin Page</h2>
       <a href="https://janelia-neuronbridge-admin-prod.s3.amazonaws.com/index.html" target="_blank" rel="noopener noreferrer">
-        Custom search admin site
+        Custom search admin site <FontAwesomeIcon icon={faExternalLink} size="xs" />
       </a>
       <p>Bearer token:</p>
       <textarea

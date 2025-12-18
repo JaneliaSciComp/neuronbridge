@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Typography, InputNumber, Col, Row, Divider } from "antd";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchInput from "../SearchInput";
 import { AppContext } from "../../containers/AppContext";
 import { useQuery } from "../../libs/hooksLib";
@@ -179,7 +181,7 @@ export default function HelpContents({ scroll }) {
               Raw light microscopy (LM) data collected by FlyLight is
               transformed in several ways prior to matching using color depth
               MIP search (
-              <a href="https://doi.org/10.1101/318006" target="_blank" rel="noopener noreferrer">Otsuna et al., 2018</a>).
+              <a href="https://doi.org/10.1101/318006" target="_blank" rel="noopener noreferrer">Otsuna et al., 2018 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>).
               To improve matches for denser MCFO data, the color depth MIP
               approach was extended in several ways (Otsuna, et al., in
               preparation). The data generation pipeline for LM images is shown
@@ -189,7 +191,7 @@ export default function HelpContents({ scroll }) {
               After images are aligned to a common template, we used direction
               selective local thresholding (DSLT;{" "}
               <a href="https://doi.org/10.1111/tpj.12738" target="_blank" rel="noopener noreferrer">
-                Kawase, et al., 2015
+                Kawase, et al., 2015 <FontAwesomeIcon icon={faExternalLink} size="xs" />
               </a>
               ) to generate a 3D segmentation and create a separate color depth
               MIP for each fully connected component. These segmented MIPs were
@@ -205,7 +207,7 @@ export default function HelpContents({ scroll }) {
             <p>
               More details are available in the {" "}
               <a href="https://doi.org/10.1186/s12859-024-05732-7" target="_blank" rel="noopener noreferrer">
-                NeuronBridge paper
+                NeuronBridge paper <FontAwesomeIcon icon={faExternalLink} size="xs" />
               </a>
               .
             </p>
@@ -225,7 +227,7 @@ export default function HelpContents({ scroll }) {
               The EM data sets were imaged and reconstructed by the FlyEM
               Project (
               <a href="https://doi.org/10.7554/eLife.57443" target="_blank" rel="noopener noreferrer">
-                Scheffer, et al., 2020
+                Scheffer, et al., 2020 <FontAwesomeIcon icon={faExternalLink} size="xs" />
               </a>
               ). After the imagery was registered to the JRC2018 template, we
               downloaded the reconstructed skeletons as SWC files and
@@ -337,7 +339,7 @@ export default function HelpContents({ scroll }) {
       template. Currently, these are JRC2018_Unisex_20x_HR (Brain) and
       JRC2018_VNC_Unisex_40x_DS (VNC) both of which are derived from the{" "}
       <a href="https://www.janelia.org/open-science/jrc-2018-brain-templates" target="_blank" rel="noopener noreferrer">
-        JRC 2018 templates
+        JRC 2018 templates <FontAwesomeIcon icon={faExternalLink} size="xs" />
       </a>
       .
       <h3 className="top-space-sm">Supported File Formats</h3>
@@ -352,7 +354,7 @@ export default function HelpContents({ scroll }) {
         The verification movie allows you to visualize the aligned stack against the template.
         The alignment score is calculated as a{" "}
         <a href="https://martin-thoma.com/zero-mean-normalized-cross-correlation" target="_blank" rel="noopener noreferrer">
-          Zero Mean Normalized Cross-Correlation (ZNCC)
+          Zero Mean Normalized Cross-Correlation (ZNCC) <FontAwesomeIcon icon={faExternalLink} size="xs" />
         </a>
         .
         This yields a number between -1 and 1, where higher scores are better. 
@@ -425,7 +427,7 @@ export default function HelpContents({ scroll }) {
           alternative method to register your data. Once you have an aligned
           image stack, use the{" "}
           <a href="https://github.com/JaneliaSciComp/ColorMIP_Mask_Search" target="_blank" rel="noopener noreferrer">
-            Color MIP Mask Search Fiji plugin
+            Color MIP Mask Search Fiji plugin <FontAwesomeIcon icon={faExternalLink} size="xs" />
           </a>{" "}
           to generate the aligned color depth MIPs and upload those for custom
           searching.

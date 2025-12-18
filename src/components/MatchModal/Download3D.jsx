@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Row, Col, Typography } from "antd";
 import FileImageOutlined from "@ant-design/icons/FileImageOutlined";
 import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ViewIn3DButton from "./ViewIn3DButton";
 
 const { Title, Text, Paragraph } = Typography;
@@ -83,7 +85,7 @@ export default function Download3D(props) {
       )}
       <h3>
         For a 3D comparison with more features, use the{" "}
-        <a href="https://github.com/JaneliaSciComp/VVDViewer" target="_blank" rel="noopener noreferrer">VVDViewer </a>
+        <a href="https://github.com/JaneliaSciComp/VVDViewer" target="_blank" rel="noopener noreferrer">VVDViewer <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
         desktop application.
       </h3>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
@@ -101,12 +103,12 @@ export default function Download3D(props) {
             <li>
               Download the latest release of VVDViewer from{" "}
               <a href="https://github.com/JaneliaSciComp/VVDViewer/releases" target="_blank" rel="noopener noreferrer">
-                https://github.com/JaneliaSciComp/VVDViewer/releases
+                https://github.com/JaneliaSciComp/VVDViewer/releases <FontAwesomeIcon icon={faExternalLink} size="xs" />
               </a>
             </li>
             <li>
               Usage instructions for VVDViewer can be found{" "}
-              <a href="https://github.com/JaneliaSciComp/VVDViewer/wiki" target="_blank" rel="noopener noreferrer">here</a>.
+              <a href="https://github.com/JaneliaSciComp/VVDViewer/wiki" target="_blank" rel="noopener noreferrer">here <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>.
             </li>
           </ol>
         </Col>

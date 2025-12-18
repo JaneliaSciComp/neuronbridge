@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MatchReferences from "../MatchReferences";
 import LibraryFormatter from "../LibraryFormatter";
 
@@ -41,7 +43,7 @@ export default function Citations({ match, mask, matchRank, matchesTotal }) {
         <ul>
           <li>
             <a href="https://doi.org/10.1186/s12859-024-05732-7" target="_blank" rel="noopener noreferrer">
-              Clements et al., 2024
+              Clements et al., 2024 <FontAwesomeIcon icon={faExternalLink} size="xs" />
             </a>
           </li>
         </ul>
