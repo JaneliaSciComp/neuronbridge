@@ -1,5 +1,7 @@
 import React from "react";
 import { Typography, Row, Col, Divider } from "antd";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollToTopOnMount from "./ScrollToTopOnMount";
 import HelpContents from "./Help/HelpContents";
 import "./HelpPage.css";
@@ -50,8 +52,8 @@ export default function HelpPage() {
           <Title level={3}>Downloading the data</Title>
           <p>
             You can download the{" "}
-            <a href="https://www.janelia.org/open-science/color-depth-mip">
-              Color-Depth MIPs
+            <a href="https://www.janelia.org/open-science/color-depth-mip" target="_blank" rel="noopener noreferrer">
+              Color-Depth MIPs <FontAwesomeIcon icon={faExternalLink} size="xs" />
             </a>{" "}
             for your own research.
           </p>
@@ -61,23 +63,23 @@ export default function HelpPage() {
           <Title level={3}>Programmatic API access</Title>
           <p>
             Access the images programmatically{" "}
-            <a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md">
-              using the S3 API
+            <a href="https://open.quiltdata.com/b/janelia-flylight-color-depth/tree/README.md" target="_blank" rel="noopener noreferrer">
+              using the S3 API <FontAwesomeIcon icon={faExternalLink} size="xs" />
             </a>{" "}
             on AWS Open Data.
 
             The matches are also available on S3, in a{" "}
-            <a href="https://open.quiltdata.com/b/janelia-neuronbridge-data-prod/tree/">different bucket</a>.
+            <a href="https://open.quiltdata.com/b/janelia-neuronbridge-data-prod/tree/" target="_blank" rel="noopener noreferrer">different bucket <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>.
           </p>
           <p>
-            You can also use <a href="https://github.com/JaneliaSciComp/neuronbridge-python">Python API</a> to access the matches and images using Python.
+            You can also use <a href="https://github.com/JaneliaSciComp/neuronbridge-python" target="_blank" rel="noopener noreferrer">Python API <FontAwesomeIcon icon={faExternalLink} size="xs" /></a> to access the matches and images using Python.
           </p>
 
           <Divider />
           <a className="anchorOffset" id="tools" href="#tools">#tools</a>
           <Title level={3}>Third-party tools</Title>
           <Typography>
-            <a href="http://natverse.org/neuronbridger/">neuronbridger</a> - R
+            <a href="http://natverse.org/neuronbridger/" target="_blank" rel="noopener noreferrer">neuronbridger <FontAwesomeIcon icon={faExternalLink} size="xs" /></a> - R
             library for interacting with the NeuronBridge.
           </Typography>
         </Col>

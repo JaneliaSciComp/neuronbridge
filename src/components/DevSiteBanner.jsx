@@ -1,6 +1,8 @@
 import "./DevSiteBanner.css";
 import { useContext } from "react";
 import { Switch } from "antd";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../containers/AppContext";
 
 export default function DevSiteBanner() {
@@ -14,7 +16,7 @@ export default function DevSiteBanner() {
     <div className="devsite-banner">
       <p>
         This is the development server. For the public release, please go to{" "}
-        <a href="https://neuronbridge.janelia.org">prod</a> | {" "}
+        <a href="https://neuronbridge.janelia.org" target="_blank" rel="noopener noreferrer">prod <FontAwesomeIcon icon={faExternalLink} size="xs" /></a> | {" "}
         { appState.isAdmin ? (
         <Switch
           checked={appState.debug}

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Typography, Table, message } from "antd";
 import { Auth, Storage } from "aws-amplify";
+import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../containers/AppContext";
 import { libraryFormatter } from "../libs/utils";
 
@@ -168,7 +170,7 @@ export default function ImageCollections() {
           const { id, refName } = doi;
           return (
             <span key={id}>
-              <a href={`https://doi.org/${id}`}>{refName}</a>
+              <a href={`https://doi.org/${id}`} target="_blank" rel="noopener noreferrer">{refName} <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
               {index < doisList.length - 1 ? ', ' : ''}
             </span>
           );
