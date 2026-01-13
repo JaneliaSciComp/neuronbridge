@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { formatRelative, formatDistanceStrict } from "date-fns";
 import StepTitle from "./StepTitle";
+import LibraryFormatter from "../LibraryFormatter";
 
 export default function ColorDepthSearchStep({ started, finished, state, librariesCountsMap }) {
   let searchEnd = "";
@@ -26,7 +27,7 @@ export default function ColorDepthSearchStep({ started, finished, state, librari
           <p style={{ marginTop: "1em" }}>Libraries searched:</p>
           {Object.entries(librariesCountsMap).map(([library, count]) => (
             <p key={library} style={{ marginTop: "0.5em", marginLeft: "1em" }}>
-              {library} ({count})
+              <LibraryFormatter type={library} /> ({count})
             </p>
           ))}
         </>
