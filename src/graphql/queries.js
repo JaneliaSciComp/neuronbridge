@@ -70,6 +70,7 @@ export const listSearches = /* GraphQL */ `
         alignFinished
         alignStarted
         anatomicalRegion
+        librariesCountsMap
       }
       nextToken
     }
@@ -109,6 +110,7 @@ export const listItemsByOwner = `
         alignFinished
         alignStarted
         anatomicalRegion
+        librariesCountsMap
 
       }
       nextToken

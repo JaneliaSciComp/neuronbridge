@@ -34,6 +34,15 @@ export default function SearchSteps({ search }) {
     currentStep = 5;
   }
 
+  let librariesCountsMap = null;
+  if (search.librariesCountsMap) {
+    try {
+      librariesCountsMap = JSON.parse(search.librariesCountsMap);
+    } catch (error) {
+      console.error("Failed to parse librariesCountsMap:", error);
+    }
+  }
+
   return (
     <div className="searchSteps">
       <Row>
@@ -67,6 +76,7 @@ export default function SearchSteps({ search }) {
             started={search.cdsStarted}
             finished={search.cdsFinished}
             state={stepState(3, currentStep, errorMessage)}
+            librariesCountsMap={librariesCountsMap}
           />
         </Col>
         <Col xs={4}>

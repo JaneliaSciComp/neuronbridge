@@ -62,6 +62,7 @@ export const onUpdateSearch = /* GraphQL */ `
       alignmentMovie
       alignFinished
       alignStarted
+      librariesCountsMap
     }
   }
 `;
