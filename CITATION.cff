@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using the metadata from this file.
+title: neuronbridge
+authors:
+- family-names: Clements
+  given-names: Jody
+  email: jody@neomorphic.co.uk
+  orcid: https://orcid.org/0000-0003-3932-8188
+  affiliation: Janelia Research Campus, HHMI
+- family-names: Rokicki
+  given-names: Konrad
+  email: ROKICKIK@hhmi.org
+  orcid: https://orcid.org/0000-0002-2799-9833
+  affiliation: Janelia Research Campus, HHMI
+- family-names: Svirskas
+  given-names: Rob
+  email: SVIRSKASR@hhmi.org
+  orcid: https://orcid.org/0000-0001-8374-6008
+  affiliation: Janelia Research Campus, HHMI
+- name: dependabot[bot]
+- family-names: Goina
+  given-names: Cristian
+  email: goinac@janelia.hhmi.org
+  orcid: https://orcid.org/0000-0003-2835-7602
+  affiliation: Janelia Research Campus, HHMI
+version: v3.2.3
+date-released: '2024-10-19'
+url: https://github.com/JaneliaSciComp/neuronbridge
+repository-code: https://github.com/JaneliaSciComp/neuronbridge.git
+license: BSD-3-Clause
+keywords:
+- neuroscience
+- neuroimaging
+- drosophila
+- aws
+- janelia
+- neurons
+abstract: EM/LM neuron search
