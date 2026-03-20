@@ -95,7 +95,7 @@ export default function Results({ match }) {
           fr.readAsText(results.Body);
         })
         .catch(error => {
-          if (error.response.status === 404) {
+          if (error.response && error.response.status === 404) {
             setSearchResults({ results: [] });
           } else {
             message.error({
