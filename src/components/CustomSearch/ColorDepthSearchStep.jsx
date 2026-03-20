@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { formatRelative, formatDistanceStrict } from "date-fns";
 import StepTitle from "./StepTitle";
 import LibraryFormatter from "../LibraryFormatter";
+import { AppContext } from "../../containers/AppContext";
 
 export default function ColorDepthSearchStep({ started, finished, state, librariesCountsMap }) {
+  const { appState } = useContext(AppContext);
   let searchEnd = "";
   let duration = "";
 
@@ -31,6 +33,8 @@ export default function ColorDepthSearchStep({ started, finished, state, librari
             </p>
           ))}
         </>
+      ) : appState.debug ? (
+        <p style={{ marginTop: "1em", fontStyle: "italic", color: "#999" }}>Libraries data not available for this search</p>
       ) : null}
     </>
   );
