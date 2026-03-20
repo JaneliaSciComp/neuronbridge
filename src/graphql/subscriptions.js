@@ -24,8 +24,10 @@ export const onCreateSearch = /* GraphQL */ `
       anatomicalRegion
       alignmentScore
       alignmentMovie
+      alignedVolume
       alignStarted
       alignFinished
+      librariesCountsMap
     }
   }
 `;
@@ -60,6 +62,7 @@ export const onUpdateSearch = /* GraphQL */ `
       anatomicalRegion
       alignmentScore
       alignmentMovie
+      alignedVolume
       alignFinished
       alignStarted
       librariesCountsMap

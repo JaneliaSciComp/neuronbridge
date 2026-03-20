@@ -14,6 +14,7 @@ export const getSearch = /* GraphQL */ `
       alignmentErrorMessage
       alignmentScore
       alignmentMovie
+      alignedVolume
       step
       anatomicalRegion
       algorithm
@@ -56,7 +57,8 @@ export const listSearches = /* GraphQL */ `
         alignmentErrorMessage
         alignmentScore
         alignmentMovie
-        anatomicalRegion
+        alignedVolume
+          anatomicalRegion
         cdsStarted
         cdsFinished
         step
@@ -96,7 +98,8 @@ export const listItemsByOwner = `
         alignmentErrorMessage
         alignmentScore
         alignmentMovie
-        anatomicalRegion
+        alignedVolume
+          anatomicalRegion
         cdsStarted
         cdsFinished
         step

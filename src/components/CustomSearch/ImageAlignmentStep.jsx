@@ -10,19 +10,19 @@ import HelpButton from "../Help/HelpButton";
 export default function ImageAlignmentStep({ state, search }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [movieUrl, setMovieUrl] = useState(null);
-  const [alignmentFile, setAlignmentFile] = useState(null);
+  const [alignedVolume, setAlignmentFile] = useState(null);
 
 
   useEffect(() =>{
-    if (search.alignmentFile) {
-      const alignmentFileUrl = `${search.searchDir}/${search.alignmentFile}`;
-      signedLink(alignmentFileUrl).then((result) => {
+    if (search.alignedVolume) {
+      const alignedVolumeUrl = `${search.searchDir}/${search.alignedVolume}`;
+      signedLink(alignedVolumeUrl).then((result) => {
         setAlignmentFile(result);
       });
     } else {
       setAlignmentFile(null);
     }
-  }, [search.searchDir, search.alignmentFile]);
+  }, [search.searchDir, search.alignedVolume]);
 
   useEffect(() => {
     if (search.alignmentMovie) {
@@ -94,9 +94,9 @@ export default function ImageAlignmentStep({ state, search }) {
           ""
         )}
 
-        {alignmentFile ? (
+        {alignedVolume ? (
           <div>
-            <a href={alignmentFile} download>
+            <a href={alignedVolume} download>
               Download Alignment File
             </a>
           </div>
