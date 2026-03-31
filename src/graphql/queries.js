@@ -28,6 +28,7 @@ export const getSearch = /* GraphQL */ `
       voxelX
       voxelY
       voxelZ
+      channel
       referenceChannel
       alignStarted
       alignFinished
@@ -59,6 +60,7 @@ export const listSearches = /* GraphQL */ `
         alignmentMovie
         alignedVolume
           anatomicalRegion
+        channel
         cdsStarted
         cdsFinished
         step
@@ -100,6 +102,7 @@ export const listItemsByOwner = `
         alignmentMovie
         alignedVolume
           anatomicalRegion
+        channel
         cdsStarted
         cdsFinished
         step

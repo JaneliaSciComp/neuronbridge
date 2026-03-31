@@ -39,6 +39,7 @@ export const updateSearch = /* GraphQL */ `
       identityId
       owner
       step
+      channel
       upload
       uploadThumbnail
       searchDir

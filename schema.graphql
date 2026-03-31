@@ -214,6 +214,7 @@ input UpdateSearchInput {
   anatomicalRegion: String
   cdsFinished: AWSDateTime
   cdsStarted: AWSDateTime
+  channel: Int
   completedBatches: Int
   computedMIPs: [String]
   dataThreshold: Int
