@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/pro-regular-svg-icons";
 import config from "../../config";
-import { signedPublicLink } from "../../libs/awsLib";
+import { signedPublicLink, signedLink } from "../../libs/awsLib";
 
 function getH5JLink(construct) {
   const imageStack = construct?.files?.VisuallyLosslessStack;
@@ -18,30 +18,51 @@ function getSWCLink(construct) {
 
 export default function ViewIn3DButton({ isLM, match, mask, style }) {
   const [signedSwc, setSignedSwc] = React.useState(undefined);
+  const [signedH5j, setSignedH5j] = React.useState(undefined);
   const [isDisabled, setDisabled] = React.useState(true);
   const ref = window.location;
-  const h5j = isLM ? getH5JLink(match.image) : getH5JLink(mask);
-  const channel = isLM
-    ? parseInt(match.image.channel, 10)
-    : parseInt(mask.channel, 10);
+  const isCustomUpload = Boolean(mask.identityId && mask.alignedVolume);
+  const h5j = isCustomUpload
+    ? null
+    : isLM ? getH5JLink(match.image) : getH5JLink(mask);
+  const channel = isCustomUpload
+    ? parseInt(mask.channel, 10) || 0
+    : isLM
+      ? parseInt(match.image.channel, 10)
+      : parseInt(mask.channel, 10);
   const { mirrored } = match;
 
   React.useEffect(() => {
-    const swc = isLM ? getSWCLink(mask) : getSWCLink(match.image);
-    signedPublicLink(swc).then((signed) => {
-      setSignedSwc(signed);
-    });
+    const swc = isCustomUpload
+      ? getSWCLink(match.image)
+      : isLM ? getSWCLink(mask) : getSWCLink(match.image);
 
-    if (swc && h5j) {
+    if (swc) {
+      signedPublicLink(swc).then((signed) => {
+        setSignedSwc(signed);
+      });
+    }
+
+    if (isCustomUpload) {
+      const volumePath = `${mask.searchDir}/${mask.alignedVolume}`;
+      signedLink(volumePath).then((signed) => {
+        setSignedH5j(signed);
+        if (swc) {
+          setDisabled(false);
+        }
+      });
+    } else if (swc && h5j) {
       setDisabled(false);
     }
-  }, [isLM, mask, match, h5j]);
+  }, [isLM, isCustomUpload, mask, match, h5j]);
+
+  const h5jUrl = isCustomUpload ? signedH5j : h5j;
 
   // must encode the signedSWC, so that it makes it to the volume viewer in the
   // correct state for loading the swc
   const volViewerLink = `${config.volumeViewer}?ref=${encodeURIComponent(
     ref
-  )}&h5j=${encodeURIComponent(h5j)}&swc=${encodeURIComponent(
+  )}&h5j=${encodeURIComponent(h5jUrl)}&swc=${encodeURIComponent(
     signedSwc
   )}&ch=${channel}&mx=${mirrored}`;
 

@@ -97,7 +97,7 @@ export default function Download3D(props) {
 
   return (
     <>
-      {algorithm !== "pppm" && !mask.identityId ? (
+      {algorithm !== "pppm" && (!mask.identityId || mask.alignedVolume) ? (
         <p>
           <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} /> -
           View the match in our online volume viewer{" "}
