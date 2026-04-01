@@ -14,6 +14,7 @@ export const getSearch = /* GraphQL */ `
       alignmentErrorMessage
       alignmentScore
       alignmentMovie
+      alignedVolume
       step
       anatomicalRegion
       algorithm
@@ -27,6 +28,7 @@ export const getSearch = /* GraphQL */ `
       voxelX
       voxelY
       voxelZ
+      channel
       referenceChannel
       alignStarted
       alignFinished
@@ -56,7 +58,9 @@ export const listSearches = /* GraphQL */ `
         alignmentErrorMessage
         alignmentScore
         alignmentMovie
-        anatomicalRegion
+        alignedVolume
+          anatomicalRegion
+        channel
         cdsStarted
         cdsFinished
         step
@@ -70,6 +74,7 @@ export const listSearches = /* GraphQL */ `
         alignFinished
         alignStarted
         anatomicalRegion
+        librariesCountsMap
       }
       nextToken
     }
@@ -95,7 +100,9 @@ export const listItemsByOwner = `
         alignmentErrorMessage
         alignmentScore
         alignmentMovie
-        anatomicalRegion
+        alignedVolume
+          anatomicalRegion
+        channel
         cdsStarted
         cdsFinished
         step
@@ -109,6 +116,7 @@ export const listItemsByOwner = `
         alignFinished
         alignStarted
         anatomicalRegion
+        librariesCountsMap
 
       }
       nextToken

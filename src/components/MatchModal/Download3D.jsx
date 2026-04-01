@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { Row, Col, Typography } from "antd";
@@ -7,6 +7,7 @@ import FileExclamationOutlined from "@ant-design/icons/FileExclamationOutlined";
 import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ViewIn3DButton from "./ViewIn3DButton";
+import { signedLink } from "../../libs/awsLib";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -39,6 +40,18 @@ function getH5JLink(construct) {
 export default function Download3D(props) {
   const { selectedMatch, mask, isLM } = props;
   const { algorithm } = useParams();
+  const [alignedVolumeUrl, setAlignedVolumeUrl] = useState(null);
+
+  useEffect(() => {
+    if (mask.alignedVolume && mask.searchDir) {
+      const volumePath = `${mask.searchDir}/${mask.alignedVolume}`;
+      signedLink(volumePath).then((result) => {
+        setAlignedVolumeUrl(result);
+      });
+    } else {
+      setAlignedVolumeUrl(null);
+    }
+  }, [mask.searchDir, mask.alignedVolume]);
 
   // If the match has either an AlignedBodySWC or a VisuallyLosslessStack
   // file, then we need to make it available for download, the same needs
@@ -53,11 +66,20 @@ export default function Download3D(props) {
   const downloadLinks = (
     <>
       {!mask.precomputed ? (
-        <Text type="danger">
-          <FileExclamationOutlined style={fileIconStyles} /> We don&apos;t have
-          a 3D representation of your uploaded file. You will need to generate
-          one from your original imagery.
-        </Text>
+        alignedVolumeUrl ? (
+          <Paragraph>
+            <FileImageOutlined style={fileIconStyles} />{" "}
+            <a href={alignedVolumeUrl} download>
+              Download Aligned Volume (H5J)
+            </a>
+          </Paragraph>
+        ) : (
+          <Text type="danger">
+            <FileExclamationOutlined style={fileIconStyles} /> We don&apos;t have
+            a 3D representation of your uploaded file. You will need to generate
+            one from your original imagery.
+          </Text>
+        )
       ) : (
         ""
       )}
@@ -75,7 +97,7 @@ export default function Download3D(props) {
 
   return (
     <>
-      {algorithm !== "pppm" && !mask.identityId ? (
+      {algorithm !== "pppm" && (!mask.identityId || mask.alignedVolume) ? (
         <p>
           <ViewIn3DButton isLM={isLM} mask={mask} match={selectedMatch} /> -
           View the match in our online volume viewer{" "}

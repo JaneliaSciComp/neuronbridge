@@ -127,7 +127,7 @@ export default function MaskSelection({ match }) {
           });
         }
 
-        const maskDetails = { searchMask: maskName, id: searchMeta.id };
+        const maskDetails = { searchMask: maskName, channel, id: searchMeta.id };
         const searchParams = { ...searchFormData, ...maskDetails };
         API.graphql(
           graphqlOperation(mutations.updateSearch, { input: searchParams }),
@@ -216,7 +216,7 @@ export default function MaskSelection({ match }) {
           wrapperCol={{ span: 16 }}
           name="basic"
           initialValues={{
-            selectedLibraries: searchMeta.searchType || getDefaultLibrary(appState?.dataConfig?.stores, searchMeta.anatomicalRegion) || undefined,
+            selectedLibraries: [searchMeta.searchType || getDefaultLibrary(appState?.dataConfig?.stores, searchMeta.anatomicalRegion)].filter(Boolean),
             dataThreshold: searchMeta.dataThreshold || 100,
             maskThreshold: searchMeta.maskThreshold || 100,
             xyShift: searchMeta.xyShift || 0,

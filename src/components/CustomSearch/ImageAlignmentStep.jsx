@@ -10,6 +10,19 @@ import HelpButton from "../Help/HelpButton";
 export default function ImageAlignmentStep({ state, search }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [movieUrl, setMovieUrl] = useState(null);
+  const [alignedVolume, setAlignmentFile] = useState(null);
+
+
+  useEffect(() =>{
+    if (search.alignedVolume) {
+      const alignedVolumeUrl = `${search.searchDir}/${search.alignedVolume}`;
+      signedLink(alignedVolumeUrl).then((result) => {
+        setAlignmentFile(result);
+      });
+    } else {
+      setAlignmentFile(null);
+    }
+  }, [search.searchDir, search.alignedVolume]);
 
   useEffect(() => {
     if (search.alignmentMovie) {
@@ -77,6 +90,16 @@ export default function ImageAlignmentStep({ state, search }) {
             <FontAwesomeIcon size="lg" icon={faFileVideo} /> Alignment Quality
             Check
           </a>
+        ) : (
+          ""
+        )}
+
+        {alignedVolume ? (
+          <div>
+            <a href={alignedVolume} download>
+              Download Alignment File
+            </a>
+          </div>
         ) : (
           ""
         )}
