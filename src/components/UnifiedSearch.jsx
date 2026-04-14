@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
 import { Collapse, Spin, message, Typography } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/pro-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
@@ -271,7 +271,7 @@ export default function UnifiedSearch() {
                 ) {
                   return match.bodyIDs.map((body) => {
                     publishedNames.add(body);
-                    const [bodyID] = Object.entries(body)[0];
+                    const bodyID = body.split(":").at(-1);
                     // skip if we have already seen this bodyID in one of the other
                     // matches. This happens when we use wildcard searches that return
                     // results for both the neuron type and the neuron instance. eg: LHPD2c7*
