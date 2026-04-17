@@ -1,3 +1,40 @@
+## VERSION 3.4.0 - 2025-04-17
+
+### Major Features
+
+  - **Aligned Volume Download for Custom Searches**: Custom search results now include a download link for the aligned volume, making it easier to retrieve aligned data for further analysis
+    - The "View in 3D" button is now available for custom uploads when an aligned volume exists
+    - The selected channel from mask selection is persisted to the search record
+
+  - **Searched Libraries Display**: The Color Depth Search step now shows which libraries were searched along with result counts, providing better visibility into search coverage
+
+### UI/UX Improvements
+
+  - **External Links Open in New Tabs**: All links to external sources now open in a new tab, preventing users from losing their place on the site
+  - **External Link Icons**: An external link icon has been added to all external links, making it clear when a link will navigate away from NeuronBridge
+  - **Additional Data Source Links**: Two additional links have been added to the landing page data sources list
+
+### Bug Fixes & Improvements
+
+  - **Search & Navigation**:
+    - Improved search result filtering and duplicate removal logic
+    - Fixed the default search library selection in the custom search form
+    - Fixed external EM links to use id instead of library
+    - Fixed the "View" button to be clickable anywhere on the button area
+    - Updated search examples for accuracy
+
+  - **Stability & Error Handling**:
+    - Added null check for error responses in the Results catch handler
+    - Added cacheControl headers to references.json fetch for improved caching
+
+### Content Updates
+
+  - Added CITATION.cff for Zenodo integration
+  - Added reference for Male CNS
+  - Updated site meta description
+
+---
+
 ## VERSION 3.3.1 - 2024-09-22
 
 ### Major Features
