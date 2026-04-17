@@ -54,7 +54,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
     return (
       <p>
         <b>Line Name: </b>
-        <span>{publishedName}</span>
+        <Link to={`/search?q=${publishedName}`}>{publishedName}</Link>
       </p>
     );
   }
@@ -64,7 +64,7 @@ export default function LineMeta({ attributes, compact, fromSearch }) {
       <Col md={24} lg={12}>
         <p>
           <b>Line Name: </b>
-          <span>{publishedName}</span>
+          <Link to={`/search?q=${publishedName}`}>{publishedName}</Link>
         </p>
         {attributes.normalizedScore ? (
           <p>
