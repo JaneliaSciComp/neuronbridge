@@ -4,64 +4,38 @@
 
   - **Curated Matches of Split-GAL4 Lines to Cell Types**: Search results now include a curated matches section that displays expert-annotated associations between Split-GAL4 lines and cell types
     - Results are shown in a collapsible, paginated table with confidence level (Confident/Candidate), anatomical region, and source columns
-    - Includes EM body ID annotations alongside cell type matches
     - Curated matches appear above computed matches with a bookmark indicator when results are available
-    - Supports searching by line name, cell type, or body ID with wildcard expansion
+    - See the [Curated Results section of the help page](/help#curated_results) for details on confidence levels and data sources.
 
   - **Line Name Links**: Line names in search result metadata are now clickable links that navigate to a new search for that line
 
 ### UI/UX Improvements
 
-  - **Search Input Updates**: The search button has been renamed from "Search" to "Query" and the minimum search term length has been reduced from 3 to 2 characters
   - **Updated Search Examples**: The example search terms have been refreshed to showcase curated matches functionality
-  - **Constrained Results Width**: Search results are now constrained to a maximum width for improved readability
   - **Help Documentation**: Added a new help section explaining the curated matches feature
-
-### Curated Results
-
-See the [Curated Results section of the help page](/help#curated_results) for details on confidence levels and data sources.
-
-### Content Updates
-
-  - Updated paper reference
-  - Added help text for curated matches
 
 ---
 
-## VERSION 3.4.0 - 2025-04-17
+## VERSION 3.4.0 - 2026-04-17
 
 ### Major Features
 
   - **Aligned Volume Download for Custom Searches**: Custom search results now include a download link for the aligned volume, making it easier to retrieve aligned data for further analysis
     - The "View in 3D" button is now available for custom uploads when an aligned volume exists
-    - The selected channel from mask selection is persisted to the search record
 
   - **Searched Libraries Display**: The Color Depth Search step now shows which libraries were searched along with result counts, providing better visibility into search coverage
 
 ### UI/UX Improvements
 
   - **External Links Open in New Tabs**: All links to external sources now open in a new tab, preventing users from losing their place on the site
-  - **External Link Icons**: An external link icon has been added to all external links, making it clear when a link will navigate away from NeuronBridge
-  - **Additional Data Source Links**: Two additional links have been added to the landing page data sources list
 
 ### Bug Fixes & Improvements
 
   - **Search & Navigation**:
     - Improved search result filtering and duplicate removal logic
-    - Fixed the default search library selection in the custom search form
     - Fixed external EM links to use id instead of library
     - Fixed the "View" button to be clickable anywhere on the button area
     - Updated search examples for accuracy
-
-  - **Stability & Error Handling**:
-    - Added null check for error responses in the Results catch handler
-    - Added cacheControl headers to references.json fetch for improved caching
-
-### Content Updates
-
-  - Added CITATION.cff for Zenodo integration
-  - Added reference for Male CNS
-  - Updated site meta description
 
 ---
 
