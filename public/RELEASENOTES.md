@@ -1,3 +1,33 @@
+## VERSION 3.5.0 - 2026-04-17
+
+### Major Features
+
+  - **Curated Matches of Split-GAL4 Lines to Cell Types**: Search results now include a curated matches section that displays expert-annotated associations between Split-GAL4 lines and cell types
+    - Results are shown in a collapsible, paginated table with confidence level (Confident/Candidate), anatomical region, and source columns
+    - Includes EM body ID annotations alongside cell type matches
+    - Curated matches appear above computed matches with a bookmark indicator when results are available
+    - Supports searching by line name, cell type, or body ID with wildcard expansion
+
+  - **Line Name Links**: Line names in search result metadata are now clickable links that navigate to a new search for that line
+
+### UI/UX Improvements
+
+  - **Search Input Updates**: The search button has been renamed from "Search" to "Query" and the minimum search term length has been reduced from 3 to 2 characters
+  - **Updated Search Examples**: The example search terms have been refreshed to showcase curated matches functionality
+  - **Constrained Results Width**: Search results are now constrained to a maximum width for improved readability
+  - **Help Documentation**: Added a new help section explaining the curated matches feature
+
+### Curated Results
+
+See the [Curated Results section of the help page](/help#curated_results) for details on confidence levels and data sources.
+
+### Content Updates
+
+  - Updated paper reference
+  - Added help text for curated matches
+
+---
+
 ## VERSION 3.4.0 - 2025-04-17
 
 ### Major Features
