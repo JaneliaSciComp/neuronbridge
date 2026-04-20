@@ -99,7 +99,7 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.12",
-    "webpack": "^5.88.1"
+    "webpack": "^5.95.0"
   },
   "msw": {
     "workerDirectory": "public"
