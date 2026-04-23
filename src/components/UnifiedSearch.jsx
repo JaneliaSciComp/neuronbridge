@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Storage, Auth, API } from "aws-amplify";
-import { Spin,  message, Typography } from "antd";
+import { Collapse, Spin, message, Typography } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 import SearchInput from "./SearchInput";
 import UnifiedSearchResults from "./UnifiedSearchResults";
+import CuratedResults from "./CuratedResults";
 import NoSearch from "./NoSearch";
 import { AppContext } from "../containers/AppContext";
+import HelpButton from "./Help/HelpButton";
 import { setResultsFullUrlPaths } from "../libs/utils";
 
 const { Title, Paragraph } = Typography;
@@ -23,6 +27,82 @@ function splitOnLastOccurrence(str, substring) {
   return [before, after];
 }
 
+function filterAndSortCuratedMatches(matches) {
+  // expand the matches.
+  const expanded = matches.flatMap((match) => {
+    if (match.itemType === "line_name") {
+      return match.matches.map((m) => {
+        const matched = m.cell_type || `${m.dataset}:${m.body_id}`;
+        const addWildard = m.cell_type ? "*" : "";
+        return {
+          name: match.name,
+          confidence: m.annotation,
+          anatomicalRegion: m.region,
+          matched,
+          type: "line_name",
+          addWildard,
+          source: m.annotator,
+        };
+      });
+    }
+    if (match.itemType === "cell_type") {
+      return match.matches.map((m) => ({
+        name: m.line,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        matched: match.name,
+        type: "cell_type",
+        addWildard: "*",
+        source: m.annotator,
+      }));
+    }
+    if (match.itemType === "body_id") {
+      return match.matches.map((m) => ({
+        name: m.line,
+        confidence: m.annotation,
+        anatomicalRegion: m.region,
+        matched:`${m.dataset}:${match.name}`,
+        type: "body_id",
+        addWildard: "",
+        source: m.annotator,
+      }));
+    }
+    return [];
+  });
+
+  // strip duplicates if deep comparison is the same.
+  const deduped = expanded.filter(
+    (value, index, self) =>
+      index ===
+      self.findIndex(
+        (t) =>
+          t.name === value.name &&
+          t.confidence === value.confidence &&
+          t.anatomicalRegion === value.anatomicalRegion &&
+          t.cellType === value.cellType &&
+          t.source === value.source,
+      ),
+  );
+  // sort by name and then confidence, where confident comes before candidate.
+  deduped.sort((a, b) => {
+    if (a.confidence === "Confident" && b.confidence === "Candidate") {
+      return -1;
+    }
+    if (a.confidence === "Candidate" && b.confidence === "Confident") {
+      return 1;
+    }
+
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+  return deduped;
+}
+
 export default function UnifiedSearch() {
   const query = useQuery();
   const searchTerm = query.get("q") || "";
@@ -34,6 +114,10 @@ export default function UnifiedSearch() {
   const [loadError, setLoadError] = useState(false);
   const [bodyLoading, setBodyLoading] = useState(false);
   const [foundItems, setFoundItems] = useState(0);
+
+  const [curatedResults, setCuratedResults] = useState([]);
+  const [curatedError, setCuratedError] = useState(false);
+
   const { appState } = useContext(AppContext);
 
   // strip out the dataset from the body id if present and run the
@@ -45,6 +129,7 @@ export default function UnifiedSearch() {
     ":",
   );
 
+  // load the computed matches
   useEffect(() => {
     function readMetaData(metaData, combinedResults, setResults) {
       return new Promise((resolve, reject) => {
@@ -66,7 +151,7 @@ export default function UnifiedSearch() {
       });
     }
 
-     if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
+    if (appState.dataConfig.loaded && loadedTerm !== searchTerm) {
       setLoadedTerm(searchTerm);
       setByLineResults(null);
       setByBodyResults(null);
@@ -78,24 +163,25 @@ export default function UnifiedSearch() {
 
       // don't let people search with strings shorter than 3 characters.
       // This returns too many results.
-      if (searchTerm.length < 3) {
+      if (searchTerm.length < 2) {
         message.error({
           duration: 0,
-          content: "Searches must have a minimum of 3 characters.",
+          content: "Searches must have a minimum of 2 characters.",
           key: "searchminimum",
           onClick: () => message.destroy("searchminimum"),
         });
 
         setByLineResults({
-          error: "Searches must have a minimum of 3 characters.",
+          error: "Searches must have a minimum of 2 characters.",
           results: [],
         });
         setByBodyResults({
-          error: "Searches must have a minimum of 3 characters.",
+          error: "Searches must have a minimum of 2 characters.",
           results: [],
         });
         return;
       }
+
       if (searchTerm.match(/\*(\*|\.)\*/)) {
         message.error({
           duration: 0,
@@ -128,6 +214,8 @@ export default function UnifiedSearch() {
 
       Auth.currentCredentials().then(() => {
         setLoadError(false);
+
+
         API.get("SearchAPI", "/published_names", {
           queryStringParameters: { q: searchBodyIdOrName },
         })
@@ -135,6 +223,8 @@ export default function UnifiedSearch() {
             const lineCombined = { results: [] };
             const bodyCombined = { results: [] };
             const publishedNames = new Set();
+
+            const seenIds = new Set();
 
             const allItems = items.names
               .sort((a, b) => {
@@ -182,6 +272,13 @@ export default function UnifiedSearch() {
                   return match.bodyIDs.map((body) => {
                     publishedNames.add(body);
                     const bodyID = body.split(":").at(-1);
+                    // skip if we have already seen this bodyID in one of the other
+                    // matches. This happens when we use wildcard searches that return
+                    // results for both the neuron type and the neuron instance. eg: LHPD2c7*
+                    if (seenIds.has(bodyID)) {
+                      return Promise.resolve();
+                    }
+                    seenIds.add(bodyID);
                     const byBodyUrl = `${appState.dataVersion}/metadata/by_body/${bodyID}.json`;
                     return Storage.get(byBodyUrl, storageOptions)
                       .then((metaData) =>
@@ -205,6 +302,10 @@ export default function UnifiedSearch() {
 
             // once all the items have loaded, we can clean up.
             allPromisses.then(() => {
+              // Set the foundItems count to the total number of items found
+              // in the search results. This is used to determine if we need to
+              // show the 'additional matches' message.
+              setFoundItems(bodyCombined.results.length);
               // remove duplicates from the combined results. This can happen if we are
               // loading data from a partial neurontype string, eg: WED01
               if (bodyCombined.results.length > 0) {
@@ -227,14 +328,20 @@ export default function UnifiedSearch() {
                 // have a colon in it. A missing colon means it does not require a match to
                 // the dataset version, so the version is removed from the publishedName
                 // in the match and then checked against the search term.
-                if (searchDataset && searchDataset.length > 0 && !searchDataset.includes(":")) {
+                if (
+                  searchDataset &&
+                  searchDataset.length > 0 &&
+                  !searchDataset.includes(":")
+                ) {
                   bodyCombined.results = bodyCombined.results.filter((item) => {
-                    const [dataset, ,bodyid] = item.publishedName.split(":");
+                    const [dataset, , bodyid] = item.publishedName.split(":");
                     const noVersion = `${dataset}:${bodyid}`;
                     return noVersion.match(searchRegex);
                   });
-                // filter out items that don't match the original searchTerm if a
-                // dataset and version was used.
+                  // filter out items that don't match the original searchTerm if a
+                  // dataset and version was used. For example, if the search term
+                  // was 'manc:v1.2.1:12191' then we want to filter out any results
+                  // that don't match the full search term, such as 'manc:v1.0:12191'
                 } else if (searchDataset && searchDataset.length > 0) {
                   bodyCombined.results = bodyCombined.results.filter((item) =>
                     item.publishedName.match(searchRegex),
@@ -255,7 +362,17 @@ export default function UnifiedSearch() {
               setBodyLoading(false);
             });
           })
-          .catch((e) => setLoadError(e));
+          .catch((e) => {
+            message.error({
+              duration: 0,
+              content: e?.response?.data?.error || "There was a problem contacting the search service.",
+              key: "curated_error",
+              onClick: () => message.destroy("curated_error"),
+            });
+
+
+            setLoadError(true);
+          });
       });
     }
   }, [
@@ -266,6 +383,36 @@ export default function UnifiedSearch() {
     searchBodyIdOrName,
     searchDataset,
   ]);
+
+  useEffect(() => {
+    if (searchTerm !== "") {
+      setCuratedResults([]);
+      Auth.currentCredentials().then(() => {
+        setCuratedError(false);
+        API.get("SearchAPI", "/curated_matches", {
+          queryStringParameters: {
+            q: searchTerm,
+          },
+        })
+          .then((response) => {
+            if (response.matches.length > 0) {
+              const sorted = filterAndSortCuratedMatches(response.matches);
+              setCuratedResults(sorted);
+            }
+          })
+          .catch((error) => {
+            setCuratedError(error);
+            message.error({
+              duration: 0,
+              content: error?.response?.data?.error || "There was a problem contacting the search service.",
+              key: "curated_error",
+              onClick: () => message.destroy("curated_error"),
+            });
+
+          });
+      });
+    }
+  }, [searchTerm]);
 
   const searchError = (
     <div>
@@ -282,39 +429,89 @@ export default function UnifiedSearch() {
     </div>
   );
 
+  let computedMatches = null;
+
+  if (loadError) {
+    computedMatches = searchError;
+  } else if (byLineResult && byBodyResult && !lineLoading && !bodyLoading) {
+    computedMatches = (
+      <>
+        <UnifiedSearchResults
+          searchTerm={searchTerm}
+          linesResult={byLineResult}
+          skeletonsResult={byBodyResult}
+        />
+        {foundItems > byBodyResult.results.length ? (
+          <p>
+            <b>
+              There are additional matches for your search term in different
+              datasets. To view them search for &lsquo;
+              <Link to={`/search?q=${searchBodyIdOrName}`}>
+                {searchBodyIdOrName}
+              </Link>
+              &rsquo;
+            </b>
+          </p>
+        ) : (
+          ""
+        )}
+      </>
+    );
+  } else if (lineLoading || (bodyLoading && !loadError)) {
+    computedMatches = (
+      <div>
+        <Spin tip="Loading..." size="large" /> Loading...
+      </div>
+    );
+  }
+
+  const curatedMatches = searchTerm ? (
+    <CuratedResults results={curatedResults} loadError={curatedError} />
+  ) : null;
+
+  const items = [];
+
+  if (curatedResults.length > 0) {
+    items.unshift({
+      key: "1",
+      label: <p>Curated Matches of Split-GAL4 Lines to Cell Types <b>({curatedResults.length} items)</b></p>,
+      children: curatedMatches,
+      extra: (
+        <HelpButton
+          target="CuratedResults"
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        />
+      ),
+    });
+  }
+
   return (
-    <div>
+    <div style={{ margin: "auto", maxWidth: "1400px" }}>
       <SearchInput searchTerm={searchTerm} />
-      {!searchTerm ? <NoSearch /> : ""}
-      {(lineLoading || bodyLoading) && !loadError ? (
-        <div>
-          <Spin size="large" /> Loading...
-        </div>) : ""}
-      {loadError ? searchError : ""}
-      {byLineResult && byBodyResult && !lineLoading && !bodyLoading ? (
-        <>
-          <UnifiedSearchResults
-            searchTerm={searchTerm}
-            linesResult={byLineResult}
-            skeletonsResult={byBodyResult}
-          />
-          {foundItems > byBodyResult.results.length ? (
-            <p>
-              <b>
-                There are additional matches for your search term in different datasets. To view them
-                search for &lsquo;
-                <Link to={`/search?q=${searchBodyIdOrName}`}>
-                  {searchBodyIdOrName}
-                </Link>
-                &rsquo;
-              </b>
-            </p>
-          ) : (
-            ""
-          )}
-        </>
+      {!searchTerm ? (
+        <NoSearch />
       ) : (
-        ""
+        <div style={{ position: "relative" }}>
+          {curatedResults.length > 0 ? (
+            <FontAwesomeIcon
+              icon={faBookmark}
+              style={{
+                position: "absolute",
+                top: "-3px",
+                left: "5px",
+                color: "#f00",
+                fontSize: "1.5em",
+              }}
+            />
+          ) : null}
+          {curatedResults.length > 0 ? (
+            <Collapse items={items} defaultActiveKey={["1", "2"]} />
+          ) : null}
+          <br />
+          {computedMatches}
+        </div>
       )}
     </div>
   );

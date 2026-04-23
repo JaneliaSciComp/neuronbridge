@@ -12,7 +12,7 @@ describe("SearchInput: unit tests", () => {
         <SearchInput />
       </MemoryRouter>
     );
-    expect(getByText('Search'));
+    expect(getByText('Query'));
   });
 
   /* had to disable the accessibility test, because it throws an error due to

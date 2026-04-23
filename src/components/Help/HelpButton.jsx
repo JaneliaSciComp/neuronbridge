@@ -6,10 +6,17 @@ import { AppContext } from "../../containers/AppContext";
 export default function HelpButton({target, text, onClick}) {
   const { appState, setAppState } = useContext(AppContext);
 
-  const handleHelp = () => {
+  const handleHelp = (event) => {
+    // call the onClick callback if it is provided
     if (onClick) {
-      onClick();
+      onClick(event);
     }
+    // Toggle help if the button is clicked again
+    if (appState.helpTarget === target) {
+      setAppState({ ...appState, showHelp: !appState.showHelp });
+      return;
+    }
+    // Show help for the target
     setAppState({ ...appState, showHelp: true, helpTarget: target });
   }
 

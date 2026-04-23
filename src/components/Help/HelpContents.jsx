@@ -34,29 +34,24 @@ export default function HelpContents({ scroll }) {
     SearchInput: useRef(),
     UploadAlignment: useRef(),
     UploadSearch: useRef(),
+    CuratedResults: useRef(),
   };
 
   // use Effect to scroll to target set in the appState?
   useEffect(() => {
     if (scroll) {
-      if (refLookup[appState.helpTarget]) {
-        if (refLookup[appState.helpTarget].current) {
-          helpContentRef.current.parentElement.scrollTop =
-            refLookup[appState.helpTarget].current.offsetTop - 60;
-          refLookup[appState.helpTarget].current.classList.add("highlighted");
-          window.setTimeout(() => {
-            if (
-              refLookup[appState.helpTarget] &&
-              refLookup[appState.helpTarget].current
-            ) {
-              refLookup[appState.helpTarget].current.classList.remove(
-                "highlighted"
-              );
-            }
-          }, 3000);
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          refLookup[appState.helpTarget].current.scrollIntoView({ behavior: "instant" });
+          observer.disconnect();
         }
+      });
+      observer.observe(helpContentRef.current);
+      return () => {
+        observer.disconnect();
       }
     }
+    return () => {};
   }, [appState.helpTarget, refLookup, scroll]);
 
   const handleResultsPerLine = (count) => {
@@ -324,6 +319,33 @@ export default function HelpContents({ scroll }) {
           </a>
         </p>
       </div>
+      <Divider />
+      <a
+        ref={refLookup.CuratedResults}
+        className="anchorOffset"
+        id="curated_results"
+        href="#curated_results"
+      >
+        #curated_results
+      </a>
+      <Title level={3}>Curated Results</Title>
+      <p>
+      Curated results are based on human evaluations of EM cell types labeled in LM images of split-GAL4 lines. In general they should be more accurate than the average NeuronBridge image search hit. The name of the primary person evaluating the cell type is listed. 
+      </p>
+      <p>
+      Curated results come from two sources:
+      <ul>
+        <li>Annotations generated as part of split-GAL4 publications, and included with releases posted to <a href="https://splitgal4.janelia.org">https://splitgal4.janelia.org</a>.</li>
+        <li>Scoring of PatchPerPixMatch EM search results for a subset of the cell type lines published in <a href="https://doi.org/10.7554/elife.98405.3">Meissner et al., 2025</a>. These scores and additional details may be published in a forthcoming standalone paper or addendum to the above paper.</li>
+      </ul>
+
+      Results have one of three confidence levels: 
+      <ul>
+        <li>Confident: &gt;95% confidence, based on detailed examination of all potential associations, similar to criteria for publication.</li>
+        <li>Probable: 70-95% confidence, an association that seems correct but has not been as fully validated.</li>
+        <li>Candidate: 30-70% confidence, where more work is needed for validation and there are often multiple candidates.</li>
+      </ul>
+      </p>
       <Divider />
       <a
         ref={refLookup.UploadAlignment}

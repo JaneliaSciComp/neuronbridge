@@ -74,3 +74,11 @@ body {
   list-style: none;
   padding: 0;
 }
+
+/* hides the anchor offset on any page that needs it */
+.anchorOffset {
+  display: block;
+  position: relative;
+  top: -80px;
+  visibility: hidden;
+}

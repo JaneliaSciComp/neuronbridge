@@ -1,3 +1,44 @@
+## VERSION 3.5.0 - 2026-04-17
+
+### Major Features
+
+  - **Curated Matches of Split-GAL4 Lines to Cell Types**: Search results now include a curated matches section that displays expert-annotated associations between Split-GAL4 lines and cell types
+    - Results are shown in a collapsible, paginated table with confidence level (Confident/Candidate), anatomical region, and source columns
+    - Curated matches appear above computed matches with a bookmark indicator when results are available
+    - See the [Curated Results section of the help page](/help#curated_results) for details on confidence levels and data sources.
+
+  - **Line Name Links**: Line names in search result metadata are now clickable links that navigate to a new search for that line
+
+### UI/UX Improvements
+
+  - **Updated Search Examples**: The example search terms have been refreshed to showcase curated matches functionality
+  - **Help Documentation**: Added a new help section explaining the curated matches feature
+
+---
+
+## VERSION 3.4.0 - 2026-04-17
+
+### Major Features
+
+  - **Aligned Volume Download for Custom Searches**: Custom search results now include a download link for the aligned volume, making it easier to retrieve aligned data for further analysis
+    - The "View in 3D" button is now available for custom uploads when an aligned volume exists
+
+  - **Searched Libraries Display**: The Color Depth Search step now shows which libraries were searched along with result counts, providing better visibility into search coverage
+
+### UI/UX Improvements
+
+  - **External Links Open in New Tabs**: All links to external sources now open in a new tab, preventing users from losing their place on the site
+
+### Bug Fixes & Improvements
+
+  - **Search & Navigation**:
+    - Improved search result filtering and duplicate removal logic
+    - Fixed external EM links to use id instead of library
+    - Fixed the "View" button to be clickable anywhere on the button area
+    - Updated search examples for accuracy
+
+---
+
 ## VERSION 3.3.1 - 2024-09-22
 
 ### Major Features

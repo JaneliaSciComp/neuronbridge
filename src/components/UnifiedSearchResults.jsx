@@ -151,7 +151,7 @@ export default function UnifiedSearchResults(props) {
               onChange={(newPage) => handlePageChange(newPage)}
               total={resultsList.length}
               showTotal={(total, range) =>
-                `Results ${range[0]}-${range[1]} of ${total}`
+                `Query Results ${range[0]}-${range[1]} of ${total}`
               }
             />
           </Col>
@@ -169,7 +169,7 @@ export default function UnifiedSearchResults(props) {
           onChange={(newPage) => handlePageChange(newPage)}
           total={resultsList.length}
           showTotal={(total, range) =>
-            `Results ${range[0]}-${range[1]} of ${total}`
+            `Query Results ${range[0]}-${range[1]} of ${total}`
           }
         />
       </div>
