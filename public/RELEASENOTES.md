@@ -1,4 +1,4 @@
-## VERSION 3.5.0 - 2026-04-17
+## VERSION 3.5.0 - 2026-04-23
 
 ### Major Features
 
@@ -16,7 +16,7 @@
 
 ---
 
-## VERSION 3.4.0 - 2026-04-17
+## VERSION 3.4.0 - 2026-04-23
 
 ### Major Features
 
