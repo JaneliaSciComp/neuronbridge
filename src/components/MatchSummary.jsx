@@ -55,11 +55,28 @@ export default function MatchSummary(props) {
             vertical={isVertical}
           />
         </div>
-        <p style={{ margin: "-10px 0 0 0", paddingLeft: "1em", paddingBottom: "2em" }}>
+        <p
+          style={{
+            margin: "-10px 0 0 0",
+            paddingLeft: "1em",
+            paddingRight: "1em",
+            paddingBottom: "2em",
+            overflowWrap: "anywhere",
+            wordBreak: "break-word",
+          }}
+        >
           <Button
             type="link"
             onClick={showModal}
-            style={{ margin: "none", padding: "0.1em"  }}
+            style={{
+              margin: "none",
+              padding: "0.1em",
+              height: "auto",
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+              overflowWrap: "anywhere",
+              textAlign: "left",
+            }}
           >
             {publishedName}
           </Button>
