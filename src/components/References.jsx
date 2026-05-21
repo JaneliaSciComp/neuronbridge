@@ -198,6 +198,9 @@ export default function References() {
       <dd>
         <a href="https://doi.org/10.1101/2023.06.27.546055" target="_blank" rel="noopener noreferrer">Schlegel et al., 2023 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
       </dd>
+      <dd>
+        <a href="https://doi.org/10.1101/2025.07.31.667571" target="_blank" rel="noopener noreferrer">Bates et al., 2025 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
+      </dd>
 
       <dt>Male CNS</dt>
       <dd>
