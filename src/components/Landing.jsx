@@ -79,6 +79,7 @@ function Landing(props) {
                 <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM Hemibrain <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
                 <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM MANC <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
                 <a href="https://codex.flywire.ai" target="_blank" rel="noopener noreferrer">FlyWire Brain <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
+                <a href="https://codex.flywire.ai" target="_blank" rel="noopener noreferrer">FlyWire BANC <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
               </Col>
             </Row>
 
