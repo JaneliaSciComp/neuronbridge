@@ -88,6 +88,12 @@ export default function UnifiedSearchResults(props) {
         .sort((a, b) => {
           const [datasetA, versionA, bodyidA] = a.publishedName.split(":");
           const [datasetB, versionB, bodyidB] = b.publishedName.split(":");
+          // Push flywire libraries below all other (janelia) libraries.
+          const aIsFlywire = a.libraryName?.toLowerCase().startsWith("flywire");
+          const bIsFlywire = b.libraryName?.toLowerCase().startsWith("flywire");
+          if (aIsFlywire !== bIsFlywire) {
+            return aIsFlywire ? 1 : -1;
+          }
           return (
             // First sort by dataset, lowest to highest
             datasetA.localeCompare(datasetB, undefined, {
