@@ -13,6 +13,8 @@ const mcfoUrl =
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
   const flyWireUrl =
     "https://codex.flywire.ai/app/cell_details?data_version=<VERSION>&root_id=<ID>";
+  const flyWireBancUrl =
+    "https://codex.flywire.ai/app/cell_details?dataset=banc&data_version=<VERSION>&root_id=<ID>";
 
 function VFBLink({ name }) {
   return (
@@ -27,12 +29,13 @@ VFBLink.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-function FlyWireLink({ tag }) {
+function FlyWireLink({ tag, dataset }) {
   const [, version, id] = tag.split(":");
+  const urlTemplate = dataset === "banc" ? flyWireBancUrl : flyWireUrl;
 
   return (
     <a
-      href={flyWireUrl
+      href={urlTemplate
         .replace(/<ID>/, id)
         .replace(/<VERSION>/, version.replace(/^v/, ""))}
       target="_blank"
@@ -46,6 +49,11 @@ function FlyWireLink({ tag }) {
 
 FlyWireLink.propTypes = {
   tag: PropTypes.string.isRequired,
+  dataset: PropTypes.string,
+};
+
+FlyWireLink.defaultProps = {
+  dataset: null,
 };
 
 export default function ExternalLink({ id, isLM, library, publishedName }) {
@@ -125,19 +133,32 @@ export default function ExternalLink({ id, isLM, library, publishedName }) {
     .replace(/<NAME>/, bodyId)
     .replace(/<DATASET>/, dataset);
 
-  const secondaryLink = library.match(/flywire_fafb/i) ? (
-    <>
-    <FlyWireLink tag={id} />
-    <br/>
-    <VFBLink name={id} />
-    </>
-  ) : (
-    <VFBLink name={id} />
-  );
+  const isFlywireFafbLibrary = Boolean(library.match(/flywire_fafb/i));
+  const isFlywireBancLibrary = Boolean(library.match(/flywire_banc/i));
+  const isFlywireLibrary = Boolean(library.match(/flywire/i));
+
+  let secondaryLink = <VFBLink name={id} />;
+  if (isFlywireFafbLibrary) {
+    secondaryLink = (
+      <>
+        <FlyWireLink tag={id} />
+        <br/>
+        <VFBLink name={id} />
+      </>
+    );
+  } else if (isFlywireBancLibrary) {
+    secondaryLink = (
+      <>
+        <FlyWireLink tag={id} dataset="banc" />
+        <br/>
+        <VFBLink name={id} />
+      </>
+    );
+  }
 
   return (
     <>
-      { !library.match(/flywire_fafb/i) ? (
+      { !isFlywireLibrary ? (
         <>
       <a href={finalEMUrl} target="_blank" rel="noopener noreferrer">
         NeuPrint{" "}
