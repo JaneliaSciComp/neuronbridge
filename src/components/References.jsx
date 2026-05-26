@@ -17,7 +17,7 @@ export default function References() {
         <a href="https://doi.org/10.1101/318006" target="_blank" rel="noopener noreferrer">Otsuna et al., 2018 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
       </dd>
       <dd>
-        <a href="https://doi.org/10.1101/2021.07.23.453511" target="_blank" rel="noopener noreferrer">Hirsch et al., 2020 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
+        <a href="https://doi.org/10.48550/arXiv.2001.07626" target="_blank" rel="noopener noreferrer">Hirsch et al., 2020 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
       </dd>
       <dd>
         <a href="https://doi.org/10.1101/2021.07.23.453511" target="_blank" rel="noopener noreferrer">Mais et al., 2021 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a>
