@@ -11,10 +11,8 @@ const mcfoUrl =
   "http://gen1mcfo.janelia.org/cgi-bin/view_gen1mcfo_imagery.cgi?slidecode=<NAME>";
 // https://neuprint.janelia.org/view?dataset=hemibrain:v1.1&bodyid=12345678
 const vfbUrl = "http://virtualflybrain.org/xref/neuronbridge/<NAME>";
-  const flyWireUrl =
-    "https://codex.flywire.ai/app/cell_details?data_version=<VERSION>&root_id=<ID>";
-  const flyWireBancUrl =
-    "https://codex.flywire.ai/app/cell_details?dataset=banc&data_version=<VERSION>&root_id=<ID>";
+const flyWireUrl =
+    "https://codex.flywire.ai/app/cell_details?dataset=<DATASET>&data_version=<VERSION>&root_id=<ID>";
 
 function VFBLink({ name }) {
   return (
@@ -31,13 +29,13 @@ VFBLink.propTypes = {
 
 function FlyWireLink({ tag, dataset }) {
   const [, version, id] = tag.split(":");
-  const urlTemplate = dataset === "banc" ? flyWireBancUrl : flyWireUrl;
 
   return (
     <a
-      href={urlTemplate
+      href={flyWireUrl
         .replace(/<ID>/, id)
-        .replace(/<VERSION>/, version.replace(/^v/, ""))}
+        .replace(/<VERSION>/, version.replace(/^v/, ""))
+        .replace(/<DATASET>/, dataset)}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -53,7 +51,7 @@ FlyWireLink.propTypes = {
 };
 
 FlyWireLink.defaultProps = {
-  dataset: null,
+  dataset: "fafb",
 };
 
 export default function ExternalLink({ id, isLM, library, publishedName }) {
