@@ -1,0 +1,65 @@
+{
+  "collections": [
+    {
+      "name": "FlyLight Generation 1 MCFO",
+      "type": "Light Microscopy",
+      "homepageUrl": "http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi",
+      "description": "Single neuron labeling of central brains and VNCs, including an annotator-curated set of mostly female whole brains.",
+      "libraries": [
+        "FlyLight_Gen1_MCFO",
+        "FlyLight_Gen1_MCFO_v1.1",
+        "FlyLight_Annotator_Gen1_MCFO",
+        "FlyLight_Annotator_Gen1_MCFO_v1.1"
+      ]
+    },
+    {
+      "name": "FlyLight Split-GAL4",
+      "type": "Light Microscopy",
+      "homepageUrl": "http://splitgal4.janelia.org",
+      "description": "Large collection of publications with focused studies using related sets of split-GAL4 drivers.",
+      "libraries": ["FlyLight_Split-GAL4_Drivers"]
+    },
+    {
+      "name": "FlyLight Split-GAL4 Omnibus Broad",
+      "type": "Light Microscopy",
+      "homepageUrl": "https://flylight-raw.janelia.org/cgi-bin/raw.cgi",
+      "description": "“Open lab notebook” release of additional FlyLight image data; may contain inconsistencies.",
+      "libraries": ["FlyLight_Split-GAL4_Omnibus_Broad"]
+    },
+    {
+      "name": "FlyEM Male CNS",
+      "type": "Electron Microscopy",
+      "homepageUrl": "https://neuprint.janelia.org/?dataset=male-cns:v0.9&qt=findneurons",
+      "description": "Male full CNS connectome.",
+      "libraries": ["FlyEM_Male_CNS_Brain_v0.9", "FlyEM_Male_CNS_VNC_v0.9"]
+    },
+    {
+      "name": "FlyEM Hemibrain",
+      "type": "Electron Microscopy",
+      "homepageUrl": "https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons",
+      "description": "Female partial brain connectome.",
+      "libraries": ["FlyEM_Hemibrain_v1.2.1"]
+    },
+    {
+      "name": "FlyEM MANC",
+      "type": "Electron Microscopy",
+      "homepageUrl": "https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons",
+      "description": "Male VNC-only connectome.",
+      "libraries": ["FlyEM_MANC_v1.2.1"]
+    },
+    {
+      "name": "FlyWire Brain",
+      "type": "Electron Microscopy",
+      "homepageUrl": "https://codex.flywire.ai?dataset=fafb",
+      "description": "Female full brain connectome.",
+      "libraries": ["FlyWire_FAFB_v783_realign"]
+    },
+    {
+      "name": "FlyWire BANC",
+      "type": "Electron Microscopy",
+      "homepageUrl": "https://codex.flywire.ai/?dataset=banc",
+      "description": "Female full CNS connectome.",
+      "libraries": ["FlyWire_BANC_v626"]
+    }
+  ]
+}

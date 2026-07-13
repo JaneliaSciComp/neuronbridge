@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Typography, Table, message } from "antd";
+import { Typography, Table, Select, message } from "antd";
 import { Auth, Storage } from "aws-amplify";
 import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,8 @@ export default function ImageCollections() {
   const { appState } = useContext(AppContext);
   const [isLoading, setLoading] = useState(true);
   const [refs, setRefs] = useState(null);
+  const [collectionsConfig, setCollectionsConfig] = useState(null);
+  const [selectedCollection, setSelectedCollection] = useState(null);
 
   useEffect(() => {
     const storageOptions = {
@@ -20,59 +22,69 @@ export default function ImageCollections() {
       },
       level: "public",
       download: true,
+      cacheControl: "no-cache, no-store, must-revalidate",
     };
 
-    function getReferences() {
+    // Fetch a JSON file from the data bucket and parse it.
+    function getJson(path) {
+      return Storage.get(path, storageOptions).then(
+        (response) =>
+          new Promise((resolve, reject) => {
+            const fr = new FileReader();
+            fr.onload = (evt) => {
+              try {
+                resolve(JSON.parse(evt.target.result));
+              } catch (err) {
+                reject(err);
+              }
+            };
+            fr.onerror = () => reject(fr.error);
+            fr.readAsText(response.Body);
+          }),
+      );
+    }
+
+    function loadData() {
       setLoading(true);
       const refsPath = `${appState.dataVersion}/references.json`;
+      const collectionsPath = `${appState.dataVersion}/collections.json`;
 
       Auth.currentCredentials()
-        .then(() => {
-          Storage.get(refsPath, {
-            ...storageOptions,
-            cacheControl: 'no-cache, no-store, must-revalidate',
-          })
-            .then((response) => {
-              const fr = new FileReader();
-              fr.onload = (evt) => {
-                const json = JSON.parse(evt.target.result);
-                setRefs(json);
-                setLoading(false);
-              };
-              fr.readAsText(response.Body);
-            })
-            .catch((e) => {
-              if (e.response && e.response.status === 404) {
-                message.error({
-                  duration: 0,
-                  content: "No references were found",
-                  key: "refnotfound",
-                  onClick: () => message.destroy("refnotfound"),
-                });
-              } else {
-                message.error({
-                  duration: 0,
-                  content: "Unable to load references from the server",
-                  key: "matchloaderror",
-                  onClick: () => message.destroy("matchloaderror"),
-                });
-              }
-              setLoading(false);
-            });
+        .then(() =>
+          Promise.all([
+            getJson(refsPath),
+            // collections.json is optional: if it is missing we fall back to
+            // showing one collection per library (see buildCollectionDefs).
+            getJson(collectionsPath).catch(() => null),
+          ]),
+        )
+        .then(([refsJson, collectionsJson]) => {
+          setRefs(refsJson);
+          setCollectionsConfig(collectionsJson);
+          setLoading(false);
         })
-        .catch(() => {
-          message.error({
-            duration: 0,
-            content: "Unable to load references from the server",
-            key: "matchgenericerror",
-            onClick: () => message.destroy("matchgenericerror"),
-          });
+        .catch((e) => {
+          if (e.response && e.response.status === 404) {
+            message.error({
+              duration: 0,
+              content: "No references were found",
+              key: "refnotfound",
+              onClick: () => message.destroy("refnotfound"),
+            });
+          } else {
+            message.error({
+              duration: 0,
+              content: "Unable to load references from the server",
+              key: "matchloaderror",
+              onClick: () => message.destroy("matchloaderror"),
+            });
+          }
           setLoading(false);
         });
     }
 
     if (appState?.dataConfig?.loaded) {
-      getReferences();
+      loadData();
     }
   }, [appState.dataConfig]);
 
@@ -80,55 +92,98 @@ export default function ImageCollections() {
     return <div>Loading...</div>;
   }
 
-  const tableData = [];
+  // Build a map of library name -> release rows, pulling counts/DOIs from
+  // references.json and the anatomical area from the data config.
+  const releaseRowsByLibrary = {};
 
-  if (appState.dataConfig.stores && refs) {
-    Object.keys(appState.dataConfig.stores).forEach((store) => {
-      const storeData = appState.dataConfig.stores[store];
-      if (storeData.customSearch) {
-        const { customSearch } = storeData;
-
-        ["emLibraries", "lmLibraries"].forEach((libraryType) => {
-          customSearch[libraryType].forEach((library) => {
-            const libraryTypeCollection =
-              refs.stores[store].customSearch[libraryType];
-            const libraryCollection = libraryTypeCollection.filter(
-              (lib) => lib.name === library.name,
-            )[0];
-            if (!libraryCollection) {
-              return;
-            }
-            libraryCollection.releases.forEach((release) => {
-              const [releaseName, releaseData] = Object.entries(release)[0];
-              if (releaseData.count > 0) {
-                tableData.push({
-                  collection: libraryFormatter(library.name),
-                  area: storeData.anatomicalArea,
-                  count: releaseData.count,
-                  release: releaseName,
-                  dois: releaseData.dois,
-                });
+  if (refs && refs.stores) {
+    Object.keys(refs.stores).forEach((store) => {
+      const storeConfig = appState.dataConfig.stores[store];
+      const area = storeConfig ? storeConfig.anatomicalArea : "";
+      const customSearch = refs.stores[store].customSearch;
+      if (!customSearch) {
+        return;
+      }
+      ["emLibraries", "lmLibraries"].forEach((libraryType) => {
+        (customSearch[libraryType] || []).forEach((library) => {
+          library.releases.forEach((release) => {
+            const [releaseName, releaseData] = Object.entries(release)[0];
+            if (releaseData.count > 0) {
+              if (!releaseRowsByLibrary[library.name]) {
+                releaseRowsByLibrary[library.name] = [];
               }
-            });
+              releaseRowsByLibrary[library.name].push({
+                key: `${store}-${releaseName}`,
+                area,
+                count: releaseData.count,
+                release: releaseName,
+                dois: releaseData.dois,
+              });
+            }
           });
         });
-      }
+      });
     });
   }
 
-  const columns = [
-    {
-      title: "Collection",
-      dataIndex: "collection",
-      key: "collection",
-      defaultSortOrder: "ascend",
-      // Sort by collection
-      sorter: (a, b) =>
-        a.collection.localeCompare(b.collection, undefined, {
-          numeric: true,
-          sensitivity: "base",
-        }),
-    },
+  // The collection definitions come from collections.json. When it is not
+  // available we fall back to one collection per library so the page still
+  // works (this is the pre-collections.json behaviour).
+  function buildCollectionDefs() {
+    if (collectionsConfig && Array.isArray(collectionsConfig.collections)) {
+      return collectionsConfig.collections;
+    }
+    return Object.keys(releaseRowsByLibrary).map((libraryName) => ({
+      name: libraryFormatter(libraryName),
+      libraries: [libraryName],
+      description: null,
+    }));
+  }
+
+  // Resolve each collection to its release rows, keeping only collections that
+  // actually have searchable images. Definition order is preserved so the
+  // dropdown matches the order collections.json lists them in.
+  const collections = buildCollectionDefs()
+    .map((def) => ({
+      name: def.name,
+      type: def.type || null,
+      description: def.description || null,
+      releaseRows: (def.libraries || []).flatMap(
+        (libraryName) => releaseRowsByLibrary[libraryName] || [],
+      ),
+    }))
+    .filter((collection) => collection.releaseRows.length > 0);
+
+  // Group the dropdown options by collection type (e.g. Light Microscopy /
+  // Electron Microscopy) when a type is provided, otherwise show a flat list.
+  const hasTypes = collections.some((collection) => collection.type);
+  let collectionOptions;
+  if (hasTypes) {
+    const groups = [];
+    collections.forEach((collection) => {
+      const groupLabel = collection.type || "Other";
+      let group = groups.find((g) => g.label === groupLabel);
+      if (!group) {
+        group = { label: groupLabel, options: [] };
+        groups.push(group);
+      }
+      group.options.push({ value: collection.name, label: collection.name });
+    });
+    collectionOptions = groups;
+  } else {
+    collectionOptions = collections.map((collection) => ({
+      value: collection.name,
+      label: collection.name,
+    }));
+  }
+
+  // Default to the first collection until the user picks one.
+  const activeCollection =
+    collections.find((collection) => collection.name === selectedCollection) ||
+    collections[0] ||
+    null;
+
+  const releaseColumns = [
     {
       title: "Anatomical Area",
       dataIndex: "area",
@@ -143,6 +198,7 @@ export default function ImageCollections() {
       title: "Release",
       dataIndex: "release",
       key: "release",
+      defaultSortOrder: "ascend",
       sorter: (a, b) =>
         a.release.localeCompare(b.release, undefined, {
           numeric: true,
@@ -196,28 +252,54 @@ export default function ImageCollections() {
       <Paragraph>
         NeuronBridge provides curated image collections with precomputed matches
         and tools for custom search. Each collection groups images linked to one
-        or more publications.
+        or more publications. Select a collection below to see its releases and
+        the publications associated with it.
       </Paragraph>
-      <Table
-        columns={columns}
-        dataSource={tableData}
-        pagination={{ defaultPageSize: 100 }}
-        summary={(pageData) => {
-          let total = 0;
-          pageData.forEach(({ count }) => {
-            total += count;
-          });
-          return (
-            <Table.Summary.Row>
-              <Table.Summary.Cell>Total</Table.Summary.Cell>
-              <Table.Summary.Cell />
-              <Table.Summary.Cell />
-              <Table.Summary.Cell />
-              <Table.Summary.Cell>{total.toLocaleString()}</Table.Summary.Cell>
-            </Table.Summary.Row>
-          );
-        }}
-      />
+      <Paragraph>
+        <label htmlFor="collection-select" style={{ marginRight: 8, fontWeight: 600 }}>
+          Collection:
+        </label>
+        <Select
+          id="collection-select"
+          value={activeCollection ? activeCollection.name : undefined}
+          options={collectionOptions}
+          onChange={(value) => setSelectedCollection(value)}
+          style={{ minWidth: 320 }}
+          listHeight={400}
+          showSearch
+          optionFilterProp="label"
+          placeholder="Select a collection"
+        />
+      </Paragraph>
+      {activeCollection ? (
+        <>
+          <Title level={2}>{activeCollection.name}</Title>
+          {activeCollection.description ? (
+            <Paragraph>{activeCollection.description}</Paragraph>
+          ) : null}
+          <Table
+            columns={releaseColumns}
+            dataSource={activeCollection.releaseRows}
+            pagination={{ defaultPageSize: 100, hideOnSinglePage: true }}
+            summary={(pageData) => {
+              let total = 0;
+              pageData.forEach(({ count }) => {
+                total += count;
+              });
+              return (
+                <Table.Summary.Row>
+                  <Table.Summary.Cell>Total</Table.Summary.Cell>
+                  <Table.Summary.Cell />
+                  <Table.Summary.Cell />
+                  <Table.Summary.Cell>{total.toLocaleString()}</Table.Summary.Cell>
+                </Table.Summary.Row>
+              );
+            }}
+          />
+        </>
+      ) : (
+        <Paragraph>No image collections are available.</Paragraph>
+      )}
     </div>
   );
 }
