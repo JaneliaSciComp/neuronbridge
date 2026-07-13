@@ -5,6 +5,7 @@ import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AppContext } from "../containers/AppContext";
 import { libraryFormatter } from "../libs/utils";
+import "./ImageCollections.css";
 
 const { Title, Paragraph } = Typography;
 
@@ -154,27 +155,41 @@ export default function ImageCollections() {
     }))
     .filter((collection) => collection.releaseRows.length > 0);
 
-  // Group the dropdown options by collection type (e.g. Light Microscopy /
-  // Electron Microscopy) when a type is provided, otherwise show a flat list.
+  // Render a dropdown option showing the collection name (in bold) above its
+  // description, so users see what each collection contains without having to
+  // parse the name first. `label` is the plain name, used for the selected
+  // value display (via optionLabelProp) and for search filtering.
+  const renderCollectionOption = (collection) => (
+    <Select.Option
+      key={collection.name}
+      value={collection.name}
+      label={collection.name}
+    >
+      <div className="collection-option">
+        <span className="collection-option-name">{collection.name}</span>
+        {collection.description ? (
+          <span className="collection-option-description">
+            {collection.description}
+          </span>
+        ) : null}
+      </div>
+    </Select.Option>
+  );
+
+  // Group the collections by type (e.g. Light Microscopy / Electron
+  // Microscopy) when a type is provided, otherwise show a flat list.
   const hasTypes = collections.some((collection) => collection.type);
-  let collectionOptions;
+  const collectionGroups = [];
   if (hasTypes) {
-    const groups = [];
     collections.forEach((collection) => {
       const groupLabel = collection.type || "Other";
-      let group = groups.find((g) => g.label === groupLabel);
+      let group = collectionGroups.find((entry) => entry.label === groupLabel);
       if (!group) {
-        group = { label: groupLabel, options: [] };
-        groups.push(group);
+        group = { label: groupLabel, items: [] };
+        collectionGroups.push(group);
       }
-      group.options.push({ value: collection.name, label: collection.name });
+      group.items.push(collection);
     });
-    collectionOptions = groups;
-  } else {
-    collectionOptions = collections.map((collection) => ({
-      value: collection.name,
-      label: collection.name,
-    }));
   }
 
   // Default to the first collection until the user picks one.
@@ -262,14 +277,28 @@ export default function ImageCollections() {
         <Select
           id="collection-select"
           value={activeCollection ? activeCollection.name : undefined}
-          options={collectionOptions}
           onChange={(value) => setSelectedCollection(value)}
-          style={{ minWidth: 320 }}
-          listHeight={400}
+          style={{ width: 460, maxWidth: "100%" }}
+          listHeight={560}
+          virtual={false}
+          popupClassName="collection-select-dropdown"
           showSearch
           optionFilterProp="label"
+          optionLabelProp="label"
           placeholder="Select a collection"
-        />
+        >
+          {hasTypes
+            ? collectionGroups.map((group) => (
+                <Select.OptGroup key={group.label} label={group.label}>
+                  {group.items.map((collection) =>
+                    renderCollectionOption(collection),
+                  )}
+                </Select.OptGroup>
+              ))
+            : collections.map((collection) =>
+                renderCollectionOption(collection),
+              )}
+        </Select>
       </Paragraph>
       {activeCollection ? (
         <>
