@@ -5,3 +5,15 @@
 .uploader .ant-upload-drag-icon {
   color: #008b94;
 }
+
+/* Make the upload help cards blend into the dropzone: transparent
+   background with a dotted border, matching the DropZone parent. */
+.upload-help-card.ant-card {
+  background: transparent;
+  border: 1px dotted #d9d9d9;
+}
+
+.upload-help-card .ant-card-head {
+  background: transparent;
+  border-bottom: 1px dotted #d9d9d9;
+}

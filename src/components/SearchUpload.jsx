@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import { Upload, message, Card, Button, Row, Col } from "antd";
+import { Upload, message, Card, Button } from "antd";
 import { HashLink as Link } from "react-router-hash-link";
 import { faCloudUploadAlt } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -97,49 +97,64 @@ export default function SearchUpload({ uploadedFile, handleUpload }) {
   // directory something other than the fc-<uid> name currently used.
 
   const stackHelp = (
-    <>
-      <h3>Unaligned Image Stack</h3>
+    <Card
+      title="Unaligned Image Stack"
+      className="upload-help-card"
+      style={{ height: "100%" }}
+    >
       <p>
         Upload an unaligned confocal stack to have NeuronBridge attempt to align
         it for you.
       </p>
-      <b style={{ marginTop: "1em" }}>Supported file formats:</b>
+      <b>Supported file formats:</b>
       <p>
         Fiji/ImageJ multi-channels .tif/.zip (hyperstack), .lsm, .oib, .czi with
         a single sample, and .nd2. The <i>.nrrd</i> format is not supported due
         to its single channel limitation.
       </p>
-    </>
+    </Card>
   );
 
   const cdmHelp = (
-    <>
-      <h3>Aligned Color Depth MIP</h3>
+    <Card
+      title="Aligned Color Depth MIP"
+      className="upload-help-card"
+      style={{ height: "100%" }}
+    >
       <p>
         Upload an aligned and masked Color Depth MIP to proceed directly to the
         search.
       </p>
-      <b style={{ marginTop: "1em" }}>
-        Uploaded CDM images are expected to be aligned as follows:
-      </b>
+      <b>Uploaded CDM images are expected to be aligned as follows:</b>
       {uploadDimensions}
-    </>
+    </Card>
   );
 
   const uploadHelp = appState.dataConfig.disableAlignment ? (
-    <p>{cdmHelp}</p>
+    <div style={{ padding: "0.5em 1em" }}>{cdmHelp}</div>
   ) : (
-    <Row gutter={12} align="middle">
-      <Col xs={24} lg={11}>
-        {stackHelp}
-      </Col>
-      <Col xs={24} lg={2}>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "stretch",
+        justifyContent: "center",
+        gap: "1em",
+        padding: "0.5em 1em",
+      }}
+    >
+      <div style={{ flex: "1 1 320px" }}>{stackHelp}</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <b>OR</b>
-      </Col>
-      <Col xs={24} lg={11}>
-        {cdmHelp}
-      </Col>
-    </Row>
+      </div>
+      <div style={{ flex: "1 1 320px" }}>{cdmHelp}</div>
+    </div>
   );
 
   return (
