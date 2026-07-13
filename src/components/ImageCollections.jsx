@@ -265,6 +265,7 @@ export default function ImageCollections() {
           options={collectionOptions}
           onChange={(value) => setSelectedCollection(value)}
           style={{ minWidth: 320 }}
+          listHeight={400}
           showSearch
           optionFilterProp="label"
           placeholder="Select a collection"
