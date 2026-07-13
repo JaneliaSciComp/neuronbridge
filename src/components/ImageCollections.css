@@ -1,0 +1,22 @@
+.collection-option {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.collection-option-name {
+  font-weight: 600;
+}
+
+.collection-option-description {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.55);
+  line-height: 1.35;
+  white-space: normal;
+}
+
+/* Let the multi-line option content (name + description) wrap instead of
+   being truncated to a single line by the default Select styling. */
+.collection-select-dropdown .ant-select-item-option-content {
+  white-space: normal;
+}
