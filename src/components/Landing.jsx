@@ -1,19 +1,90 @@
 // Landing.jsx
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography, Col, Row } from "antd";
 import { faExternalLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchInput from "./SearchInput";
-import { isInternalSite } from "../libs/utils";
+import { AppContext } from "../containers/AppContext";
+import { isInternalSite, dataVersionFile } from "../libs/utils";
+import config from "../config";
 import "./Landing.css";
 
 const { Title, Paragraph } = Typography;
 
+// Fallback list used if collections.json cannot be loaded, so the home page
+// never renders an empty collections section. Kept in sync with the data file.
+const FALLBACK_COLLECTIONS = [
+  { name: "FlyLight Generation 1 MCFO", type: "Light Microscopy", homepageUrl: "http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi" },
+  { name: "FlyLight Split-GAL4", type: "Light Microscopy", homepageUrl: "http://splitgal4.janelia.org" },
+  { name: "FlyLight Split-GAL4 Omnibus Broad", type: "Light Microscopy", homepageUrl: "https://flylight-raw.janelia.org/cgi-bin/raw.cgi" },
+  { name: "FlyEM Male CNS", type: "Electron Microscopy", homepageUrl: "https://neuprint.janelia.org/?dataset=male-cns:v0.9&qt=findneurons" },
+  { name: "FlyEM Hemibrain", type: "Electron Microscopy", homepageUrl: "https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons" },
+  { name: "FlyEM MANC", type: "Electron Microscopy", homepageUrl: "https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons" },
+  { name: "FlyWire Brain", type: "Electron Microscopy", homepageUrl: "https://codex.flywire.ai?dataset=fafb" },
+  { name: "FlyWire BANC", type: "Electron Microscopy", homepageUrl: "https://codex.flywire.ai/?dataset=banc" },
+];
 
 function Landing(props) {
   const { isAuthenticated } = props;
+  const { appState } = useContext(AppContext);
+  const [collections, setCollections] = useState(null);
+
+  // Load the collection list from collections.json in the data bucket. The
+  // landing page is public and loads before authentication, so we fetch the
+  // file directly over https rather than through authenticated Storage.
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCollections() {
+      try {
+        let version = appState?.dataVersion;
+        if (!version) {
+          const versionResponse = await fetch(
+            `https://s3.amazonaws.com/${config.s3.BUCKET}/${dataVersionFile()}`,
+          );
+          if (versionResponse.ok) {
+            version = (await versionResponse.text()).trim();
+          }
+        }
+        // In development the mock service worker intercepts collections.json
+        // regardless of the version segment, so a placeholder is acceptable.
+        const versionSegment = version || "current";
+        const response = await fetch(
+          `https://s3.amazonaws.com/${config.s3.BUCKET}/${versionSegment}/collections.json`,
+        );
+        if (!response.ok) {
+          return;
+        }
+        const data = await response.json();
+        if (!cancelled && data && Array.isArray(data.collections)) {
+          setCollections(data.collections);
+        }
+      } catch (err) {
+        // Leave collections null so the fallback list is shown.
+      }
+    }
+
+    loadCollections();
+    return () => {
+      cancelled = true;
+    };
+  }, [appState?.dataVersion]);
+
+  // Group the collections by type (e.g. Light Microscopy / Electron
+  // Microscopy), preserving the order they appear in the data.
+  const collectionsToShow = collections || FALLBACK_COLLECTIONS;
+  const collectionGroups = [];
+  collectionsToShow.forEach((collection) => {
+    const groupLabel = collection.type || "Data Collections";
+    let group = collectionGroups.find((entry) => entry.label === groupLabel);
+    if (!group) {
+      group = { label: groupLabel, items: [] };
+      collectionGroups.push(group);
+    }
+    group.items.push(collection);
+  });
 
   const loginText = isInternalSite() ? (
     <>
@@ -67,20 +138,22 @@ function Landing(props) {
             )}
 
             <Row className="collections">
-              <Col span={12}>
-                <b>Light Microscopy</b><br/>
-                <a href="http://gen1mcfo.janelia.org/cgi-bin/gen1mcfo.cgi" target="_blank" rel="noopener noreferrer">FlyLight Generation 1 MCFO <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="http://splitgal4.janelia.org" target="_blank" rel="noopener noreferrer">FlyLight Split-GAL4 <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="https://flylight-raw.janelia.org/cgi-bin/raw.cgi" target="_blank" rel="noopener noreferrer">FlyLight Split-GAL4 Omnibus Broad <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-              </Col>
-              <Col span={12}>
-                <b>Electron Microscopy</b><br/>
-                <a href="https://neuprint.janelia.org/?dataset=male-cns:v0.9&qt=findneurons" target="_blank" rel="noopener noreferrer"> FlyEM Male CNS <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="https://neuprint.janelia.org/?dataset=hemibrain%3Av1.2.1&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM Hemibrain <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="https://neuprint.janelia.org/?dataset=manc%3Av1.0&qt=findneurons" target="_blank" rel="noopener noreferrer">FlyEM MANC <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="https://codex.flywire.ai?dataset=fafb" target="_blank" rel="noopener noreferrer">FlyWire Brain <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-                <a href="https://codex.flywire.ai/?dataset=banc" target="_blank" rel="noopener noreferrer">FlyWire BANC <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
-              </Col>
+              {collectionGroups.map((group) => (
+                <Col span={12} key={group.label}>
+                  <b>{group.label}</b><br/>
+                  {group.items.map((collection) =>
+                    collection.homepageUrl ? (
+                      <React.Fragment key={collection.name}>
+                        <a href={collection.homepageUrl} target="_blank" rel="noopener noreferrer">{collection.name} <FontAwesomeIcon icon={faExternalLink} size="xs" /></a><br/>
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment key={collection.name}>
+                        <Link to="/collections">{collection.name}</Link><br/>
+                      </React.Fragment>
+                    ),
+                  )}
+                </Col>
+              ))}
             </Row>
 
             <Paragraph>
