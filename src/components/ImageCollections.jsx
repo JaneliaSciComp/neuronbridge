@@ -8,41 +8,11 @@ import { libraryFormatter } from "../libs/utils";
 
 const { Title, Paragraph } = Typography;
 
-// Brief, human-readable descriptions for each image collection, keyed by the
-// raw library name used in the data (references.json / config.json).
-// NOTE: these are draft descriptions and should be reviewed/edited by the
-// scientific advisors (e.g. Geoffrey) before they are considered final.
-const COLLECTION_DESCRIPTIONS = {
-  "FlyEM_Hemibrain_v1.2.1":
-    "A dense electron microscopy (EM) connectome covering the central brain of a female Drosophila, reconstructed by Janelia's FlyEM team. Neurons can be looked up and matched against light microscopy driver lines.",
-  "FlyEM_MANC_v1.2.1":
-    "The Male Adult Nerve Cord (MANC) EM connectome, a complete reconstruction of the ventral nerve cord of a male Drosophila.",
-  "FlyEM_Male_CNS_Brain_v0.9":
-    "The brain portion of the male central nervous system (Male CNS) EM reconstruction, part of an effort to reconstruct a complete adult Drosophila nervous system.",
-  "FlyEM_Male_CNS_VNC_v0.9":
-    "The ventral nerve cord portion of the male central nervous system (Male CNS) EM reconstruction, part of an effort to reconstruct a complete adult Drosophila nervous system.",
-  FlyLight_Annotator_Gen1_MCFO:
-    "Expert-annotated MultiColor FlpOut (MCFO) light microscopy images of FlyLight Gen1 GAL4 driver lines, with curated neuron annotations.",
-  "FlyLight_Annotator_Gen1_MCFO_v1.1":
-    "Expert-annotated MultiColor FlpOut (MCFO) light microscopy images of FlyLight Gen1 GAL4 driver lines, with curated neuron annotations.",
-  FlyLight_Gen1_MCFO:
-    "MultiColor FlpOut (MCFO) stochastic-labeling light microscopy images of the FlyLight Gen1 GAL4 driver line collection.",
-  "FlyLight_Gen1_MCFO_v1.1":
-    "MultiColor FlpOut (MCFO) stochastic-labeling light microscopy images of the FlyLight Gen1 GAL4 driver line collection.",
-  "FlyLight_Split-GAL4_Drivers":
-    "Curated Split-GAL4 driver lines from published studies, each targeting specific cell types. Individual releases correspond to the publications that generated or used those lines.",
-  "FlyLight_Split-GAL4_Omnibus_Broad":
-    "A broad screening collection of Split-GAL4 driver lines aggregated across many FlyLight studies.",
-  FlyWire_BANC_v626:
-    "The Brain-And-Nerve-Cord (BANC) EM connectome from the FlyWire project, spanning both the brain and ventral nerve cord of an adult Drosophila.",
-  FlyWire_FAFB_v783_realign:
-    "The Full Adult Fly Brain (FAFB) EM connectome, proofread by the FlyWire community and realigned for NeuronBridge color depth matching.",
-};
-
 export default function ImageCollections() {
   const { appState } = useContext(AppContext);
   const [isLoading, setLoading] = useState(true);
   const [refs, setRefs] = useState(null);
+  const [collectionsConfig, setCollectionsConfig] = useState(null);
   const [selectedCollection, setSelectedCollection] = useState(null);
 
   useEffect(() => {
@@ -52,59 +22,69 @@ export default function ImageCollections() {
       },
       level: "public",
       download: true,
+      cacheControl: "no-cache, no-store, must-revalidate",
     };
 
-    function getReferences() {
+    // Fetch a JSON file from the data bucket and parse it.
+    function getJson(path) {
+      return Storage.get(path, storageOptions).then(
+        (response) =>
+          new Promise((resolve, reject) => {
+            const fr = new FileReader();
+            fr.onload = (evt) => {
+              try {
+                resolve(JSON.parse(evt.target.result));
+              } catch (err) {
+                reject(err);
+              }
+            };
+            fr.onerror = () => reject(fr.error);
+            fr.readAsText(response.Body);
+          }),
+      );
+    }
+
+    function loadData() {
       setLoading(true);
       const refsPath = `${appState.dataVersion}/references.json`;
+      const collectionsPath = `${appState.dataVersion}/collections.json`;
 
       Auth.currentCredentials()
-        .then(() => {
-          Storage.get(refsPath, {
-            ...storageOptions,
-            cacheControl: 'no-cache, no-store, must-revalidate',
-          })
-            .then((response) => {
-              const fr = new FileReader();
-              fr.onload = (evt) => {
-                const json = JSON.parse(evt.target.result);
-                setRefs(json);
-                setLoading(false);
-              };
-              fr.readAsText(response.Body);
-            })
-            .catch((e) => {
-              if (e.response && e.response.status === 404) {
-                message.error({
-                  duration: 0,
-                  content: "No references were found",
-                  key: "refnotfound",
-                  onClick: () => message.destroy("refnotfound"),
-                });
-              } else {
-                message.error({
-                  duration: 0,
-                  content: "Unable to load references from the server",
-                  key: "matchloaderror",
-                  onClick: () => message.destroy("matchloaderror"),
-                });
-              }
-              setLoading(false);
-            });
+        .then(() =>
+          Promise.all([
+            getJson(refsPath),
+            // collections.json is optional: if it is missing we fall back to
+            // showing one collection per library (see buildCollectionDefs).
+            getJson(collectionsPath).catch(() => null),
+          ]),
+        )
+        .then(([refsJson, collectionsJson]) => {
+          setRefs(refsJson);
+          setCollectionsConfig(collectionsJson);
+          setLoading(false);
         })
-        .catch(() => {
-          message.error({
-            duration: 0,
-            content: "Unable to load references from the server",
-            key: "matchgenericerror",
-            onClick: () => message.destroy("matchgenericerror"),
-          });
+        .catch((e) => {
+          if (e.response && e.response.status === 404) {
+            message.error({
+              duration: 0,
+              content: "No references were found",
+              key: "refnotfound",
+              onClick: () => message.destroy("refnotfound"),
+            });
+          } else {
+            message.error({
+              duration: 0,
+              content: "Unable to load references from the server",
+              key: "matchloaderror",
+              onClick: () => message.destroy("matchloaderror"),
+            });
+          }
           setLoading(false);
         });
     }
 
     if (appState?.dataConfig?.loaded) {
-      getReferences();
+      loadData();
     }
   }, [appState.dataConfig]);
 
@@ -112,74 +92,96 @@ export default function ImageCollections() {
     return <div>Loading...</div>;
   }
 
-  // Group the release rows by collection (library). Each collection keeps its
-  // raw library name (used as a stable key and to look up descriptions) and a
-  // formatted display name.
-  const collectionsByName = {};
+  // Build a map of library name -> release rows, pulling counts/DOIs from
+  // references.json and the anatomical area from the data config.
+  const releaseRowsByLibrary = {};
 
-  if (appState.dataConfig.stores && refs) {
-    Object.keys(appState.dataConfig.stores).forEach((store) => {
-      const storeData = appState.dataConfig.stores[store];
-      if (storeData.customSearch) {
-        const { customSearch } = storeData;
-
-        ["emLibraries", "lmLibraries"].forEach((libraryType) => {
-          customSearch[libraryType].forEach((library) => {
-            const libraryTypeCollection =
-              refs.stores[store].customSearch[libraryType];
-            const libraryCollection = libraryTypeCollection.filter(
-              (lib) => lib.name === library.name,
-            )[0];
-            if (!libraryCollection) {
-              return;
-            }
-            libraryCollection.releases.forEach((release) => {
-              const [releaseName, releaseData] = Object.entries(release)[0];
-              if (releaseData.count > 0) {
-                if (!collectionsByName[library.name]) {
-                  collectionsByName[library.name] = {
-                    libraryName: library.name,
-                    displayName: libraryFormatter(library.name),
-                    releaseRows: [],
-                  };
-                }
-                collectionsByName[library.name].releaseRows.push({
-                  key: `${store}-${releaseName}`,
-                  area: storeData.anatomicalArea,
-                  count: releaseData.count,
-                  release: releaseName,
-                  dois: releaseData.dois,
-                });
+  if (refs && refs.stores) {
+    Object.keys(refs.stores).forEach((store) => {
+      const storeConfig = appState.dataConfig.stores[store];
+      const area = storeConfig ? storeConfig.anatomicalArea : "";
+      const customSearch = refs.stores[store].customSearch;
+      if (!customSearch) {
+        return;
+      }
+      ["emLibraries", "lmLibraries"].forEach((libraryType) => {
+        (customSearch[libraryType] || []).forEach((library) => {
+          library.releases.forEach((release) => {
+            const [releaseName, releaseData] = Object.entries(release)[0];
+            if (releaseData.count > 0) {
+              if (!releaseRowsByLibrary[library.name]) {
+                releaseRowsByLibrary[library.name] = [];
               }
-            });
+              releaseRowsByLibrary[library.name].push({
+                key: `${store}-${releaseName}`,
+                area,
+                count: releaseData.count,
+                release: releaseName,
+                dois: releaseData.dois,
+              });
+            }
           });
         });
-      }
+      });
     });
   }
 
-  // Build the sorted list of collection options for the dropdown.
-  const collectionOptions = Object.values(collectionsByName)
-    .map((collection) => ({
-      value: collection.libraryName,
-      label: collection.displayName,
+  // The collection definitions come from collections.json. When it is not
+  // available we fall back to one collection per library so the page still
+  // works (this is the pre-collections.json behaviour).
+  function buildCollectionDefs() {
+    if (collectionsConfig && Array.isArray(collectionsConfig.collections)) {
+      return collectionsConfig.collections;
+    }
+    return Object.keys(releaseRowsByLibrary).map((libraryName) => ({
+      name: libraryFormatter(libraryName),
+      libraries: [libraryName],
+      description: null,
+    }));
+  }
+
+  // Resolve each collection to its release rows, keeping only collections that
+  // actually have searchable images. Definition order is preserved so the
+  // dropdown matches the order collections.json lists them in.
+  const collections = buildCollectionDefs()
+    .map((def) => ({
+      name: def.name,
+      type: def.type || null,
+      description: def.description || null,
+      releaseRows: (def.libraries || []).flatMap(
+        (libraryName) => releaseRowsByLibrary[libraryName] || [],
+      ),
     }))
-    .sort((a, b) =>
-      a.label.localeCompare(b.label, undefined, {
-        numeric: true,
-        sensitivity: "base",
-      }),
-    );
+    .filter((collection) => collection.releaseRows.length > 0);
+
+  // Group the dropdown options by collection type (e.g. Light Microscopy /
+  // Electron Microscopy) when a type is provided, otherwise show a flat list.
+  const hasTypes = collections.some((collection) => collection.type);
+  let collectionOptions;
+  if (hasTypes) {
+    const groups = [];
+    collections.forEach((collection) => {
+      const groupLabel = collection.type || "Other";
+      let group = groups.find((g) => g.label === groupLabel);
+      if (!group) {
+        group = { label: groupLabel, options: [] };
+        groups.push(group);
+      }
+      group.options.push({ value: collection.name, label: collection.name });
+    });
+    collectionOptions = groups;
+  } else {
+    collectionOptions = collections.map((collection) => ({
+      value: collection.name,
+      label: collection.name,
+    }));
+  }
 
   // Default to the first collection until the user picks one.
-  const activeCollectionName =
-    selectedCollection && collectionsByName[selectedCollection]
-      ? selectedCollection
-      : collectionOptions[0]?.value;
-
-  const activeCollection = activeCollectionName
-    ? collectionsByName[activeCollectionName]
-    : null;
+  const activeCollection =
+    collections.find((collection) => collection.name === selectedCollection) ||
+    collections[0] ||
+    null;
 
   const releaseColumns = [
     {
@@ -243,10 +245,6 @@ export default function ImageCollections() {
     },
   ];
 
-  const activeDescription = activeCollection
-    ? COLLECTION_DESCRIPTIONS[activeCollection.libraryName]
-    : null;
-
   /* eslint-disable react/no-unstable-nested-components */
   return (
     <div>
@@ -263,7 +261,7 @@ export default function ImageCollections() {
         </label>
         <Select
           id="collection-select"
-          value={activeCollectionName}
+          value={activeCollection ? activeCollection.name : undefined}
           options={collectionOptions}
           onChange={(value) => setSelectedCollection(value)}
           style={{ minWidth: 320 }}
@@ -274,9 +272,9 @@ export default function ImageCollections() {
       </Paragraph>
       {activeCollection ? (
         <>
-          <Title level={2}>{activeCollection.displayName}</Title>
-          {activeDescription ? (
-            <Paragraph>{activeDescription}</Paragraph>
+          <Title level={2}>{activeCollection.name}</Title>
+          {activeCollection.description ? (
+            <Paragraph>{activeCollection.description}</Paragraph>
           ) : null}
           <Table
             columns={releaseColumns}

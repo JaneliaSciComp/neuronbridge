@@ -1,0 +1,57 @@
+{
+  "collections": [
+    {
+      "name": "FlyLight Generation 1 MCFO",
+      "type": "Light Microscopy",
+      "description": "MultiColor FlpOut (MCFO) stochastic-labeling light microscopy of the FlyLight Generation 1 GAL4 driver line collection, including expert-annotated subsets.",
+      "libraries": [
+        "FlyLight_Gen1_MCFO",
+        "FlyLight_Gen1_MCFO_v1.1",
+        "FlyLight_Annotator_Gen1_MCFO",
+        "FlyLight_Annotator_Gen1_MCFO_v1.1"
+      ]
+    },
+    {
+      "name": "FlyLight Split-GAL4",
+      "type": "Light Microscopy",
+      "description": "Curated Split-GAL4 driver lines from published studies, each targeting specific cell types. Individual releases correspond to the publications that generated or used those lines.",
+      "libraries": ["FlyLight_Split-GAL4_Drivers"]
+    },
+    {
+      "name": "FlyLight Split-GAL4 Omnibus Broad",
+      "type": "Light Microscopy",
+      "description": "A broad screening collection of Split-GAL4 driver lines aggregated across many FlyLight studies.",
+      "libraries": ["FlyLight_Split-GAL4_Omnibus_Broad"]
+    },
+    {
+      "name": "FlyEM Male CNS",
+      "type": "Electron Microscopy",
+      "description": "An electron microscopy (EM) reconstruction of the male central nervous system (Male CNS), covering both the brain and the ventral nerve cord.",
+      "libraries": ["FlyEM_Male_CNS_Brain_v0.9", "FlyEM_Male_CNS_VNC_v0.9"]
+    },
+    {
+      "name": "FlyEM Hemibrain",
+      "type": "Electron Microscopy",
+      "description": "A dense electron microscopy (EM) connectome covering the central brain of a female Drosophila, reconstructed by Janelia's FlyEM team.",
+      "libraries": ["FlyEM_Hemibrain_v1.2.1"]
+    },
+    {
+      "name": "FlyEM MANC",
+      "type": "Electron Microscopy",
+      "description": "The Male Adult Nerve Cord (MANC) electron microscopy connectome, a complete reconstruction of the ventral nerve cord of a male Drosophila.",
+      "libraries": ["FlyEM_MANC_v1.2.1"]
+    },
+    {
+      "name": "FlyWire Brain",
+      "type": "Electron Microscopy",
+      "description": "The Full Adult Fly Brain (FAFB) electron microscopy connectome, proofread by the FlyWire community and realigned for NeuronBridge color depth matching.",
+      "libraries": ["FlyWire_FAFB_v783_realign"]
+    },
+    {
+      "name": "FlyWire BANC",
+      "type": "Electron Microscopy",
+      "description": "The Brain-And-Nerve-Cord (BANC) electron microscopy connectome from the FlyWire project, spanning both the brain and the ventral nerve cord of an adult Drosophila.",
+      "libraries": ["FlyWire_BANC_v626"]
+    }
+  ]
+}

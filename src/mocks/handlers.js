@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import publishedNames12288 from "./published_names_12288.json";
+import collections from "./collections.json";
 /*
 import refsJSON from "./refs.json";
 import devPreConfig from "./dev_pre_config.json";
@@ -18,6 +19,13 @@ import results2988247185125302403 from "./2988247185125302403.json";
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const handlers = [
+  // Serve a mock collections.json so the Image Collections page can be tested
+  // locally before the backend adds the file to the data bucket. Matched by
+  // RegExp so it works regardless of the data version in the URL path.
+  rest.get(/\/collections\.json(\?|$)/, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json(collections)),
+  ),
+
   rest.get(
     "https://tj19qkjsxh.execute-api.us-east-1.amazonaws.com/published_names",
     (req, res, ctx) => {
